@@ -1,0 +1,16 @@
+appId: ro.ample.helper
+productName: "Ample Guitar Chord Progression Helper"
+directories:
+  output: "Ample Guitar Chord Progression Helper"
+files:
+  - "dist/**/*"
+  - "desktop/**/*"
+  - "package.json"
+extraMetadata:
+  main: "desktop/main.cjs"
+win:
+  target:
+    - target: portable
+      arch:
+        - x64
+artifactName: "Ample Guitar Chord Progression Helper.exe"
