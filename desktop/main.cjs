@@ -5,6 +5,20 @@ const fs = require("fs");
 const APP_TITLE = "Ample Guitar Chord Progression Helper";
 
 function createWindow() {
+  const preloadPath = path.join(__dirname, "preload.cjs");
+
+  // Log to a file next to the EXE so users can send diagnostics when things
+  // go wrong. We can't rely on stdout - the EXE runs without a console.
+  const logPath = path.join(app.getPath("userData"), "app.log");
+  const log = (msg) => {
+    const line = `[${new Date().toISOString()}] ${msg}\n`;
+    try { fs.appendFileSync(logPath, line); } catch { /* ignore */ }
+    console.log(line.trim());
+  };
+
+  log(`Startup. __dirname=${__dirname}`);
+  log(`Preload path: ${preloadPath} (exists=${fs.existsSync(preloadPath)})`);
+
   const win = new BrowserWindow({
     width: 1480,
     height: 920,
@@ -16,8 +30,23 @@ function createWindow() {
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
-      preload: path.join(__dirname, "preload.cjs"),
+      // sandbox:false is REQUIRED for ipcRenderer.sendSync / invoke to work
+      // from a preload script in Electron 20+. Without this the preload runs
+      // in a stripped-down v8 sandbox where 'electron' resolves but
+      // ipcRenderer's sync/async transport is disabled - meaning Save and
+      // D&D silently do nothing because window.desktopBridge exists but its
+      // methods throw internally.
+      sandbox: false,
+      preload: preloadPath,
     },
+  });
+
+  // Surface anything the preload logs / errors, so we can see it in DevTools.
+  win.webContents.on("preload-error", (_e, preload, err) => {
+    log(`PRELOAD-ERROR ${preload}: ${err && err.stack ? err.stack : err}`);
+  });
+  win.webContents.on("console-message", (_e, level, message, line, sourceId) => {
+    if (level >= 2) log(`console(${level}) ${sourceId}:${line} ${message}`);
   });
 
   const indexPath = path.join(__dirname, "..", "dist", "index.html");
@@ -70,6 +99,17 @@ function writeMidiTemp(bytes, fileName) {
   fs.writeFileSync(outPath, Buffer.from(bytes));
   return outPath;
 }
+
+// Diagnostic round-trip so the UI can verify that IPC actually works.
+ipcMain.on("desktop-bridge-ping", (event) => {
+  event.returnValue = {
+    ok: true,
+    when: new Date().toISOString(),
+    electron: process.versions.electron,
+    node: process.versions.node,
+    chrome: process.versions.chrome,
+  };
+});
 
 ipcMain.on("save-midi-file", (event, payload) => {
   try {

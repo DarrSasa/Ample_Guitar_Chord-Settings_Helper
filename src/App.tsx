@@ -1403,6 +1403,56 @@ export default function App() {
             Save / D&amp;D
           </button>
 
+          {/* Diagnostic button. Reports whether window.desktopBridge (the Electron
+              IPC bridge that powers Save + D&D) is attached, and shows a small
+              details block so users can copy/paste the state when something goes
+              wrong. Cheap to keep in the UI - single button, no extra deps. */}
+          <button
+            type="button"
+            onClick={() => {
+              const w = window as any;
+              const bridge = w.desktopBridge;
+              const loaded = w.__desktopBridgeLoaded === true;
+              const isElectron = Boolean(bridge) || loaded ||
+                (typeof navigator !== "undefined" && navigator.userAgent.includes("Electron"));
+
+              const lines: string[] = [];
+              lines.push(`Environment: ${isElectron ? "Electron desktop" : "Web browser"}`);
+              lines.push(`Preload loaded flag: ${loaded ? "YES" : "NO"}`);
+              lines.push(`window.desktopBridge: ${bridge ? "attached" : "MISSING"}`);
+              if (bridge) {
+                const methods = ["saveMidiFileAsync", "saveMidiFile", "renderMidiTemp", "startMidiDrag", "ping"];
+                methods.forEach((m) => {
+                  lines.push(`  .${m}: ${typeof bridge[m] === "function" ? "OK" : "MISSING"}`);
+                });
+                if (typeof bridge.ping === "function") {
+                  try {
+                    const pong = bridge.ping();
+                    lines.push(`  ping round-trip: OK`);
+                    lines.push(`  Electron: ${pong.electron}, Node: ${pong.node}, Chrome: ${pong.chrome}`);
+                  } catch (err: any) {
+                    lines.push(`  ping FAILED: ${err && err.message ? err.message : String(err)}`);
+                  }
+                }
+              } else if (isElectron) {
+                lines.push("");
+                lines.push("Preload did NOT run. Likely causes:");
+                lines.push("  - preload.cjs missing from packaged app");
+                lines.push("  - sandbox:true blocking ipcRenderer");
+                lines.push("  - preload threw during startup (check app.log next to the EXE)");
+              } else {
+                lines.push("");
+                lines.push("Running in a browser - Save uses browser download, D&D uses HTML5 DownloadURL.");
+                lines.push("Drag-to-native-DAW only works in the Electron EXE build.");
+              }
+              alert(lines.join("\n"));
+            }}
+            title="Diagnostics: check if the Electron bridge (Save + D&D) is connected."
+            className="rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]"
+          >
+            Diag
+          </button>
+
           <div className="flex items-center gap-1 rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
             <input
               type="range"
