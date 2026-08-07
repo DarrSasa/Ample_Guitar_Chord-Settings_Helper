@@ -1,20 +1,14 @@
-Put your guitar WAV samples in this folder.
+These WAV files are NO LONGER USED by the app.
 
-Required sample names:
-- Acoustic Guitar_C5.wav
-- Nylon Guitar_C5.wav
-- Steel Guitar_C5.wav
-- Jazz Guitar_C5.wav
-- Muted Guitar_C5.wav
+Since the "soundfont-player + MusyngKite" refactor, the app plays every
+guitar preset (Acoustic Nylon, Acoustic Steel, Electric Jazz, Electric
+Clean, Electric Muted, Overdriven, Distortion) through the standard
+General MIDI multi-sample packs fetched from:
 
-Recommended:
-- Mono or stereo WAV, 44.1kHz or 48kHz, 16-bit or 24-bit.
-- Keep transient clean and short (single pluck/chord-friendly sample).
-- If possible, include a WAV smpl chunk with MIDI unity note.
+  https://gleitz.github.io/midi-js-soundfonts/MusyngKite/
 
-Root note rules used by sampler:
-1) smpl chunk root note (if present)
-2) suffix parser from file name (example: _C5)
-3) fallback root = C5 (MIDI 72)
+That gives real per-note samples instead of the previous single-WAV
+pitch-shifted output, which sounded off away from C5.
 
-The sampler pitch-shifts from this root to target notes.
+You can safely delete this folder if you don't want it in your build.
+Kept in the repo only for legacy reference.

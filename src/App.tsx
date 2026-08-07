@@ -68,17 +68,22 @@ const LENGTH_BEATS: Record<LengthOption, number> = {
   "2 Bars": 8,
 };
 
+// Standard General MIDI guitar programs (25 - 31), rendered through
+// soundfont-player against MusyngKite MP3 packs from the gleitz CDN. This
+// replaces the bundled per-note WAV files that were producing low-quality
+// pitched playback. See:
+//   https://github.com/gleitz/midi-js-soundfonts
+//   https://en.wikipedia.org/wiki/General_MIDI#Program_change_events
+// waveform is kept only as a last-resort oscillator fallback if the
+// soundfont fails to load (offline, blocked, etc.).
 const GUITAR_PRESETS: GuitarPreset[] = [
-  {
-    name: "Acoustic Guitar",
-    sampleFile: "Acoustic Guitar_C5.wav",
-    gmName: "acoustic_guitar_steel",
-    waveform: "triangle",
-  },
-  { name: "Nylon Guitar", sampleFile: "Nylon Guitar_C5.wav", gmName: "acoustic_guitar_nylon", waveform: "sine" },
-  { name: "Steel Guitar", sampleFile: "Steel Guitar_C5.wav", gmName: "acoustic_guitar_steel", waveform: "triangle" },
-  { name: "Jazz Guitar", sampleFile: "Jazz Guitar_C5.wav", gmName: "electric_guitar_jazz", waveform: "square" },
-  { name: "Muted Guitar", sampleFile: "Muted Guitar_C5.wav", gmName: "electric_guitar_muted", waveform: "sawtooth" },
+  { name: "Acoustic Guitar Nylon", sampleFile: "", gmName: "acoustic_guitar_nylon", waveform: "sine" },
+  { name: "Acoustic Guitar Steel", sampleFile: "", gmName: "acoustic_guitar_steel", waveform: "triangle" },
+  { name: "Electric Guitar Jazz",  sampleFile: "", gmName: "electric_guitar_jazz",  waveform: "square" },
+  { name: "Electric Guitar Clean", sampleFile: "", gmName: "electric_guitar_clean", waveform: "square" },
+  { name: "Electric Guitar Muted", sampleFile: "", gmName: "electric_guitar_muted", waveform: "sawtooth" },
+  { name: "Overdriven Guitar",     sampleFile: "", gmName: "overdriven_guitar",     waveform: "sawtooth" },
+  { name: "Distortion Guitar",     sampleFile: "", gmName: "distortion_guitar",     waveform: "square" },
 ];
 
 function buildChordRows() {
@@ -231,64 +236,9 @@ function chordNotes(label: string) {
   return intervals[parsed.type].map((interval) => midiRoot + interval);
 }
 
-function parseRootMidiFromSmplChunk(buffer: ArrayBuffer) {
-  const view = new DataView(buffer);
-
-  if (view.byteLength < 44) {
-    return null;
-  }
-
-  // WAV RIFF chunks start at byte 12: [id(4), size(4), data(size)]
-  let offset = 12;
-  while (offset + 8 <= view.byteLength) {
-    const id = String.fromCharCode(
-      view.getUint8(offset),
-      view.getUint8(offset + 1),
-      view.getUint8(offset + 2),
-      view.getUint8(offset + 3)
-    );
-    const size = view.getUint32(offset + 4, true);
-    const dataStart = offset + 8;
-
-    if (id === "smpl" && dataStart + size <= view.byteLength && size >= 20) {
-      // smpl chunk: midiUnityNote is 4th uint32 field at byte +12.
-      const midiUnityNote = view.getUint32(dataStart + 12, true);
-      if (Number.isFinite(midiUnityNote) && midiUnityNote >= 0 && midiUnityNote <= 127) {
-        return midiUnityNote;
-      }
-    }
-
-    offset = dataStart + size + (size % 2);
-  }
-
-  return null;
-}
-
-function parseRootMidiFromFileName(fileName: string) {
-  const match = fileName.match(/_([A-G])(#|b)?(\d)/i);
-  if (!match) {
-    return null;
-  }
-
-  const note = match[1].toUpperCase();
-  const accidental = match[2] ?? "";
-  const octave = Number(match[3]);
-  const noteMap: Record<string, number> = {
-    C: 0,
-    D: 2,
-    E: 4,
-    F: 5,
-    G: 7,
-    A: 9,
-    B: 11,
-  };
-
-  let semitone = noteMap[note] ?? 0;
-  if (accidental === "#") semitone += 1;
-  if (accidental.toLowerCase() === "b") semitone -= 1;
-
-  return (octave + 1) * 12 + semitone;
-}
+// (Removed parseRootMidiFromSmplChunk / parseRootMidiFromFileName - they
+// were only used by the old WAV sampler path, which was replaced by the
+// soundfont-player + MusyngKite GM instruments in loadInstrument.)
 
 function toVarLen(value: number) {
   let buffer = value & 0x7f;
@@ -416,8 +366,11 @@ export default function App() {
   const [auditionMode, setAuditionMode] = useState(false);
   const [flashBuilderId, setFlashBuilderId] = useState<string>("");
 
-  const [snapshots, setSnapshots] = useState<Snapshot[]>([{ topCode: rows[0]?.code ?? 1, guideCode: null }]);
-  const [snapshotIndex, setSnapshotIndex] = useState(0);
+  // Snapshots start empty so the "Scroll On History" bar shows nothing on
+  // fresh launch (previously it showed an initial C5 entry that the user
+  // never asked for). snapshotIndex = -1 means "no snapshot selected yet".
+  const [snapshots, setSnapshots] = useState<Snapshot[]>([]);
+  const [snapshotIndex, setSnapshotIndex] = useState(-1);
 
   const topCodeRef = useRef(topCode);
   const builderRef = useRef(builderChords);
@@ -672,41 +625,25 @@ export default function App() {
         await ctx.resume();
       }
 
-      // Internal sampler first: load WAV from /public/guitar samples and read root note from smpl chunk.
-      const base = window.location.protocol === "file:" ? "./guitar samples/" : "/guitar samples/";
-      const sampleUrl = encodeURI(`${base}${preset.sampleFile}`);
-      const response = await fetch(sampleUrl);
-      if (response.ok) {
-        const wavBuffer = await response.arrayBuffer();
-        const smplRoot = parseRootMidiFromSmplChunk(wavBuffer);
-        const nameRoot = parseRootMidiFromFileName(preset.sampleFile);
-        sampleRootMidiRef.current = smplRoot ?? nameRoot ?? 72;
-
-        const audioBuffer = await ctx.decodeAudioData(wavBuffer.slice(0));
-        sampleBufferRef.current = audioBuffer;
-        instrumentRef.current = null;
-
-        console.debug("[Sampler] Loaded WAV sample", {
-          preset: preset.name,
-          file: preset.sampleFile,
-          rootMidi: sampleRootMidiRef.current,
-          fromSmpl: smplRoot !== null,
-        });
-        return;
-      }
-
+      // Always disable the WAV path - it produced pitched-shifted samples
+      // that sounded wrong on most notes. Instead use soundfont-player
+      // against the MusyngKite pack, which gives a real multi-sample GM
+      // instrument for each note. Works both in the browser and in Electron
+      // (both can reach https://gleitz.github.io). If the fetch fails
+      // (offline, blocked, etc.) we drop to a plain oscillator so the app
+      // still makes sound instead of falling silent.
       sampleBufferRef.current = null;
       sampleRootMidiRef.current = 72;
 
-      // Fallback when sample file is missing.
       instrumentRef.current = await Soundfont.instrument(ctx, preset.gmName as any, {
         soundfont: "MusyngKite",
+        format: "mp3",
       });
-      console.debug("[Sampler] Using soundfont fallback", { preset: preset.name });
+      console.debug("[Sampler] Loaded soundfont", { preset: preset.name, gm: preset.gmName });
     } catch (error) {
       instrumentRef.current = null;
       sampleBufferRef.current = null;
-      console.debug("[Sampler] Load failed; using oscillator fallback", error);
+      console.debug("[Sampler] Soundfont load failed; using oscillator fallback", error);
     } finally {
       loadingInstrumentRef.current = false;
       setGuitarLoading(false);
@@ -772,7 +709,15 @@ export default function App() {
     setBuilderChords(nextBuilder);
     pushBuilderHistory(nextBuilder);
     setSelectedBuilderIds([]);
-    recordSnapshot(targetCode, guideCodeRef.current);
+
+    // Scroll On History records ONLY when Scroll On/Off is active. When it's
+    // off, clicking a chord in "Chords for Progressions" still adds it to
+    // the Builder (and to the Builder's own Undo/Redo stack), but the
+    // Scroll On History bar stays untouched - that's the "scrolling
+    // history" the user is building intentionally.
+    if (scrollFollowMode) {
+      recordSnapshot(targetCode, guideCodeRef.current);
+    }
 
     if (!scrollFollowMode) {
       setActiveBtn("");
@@ -1107,8 +1052,7 @@ export default function App() {
         if (!result || result.ok !== true) {
           alert(
             "Drag failed to start.\n\n" +
-            (result && result.error ? "Reason: " + result.error : "No details.") +
-            "\n\nOpen Diag to check the bridge."
+            (result && result.error ? "Reason: " + result.error : "No details.")
           );
         }
         return;
@@ -1183,7 +1127,7 @@ export default function App() {
       <div className="flex h-full w-full flex-col gap-2 overflow-auto border border-black bg-[#acb0ac] p-2">
       <section className="border border-black bg-white/35 p-2">
         <div className="mb-2 flex items-center justify-between">
-          <h2 className="text-sm font-semibold tracking-wide">Undo Redo History</h2>
+          <h2 className="text-sm font-semibold tracking-wide">Scroll On History</h2>
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -1327,8 +1271,14 @@ export default function App() {
             </select>
           </label>
 
-          <div
-            className="select-none rounded-sm border border-black bg-[#FCBF8D] px-2 py-0.5 text-center text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]"
+          {/* BPM control. Same padded pill shape as the Length dropdown next
+              to it, so both controls line up flush on the toolbar. Scroll
+              wheel over the pill still adjusts BPM by 1 (up=+, down=-);
+              click to type a value; Enter or blur confirms. The old vertical
+              arrows (v/^) were removed - the click-to-edit + scroll-wheel
+              affordances already cover the same interaction. */}
+          <label
+            className="flex select-none items-center gap-1 rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]"
             onWheel={(e) => {
               e.preventDefault();
               setBpm((prev) => {
@@ -1337,12 +1287,8 @@ export default function App() {
                 return next;
               });
             }}
-            onClick={() => {
-              setEditingBpm(true);
-              setBpmText(String(bpm));
-            }}
           >
-            <div className="text-[10px] leading-none text-[#6f1c03]">v</div>
+            BPM
             {editingBpm ? (
               <input
                 autoFocus
@@ -1362,13 +1308,22 @@ export default function App() {
                     setEditingBpm(false);
                   }
                 }}
-                className="w-16 border border-black bg-white px-1 text-center"
+                className="w-12 border border-black bg-white px-1 text-center"
               />
             ) : (
-              <div>BPM:{bpm}</div>
+              <button
+                type="button"
+                onClick={() => {
+                  setEditingBpm(true);
+                  setBpmText(String(bpm));
+                }}
+                className="w-12 border border-black bg-white px-1 text-center"
+                title="Click to type a BPM value, or scroll over this box to nudge by 1."
+              >
+                {bpm}
+              </button>
             )}
-            <div className="text-[10px] leading-none text-[#6f1c03]">^</div>
-          </div>
+          </label>
 
           <div className="relative">
             <button
@@ -1437,88 +1392,6 @@ export default function App() {
             className="cursor-grab rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] active:cursor-grabbing"
           >
             D&amp;D
-          </button>
-
-          {/* Diagnostic button. Reports whether window.desktopBridge (the Electron
-              IPC bridge that powers Save + D&D) is attached, and shows a small
-              details block so users can copy/paste the state when something goes
-              wrong. Cheap to keep in the UI - single button, no extra deps. */}
-          <button
-            type="button"
-            onClick={() => {
-              const w = window as any;
-              const bridge = w.desktopBridge;
-              const loaded = w.__desktopBridgeLoaded === true;
-              const isElectron = Boolean(bridge) || loaded ||
-                (typeof navigator !== "undefined" && navigator.userAgent.includes("Electron"));
-
-              const lines: string[] = [];
-              lines.push(`Environment: ${isElectron ? "Electron desktop" : "Web browser"}`);
-              lines.push(`Preload loaded flag: ${loaded ? "YES" : "NO"}`);
-              lines.push(`window.desktopBridge: ${bridge ? "attached" : "MISSING"}`);
-              if (bridge) {
-                const methods = ["saveMidiFileAsync", "saveMidiFile", "renderMidiTemp", "startMidiDrag", "ping"];
-                methods.forEach((m) => {
-                  lines.push(`  .${m}: ${typeof bridge[m] === "function" ? "OK" : "MISSING"}`);
-                });
-                if (typeof bridge.ping === "function") {
-                  try {
-                    const pong = bridge.ping();
-                    lines.push(`  ping round-trip: OK`);
-                    lines.push(`  Electron: ${pong.electron}, Node: ${pong.node}, Chrome: ${pong.chrome}`);
-                  } catch (err: any) {
-                    lines.push(`  ping FAILED: ${err && err.message ? err.message : String(err)}`);
-                  }
-                }
-
-                // Live test of the actual Save pipeline. Reports each step
-                // so we can see EXACTLY where the flow breaks when Save
-                // "does nothing".
-                lines.push("");
-                lines.push(`Builder chords in memory: ${builderRef.current.length}`);
-                if (builderRef.current.length === 0) {
-                  lines.push("  Add chords to the builder before testing Save/D&D.");
-                } else {
-                  try {
-                    const testBytes = getCurrentMidiBytes();
-                    lines.push(`  getCurrentMidiBytes() -> ${testBytes ? `${testBytes.length} bytes` : "NULL"}`);
-                    if (testBytes && testBytes.length > 0) {
-                      lines.push(`  First 4 bytes: ${Array.from(testBytes.slice(0, 4)).map((b) => b.toString(16)).join(" ")} (should be 4d 54 68 64 = 'MThd')`);
-                      lines.push("");
-                      lines.push("Now trying saveMidiFileAsync directly...");
-                      try {
-                        // Fire and forget - result comes as a follow-up alert
-                        // so this diagnostic alert closes first.
-                        bridge.saveMidiFileAsync(Array.from(testBytes), "diag-test.mid").then(
-                          (r: any) => alert(`saveMidiFileAsync returned:\n${JSON.stringify(r, null, 2)}`),
-                          (e: any) => alert(`saveMidiFileAsync REJECTED:\n${e && e.message ? e.message : String(e)}`)
-                        );
-                        lines.push("  (Watch for a follow-up alert with the result.)");
-                      } catch (err: any) {
-                        lines.push(`  saveMidiFileAsync THREW: ${err && err.message ? err.message : String(err)}`);
-                      }
-                    }
-                  } catch (err: any) {
-                    lines.push(`  getCurrentMidiBytes THREW: ${err && err.message ? err.message : String(err)}`);
-                  }
-                }
-              } else if (isElectron) {
-                lines.push("");
-                lines.push("Preload did NOT run. Likely causes:");
-                lines.push("  - preload.cjs missing from packaged app");
-                lines.push("  - sandbox:true blocking ipcRenderer");
-                lines.push("  - preload threw during startup (check app.log next to the EXE)");
-              } else {
-                lines.push("");
-                lines.push("Running in a browser - Save uses browser download, D&D uses HTML5 DownloadURL.");
-                lines.push("Drag-to-native-DAW only works in the Electron EXE build.");
-              }
-              alert(lines.join("\n"));
-            }}
-            title="Diagnostics: check if the Electron bridge (Save + D&D) is connected."
-            className="rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]"
-          >
-            Diag
           </button>
 
           <div className="flex items-center gap-1 rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
