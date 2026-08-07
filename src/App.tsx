@@ -568,20 +568,51 @@ export default function App() {
   // top of the scroll container, corrected for the sticky <thead> that would
   // otherwise cover the row.
   //
-  // Previous version used `rowEl.offsetTop`, which is relative to the row's
-  // `offsetParent` and depends on the table layout (offsetParent may or may
-  // not be the scroll container, may be <table>, etc.). That produced off-by-
-  // one-row scroll positions for some chord codes - clicking "B aug" landed
-  // the user one row further down. getBoundingClientRect + container's own
-  // rect + current scrollTop is robust across any nesting.
+  // History of pain in this function:
+  //   v1: rowEl.offsetTop - headerHeight. Wrong when offsetParent !==
+  //       scroll container (which happens with border-collapse tables
+  //       and nested table components); off by a row.
+  //   v2: getBoundingClientRect based (rowRect.top - containerRect.top
+  //       + container.scrollTop). Correct on paper, but getBounding-
+  //       ClientRect during an in-flight smooth scroll returns the
+  //       CURRENT rect, not the final rect. If the user clicks again
+  //       (or any code path calls getRowTop) while the previous smooth
+  //       scroll is still animating, the fresh calculation is based on
+  //       the moving target and lands the next scroll on the wrong row.
+  //   v3 (current): walk the offsetParent chain and sum offsetTops.
+  //       This is a static, scroll-position-independent measurement -
+  //       independent of any in-flight animation. Handles border-
+  //       collapse quirks by always summing UPWARDS from the row so
+  //       intermediate table sections can't drop pixels.
   const getRowTop = (code: number) => {
     const container = tableRef.current;
     const rowEl = rowRefs.current[code];
     if (!container || !rowEl) return null;
-    const rowRect = rowEl.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
-    const rowTopInContainer = rowRect.top - containerRect.top + container.scrollTop;
-    return Math.max(rowTopInContainer - getHeaderHeight(), 0);
+    let node: HTMLElement | null = rowEl;
+    let top = 0;
+    let hitContainer = false;
+    // Walk up through the offsetParent chain, adding each ancestor's
+    // offsetTop. Stop when we're about to leave the scroll container.
+    while (node) {
+      top += node.offsetTop;
+      const parent = node.offsetParent as HTMLElement | null;
+      if (!parent) break;
+      if (parent === container) {
+        hitContainer = true;
+        break;
+      }
+      // If the parent is OUTSIDE the container, the offsetParent chain
+      // has escaped (e.g. a position:fixed ancestor). Fall back to
+      // getBoundingClientRect.
+      if (!container.contains(parent)) break;
+      node = parent;
+    }
+    if (!hitContainer) {
+      const rowRect = rowEl.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      top = rowRect.top - containerRect.top + container.scrollTop;
+    }
+    return Math.max(top - getHeaderHeight(), 0);
   };
 
   const detectNearestCode = (scrollTop?: number) => {
