@@ -120,15 +120,26 @@ ipcMain.on("save-midi-file", (event, payload) => {
     }
 
     const suggestedName = payload?.fileName || "ample-chord-progression.mid";
-    const win = BrowserWindow.fromWebContents(event.sender);
+    const parent = BrowserWindow.fromWebContents(event.sender);
+    // Bring the parent window to the front so the modal Save dialog can't
+    // open behind other windows.
+    if (parent) {
+      try {
+        if (parent.isMinimized()) parent.restore();
+        parent.focus();
+      } catch { /* best effort */ }
+    }
     const dialogOpts = {
       title: "Save MIDI File",
       defaultPath: path.join(app.getPath("documents"), suggestedName),
-      filters: [{ name: "MIDI", extensions: ["mid"] }],
-      properties: ["createDirectory", "showOverwriteConfirmation"],
+      filters: [
+        { name: "MIDI files", extensions: ["mid"] },
+        { name: "All files", extensions: ["*"] },
+      ],
+      properties: ["createDirectory", "showOverwriteConfirmation", "dontAddToRecent"],
     };
-    const result = win
-      ? dialog.showSaveDialogSync(win, dialogOpts)
+    const result = parent
+      ? dialog.showSaveDialogSync(parent, dialogOpts)
       : dialog.showSaveDialogSync(dialogOpts);
 
     if (!result) {
@@ -151,15 +162,24 @@ ipcMain.handle("save-midi-file-async", async (event, payload) => {
     }
 
     const suggestedName = payload?.fileName || "ample-chord-progression.mid";
-    const win = BrowserWindow.fromWebContents(event.sender);
+    const parent = BrowserWindow.fromWebContents(event.sender);
+    if (parent) {
+      try {
+        if (parent.isMinimized()) parent.restore();
+        parent.focus();
+      } catch { /* best effort */ }
+    }
     const dialogOpts = {
       title: "Save MIDI File",
       defaultPath: path.join(app.getPath("documents"), suggestedName),
-      filters: [{ name: "MIDI", extensions: ["mid"] }],
-      properties: ["createDirectory", "showOverwriteConfirmation"],
+      filters: [
+        { name: "MIDI files", extensions: ["mid"] },
+        { name: "All files", extensions: ["*"] },
+      ],
+      properties: ["createDirectory", "showOverwriteConfirmation", "dontAddToRecent"],
     };
-    const result = win
-      ? await dialog.showSaveDialog(win, dialogOpts)
+    const result = parent
+      ? await dialog.showSaveDialog(parent, dialogOpts)
       : await dialog.showSaveDialog(dialogOpts);
 
     if (result.canceled || !result.filePath) {
