@@ -400,6 +400,16 @@ export default function App() {
   // or three copies of the chord from a single user gesture).
   const isDraggingProgressionRef = useRef(false);
 
+  // While a scrollToCode() smooth animation is running, we want to suppress
+  // the onScroll -> snapToNearestRow() logic. Without this, the smooth
+  // animation's intermediate scroll events fire snapToNearestRow, which
+  // then RE-writes topCode based on whatever row happens to be closest to
+  // the top at that instant. Because the sticky header covers the first
+  // ~40px of the viewport, the "nearest to top" row is usually one row
+  // BELOW the intended target - which is exactly the "clicked B aug but
+  // landed on B sus2 7 add11" symptom the user reported.
+  const programmaticScrollUntilRef = useRef<number>(0);
+
   useEffect(() => {
     topCodeRef.current = topCode;
   }, [topCode]);
@@ -554,10 +564,24 @@ export default function App() {
 
   const getHeaderHeight = () => headRef.current?.offsetHeight ?? 0;
 
+  // Returns the scrollTop value that will place `row.code` flush against the
+  // top of the scroll container, corrected for the sticky <thead> that would
+  // otherwise cover the row.
+  //
+  // Previous version used `rowEl.offsetTop`, which is relative to the row's
+  // `offsetParent` and depends on the table layout (offsetParent may or may
+  // not be the scroll container, may be <table>, etc.). That produced off-by-
+  // one-row scroll positions for some chord codes - clicking "B aug" landed
+  // the user one row further down. getBoundingClientRect + container's own
+  // rect + current scrollTop is robust across any nesting.
   const getRowTop = (code: number) => {
+    const container = tableRef.current;
     const rowEl = rowRefs.current[code];
-    if (!rowEl) return null;
-    return Math.max(rowEl.offsetTop - getHeaderHeight(), 0);
+    if (!container || !rowEl) return null;
+    const rowRect = rowEl.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    const rowTopInContainer = rowRect.top - containerRect.top + container.scrollTop;
+    return Math.max(rowTopInContainer - getHeaderHeight(), 0);
   };
 
   const detectNearestCode = (scrollTop?: number) => {
@@ -586,6 +610,11 @@ export default function App() {
     const row = rowByCode.get(code);
     const rowTop = getRowTop(code);
     if (!container || !row || rowTop === null) return;
+    // Freeze snapToNearestRow for the duration of a smooth scroll animation
+    // plus a small safety margin. Smooth scrolls typically finish in
+    // 200-400ms depending on distance; 700ms covers even long jumps.
+    const freezeMs = behavior === "smooth" ? 700 : 200;
+    programmaticScrollUntilRef.current = Date.now() + freezeMs;
     container.scrollTo({ top: rowTop, behavior });
     setTopCode(code);
     setActiveRow(row.id);
@@ -593,6 +622,11 @@ export default function App() {
   };
 
   const snapToNearestRow = () => {
+    // Suppress snap while a programmatic (smooth) scroll is still in flight.
+    // Otherwise the animation's own scroll events would race with us and we
+    // would overwrite topCode with the wrong row (see programmaticScroll-
+    // UntilRef comment for the full story).
+    if (Date.now() < programmaticScrollUntilRef.current) return;
     const container = tableRef.current;
     if (!container) return;
     const nearest = detectNearestCode(container.scrollTop);
@@ -1648,6 +1682,10 @@ export default function App() {
         <table className="min-w-full border-collapse text-sm text-black">
           <thead ref={headRef} className="sticky top-0 z-20 bg-[#e8e8e8]">
             <tr>
+              {/* Row number column. Same value as row.code, shown so the user
+                  can pinpoint any row unambiguously ("row #457") when
+                  reporting scroll issues or comparing to the history bar. */}
+              <th className="border border-black px-2 py-2 text-right font-semibold text-neutral-500">#</th>
               <th className="border border-black px-2 py-2 text-left font-semibold">Root</th>
               <th className="border border-black px-2 py-2 text-left font-semibold">Type</th>
               <th className="border border-black px-2 py-2 text-left font-semibold">Extension</th>
@@ -1674,6 +1712,7 @@ export default function App() {
                   }}
                   className={`${rowHighlighted ? "bg-green-100" : "bg-white"}`}
                 >
+                  <td className="border border-black px-2 py-1.5 text-right text-neutral-500 tabular-nums">{row.code}</td>
                   <td className="border border-black px-2 py-1.5">{row.root}</td>
                   <td className="border border-black px-2 py-1.5">{row.type}</td>
                   <td className="border border-black px-2 py-1.5">{row.extension}</td>
