@@ -92,9 +92,18 @@ function createWindow() {
   });
 }
 
+// Session-local counter for the temp MIDI file name. Starts at 1 on every
+// EXE launch and increments each save, so the user sees clean, human names
+// like "1-ample-chord-progression.mid", "2-ample-chord-progression.mid",
+// instead of the previous "1786101786487-..." Date.now() prefix. We keep
+// a prefix (never bare name) so a second save doesn't overwrite the temp
+// file the OS is still using for an active drag session.
+let midiTempCounter = 0;
+
 function writeMidiTemp(bytes, fileName) {
   const baseName = fileName || "ample-chord-progression.mid";
-  const safeName = `${Date.now()}-${baseName}`;
+  midiTempCounter += 1;
+  const safeName = `${midiTempCounter}-${baseName}`;
   const outPath = path.join(app.getPath("temp"), safeName);
   fs.writeFileSync(outPath, Buffer.from(bytes));
   return outPath;
@@ -111,6 +120,45 @@ ipcMain.on("desktop-bridge-ping", (event) => {
   };
 });
 
+// Builds the platform-appropriate Save-dialog options. Only include the
+// dialog `properties` that Electron actually supports on the current OS -
+// passing 'createDirectory' or 'showOverwriteConfirmation' on Windows makes
+// some Electron 30.x builds return instantly without showing the dialog at
+// all (the user sees Save "do nothing"). See:
+// https://www.electronjs.org/docs/latest/api/dialog#dialogshowsavedialogsyncwindow-options
+function buildSaveDialogOpts(suggestedName) {
+  const properties = [];
+  if (process.platform === "win32") {
+    properties.push("showHiddenFiles", "dontAddToRecent");
+  } else if (process.platform === "darwin") {
+    properties.push("showHiddenFiles", "createDirectory", "treatPackageAsDirectory");
+  } else {
+    properties.push("showOverwriteConfirmation");
+  }
+  return {
+    title: "Save MIDI File",
+    defaultPath: path.join(app.getPath("documents"), suggestedName),
+    filters: [
+      { name: "MIDI files", extensions: ["mid"] },
+      { name: "All files", extensions: ["*"] },
+    ],
+    properties,
+  };
+}
+
+// Bring the parent window to the foreground so a modal dialog can't open
+// behind it. Uses moveTop/show as a fallback because focus() alone is
+// sometimes ignored on Windows when another app owns focus.
+function bringWindowToFront(win) {
+  if (!win) return;
+  try {
+    if (win.isMinimized()) win.restore();
+    if (!win.isVisible()) win.show();
+    win.moveTop();
+    win.focus();
+  } catch { /* best effort */ }
+}
+
 ipcMain.on("save-midi-file", (event, payload) => {
   try {
     const bytes = Array.isArray(payload?.bytes) ? payload.bytes : [];
@@ -121,23 +169,9 @@ ipcMain.on("save-midi-file", (event, payload) => {
 
     const suggestedName = payload?.fileName || "ample-chord-progression.mid";
     const parent = BrowserWindow.fromWebContents(event.sender);
-    // Bring the parent window to the front so the modal Save dialog can't
-    // open behind other windows.
-    if (parent) {
-      try {
-        if (parent.isMinimized()) parent.restore();
-        parent.focus();
-      } catch { /* best effort */ }
-    }
-    const dialogOpts = {
-      title: "Save MIDI File",
-      defaultPath: path.join(app.getPath("documents"), suggestedName),
-      filters: [
-        { name: "MIDI files", extensions: ["mid"] },
-        { name: "All files", extensions: ["*"] },
-      ],
-      properties: ["createDirectory", "showOverwriteConfirmation", "dontAddToRecent"],
-    };
+    bringWindowToFront(parent);
+    const dialogOpts = buildSaveDialogOpts(suggestedName);
+
     const result = parent
       ? dialog.showSaveDialogSync(parent, dialogOpts)
       : dialog.showSaveDialogSync(dialogOpts);
@@ -163,21 +197,9 @@ ipcMain.handle("save-midi-file-async", async (event, payload) => {
 
     const suggestedName = payload?.fileName || "ample-chord-progression.mid";
     const parent = BrowserWindow.fromWebContents(event.sender);
-    if (parent) {
-      try {
-        if (parent.isMinimized()) parent.restore();
-        parent.focus();
-      } catch { /* best effort */ }
-    }
-    const dialogOpts = {
-      title: "Save MIDI File",
-      defaultPath: path.join(app.getPath("documents"), suggestedName),
-      filters: [
-        { name: "MIDI files", extensions: ["mid"] },
-        { name: "All files", extensions: ["*"] },
-      ],
-      properties: ["createDirectory", "showOverwriteConfirmation", "dontAddToRecent"],
-    };
+    bringWindowToFront(parent);
+    const dialogOpts = buildSaveDialogOpts(suggestedName);
+
     const result = parent
       ? await dialog.showSaveDialog(parent, dialogOpts)
       : await dialog.showSaveDialog(dialogOpts);
