@@ -1099,33 +1099,63 @@ export default function App() {
     const fileName = "ample-chord-progression.mid";
     const bridge = (window as any).desktopBridge;
 
-    // Electron desktop: hand a real temp file to the OS so it drops into DAWs
-    // (FL Studio, Reaper, Cubase, Ableton, …) as an actual .mid file.
+    // Electron desktop path: hand a real temp file to the OS so it drops
+    // into DAWs (FL Studio, Reaper, Cubase, Ableton) and File Explorer as
+    // an actual .mid file. Use the combined 'midiDrag' handler which writes
+    // the temp file AND starts the OS drag in the same IPC round-trip -
+    // that's critical because startDrag must fire while the renderer is
+    // still inside the dragstart event, and two separate sendSync calls
+    // sometimes miss that window.
+    if (bridge && typeof bridge.midiDrag === "function") {
+      try {
+        const result = bridge.midiDrag(Array.from(bytes), fileName);
+        console.log("[dragMidiToDaw] midiDrag ->", result);
+        // In Electron the OS owns the drag now. Always preventDefault so
+        // the HTML5 DownloadURL fallback (which does not work in Electron)
+        // does not clobber the OS drag session.
+        event.preventDefault();
+        if (!result || result.ok !== true) {
+          alert(
+            "Drag failed to start.\n\n" +
+            (result && result.error ? "Reason: " + result.error : "No details.") +
+            "\n\nOpen Diag to check the bridge."
+          );
+        }
+        return;
+      } catch (err: any) {
+        console.error("[dragMidiToDaw] midiDrag threw:", err);
+        alert("Drag threw: " + (err && err.message ? err.message : String(err)));
+        event.preventDefault();
+        return;
+      }
+    }
+
+    // Legacy Electron path (older preload without midiDrag). Kept as a
+    // safety net so older builds still work if the app is updated in place.
     if (bridge && typeof bridge.renderMidiTemp === "function" && typeof bridge.startMidiDrag === "function") {
       try {
         const tempPath = bridge.renderMidiTemp(Array.from(bytes), fileName);
         if (tempPath) {
-          // startDrag must be invoked synchronously during dragstart.
           const started = bridge.startMidiDrag(tempPath);
-          if (started) {
-            event.preventDefault(); // let Electron own the drag session.
-            return;
-          }
+          console.log("[dragMidiToDaw] legacy startMidiDrag ->", started);
+          event.preventDefault();
+          return;
         }
       } catch (err) {
-        console.error("[dragMidiToDaw] electron drag failed:", err);
+        console.error("[dragMidiToDaw] legacy electron drag failed:", err);
       }
     }
 
-    // Browser fallback: HTML5 DownloadURL so the file drops into targets that
-    // accept it (native file targets, some DAWs' browser-drop zones, etc.).
+    // Browser fallback (no Electron bridge at all): HTML5 DownloadURL so the
+    // file drops into targets that accept it (native file targets in
+    // Chromium, some DAWs' browser-drop zones, etc.). Does NOT work in
+    // native DAWs like FL Studio from a browser - that requires the EXE.
     try {
       const blob = new Blob([bytes], { type: "audio/midi" });
       const url = URL.createObjectURL(blob);
       event.dataTransfer.effectAllowed = "copy";
       event.dataTransfer.setData("DownloadURL", `audio/midi:${fileName}:${url}`);
       event.dataTransfer.setData("application/x-ample-midi", fileName);
-      // Revoke a bit later so the drop has time to fetch the blob.
       window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
     } catch (err) {
       console.error("[dragMidiToDaw] browser drag setup failed:", err);

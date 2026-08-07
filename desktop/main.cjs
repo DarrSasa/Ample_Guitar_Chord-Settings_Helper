@@ -211,25 +211,61 @@ ipcMain.on("start-midi-drag", (event, payload) => {
   try {
     const dragPath = payload?.tempPath;
     if (!dragPath || !fs.existsSync(dragPath)) {
-      event.returnValue = false;
+      event.returnValue = { ok: false, error: `Missing file: ${dragPath}` };
       return;
     }
 
-    // Use a tiny transparent icon so the OS drag cursor does not show the app icon ghost.
-    const icon = nativeImage.createFromDataURL(
-      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+XgnsAAAAASUVORK5CYII="
-    );
+    // Electron's startDrag requires a real (non-empty, sensible-size) icon.
+    // A 1x1 PNG is silently rejected on some Electron 30.x builds, which
+    // makes the whole drag start fail. Build a proper 32x32 PNG in memory
+    // so this is bulletproof across Electron versions.
+    const icon = buildDragIcon();
 
     event.sender.startDrag({
       file: dragPath,
       icon,
     });
-    event.returnValue = true;
-  } catch {
-    // Silent fail: browser fallback remains available in renderer.
-    event.returnValue = false;
+    event.returnValue = { ok: true };
+  } catch (err) {
+    event.returnValue = { ok: false, error: String(err && err.message ? err.message : err) };
   }
 });
+
+// Combined 1-round-trip drag: write the MIDI bytes to a temp file AND kick
+// off startDrag inside the same IPC handler. This guarantees startDrag runs
+// while the renderer is still inside its dragstart event window (which is
+// what makes the OS actually accept the drag) - two separate sendSync calls
+// sometimes lose that window and the drag silently no-ops.
+ipcMain.on("midi-drag", (event, payload) => {
+  try {
+    const bytes = Array.isArray(payload?.bytes) ? payload.bytes : [];
+    if (bytes.length === 0) {
+      event.returnValue = { ok: false, error: "empty" };
+      return;
+    }
+    const tempPath = writeMidiTemp(bytes, payload?.fileName);
+    if (!fs.existsSync(tempPath)) {
+      event.returnValue = { ok: false, error: `Failed to write temp file at ${tempPath}` };
+      return;
+    }
+    const icon = buildDragIcon();
+    event.sender.startDrag({ file: tempPath, icon });
+    event.returnValue = { ok: true, tempPath };
+  } catch (err) {
+    event.returnValue = { ok: false, error: String(err && err.message ? err.message : err) };
+  }
+});
+
+// A 32x32 opaque orange (#ff8827) PNG - big enough for Electron's
+// startDrag to accept as a valid drag image on every platform. Kept as a
+// base64 literal so we don't depend on any external icon files existing.
+// Programmatically generated so it is guaranteed to decode as a real PNG.
+function buildDragIcon() {
+  const b64 =
+    "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAKUlEQVR42u3NQQkAAAgE" +
+    "sGtjVVtrCh/CYP9luk5FIBAIBAKBQCAQfAkWT2+4Wx4SUP4AAAAASUVORK5CYII=";
+  return nativeImage.createFromBuffer(Buffer.from(b64, "base64"));
+}
 
 app.whenReady().then(() => {
   createWindow();
