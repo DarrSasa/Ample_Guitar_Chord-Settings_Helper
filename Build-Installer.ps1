@@ -1,4 +1,4 @@
-﻿# =============================================================================
+# =============================================================================
 # Ample Guitar Chord Progression Helper - Windows build script
 #
 # Two build modes:
@@ -117,18 +117,43 @@ function Ensure-Dependencies {
 }
 
 function Build-WebBundle {
-  # Vite build with BUILD_TARGET=electron so vite.config.ts activates the
-  # singleFile plugin. Electron main.cjs loads dist/index.html via file://
-  # and needs everything inlined.
-  Write-Step "Building the web bundle (vite build, single-file for Electron)"
+  # Vite build with BUILD_TARGET=electron so vite.config.ts:
+  #   (a) sets base to "./" (relative paths, required by Electron's file://)
+  #   (b) activates the viteSingleFile plugin (inlines JS+CSS into index.html)
+  # Both are needed to avoid the "app opens with a grey window" symptom.
+  #
+  # We call vite directly with an explicit env instead of 'npm run build:electron'
+  # so we don't depend on cross-env correctly propagating the variable through
+  # npm on every Windows PowerShell setup.
+  Write-Step "Building the web bundle (vite build, Electron mode)"
+
+  $viteBin = Join-Path $PSScriptRoot "node_modules\vite\bin\vite.js"
+  if (-not (Test-Path $viteBin)) {
+    throw "vite not found in node_modules. Run 'npm install' first (or omit -SkipInstall)."
+  }
+
   $prev = $env:BUILD_TARGET
   $env:BUILD_TARGET = "electron"
   try {
-    Invoke-Native -File "npm.cmd" -Arguments @("run", "build:electron")
+    Invoke-Native -File "node" -Arguments @($viteBin, "build")
   } finally {
     if ($null -eq $prev) { Remove-Item Env:BUILD_TARGET -ErrorAction SilentlyContinue }
     else { $env:BUILD_TARGET = $prev }
   }
+
+  # Sanity-check: dist/index.html must exist and reference its assets with
+  # relative paths (./assets/... or inline). If we still see absolute /assets
+  # links, something else overrode our config - fail loud, don't ship a
+  # broken build the user has to debug through a grey window.
+  $indexHtml = Join-Path $PSScriptRoot "dist\index.html"
+  if (-not (Test-Path $indexHtml)) {
+    throw "vite build produced no dist\index.html"
+  }
+  $html = Get-Content -Raw -Path $indexHtml
+  if ($html -match '(?i)(src|href)="/assets/') {
+    throw "dist\index.html references /assets/... with absolute paths. Electron cannot load these via file://. Check that vite.config.ts sets base='./' for isElectronBuild."
+  }
+  Write-Ok "Web bundle is Electron-safe (relative asset paths)."
 }
 
 # ---------------------------------------------------------------------------

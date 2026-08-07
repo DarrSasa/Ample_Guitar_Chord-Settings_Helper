@@ -21,7 +21,40 @@ function createWindow() {
   });
 
   const indexPath = path.join(__dirname, "..", "dist", "index.html");
-  win.loadFile(indexPath);
+
+  // If the packaging skipped dist/, show a real error page instead of a
+  // silent grey window so the user knows what's wrong.
+  if (!fs.existsSync(indexPath)) {
+    const missingMsg = `<!doctype html><meta charset="utf-8"><title>Missing build</title>
+      <body style="font-family:system-ui;padding:2rem;background:#acb0ac;color:#111">
+        <h1>Missing build output</h1>
+        <p>Expected file was not found at:</p>
+        <pre style="background:#fff;padding:1rem;border:1px solid #000">${indexPath}</pre>
+        <p>Rebuild with: <code>.\\Build-Installer.ps1 -Mode Portable</code></p>
+      </body>`;
+    win.loadURL("data:text/html;charset=utf-8," + encodeURIComponent(missingMsg));
+  } else {
+    win.loadFile(indexPath);
+  }
+
+  // If the renderer fails to load (e.g. broken asset paths), pop DevTools
+  // and show the failing URL so users can report actionable info instead
+  // of just "grey window".
+  win.webContents.on("did-fail-load", (_e, errorCode, errorDescription, validatedURL) => {
+    console.error("[main] did-fail-load", { errorCode, errorDescription, validatedURL });
+    const failMsg = `<!doctype html><meta charset="utf-8"><title>Load failed</title>
+      <body style="font-family:system-ui;padding:2rem;background:#acb0ac;color:#111">
+        <h1>Failed to load the app</h1>
+        <p><b>Code:</b> ${errorCode}</p>
+        <p><b>Description:</b> ${errorDescription}</p>
+        <p><b>URL:</b> <code>${validatedURL}</code></p>
+        <p>Usually this means asset paths in dist/index.html are absolute
+        (starting with <code>/assets/...</code>) instead of relative
+        (<code>./assets/...</code>). Rebuild with the current
+        <code>Build-Installer.ps1</code>.</p>
+      </body>`;
+    win.loadURL("data:text/html;charset=utf-8," + encodeURIComponent(failMsg));
+  });
 
   // Keep navigation inside the app and open external URLs in the browser.
   win.webContents.setWindowOpenHandler(({ url }) => {

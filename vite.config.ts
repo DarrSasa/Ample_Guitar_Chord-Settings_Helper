@@ -16,9 +16,20 @@ const isElectronBuild = process.env.BUILD_TARGET === "electron";
 
 // GitHub Pages serves the app from /<repo-name>/ instead of /. Setting a base
 // path here lets the same build work at both / (StackBlitz/Vercel) and the
-// repo sub-path (GitHub Pages) — we opt in through an env var so the default
+// repo sub-path (GitHub Pages) - we opt in through an env var so the default
 // stays root and nothing else breaks.
-const base = process.env.PUBLIC_BASE_PATH || "/";
+//
+// IMPORTANT: for the Electron build we MUST use a relative base ("./") because
+// Electron loads dist/index.html via the file:// protocol. Absolute paths like
+// "/assets/index.js" would resolve to the filesystem root, not the app folder,
+// leaving the user with a blank grey window. Relative paths always resolve
+// next to index.html regardless of how the app is packaged or relocated.
+let base;
+if (isElectronBuild) {
+  base = "./";
+} else {
+  base = process.env.PUBLIC_BASE_PATH || "/";
+}
 
 // https://vite.dev/config/
 export default defineConfig({
