@@ -86,19 +86,15 @@ const LENGTH_BEATS: Record<LengthOption, number> = {
 // soundfont fails to load (offline, blocked, etc.).
 // Fixed window size presets. Native window resize is disabled in
 // desktop/main.cjs; the user picks one of these three from the dropdown in
-// the Scroll On History header. Values chosen so:
-//   - Small (1180x720): every button in the Chord Progression Builder
-//     toolbar fits on one row without wrapping; the chord table still shows
-//     ~10 rows without scrolling; text stays >=12px so it's readable.
-//   - Medium (1480x920): the previous default; sweet spot for most users
-//     on a 1080p monitor with the taskbar visible.
-//   - Large (1780x1080): comfortable on 1440p+ monitors without exceeding
-//     the height of a 1080p screen. Not maximizing to full screen so the
-//     layout stays predictable.
+// the Scroll On History header. Sizing rules (per user request):
+//   - Large is the 'comfortable' default from earlier versions, 1480x920.
+//   - Medium is the smaller-but-still-fully-usable size, 1180x720.
+//   - Small is 75% of Medium (885x540) - compact enough for a side monitor
+//     but small enough that toolbar buttons wrap onto a second row.
 const SIZE_PRESETS: Record<"Small" | "Medium" | "Large", { width: number; height: number }> = {
-  Small: { width: 1180, height: 720 },
-  Medium: { width: 1480, height: 920 },
-  Large: { width: 1780, height: 1040 },
+  Small: { width: 885, height: 540 },
+  Medium: { width: 1180, height: 720 },
+  Large: { width: 1480, height: 920 },
 };
 
 const GUITAR_PRESETS: GuitarPreset[] = [
@@ -332,6 +328,20 @@ function chordNotes(label: string) {
   return unique.map((interval) => midiRoot + interval);
 }
 
+// Convert a MIDI note number (0-127) into a display name like "C3" or "F#4".
+// Uses the "middle C = C4 = MIDI 60" convention that FL Studio, Ableton,
+// Logic and most DAWs display. (Yamaha would call it C3; we ignore that.)
+function midiToNoteName(midi: number) {
+  const oct = Math.floor(midi / 12) - 1;
+  return ROOTS[((midi % 12) + 12) % 12] + oct;
+}
+
+// Turn a chord label into a comma-separated note-name string like
+// "C3, E3, G3, F4" - handy for tooltips and diagnostics.
+function chordNotesDisplay(label: string) {
+  return chordNotes(label).map(midiToNoteName).join(", ");
+}
+
 // (Removed parseRootMidiFromSmplChunk / parseRootMidiFromFileName - they
 // were only used by the old WAV sampler path, which was replaced by the
 // soundfont-player + MusyngKite GM instruments in loadInstrument.)
@@ -514,7 +524,10 @@ export default function App() {
 
   // Window size presets (see SIZE_PRESETS below). Kept as a name so the
   // currently-selected preset stays highlighted in the dropdown.
-  const [windowSize, setWindowSize] = useState<"Small" | "Medium" | "Large">("Medium");
+  // Default matches the Electron BrowserWindow's initial 1480x920, which is
+  // now the "Large" preset. Keep these two in sync if the initial size
+  // in desktop/main.cjs ever changes.
+  const [windowSize, setWindowSize] = useState<"Small" | "Medium" | "Large">("Large");
   const [sizeMenuOpen, setSizeMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -1870,6 +1883,7 @@ export default function App() {
                       const idx = builderRef.current.findIndex((x) => x.id === chord.id);
                       setContextMenu({ x: e.clientX, y: e.clientY, insertIndex: before ? idx : idx + 1 });
                     }}
+                    title={`${chord.label}  ->  ${chordNotesDisplay(chord.label)}`}
                     className={`h-full min-w-[118px] border border-black px-2 text-left text-xs transition-all ${
                       selected || playing || blinking
                         ? "bg-green-300 shadow-[0_0_10px_#4df72c]"
@@ -2000,6 +2014,7 @@ export default function App() {
                               // Normal mode: add selected progression chord to builder and register undo/redo history.
                               addChordToBuilderAndRecord(nextChord.label, target.code);
                             }}
+                            title={`${nextChord.label}  ->  ${chordNotesDisplay(nextChord.label)}`}
                             className={`h-10 border border-black px-2 text-xs transition-all ${
                               pressed
                                 ? "bg-green-300 shadow-[0_0_10px_#4df72c]"
