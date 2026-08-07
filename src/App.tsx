@@ -1002,7 +1002,9 @@ export default function App() {
   };
 
   const saveMidi = async () => {
+    console.log("[saveMidi] called; builder length =", builderRef.current.length);
     const bytes = getCurrentMidiBytes();
+    console.log("[saveMidi] bytes:", bytes ? `${bytes.length} bytes` : "null");
     if (!bytes || bytes.length === 0) {
       alert("Chord Progression Builder is empty. Add chords first.");
       return;
@@ -1085,7 +1087,9 @@ export default function App() {
   };
 
   const dragMidiToDaw = (event: React.DragEvent<HTMLButtonElement>) => {
+    console.log("[dragMidiToDaw] dragstart; builder length =", builderRef.current.length);
     const bytes = getCurrentMidiBytes();
+    console.log("[dragMidiToDaw] bytes:", bytes ? `${bytes.length} bytes` : "null");
     if (!bytes || bytes.length === 0) {
       event.preventDefault();
       alert("Chord Progression Builder is empty. Add chords first.");
@@ -1432,6 +1436,38 @@ export default function App() {
                     lines.push(`  Electron: ${pong.electron}, Node: ${pong.node}, Chrome: ${pong.chrome}`);
                   } catch (err: any) {
                     lines.push(`  ping FAILED: ${err && err.message ? err.message : String(err)}`);
+                  }
+                }
+
+                // Live test of the actual Save pipeline. Reports each step
+                // so we can see EXACTLY where the flow breaks when Save
+                // "does nothing".
+                lines.push("");
+                lines.push(`Builder chords in memory: ${builderRef.current.length}`);
+                if (builderRef.current.length === 0) {
+                  lines.push("  Add chords to the builder before testing Save/D&D.");
+                } else {
+                  try {
+                    const testBytes = getCurrentMidiBytes();
+                    lines.push(`  getCurrentMidiBytes() -> ${testBytes ? `${testBytes.length} bytes` : "NULL"}`);
+                    if (testBytes && testBytes.length > 0) {
+                      lines.push(`  First 4 bytes: ${Array.from(testBytes.slice(0, 4)).map((b) => b.toString(16)).join(" ")} (should be 4d 54 68 64 = 'MThd')`);
+                      lines.push("");
+                      lines.push("Now trying saveMidiFileAsync directly...");
+                      try {
+                        // Fire and forget - result comes as a follow-up alert
+                        // so this diagnostic alert closes first.
+                        bridge.saveMidiFileAsync(Array.from(testBytes), "diag-test.mid").then(
+                          (r: any) => alert(`saveMidiFileAsync returned:\n${JSON.stringify(r, null, 2)}`),
+                          (e: any) => alert(`saveMidiFileAsync REJECTED:\n${e && e.message ? e.message : String(e)}`)
+                        );
+                        lines.push("  (Watch for a follow-up alert with the result.)");
+                      } catch (err: any) {
+                        lines.push(`  saveMidiFileAsync THREW: ${err && err.message ? err.message : String(err)}`);
+                      }
+                    }
+                  } catch (err: any) {
+                    lines.push(`  getCurrentMidiBytes THREW: ${err && err.message ? err.message : String(err)}`);
                   }
                 }
               } else if (isElectron) {
