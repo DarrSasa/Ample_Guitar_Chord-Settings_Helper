@@ -87,7 +87,12 @@ try {
   }
 
   Write-Step "Building React app"
-  & $tools.Npx vite build
+  $env:BUILD_TARGET = "electron"
+  try {
+    & $tools.Npx vite build
+  } finally {
+    Remove-Item Env:BUILD_TARGET -ErrorAction SilentlyContinue
+  }
   if ($LASTEXITCODE -ne 0) {
     throw "Web build failed"
   }

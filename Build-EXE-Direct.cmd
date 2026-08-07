@@ -42,7 +42,9 @@ if errorlevel 1 (
 
 echo.
 echo [2/3] Build web app...
+set "BUILD_TARGET=electron"
 call "%NPX_CMD%" vite build
+set "BUILD_TARGET="
 if errorlevel 1 (
   echo ERROR: vite build failed.
   pause

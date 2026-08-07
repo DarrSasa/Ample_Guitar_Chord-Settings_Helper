@@ -123,7 +123,9 @@ if not exist "node_modules\vite\" (
 
 echo.
 echo [1/2] Building React app...
+set "BUILD_TARGET=electron"
 call "%NPX_CMD%" vite build
+set "BUILD_TARGET="
 if errorlevel 1 (
   echo.
   echo ERROR: Web build failed.

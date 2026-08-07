@@ -1,0 +1,87 @@
+name: Deploy preview to GitHub Pages
+
+# Publishes any branch you push to a per-branch subfolder on GitHub Pages, so
+# you can test the GUI in the browser without compiling the Electron EXE. The
+# `main` branch lives at the site root; every other branch lives under
+# /branch/<branch-name>/.
+
+on:
+  push:
+    branches:
+      - "**"
+  workflow_dispatch:
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install --ignore-scripts
+        env:
+          ELECTRON_SKIP_BINARY_DOWNLOAD: "1"
+
+      - name: Compute Pages base path
+        id: base
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY##*/}"
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          SAFE_BRANCH="${BRANCH_NAME//\//-}"
+          if [ "$BRANCH_NAME" = "main" ] || [ "$BRANCH_NAME" = "master" ]; then
+            BASE="/${REPO_NAME}/"
+            SUBDIR=""
+          else
+            BASE="/${REPO_NAME}/branch/${SAFE_BRANCH}/"
+            SUBDIR="branch/${SAFE_BRANCH}"
+          fi
+          echo "base=${BASE}" >> "$GITHUB_OUTPUT"
+          echo "subdir=${SUBDIR}" >> "$GITHUB_OUTPUT"
+          echo "safe_branch=${SAFE_BRANCH}" >> "$GITHUB_OUTPUT"
+
+      - name: Build
+        env:
+          PUBLIC_BASE_PATH: ${{ steps.base.outputs.base }}
+        run: npm run build
+
+      - name: Stage per-branch subdirectory
+        run: |
+          mkdir -p _site
+          if [ -n "${{ steps.base.outputs.subdir }}" ]; then
+            mkdir -p "_site/${{ steps.base.outputs.subdir }}"
+            cp -R dist/* "_site/${{ steps.base.outputs.subdir }}/"
+          else
+            cp -R dist/* _site/
+          fi
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
