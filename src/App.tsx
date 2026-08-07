@@ -418,6 +418,14 @@ export default function App() {
   // layout shift? sticky header?).
   const [scrollDiag, setScrollDiag] = useState<string>("");
 
+  // Height (in pixels) of the phantom spacer appended after the chord table.
+  // We need this so rows near the end of the table can still be scrolled
+  // flush to the top - without it, the browser clamps our scrollTo() to
+  // scrollHeight - clientHeight, leaving the last few rows unreachable
+  // as "top" rows. Recomputed whenever the scroll container resizes so
+  // the spacer stays large enough for the current window size.
+  const [bottomSpacerHeight, setBottomSpacerHeight] = useState<number>(800);
+
   useEffect(() => {
     topCodeRef.current = topCode;
   }, [topCode]);
@@ -1265,6 +1273,28 @@ export default function App() {
     snapToNearestRow();
   }, []);
 
+  // Keep the bottom spacer sized to the current scroll container height so
+  // any row can be scrolled to the top even at the end of the table. See
+  // the bottomSpacerHeight state declaration for the full rationale.
+  useEffect(() => {
+    const container = tableRef.current;
+    if (!container) return;
+    const updateSpacer = () => {
+      // Container height minus a small offset for the sticky header and
+      // one row of visible content, so the spacer isn't oversized.
+      const target = Math.max(container.clientHeight - 80, 0);
+      setBottomSpacerHeight(target);
+    };
+    updateSpacer();
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", updateSpacer);
+      return () => window.removeEventListener("resize", updateSpacer);
+    }
+    const ro = new ResizeObserver(updateSpacer);
+    ro.observe(container);
+    return () => ro.disconnect();
+  }, []);
+
   useEffect(() => {
     instrumentRef.current = null;
     sampleBufferRef.current = null;
@@ -1872,6 +1902,17 @@ export default function App() {
             })}
           </tbody>
         </table>
+        {/* Bottom spacer: without this, the browser refuses to scroll a row
+            past a certain point near the end of the table because there
+            isn't enough content below it - so any request to bring e.g.
+            'B aug' (near the last row) to the top gets clamped to the
+            max scroll position, and the row lands ~250px below the top
+            (visible below the sticky header, but the row directly above
+            it, e.g. 'B sus2 7 add11', is what appears at the top).
+            The spacer adds enough phantom height that even the last
+            actual row can be scrolled flush to the top. Height is
+            recomputed by a ResizeObserver on the scroll container. */}
+        <div aria-hidden="true" style={{ height: bottomSpacerHeight }} />
       </div>
 
       {contextMenu && (
