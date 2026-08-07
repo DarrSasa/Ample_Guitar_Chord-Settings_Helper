@@ -42,53 +42,61 @@ ipcMain.on("save-midi-file", (event, payload) => {
   try {
     const bytes = Array.isArray(payload?.bytes) ? payload.bytes : [];
     if (bytes.length === 0) {
-      event.returnValue = false;
+      event.returnValue = { ok: false, canceled: false, error: "empty" };
       return;
     }
 
     const suggestedName = payload?.fileName || "ample-chord-progression.mid";
-    const result = dialog.showSaveDialogSync({
+    const win = BrowserWindow.fromWebContents(event.sender);
+    const dialogOpts = {
       title: "Save MIDI File",
       defaultPath: path.join(app.getPath("documents"), suggestedName),
       filters: [{ name: "MIDI", extensions: ["mid"] }],
       properties: ["createDirectory", "showOverwriteConfirmation"],
-    });
+    };
+    const result = win
+      ? dialog.showSaveDialogSync(win, dialogOpts)
+      : dialog.showSaveDialogSync(dialogOpts);
 
     if (!result) {
-      event.returnValue = false;
+      event.returnValue = { ok: false, canceled: true };
       return;
     }
 
     fs.writeFileSync(result, Buffer.from(bytes));
-    event.returnValue = true;
-  } catch {
-    event.returnValue = false;
+    event.returnValue = { ok: true, canceled: false, filePath: result };
+  } catch (err) {
+    event.returnValue = { ok: false, canceled: false, error: String(err && err.message ? err.message : err) };
   }
 });
 
-ipcMain.handle("save-midi-file-async", async (_event, payload) => {
+ipcMain.handle("save-midi-file-async", async (event, payload) => {
   try {
     const bytes = Array.isArray(payload?.bytes) ? payload.bytes : [];
     if (bytes.length === 0) {
-      return false;
+      return { ok: false, canceled: false, error: "empty" };
     }
 
     const suggestedName = payload?.fileName || "ample-chord-progression.mid";
-    const result = await dialog.showSaveDialog({
+    const win = BrowserWindow.fromWebContents(event.sender);
+    const dialogOpts = {
       title: "Save MIDI File",
       defaultPath: path.join(app.getPath("documents"), suggestedName),
       filters: [{ name: "MIDI", extensions: ["mid"] }],
       properties: ["createDirectory", "showOverwriteConfirmation"],
-    });
+    };
+    const result = win
+      ? await dialog.showSaveDialog(win, dialogOpts)
+      : await dialog.showSaveDialog(dialogOpts);
 
     if (result.canceled || !result.filePath) {
-      return false;
+      return { ok: false, canceled: true };
     }
 
     fs.writeFileSync(result.filePath, Buffer.from(bytes));
-    return true;
-  } catch {
-    return false;
+    return { ok: true, canceled: false, filePath: result.filePath };
+  } catch (err) {
+    return { ok: false, canceled: false, error: String(err && err.message ? err.message : err) };
   }
 });
 

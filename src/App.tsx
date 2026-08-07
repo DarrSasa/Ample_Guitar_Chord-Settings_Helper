@@ -1002,59 +1002,130 @@ export default function App() {
 
   const saveMidi = async () => {
     const bytes = getCurrentMidiBytes();
-    if (!bytes) {
+    if (!bytes || bytes.length === 0) {
       alert("Chord Progression Builder is empty. Add chords first.");
       return;
     }
 
+    const fileName = "ample-chord-progression.mid";
     const bridge = (window as any).desktopBridge;
+    const isElectron = Boolean(bridge);
+
+    // 1) Electron async path (preferred on desktop EXE).
     if (typeof bridge?.saveMidiFileAsync === "function") {
       try {
-        const ok = await bridge.saveMidiFileAsync(Array.from(bytes), "ample-chord-progression.mid");
-        if (ok) {
+        const result = await bridge.saveMidiFileAsync(Array.from(bytes), fileName);
+        // New shape: { ok, canceled, error }. Old shape: boolean.
+        if (result && typeof result === "object") {
+          if (result.ok) return;
+          if (result.canceled) return; // user hit Cancel – do nothing.
+          console.error("[saveMidi] async bridge error:", result.error);
+        } else if (result === true) {
           return;
         }
-      } catch {
-        // Continue to next fallback.
+      } catch (err) {
+        console.error("[saveMidi] async bridge threw:", err);
       }
     }
 
+    // 2) Electron sync path (older bridge). Same treatment.
     if (typeof bridge?.saveMidiFile === "function") {
       try {
-        const ok = bridge.saveMidiFile(Array.from(bytes), "ample-chord-progression.mid");
-        if (ok) {
+        const result = bridge.saveMidiFile(Array.from(bytes), fileName);
+        if (result && typeof result === "object") {
+          if (result.ok) return;
+          if (result.canceled) return;
+          console.error("[saveMidi] sync bridge error:", result.error);
+        } else if (result === true) {
           return;
         }
-      } catch {
-        // Fallback to browser save path.
+      } catch (err) {
+        console.error("[saveMidi] sync bridge threw:", err);
       }
     }
 
-    if ("showSaveFilePicker" in window) {
+    // 3) Modern browser file picker (Chrome/Edge). Skip in Electron so we never
+    //    silently fall back into a webview save that the user can't see.
+    if (!isElectron && "showSaveFilePicker" in window) {
       try {
         const picker = await (window as any).showSaveFilePicker({
-          suggestedName: "ample-chord-progression.mid",
+          suggestedName: fileName,
           types: [{ description: "MIDI File", accept: { "audio/midi": [".mid"] } }],
         });
         const writable = await picker.createWritable();
         await writable.write(bytes);
         await writable.close();
         return;
-      } catch {
-        // Fall back to browser download when picker is cancelled or unavailable.
+      } catch (err: any) {
+        // AbortError => user cancelled the picker; treat as success (no fallback).
+        if (err && (err.name === "AbortError" || err.code === 20)) return;
+        console.warn("[saveMidi] showSaveFilePicker failed, falling back to <a download>:", err);
       }
     }
 
-    const payload = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
-    const url = URL.createObjectURL(new Blob([payload as unknown as BlobPart], { type: "audio/midi" }));
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "ample-chord-progression.mid";
-    a.style.display = "none";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.setTimeout(() => URL.revokeObjectURL(url), 600);
+    // 4) Last-resort: classic anchor download. Works in every browser and, as a
+    //    safety net, in Electron too (Electron intercepts it as a download).
+    try {
+      const blob = new Blob([bytes], { type: "audio/midi" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName;
+      a.rel = "noopener";
+      a.style.display = "none";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.setTimeout(() => URL.revokeObjectURL(url), 1500);
+    } catch (err) {
+      console.error("[saveMidi] anchor download failed:", err);
+      alert("Save failed. Check the developer console for details.");
+    }
+  };
+
+  const dragMidiToDaw = (event: React.DragEvent<HTMLButtonElement>) => {
+    const bytes = getCurrentMidiBytes();
+    if (!bytes || bytes.length === 0) {
+      event.preventDefault();
+      alert("Chord Progression Builder is empty. Add chords first.");
+      return;
+    }
+
+    const fileName = "ample-chord-progression.mid";
+    const bridge = (window as any).desktopBridge;
+
+    // Electron desktop: hand a real temp file to the OS so it drops into DAWs
+    // (FL Studio, Reaper, Cubase, Ableton, …) as an actual .mid file.
+    if (bridge && typeof bridge.renderMidiTemp === "function" && typeof bridge.startMidiDrag === "function") {
+      try {
+        const tempPath = bridge.renderMidiTemp(Array.from(bytes), fileName);
+        if (tempPath) {
+          // startDrag must be invoked synchronously during dragstart.
+          const started = bridge.startMidiDrag(tempPath);
+          if (started) {
+            event.preventDefault(); // let Electron own the drag session.
+            return;
+          }
+        }
+      } catch (err) {
+        console.error("[dragMidiToDaw] electron drag failed:", err);
+      }
+    }
+
+    // Browser fallback: HTML5 DownloadURL so the file drops into targets that
+    // accept it (native file targets, some DAWs' browser-drop zones, etc.).
+    try {
+      const blob = new Blob([bytes], { type: "audio/midi" });
+      const url = URL.createObjectURL(blob);
+      event.dataTransfer.effectAllowed = "copy";
+      event.dataTransfer.setData("DownloadURL", `audio/midi:${fileName}:${url}`);
+      event.dataTransfer.setData("application/x-ample-midi", fileName);
+      // Revoke a bit later so the drop has time to fetch the blob.
+      window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+    } catch (err) {
+      console.error("[dragMidiToDaw] browser drag setup failed:", err);
+      event.preventDefault();
+    }
   };
 
   useEffect(() => {
@@ -1305,6 +1376,24 @@ export default function App() {
               </div>
             )}
           </div>
+
+          <button
+            type="button"
+            draggable
+            onDragStart={dragMidiToDaw}
+            onClick={() => {
+              // Provide a friendly hint if the user clicks instead of dragging.
+              if (builderRef.current.length === 0) {
+                alert("Chord Progression Builder is empty. Add chords first.");
+                return;
+              }
+              alert("Drag this button into your DAW to drop the MIDI file.");
+            }}
+            title="Drag this button into your DAW (FL Studio, Reaper, Cubase, Ableton, …) to drop the MIDI file directly."
+            className="cursor-grab rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] active:cursor-grabbing"
+          >
+            D&amp;D
+          </button>
 
           <button
             type="button"

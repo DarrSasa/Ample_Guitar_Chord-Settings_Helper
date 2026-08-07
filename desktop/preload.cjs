@@ -8,6 +8,8 @@ contextBridge.exposeInMainWorld("desktopBridge", {
     return ipcRenderer.sendSync("start-midi-drag", { tempPath });
   },
   saveMidiFile: (bytes, fileName) => {
+    // Returns { ok, canceled, error } (object) instead of raw boolean so the
+    // renderer can distinguish "user cancelled" from "handler failed".
     return ipcRenderer.sendSync("save-midi-file", { bytes, fileName });
   },
   saveMidiFileAsync: (bytes, fileName) => {
