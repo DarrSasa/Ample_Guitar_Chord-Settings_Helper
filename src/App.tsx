@@ -432,6 +432,7 @@ export default function App() {
   const dragSelectingRef = useRef(false);
   const dragSelectAddRef = useRef(true);
   const isDraggingBuilderRef = useRef(false);
+  const justDraggedRef = useRef(false);
 
   useEffect(() => {
     topCodeRef.current = topCode;
@@ -1377,32 +1378,29 @@ export default function App() {
             )}
           </div>
 
+          {/* Two-in-one: click = Save (opens Save As), drag = D&D (drop MIDI into a DAW). */}
           <button
             type="button"
             draggable
-            onDragStart={dragMidiToDaw}
-            onClick={() => {
-              // Provide a friendly hint if the user clicks instead of dragging.
-              if (builderRef.current.length === 0) {
-                alert("Chord Progression Builder is empty. Add chords first.");
-                return;
-              }
-              alert("Drag this button into your DAW to drop the MIDI file.");
+            onDragStart={(e) => {
+              justDraggedRef.current = true;
+              dragMidiToDaw(e);
             }}
-            title="Drag this button into your DAW (FL Studio, Reaper, Cubase, Ableton, …) to drop the MIDI file directly."
-            className="cursor-grab rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] active:cursor-grabbing"
-          >
-            D&amp;D
-          </button>
-
-          <button
-            type="button"
+            onDragEnd={() => {
+              // Keep the click-suppression flag alive a bit past dragend so the
+              // synthetic click that follows a drop does not trigger Save.
+              window.setTimeout(() => {
+                justDraggedRef.current = false;
+              }, 250);
+            }}
             onClick={() => {
+              if (justDraggedRef.current) return;
               void saveMidi();
             }}
-            className="rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]"
+            title="Click to Save the MIDI file. Drag this button into your DAW (FL Studio, Reaper, Cubase, Ableton, …) to drop the MIDI file directly."
+            className="cursor-grab rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] active:cursor-grabbing"
           >
-            Save
+            Save / D&amp;D
           </button>
 
           <div className="flex items-center gap-1 rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
