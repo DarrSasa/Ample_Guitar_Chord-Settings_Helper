@@ -84,6 +84,23 @@ const LENGTH_BEATS: Record<LengthOption, number> = {
 //   https://en.wikipedia.org/wiki/General_MIDI#Program_change_events
 // waveform is kept only as a last-resort oscillator fallback if the
 // soundfont fails to load (offline, blocked, etc.).
+// Fixed window size presets. Native window resize is disabled in
+// desktop/main.cjs; the user picks one of these three from the dropdown in
+// the Scroll On History header. Values chosen so:
+//   - Small (1180x720): every button in the Chord Progression Builder
+//     toolbar fits on one row without wrapping; the chord table still shows
+//     ~10 rows without scrolling; text stays >=12px so it's readable.
+//   - Medium (1480x920): the previous default; sweet spot for most users
+//     on a 1080p monitor with the taskbar visible.
+//   - Large (1780x1080): comfortable on 1440p+ monitors without exceeding
+//     the height of a 1080p screen. Not maximizing to full screen so the
+//     layout stays predictable.
+const SIZE_PRESETS: Record<"Small" | "Medium" | "Large", { width: number; height: number }> = {
+  Small: { width: 1180, height: 720 },
+  Medium: { width: 1480, height: 920 },
+  Large: { width: 1780, height: 1040 },
+};
+
 const GUITAR_PRESETS: GuitarPreset[] = [
   { name: "Acoustic Guitar Nylon", sampleFile: "", gmName: "acoustic_guitar_nylon", waveform: "sine" },
   { name: "Acoustic Guitar Steel", sampleFile: "", gmName: "acoustic_guitar_steel", waveform: "triangle" },
@@ -221,17 +238,54 @@ function progressionSpecsByType(type: ChordType) {
   return common;
 }
 
+// Parse a chord display label like "C Maj 7 add11" into its parts.
+//   root:       "C", "C#", ..., "B"
+//   type:       "Maj" | "min" | "sus2" | "sus4" | "aug" | "5" | "oct"
+//   extension:  "7" | "Maj7" | "add9" | "6" | "" (optional)
+//   alteration: "add11" | "" (optional)
+//
+// The old implementation just took the first two space-separated tokens,
+// so every "C Maj 7 add11" degenerated to "C Maj" and produced the plain
+// triad in MIDI - which is why the user reported that many differently-
+// named chords sounded/exported identically.
 function parseLabel(label: string) {
-  const [root, type] = label.split(" ");
-  return { root, type: type as ChordType };
+  const tokens = label.trim().split(/\s+/);
+  const root = tokens[0] ?? "C";
+  const type = (tokens[1] ?? "Maj") as ChordType;
+  let extension = "";
+  let alteration = "";
+  const EXTENSIONS = new Set(["7", "Maj7", "add9", "6"]);
+  const ALTERATIONS = new Set(["add11"]);
+  for (let i = 2; i < tokens.length; i++) {
+    const t = tokens[i];
+    if (!extension && EXTENSIONS.has(t)) extension = t;
+    else if (!alteration && ALTERATIONS.has(t)) alteration = t;
+  }
+  return { root, type, extension, alteration };
 }
 
+// Turn a chord label into the concrete MIDI note numbers that make up that
+// chord. Each interval below is a semitone offset from the root note.
+//
+// Semitone map (from the root):
+//   0=root, 2=maj 2nd, 3=min 3rd, 4=maj 3rd, 5=perfect 4th, 7=perfect 5th,
+//   8=aug 5th, 9=maj 6th, 10=min 7th, 11=maj 7th, 12=octave root,
+//   14=9th (=2nd +12), 17=11th (=4th +12)
+//
+// Extensions ADD one note on top of the base triad:
+//   "7"     -> minor 7th (10 semitones). E.g. C Maj 7 = C E G Bb.
+//   "Maj7"  -> major 7th (11 semitones). E.g. C Maj Maj7 = C E G B.
+//   "add9"  -> 9th above root (14). E.g. C Maj add9 = C E G D5.
+//   "6"     -> major 6th (9). E.g. C Maj 6 = C E G A.
+// Alteration ADDS a color note:
+//   "add11" -> 11th above root (17). E.g. C Maj add11 = C E G F5.
+// Extensions and alterations are additive: "C Maj 7 add11" = C E G Bb F5.
 function chordNotes(label: string) {
   const parsed = parseLabel(label);
   const rootIdx = ROOTS.indexOf(parsed.root);
   const midiRoot = 48 + Math.max(rootIdx, 0);
 
-  const intervals: Record<ChordType, number[]> = {
+  const baseIntervals: Record<ChordType, number[]> = {
     Maj: [0, 4, 7],
     min: [0, 3, 7],
     sus2: [0, 2, 7],
@@ -241,7 +295,41 @@ function chordNotes(label: string) {
     oct: [0, 12],
   };
 
-  return intervals[parsed.type].map((interval) => midiRoot + interval);
+  const intervals = [...(baseIntervals[parsed.type] ?? baseIntervals.Maj)];
+
+  // Extension - one added note.
+  switch (parsed.extension) {
+    case "7":
+      intervals.push(10);
+      break;
+    case "Maj7":
+      intervals.push(11);
+      break;
+    case "add9":
+      intervals.push(14);
+      break;
+    case "6":
+      intervals.push(9);
+      break;
+    default:
+      break;
+  }
+
+  // Alteration - additional color note on top of the extension.
+  if (parsed.alteration === "add11") {
+    intervals.push(17);
+  }
+
+  // Deduplicate identical semitones (aug's 8 stays distinct from a 6's 9,
+  // but future changes might collide - be defensive).
+  const seen = new Set<number>();
+  const unique = intervals.filter((i) => {
+    if (seen.has(i)) return false;
+    seen.add(i);
+    return true;
+  });
+
+  return unique.map((interval) => midiRoot + interval);
 }
 
 // (Removed parseRootMidiFromSmplChunk / parseRootMidiFromFileName - they
@@ -416,8 +504,6 @@ export default function App() {
   // actually rendered without opening devtools, and paste the numbers back
   // to me so I can pinpoint the drift source (rowTop calc? snap race?
   // layout shift? sticky header?).
-  const [scrollDiag, setScrollDiag] = useState<string>("");
-
   // Height (in pixels) of the phantom spacer appended after the chord table.
   // We need this so rows near the end of the table can still be scrolled
   // flush to the top - without it, the browser clamps our scrollTo() to
@@ -425,6 +511,11 @@ export default function App() {
   // as "top" rows. Recomputed whenever the scroll container resizes so
   // the spacer stays large enough for the current window size.
   const [bottomSpacerHeight, setBottomSpacerHeight] = useState<number>(800);
+
+  // Window size presets (see SIZE_PRESETS below). Kept as a name so the
+  // currently-selected preset stays highlighted in the dropdown.
+  const [windowSize, setWindowSize] = useState<"Small" | "Medium" | "Large">("Medium");
+  const [sizeMenuOpen, setSizeMenuOpen] = useState(false);
 
   useEffect(() => {
     topCodeRef.current = topCode;
@@ -666,29 +757,6 @@ export default function App() {
     setTopCode(code);
     setActiveRow(row.id);
     window.setTimeout(() => setActiveRow(""), 650);
-
-    // Diagnostic strip: record what we asked for and what actually landed.
-    // Also re-measure the wanted row AFTER the scroll settles - if the
-    // fresh measurement differs from the one we used to scroll, we know
-    // the offsetTop chain is unstable (React re-render, layout shift,
-    // sticky recomputation).
-    const wantedLabel = `${row.root} ${row.type}${row.extension !== DISPLAY_NONE ? " " + row.extension : ""}${row.alteration !== DISPLAY_NONE ? " " + row.alteration : ""}`;
-    const headerH = getHeaderHeight();
-    setScrollDiag(`wanted #${code} '${wantedLabel}' rowTop=${rowTop} header=${headerH} (measuring...)`);
-    window.setTimeout(() => {
-      const finalScrollTop = container.scrollTop;
-      const nearest = detectNearestCode(finalScrollTop);
-      const nearestRow = nearest !== null ? rowByCode.get(nearest) : null;
-      const landedLabel = nearestRow
-        ? `${nearestRow.root} ${nearestRow.type}${nearestRow.extension !== DISPLAY_NONE ? " " + nearestRow.extension : ""}${nearestRow.alteration !== DISPLAY_NONE ? " " + nearestRow.alteration : ""}`
-        : "?";
-      const freshRowTop = getRowTop(code);
-      const drift = freshRowTop !== null ? freshRowTop - rowTop : null;
-      const match = nearest === code ? "OK" : `MISS by ${nearest !== null ? nearest - code : "?"} rows`;
-      setScrollDiag(
-        `wanted #${code} '${wantedLabel}' initRowTop=${rowTop} freshRowTop=${freshRowTop} drift=${drift} header=${headerH} | scrollTop=${finalScrollTop} | landed #${nearest} '${landedLabel}' | ${match}`
-      );
-    }, 800);
   };
 
   const snapToNearestRow = () => {
@@ -1258,7 +1326,10 @@ export default function App() {
   };
 
   useEffect(() => {
-    const closeMenu = () => setContextMenu(null);
+    const closeMenu = () => {
+      setContextMenu(null);
+      setSizeMenuOpen(false);
+    };
     window.addEventListener("click", closeMenu);
     return () => {
       window.removeEventListener("click", closeMenu);
@@ -1340,6 +1411,60 @@ export default function App() {
             >
               Redo
             </button>
+
+            {/* Size preset dropdown. Small triangle button; clicking opens a
+                three-item menu (Small / Medium / Large). Selecting one calls
+                the Electron bridge to resize the native window - browsers
+                cannot resize their own window, so in the web build clicking
+                a size just gives feedback without actually resizing. */}
+            <div className="relative" onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                onClick={() => setSizeMenuOpen((v) => !v)}
+                title={`Window size (currently ${windowSize})`}
+                aria-label="Window size"
+                className={`flex items-center gap-1 rounded-sm border border-black px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
+                  sizeMenuOpen ? "bg-green-300 shadow-[0_0_10px_#ff8827]" : "bg-[#FCBF8D]"
+                }`}
+              >
+                <span className="text-[10px]">{windowSize}</span>
+                <span aria-hidden="true" className="text-[9px] leading-none">&#9660;</span>
+              </button>
+              {sizeMenuOpen && (
+                <div className="absolute right-0 top-9 z-40 w-40 border border-black bg-white shadow-lg">
+                  {(Object.keys(SIZE_PRESETS) as Array<keyof typeof SIZE_PRESETS>).map((name) => {
+                    const preset = SIZE_PRESETS[name];
+                    const active = windowSize === name;
+                    return (
+                      <button
+                        key={name}
+                        type="button"
+                        onClick={() => {
+                          setWindowSize(name);
+                          setSizeMenuOpen(false);
+                          const bridge = (window as any).desktopBridge;
+                          if (bridge && typeof bridge.resizeWindow === "function") {
+                            try {
+                              bridge.resizeWindow(preset.width, preset.height);
+                            } catch (err) {
+                              console.error("[resizeWindow] failed:", err);
+                            }
+                          }
+                        }}
+                        className={`block w-full border-b border-black px-2 py-1 text-left text-xs hover:bg-green-100 ${
+                          active ? "bg-green-200 font-semibold" : ""
+                        }`}
+                      >
+                        <span>{name}</span>
+                        <span className="ml-2 text-[10px] text-neutral-500">
+                          {preset.width}x{preset.height}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -1759,16 +1884,6 @@ export default function App() {
           </div>
         </div>
       </section>
-
-      {/* Temporary diagnostic strip for the 'clicked X, landed on Y' scroll
-          bug. Shows the wanted/landed row codes and labels so the user can
-          report exactly what mismatch is happening. Remove once the bug is
-          confirmed fixed across all chord codes. */}
-      {scrollDiag && (
-        <div className="border border-black bg-yellow-100 px-2 py-1 text-[11px] font-mono">
-          {scrollDiag}
-        </div>
-      )}
 
       <div
         ref={tableRef}

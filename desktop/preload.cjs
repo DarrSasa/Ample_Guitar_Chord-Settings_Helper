@@ -30,6 +30,11 @@ try {
     },
     // Diagnostic ping - renderer can call this to verify IPC round-trip.
     ping: () => ipcRenderer.sendSync("desktop-bridge-ping"),
+    // Resize the app window to a preset size. Renderer calls this from
+    // the size dropdown (Scroll On History header).
+    resizeWindow: (width, height) => {
+      return ipcRenderer.sendSync("resize-window", { width, height });
+    },
   });
 
   // Also log to the renderer console so it shows up in DevTools.

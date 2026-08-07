@@ -22,8 +22,13 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1480,
     height: 920,
-    minWidth: 980,
-    minHeight: 620,
+    // No minWidth/minHeight because the UI itself now offers Small/Medium/
+    // Large presets from a dropdown in the Scroll On History header; the
+    // native resize grip is disabled below.
+    resizable: false,
+    maximizable: false,
+    fullscreenable: false,
+    useContentSize: true,
     title: APP_TITLE,
     backgroundColor: "#acb0ac",
     autoHideMenuBar: true,
@@ -124,6 +129,37 @@ function nextSaveDefaultPath(suggestedName) {
 }
 
 // Diagnostic round-trip so the UI can verify that IPC actually works.
+// Resize the app window to one of a small set of preset sizes. Called from
+// the UI dropdown (Scroll On History header). We disable native window
+// resize entirely (see BrowserWindow constructor above) so the user is
+// always at one of these three known-good sizes; the layout is designed
+// against each of them.
+ipcMain.on("resize-window", (event, payload) => {
+  try {
+    const parent = BrowserWindow.fromWebContents(event.sender);
+    if (!parent) {
+      event.returnValue = { ok: false, error: "no window" };
+      return;
+    }
+    const width = Number(payload?.width);
+    const height = Number(payload?.height);
+    if (!Number.isFinite(width) || !Number.isFinite(height) || width < 400 || height < 300) {
+      event.returnValue = { ok: false, error: `invalid size ${width}x${height}` };
+      return;
+    }
+    // Temporarily allow resize so setContentSize actually resizes even
+    // though the window is otherwise fixed. Then re-lock it so the user
+    // can't grab the frame afterwards.
+    parent.setResizable(true);
+    parent.setContentSize(width, height);
+    parent.setResizable(false);
+    parent.center();
+    event.returnValue = { ok: true, width, height };
+  } catch (err) {
+    event.returnValue = { ok: false, error: String(err && err.message ? err.message : err) };
+  }
+});
+
 ipcMain.on("desktop-bridge-ping", (event) => {
   event.returnValue = {
     ok: true,
