@@ -410,6 +410,14 @@ export default function App() {
   // landed on B sus2 7 add11" symptom the user reported.
   const programmaticScrollUntilRef = useRef<number>(0);
 
+  // Live diagnostic strip visible above the chord table. Populated by
+  // scrollToCode() and by a settle-check that runs 800ms after each scroll.
+  // Purpose: user can SEE the mismatch between what was requested and what
+  // actually rendered without opening devtools, and paste the numbers back
+  // to me so I can pinpoint the drift source (rowTop calc? snap race?
+  // layout shift? sticky header?).
+  const [scrollDiag, setScrollDiag] = useState<string>("");
+
   useEffect(() => {
     topCodeRef.current = topCode;
   }, [topCode]);
@@ -650,6 +658,29 @@ export default function App() {
     setTopCode(code);
     setActiveRow(row.id);
     window.setTimeout(() => setActiveRow(""), 650);
+
+    // Diagnostic strip: record what we asked for and what actually landed.
+    // Also re-measure the wanted row AFTER the scroll settles - if the
+    // fresh measurement differs from the one we used to scroll, we know
+    // the offsetTop chain is unstable (React re-render, layout shift,
+    // sticky recomputation).
+    const wantedLabel = `${row.root} ${row.type}${row.extension !== DISPLAY_NONE ? " " + row.extension : ""}${row.alteration !== DISPLAY_NONE ? " " + row.alteration : ""}`;
+    const headerH = getHeaderHeight();
+    setScrollDiag(`wanted #${code} '${wantedLabel}' rowTop=${rowTop} header=${headerH} (measuring...)`);
+    window.setTimeout(() => {
+      const finalScrollTop = container.scrollTop;
+      const nearest = detectNearestCode(finalScrollTop);
+      const nearestRow = nearest !== null ? rowByCode.get(nearest) : null;
+      const landedLabel = nearestRow
+        ? `${nearestRow.root} ${nearestRow.type}${nearestRow.extension !== DISPLAY_NONE ? " " + nearestRow.extension : ""}${nearestRow.alteration !== DISPLAY_NONE ? " " + nearestRow.alteration : ""}`
+        : "?";
+      const freshRowTop = getRowTop(code);
+      const drift = freshRowTop !== null ? freshRowTop - rowTop : null;
+      const match = nearest === code ? "OK" : `MISS by ${nearest !== null ? nearest - code : "?"} rows`;
+      setScrollDiag(
+        `wanted #${code} '${wantedLabel}' initRowTop=${rowTop} freshRowTop=${freshRowTop} drift=${drift} header=${headerH} | scrollTop=${finalScrollTop} | landed #${nearest} '${landedLabel}' | ${match}`
+      );
+    }, 800);
   };
 
   const snapToNearestRow = () => {
@@ -1698,6 +1729,16 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      {/* Temporary diagnostic strip for the 'clicked X, landed on Y' scroll
+          bug. Shows the wanted/landed row codes and labels so the user can
+          report exactly what mismatch is happening. Remove once the bug is
+          confirmed fixed across all chord codes. */}
+      {scrollDiag && (
+        <div className="border border-black bg-yellow-100 px-2 py-1 text-[11px] font-mono">
+          {scrollDiag}
+        </div>
+      )}
 
       <div
         ref={tableRef}
