@@ -1890,7 +1890,17 @@ export default function App() {
                         : "bg-[#bae3b4] hover:shadow-[0_0_8px_#4df72c]"
                     }`}
                   >
-                    {chord.label}
+                    <div>{chord.label}</div>
+                    {/* Tiny sub-label under the chord name showing the exact
+                        note names that will be written to the .mid file for
+                        this chord. Makes it impossible to be confused about
+                        whether e.g. add11 or Maj7 actually made it into the
+                        output - if the note is in this list, it IS in the
+                        file. If not, the label parser has a bug and the
+                        note is missing everywhere. */}
+                    <div className="text-[9px] leading-tight text-neutral-600">
+                      {chordNotesDisplay(chord.label)}
+                    </div>
                   </button>
                 );
               })}
