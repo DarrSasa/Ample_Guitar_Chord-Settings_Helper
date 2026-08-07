@@ -1,5 +1,19 @@
+// Backwards-compatible Node entry point for the Windows installer build.
+// The primary UX is now Build-Installer.ps1 / Build-Installer.cmd, but some
+// docs and old scripts still call this file directly, so it needs to keep
+// working and produce the same NSIS installer.
+//
+// Fixes vs. the previous version:
+//   - No MSI fallback (the "2.7z produced no files" error came from the MSI
+//     target's post-install extractor; NSIS is enough and is what all major
+//     Electron apps ship with).
+//   - Purges corrupt cached downloads before each attempt.
+//   - Retries the NSIS build up to 3 times to survive flaky networks.
+//   - Writes package.json without BOM (electron-builder chokes on BOM).
+
 const fs = require("fs");
 const path = require("path");
+const os = require("os");
 const { spawnSync } = require("child_process");
 
 const rootDir = path.resolve(__dirname, "..");
@@ -13,82 +27,73 @@ const defaultIcon = path.join(rootDir, "public", "grafics", "app.ico");
 
 function resolveElectronVersion() {
   const rootPkgPath = path.join(rootDir, "package.json");
-  if (!fs.existsSync(rootPkgPath)) {
-    return "30.5.1";
-  }
-
+  if (!fs.existsSync(rootPkgPath)) return "30.5.1";
   const rootPkg = JSON.parse(fs.readFileSync(rootPkgPath, "utf8"));
-  const rawVersion =
+  const raw =
     (rootPkg.devDependencies && rootPkg.devDependencies.electron) ||
     (rootPkg.dependencies && rootPkg.dependencies.electron) ||
     "30.5.1";
-
-  return String(rawVersion).replace(/^[^\d]*/, "");
+  return String(raw).replace(/^[^\d]*/, "");
 }
 
 function logStep(text) {
   console.log(`\n==> ${text}`);
 }
 
-function run(cmd, args) {
+function run(cmd, args, extraEnv) {
   const result = spawnSync(cmd, args, {
     cwd: rootDir,
     stdio: "inherit",
     shell: false,
+    env: extraEnv ? { ...process.env, ...extraEnv } : process.env,
   });
-
   if (result.status !== 0) {
     throw new Error(`Command failed: ${cmd} ${args.join(" ")}`);
   }
 }
 
-function runNodeScript(scriptPath, scriptArgs) {
-  if (!fs.existsSync(scriptPath)) {
-    throw new Error(`Missing script: ${scriptPath}`);
-  }
-  run(process.execPath, [scriptPath, ...scriptArgs]);
+function runNodeScript(scriptPath, scriptArgs, extraEnv) {
+  if (!fs.existsSync(scriptPath)) throw new Error(`Missing script: ${scriptPath}`);
+  run(process.execPath, [scriptPath, ...scriptArgs], extraEnv);
 }
 
 function runNpmInstall() {
   if (process.platform === "win32") {
-    const result = spawnSync("cmd.exe", ["/d", "/s", "/c", "npm install"], {
+    const r = spawnSync("cmd.exe", ["/d", "/s", "/c", "npm install --no-audit --no-fund"], {
       cwd: rootDir,
       stdio: "inherit",
       shell: false,
     });
-    if (result.status !== 0) {
-      throw new Error("Command failed: npm install");
-    }
+    if (r.status !== 0) throw new Error("Command failed: npm install");
     return;
   }
-
-  run("npm", ["install"]);
+  run("npm", ["install", "--no-audit", "--no-fund"]);
 }
 
-function ensureDir(dirPath) {
-  fs.mkdirSync(dirPath, { recursive: true });
-}
+function ensureDir(p) { fs.mkdirSync(p, { recursive: true }); }
+function resetDir(p) { fs.rmSync(p, { recursive: true, force: true }); fs.mkdirSync(p, { recursive: true }); }
 
-function resetDir(dirPath) {
-  fs.rmSync(dirPath, { recursive: true, force: true });
-  fs.mkdirSync(dirPath, { recursive: true });
+function writeJsonNoBom(filePath, obj) {
+  // Explicit UTF-8 without BOM. Node's default fs.writeFileSync with 'utf8'
+  // is already BOM-less, but be explicit to survive any accidental piping.
+  fs.writeFileSync(filePath, JSON.stringify(obj, null, 2), { encoding: "utf8" });
 }
 
 function parseIconArg() {
-  const iconFlag = process.argv.find((arg) => arg.startsWith("--icon="));
-  if (iconFlag) {
-    return iconFlag.replace("--icon=", "").replace(/^"|"$/g, "");
-  }
-  if (fs.existsSync(defaultIcon)) {
-    return defaultIcon;
-  }
+  const iconFlag = process.argv.find((a) => a.startsWith("--icon="));
+  if (iconFlag) return iconFlag.replace("--icon=", "").replace(/^"|"$/g, "");
+  if (fs.existsSync(defaultIcon)) return defaultIcon;
   return "";
 }
 
 function buildInstallerConfig(iconPath) {
   const electronVersion = resolveElectronVersion();
+  const win = {
+    target: [{ target: "nsis", arch: ["x64"] }],
+  };
+  if (iconPath) win.icon = iconPath;
 
-  const config = {
+  return {
     name: "ample-guitar-chord-progression-helper-installer",
     version: "1.0.0",
     description: "Windows installer for Ample Guitar Chord Progression Helper",
@@ -96,17 +101,8 @@ function buildInstallerConfig(iconPath) {
     build: {
       appId: "ro.ample.helper",
       productName: appName,
-      directories: {
-        output: installerOutDir,
-      },
-      win: {
-        target: [
-          {
-            target: "nsis",
-            arch: ["x64"],
-          },
-        ],
-      },
+      directories: { output: installerOutDir },
+      win,
       electronVersion,
       nsis: {
         oneClick: false,
@@ -119,12 +115,70 @@ function buildInstallerConfig(iconPath) {
       artifactName: "AmpleInstaller.exe",
     },
   };
+}
 
-  if (iconPath) {
-    config.build.win.icon = iconPath;
+function purgeElectronBuilderCache() {
+  // Delete zero-byte files and known-bad tool caches so a retry re-downloads
+  // clean binaries — this is what fixes "2.7z produced no files".
+  const roots = [];
+  if (process.platform === "win32" && process.env.LOCALAPPDATA) {
+    roots.push(path.join(process.env.LOCALAPPDATA, "electron-builder", "Cache"));
   }
+  roots.push(path.join(os.homedir(), ".cache", "electron-builder"));
 
-  return config;
+  for (const cacheRoot of roots) {
+    if (!fs.existsSync(cacheRoot)) continue;
+    console.log(`Cleaning electron-builder cache: ${cacheRoot}`);
+    let entries = [];
+    try { entries = fs.readdirSync(cacheRoot, { withFileTypes: true }); } catch { continue; }
+    for (const entry of entries) {
+      const full = path.join(cacheRoot, entry.name);
+      try {
+        if (entry.isDirectory() && /^(nsis|winCodeSign|appimage)/i.test(entry.name)) {
+          fs.rmSync(full, { recursive: true, force: true });
+        } else if (entry.isFile() && fs.statSync(full).size === 0) {
+          fs.rmSync(full, { force: true });
+        }
+      } catch { /* best effort */ }
+    }
+  }
+}
+
+function buildNsisWithRetry(builderCli, packagedAppDir, maxAttempts) {
+  const env = {
+    USE_HARD_LINKS: "false",
+    ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES: "true",
+  };
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    logStep(`Building NSIS installer (attempt ${attempt}/${maxAttempts})`);
+    try {
+      runNodeScript(
+        builderCli,
+        [
+          "--projectDir", installerProjectDir,
+          "--prepackaged", packagedAppDir,
+          "--win", "nsis",
+          "--x64",
+        ],
+        env
+      );
+      return;
+    } catch (err) {
+      console.warn(`Attempt ${attempt} failed: ${err.message}`);
+      if (attempt === maxAttempts) {
+        throw new Error(
+          `NSIS installer build failed after ${maxAttempts} attempts. ` +
+          `Check your internet connection and antivirus — electron-builder needs ` +
+          `to download NSIS from github.com/electron-userland/electron-builder-binaries.`
+        );
+      }
+      console.warn("Purging cache and retrying in 3 seconds...");
+      purgeElectronBuilderCache();
+      const wait = Date.now() + 3000;
+      while (Date.now() < wait) { /* small pause without needing a timer lib */ }
+    }
+  }
 }
 
 function main() {
@@ -136,12 +190,8 @@ function main() {
 
   const iconPath = parseIconArg();
   if (iconPath) {
-    if (!fs.existsSync(iconPath)) {
-      throw new Error(`Icon file not found: ${iconPath}`);
-    }
-    if (path.extname(iconPath).toLowerCase() !== ".ico") {
-      throw new Error("Icon must be .ico");
-    }
+    if (!fs.existsSync(iconPath)) throw new Error(`Icon file not found: ${iconPath}`);
+    if (path.extname(iconPath).toLowerCase() !== ".ico") throw new Error("Icon must be .ico");
     console.log(`Icon: ${iconPath}`);
   } else {
     console.log("Icon: default Electron icon");
@@ -156,8 +206,12 @@ function main() {
     runNpmInstall();
   }
 
-  logStep("Building React app");
-  runNodeScript(path.join(rootDir, "node_modules", "vite", "bin", "vite.js"), ["build"]);
+  logStep("Building React app (single-file for Electron)");
+  runNodeScript(
+    path.join(rootDir, "node_modules", "vite", "bin", "vite.js"),
+    ["build"],
+    { BUILD_TARGET: "electron" }
+  );
 
   logStep("Preparing staging app");
   resetDir(stageAppDir);
@@ -173,18 +227,15 @@ function main() {
     fs.cpSync(publicSamples, path.join(stageAppDir, "dist", "guitar samples"), { recursive: true });
   }
 
-  const stagePkg = {
+  writeJsonNoBom(path.join(stageAppDir, "package.json"), {
     name: "ample-guitar-chord-progression-helper",
     version: "1.0.0",
     main: "desktop/main.cjs",
     author: "Ample Guitar Chord Progression Helper",
-    devDependencies: {
-      electron: "30.5.1",
-    },
-  };
-  fs.writeFileSync(path.join(stageAppDir, "package.json"), JSON.stringify(stagePkg, null, 2));
+    devDependencies: { electron: "30.5.1" },
+  });
 
-  logStep("Packing app");
+  logStep("Packing app with @electron/packager");
   ensureDir(portableOutDir);
   const packArgs = [
     stageAppDir,
@@ -196,10 +247,11 @@ function main() {
     `--out=${portableOutDir}`,
     `--executable-name=${appName}`,
   ];
-  if (iconPath) {
-    packArgs.push(`--icon=${iconPath}`);
-  }
-  runNodeScript(path.join(rootDir, "node_modules", "@electron", "packager", "bin", "electron-packager.js"), packArgs);
+  if (iconPath) packArgs.push(`--icon=${iconPath}`);
+  runNodeScript(
+    path.join(rootDir, "node_modules", "@electron", "packager", "bin", "electron-packager.js"),
+    packArgs
+  );
 
   const packagedAppDir = path.join(portableOutDir, `${packagerAppName}-win32-x64`);
   if (!fs.existsSync(packagedAppDir)) {
@@ -208,49 +260,21 @@ function main() {
 
   logStep("Preparing NSIS installer config");
   resetDir(installerProjectDir);
-  const installerPkg = buildInstallerConfig(iconPath);
-  fs.writeFileSync(path.join(installerProjectDir, "package.json"), JSON.stringify(installerPkg, null, 2));
+  writeJsonNoBom(path.join(installerProjectDir, "package.json"), buildInstallerConfig(iconPath));
 
-  logStep("Building installer (.exe NSIS, fallback .msi)");
+  purgeElectronBuilderCache();
+
   const builderCli = path.join(rootDir, "node_modules", "electron-builder", "out", "cli", "cli.js");
-  let installerBuilt = false;
-
-  try {
-    runNodeScript(builderCli, [
-      "--projectDir",
-      installerProjectDir,
-      "--prepackaged",
-      packagedAppDir,
-      "--win",
-      "nsis",
-      "--x64",
-    ]);
-    installerBuilt = true;
-  } catch (error) {
-    console.warn("NSIS build failed, trying MSI fallback...", error.message);
-  }
-
-  if (!installerBuilt) {
-    runNodeScript(builderCli, [
-      "--projectDir",
-      installerProjectDir,
-      "--prepackaged",
-      packagedAppDir,
-      "--win",
-      "msi",
-      "--x64",
-    ]);
-    installerBuilt = true;
-  }
+  buildNsisWithRetry(builderCli, packagedAppDir, 3);
 
   console.log("\nDone.");
   console.log(`Portable app folder: ${portableOutDir}`);
-  console.log(`Installer folder: ${installerOutDir}`);
+  console.log(`Installer folder:    ${installerOutDir}`);
 }
 
 try {
   main();
-} catch (error) {
-  console.error("\nERROR:", error.message);
+} catch (err) {
+  console.error("\nERROR:", err.message);
   process.exit(1);
 }

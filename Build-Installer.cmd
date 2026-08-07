@@ -1,29 +1,33 @@
 @echo off
-setlocal
+REM Wrapper: double-click me to run Build-Installer.ps1 without needing to
+REM change the PowerShell ExecutionPolicy.
+REM
+REM Usage:
+REM   Build-Installer.cmd                       -> interactive menu
+REM   Build-Installer.cmd Portable              -> just the portable EXE
+REM   Build-Installer.cmd Installer             -> just the NSIS installer
+REM   Build-Installer.cmd Both                  -> both
+REM   Build-Installer.cmd Portable "C:\my.ico"  -> portable with custom icon
 
+setlocal
 cd /d "%~dp0"
 
-echo ===============================================
-echo  Ample Guitar Chord Progression Helper
-echo  Build Installer EXE (NSIS)
-echo ===============================================
-echo.
-echo Optional: drag-and-drop your .ico on this file
-echo or run: Build-Installer.cmd "C:\Path\app.ico"
-echo.
+set "MODE=%~1"
+set "ICON=%~2"
+
+set "MODE_ARG="
+if not "%MODE%"=="" set "MODE_ARG=-Mode %MODE%"
 
 set "ICON_ARG="
-if not "%~1"=="" set "ICON_ARG=--icon=""%~1"""
+if not "%ICON%"=="" set "ICON_ARG=-IconPath ""%ICON%"""
 
-node "%~dp0desktop\build-installer.cjs" %ICON_ARG%
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0Build-Installer.ps1" %MODE_ARG% %ICON_ARG%
+
 if errorlevel 1 (
   echo.
-  echo ERROR: Installer build failed.
+  echo Build finished with errors. See messages above.
   pause
   exit /b 1
 )
 
-echo.
-echo Success. Open folder:
-echo "installer-out"
-pause
+endlocal
