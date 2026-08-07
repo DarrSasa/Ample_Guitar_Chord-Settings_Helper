@@ -4,3 +4,17 @@ dist_electron/
 release/
 .DS_Store
 *.log
+
+# Downloaded GM guitar soundfont packs (~50 MB total). Fetched by
+# Download-Soundfonts.ps1 or automatically by Build-Installer.ps1. Not
+# checked in because they bloat the repo and can be re-downloaded on
+# demand. The public/soundfonts/README.txt file IS committed (see the
+# negation below) so the folder always exists.
+public/soundfonts/*
+!public/soundfonts/README.txt
+
+# Build output folders
+portable-out/
+installer-out/
+.desktop-build/
+Ample Guitar Chord Progression Helper/

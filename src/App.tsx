@@ -628,18 +628,40 @@ export default function App() {
       // Always disable the WAV path - it produced pitched-shifted samples
       // that sounded wrong on most notes. Instead use soundfont-player
       // against the MusyngKite pack, which gives a real multi-sample GM
-      // instrument for each note. Works both in the browser and in Electron
-      // (both can reach https://gleitz.github.io). If the fetch fails
-      // (offline, blocked, etc.) we drop to a plain oscillator so the app
-      // still makes sound instead of falling silent.
+      // instrument for each note.
       sampleBufferRef.current = null;
       sampleRootMidiRef.current = 72;
 
+      // 1) Try the LOCAL soundfont bundled with the app (public/soundfonts/).
+      //    Users run Download-Soundfonts.ps1 once to populate this folder.
+      //    Loading locally means the app works fully offline - important for
+      //    the portable EXE where the user may not have internet.
+      // 2) If local is missing, fall back to the gleitz CDN.
+      // 3) If both fail, fall back to a plain oscillator so the app still
+      //    makes sound instead of going silent.
+      const localBase = window.location.protocol === "file:" ? "./soundfonts/" : "/soundfonts/";
+
+      try {
+        instrumentRef.current = await Soundfont.instrument(ctx, preset.gmName as any, {
+          nameToUrl: (name: string, _sf: string, format: string) => {
+            // soundfont-player supports 'mp3' or 'ogg' - use mp3, our files.
+            const ext = format === "ogg" ? "-ogg.js" : "-mp3.js";
+            return `${localBase}${name}${ext}`;
+          },
+          format: "mp3",
+        });
+        console.debug("[Sampler] Loaded LOCAL soundfont", { preset: preset.name, gm: preset.gmName });
+        return;
+      } catch (localErr) {
+        console.debug("[Sampler] Local soundfont not found, trying CDN...", localErr);
+      }
+
+      // Online fallback: gleitz CDN. Works if the user has internet.
       instrumentRef.current = await Soundfont.instrument(ctx, preset.gmName as any, {
         soundfont: "MusyngKite",
         format: "mp3",
       });
-      console.debug("[Sampler] Loaded soundfont", { preset: preset.name, gm: preset.gmName });
+      console.debug("[Sampler] Loaded CDN soundfont", { preset: preset.name, gm: preset.gmName });
     } catch (error) {
       instrumentRef.current = null;
       sampleBufferRef.current = null;

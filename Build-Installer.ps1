@@ -1,4 +1,4 @@
-# =============================================================================
+﻿# =============================================================================
 # Ample Guitar Chord Progression Helper - Windows build script
 #
 # Two build modes:
@@ -116,6 +116,35 @@ function Ensure-Dependencies {
   Invoke-Native -File "npm.cmd" -Arguments @("install", "--no-audit", "--no-fund")
 }
 
+function Ensure-Soundfonts {
+  # Ensure the seven GM guitar soundfont packs live in public/soundfonts/
+  # so the packaged EXE runs fully offline. Runs Download-Soundfonts.ps1
+  # only if the folder is missing / empty / has too few files. Safe to
+  # call on every build - it no-ops after the first successful download.
+  $sfDir = Join-Path $PSScriptRoot "public\soundfonts"
+  $expected = 7
+  $have = 0
+  if (Test-Path $sfDir) {
+    $have = (Get-ChildItem -Path $sfDir -Filter "*-mp3.js" -File -ErrorAction SilentlyContinue).Count
+  }
+  if ($have -ge $expected) {
+    Write-Host "Soundfonts present ($have files) - skipping download." -ForegroundColor DarkGray
+    return
+  }
+
+  Write-Step "Downloading GM guitar soundfonts (one-time, ~50 MB total)"
+  $downloader = Join-Path $PSScriptRoot "Download-Soundfonts.ps1"
+  if (-not (Test-Path $downloader)) {
+    Write-Host "WARNING: Download-Soundfonts.ps1 not found. The EXE will fall back to online CDN." -ForegroundColor DarkYellow
+    return
+  }
+  # Run in the same PowerShell process so param binding works cleanly.
+  & $downloader -NoPause
+  if ($LASTEXITCODE -ne 0) {
+    Write-Host "WARNING: Soundfont download failed. The EXE will fall back to online CDN at runtime." -ForegroundColor DarkYellow
+  }
+}
+
 function Build-WebBundle {
   # Vite build with BUILD_TARGET=electron so vite.config.ts:
   #   (a) sets base to "./" (relative paths, required by Electron's file://)
@@ -187,7 +216,23 @@ function Build-Portable {
   Copy-Item -Path (Join-Path $PSScriptRoot "dist") `
             -Destination (Join-Path $stageDir "dist") -Recurse -Force
 
-  # Bundle guitar samples inside dist so Electron can load them via file://
+  # Bundle GM guitar soundfonts inside dist so Electron can load them via
+  # file:// - this is what makes the EXE run fully offline. Skipped if the
+  # user never ran Download-Soundfonts.ps1 (in which case the app will fall
+  # back to the online CDN at runtime).
+  $sfSrc = Join-Path $PSScriptRoot "public\soundfonts"
+  if (Test-Path $sfSrc) {
+    $sfDst = Join-Path $stageDir "dist\soundfonts"
+    New-Item -ItemType Directory -Path $sfDst -Force | Out-Null
+    # Only copy the actual soundfont .js files, not the README.
+    Get-ChildItem -Path $sfSrc -Filter "*-mp3.js" -File -ErrorAction SilentlyContinue |
+      ForEach-Object { Copy-Item -Path $_.FullName -Destination $sfDst -Force }
+    $sfCount = (Get-ChildItem -Path $sfDst -Filter "*-mp3.js" -File -ErrorAction SilentlyContinue).Count
+    Write-Host "Bundled $sfCount soundfont file(s) into the portable app." -ForegroundColor DarkGray
+  }
+
+  # Legacy: bundle old WAV guitar samples if the folder still exists. Not
+  # used by the current app but kept for backwards compat with older builds.
   $samplesSrc = Join-Path $PSScriptRoot "public\guitar samples"
   if (Test-Path $samplesSrc) {
     $samplesDst = Join-Path $stageDir "dist\guitar samples"
@@ -459,6 +504,7 @@ try {
   }
 
   Ensure-Dependencies
+  Ensure-Soundfonts
   Build-WebBundle
 
   switch ($Mode) {
