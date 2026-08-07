@@ -432,7 +432,6 @@ export default function App() {
   const dragSelectingRef = useRef(false);
   const dragSelectAddRef = useRef(true);
   const isDraggingBuilderRef = useRef(false);
-  const justDraggedRef = useRef(false);
 
   useEffect(() => {
     topCodeRef.current = topCode;
@@ -1403,29 +1402,41 @@ export default function App() {
             )}
           </div>
 
-          {/* Two-in-one: click = Save (opens Save As), drag = D&D (drop MIDI into a DAW). */}
+          {/* Save button: click only. Opens the native Save As dialog and
+              writes the MIDI file where the user chooses. */}
+          <button
+            type="button"
+            onClick={() => {
+              void saveMidi();
+            }}
+            title="Save the current chord progression as a .mid file (Save As dialog)."
+            className="rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]"
+          >
+            Save
+          </button>
+
+          {/* D&D button: drag only. Starts an OS-native drag session so the
+              MIDI file can be dropped straight into a DAW (FL Studio, Reaper,
+              Cubase, Ableton) or File Explorer. Clicking it (instead of
+              dragging) shows a friendly hint rather than saving - Save has
+              its own button now, and mixing the two on one control turned
+              out to be fragile (drag-end synthesised clicks, sync/async
+              collisions, unclear failure modes). */}
           <button
             type="button"
             draggable
-            onDragStart={(e) => {
-              justDraggedRef.current = true;
-              dragMidiToDaw(e);
-            }}
-            onDragEnd={() => {
-              // Keep the click-suppression flag alive a bit past dragend so the
-              // synthetic click that follows a drop does not trigger Save.
-              window.setTimeout(() => {
-                justDraggedRef.current = false;
-              }, 250);
-            }}
+            onDragStart={dragMidiToDaw}
             onClick={() => {
-              if (justDraggedRef.current) return;
-              void saveMidi();
+              if (builderRef.current.length === 0) {
+                alert("Chord Progression Builder is empty. Add chords first.");
+                return;
+              }
+              alert("Drag this button into your DAW (or File Explorer) to drop the MIDI file.");
             }}
-            title="Click to Save the MIDI file. Drag this button into your DAW (FL Studio, Reaper, Cubase, Ableton, …) to drop the MIDI file directly."
+            title="Drag this button into your DAW (FL Studio, Reaper, Cubase, Ableton, ...) or into File Explorer to drop the MIDI file directly."
             className="cursor-grab rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] active:cursor-grabbing"
           >
-            Save / D&amp;D
+            D&amp;D
           </button>
 
           {/* Diagnostic button. Reports whether window.desktopBridge (the Electron
