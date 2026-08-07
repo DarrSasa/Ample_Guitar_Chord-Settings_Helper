@@ -1014,36 +1014,27 @@ export default function App() {
     const bridge = (window as any).desktopBridge;
     const isElectron = Boolean(bridge);
 
-    // 1) Electron async path (preferred on desktop EXE).
+    // Electron path (preferred on desktop EXE). Uses the async IPC handler
+    // exclusively. We do NOT fall back to the sync bridge on the same click
+    // - if the user cancelled the dialog, they don't want a second dialog;
+    // and if the async handler failed, the sync one uses the same code path
+    // internally, so calling it again would just open a duplicate dialog.
     if (typeof bridge?.saveMidiFileAsync === "function") {
       try {
         const result = await bridge.saveMidiFileAsync(Array.from(bytes), fileName);
-        // New shape: { ok, canceled, error }. Old shape: boolean.
         if (result && typeof result === "object") {
           if (result.ok) return;
-          if (result.canceled) return; // user hit Cancel – do nothing.
+          if (result.canceled) return; // user hit Cancel or "dialog busy" guard
           console.error("[saveMidi] async bridge error:", result.error);
+          alert("Save failed: " + (result.error || "unknown"));
+          return;
         } else if (result === true) {
           return;
         }
-      } catch (err) {
+      } catch (err: any) {
         console.error("[saveMidi] async bridge threw:", err);
-      }
-    }
-
-    // 2) Electron sync path (older bridge). Same treatment.
-    if (typeof bridge?.saveMidiFile === "function") {
-      try {
-        const result = bridge.saveMidiFile(Array.from(bytes), fileName);
-        if (result && typeof result === "object") {
-          if (result.ok) return;
-          if (result.canceled) return;
-          console.error("[saveMidi] sync bridge error:", result.error);
-        } else if (result === true) {
-          return;
-        }
-      } catch (err) {
-        console.error("[saveMidi] sync bridge threw:", err);
+        alert("Save threw: " + (err && err.message ? err.message : String(err)));
+        return;
       }
     }
 

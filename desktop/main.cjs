@@ -100,6 +100,12 @@ function createWindow() {
 // file the OS is still using for an active drag session.
 let midiTempCounter = 0;
 
+// Separate counter for Save As. The dialog pre-fills the file name field
+// with '1-...', '2-...' etc., but the user is free to rename before
+// confirming. This counter increments only when a save is actually offered
+// (not when the user cancels).
+let midiSaveCounter = 0;
+
 function writeMidiTemp(bytes, fileName) {
   const baseName = fileName || "ample-chord-progression.mid";
   midiTempCounter += 1;
@@ -107,6 +113,14 @@ function writeMidiTemp(bytes, fileName) {
   const outPath = path.join(app.getPath("temp"), safeName);
   fs.writeFileSync(outPath, Buffer.from(bytes));
   return outPath;
+}
+
+// Builds the default path shown in the Save As dialog, prefixed with an
+// incrementing counter so the user gets '1-ample...', '2-ample...' etc.
+function nextSaveDefaultPath(suggestedName) {
+  midiSaveCounter += 1;
+  const prefixed = `${midiSaveCounter}-${suggestedName}`;
+  return path.join(app.getPath("documents"), prefixed);
 }
 
 // Diagnostic round-trip so the UI can verify that IPC actually works.
@@ -137,7 +151,7 @@ function buildSaveDialogOpts(suggestedName) {
   }
   return {
     title: "Save MIDI File",
-    defaultPath: path.join(app.getPath("documents"), suggestedName),
+    defaultPath: nextSaveDefaultPath(suggestedName),
     filters: [
       { name: "MIDI files", extensions: ["mid"] },
       { name: "All files", extensions: ["*"] },
@@ -147,8 +161,8 @@ function buildSaveDialogOpts(suggestedName) {
 }
 
 // Bring the parent window to the foreground so a modal dialog can't open
-// behind it. Uses moveTop/show as a fallback because focus() alone is
-// sometimes ignored on Windows when another app owns focus.
+// behind it. Uses moveTop as a fallback because focus() alone is sometimes
+// ignored on Windows when another app owns focus.
 function bringWindowToFront(win) {
   if (!win) return;
   try {
@@ -159,51 +173,47 @@ function bringWindowToFront(win) {
   } catch { /* best effort */ }
 }
 
-ipcMain.on("save-midi-file", (event, payload) => {
-  try {
-    const bytes = Array.isArray(payload?.bytes) ? payload.bytes : [];
-    if (bytes.length === 0) {
-      event.returnValue = { ok: false, canceled: false, error: "empty" };
-      return;
-    }
+// Guard against re-entrancy. When a user clicks Save a second time while
+// the first dialog is still open (or its promise still pending), Electron
+// on Windows sometimes silently drops the second showSaveDialog request and
+// the user thinks Save "stopped working". Rejecting the concurrent request
+// explicitly is way clearer than a silent no-op.
+let saveDialogInFlight = false;
 
-    const suggestedName = payload?.fileName || "ample-chord-progression.mid";
-    const parent = BrowserWindow.fromWebContents(event.sender);
-    bringWindowToFront(parent);
-    const dialogOpts = buildSaveDialogOpts(suggestedName);
-
-    const result = parent
-      ? dialog.showSaveDialogSync(parent, dialogOpts)
-      : dialog.showSaveDialogSync(dialogOpts);
-
-    if (!result) {
-      event.returnValue = { ok: false, canceled: true };
-      return;
-    }
-
-    fs.writeFileSync(result, Buffer.from(bytes));
-    event.returnValue = { ok: true, canceled: false, filePath: result };
-  } catch (err) {
-    event.returnValue = { ok: false, canceled: false, error: String(err && err.message ? err.message : err) };
-  }
-});
-
-ipcMain.handle("save-midi-file-async", async (event, payload) => {
+async function performSaveDialog(event, payload, mode) {
+  const tag = `[save-midi ${mode}]`;
   try {
     const bytes = Array.isArray(payload?.bytes) ? payload.bytes : [];
     if (bytes.length === 0) {
       return { ok: false, canceled: false, error: "empty" };
     }
+    if (saveDialogInFlight) {
+      console.warn(`${tag} another Save dialog is already open`);
+      return { ok: false, canceled: true, error: "dialog-busy" };
+    }
+    saveDialogInFlight = true;
 
     const suggestedName = payload?.fileName || "ample-chord-progression.mid";
     const parent = BrowserWindow.fromWebContents(event.sender);
     bringWindowToFront(parent);
     const dialogOpts = buildSaveDialogOpts(suggestedName);
+    console.log(`${tag} opening dialog defaultPath=${dialogOpts.defaultPath}`);
 
-    const result = parent
-      ? await dialog.showSaveDialog(parent, dialogOpts)
-      : await dialog.showSaveDialog(dialogOpts);
+    // Always use the async showSaveDialog (Promise-based) - the sync variant
+    // blocks Electron's main-thread message loop and, on Windows, causes
+    // follow-up dialogs to silently no-op. See:
+    //   https://github.com/electron/electron/issues/25400
+    // We wrap with try/finally so the in-flight flag is always cleared.
+    let result;
+    try {
+      result = parent
+        ? await dialog.showSaveDialog(parent, dialogOpts)
+        : await dialog.showSaveDialog(dialogOpts);
+    } finally {
+      saveDialogInFlight = false;
+    }
 
+    console.log(`${tag} dialog closed canceled=${result.canceled} filePath=${result.filePath || ""}`);
     if (result.canceled || !result.filePath) {
       return { ok: false, canceled: true };
     }
@@ -211,8 +221,27 @@ ipcMain.handle("save-midi-file-async", async (event, payload) => {
     fs.writeFileSync(result.filePath, Buffer.from(bytes));
     return { ok: true, canceled: false, filePath: result.filePath };
   } catch (err) {
+    saveDialogInFlight = false;
+    console.error(`${tag} threw:`, err);
     return { ok: false, canceled: false, error: String(err && err.message ? err.message : err) };
   }
+}
+
+// Sync (sendSync) entry point. Kept for backwards compat with older
+// renderers that call bridge.saveMidiFile - internally still async, we
+// just block the sync IPC until the promise resolves.
+ipcMain.on("save-midi-file", async (event, payload) => {
+  // sendSync waits for event.returnValue to be assigned. We can't await
+  // inside a sendSync handler without freezing the renderer, so we route
+  // sync callers to the async handler and hint them to migrate.
+  console.warn("[save-midi-file] sync bridge path is deprecated; use saveMidiFileAsync");
+  event.returnValue = { ok: false, canceled: false, error: "use-async" };
+  // Also run the async handler so the dialog still opens for these callers.
+  void performSaveDialog(event, payload, "sync-fallback");
+});
+
+ipcMain.handle("save-midi-file-async", (event, payload) => {
+  return performSaveDialog(event, payload, "async");
 });
 
 ipcMain.on("render-midi-temp", (event, payload) => {
