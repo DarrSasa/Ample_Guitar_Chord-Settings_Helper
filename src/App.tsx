@@ -19,8 +19,16 @@ type BuilderChord = {
 };
 
 type Snapshot = {
+  // Row code we scrolled to when this snapshot was recorded (used for
+  // Undo/Redo to restore the scroll position).
   topCode: number;
   guideCode: number | null;
+  // Full display label of the chord that CAUSED this snapshot (e.g.
+  // "C Maj 7 #11"). Previously the history bar reconstructed the label
+  // from just `topCode`, which lost extension/alteration/bass - so a
+  // "C Maj 7 #11" click showed as "C Maj". Storing the label at record
+  // time keeps the bar honest about what the user actually clicked.
+  label?: string;
 };
 
 type ContextMenuState = {
@@ -386,6 +394,12 @@ export default function App() {
   const dragSelectAddRef = useRef(true);
   const isDraggingBuilderRef = useRef(false);
 
+  // Set to true while a progression-chord button is being dragged, so the
+  // synthetic onClick that some browsers fire immediately after dragend
+  // does not ALSO add the chord to the Builder (which would produce two
+  // or three copies of the chord from a single user gesture).
+  const isDraggingProgressionRef = useRef(false);
+
   useEffect(() => {
     topCodeRef.current = topCode;
   }, [topCode]);
@@ -716,8 +730,8 @@ export default function App() {
     console.debug("[Sampler] No WAV sample and no soundfont available for", guitarPreset.name);
   };
 
-  const recordSnapshot = (nextTopCode: number, nextGuideCode: number | null) => {
-    pushSnapshot({ topCode: nextTopCode, guideCode: nextGuideCode });
+  const recordSnapshot = (nextTopCode: number, nextGuideCode: number | null, label?: string) => {
+    pushSnapshot({ topCode: nextTopCode, guideCode: nextGuideCode, label });
   };
 
   const addChordToBuilderAndRecord = (label: string, targetCode: number, insertIndex?: number) => {
@@ -737,8 +751,14 @@ export default function App() {
     // the Builder (and to the Builder's own Undo/Redo stack), but the
     // Scroll On History bar stays untouched - that's the "scrolling
     // history" the user is building intentionally.
+    //
+    // We pass the full chord `label` here (which is what the user clicked/
+    // dropped, e.g. "C Maj 7 #11 /E"). The history bar previously showed
+    // "C Maj" because it rebuilt the label from just the target row's
+    // root+type, losing extension/alteration/bass. Now the bar shows the
+    // exact chord that was added.
     if (scrollFollowMode) {
-      recordSnapshot(targetCode, guideCodeRef.current);
+      recordSnapshot(targetCode, guideCodeRef.current, label);
     }
 
     if (!scrollFollowMode) {
@@ -952,13 +972,27 @@ export default function App() {
     applySnapshot(snap, nextIndex);
   };
 
-  const historyCodes = useMemo(() => {
-    const codes: number[] = [];
-    snapshots.forEach((snap) => {
-      if (codes[codes.length - 1] !== snap.topCode) codes.push(snap.topCode);
+  // One block per snapshot, with the exact label recorded when the user
+  // clicked/dropped that chord. Previously we deduped by `topCode` alone,
+  // which meant two clicks on different chords sharing the same row (e.g.
+  // "C Maj" then "C Maj 7") collapsed into one block - the second click
+  // silently disappeared from history. Now every snapshot gets its own
+  // block, but we still collapse a genuine repeat (exact same code AND
+  // label) so quickly scrolling to the same chord twice doesn't spam
+  // the bar.
+  const historyItems = useMemo(() => {
+    const items: Array<{ code: number; label: string; snapshotIndex: number }> = [];
+    snapshots.forEach((snap, i) => {
+      const row = rowByCode.get(snap.topCode);
+      const fallbackLabel = row ? chordDisplay(row) : `#${snap.topCode}`;
+      const label = snap.label || fallbackLabel;
+      const last = items[items.length - 1];
+      if (!last || last.code !== snap.topCode || last.label !== label) {
+        items.push({ code: snap.topCode, label, snapshotIndex: i });
+      }
     });
-    return codes;
-  }, [snapshots]);
+    return items;
+  }, [snapshots, rowByCode]);
 
   const getCurrentMidiBytes = () => {
     if (builderRef.current.length === 0) {
@@ -1185,26 +1219,30 @@ export default function App() {
 
         <div className="overflow-x-auto border border-black bg-white/70 px-2 py-2">
           <div className="flex min-h-12 items-center" style={{ gap: HISTORY_GAP }}>
-            {historyCodes.map((code, pickIndex) => {
-              const row = rowByCode.get(code);
-              if (!row) return null;
-              const blockLabel = `${row.root} ${row.type}`;
+            {historyItems.map((item, pickIndex) => {
+              const { code, label: blockLabel } = item;
               const selected = guidePickIndex === pickIndex;
 
               return (
                 <button
-                  key={`history-${code}`}
+                  key={`history-${pickIndex}-${code}`}
                   type="button"
                   className={`h-9 min-w-[118px] border border-black px-2 text-left text-xs ${
                     selected ? "bg-green-300 shadow-[0_0_10px_#4df72c]" : "bg-[#bae3b4]"
                   }`}
                   onClick={() => {
                     if (startActive) {
+                      // Start mode: mark this history block as the "guide"
+                      // chord (turns green with a glow). Also push a fresh
+                      // snapshot pinned to this block's own code+label, so
+                      // Undo/Redo lands the user back on the chord they
+                      // guided TO, not wherever they happened to be
+                      // scrolled at the moment of the click.
                       setGuideCode(code);
                       setGuidePickIndex(pickIndex);
-                      pushSnapshot({ topCode: topCodeRef.current, guideCode: code });
+                      pushSnapshot({ topCode: code, guideCode: code, label: blockLabel });
                     } else {
-                      recordSnapshot(code, guideCodeRef.current);
+                      recordSnapshot(code, guideCodeRef.current, blockLabel);
                       scrollToCode(code, "smooth");
                     }
                   }}
@@ -1485,7 +1523,14 @@ export default function App() {
             if (!label) return;
             e.preventDefault();
             const insertIndex = findBuilderInsertIndex(e.clientX);
-            addChordToBuilderAndRecord(label, topCodeRef.current, insertIndex);
+            // Prefer the source row's code (stashed at dragstart) so the
+            // history bar records the dragged chord's own code - falling back
+            // to topCodeRef (the row at the top of the visible table) only if
+            // the stash is missing, which shouldn't happen for our own drags.
+            const codeStr = e.dataTransfer.getData("application/x-progression-code");
+            const droppedCode = codeStr ? Number(codeStr) : NaN;
+            const targetCode = Number.isFinite(droppedCode) ? droppedCode : topCodeRef.current;
+            addChordToBuilderAndRecord(label, targetCode, insertIndex);
           }}
           onContextMenu={(e) => {
             e.preventDefault();
@@ -1648,9 +1693,40 @@ export default function App() {
                             onDragStart={(e) => {
                               e.dataTransfer.effectAllowed = "copy";
                               e.dataTransfer.setData("application/x-progression-chord", nextChord.label);
+                              // Also stash the target row's code as a separate
+                              // MIME so the drop handler can record the SNAPSHOT
+                              // with the dragged chord's own code, not the
+                              // topCode (=row at the top of the visible table)
+                              // which was completely unrelated.
+                              const targetRow = rowById.get(nextChord.rowId);
+                              if (targetRow) {
+                                e.dataTransfer.setData(
+                                  "application/x-progression-code",
+                                  String(targetRow.code)
+                                );
+                              }
                               e.dataTransfer.setData("text/plain", nextChord.label);
+                              // Guard the click handler that may fire after
+                              // dragend on some browsers - see ref definition.
+                              isDraggingProgressionRef.current = true;
+                            }}
+                            onDragEnd={() => {
+                              // Clear the guard after the synthetic click has
+                              // had a chance to fire and be swallowed. 250ms
+                              // is safely past the browser's synthetic-click
+                              // window on all common desktop browsers.
+                              window.setTimeout(() => {
+                                isDraggingProgressionRef.current = false;
+                              }, 250);
                             }}
                             onClick={() => {
+                              // A synthetic click after dragend must NOT add
+                              // the chord again - the drop handler already
+                              // did that. This is the single biggest source
+                              // of the "two/three chords appear from one
+                              // click" bug the user hit.
+                              if (isDraggingProgressionRef.current) return;
+
                               setActiveBtn(btnId);
 
                               if (auditionMode) {
