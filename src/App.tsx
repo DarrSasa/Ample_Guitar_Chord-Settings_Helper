@@ -1195,6 +1195,34 @@ export default function App() {
       return;
     }
 
+    // Diagnostic: count NoteOn events (status byte 0x90-0x9f) in the actual
+    // bytes we're about to hand off to the OS Save dialog. If this count
+    // does NOT match the total number of notes we expect from the chord
+    // labels, the bug is in this function or createMidiFile. If it DOES
+    // match but the .mid file on disk looks smaller, the bug is in the
+    // Electron write path or in whatever the user opens the file with.
+    let noteOnCount = 0;
+    const noteNumbers: number[] = [];
+    for (let i = 0; i < bytes.length; i++) {
+      const b = bytes[i];
+      if (b >= 0x90 && b <= 0x9f && i + 2 < bytes.length && bytes[i + 2] > 0) {
+        noteOnCount++;
+        noteNumbers.push(bytes[i + 1]);
+      }
+    }
+    const expectedNotes = builderRef.current.reduce((sum, c) => sum + chordNotes(c.label).length, 0);
+    console.log(
+      `[saveMidi] noteOn events in bytes: ${noteOnCount}, expected ${expectedNotes}`,
+      noteNumbers
+    );
+    if (noteOnCount !== expectedNotes) {
+      alert(
+        `Diagnostic: MIDI bytes contain ${noteOnCount} NoteOn events but ${expectedNotes} were expected.\n` +
+        `Notes in bytes: ${noteNumbers.map(midiToNoteName).join(", ")}\n` +
+        `Save will continue - open the .mid in a MIDI viewer to confirm.`
+      );
+    }
+
     const fileName = "ample-chord-progression.mid";
     const bridge = (window as any).desktopBridge;
     const isElectron = Boolean(bridge);
@@ -1284,6 +1312,19 @@ export default function App() {
     // sometimes miss that window.
     if (bridge && typeof bridge.midiDrag === "function") {
       try {
+        // Same NoteOn-count diagnostic as saveMidi does, so a drag that
+        // silently produces the wrong file can be caught without opening
+        // a DAW.
+        let noteOnCount = 0;
+        for (let i = 0; i < bytes.length; i++) {
+          const b = bytes[i];
+          if (b >= 0x90 && b <= 0x9f && i + 2 < bytes.length && bytes[i + 2] > 0) {
+            noteOnCount++;
+          }
+        }
+        const expectedNotes = builderRef.current.reduce((sum, c) => sum + chordNotes(c.label).length, 0);
+        console.log(`[dragMidiToDaw] noteOn events: ${noteOnCount}, expected ${expectedNotes}`);
+
         const result = bridge.midiDrag(Array.from(bytes), fileName);
         console.log("[dragMidiToDaw] midiDrag ->", result);
         // In Electron the OS owns the drag now. Always preventDefault so
@@ -1293,7 +1334,8 @@ export default function App() {
         if (!result || result.ok !== true) {
           alert(
             "Drag failed to start.\n\n" +
-            (result && result.error ? "Reason: " + result.error : "No details.")
+            (result && result.error ? "Reason: " + result.error : "No details.") +
+            `\n\n(NoteOn events in bytes: ${noteOnCount}, expected ${expectedNotes})`
           );
         }
         return;
