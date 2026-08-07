@@ -140,7 +140,13 @@ function Build-Portable {
 
   Write-Section "PORTABLE build"
 
+  # Public/display name - what the user sees on the EXE, shortcut, taskbar.
   $appName = "Ample Guitar Chord Progression Helper"
+  # Internal name passed to @electron/packager. It refuses anything ending
+  # in " Helper" (macOS reserves that suffix for helper processes), so we
+  # feed it a neutral name and then rename the produced folder to appName.
+  $packagerAppName = "Ample Guitar Chord Progression App"
+
   $outDir = Join-Path $PSScriptRoot "portable-out"
   $stageDir = Join-Path $PSScriptRoot ".desktop-build\app"
 
@@ -184,10 +190,13 @@ function Build-Portable {
     throw "electron-packager not found. Run 'npm install' first (or omit -SkipInstall)."
   }
 
+  # NOTE: pass the neutral $packagerAppName here to sidestep the macOS
+  # " Helper" suffix rule inside @electron/packager, and set the executable
+  # name to the public $appName so the .exe on disk is still nicely named.
   $packArgs = @(
     $packagerBin,
     $stageDir,
-    $appName,
+    $packagerAppName,
     "--platform=win32",
     "--arch=x64",
     "--overwrite",
@@ -199,7 +208,16 @@ function Build-Portable {
 
   Invoke-Native -File "node" -Arguments $packArgs
 
-  $exeFolder = Join-Path $outDir "$appName-win32-x64"
+  # Packager produces "<PackagerAppName>-win32-x64". Rename to the public
+  # app name folder so the portable folder feels branded to the end user.
+  $packagedFolder = Join-Path $outDir "$packagerAppName-win32-x64"
+  $exeFolder      = Join-Path $outDir "$appName-win32-x64"
+  if (-not (Test-Path $packagedFolder)) {
+    throw "Packager did not produce the expected folder: $packagedFolder"
+  }
+  if (Test-Path $exeFolder) { Remove-Item $exeFolder -Recurse -Force }
+  Rename-Item -LiteralPath $packagedFolder -NewName (Split-Path $exeFolder -Leaf)
+
   $exePath = Join-Path $exeFolder "$appName.exe"
   if (-not (Test-Path $exePath)) {
     throw "Portable EXE was not produced at expected path: $exePath"
