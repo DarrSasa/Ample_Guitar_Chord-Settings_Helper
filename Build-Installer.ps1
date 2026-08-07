@@ -1,20 +1,20 @@
-# =============================================================================
-# Ample Guitar Chord Progression Helper — Windows build script
+﻿# =============================================================================
+# Ample Guitar Chord Progression Helper - Windows build script
 #
 # Two build modes:
-#   1) Portable  — single .exe you can double-click, no installation. Fast.
-#   2) Installer — NSIS setup.exe with Start Menu + Desktop shortcuts. Slower.
+#   1) Portable  - single .exe you can double-click, no installation. Fast.
+#   2) Installer - NSIS setup.exe with Start Menu + Desktop shortcuts. Slower.
 #
 # Usage from PowerShell in the project folder:
-#   .\Build-Installer.ps1                  # interactive menu
-#   .\Build-Installer.ps1 -Mode Portable   # just the portable EXE
-#   .\Build-Installer.ps1 -Mode Installer  # just the NSIS installer
-#   .\Build-Installer.ps1 -Mode Both       # both, portable first
+#   .\Build-Installer.ps1                        (interactive menu)
+#   .\Build-Installer.ps1 -Mode Portable         (just the portable EXE)
+#   .\Build-Installer.ps1 -Mode Installer        (just the NSIS installer)
+#   .\Build-Installer.ps1 -Mode Both             (both, portable first)
 #   .\Build-Installer.ps1 -Mode Portable -IconPath "C:\path\app.ico"
-#   .\Build-Installer.ps1 -Mode Installer -SkipInstall   # skip npm install
+#   .\Build-Installer.ps1 -Mode Portable -SkipInstall
 #
 # Fixes the "2.7z produced no files" error some users saw when NSIS/MSI
-# downloads got corrupted: we now purge the broken cache and retry.
+# downloads got corrupted: we purge the broken cache and retry.
 # =============================================================================
 
 param(
@@ -82,7 +82,8 @@ function Invoke-Native {
   )
   & $File @Arguments
   if ($LASTEXITCODE -ne 0) {
-    throw "Command failed ($LASTEXITCODE): $File $($Arguments -join ' ')"
+    $joined = [string]::Join(' ', $Arguments)
+    throw "Command failed ($LASTEXITCODE): $File $joined"
   }
 }
 
@@ -102,13 +103,13 @@ function Resolve-IconPath {
 
 function Ensure-Dependencies {
   if ($SkipInstall) {
-    Write-Host "Skipping npm install (--SkipInstall)." -ForegroundColor DarkGray
+    Write-Host "Skipping npm install (-SkipInstall)." -ForegroundColor DarkGray
     return
   }
   $nm = Join-Path $PSScriptRoot "node_modules"
   $viteBin = Join-Path $nm "vite\bin\vite.js"
   if ((Test-Path $nm) -and (Test-Path $viteBin)) {
-    Write-Host "node_modules present — skipping npm install." -ForegroundColor DarkGray
+    Write-Host "node_modules present - skipping npm install." -ForegroundColor DarkGray
     return
   }
   Write-Step "Installing dependencies (npm install)"
@@ -117,7 +118,7 @@ function Ensure-Dependencies {
 
 function Build-WebBundle {
   # Vite build with BUILD_TARGET=electron so vite.config.ts activates the
-  # singleFile plugin — Electron's main.cjs loads dist/index.html via file://
+  # singleFile plugin. Electron main.cjs loads dist/index.html via file://
   # and needs everything inlined.
   Write-Step "Building the web bundle (vite build, single-file for Electron)"
   $prev = $env:BUILD_TARGET
@@ -131,7 +132,7 @@ function Build-WebBundle {
 }
 
 # ---------------------------------------------------------------------------
-# Portable build (fast — uses @electron/packager)
+# Portable build (fast - uses @electron/packager)
 # ---------------------------------------------------------------------------
 
 function Build-Portable {
@@ -169,7 +170,8 @@ function Build-Portable {
     main    = "desktop/main.cjs"
     author  = "Ample Guitar Chord Progression Helper"
   } | ConvertTo-Json -Depth 4
-  # UTF-8 without BOM — Electron's package.json reader does not like a BOM.
+
+  # UTF-8 without BOM. Electron package.json reader does not like a BOM.
   $stagePkgPath = Join-Path $stageDir "package.json"
   [System.IO.File]::WriteAllText($stagePkgPath, $stagePkg, [System.Text.UTF8Encoding]::new($false))
 
@@ -207,12 +209,12 @@ function Build-Portable {
   Write-Host "  Folder: $exeFolder" -ForegroundColor Green
   Write-Host "  EXE:    $exePath" -ForegroundColor Green
   Write-Host ""
-  Write-Host "  Tip: the whole folder is portable — copy it anywhere and run the .exe." -ForegroundColor DarkGray
+  Write-Host "  Tip: the whole folder is portable - copy it anywhere and run the .exe." -ForegroundColor DarkGray
   return $exeFolder
 }
 
 # ---------------------------------------------------------------------------
-# Installer build (NSIS only — MSI is skipped because it caused the
+# Installer build (NSIS only - MSI is skipped because it caused the
 # '2.7z produced no files' error some users reported)
 # ---------------------------------------------------------------------------
 
@@ -248,11 +250,11 @@ function Build-Installer {
 
   $appName = "Ample Guitar Chord Progression Helper"
 
-  # If the caller hasn't built the portable app yet, do it now — the installer
+  # If the caller has not built the portable app yet, do it now. The installer
   # is packaged from that folder (--prepackaged) which is much faster and
   # avoids electron-builder re-downloading Electron.
   if (-not $PortableExeFolder -or -not (Test-Path $PortableExeFolder)) {
-    Write-Host "Portable build missing — building it first as installer input." -ForegroundColor DarkGray
+    Write-Host "Portable build missing - building it first as installer input." -ForegroundColor DarkGray
     $PortableExeFolder = Build-Portable -IconResolved $IconResolved
   }
 
@@ -298,18 +300,18 @@ function Build-Installer {
       win             = $win
       electronVersion = $electronVersion
       nsis            = [ordered]@{
-        oneClick                          = $false
+        oneClick                           = $false
         allowToChangeInstallationDirectory = $true
-        createDesktopShortcut             = $true
-        createStartMenuShortcut           = $true
-        shortcutName                      = $appName
-        runAfterFinish                    = $false
+        createDesktopShortcut              = $true
+        createStartMenuShortcut            = $true
+        shortcutName                       = $appName
+        runAfterFinish                     = $false
       }
       artifactName    = "AmpleInstaller.exe"
     }
   }
   $installerJson = $installerConfig | ConvertTo-Json -Depth 12
-  # Write as UTF-8 WITHOUT BOM — electron-builder chokes on a BOM in package.json.
+  # UTF-8 without BOM - electron-builder chokes on a BOM in package.json.
   $installerPkgPath = Join-Path $installerProjectDir "package.json"
   [System.IO.File]::WriteAllText($installerPkgPath, $installerJson, [System.Text.UTF8Encoding]::new($false))
 
@@ -318,7 +320,7 @@ function Build-Installer {
   Purge-ElectronBuilderCache
 
   # electron-builder normally validates every dependency version against
-  # npm — that fails on offline / slow networks. Turn it off.
+  # npm. That fails on offline / slow networks. Turn it off.
   $env:USE_HARD_LINKS = "false"
   $env:ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES = "true"
   $env:ELECTRON_BUILDER_CACHE = Join-Path $env:LOCALAPPDATA "electron-builder\Cache"
@@ -343,7 +345,8 @@ function Build-Installer {
       Invoke-Native -File "node" -Arguments $builderArgs
       break
     } catch {
-      Write-Host "Attempt $attempt failed: $($_.Exception.Message)" -ForegroundColor DarkYellow
+      $msg = $_.Exception.Message
+      Write-Host "Attempt $attempt failed: $msg" -ForegroundColor DarkYellow
       if ($attempt -eq $maxAttempts) {
         throw "NSIS installer build failed after $maxAttempts attempts. See messages above."
       }
@@ -369,12 +372,12 @@ function Build-Installer {
 # ---------------------------------------------------------------------------
 
 function Show-Menu {
-  Write-Section "Ample Guitar Chord Progression Helper — Build Menu"
+  Write-Section "Ample Guitar Chord Progression Helper - Build Menu"
   Write-Host ""
-  Write-Host "  1) Portable EXE only     (fast — recommended for D&D testing)" -ForegroundColor White
-  Write-Host "  2) NSIS installer only   (slower — makes a Setup.exe)"          -ForegroundColor White
-  Write-Host "  3) Both (portable first, then installer)"                       -ForegroundColor White
-  Write-Host "  Q) Quit"                                                        -ForegroundColor White
+  Write-Host "  1) Portable EXE only     (fast, recommended for D and D testing)" -ForegroundColor White
+  Write-Host "  2) NSIS installer only   (slower, makes a Setup.exe)"              -ForegroundColor White
+  Write-Host "  3) Both (portable first, then installer)"                          -ForegroundColor White
+  Write-Host "  Q) Quit"                                                           -ForegroundColor White
   Write-Host ""
   do {
     $choice = Read-Host "Choose 1, 2, 3 or Q"
@@ -393,11 +396,11 @@ function Show-Menu {
 # ---------------------------------------------------------------------------
 
 try {
-  Write-Section "Ample Guitar Chord Progression Helper — Windows build"
+  Write-Section "Ample Guitar Chord Progression Helper - Windows build"
   Write-Host "Project folder: $PSScriptRoot"
 
   Assert-Command -Name "node" -Hint "Install Node.js LTS from https://nodejs.org"
-  Assert-Command -Name "npm.cmd" -Hint "npm ships with Node.js — reinstall Node if missing."
+  Assert-Command -Name "npm.cmd" -Hint "npm ships with Node.js - reinstall Node if missing."
 
   if ($Mode -eq "Menu") { $Mode = Show-Menu }
   if ($Mode -eq "Quit") {
