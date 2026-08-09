@@ -563,10 +563,42 @@ function TimeBar(props: {
     >
       <div className="relative h-full" style={{ width: `${rulerWidthPx}px` }}>
         {barNumbers}
-        <div
-          className="pointer-events-none absolute top-0 z-10 h-0 w-0 border-l-[6px] border-r-[6px] border-t-[10px] border-b-0 border-l-transparent border-r-transparent border-t-[#ff8827] drop-shadow-[0_0_8px_#ff8827]"
-          style={{ left: `${Math.max(0, playheadX - 6)}px` }}
-        />
+        {/* Playhead triangle. Sized so the TRIANGLE occupies the BOTTOM
+            half of the Time Bar and its downward tip sits exactly on the
+            Time Bar's bottom edge - which is also the top edge of the
+            vertical playhead line drawn in the chord strip below. The
+            two visually snap together into one continuous marker.
+            Triangle height = TIME_BAR_HEIGHT / 2. Triangle width chosen
+            so the shape looks balanced (a bit less than the height).
+            The base width is half the height (~half-height triangle
+            proportion) matched to the arrow-cursor style playheads used
+            in DAWs. */}
+        {(() => {
+          const triH = Math.round(TIME_BAR_HEIGHT / 2);   // 24 px
+          const triW = Math.round(TIME_BAR_HEIGHT * 0.4); // 19 px total base
+          const triTop = TIME_BAR_HEIGHT - triH;          // 24 px from top
+          return (
+            <div
+              className="pointer-events-none absolute z-10"
+              style={{
+                left: `${Math.max(0, playheadX - triW / 2)}px`,
+                top: `${triTop}px`,
+                width: 0,
+                height: 0,
+                borderLeftWidth: `${triW / 2}px`,
+                borderRightWidth: `${triW / 2}px`,
+                borderTopWidth: `${triH}px`,
+                borderBottomWidth: 0,
+                borderLeftColor: "transparent",
+                borderRightColor: "transparent",
+                borderTopColor: "#ff8827",
+                borderBottomColor: "transparent",
+                borderStyle: "solid",
+                filter: "drop-shadow(0 0 8px #ff8827)",
+              }}
+            />
+          );
+        })()}
       </div>
     </div>
   );
@@ -623,20 +655,39 @@ function BuilderGrid(props: {
 // the pointer enters a small hot zone near either extremity, so users get
 // feedback that the edge is grabbable even before crossing the exact
 // pixel boundary.
+// Horizontal zoom slider drawn between the Time Bar and the Builder
+// chord strip. Purely grey per user request. Visually it's:
+//
+//    [dark-grey track ...................................................]
+//              [light-grey thumb <=====================> ]
+//              ^ handle                                 ^ handle
+//
+// The thumb is centred inside the track. Dragging either handle inward
+// (toward the centre) shrinks the thumb which means ZOOM IN (chords
+// stretch to fill more room). Dragging outward (toward an edge) widens
+// the thumb which means ZOOM OUT (chords compress). Double-click on
+// the bar resets zoom to 1x.
+//
+// Cursor behaviour: an ew-resize hot zone extends OUTSIDE each visible
+// handle so the "double arrow" cursor appears BEFORE the user reaches
+// the exact pixel edge, as requested.
+//
+// The zoom action does not depend on the Builder having any chords -
+// the slider is always interactive.
 function ZoomSlider(props: {
   zoom: number;
   onZoomChange: (z: number) => void;
   minZoom?: number;
   maxZoom?: number;
 }) {
-  const { zoom, onZoomChange } = props;
   const minZoom = props.minZoom ?? 0.25;
   const maxZoom = props.maxZoom ?? 8;
+  const { zoom, onZoomChange } = props;
 
-  // Map zoom -> thumb width fraction in [0..1]. zoom=1 -> full width
-  // (100%). Larger zoom shrinks the thumb; smaller zoom widens it up to
-  // a comfortable cap.
-  //   thumbFrac = 1 / zoom, clamped to [1/maxZoom, 1]
+  // thumb width fraction = 1/zoom, clamped so it stays draggable
+  //   zoom=1     -> thumb is FULL width  (no zoom)
+  //   zoom=maxZoom -> thumb is 1/maxZoom width (heavily zoomed in)
+  //   zoom=minZoom -> thumb is 1/minZoom (>1) -> clamped to 1 (=full)
   const thumbFrac = Math.min(1, Math.max(1 / maxZoom, 1 / zoom));
 
   const trackRef = useRef<HTMLDivElement | null>(null);
@@ -650,21 +701,15 @@ function ZoomSlider(props: {
       const rect = track.getBoundingClientRect();
       const trackWidth = rect.width;
       if (trackWidth <= 0) return;
-
-      // The thumb is centred in the track. When we drag an edge, we're
-      // changing the DISTANCE from that edge to the track's centre; the
-      // opposite edge mirrors symmetrically. So the thumb width becomes
-      // 2 * (distance from centre to the dragged edge).
       const centre = rect.left + trackWidth / 2;
-      let edgeDist: number;
-      if (dragEdge === "right") {
-        edgeDist = Math.max(0, e.clientX - centre);
-      } else {
-        edgeDist = Math.max(0, centre - e.clientX);
-      }
+      const edgeDist =
+        dragEdge === "right"
+          ? Math.max(0, e.clientX - centre)
+          : Math.max(0, centre - e.clientX);
       const newThumbWidth = Math.min(trackWidth, edgeDist * 2);
-      const newFrac = Math.max(1 / props.maxZoom!, newThumbWidth / trackWidth);
-      // Convert thumb fraction back to zoom: zoom = 1 / frac. Clamp.
+      // Prevent thumb width from collapsing to zero - keep at least
+      // 1/maxZoom fraction so the user can always drag it back out.
+      const newFrac = Math.max(1 / maxZoom, newThumbWidth / trackWidth);
       const newZoom = Math.min(maxZoom, Math.max(minZoom, 1 / newFrac));
       onZoomChange(newZoom);
     };
@@ -675,60 +720,77 @@ function ZoomSlider(props: {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseup", onUp);
     };
-  }, [dragEdge, minZoom, maxZoom, onZoomChange, props.maxZoom]);
+  }, [dragEdge, minZoom, maxZoom, onZoomChange]);
 
   const thumbLeftPct = (100 - thumbFrac * 100) / 2;
   const thumbWidthPct = thumbFrac * 100;
-  // Hot zone width (px) around each edge where the cursor becomes
-  // ew-resize before actually reaching the edge - matches user's
-  // "cursor changes a little before reaching the tip" requirement.
-  const HOT_ZONE = 10;
+  // Hot zone size (px) around each edge where the cursor becomes
+  // ew-resize before actually reaching the visible edge - the
+  // "cursor changes a little before reaching the tip" bit.
+  const HOT_ZONE = 14;
+  // Bar visual height - tall enough to be obviously grabbable.
+  const BAR_HEIGHT = 22;
+  // Handle grip visual width.
+  const HANDLE_W = 8;
 
   return (
     <div
       ref={trackRef}
-      className="relative w-full select-none border border-black bg-[#d6d3c9]"
-      style={{ height: 14 }}
+      className="relative w-full select-none border border-black"
+      style={{ height: BAR_HEIGHT, background: "#8a8a8a" }}
       onDoubleClick={() => onZoomChange(1)}
-      title="Drag the edges to zoom. Double-click to reset to 1x."
+      title="Drag the handles to zoom horizontally. Double-click to reset."
     >
-      {/* Thumb (the bright inner strip that represents the current
-          viewport). Its width shrinks as zoom increases. */}
+      {/* Thumb: light grey. Width shrinks as zoom increases. */}
       <div
-        className="absolute top-0 h-full bg-[#FCBF8D] border-l border-r border-black"
-        style={{ left: `${thumbLeftPct}%`, width: `${thumbWidthPct}%` }}
+        className="absolute top-0 h-full border-l border-r border-black"
+        style={{
+          left: `${thumbLeftPct}%`,
+          width: `${thumbWidthPct}%`,
+          background: "#c4c4c4",
+        }}
       />
-      {/* Left handle hot zone. Wider than the visible edge so ew-resize
-          shows up "a bit before" the tip, per user request. */}
+      {/* Left visible handle grip (darker grey rectangle). */}
+      <div
+        className="pointer-events-none absolute top-0 h-full border-l border-r border-black"
+        style={{
+          left: `calc(${thumbLeftPct}% - ${HANDLE_W / 2}px)`,
+          width: `${HANDLE_W}px`,
+          background: "#4a4a4a",
+        }}
+      />
+      {/* Right visible handle grip. */}
+      <div
+        className="pointer-events-none absolute top-0 h-full border-l border-r border-black"
+        style={{
+          left: `calc(${thumbLeftPct + thumbWidthPct}% - ${HANDLE_W / 2}px)`,
+          width: `${HANDLE_W}px`,
+          background: "#4a4a4a",
+        }}
+      />
+      {/* Left hot zone (invisible, wider than the handle) - flips cursor
+          to ew-resize a bit before the tip, then starts the drag on
+          mousedown. */}
       <div
         onMouseDown={(e) => { e.preventDefault(); setDragEdge("left"); }}
         className="absolute top-0 h-full cursor-ew-resize"
         style={{
-          left: `calc(${thumbLeftPct}% - ${HOT_ZONE / 2}px)`,
-          width: `${HOT_ZONE}px`,
-          zIndex: 2,
+          left: `calc(${thumbLeftPct}% - ${HOT_ZONE}px)`,
+          width: `${HOT_ZONE * 2}px`,
+          zIndex: 3,
         }}
-        title="Drag to zoom in / out"
+        title="Drag to zoom horizontally"
       />
-      {/* Right handle hot zone. */}
+      {/* Right hot zone. */}
       <div
         onMouseDown={(e) => { e.preventDefault(); setDragEdge("right"); }}
         className="absolute top-0 h-full cursor-ew-resize"
         style={{
-          left: `calc(${thumbLeftPct + thumbWidthPct}% - ${HOT_ZONE / 2}px)`,
-          width: `${HOT_ZONE}px`,
-          zIndex: 2,
+          left: `calc(${thumbLeftPct + thumbWidthPct}% - ${HOT_ZONE}px)`,
+          width: `${HOT_ZONE * 2}px`,
+          zIndex: 3,
         }}
-        title="Drag to zoom in / out"
-      />
-      {/* Two visible grip marks at the edges (purely decorative). */}
-      <div
-        className="pointer-events-none absolute top-0 h-full w-[3px] bg-black opacity-70"
-        style={{ left: `calc(${thumbLeftPct}% - 1px)` }}
-      />
-      <div
-        className="pointer-events-none absolute top-0 h-full w-[3px] bg-black opacity-70"
-        style={{ left: `calc(${thumbLeftPct + thumbWidthPct}% - 2px)` }}
+        title="Drag to zoom horizontally"
       />
     </div>
   );
@@ -1029,6 +1091,13 @@ export default function App() {
     return "Bar";
   });
   const [snapMenuOpen, setSnapMenuOpen] = useState(false);
+  // Ref mirror of `snap` so functions with stale closures (drag/drop
+  // handlers that capture snap at render time) always see the latest
+  // value. Without this the beats-for-new-chord calculation used the
+  // snap that was active when the handler function was created, not
+  // the one active when the user actually dropped a chord.
+  const snapRef = useRef(snap);
+  useEffect(() => { snapRef.current = snap; }, [snap]);
 
   useEffect(() => {
     try { localStorage.setItem("snap", snap); } catch { /* ignore */ }
@@ -1576,7 +1645,7 @@ export default function App() {
     // New chord gets its duration from the CURRENT snap value. Existing
     // chords keep whatever beats they were added with (that's why we
     // store `beats` per chord and never rewrite it when snap changes).
-    const beatsForNewChord = snapDurationBeats(snap);
+    const beatsForNewChord = snapDurationBeats(snapRef.current);
     const nextBuilder = [
       ...base.slice(0, safeIndex),
       { id: crypto.randomUUID(), label, beats: beatsForNewChord },
@@ -1638,7 +1707,7 @@ export default function App() {
     }
     const safeIndex = Math.max(0, Math.min(insertIndex ?? base.length, base.length));
     // All chords in the batch get the same beats value (the current Snap).
-    const beatsForNewChord = snapDurationBeats(snap);
+    const beatsForNewChord = snapDurationBeats(snapRef.current);
     const newBlocks = items.map((it) => ({
       id: crypto.randomUUID(),
       label: it.label,
@@ -2741,9 +2810,14 @@ export default function App() {
 
             {(isPlaying || isPaused) && builderChords.length > 0 && (
               <>
+                {/* Vertical playhead line. Centered on playheadX (so
+                    left = playheadX - width/2) so its centreline is
+                    exactly under the tip of the Time Bar's triangle
+                    playhead above. Without the centring the line was
+                    1px offset to the right of the triangle tip. */}
                 <div
                   className="pointer-events-none absolute bottom-0 top-0 z-20 w-[2px] bg-[#ff8827] shadow-[0_0_10px_#ff8827]"
-                  style={{ left: `${playheadX}px` }}
+                  style={{ left: `${playheadX - 1}px` }}
                 />
               </>
             )}
@@ -2902,7 +2976,12 @@ export default function App() {
         // wrap-heavy case. Users on the Small window preset may need to
         // scroll the outer app to see the very last row - but four full
         // rows will render inside this box regardless.
-        style={{ height: 360 }}
+        // height AND minHeight AND flex-shrink:0 - all three together to
+        // beat the parent flex container that was compressing the table
+        // down to ~2 rows when the app was in Small window mode. flex-1
+        // was already removed; adding flex-shrink:0 pins the box at
+        // exactly 360px no matter what other siblings ask for.
+        style={{ height: 360, minHeight: 360, flexShrink: 0 }}
         className="w-full overflow-y-auto overflow-x-auto border border-black bg-white"
       >
         <table className="min-w-full border-collapse text-sm text-black">

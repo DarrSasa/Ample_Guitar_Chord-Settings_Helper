@@ -20,10 +20,10 @@
  */
 
 ::-webkit-scrollbar {
-  /* Doubled from 12px to 24px per user request - all scrollbars in the
-     app get a chunkier grip, matching the taller Time Bar above. */
-  width: 24px;
-  height: 24px;
+  /* User asked for another 2x (previously 24, before that 12). Now 48px
+     - very chunky, easy to grab, matches the Time Bar's own height. */
+  width: 48px;
+  height: 48px;
 }
 
 ::-webkit-scrollbar-track {
@@ -53,7 +53,11 @@
  * Firefox uses a different set of properties (standard). Give the same
  * general look so cross-browser builds don't feel inconsistent.
  */
+/* Firefox equivalents - scrollbar-width doesn't accept an arbitrary px
+   value, only the keywords 'auto', 'thin', or 'none'. 'auto' is the
+   thickest Firefox will give us, matching the intent of the beefier
+   -webkit scrollbars above. */
 * {
-  scrollbar-width: thin;
+  scrollbar-width: auto;
   scrollbar-color: #6f1c03 #d6d3c9;
 }
