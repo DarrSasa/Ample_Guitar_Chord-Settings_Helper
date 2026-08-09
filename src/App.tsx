@@ -87,9 +87,10 @@ const MAX_CHORDS = 1440;
 // previous ~48px = ~240px total.
 const BUILDER_STRIP_HEIGHT = 240;
 
-// Height of the Time Bar at the top of the Builder section. 2x the
-// scrollbar width (12px in index.css) gives 24px.
-const TIME_BAR_HEIGHT = 24;
+// Height of the Time Bar at the top of the Builder section. User asked
+// for 2x the previous value -> 48px. Scrollbars themselves are also
+// doubled in width in src/index.css (12px -> 24px).
+const TIME_BAR_HEIGHT = 48;
 
 const TYPE_OPTIONS: Record<ChordType, { extensions: string[]; alterations: string[] }> = {
   Maj: { extensions: ["7", "Maj7", "add9", "6"], alterations: ["add11"] },
@@ -152,9 +153,9 @@ function snapDurationBeats(snap: SnapOption): number {
   }
 }
 
-// Number of vertical sub-grid lines drawn PER BAR in the Builder / Time Bar
-// area for each Snap value. Bar draws only the bar-boundary line; None is
-// the finest usable grid the user asked for (16 subdivisions per bar).
+// Number of vertical sub-grid lines drawn PER BAR in the Builder / Time
+// Bar area for each Snap value. Bar (and None, per the corrected spec)
+// draw only the bar-boundary line; finer snaps add subdivisions in-bar.
 function snapSubdivisionsPerBar(snap: SnapOption): number {
   switch (snap) {
     case "Bar":       return 0;
@@ -163,7 +164,8 @@ function snapSubdivisionsPerBar(snap: SnapOption): number {
     case "1/3 beat":  return 12;
     case "Step":      return 16;
     case "1/2 step":  return 32;
-    case "None":      return 16;
+    case "None":      return 0;  // was 16 - user asked for 'None' to
+                                 // behave like Bar (no in-bar grid).
   }
 }
 
@@ -176,16 +178,15 @@ function snapSubdivisionsPerBar(snap: SnapOption): number {
 // waveform is kept only as a last-resort oscillator fallback if the
 // soundfont fails to load (offline, blocked, etc.).
 // Fixed window size presets. Native window resize is disabled in
-// desktop/main.cjs; the user picks one of these three from the dropdown in
-// the Scroll On History header. Sizing rules (per user request):
-//   - Large is the 'comfortable' default from earlier versions, 1480x920.
-//   - Medium is the smaller-but-still-fully-usable size, 1180x720.
-//   - Small is 75% of Medium (885x540) - compact enough for a side monitor
-//     but small enough that toolbar buttons wrap onto a second row.
+// desktop/main.cjs; the user picks one of these three from the Settings
+// panel. Heights were bumped so the chord table always shows 4 full rows
+// under the taller Builder strip (240px + 48px Time Bar + 14px zoom
+// slider + toolbar). Widths kept close to the previous values so the
+// aspect ratio still feels natural on a typical 16:9 monitor.
 const SIZE_PRESETS: Record<"Small" | "Medium" | "Large", { width: number; height: number }> = {
-  Small: { width: 885, height: 540 },
-  Medium: { width: 1180, height: 720 },
-  Large: { width: 1480, height: 920 },
+  Small: { width: 1180, height: 900 },
+  Medium: { width: 1400, height: 950 },
+  Large: { width: 1600, height: 1000 },
 };
 
 const GUITAR_PRESETS: GuitarPreset[] = [
@@ -526,7 +527,9 @@ function TimeBar(props: {
   const rulerWidthPx = Math.min(MAX_BARS, rulerBars) * barWidthPx;
 
   const subsPerBar = snapSubdivisionsPerBar(snap);
-  const gridStepBeats = snap === "Bar" ? BEATS_PER_BAR : BEATS_PER_BAR / subsPerBar;
+  // subsPerBar can be 0 for Bar and None - in that case snap to whole
+  // bars. Otherwise snap to the sub-division width.
+  const gridStepBeats = subsPerBar === 0 ? BEATS_PER_BAR : BEATS_PER_BAR / subsPerBar;
   const gridStepPx = gridStepBeats * pixelsPerBeat;
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -607,6 +610,194 @@ function BuilderGrid(props: {
     <div className="pointer-events-none absolute inset-0 z-0" style={{ height: heightPx }}>
       {lines}
     </div>
+  );
+}
+
+// Zoom slider drawn between the Time Bar and the Builder chord strip.
+// Visually it's a horizontal grey bar with a bright inner "thumb" and two
+// small grip handles at the thumb's extremities. Dragging either handle
+// resizes the thumb inward or outward:
+//   - narrower thumb  = zoom IN  (chords look bigger)
+//   - wider   thumb  = zoom OUT (chords look smaller)
+// The cursor turns into a horizontal double-arrow (ew-resize) as soon as
+// the pointer enters a small hot zone near either extremity, so users get
+// feedback that the edge is grabbable even before crossing the exact
+// pixel boundary.
+function ZoomSlider(props: {
+  zoom: number;
+  onZoomChange: (z: number) => void;
+  minZoom?: number;
+  maxZoom?: number;
+}) {
+  const { zoom, onZoomChange } = props;
+  const minZoom = props.minZoom ?? 0.25;
+  const maxZoom = props.maxZoom ?? 8;
+
+  // Map zoom -> thumb width fraction in [0..1]. zoom=1 -> full width
+  // (100%). Larger zoom shrinks the thumb; smaller zoom widens it up to
+  // a comfortable cap.
+  //   thumbFrac = 1 / zoom, clamped to [1/maxZoom, 1]
+  const thumbFrac = Math.min(1, Math.max(1 / maxZoom, 1 / zoom));
+
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [dragEdge, setDragEdge] = useState<null | "left" | "right">(null);
+
+  useEffect(() => {
+    if (!dragEdge) return;
+    const onMove = (e: MouseEvent) => {
+      const track = trackRef.current;
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const trackWidth = rect.width;
+      if (trackWidth <= 0) return;
+
+      // The thumb is centred in the track. When we drag an edge, we're
+      // changing the DISTANCE from that edge to the track's centre; the
+      // opposite edge mirrors symmetrically. So the thumb width becomes
+      // 2 * (distance from centre to the dragged edge).
+      const centre = rect.left + trackWidth / 2;
+      let edgeDist: number;
+      if (dragEdge === "right") {
+        edgeDist = Math.max(0, e.clientX - centre);
+      } else {
+        edgeDist = Math.max(0, centre - e.clientX);
+      }
+      const newThumbWidth = Math.min(trackWidth, edgeDist * 2);
+      const newFrac = Math.max(1 / props.maxZoom!, newThumbWidth / trackWidth);
+      // Convert thumb fraction back to zoom: zoom = 1 / frac. Clamp.
+      const newZoom = Math.min(maxZoom, Math.max(minZoom, 1 / newFrac));
+      onZoomChange(newZoom);
+    };
+    const onUp = () => setDragEdge(null);
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    };
+  }, [dragEdge, minZoom, maxZoom, onZoomChange, props.maxZoom]);
+
+  const thumbLeftPct = (100 - thumbFrac * 100) / 2;
+  const thumbWidthPct = thumbFrac * 100;
+  // Hot zone width (px) around each edge where the cursor becomes
+  // ew-resize before actually reaching the edge - matches user's
+  // "cursor changes a little before reaching the tip" requirement.
+  const HOT_ZONE = 10;
+
+  return (
+    <div
+      ref={trackRef}
+      className="relative w-full select-none border border-black bg-[#d6d3c9]"
+      style={{ height: 14 }}
+      onDoubleClick={() => onZoomChange(1)}
+      title="Drag the edges to zoom. Double-click to reset to 1x."
+    >
+      {/* Thumb (the bright inner strip that represents the current
+          viewport). Its width shrinks as zoom increases. */}
+      <div
+        className="absolute top-0 h-full bg-[#FCBF8D] border-l border-r border-black"
+        style={{ left: `${thumbLeftPct}%`, width: `${thumbWidthPct}%` }}
+      />
+      {/* Left handle hot zone. Wider than the visible edge so ew-resize
+          shows up "a bit before" the tip, per user request. */}
+      <div
+        onMouseDown={(e) => { e.preventDefault(); setDragEdge("left"); }}
+        className="absolute top-0 h-full cursor-ew-resize"
+        style={{
+          left: `calc(${thumbLeftPct}% - ${HOT_ZONE / 2}px)`,
+          width: `${HOT_ZONE}px`,
+          zIndex: 2,
+        }}
+        title="Drag to zoom in / out"
+      />
+      {/* Right handle hot zone. */}
+      <div
+        onMouseDown={(e) => { e.preventDefault(); setDragEdge("right"); }}
+        className="absolute top-0 h-full cursor-ew-resize"
+        style={{
+          left: `calc(${thumbLeftPct + thumbWidthPct}% - ${HOT_ZONE / 2}px)`,
+          width: `${HOT_ZONE}px`,
+          zIndex: 2,
+        }}
+        title="Drag to zoom in / out"
+      />
+      {/* Two visible grip marks at the edges (purely decorative). */}
+      <div
+        className="pointer-events-none absolute top-0 h-full w-[3px] bg-black opacity-70"
+        style={{ left: `calc(${thumbLeftPct}% - 1px)` }}
+      />
+      <div
+        className="pointer-events-none absolute top-0 h-full w-[3px] bg-black opacity-70"
+        style={{ left: `calc(${thumbLeftPct + thumbWidthPct}% - 2px)` }}
+      />
+    </div>
+  );
+}
+
+// A tiny helper that shrinks its text horizontally to fit the parent's
+// width. Renders the text via SVG so it scales GLYPHS proportionally (not
+// stretching them like CSS `transform: scaleX()` would). If the text
+// already fits at its natural size, it renders unchanged.
+//
+// Props:
+//   text     : the string to render
+//   height   : height (in px) of the SVG viewbox; the text uses this as
+//              its font size (before shrinking).
+//   className: extra classes applied to the SVG wrapper.
+//   fill     : text color (defaults to currentColor).
+function FitText({
+  text,
+  height,
+  className,
+  fill,
+}: {
+  text: string;
+  height: number;
+  className?: string;
+  fill?: string;
+}) {
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const textRef = useRef<SVGTextElement | null>(null);
+  const [naturalWidth, setNaturalWidth] = useState<number | null>(null);
+
+  useEffect(() => {
+    // Measure the natural rendered width of the <text> element once
+    // React has committed it to the DOM. The parent's ResizeObserver
+    // triggered re-renders will let us decide whether to shrink.
+    if (textRef.current) {
+      try {
+        const w = textRef.current.getComputedTextLength();
+        setNaturalWidth(w);
+      } catch { /* getComputedTextLength can throw pre-mount in some envs */ }
+    }
+  }, [text, height]);
+
+  // Container width is discovered at layout time. `useLayoutEffect`
+  // isn't necessary because SVG's own scaling via textLength/lengthAdjust
+  // handles the visual fit even before we know the width.
+  return (
+    <svg
+      ref={svgRef}
+      className={className}
+      viewBox={`0 0 ${Math.max(1, naturalWidth ?? 1)} ${height}`}
+      preserveAspectRatio="xMidYMid meet"
+      style={{ display: "block", width: "100%", height, overflow: "hidden" }}
+    >
+      <text
+        ref={textRef}
+        x="0"
+        y={height * 0.8}
+        fontSize={height}
+        fill={fill ?? "currentColor"}
+        style={{
+          fontFamily: "inherit",
+          fontWeight: "inherit",
+          whiteSpace: "pre",
+        }}
+      >
+        {text}
+      </text>
+    </svg>
   );
 }
 
@@ -847,6 +1038,21 @@ export default function App() {
   useEffect(() => {
     try { localStorage.removeItem("timeSignature"); } catch { /* ignore */ }
   }, []);
+
+  // Horizontal zoom for the Builder + Time Bar. 1 = default (BEAT_WIDTH).
+  // Range: 0.25x (broad overview) .. 8x (tight zoom-in).
+  // The user drives this by dragging the handles of a slider sitting
+  // between the Time Bar and the Builder strip - dragging a handle INWARD
+  // (compressing the visible thumb) means "focus on less of the timeline",
+  // i.e. bigger chord blocks (zoom in). Dragging OUTWARD means "see more
+  // of the timeline", i.e. smaller chords (zoom out). This matches the
+  // reversed convention the user asked for explicitly.
+  const [zoom, setZoom] = useState<number>(1);
+  const effectiveBeatWidth = BEAT_WIDTH * zoom;
+  // Ref mirror so the playback tick loop can read the current zoom
+  // without closing over a stale value.
+  const effectiveBeatWidthRef = useRef(effectiveBeatWidth);
+  useEffect(() => { effectiveBeatWidthRef.current = effectiveBeatWidth; }, [effectiveBeatWidth]);
   const [bpm, setBpm] = useState(120);
   const [editingBpm, setEditingBpm] = useState(false);
   const [bpmText, setBpmText] = useState("120");
@@ -1652,9 +1858,11 @@ export default function App() {
 
     const tick = () => {
       const elapsed = performance.now() - playStartRef.current;
-      // Convert elapsed ms to x-pixels. Each beat is BEAT_WIDTH px, so
-      // px = (elapsed / beatMs) * BEAT_WIDTH.
-      const linearX = Math.min((elapsed / beatMs) * BEAT_WIDTH, (totalMs / beatMs) * BEAT_WIDTH);
+      // Convert elapsed ms to x-pixels using the CURRENT effective beat
+      // width (via ref) so a mid-playback zoom change keeps the playhead
+      // in sync with the visually re-scaled chord strip.
+      const ebw = effectiveBeatWidthRef.current;
+      const linearX = Math.min((elapsed / beatMs) * ebw, (totalMs / beatMs) * ebw);
       setPlayheadX(linearX);
 
       // Find which chord we're currently in by binary-searching offsets.
@@ -1750,13 +1958,18 @@ export default function App() {
   // chords fit even with fractional/variable beats. Add a spare full bar
   // at the end so drops after the last chord always find a target area.
   const builderMinPxWidth = useMemo(() => {
+    // No more Math.max(24, ...) clamp: at snap 1/2 beat and finer, that
+    // clamp forced every short chord to a 24px minimum, making them look
+    // identical in the Builder even though their beats values differed.
+    // We now honour the true width exactly - short chords look short.
+    // Text overflow inside the button is handled by CSS truncation.
     const chordsWidth = builderChords.reduce(
-      (sum, c) => sum + Math.max(24, (c.beats > 0 ? c.beats : DEFAULT_CHORD_BEATS) * BEAT_WIDTH),
+      (sum, c) => sum + (c.beats > 0 ? c.beats : DEFAULT_CHORD_BEATS) * effectiveBeatWidth,
       0
     );
-    const oneExtraBar = BEATS_PER_BAR * BEAT_WIDTH;
+    const oneExtraBar = BEATS_PER_BAR * effectiveBeatWidth;
     return chordsWidth + oneExtraBar;
-  }, [builderChords]);
+  }, [builderChords, effectiveBeatWidth]);
 
   // Called by TimeBar onSeek. `px` is already snapped to the nearest grid
   // line by TimeBar. We update playheadX so the vertical indicator jumps
@@ -1766,7 +1979,9 @@ export default function App() {
     setPlayheadX(px);
     if (isPlaying || isPaused) {
       const beatMs = 60000 / bpm;
-      const seekMs = (px / BEAT_WIDTH) * beatMs;
+      // Convert px back to ms using the CURRENT effective beat width
+      // (so seeks under an active zoom land at the right musical time).
+      const seekMs = (px / effectiveBeatWidth) * beatMs;
       // Rewind playStartRef so `elapsed = now - playStartRef` = seekMs.
       playStartRef.current = performance.now() - seekMs;
       pausedElapsedRef.current = seekMs;
@@ -2415,16 +2630,22 @@ export default function App() {
 
         {/* Time Bar - horizontal ruler above the Builder strip. Numbered
             1..N bars (max MAX_BARS=360). Click anywhere on it to snap the
-            playhead to the nearest grid line for the current Snap. Height
-            is 2x the vertical scrollbar's 12px = TIME_BAR_HEIGHT (24px)
-            per the user's spec. */}
+            playhead to the nearest grid line for the current Snap.
+            Height doubled per user request. */}
         <TimeBar
           totalBeats={totalBuilderBeats}
-          pixelsPerBeat={BEAT_WIDTH}
+          pixelsPerBeat={effectiveBeatWidth}
           snap={snap}
           playheadX={playheadX}
           onSeek={handleTimeBarSeek}
         />
+
+        {/* Zoom slider - drag the edges of the bright thumb to zoom in
+            (narrower thumb) or out (wider thumb). Double-click to reset
+            to 1x. Wired to `zoom` state which drives effectiveBeatWidth,
+            so both the Time Bar above and the chord strip below re-scale
+            together. */}
+        <ZoomSlider zoom={zoom} onZoomChange={setZoom} />
 
         <div
           className="relative overflow-x-auto border border-black bg-white/80 px-0 py-0"
@@ -2514,7 +2735,7 @@ export default function App() {
             <BuilderGrid
               widthPx={Math.max(builderMinPxWidth, 800)}
               heightPx={BUILDER_STRIP_HEIGHT}
-              pixelsPerBeat={BEAT_WIDTH}
+              pixelsPerBeat={effectiveBeatWidth}
               snap={snap}
             />
 
@@ -2624,7 +2845,10 @@ export default function App() {
                     // the same time signature. Kept a minimum so ultra-
                     // short 1/8-step chords are still clickable.
                     style={{
-                      width: `${Math.max(24, chord.beats * BEAT_WIDTH)}px`,
+                      // Honour the chord's actual duration exactly (no
+                      // min clamp). Overflowing text is handled by the
+                      // shrink-to-fit CSS inside the button below.
+                      width: `${chord.beats * effectiveBeatWidth}px`,
                       flexShrink: 0,
                     }}
                     className={`relative z-10 h-full border border-black px-1 text-left text-[11px] transition-all ${
@@ -2635,16 +2859,19 @@ export default function App() {
                         : "bg-[#bae3b4]/90 hover:shadow-[0_0_8px_#4df72c]"
                     }`}
                   >
-                    <div>{chord.label}</div>
-                    {/* Tiny sub-label under the chord name showing the exact
-                        note names that will be written to the .mid file for
-                        this chord. Makes it impossible to be confused about
-                        whether e.g. add11 or Maj7 actually made it into the
-                        output - if the note is in this list, it IS in the
-                        file. If not, the label parser has a bug and the
-                        note is missing everywhere. */}
-                    <div className="text-[9px] leading-tight text-neutral-600">
-                      {chordNotesDisplay(chord.label)}
+                    {/* The chord label + its notes list are rendered via
+                        FitText (SVG-based auto-shrink). If the button is
+                        wide enough for the natural text width, the text
+                        renders at full size. If not, the SVG's viewBox
+                        scales the glyphs DOWN horizontally to fit -
+                        never stretched vertically. Text starts to shrink
+                        only when there is no horizontal breathing room
+                        left on either side. */}
+                    <div style={{ height: 14 }} className="w-full overflow-hidden">
+                      <FitText text={chord.label} height={12} />
+                    </div>
+                    <div style={{ height: 10 }} className="w-full overflow-hidden text-neutral-600">
+                      <FitText text={chordNotesDisplay(chord.label)} height={9} />
                     </div>
                   </button>
                 );
@@ -2668,7 +2895,14 @@ export default function App() {
         // row fully drawn (not clipped). Overflow-y-auto keeps the
         // vertical scrollbar. flex-1 removed so the table doesn't stretch
         // to fill leftover vertical space.
-        style={{ height: 200 }}
+        //
+        // Height math: header ~32 + 4 rows x ~80 (each row can wrap onto
+        // TWO internal lines of suggestion buttons) = ~352px. Bumped from
+        // 200 to 360 so 4 rows are ALWAYS visible even in the worst
+        // wrap-heavy case. Users on the Small window preset may need to
+        // scroll the outer app to see the very last row - but four full
+        // rows will render inside this box regardless.
+        style={{ height: 360 }}
         className="w-full overflow-y-auto overflow-x-auto border border-black bg-white"
       >
         <table className="min-w-full border-collapse text-sm text-black">

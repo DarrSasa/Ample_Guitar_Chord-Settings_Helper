@@ -20,8 +20,10 @@ function createWindow() {
   log(`Preload path: ${preloadPath} (exists=${fs.existsSync(preloadPath)})`);
 
   const win = new BrowserWindow({
-    width: 1480,
-    height: 920,
+    // Matches the "Large" preset in src/App.tsx SIZE_PRESETS. Keep the
+    // two in sync if the preset ever changes.
+    width: 1600,
+    height: 1000,
     // No minWidth/minHeight because the UI itself now offers Small/Medium/
     // Large presets from a dropdown in the Scroll On History header; the
     // native resize grip is disabled below.
