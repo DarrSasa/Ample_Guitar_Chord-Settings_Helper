@@ -1,1 +1,57 @@
 @import "tailwindcss";
+
+/*
+ * Custom scrollbars for the whole app.
+ *
+ * Electron/Chromium's default scrollbar in Windows is nearly white on white
+ * backgrounds - the user reported the horizontal bar under "Scroll On
+ * History" looked missing because both the track AND the thumb were white.
+ * The rules below give every scrollbar in the app a visible dark thumb on
+ * a light track, matching the app's orange/beige aesthetic.
+ *
+ * Selectors:
+ *   - ::-webkit-scrollbar         => the scrollbar itself (its footprint)
+ *   - ::-webkit-scrollbar-track   => the empty channel behind the thumb
+ *   - ::-webkit-scrollbar-thumb   => the draggable indicator
+ *   - ::-webkit-scrollbar-corner  => the tiny square where two scrollbars meet
+ * These are Chromium-only pseudo-elements but Electron ships Chromium, so
+ * they always take effect in the packaged EXE. In web builds they degrade
+ * gracefully - Firefox falls back to its native styling.
+ */
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d6d3c9;         /* warm neutral, close to the app frame color */
+  border: 1px solid #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6f1c03;         /* the dark red-brown already used for hints */
+  border: 1px solid #000;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8a2408;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #ff8827;         /* the app-wide orange highlight while dragging */
+}
+
+::-webkit-scrollbar-corner {
+  background: #d6d3c9;
+}
+
+/*
+ * Firefox uses a different set of properties (standard). Give the same
+ * general look so cross-browser builds don't feel inconsistent.
+ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #6f1c03 #d6d3c9;
+}
