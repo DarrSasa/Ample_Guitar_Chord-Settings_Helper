@@ -1179,6 +1179,44 @@ export default function App() {
     }, 140);
   };
 
+  // Batch version of addChordToBuilderAndRecord for multi-drop scenarios.
+  // We CAN'T just call addChordToBuilderAndRecord in a forEach loop because
+  // that function reads builderRef.current each call - which stays stale
+  // across the synchronous forEach (React state updates queue up but the
+  // ref only refreshes after the render). Result: every call inserted into
+  // the same starting array, only the LAST setBuilderChords survived, and
+  // the user saw only one chord land in the Builder.
+  //
+  // Instead, build the final array in ONE step and dispatch a single
+  // setBuilderChords + pushBuilderHistory + (optional) recordSnapshot.
+  const addChordsToBuilderAndRecord = (
+    items: Array<{ label: string; code: number }>,
+    insertIndex?: number
+  ) => {
+    if (items.length === 0) return;
+    const base = builderRef.current;
+    const safeIndex = Math.max(0, Math.min(insertIndex ?? base.length, base.length));
+    const newBlocks = items.map((it) => ({ id: crypto.randomUUID(), label: it.label }));
+    const nextBuilder = [
+      ...base.slice(0, safeIndex),
+      ...newBlocks,
+      ...base.slice(safeIndex),
+    ];
+    setBuilderChords(nextBuilder);
+    pushBuilderHistory(nextBuilder);
+    setSelectedBuilderIds([]);
+
+    // Only record ONE Scroll On History entry for the whole batch (using
+    // the FIRST item's code+label). Adding N entries for a multi-drop
+    // would spam the history bar for no clear benefit.
+    if (scrollFollowMode) {
+      const first = items[0];
+      const codeForSnap = Number.isFinite(first.code) ? first.code : topCodeRef.current;
+      recordSnapshot(codeForSnap, guideCodeRef.current, first.label);
+    }
+    setActiveBtn("");
+  };
+
   // Called for a SHORT TAP on a Builder chord (mouseup < longPressMs after
   // mousedown). Behaviour depends on current app mode:
   //   1. Delete mode ON  -> remove the chord immediately.
@@ -2012,36 +2050,55 @@ export default function App() {
         <div
           className="relative overflow-x-auto border border-black bg-white/80 px-0 py-0"
           onDragOver={(e) => {
+            // Accept THREE kinds of drops on the Builder container:
+            //   (a) single-chord drag from the chord table (MIME
+            //       application/x-progression-chord)
+            //   (b) multi-chord drag from the chord table (MIME
+            //       application/x-progression-chords-multi)
+            //   (c) internal Builder reorder drag - dragging a selected
+            //       Builder block into empty space. HTML5 drag/drop hides
+            //       the actual dataTransfer contents during dragover in
+            //       Chromium so we can't sniff a MIME for the internal
+            //       case. We fall back to isDraggingBuilderRef which the
+            //       Builder button's onDragStart flips to true.
             const t = e.dataTransfer.types;
-            if (
+            const isTableDrag =
               t.includes("application/x-progression-chord") ||
-              t.includes("application/x-progression-chords-multi")
-            ) {
+              t.includes("application/x-progression-chords-multi");
+            const isInternalReorder = isDraggingBuilderRef.current;
+            if (isTableDrag || isInternalReorder) {
               e.preventDefault();
             }
           }}
           onDrop={(e) => {
+            const insertIndex = findBuilderInsertIndex(e.clientX);
+
+            // Internal Builder reorder drop (into whitespace or between
+            // chords). Route to reorderSelection, which already knows how
+            // to handle groups, non-consecutive selections, and end-of-list.
+            if (isDraggingBuilderRef.current) {
+              e.preventDefault();
+              reorderSelection(insertIndex);
+              return;
+            }
+
             const multiJson = e.dataTransfer.getData("application/x-progression-chords-multi");
             const label = e.dataTransfer.getData("application/x-progression-chord");
             if (!multiJson && !label) return;
             e.preventDefault();
-            const insertIndex = findBuilderInsertIndex(e.clientX);
 
             if (multiJson) {
-              // Multi-drop: parse the JSON payload and insert all chords at
-              // insertIndex, preserving the order they were selected in
-              // (which mirrors the visual order in the table for successive
-              // long-presses). Selection in the table is KEPT after the
-              // drop, per the user's explicit instruction.
+              // Multi-drop from the table. Parse the JSON payload and
+              // insert ALL chords in one batched state update via
+              // addChordsToBuilderAndRecord. Doing this in a forEach loop
+              // with addChordToBuilderAndRecord fails: builderRef.current
+              // stays stale across the synchronous loop, so only the last
+              // insert survives (which was the "only one chord made it"
+              // bug the user reported).
               try {
                 const items: Array<{ label: string; code: number }> = JSON.parse(multiJson);
                 if (Array.isArray(items) && items.length > 0) {
-                  // Insert one by one, incrementing insertIndex, so they end
-                  // up as a contiguous group in the requested order.
-                  items.forEach((item, i) => {
-                    const codeForSnap = Number.isFinite(item.code) ? item.code : topCodeRef.current;
-                    addChordToBuilderAndRecord(item.label, codeForSnap, insertIndex + i);
-                  });
+                  addChordsToBuilderAndRecord(items, insertIndex);
                   return;
                 }
               } catch (err) {
