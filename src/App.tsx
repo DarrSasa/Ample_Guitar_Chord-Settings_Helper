@@ -72,7 +72,7 @@ const BUILDER_GAP = 0;
 // horizontal geometry (chord block widths, playhead x, grid line spacing)
 // is derived from this single constant.
 //   1 beat  = BEAT_WIDTH px
-//   1 bar   = BEATS_PER_BAR[ts] * BEAT_WIDTH px  (differs per time sig)
+//   1 bar   = BEATS_PER_BAR * BEAT_WIDTH px
 //   1/2 beat = BEAT_WIDTH / 2 px, etc.
 // Chosen so a full 4/4 bar (=4 beats) is 118px, matching the old block
 // width so existing 1-bar chords look the same size as before.
@@ -102,12 +102,15 @@ const TYPE_OPTIONS: Record<ChordType, { extensions: string[]; alterations: strin
 };
 
 // -----------------------------------------------------------------------
-// Time signatures + snap grid
+// Snap grid
 // -----------------------------------------------------------------------
 //
-// The old "Length" dropdown (Beat / 2 Beats / Bar / 2 Bars) is replaced by:
-//   1) a time-signature picker: three radio buttons |4/4|3/4|6/8|
-//   2) a Snap dropdown whose options depend on the time signature
+// The old "Length" dropdown (Beat / 2 Beats / Bar / 2 Bars) is replaced
+// by a single Snap dropdown with seven fixed options. All timings assume
+// a 4/4 feel internally - one bar = 4 beats. (The user briefly asked for
+// separate 4/4, 3/4, 6/8 buttons but confirmed the option list is
+// identical for all three, so we simplified back to a single dropdown.)
+//
 // A user-selected Snap value determines TWO things:
 //   a) the duration (in beats) new chords get when added to the Builder
 //   b) the density of the vertical grid lines drawn under the Builder,
@@ -117,40 +120,35 @@ const TYPE_OPTIONS: Record<ChordType, { extensions: string[]; alterations: strin
 // so changing Snap only affects NEW chords - existing ones keep the
 // beats they were added with.
 
-const TIME_SIGNATURES = ["4/4", "3/4", "6/8"] as const;
-type TimeSignature = (typeof TIME_SIGNATURES)[number];
-
-// Beats per bar for each time signature (numerator of the fraction).
-const BEATS_PER_BAR: Record<TimeSignature, number> = {
-  "4/4": 4,
-  "3/4": 3,
-  "6/8": 6,
-};
+// One bar always equals four beats in this app (4/4-only for now).
+const BEATS_PER_BAR = 4;
 
 type SnapOption = "Bar" | "Beat" | "1/2 beat" | "1/3 beat" | "Step" | "1/2 step" | "None";
 
-// Ordered list of Snap options per time signature. The order matters
-// because it's exactly how the dropdown is rendered - the 6/8 preset
-// swaps 1/3 beat above Beat, matching common compound-meter usage.
-const SNAP_OPTIONS_BY_TS: Record<TimeSignature, SnapOption[]> = {
-  "4/4": ["Bar", "Beat", "1/2 beat", "1/3 beat", "Step", "1/2 step", "None"],
-  "3/4": ["Bar", "Beat", "1/2 beat", "1/3 beat", "Step", "1/2 step", "None"],
-  "6/8": ["Bar", "1/3 beat", "Beat", "1/2 beat", "Step", "1/2 step", "None"],
-};
+// Ordered list of Snap options rendered in the dropdown. Bar first so it
+// reads as the "default / biggest" choice.
+const SNAP_OPTIONS: SnapOption[] = [
+  "Bar",
+  "Beat",
+  "1/2 beat",
+  "1/3 beat",
+  "Step",
+  "1/2 step",
+  "None",
+];
 
 // Duration in BEATS that a new chord gets when added while a given Snap
 // value is active. 'None' resolves to a full bar (default) since the
 // user asked for that fallback explicitly.
-function snapDurationBeats(snap: SnapOption, ts: TimeSignature): number {
-  const bar = BEATS_PER_BAR[ts];
+function snapDurationBeats(snap: SnapOption): number {
   switch (snap) {
-    case "Bar":       return bar;
+    case "Bar":       return BEATS_PER_BAR;
     case "Beat":      return 1;
     case "1/2 beat":  return 1 / 2;
     case "1/3 beat":  return 1 / 3;
-    case "Step":      return 1 / 4;  // 16th note
-    case "1/2 step":  return 1 / 8;  // 32nd note
-    case "None":      return bar;    // per spec: None behaves like Bar
+    case "Step":      return 1 / 4;
+    case "1/2 step":  return 1 / 8;
+    case "None":      return BEATS_PER_BAR;
   }
 }
 
@@ -517,20 +515,18 @@ function clampBpm(value: number) {
 function TimeBar(props: {
   totalBeats: number;
   pixelsPerBeat: number;
-  timeSignature: TimeSignature;
   snap: SnapOption;
   playheadX: number;
   onSeek: (px: number) => void;
 }) {
-  const { totalBeats, pixelsPerBeat, timeSignature, snap, playheadX, onSeek } = props;
-  const beatsPerBar = BEATS_PER_BAR[timeSignature];
-  const barWidthPx = beatsPerBar * pixelsPerBeat;
-  const totalBars = Math.max(1, Math.ceil(totalBeats / beatsPerBar));
+  const { totalBeats, pixelsPerBeat, snap, playheadX, onSeek } = props;
+  const barWidthPx = BEATS_PER_BAR * pixelsPerBeat;
+  const totalBars = Math.max(1, Math.ceil(totalBeats / BEATS_PER_BAR));
   const rulerBars = Math.max(totalBars + 4, 32);
   const rulerWidthPx = Math.min(MAX_BARS, rulerBars) * barWidthPx;
 
   const subsPerBar = snapSubdivisionsPerBar(snap);
-  const gridStepBeats = snap === "Bar" ? beatsPerBar : beatsPerBar / subsPerBar;
+  const gridStepBeats = snap === "Bar" ? BEATS_PER_BAR : BEATS_PER_BAR / subsPerBar;
   const gridStepPx = gridStepBeats * pixelsPerBeat;
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -578,12 +574,10 @@ function BuilderGrid(props: {
   widthPx: number;
   heightPx: number;
   pixelsPerBeat: number;
-  timeSignature: TimeSignature;
   snap: SnapOption;
 }) {
-  const { widthPx, heightPx, pixelsPerBeat, timeSignature, snap } = props;
-  const beatsPerBar = BEATS_PER_BAR[timeSignature];
-  const barWidthPx = beatsPerBar * pixelsPerBeat;
+  const { widthPx, heightPx, pixelsPerBeat, snap } = props;
+  const barWidthPx = BEATS_PER_BAR * pixelsPerBeat;
   const totalBars = Math.max(1, Math.ceil(widthPx / barWidthPx));
   const subsPerBar = snapSubdivisionsPerBar(snap);
 
@@ -833,40 +827,26 @@ export default function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [playheadIndex, setPlayheadIndex] = useState(0);
-  // Time signature + snap. Both persist to localStorage so a user's
-  // rhythmic setup survives across sessions - same pattern used for
-  // windowSize / longPressMs.
-  const [timeSignature, setTimeSignature] = useState<TimeSignature>(() => {
-    try {
-      const v = localStorage.getItem("timeSignature");
-      if (v === "4/4" || v === "3/4" || v === "6/8") return v;
-    } catch { /* ignore */ }
-    return "4/4";
-  });
+  // Snap persists to localStorage so the user's rhythm grid setting
+  // survives across sessions - same pattern used for windowSize /
+  // longPressMs. Bar is the default (biggest grid = 1 full bar).
   const [snap, setSnap] = useState<SnapOption>(() => {
     try {
       const v = localStorage.getItem("snap") as SnapOption | null;
-      if (v && ["Bar","Beat","1/2 beat","1/3 beat","Step","1/2 step","None"].includes(v)) return v;
+      if (v && SNAP_OPTIONS.includes(v)) return v;
     } catch { /* ignore */ }
     return "Bar";
   });
   const [snapMenuOpen, setSnapMenuOpen] = useState(false);
 
   useEffect(() => {
-    try { localStorage.setItem("timeSignature", timeSignature); } catch { /* ignore */ }
-  }, [timeSignature]);
-  useEffect(() => {
     try { localStorage.setItem("snap", snap); } catch { /* ignore */ }
   }, [snap]);
-
-  // If the user picks a Snap option that doesn't exist in the current time
-  // signature (all three time sigs share the same options today so this is
-  // a no-op, but keep the check for future-proofing), fall back to Bar.
+  // One-shot cleanup: remove the old "timeSignature" localStorage key
+  // written by a previous version, so it doesn't accumulate as dead data.
   useEffect(() => {
-    if (!SNAP_OPTIONS_BY_TS[timeSignature].includes(snap)) {
-      setSnap("Bar");
-    }
-  }, [timeSignature, snap]);
+    try { localStorage.removeItem("timeSignature"); } catch { /* ignore */ }
+  }, []);
   const [bpm, setBpm] = useState(120);
   const [editingBpm, setEditingBpm] = useState(false);
   const [bpmText, setBpmText] = useState("120");
@@ -1390,7 +1370,7 @@ export default function App() {
     // New chord gets its duration from the CURRENT snap value. Existing
     // chords keep whatever beats they were added with (that's why we
     // store `beats` per chord and never rewrite it when snap changes).
-    const beatsForNewChord = snapDurationBeats(snap, timeSignature);
+    const beatsForNewChord = snapDurationBeats(snap);
     const nextBuilder = [
       ...base.slice(0, safeIndex),
       { id: crypto.randomUUID(), label, beats: beatsForNewChord },
@@ -1452,7 +1432,7 @@ export default function App() {
     }
     const safeIndex = Math.max(0, Math.min(insertIndex ?? base.length, base.length));
     // All chords in the batch get the same beats value (the current Snap).
-    const beatsForNewChord = snapDurationBeats(snap, timeSignature);
+    const beatsForNewChord = snapDurationBeats(snap);
     const newBlocks = items.map((it) => ({
       id: crypto.randomUUID(),
       label: it.label,
@@ -1774,9 +1754,9 @@ export default function App() {
       (sum, c) => sum + Math.max(24, (c.beats > 0 ? c.beats : DEFAULT_CHORD_BEATS) * BEAT_WIDTH),
       0
     );
-    const oneExtraBar = BEATS_PER_BAR[timeSignature] * BEAT_WIDTH;
+    const oneExtraBar = BEATS_PER_BAR * BEAT_WIDTH;
     return chordsWidth + oneExtraBar;
-  }, [builderChords, timeSignature]);
+  }, [builderChords]);
 
   // Called by TimeBar onSeek. `px` is already snapped to the nearest grid
   // line by TimeBar. We update playheadX so the vertical indicator jumps
@@ -2208,33 +2188,18 @@ export default function App() {
             Stop
           </button>
 
-          {/* Snap + time signature control cluster:
-              - Text "Snap"
-              - Three radio-style time-signature buttons (only one active
-                at a time). Clicking one switches the active time
-                signature and rebuilds the Snap dropdown options.
-              - Snap dropdown with a down-arrow. Clicking opens a list of
-                snap values valid for the current time signature. Picking
-                one changes the DURATION of chords added afterwards, plus
-                the density of the grid lines drawn under the Builder. */}
+          {/* Snap control:
+                - Text "Snap"
+                - Dropdown with a down-arrow. Clicking opens the seven
+                  fixed snap options (Bar first as default). Picking one
+                  changes the DURATION of chords added afterwards + the
+                  density of the grid lines drawn under the Builder.
+              The old time-signature radio buttons (|4/4|3/4|6/8|) were
+              removed - the option list was identical for all three, so
+              the extra picker added no functionality. */}
           <div className="flex items-center gap-1 rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
             <span className="mr-1 font-semibold">Snap</span>
-            {(TIME_SIGNATURES).map((ts) => (
-              <button
-                key={ts}
-                type="button"
-                onClick={() => setTimeSignature(ts)}
-                title={`Time signature ${ts}`}
-                className={`h-6 min-w-[36px] border border-black px-1 text-[11px] ${
-                  timeSignature === ts
-                    ? "bg-green-300 shadow-[0_0_6px_#ff8827]"
-                    : "bg-white hover:bg-green-100"
-                }`}
-              >
-                {ts}
-              </button>
-            ))}
-            <div className="relative ml-1" onClick={(e) => e.stopPropagation()}>
+            <div className="relative" onClick={(e) => e.stopPropagation()}>
               <button
                 type="button"
                 onClick={() => setSnapMenuOpen((v) => !v)}
@@ -2248,7 +2213,7 @@ export default function App() {
               </button>
               {snapMenuOpen && (
                 <div className="absolute right-0 top-7 z-40 w-32 border border-black bg-white shadow-lg">
-                  {SNAP_OPTIONS_BY_TS[timeSignature].map((opt) => (
+                  {SNAP_OPTIONS.map((opt) => (
                     <button
                       key={opt}
                       type="button"
@@ -2456,7 +2421,6 @@ export default function App() {
         <TimeBar
           totalBeats={totalBuilderBeats}
           pixelsPerBeat={BEAT_WIDTH}
-          timeSignature={timeSignature}
           snap={snap}
           playheadX={playheadX}
           onSeek={handleTimeBarSeek}
@@ -2551,7 +2515,6 @@ export default function App() {
               widthPx={Math.max(builderMinPxWidth, 800)}
               heightPx={BUILDER_STRIP_HEIGHT}
               pixelsPerBeat={BEAT_WIDTH}
-              timeSignature={timeSignature}
               snap={snap}
             />
 
