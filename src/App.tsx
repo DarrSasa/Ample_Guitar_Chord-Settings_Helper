@@ -53,7 +53,10 @@ const ROOTS = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 const DISPLAY_NONE = "-";
 const MAX_HISTORY_ITEMS = 100;
 const BLOCK_WIDTH = 118;
-const HISTORY_GAP = 30;
+// Gaps between blocks in the two horizontal bars.
+// Both zero now (user wants edge-to-edge chord blocks with no whitespace
+// between them, so borders visually merge into one continuous strip).
+const HISTORY_GAP = 0;
 const BUILDER_GAP = 0;
 
 const TYPE_OPTIONS: Record<ChordType, { extensions: string[]; alterations: string[] }> = {
@@ -1769,8 +1772,20 @@ export default function App() {
           </div>
         </div>
 
-        <div className="overflow-x-auto border border-black bg-white/70 px-2 py-2">
-          <div className="flex min-h-12 items-center" style={{ gap: HISTORY_GAP }}>
+        {/* Scroll On History bar.
+            - Container height matches the chord-table row height (h-10 =
+              40px inner + 1px padding + 1px border top/bottom) so the two
+              feel visually consistent.
+            - overflow-x-scroll (not -auto) forces the horizontal scrollbar
+              to ALWAYS be visible, mirroring the vertical scrollbar of the
+              chord table below. Matches the user's request to have a
+              persistent horizontal 'scroll bar' under this section.
+            - HISTORY_GAP is now 0, so blocks sit edge-to-edge (see const at
+              top of file). The `border` on each block gives us a clean 1px
+              divider between neighbours - no double lines because adjacent
+              borders collapse visually. */}
+        <div className="overflow-x-scroll border border-black bg-white/70 px-1 py-1">
+          <div className="flex items-center" style={{ gap: HISTORY_GAP }}>
             {historyItems.map((item, pickIndex) => {
               const { code, label: blockLabel } = item;
               const selected = guidePickIndex === pickIndex;
@@ -1779,7 +1794,11 @@ export default function App() {
                 <button
                   key={`history-${pickIndex}-${code}`}
                   type="button"
-                  className={`h-9 min-w-[118px] border border-black px-2 text-left text-xs ${
+                  // h-10 mirrors the h-10 of the chord-suggestion buttons in
+                  // the chord table so both bars have exactly the same
+                  // block dimensions. min-w kept so short labels don't
+                  // shrink to a sliver.
+                  className={`h-10 min-w-[118px] border border-black px-2 text-left text-xs ${
                     selected ? "bg-green-300 shadow-[0_0_10px_#4df72c]" : "bg-[#bae3b4]"
                   }`}
                   onClick={() => {
@@ -2268,13 +2287,18 @@ export default function App() {
               {/* Row number column. Same value as row.code, shown so the user
                   can pinpoint any row unambiguously ("row #457") when
                   reporting scroll issues or comparing to the history bar. */}
-              <th className="border border-black px-2 py-2 text-right font-semibold text-neutral-500">#</th>
-              <th className="border border-black px-2 py-2 text-left font-semibold">Root</th>
-              <th className="border border-black px-2 py-2 text-left font-semibold">Type</th>
-              <th className="border border-black px-2 py-2 text-left font-semibold">Extension</th>
-              <th className="border border-black px-2 py-2 text-left font-semibold">Alteration</th>
-              <th className="border border-black px-2 py-2 text-left font-semibold">Bass</th>
-              <th className="border border-black px-2 py-2 text-left font-semibold">Chords for Progressions</th>
+              {/* Header cells: py-1 (vs body cells' py-0 + auto-stretch to
+                  h-10) keeps the header slightly compact but still readable.
+                  Using py-1 rather than py-2 shaves ~8px off the header
+                  height so it matches the narrower body rows the user
+                  asked for. */}
+              <th className="border border-black px-2 py-1 text-right font-semibold text-neutral-500">#</th>
+              <th className="border border-black px-2 py-1 text-left font-semibold">Root</th>
+              <th className="border border-black px-2 py-1 text-left font-semibold">Type</th>
+              <th className="border border-black px-2 py-1 text-left font-semibold">Extension</th>
+              <th className="border border-black px-2 py-1 text-left font-semibold">Alteration</th>
+              <th className="border border-black px-2 py-1 text-left font-semibold">Bass</th>
+              <th className="border border-black px-2 py-1 text-left font-semibold">Chords for Progressions</th>
             </tr>
           </thead>
 
@@ -2295,14 +2319,26 @@ export default function App() {
                   }}
                   className={`${rowHighlighted ? "bg-green-100" : "bg-white"}`}
                 >
-                  <td className="border border-black px-2 py-1.5 text-right text-neutral-500 tabular-nums">{row.code}</td>
-                  <td className="border border-black px-2 py-1.5">{row.root}</td>
-                  <td className="border border-black px-2 py-1.5">{row.type}</td>
-                  <td className="border border-black px-2 py-1.5">{row.extension}</td>
-                  <td className="border border-black px-2 py-1.5">{row.alteration}</td>
-                  <td className="border border-black px-2 py-1.5">{row.bass}</td>
-                  <td className="border border-black px-2 py-1.5">
-                    <div className="flex flex-wrap gap-1.5">
+                  {/* Row cells: py-0 collapses vertical padding to zero so
+                      the row height is driven purely by the h-10 of the
+                      suggestion buttons in the last cell. Wider labels are
+                      still readable because the button padding gives
+                      breathing room; the leading cells get their height
+                      from the row itself (they auto-stretch).
+                      align-middle keeps the metadata text vertically
+                      centered against the taller suggestion strip. */}
+                  <td className="border border-black px-2 py-0 text-right align-middle text-neutral-500 tabular-nums">{row.code}</td>
+                  <td className="border border-black px-2 py-0 align-middle">{row.root}</td>
+                  <td className="border border-black px-2 py-0 align-middle">{row.type}</td>
+                  <td className="border border-black px-2 py-0 align-middle">{row.extension}</td>
+                  <td className="border border-black px-2 py-0 align-middle">{row.alteration}</td>
+                  <td className="border border-black px-2 py-0 align-middle">{row.bass}</td>
+                  <td className="border border-black p-0 align-middle">
+                    {/* Suggestion buttons: gap-0 so they touch edge-to-edge
+                        (user asked for zero space between them). flex-wrap
+                        stays so a long list wraps to a second visual row
+                        instead of overflowing the cell. */}
+                    <div className="flex flex-wrap gap-0">
                       {suggestions.map((nextChord, idx) => {
                         const btnId = `${row.id}-${nextChord.rowId}-${idx}`;
                         const pressed = activeBtn === btnId;
