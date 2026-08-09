@@ -587,6 +587,24 @@ export default function App() {
   const [topCode, setTopCode] = useState<number>(rows[0]?.code ?? 1);
   const [activeRow, setActiveRow] = useState<string>(rows[0]?.id ?? "");
   const [activeBtn, setActiveBtn] = useState<string>("");
+
+  // Selection state for the green suggestion buttons in the chord table.
+  // Same gesture model as the Builder: long-press adds to selection, short
+  // tap toggles (only when the selection is non-empty). Clicking outside
+  // any table button clears it. Dragging any SELECTED table button drops
+  // the whole selection group into the Builder at the drop position.
+  //
+  // Selected buttons are identified by their `btnId` = `${row.id}-${
+  // nextChord.rowId}-${idx}` - same identifier we already used for the
+  // pressed-highlight (activeBtn). We keep the FULL selected suggestions
+  // (label + code) in state so onDrop can rebuild them without having to
+  // walk the DOM.
+  type SelectedTableChord = { btnId: string; label: string; code: number };
+  const [selectedTableChords, setSelectedTableChords] = useState<SelectedTableChord[]>([]);
+  const selectedTableChordsRef = useRef<SelectedTableChord[]>([]);
+  useEffect(() => {
+    selectedTableChordsRef.current = selectedTableChords;
+  }, [selectedTableChords]);
   const [startActive, setStartActive] = useState(false);
   const [guideCode, setGuideCode] = useState<number | null>(null);
   const [guidePickIndex, setGuidePickIndex] = useState<number | null>(null);
@@ -1209,15 +1227,56 @@ export default function App() {
   // old "click and drag across chords to lasso-select" behaviour, which is
   // replaced by discrete long-press / short-tap gestures per chord.
 
+  // Move the currently-selected Builder chords to `insertIndex`, where
+  // `insertIndex` is expressed in the FULL builder array's coordinates
+  // (i.e. the raw index the user is pointing at, including selected chords
+  // still counted). This function does the two things the naive version
+  // used to get wrong:
+  //
+  //   1. It preserves the ORIGINAL ordering of the selected chords - even
+  //      if they were on non-consecutive positions like 0 and 2, they end
+  //      up as 0->2 (not the reverse) after the move.
+  //   2. It translates insertIndex from the full array's coordinates into
+  //      the `remaining` (unselected) array's coordinates. Otherwise a
+  //      drop between two unselected chords would land at the wrong slot
+  //      because the selected chords in between are no longer there once
+  //      we remove them.
+  //
+  // Also, a drop AT or PAST the end of the visible builder (i.e. the user
+  // dragged into the empty white space at the right) collapses to
+  // `remaining.length`, so the whole selection group appends to the end.
   const reorderSelection = (insertIndex: number) => {
     const selectedIds = selectedRef.current;
     if (selectedIds.length === 0) return;
 
+    const base = builderRef.current;
     const selectedSet = new Set(selectedIds);
-    const selectedItems = builderRef.current.filter((x) => selectedSet.has(x.id));
-    const remaining = builderRef.current.filter((x) => !selectedSet.has(x.id));
-    const safeIndex = Math.max(0, Math.min(insertIndex, remaining.length));
-    const next = [...remaining.slice(0, safeIndex), ...selectedItems, ...remaining.slice(safeIndex)];
+
+    // Rule 3: keep the ORIGINAL order of selected chords (not selection
+    // order). We iterate through the full builder and pull out selected
+    // items in the order they appear there.
+    const selectedItems: typeof base = [];
+    const remaining: typeof base = [];
+    base.forEach((c) => {
+      if (selectedSet.has(c.id)) selectedItems.push(c);
+      else remaining.push(c);
+    });
+
+    // Translate insertIndex from full-array coordinates to remaining-array
+    // coordinates: count how many selected chords are STRICTLY BEFORE
+    // insertIndex in the full array and subtract that many from insertIndex.
+    let removedBefore = 0;
+    for (let i = 0; i < Math.min(insertIndex, base.length); i++) {
+      if (selectedSet.has(base[i].id)) removedBefore++;
+    }
+    const translated = insertIndex - removedBefore;
+    const safeIndex = Math.max(0, Math.min(translated, remaining.length));
+
+    const next = [
+      ...remaining.slice(0, safeIndex),
+      ...selectedItems,
+      ...remaining.slice(safeIndex),
+    ];
 
     setBuilderChords(next);
     pushBuilderHistory(next);
@@ -1521,24 +1580,31 @@ export default function App() {
       // (No size dropdown to close anymore; kept the setContextMenu(null)
       // above so right-click menus still get dismissed on any click.)
 
-      // Clear the gesture selection if the click happened OUTSIDE any
-      // Builder chord button. We detect that by walking up from the
-      // click target and looking for the data-builder-index attribute
-      // we put on each Builder button. This preserves the selection
-      // when you click a chord (to toggle it) and drops it when you
-      // click empty toolbar space, the chord table, etc.
+      // Clear gesture selections when the click happened OUTSIDE the
+      // relevant surface:
+      //   - Builder selection is cleared unless the click was on a Builder
+      //     chord (data-builder-index) OR on a table chord (so a tap in the
+      //     table doesn't drop the Builder selection accidentally).
+      //   - Table selection is cleared unless the click was on a table
+      //     chord (data-table-chord) OR on a Builder chord (so dragging
+      //     from table INTO Builder doesn't lose the table selection).
       const target = e.target as HTMLElement | null;
-      let node: HTMLElement | null = target;
       let insideBuilderChord = false;
+      let insideTableChord = false;
+      let node: HTMLElement | null = target;
       while (node) {
-        if (node.getAttribute && node.getAttribute("data-builder-index") !== null) {
-          insideBuilderChord = true;
-          break;
+        if (node.getAttribute) {
+          if (node.getAttribute("data-builder-index") !== null) insideBuilderChord = true;
+          if (node.getAttribute("data-table-chord") !== null) insideTableChord = true;
         }
+        if (insideBuilderChord && insideTableChord) break;
         node = node.parentElement;
       }
-      if (!insideBuilderChord && selectedRef.current.length > 0) {
+      if (!insideBuilderChord && !insideTableChord && selectedRef.current.length > 0) {
         setSelectedBuilderIds([]);
+      }
+      if (!insideTableChord && !insideBuilderChord && selectedTableChordsRef.current.length > 0) {
+        setSelectedTableChords([]);
       }
     };
     window.addEventListener("click", closeMenu);
@@ -1946,19 +2012,45 @@ export default function App() {
         <div
           className="relative overflow-x-auto border border-black bg-white/80 px-0 py-0"
           onDragOver={(e) => {
-            if (e.dataTransfer.types.includes("application/x-progression-chord")) {
+            const t = e.dataTransfer.types;
+            if (
+              t.includes("application/x-progression-chord") ||
+              t.includes("application/x-progression-chords-multi")
+            ) {
               e.preventDefault();
             }
           }}
           onDrop={(e) => {
+            const multiJson = e.dataTransfer.getData("application/x-progression-chords-multi");
             const label = e.dataTransfer.getData("application/x-progression-chord");
-            if (!label) return;
+            if (!multiJson && !label) return;
             e.preventDefault();
             const insertIndex = findBuilderInsertIndex(e.clientX);
-            // Prefer the source row's code (stashed at dragstart) so the
-            // history bar records the dragged chord's own code - falling back
-            // to topCodeRef (the row at the top of the visible table) only if
-            // the stash is missing, which shouldn't happen for our own drags.
+
+            if (multiJson) {
+              // Multi-drop: parse the JSON payload and insert all chords at
+              // insertIndex, preserving the order they were selected in
+              // (which mirrors the visual order in the table for successive
+              // long-presses). Selection in the table is KEPT after the
+              // drop, per the user's explicit instruction.
+              try {
+                const items: Array<{ label: string; code: number }> = JSON.parse(multiJson);
+                if (Array.isArray(items) && items.length > 0) {
+                  // Insert one by one, incrementing insertIndex, so they end
+                  // up as a contiguous group in the requested order.
+                  items.forEach((item, i) => {
+                    const codeForSnap = Number.isFinite(item.code) ? item.code : topCodeRef.current;
+                    addChordToBuilderAndRecord(item.label, codeForSnap, insertIndex + i);
+                  });
+                  return;
+                }
+              } catch (err) {
+                console.error("[builder onDrop] multi payload parse failed:", err);
+                // Fall through to single-chord path below.
+              }
+            }
+
+            // Single-chord drop (legacy / non-multi drag).
             const codeStr = e.dataTransfer.getData("application/x-progression-code");
             const droppedCode = codeStr ? Number(codeStr) : NaN;
             const targetCode = Number.isFinite(droppedCode) ? droppedCode : topCodeRef.current;
@@ -2157,79 +2249,148 @@ export default function App() {
                       {suggestions.map((nextChord, idx) => {
                         const btnId = `${row.id}-${nextChord.rowId}-${idx}`;
                         const pressed = activeBtn === btnId;
+                        const selected = selectedTableChords.some((s) => s.btnId === btnId);
+                        const targetRow = rowById.get(nextChord.rowId);
+                        const nextCode = targetRow ? targetRow.code : 0;
 
                         return (
                           <button
                             key={btnId}
                             type="button"
-                            // Green suggestion buttons in the chord table keep
-                            // their existing behaviour: short tap adds the
-                            // chord to the Builder (or auditions the sound if
-                            // Ch On/Off is on); dragging one drops it at a
-                            // specific position in the Builder. Long-press
-                            // gesture selection lives only on Builder blocks,
-                            // where multi-select/reorder makes sense - a
-                            // "selected suggestion" in the table would have
-                            // no meaning since the same suggestion often
-                            // appears on many rows.
+                            data-table-chord={btnId}
+                            // Same gesture model as Builder chords:
+                            //  - long-press >= longPressMs -> add THIS button
+                            //    to the table selection (multi-select builds
+                            //    up as you long-press more).
+                            //  - short tap (no active selection) -> audition
+                            //    the chord if Ch On/Off is on, otherwise
+                            //    NOTHING (user explicitly asked for this in
+                            //    the plan - tap should never accidentally
+                            //    add chords when audition is off).
+                            //  - short tap with an active selection -> toggle
+                            //    THIS button in/out of the selection.
+                            //  - drag a selected button -> drops the WHOLE
+                            //    selection group into the Builder at the
+                            //    drop position (uses the multi-chord MIME
+                            //    'application/x-progression-chords-multi').
                             draggable
                             onDragStart={(e) => {
                               e.dataTransfer.effectAllowed = "copy";
-                              e.dataTransfer.setData("application/x-progression-chord", nextChord.label);
-                              // Also stash the target row's code as a separate
-                              // MIME so the drop handler can record the SNAPSHOT
-                              // with the dragged chord's own code, not the
-                              // topCode (=row at the top of the visible table)
-                              // which was completely unrelated.
-                              const targetRow = rowById.get(nextChord.rowId);
-                              if (targetRow) {
+
+                              // If the dragged button is part of a
+                              // multi-selection, transfer the WHOLE selection
+                              // (as JSON). If not, transfer only this one
+                              // (single-chord behaviour, backwards compatible
+                              // with the existing MIME the Builder onDrop
+                              // handler already understands).
+                              const sel = selectedTableChordsRef.current;
+                              const multi = sel.length > 0 && sel.some((s) => s.btnId === btnId);
+                              if (multi) {
                                 e.dataTransfer.setData(
-                                  "application/x-progression-code",
-                                  String(targetRow.code)
+                                  "application/x-progression-chords-multi",
+                                  JSON.stringify(sel.map((s) => ({ label: s.label, code: s.code })))
                                 );
+                                // Keep the single-chord MIME too so any code
+                                // path expecting it still finds SOMETHING.
+                                e.dataTransfer.setData(
+                                  "application/x-progression-chord",
+                                  nextChord.label
+                                );
+                                if (targetRow) {
+                                  e.dataTransfer.setData(
+                                    "application/x-progression-code",
+                                    String(targetRow.code)
+                                  );
+                                }
+                                e.dataTransfer.setData("text/plain", sel.map((s) => s.label).join(", "));
+                              } else {
+                                e.dataTransfer.setData("application/x-progression-chord", nextChord.label);
+                                if (targetRow) {
+                                  e.dataTransfer.setData(
+                                    "application/x-progression-code",
+                                    String(targetRow.code)
+                                  );
+                                }
+                                e.dataTransfer.setData("text/plain", nextChord.label);
                               }
-                              e.dataTransfer.setData("text/plain", nextChord.label);
-                              // Guard the click handler that may fire after
-                              // dragend on some browsers - see ref definition.
+
                               isDraggingProgressionRef.current = true;
+                              // Cancel any pending long-press timer - the
+                              // user is dragging, not holding.
+                              if (longPressTimerRef.current !== null) {
+                                window.clearTimeout(longPressTimerRef.current);
+                                longPressTimerRef.current = null;
+                              }
                             }}
                             onDragEnd={() => {
-                              // Clear the guard after the synthetic click has
-                              // had a chance to fire and be swallowed. 250ms
-                              // is safely past the browser's synthetic-click
-                              // window on all common desktop browsers.
                               window.setTimeout(() => {
                                 isDraggingProgressionRef.current = false;
                               }, 250);
                             }}
+                            onMouseDown={() => {
+                              // Start the long-press timer. Same mechanism
+                              // as Builder chord buttons.
+                              longPressFiredRef.current = false;
+                              if (longPressTimerRef.current !== null) {
+                                window.clearTimeout(longPressTimerRef.current);
+                              }
+                              longPressTimerRef.current = window.setTimeout(() => {
+                                longPressFiredRef.current = true;
+                                suppressNextClickRef.current = true;
+                                // Add to table selection (dedup on btnId).
+                                setSelectedTableChords((prev) =>
+                                  prev.some((s) => s.btnId === btnId)
+                                    ? prev
+                                    : [...prev, { btnId, label: nextChord.label, code: nextCode }]
+                                );
+                              }, longPressMs);
+                            }}
+                            onMouseUp={() => {
+                              if (longPressTimerRef.current !== null) {
+                                window.clearTimeout(longPressTimerRef.current);
+                                longPressTimerRef.current = null;
+                              }
+                            }}
+                            onMouseLeave={() => {
+                              if (longPressTimerRef.current !== null) {
+                                window.clearTimeout(longPressTimerRef.current);
+                                longPressTimerRef.current = null;
+                              }
+                            }}
                             onClick={() => {
-                              // A synthetic click after dragend must NOT add
-                              // the chord again - the drop handler already
-                              // did that. This is the single biggest source
-                              // of the "two/three chords appear from one
-                              // click" bug the user hit.
+                              // Post-drag synthetic click - swallow it so we
+                              // don't accidentally re-audition after a drop.
                               if (isDraggingProgressionRef.current) return;
+                              if (suppressNextClickRef.current) {
+                                suppressNextClickRef.current = false;
+                                return;
+                              }
 
+                              const hasTableSelection = selectedTableChordsRef.current.length > 0;
+                              if (hasTableSelection) {
+                                // Toggle this button in/out of the selection.
+                                setSelectedTableChords((prev) =>
+                                  prev.some((s) => s.btnId === btnId)
+                                    ? prev.filter((s) => s.btnId !== btnId)
+                                    : [...prev, { btnId, label: nextChord.label, code: nextCode }]
+                                );
+                                return;
+                              }
+
+                              // No selection: short tap = audition ONLY when
+                              // Ch On/Off is on. Otherwise do nothing (per
+                              // the user's explicit instruction).
                               setActiveBtn(btnId);
-
                               if (auditionMode) {
                                 playChordSound(nextChord.label, 700);
-                                window.setTimeout(() => setActiveBtn(""), 140);
-                                return;
                               }
-
-                              const target = rowById.get(nextChord.rowId);
-                              if (!target) {
-                                setActiveBtn("");
-                                return;
-                              }
-
-                              // Normal mode: add selected progression chord to builder and register undo/redo history.
-                              addChordToBuilderAndRecord(nextChord.label, target.code);
+                              window.setTimeout(() => setActiveBtn(""), 140);
                             }}
                             title={`${nextChord.label}  ->  ${chordNotesDisplay(nextChord.label)}`}
                             className={`h-10 border border-black px-2 text-xs transition-all ${
-                              pressed
+                              selected
+                                ? "bg-green-300 shadow-[0_0_12px_#ff8827] ring-2 ring-[#ff8827]"
+                                : pressed
                                 ? "bg-green-300 shadow-[0_0_10px_#4df72c]"
                                 : "bg-[#bae3b4] hover:shadow-[0_0_8px_#4df72c]"
                             }`}
