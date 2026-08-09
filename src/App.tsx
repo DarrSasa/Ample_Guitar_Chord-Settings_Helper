@@ -16,6 +16,13 @@ type ChordRow = {
 type BuilderChord = {
   id: string;
   label: string;
+  // Duration of this chord in BEATS at the current time signature.
+  // Set at the moment the chord was added, based on the Snap dropdown
+  // that was active at that time. Existing chords keep their beats
+  // when the user changes Snap - only NEW chords pick up the new
+  // duration. Default 4 (= 1 bar in 4/4) matches the pre-Snap default
+  // 'Bar' length so old saved progressions look the same.
+  beats: number;
 };
 
 type Snapshot = {
@@ -52,12 +59,37 @@ type ProgressionSuggestion = {
 const ROOTS = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 const DISPLAY_NONE = "-";
 const MAX_HISTORY_ITEMS = 100;
-const BLOCK_WIDTH = 118;
+// BLOCK_WIDTH removed - replaced by BEAT_WIDTH below. All chord widths
+// are now derived from each chord's own `beats` value * BEAT_WIDTH.
+
 // Gaps between blocks in the two horizontal bars.
 // Both zero now (user wants edge-to-edge chord blocks with no whitespace
 // between them, so borders visually merge into one continuous strip).
 const HISTORY_GAP = 0;
 const BUILDER_GAP = 0;
+
+// Width in pixels of one BEAT of music on the Builder + Time Bar. All
+// horizontal geometry (chord block widths, playhead x, grid line spacing)
+// is derived from this single constant.
+//   1 beat  = BEAT_WIDTH px
+//   1 bar   = BEATS_PER_BAR[ts] * BEAT_WIDTH px  (differs per time sig)
+//   1/2 beat = BEAT_WIDTH / 2 px, etc.
+// Chosen so a full 4/4 bar (=4 beats) is 118px, matching the old block
+// width so existing 1-bar chords look the same size as before.
+const BEAT_WIDTH = 118 / 4; // 29.5 px per beat
+
+// Maximum number of bars a progression can hold, per the spec.
+// max bars = 360, max chords = 360 * 4 = 1440.
+const MAX_BARS = 360;
+const MAX_CHORDS = 1440;
+
+// Height in pixels of the Builder chord strip. User asked for 5x the
+// previous ~48px = ~240px total.
+const BUILDER_STRIP_HEIGHT = 240;
+
+// Height of the Time Bar at the top of the Builder section. 2x the
+// scrollbar width (12px in index.css) gives 24px.
+const TIME_BAR_HEIGHT = 24;
 
 const TYPE_OPTIONS: Record<ChordType, { extensions: string[]; alterations: string[] }> = {
   Maj: { extensions: ["7", "Maj7", "add9", "6"], alterations: ["add11"] },
@@ -69,15 +101,73 @@ const TYPE_OPTIONS: Record<ChordType, { extensions: string[]; alterations: strin
   oct: { extensions: [], alterations: [] },
 };
 
-const LENGTH_OPTIONS = ["Beat", "2 Beats", "Bar", "2 Bars"] as const;
-type LengthOption = (typeof LENGTH_OPTIONS)[number];
+// -----------------------------------------------------------------------
+// Time signatures + snap grid
+// -----------------------------------------------------------------------
+//
+// The old "Length" dropdown (Beat / 2 Beats / Bar / 2 Bars) is replaced by:
+//   1) a time-signature picker: three radio buttons |4/4|3/4|6/8|
+//   2) a Snap dropdown whose options depend on the time signature
+// A user-selected Snap value determines TWO things:
+//   a) the duration (in beats) new chords get when added to the Builder
+//   b) the density of the vertical grid lines drawn under the Builder,
+//      plus where the Time Bar playhead snaps to when clicked.
+//
+// Chord duration stays with each individual chord (BuilderChord.beats),
+// so changing Snap only affects NEW chords - existing ones keep the
+// beats they were added with.
 
-const LENGTH_BEATS: Record<LengthOption, number> = {
-  Beat: 1,
-  "2 Beats": 2,
-  Bar: 4,
-  "2 Bars": 8,
+const TIME_SIGNATURES = ["4/4", "3/4", "6/8"] as const;
+type TimeSignature = (typeof TIME_SIGNATURES)[number];
+
+// Beats per bar for each time signature (numerator of the fraction).
+const BEATS_PER_BAR: Record<TimeSignature, number> = {
+  "4/4": 4,
+  "3/4": 3,
+  "6/8": 6,
 };
+
+type SnapOption = "Bar" | "Beat" | "1/2 beat" | "1/3 beat" | "Step" | "1/2 step" | "None";
+
+// Ordered list of Snap options per time signature. The order matters
+// because it's exactly how the dropdown is rendered - the 6/8 preset
+// swaps 1/3 beat above Beat, matching common compound-meter usage.
+const SNAP_OPTIONS_BY_TS: Record<TimeSignature, SnapOption[]> = {
+  "4/4": ["Bar", "Beat", "1/2 beat", "1/3 beat", "Step", "1/2 step", "None"],
+  "3/4": ["Bar", "Beat", "1/2 beat", "1/3 beat", "Step", "1/2 step", "None"],
+  "6/8": ["Bar", "1/3 beat", "Beat", "1/2 beat", "Step", "1/2 step", "None"],
+};
+
+// Duration in BEATS that a new chord gets when added while a given Snap
+// value is active. 'None' resolves to a full bar (default) since the
+// user asked for that fallback explicitly.
+function snapDurationBeats(snap: SnapOption, ts: TimeSignature): number {
+  const bar = BEATS_PER_BAR[ts];
+  switch (snap) {
+    case "Bar":       return bar;
+    case "Beat":      return 1;
+    case "1/2 beat":  return 1 / 2;
+    case "1/3 beat":  return 1 / 3;
+    case "Step":      return 1 / 4;  // 16th note
+    case "1/2 step":  return 1 / 8;  // 32nd note
+    case "None":      return bar;    // per spec: None behaves like Bar
+  }
+}
+
+// Number of vertical sub-grid lines drawn PER BAR in the Builder / Time Bar
+// area for each Snap value. Bar draws only the bar-boundary line; None is
+// the finest usable grid the user asked for (16 subdivisions per bar).
+function snapSubdivisionsPerBar(snap: SnapOption): number {
+  switch (snap) {
+    case "Bar":       return 0;
+    case "Beat":      return 4;
+    case "1/2 beat":  return 8;
+    case "1/3 beat":  return 12;
+    case "Step":      return 16;
+    case "1/2 step":  return 32;
+    case "None":      return 16;
+  }
+}
 
 // Standard General MIDI guitar programs (25 - 31), rendered through
 // soundfont-player against MusyngKite MP3 packs from the gleitz CDN. This
@@ -378,10 +468,13 @@ function chunk(id: string, data: number[]) {
   ];
 }
 
-function createMidiFile(chords: BuilderChord[], bpm: number, lengthMode: LengthOption) {
+// Duration in beats used when a chord has no per-chord beats value
+// (defensive default, keeps old saved sessions compatible).
+const DEFAULT_CHORD_BEATS = 4;
+
+function createMidiFile(chords: BuilderChord[], bpm: number) {
   const ppq = 480;
   const beatTicks = ppq;
-  const chordTicks = beatTicks * LENGTH_BEATS[lengthMode];
   const tempo = Math.floor(60000000 / Math.max(40, Math.min(240, bpm)));
 
   const track: number[] = [];
@@ -389,6 +482,12 @@ function createMidiFile(chords: BuilderChord[], bpm: number, lengthMode: LengthO
   track.push(0x00, 0xc0, 24);
 
   chords.forEach((chord) => {
+    // Each chord now carries its own duration in beats. Fractional beat
+    // durations (e.g. 1/3 for triplets) are rounded to the nearest MIDI
+    // tick, so a 1/3-beat chord at ppq=480 becomes 160 ticks.
+    const beatsForChord = chord.beats > 0 ? chord.beats : DEFAULT_CHORD_BEATS;
+    const chordTicks = Math.max(1, Math.round(beatTicks * beatsForChord));
+
     const notes = chordNotes(chord.label);
     notes.forEach((note, i) => {
       track.push(...toVarLen(i === 0 ? 0 : 0), 0x90, note, 86);
@@ -409,6 +508,112 @@ function createMidiFile(chords: BuilderChord[], bpm: number, lengthMode: LengthO
 
 function clampBpm(value: number) {
   return Math.max(40, Math.min(240, Math.floor(value)));
+}
+
+// Time Bar rendered above the Builder chord strip. Shows bar-numbers
+// spanning the entire progression length + hosts the playhead triangle.
+// Clicking anywhere on the bar snaps the playhead to the nearest snap-
+// grid line and puts the transport there.
+function TimeBar(props: {
+  totalBeats: number;
+  pixelsPerBeat: number;
+  timeSignature: TimeSignature;
+  snap: SnapOption;
+  playheadX: number;
+  onSeek: (px: number) => void;
+}) {
+  const { totalBeats, pixelsPerBeat, timeSignature, snap, playheadX, onSeek } = props;
+  const beatsPerBar = BEATS_PER_BAR[timeSignature];
+  const barWidthPx = beatsPerBar * pixelsPerBeat;
+  const totalBars = Math.max(1, Math.ceil(totalBeats / beatsPerBar));
+  const rulerBars = Math.max(totalBars + 4, 32);
+  const rulerWidthPx = Math.min(MAX_BARS, rulerBars) * barWidthPx;
+
+  const subsPerBar = snapSubdivisionsPerBar(snap);
+  const gridStepBeats = snap === "Bar" ? beatsPerBar : beatsPerBar / subsPerBar;
+  const gridStepPx = gridStepBeats * pixelsPerBeat;
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const rawX = e.clientX - rect.left + e.currentTarget.scrollLeft;
+    const snappedX = Math.max(0, Math.min(rulerWidthPx, Math.round(rawX / gridStepPx) * gridStepPx));
+    onSeek(snappedX);
+  };
+
+  const barNumbers: React.ReactElement[] = [];
+  const rulerCap = Math.min(MAX_BARS, rulerBars);
+  for (let b = 0; b < rulerCap; b++) {
+    barNumbers.push(
+      <div
+        key={`bar-${b}`}
+        className="pointer-events-none absolute top-0 h-full border-l border-black text-center text-[10px] leading-none text-black"
+        style={{ left: `${b * barWidthPx}px`, width: `${barWidthPx}px` }}
+      >
+        <span className="inline-block pt-[3px]">{b + 1}</span>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      role="slider"
+      aria-label="Time bar"
+      onClick={handleClick}
+      className="relative cursor-pointer overflow-x-scroll border border-black bg-[#e8e8e8] select-none"
+      style={{ height: TIME_BAR_HEIGHT }}
+    >
+      <div className="relative h-full" style={{ width: `${rulerWidthPx}px` }}>
+        {barNumbers}
+        <div
+          className="pointer-events-none absolute top-0 z-10 h-0 w-0 border-l-[6px] border-r-[6px] border-t-[10px] border-b-0 border-l-transparent border-r-transparent border-t-[#ff8827] drop-shadow-[0_0_8px_#ff8827]"
+          style={{ left: `${Math.max(0, playheadX - 6)}px` }}
+        />
+      </div>
+    </div>
+  );
+}
+
+// Vertical grid lines drawn behind the Builder chord strip. Purely visual.
+function BuilderGrid(props: {
+  widthPx: number;
+  heightPx: number;
+  pixelsPerBeat: number;
+  timeSignature: TimeSignature;
+  snap: SnapOption;
+}) {
+  const { widthPx, heightPx, pixelsPerBeat, timeSignature, snap } = props;
+  const beatsPerBar = BEATS_PER_BAR[timeSignature];
+  const barWidthPx = beatsPerBar * pixelsPerBeat;
+  const totalBars = Math.max(1, Math.ceil(widthPx / barWidthPx));
+  const subsPerBar = snapSubdivisionsPerBar(snap);
+
+  const lines: React.ReactElement[] = [];
+  for (let b = 0; b <= totalBars; b++) {
+    lines.push(
+      <div
+        key={`grid-bar-${b}`}
+        className="pointer-events-none absolute top-0 h-full w-px bg-black opacity-40"
+        style={{ left: `${b * barWidthPx}px` }}
+      />
+    );
+    if (b < totalBars && subsPerBar > 0) {
+      const stepPx = barWidthPx / subsPerBar;
+      for (let s = 1; s < subsPerBar; s++) {
+        lines.push(
+          <div
+            key={`grid-sub-${b}-${s}`}
+            className="pointer-events-none absolute top-0 h-full w-px bg-neutral-400 opacity-30"
+            style={{ left: `${b * barWidthPx + s * stepPx}px` }}
+          />
+        );
+      }
+    }
+  }
+  return (
+    <div className="pointer-events-none absolute inset-0 z-0" style={{ height: heightPx }}>
+      {lines}
+    </div>
+  );
 }
 
 // Inline SVG gear/cog icon used for the Settings button and the close button
@@ -628,7 +833,40 @@ export default function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [playheadIndex, setPlayheadIndex] = useState(0);
-  const [lengthMode, setLengthMode] = useState<LengthOption>("Bar");
+  // Time signature + snap. Both persist to localStorage so a user's
+  // rhythmic setup survives across sessions - same pattern used for
+  // windowSize / longPressMs.
+  const [timeSignature, setTimeSignature] = useState<TimeSignature>(() => {
+    try {
+      const v = localStorage.getItem("timeSignature");
+      if (v === "4/4" || v === "3/4" || v === "6/8") return v;
+    } catch { /* ignore */ }
+    return "4/4";
+  });
+  const [snap, setSnap] = useState<SnapOption>(() => {
+    try {
+      const v = localStorage.getItem("snap") as SnapOption | null;
+      if (v && ["Bar","Beat","1/2 beat","1/3 beat","Step","1/2 step","None"].includes(v)) return v;
+    } catch { /* ignore */ }
+    return "Bar";
+  });
+  const [snapMenuOpen, setSnapMenuOpen] = useState(false);
+
+  useEffect(() => {
+    try { localStorage.setItem("timeSignature", timeSignature); } catch { /* ignore */ }
+  }, [timeSignature]);
+  useEffect(() => {
+    try { localStorage.setItem("snap", snap); } catch { /* ignore */ }
+  }, [snap]);
+
+  // If the user picks a Snap option that doesn't exist in the current time
+  // signature (all three time sigs share the same options today so this is
+  // a no-op, but keep the check for future-proofing), fall back to Bar.
+  useEffect(() => {
+    if (!SNAP_OPTIONS_BY_TS[timeSignature].includes(snap)) {
+      setSnap("Bar");
+    }
+  }, [timeSignature, snap]);
   const [bpm, setBpm] = useState(120);
   const [editingBpm, setEditingBpm] = useState(false);
   const [bpmText, setBpmText] = useState("120");
@@ -1142,10 +1380,20 @@ export default function App() {
 
   const addChordToBuilderAndRecord = (label: string, targetCode: number, insertIndex?: number) => {
     const base = builderRef.current;
+    // Reject if the progression is already at the hard limit the spec
+    // sets (360 bars x 4 = 1440 chords).
+    if (base.length >= MAX_CHORDS) {
+      alert(`Progression is at the maximum of ${MAX_CHORDS} chords. Delete some before adding more.`);
+      return;
+    }
     const safeIndex = Math.max(0, Math.min(insertIndex ?? base.length, base.length));
+    // New chord gets its duration from the CURRENT snap value. Existing
+    // chords keep whatever beats they were added with (that's why we
+    // store `beats` per chord and never rewrite it when snap changes).
+    const beatsForNewChord = snapDurationBeats(snap, timeSignature);
     const nextBuilder = [
       ...base.slice(0, safeIndex),
-      { id: crypto.randomUUID(), label },
+      { id: crypto.randomUUID(), label, beats: beatsForNewChord },
       ...base.slice(safeIndex),
     ];
     setBuilderChords(nextBuilder);
@@ -1198,8 +1446,18 @@ export default function App() {
   ) => {
     if (items.length === 0) return;
     const base = builderRef.current;
+    if (base.length + items.length > MAX_CHORDS) {
+      alert(`Cannot add ${items.length} chords: progression would exceed the maximum of ${MAX_CHORDS}.`);
+      return;
+    }
     const safeIndex = Math.max(0, Math.min(insertIndex ?? base.length, base.length));
-    const newBlocks = items.map((it) => ({ id: crypto.randomUUID(), label: it.label }));
+    // All chords in the batch get the same beats value (the current Snap).
+    const beatsForNewChord = snapDurationBeats(snap, timeSignature);
+    const newBlocks = items.map((it) => ({
+      id: crypto.randomUUID(),
+      label: it.label,
+      beats: beatsForNewChord,
+    }));
     const nextBuilder = [
       ...base.slice(0, safeIndex),
       ...newBlocks,
@@ -1341,7 +1599,14 @@ export default function App() {
 
   const pasteClipboard = (insertIndex: number) => {
     if (clipboardChords.length === 0) return;
-    const clones = clipboardChords.map((x) => ({ id: crypto.randomUUID(), label: x.label }));
+    // Paste preserves the ORIGINAL beats of each copied chord, not the
+    // current snap value - matches the "existing chords keep their length"
+    // rule (copy is treated like snapshot preservation).
+    const clones = clipboardChords.map((x) => ({
+      id: crypto.randomUUID(),
+      label: x.label,
+      beats: x.beats > 0 ? x.beats : DEFAULT_CHORD_BEATS,
+    }));
     const base = builderRef.current;
     const safeIndex = Math.max(0, Math.min(insertIndex, base.length));
     const next = [...base.slice(0, safeIndex), ...clones, ...base.slice(safeIndex)];
@@ -1377,9 +1642,21 @@ export default function App() {
     if (builderRef.current.length === 0) return;
 
     const beatMs = 60000 / bpm;
-    const chordMs = beatMs * LENGTH_BEATS[lengthMode];
-    const totalMs = chordMs * builderRef.current.length;
-    playChordMsRef.current = chordMs;
+    // Cumulative start times of each chord, in ms from t=0.
+    // With variable per-chord durations we can't just multiply, we have
+    // to add up as we go. offsets[i] = start ms of chord i; offsets[N]
+    // = total playback ms.
+    const offsets: number[] = [0];
+    builderRef.current.forEach((c) => {
+      const b = c.beats > 0 ? c.beats : DEFAULT_CHORD_BEATS;
+      offsets.push(offsets[offsets.length - 1] + b * beatMs);
+    });
+    const totalMs = offsets[offsets.length - 1];
+
+    // Cache the FIRST chord's ms as playChordMsRef so places that still
+    // read it (audition timeouts) have a sane value. Real per-chord
+    // playback uses offsets[] below.
+    playChordMsRef.current = offsets[1] - offsets[0];
 
     setIsPlaying(true);
     setIsPaused(false);
@@ -1395,14 +1672,26 @@ export default function App() {
 
     const tick = () => {
       const elapsed = performance.now() - playStartRef.current;
-      const linearX = Math.min((elapsed / chordMs) * BLOCK_WIDTH, builderRef.current.length * BLOCK_WIDTH);
+      // Convert elapsed ms to x-pixels. Each beat is BEAT_WIDTH px, so
+      // px = (elapsed / beatMs) * BEAT_WIDTH.
+      const linearX = Math.min((elapsed / beatMs) * BEAT_WIDTH, (totalMs / beatMs) * BEAT_WIDTH);
       setPlayheadX(linearX);
 
-      const idx = Math.min(Math.floor(elapsed / chordMs), builderRef.current.length - 1);
+      // Find which chord we're currently in by binary-searching offsets.
+      // Linear scan is fine here (at most MAX_CHORDS=1440 iterations,
+      // per RAF-tick that's still cheap).
+      let idx = builderRef.current.length - 1;
+      for (let i = 0; i < offsets.length - 1; i++) {
+        if (elapsed < offsets[i + 1]) { idx = i; break; }
+      }
+
       if (idx !== playedIndexRef.current) {
         playedIndexRef.current = idx;
         setPlayheadIndex(idx);
-        void playChordSound(builderRef.current[idx].label, chordMs * 0.94);
+        // Play THIS chord's audio for its own duration (not the first
+        // chord's duration - important once chords have mixed lengths).
+        const durMs = offsets[idx + 1] - offsets[idx];
+        void playChordSound(builderRef.current[idx].label, durMs * 0.94);
       }
 
       if (elapsed >= totalMs) {
@@ -1466,7 +1755,54 @@ export default function App() {
     if (builderRef.current.length === 0) {
       return null;
     }
-    return createMidiFile(builderRef.current, bpm, lengthMode);
+    return createMidiFile(builderRef.current, bpm);
+  };
+
+  // Total length of the current Builder progression, in beats. Used by
+  // TimeBar (ruler length) and BuilderGrid (grid line count).
+  const totalBuilderBeats = useMemo(() => {
+    let sum = 0;
+    for (const c of builderChords) sum += c.beats > 0 ? c.beats : DEFAULT_CHORD_BEATS;
+    return sum;
+  }, [builderChords]);
+
+  // Minimum pixel width the Builder strip container needs, so all current
+  // chords fit even with fractional/variable beats. Add a spare full bar
+  // at the end so drops after the last chord always find a target area.
+  const builderMinPxWidth = useMemo(() => {
+    const chordsWidth = builderChords.reduce(
+      (sum, c) => sum + Math.max(24, (c.beats > 0 ? c.beats : DEFAULT_CHORD_BEATS) * BEAT_WIDTH),
+      0
+    );
+    const oneExtraBar = BEATS_PER_BAR[timeSignature] * BEAT_WIDTH;
+    return chordsWidth + oneExtraBar;
+  }, [builderChords, timeSignature]);
+
+  // Called by TimeBar onSeek. `px` is already snapped to the nearest grid
+  // line by TimeBar. We update playheadX so the vertical indicator jumps
+  // there. If we're currently PLAYING, we also rewind/advance the play
+  // start time so playback resumes from that position.
+  const handleTimeBarSeek = (px: number) => {
+    setPlayheadX(px);
+    if (isPlaying || isPaused) {
+      const beatMs = 60000 / bpm;
+      const seekMs = (px / BEAT_WIDTH) * beatMs;
+      // Rewind playStartRef so `elapsed = now - playStartRef` = seekMs.
+      playStartRef.current = performance.now() - seekMs;
+      pausedElapsedRef.current = seekMs;
+      // Update chord index so audio auditions from the right chord next tick.
+      let sum = 0;
+      let idx = 0;
+      const beats = seekMs / beatMs;
+      for (let i = 0; i < builderRef.current.length; i++) {
+        const b = builderRef.current[i].beats > 0 ? builderRef.current[i].beats : DEFAULT_CHORD_BEATS;
+        if (beats < sum + b) { idx = i; break; }
+        sum += b;
+        idx = i + 1;
+      }
+      playedIndexRef.current = idx - 1; // let the next tick trigger playChordSound
+      setPlayheadIndex(Math.min(idx, builderRef.current.length - 1));
+    }
   };
 
   const saveMidi = async () => {
@@ -1618,6 +1954,7 @@ export default function App() {
   useEffect(() => {
     const closeMenu = (e: MouseEvent) => {
       setContextMenu(null);
+      setSnapMenuOpen(false);
       // (No size dropdown to close anymore; kept the setContextMenu(null)
       // above so right-click menus still get dismissed on any click.)
 
@@ -1871,20 +2208,65 @@ export default function App() {
             Stop
           </button>
 
-          <label className="flex items-center gap-1 rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
-            Length
-            <select
-              value={lengthMode}
-              onChange={(e) => setLengthMode(e.target.value as LengthOption)}
-              className="border border-black bg-white px-1 py-0.5"
-            >
-              {LENGTH_OPTIONS.map((opt) => (
-                <option key={opt} value={opt}>
-                  {opt}
-                </option>
-              ))}
-            </select>
-          </label>
+          {/* Snap + time signature control cluster:
+              - Text "Snap"
+              - Three radio-style time-signature buttons (only one active
+                at a time). Clicking one switches the active time
+                signature and rebuilds the Snap dropdown options.
+              - Snap dropdown with a down-arrow. Clicking opens a list of
+                snap values valid for the current time signature. Picking
+                one changes the DURATION of chords added afterwards, plus
+                the density of the grid lines drawn under the Builder. */}
+          <div className="flex items-center gap-1 rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
+            <span className="mr-1 font-semibold">Snap</span>
+            {(TIME_SIGNATURES).map((ts) => (
+              <button
+                key={ts}
+                type="button"
+                onClick={() => setTimeSignature(ts)}
+                title={`Time signature ${ts}`}
+                className={`h-6 min-w-[36px] border border-black px-1 text-[11px] ${
+                  timeSignature === ts
+                    ? "bg-green-300 shadow-[0_0_6px_#ff8827]"
+                    : "bg-white hover:bg-green-100"
+                }`}
+              >
+                {ts}
+              </button>
+            ))}
+            <div className="relative ml-1" onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                onClick={() => setSnapMenuOpen((v) => !v)}
+                title={`Snap grid (currently ${snap})`}
+                className={`flex h-6 items-center gap-1 border border-black bg-white px-2 text-[11px] ${
+                  snapMenuOpen ? "bg-green-100 shadow-[0_0_6px_#ff8827]" : ""
+                }`}
+              >
+                <span className="min-w-[54px] text-left">{snap}</span>
+                <span aria-hidden="true" className="text-[8px] leading-none">&#9660;</span>
+              </button>
+              {snapMenuOpen && (
+                <div className="absolute right-0 top-7 z-40 w-32 border border-black bg-white shadow-lg">
+                  {SNAP_OPTIONS_BY_TS[timeSignature].map((opt) => (
+                    <button
+                      key={opt}
+                      type="button"
+                      onClick={() => {
+                        setSnap(opt);
+                        setSnapMenuOpen(false);
+                      }}
+                      className={`block w-full border-b border-black px-2 py-1 text-left text-xs hover:bg-green-100 ${
+                        snap === opt ? "bg-green-200 font-semibold" : ""
+                      }`}
+                    >
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
 
           {/* BPM control. Same padded pill shape as the Length dropdown next
               to it, so both controls line up flush on the toolbar. Scroll
@@ -2066,6 +2448,20 @@ export default function App() {
           </button>
         </div>
 
+        {/* Time Bar - horizontal ruler above the Builder strip. Numbered
+            1..N bars (max MAX_BARS=360). Click anywhere on it to snap the
+            playhead to the nearest grid line for the current Snap. Height
+            is 2x the vertical scrollbar's 12px = TIME_BAR_HEIGHT (24px)
+            per the user's spec. */}
+        <TimeBar
+          totalBeats={totalBuilderBeats}
+          pixelsPerBeat={BEAT_WIDTH}
+          timeSignature={timeSignature}
+          snap={snap}
+          playheadX={playheadX}
+          onSeek={handleTimeBarSeek}
+        />
+
         <div
           className="relative overflow-x-auto border border-black bg-white/80 px-0 py-0"
           onDragOver={(e) => {
@@ -2137,21 +2533,38 @@ export default function App() {
             setContextMenu({ x: e.clientX, y: e.clientY, insertIndex: builderRef.current.length });
           }}
         >
-          <div className="relative h-12">
+          <div
+            className="relative"
+            style={{
+              // 5x the previous ~48px = 240px. Set on the wrapper so the
+              // BuilderGrid overlay + the chord-button flex row share the
+              // same tall canvas.
+              height: BUILDER_STRIP_HEIGHT,
+              // Ensure the container is at least as wide as the ruler above
+              // (equivalent to MAX_BARS worth of bars) so the horizontal
+              // scrollbars of the two stay in sync when the user scrolls.
+              minWidth: `${Math.max(builderMinPxWidth, 800)}px`,
+            }}
+          >
+            {/* Vertical grid lines underneath everything. z-index 0. */}
+            <BuilderGrid
+              widthPx={Math.max(builderMinPxWidth, 800)}
+              heightPx={BUILDER_STRIP_HEIGHT}
+              pixelsPerBeat={BEAT_WIDTH}
+              timeSignature={timeSignature}
+              snap={snap}
+            />
+
             {(isPlaying || isPaused) && builderChords.length > 0 && (
               <>
                 <div
-                  className="pointer-events-none absolute top-0 z-10 h-0 w-0 border-l-[6px] border-r-[6px] border-t-[10px] border-b-0 border-l-transparent border-r-transparent border-t-[#ff8827] drop-shadow-[0_0_8px_#ff8827]"
-                  style={{ left: `${Math.max(0, playheadX - 6)}px` }}
-                />
-                <div
-                  className="pointer-events-none absolute bottom-0 top-[10px] z-10 w-[2px] bg-[#ff8827] shadow-[0_0_10px_#ff8827]"
+                  className="pointer-events-none absolute bottom-0 top-0 z-20 w-[2px] bg-[#ff8827] shadow-[0_0_10px_#ff8827]"
                   style={{ left: `${playheadX}px` }}
                 />
               </>
             )}
 
-            <div className="flex h-full items-stretch" style={{ gap: BUILDER_GAP }}>
+            <div className="relative z-10 flex h-full items-stretch" style={{ gap: BUILDER_GAP }}>
               {builderChords.map((chord, index) => {
                 const selected = selectedBuilderIds.includes(chord.id);
                 const playing = isPlaying && playheadIndex === index;
@@ -2242,13 +2655,21 @@ export default function App() {
                       const idx = builderRef.current.findIndex((x) => x.id === chord.id);
                       setContextMenu({ x: e.clientX, y: e.clientY, insertIndex: before ? idx : idx + 1 });
                     }}
-                    title={`${chord.label}  ->  ${chordNotesDisplay(chord.label)}`}
-                    className={`h-full min-w-[118px] border border-black px-2 text-left text-xs transition-all ${
+                    title={`${chord.label}  ->  ${chordNotesDisplay(chord.label)}  [${chord.beats} beats]`}
+                    // Width proportional to the chord's own beats value, so
+                    // a 1-bar chord is 4x wider than a 1-beat chord under
+                    // the same time signature. Kept a minimum so ultra-
+                    // short 1/8-step chords are still clickable.
+                    style={{
+                      width: `${Math.max(24, chord.beats * BEAT_WIDTH)}px`,
+                      flexShrink: 0,
+                    }}
+                    className={`relative z-10 h-full border border-black px-1 text-left text-[11px] transition-all ${
                       selected
-                        ? "bg-green-300 shadow-[0_0_12px_#ff8827] ring-2 ring-[#ff8827]"
+                        ? "bg-green-300/90 shadow-[0_0_12px_#ff8827] ring-2 ring-[#ff8827]"
                         : playing || blinking
-                        ? "bg-green-300 shadow-[0_0_10px_#4df72c]"
-                        : "bg-[#bae3b4] hover:shadow-[0_0_8px_#4df72c]"
+                        ? "bg-green-300/90 shadow-[0_0_10px_#4df72c]"
+                        : "bg-[#bae3b4]/90 hover:shadow-[0_0_8px_#4df72c]"
                     }`}
                   >
                     <div>{chord.label}</div>
@@ -2279,7 +2700,13 @@ export default function App() {
             scrollTimerRef.current = null;
           }, 120);
         }}
-        className="flex-1 w-full overflow-auto border border-black bg-white"
+        // Fixed height: header (~32px) + 4 x row (~42px each = 168px)
+        // = ~200px. User asked for exactly 4 rows visible, with the last
+        // row fully drawn (not clipped). Overflow-y-auto keeps the
+        // vertical scrollbar. flex-1 removed so the table doesn't stretch
+        // to fill leftover vertical space.
+        style={{ height: 200 }}
+        className="w-full overflow-y-auto overflow-x-auto border border-black bg-white"
       >
         <table className="min-w-full border-collapse text-sm text-black">
           <thead ref={headRef} className="sticky top-0 z-20 bg-[#e8e8e8]">
