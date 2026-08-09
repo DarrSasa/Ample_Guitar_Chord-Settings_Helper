@@ -513,42 +513,49 @@ function clampBpm(value: number) {
 // spanning the entire progression length + hosts the playhead triangle.
 // Clicking anywhere on the bar snaps the playhead to the nearest snap-
 // grid line and puts the transport there.
+//
+// IMPORTANT: this component no longer manages its own horizontal
+// scrolling. It is rendered INSIDE the same scroll container as the
+// Builder chord strip below it, so both scroll together as one unit.
+// The `rulerWidthPx` prop is the total intrinsic width the bar needs.
 function TimeBar(props: {
-  totalBeats: number;
+  rulerWidthPx: number;
   pixelsPerBeat: number;
   snap: SnapOption;
   playheadX: number;
   onSeek: (px: number) => void;
 }) {
-  const { totalBeats, pixelsPerBeat, snap, playheadX, onSeek } = props;
+  const { rulerWidthPx, pixelsPerBeat, snap, playheadX, onSeek } = props;
   const barWidthPx = BEATS_PER_BAR * pixelsPerBeat;
-  const totalBars = Math.max(1, Math.ceil(totalBeats / BEATS_PER_BAR));
-  const rulerBars = Math.max(totalBars + 4, 32);
-  const rulerWidthPx = Math.min(MAX_BARS, rulerBars) * barWidthPx;
+  const rulerBars = Math.round(rulerWidthPx / barWidthPx);
 
   const subsPerBar = snapSubdivisionsPerBar(snap);
-  // subsPerBar can be 0 for Bar and None - in that case snap to whole
-  // bars. Otherwise snap to the sub-division width.
   const gridStepBeats = subsPerBar === 0 ? BEATS_PER_BAR : BEATS_PER_BAR / subsPerBar;
   const gridStepPx = gridStepBeats * pixelsPerBeat;
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const rawX = e.clientX - rect.left + e.currentTarget.scrollLeft;
+    const rawX = e.clientX - rect.left;
     const snappedX = Math.max(0, Math.min(rulerWidthPx, Math.round(rawX / gridStepPx) * gridStepPx));
     onSeek(snappedX);
   };
 
   const barNumbers: React.ReactElement[] = [];
-  const rulerCap = Math.min(MAX_BARS, rulerBars);
-  for (let b = 0; b < rulerCap; b++) {
+  for (let b = 0; b < rulerBars; b++) {
     barNumbers.push(
       <div
         key={`bar-${b}`}
-        className="pointer-events-none absolute top-0 h-full border-l border-black text-center text-[10px] leading-none text-black"
+        className="pointer-events-none absolute top-0 h-full border-l border-black"
         style={{ left: `${b * barWidthPx}px`, width: `${barWidthPx}px` }}
       >
-        <span className="inline-block pt-[3px]">{b + 1}</span>
+        {/* Bar number stuck FLUSH-LEFT next to the vertical bar line
+            (per user request: "numerele lipite direct de linia
+            verticala, imediat in dreapta ei, foarte aproape de linie").
+            padding-left 2px is enough to keep the digit off the line
+            while still reading as "attached". */}
+        <span className="absolute left-[2px] top-[2px] text-[11px] font-semibold leading-none text-black">
+          {b + 1}
+        </span>
       </div>
     );
   }
@@ -558,48 +565,46 @@ function TimeBar(props: {
       role="slider"
       aria-label="Time bar"
       onClick={handleClick}
-      className="relative cursor-pointer overflow-x-scroll border border-black bg-[#e8e8e8] select-none"
-      style={{ height: TIME_BAR_HEIGHT }}
+      className="relative cursor-pointer border-b border-black bg-[#e8e8e8] select-none"
+      style={{ height: TIME_BAR_HEIGHT, width: `${rulerWidthPx}px` }}
     >
-      <div className="relative h-full" style={{ width: `${rulerWidthPx}px` }}>
-        {barNumbers}
-        {/* Playhead triangle. Sized so the TRIANGLE occupies the BOTTOM
-            half of the Time Bar and its downward tip sits exactly on the
-            Time Bar's bottom edge - which is also the top edge of the
-            vertical playhead line drawn in the chord strip below. The
-            two visually snap together into one continuous marker.
-            Triangle height = TIME_BAR_HEIGHT / 2. Triangle width chosen
-            so the shape looks balanced (a bit less than the height).
-            The base width is half the height (~half-height triangle
-            proportion) matched to the arrow-cursor style playheads used
-            in DAWs. */}
-        {(() => {
-          const triH = Math.round(TIME_BAR_HEIGHT / 2);   // 24 px
-          const triW = Math.round(TIME_BAR_HEIGHT * 0.4); // 19 px total base
-          const triTop = TIME_BAR_HEIGHT - triH;          // 24 px from top
-          return (
-            <div
-              className="pointer-events-none absolute z-10"
-              style={{
-                left: `${Math.max(0, playheadX - triW / 2)}px`,
-                top: `${triTop}px`,
-                width: 0,
-                height: 0,
-                borderLeftWidth: `${triW / 2}px`,
-                borderRightWidth: `${triW / 2}px`,
-                borderTopWidth: `${triH}px`,
-                borderBottomWidth: 0,
-                borderLeftColor: "transparent",
-                borderRightColor: "transparent",
-                borderTopColor: "#ff8827",
-                borderBottomColor: "transparent",
-                borderStyle: "solid",
-                filter: "drop-shadow(0 0 8px #ff8827)",
-              }}
+      {barNumbers}
+      {/* Playhead marker occupying the FULL Time Bar height. Triangle
+          shape with the base at the TOP of the Time Bar and the tip at
+          the BOTTOM - so the tip is exactly on the top edge of the
+          Builder chord strip immediately below, where the vertical
+          playhead line begins. This satisfies both:
+            - "raise the triangle and stick it to the TOP of the Time
+              Bar so it's fully visible and not buried below" (base at
+              top: 0),
+            - "the vertical playhead line coincides with the DOWN tip
+              of the triangle" (the tip's y is at TIME_BAR_HEIGHT,
+              which is where the chord strip starts).
+          Rendered as an SVG so the drop-shadow filter on the polygon
+          only applies to the actual triangle shape, not a hidden
+          bounding box. */}
+      {(() => {
+        const triH = TIME_BAR_HEIGHT;
+        const triW = Math.round(TIME_BAR_HEIGHT * 0.6);
+        return (
+          <svg
+            className="pointer-events-none absolute top-0 z-10"
+            style={{
+              left: `${Math.max(0, playheadX - triW / 2)}px`,
+              width: triW,
+              height: triH,
+              overflow: "visible",
+              filter: "drop-shadow(0 0 6px #ff8827)",
+            }}
+            viewBox={`0 0 ${triW} ${triH}`}
+          >
+            <polygon
+              points={`0,0 ${triW},0 ${triW / 2},${triH}`}
+              fill="#ff8827"
             />
-          );
-        })()}
-      </div>
+          </svg>
+        );
+      })()}
     </div>
   );
 }
@@ -674,89 +679,145 @@ function BuilderGrid(props: {
 //
 // The zoom action does not depend on the Builder having any chords -
 // the slider is always interactive.
+// Zoom + pan slider that lives BELOW the Builder chord strip. It acts
+// like a minimap of the horizontal timeline:
+//   - the track (dark grey) represents the FULL possible timeline
+//     (MAX_BARS worth of ruler)
+//   - the thumb (light grey) represents the currently VISIBLE portion,
+//     so its width = viewportPx / contentPx  and its left position =
+//     scrollLeft / contentPx
+//
+// Three drag modes, all grey:
+//   left handle  -> resize thumb from the LEFT edge  = zoom in/out and
+//                   simultaneously repositions the viewport so its
+//                   RIGHT edge stays put
+//   right handle -> resize thumb from the RIGHT edge = zoom in/out and
+//                   keeps the LEFT edge put
+//   middle body  -> pan: drag the whole thumb sideways, does NOT change
+//                   zoom, only scroll position
+//
+// Cursor: ew-resize when hovering either handle hot zone, grab/grabbing
+// on the middle body. All hot zones extend slightly past the visible
+// handle so the resize cursor appears "a little before" the tip, per
+// the earlier user request.
 function ZoomSlider(props: {
   zoom: number;
   onZoomChange: (z: number) => void;
+  scrollFraction: number;
+  onScrollFractionChange: (f: number) => void;
   minZoom?: number;
   maxZoom?: number;
 }) {
-  const minZoom = props.minZoom ?? 0.25;
+  const minZoom = props.minZoom ?? 1;
   const maxZoom = props.maxZoom ?? 8;
-  const { zoom, onZoomChange } = props;
+  const { zoom, onZoomChange, scrollFraction, onScrollFractionChange } = props;
 
-  // thumb width fraction = 1/zoom, clamped so it stays draggable
-  //   zoom=1     -> thumb is FULL width  (no zoom)
-  //   zoom=maxZoom -> thumb is 1/maxZoom width (heavily zoomed in)
-  //   zoom=minZoom -> thumb is 1/minZoom (>1) -> clamped to 1 (=full)
+  // Thumb width fraction = viewport / total = 1/zoom, clamped so the
+  // thumb never collapses to zero.
   const thumbFrac = Math.min(1, Math.max(1 / maxZoom, 1 / zoom));
+  // Thumb left fraction: where along the track the thumb sits.
+  const thumbLeftFrac = Math.min(1 - thumbFrac, Math.max(0, scrollFraction));
 
   const trackRef = useRef<HTMLDivElement | null>(null);
-  const [dragEdge, setDragEdge] = useState<null | "left" | "right">(null);
+  type DragMode = null | "left" | "right" | "pan";
+  const [dragMode, setDragMode] = useState<DragMode>(null);
+  const panStartRef = useRef<{ pointerX: number; startThumbLeftFrac: number }>({ pointerX: 0, startThumbLeftFrac: 0 });
 
   useEffect(() => {
-    if (!dragEdge) return;
+    if (!dragMode) return;
     const onMove = (e: MouseEvent) => {
       const track = trackRef.current;
       if (!track) return;
       const rect = track.getBoundingClientRect();
       const trackWidth = rect.width;
       if (trackWidth <= 0) return;
-      const centre = rect.left + trackWidth / 2;
-      const edgeDist =
-        dragEdge === "right"
-          ? Math.max(0, e.clientX - centre)
-          : Math.max(0, centre - e.clientX);
-      const newThumbWidth = Math.min(trackWidth, edgeDist * 2);
-      // Prevent thumb width from collapsing to zero - keep at least
-      // 1/maxZoom fraction so the user can always drag it back out.
-      const newFrac = Math.max(1 / maxZoom, newThumbWidth / trackWidth);
+
+      if (dragMode === "pan") {
+        // Pan mode: the thumb moves 1:1 with the cursor along the track.
+        const deltaPx = e.clientX - panStartRef.current.pointerX;
+        const deltaFrac = deltaPx / trackWidth;
+        const newLeftFrac = Math.min(1 - thumbFrac, Math.max(0, panStartRef.current.startThumbLeftFrac + deltaFrac));
+        onScrollFractionChange(newLeftFrac);
+        return;
+      }
+
+      // Resize modes. We compute the new thumb width from the pointer's
+      // position relative to the OPPOSITE (fixed) edge of the thumb.
+      const currentLeftPx = thumbLeftFrac * trackWidth;
+      const currentRightPx = currentLeftPx + thumbFrac * trackWidth;
+      const pointerFrac = Math.min(1, Math.max(0, (e.clientX - rect.left) / trackWidth));
+      const pointerPx = pointerFrac * trackWidth;
+
+      let newLeftPx: number;
+      let newRightPx: number;
+      if (dragMode === "right") {
+        // Right edge follows the cursor; left edge stays put.
+        newLeftPx = currentLeftPx;
+        newRightPx = Math.max(newLeftPx + trackWidth / maxZoom, Math.min(trackWidth, pointerPx));
+      } else {
+        // Left edge follows the cursor; right edge stays put.
+        newRightPx = currentRightPx;
+        newLeftPx = Math.min(newRightPx - trackWidth / maxZoom, Math.max(0, pointerPx));
+      }
+      const newWidthPx = newRightPx - newLeftPx;
+      const newFrac = Math.max(1 / maxZoom, newWidthPx / trackWidth);
       const newZoom = Math.min(maxZoom, Math.max(minZoom, 1 / newFrac));
+      const newLeftFrac = Math.min(1 - newFrac, Math.max(0, newLeftPx / trackWidth));
       onZoomChange(newZoom);
+      onScrollFractionChange(newLeftFrac);
     };
-    const onUp = () => setDragEdge(null);
+    const onUp = () => setDragMode(null);
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseup", onUp);
     return () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseup", onUp);
     };
-  }, [dragEdge, minZoom, maxZoom, onZoomChange]);
+  }, [dragMode, minZoom, maxZoom, onZoomChange, onScrollFractionChange, thumbFrac, thumbLeftFrac]);
 
-  const thumbLeftPct = (100 - thumbFrac * 100) / 2;
-  const thumbWidthPct = thumbFrac * 100;
-  // Hot zone size (px) around each edge where the cursor becomes
-  // ew-resize before actually reaching the visible edge - the
-  // "cursor changes a little before reaching the tip" bit.
-  const HOT_ZONE = 14;
-  // Bar visual height - tall enough to be obviously grabbable.
+  const HOT_ZONE = 14; // cursor turns ew-resize this many px BEFORE the tip
   const BAR_HEIGHT = 22;
-  // Handle grip visual width.
   const HANDLE_W = 8;
+  const thumbLeftPct = thumbLeftFrac * 100;
+  const thumbWidthPct = thumbFrac * 100;
+
+  const startPan = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    panStartRef.current = { pointerX: e.clientX, startThumbLeftFrac: thumbLeftFrac };
+    setDragMode("pan");
+  };
 
   return (
     <div
       ref={trackRef}
       className="relative w-full select-none border border-black"
       style={{ height: BAR_HEIGHT, background: "#8a8a8a" }}
-      onDoubleClick={() => onZoomChange(1)}
-      title="Drag the handles to zoom horizontally. Double-click to reset."
+      onDoubleClick={() => { onZoomChange(1); onScrollFractionChange(0); }}
+      title="Drag handles to zoom. Drag the middle to pan. Double-click to reset."
     >
-      {/* Thumb: light grey. Width shrinks as zoom increases. */}
+      {/* Thumb body - middle area is also the PAN handle. cursor: grab
+          in idle, grabbing while a pan is in progress. */}
       <div
-        className="absolute top-0 h-full border-l border-r border-black"
+        onMouseDown={startPan}
+        className={dragMode === "pan" ? "absolute top-0 h-full cursor-grabbing" : "absolute top-0 h-full cursor-grab"}
         style={{
           left: `${thumbLeftPct}%`,
           width: `${thumbWidthPct}%`,
           background: "#c4c4c4",
+          borderLeft: "1px solid #000",
+          borderRight: "1px solid #000",
+          zIndex: 1,
         }}
       />
-      {/* Left visible handle grip (darker grey rectangle). */}
+      {/* Left visible handle grip. */}
       <div
         className="pointer-events-none absolute top-0 h-full border-l border-r border-black"
         style={{
           left: `calc(${thumbLeftPct}% - ${HANDLE_W / 2}px)`,
           width: `${HANDLE_W}px`,
           background: "#4a4a4a",
+          zIndex: 2,
         }}
       />
       {/* Right visible handle grip. */}
@@ -766,31 +827,31 @@ function ZoomSlider(props: {
           left: `calc(${thumbLeftPct + thumbWidthPct}% - ${HANDLE_W / 2}px)`,
           width: `${HANDLE_W}px`,
           background: "#4a4a4a",
+          zIndex: 2,
         }}
       />
-      {/* Left hot zone (invisible, wider than the handle) - flips cursor
-          to ew-resize a bit before the tip, then starts the drag on
-          mousedown. */}
+      {/* Left hot zone (wider than the handle so ew-resize appears BEFORE
+          the visible tip). */}
       <div
-        onMouseDown={(e) => { e.preventDefault(); setDragEdge("left"); }}
+        onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); setDragMode("left"); }}
         className="absolute top-0 h-full cursor-ew-resize"
         style={{
           left: `calc(${thumbLeftPct}% - ${HOT_ZONE}px)`,
           width: `${HOT_ZONE * 2}px`,
           zIndex: 3,
         }}
-        title="Drag to zoom horizontally"
+        title="Drag to zoom"
       />
       {/* Right hot zone. */}
       <div
-        onMouseDown={(e) => { e.preventDefault(); setDragEdge("right"); }}
+        onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); setDragMode("right"); }}
         className="absolute top-0 h-full cursor-ew-resize"
         style={{
           left: `calc(${thumbLeftPct + thumbWidthPct}% - ${HOT_ZONE}px)`,
           width: `${HOT_ZONE * 2}px`,
           zIndex: 3,
         }}
-        title="Drag to zoom horizontally"
+        title="Drag to zoom"
       />
     </div>
   );
@@ -1122,6 +1183,13 @@ export default function App() {
   // without closing over a stale value.
   const effectiveBeatWidthRef = useRef(effectiveBeatWidth);
   useEffect(() => { effectiveBeatWidthRef.current = effectiveBeatWidth; }, [effectiveBeatWidth]);
+
+  // Horizontal scroll position of the SHARED Time Bar + Builder chord
+  // strip, expressed as a fraction 0..1 of the total ruler width. Driven
+  // by the ZoomSlider's pan gesture; applied to the scroll container's
+  // scrollLeft in an effect.
+  const [scrollFraction, setScrollFraction] = useState<number>(0);
+  const timelineScrollRef = useRef<HTMLDivElement | null>(null);
   const [bpm, setBpm] = useState(120);
   const [editingBpm, setEditingBpm] = useState(false);
   const [bpmText, setBpmText] = useState("120");
@@ -2015,13 +2083,9 @@ export default function App() {
     return createMidiFile(builderRef.current, bpm);
   };
 
-  // Total length of the current Builder progression, in beats. Used by
-  // TimeBar (ruler length) and BuilderGrid (grid line count).
-  const totalBuilderBeats = useMemo(() => {
-    let sum = 0;
-    for (const c of builderChords) sum += c.beats > 0 ? c.beats : DEFAULT_CHORD_BEATS;
-    return sum;
-  }, [builderChords]);
+  // (totalBuilderBeats was here previously - removed after TimeBar
+  // switched to receiving `rulerWidthPx` directly from the shared
+  // rulerContentWidth memo below.)
 
   // Minimum pixel width the Builder strip container needs, so all current
   // chords fit even with fractional/variable beats. Add a spare full bar
@@ -2031,7 +2095,6 @@ export default function App() {
     // clamp forced every short chord to a 24px minimum, making them look
     // identical in the Builder even though their beats values differed.
     // We now honour the true width exactly - short chords look short.
-    // Text overflow inside the button is handled by CSS truncation.
     const chordsWidth = builderChords.reduce(
       (sum, c) => sum + (c.beats > 0 ? c.beats : DEFAULT_CHORD_BEATS) * effectiveBeatWidth,
       0
@@ -2039,6 +2102,32 @@ export default function App() {
     const oneExtraBar = BEATS_PER_BAR * effectiveBeatWidth;
     return chordsWidth + oneExtraBar;
   }, [builderChords, effectiveBeatWidth]);
+
+  // Total ruler width shared by the Time Bar and the Builder chord strip.
+  // Sized to hold either the current progression (with an extra bar of
+  // whitespace) OR the current zoom-adjusted MAX_BARS worth of ruler,
+  // whichever is bigger. This is what the ZoomSlider represents visually:
+  // the whole rulerContentWidth is the slider's TRACK; the thumb's width
+  // (= viewport / rulerContentWidth) shrinks as we zoom in.
+  const rulerContentWidth = useMemo(() => {
+    const barPx = BEATS_PER_BAR * effectiveBeatWidth;
+    const minBars = Math.max(32, Math.ceil(builderMinPxWidth / barPx));
+    return Math.min(MAX_BARS, minBars) * barPx;
+  }, [effectiveBeatWidth, builderMinPxWidth]);
+
+  // Apply scrollFraction to the shared timeline scroll container. This
+  // makes the ZoomSlider's pan gesture move the Time Bar + Builder as
+  // a single visual unit.
+  useEffect(() => {
+    const el = timelineScrollRef.current;
+    if (!el) return;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    if (maxScroll <= 0) return;
+    const target = Math.round(scrollFraction * maxScroll);
+    if (Math.abs(el.scrollLeft - target) > 1) {
+      el.scrollLeft = target;
+    }
+  }, [scrollFraction, rulerContentWidth, zoom]);
 
   // Called by TimeBar onSeek. `px` is already snapped to the nearest grid
   // line by TimeBar. We update playheadX so the vertical indicator jumps
@@ -2697,27 +2786,18 @@ export default function App() {
           </button>
         </div>
 
-        {/* Time Bar - horizontal ruler above the Builder strip. Numbered
-            1..N bars (max MAX_BARS=360). Click anywhere on it to snap the
-            playhead to the nearest grid line for the current Snap.
-            Height doubled per user request. */}
-        <TimeBar
-          totalBeats={totalBuilderBeats}
-          pixelsPerBeat={effectiveBeatWidth}
-          snap={snap}
-          playheadX={playheadX}
-          onSeek={handleTimeBarSeek}
-        />
-
-        {/* Zoom slider - drag the edges of the bright thumb to zoom in
-            (narrower thumb) or out (wider thumb). Double-click to reset
-            to 1x. Wired to `zoom` state which drives effectiveBeatWidth,
-            so both the Time Bar above and the chord strip below re-scale
-            together. */}
-        <ZoomSlider zoom={zoom} onZoomChange={setZoom} />
-
+        {/* SHARED timeline container. Time Bar and Builder chord strip
+            live INSIDE this element, side-by-side vertically, sharing the
+            same horizontal scroll offset (driven by scrollFraction via a
+            useEffect). The container itself has overflow-x-HIDDEN so no
+            native scrollbar appears here - the ZoomSlider below the
+            Builder acts as the ONLY horizontal navigator (its middle body
+            pans, its edges resize / zoom).
+            The old separate Time Bar scrollbar and the browser-native
+            "brown" horizontal scrollbar under the Builder are both gone. */}
         <div
-          className="relative overflow-x-auto border border-black bg-white/80 px-0 py-0"
+          ref={timelineScrollRef}
+          className="relative overflow-x-hidden overflow-y-hidden border border-black bg-white/80"
           onDragOver={(e) => {
             // Accept THREE kinds of drops on the Builder container:
             //   (a) single-chord drag from the chord table (MIME
@@ -2787,22 +2867,30 @@ export default function App() {
             setContextMenu({ x: e.clientX, y: e.clientY, insertIndex: builderRef.current.length });
           }}
         >
+          {/* The Time Bar sits DIRECTLY on top of the Builder chord strip
+              inside the same scroll container. No border-bottom on the
+              Time Bar and no border-top on the Builder strip so the two
+              read as one continuous surface. */}
+          <TimeBar
+            rulerWidthPx={rulerContentWidth}
+            pixelsPerBeat={effectiveBeatWidth}
+            snap={snap}
+            playheadX={playheadX}
+            onSeek={handleTimeBarSeek}
+          />
+
           <div
             className="relative"
             style={{
-              // 5x the previous ~48px = 240px. Set on the wrapper so the
-              // BuilderGrid overlay + the chord-button flex row share the
-              // same tall canvas.
               height: BUILDER_STRIP_HEIGHT,
-              // Ensure the container is at least as wide as the ruler above
-              // (equivalent to MAX_BARS worth of bars) so the horizontal
-              // scrollbars of the two stay in sync when the user scrolls.
-              minWidth: `${Math.max(builderMinPxWidth, 800)}px`,
+              // Same width as the Time Bar above, so they scroll in
+              // lockstep as one visual unit.
+              width: `${rulerContentWidth}px`,
             }}
           >
             {/* Vertical grid lines underneath everything. z-index 0. */}
             <BuilderGrid
-              widthPx={Math.max(builderMinPxWidth, 800)}
+              widthPx={rulerContentWidth}
               heightPx={BUILDER_STRIP_HEIGHT}
               pixelsPerBeat={effectiveBeatWidth}
               snap={snap}
@@ -2953,6 +3041,22 @@ export default function App() {
             </div>
           </div>
         </div>
+
+        {/* Zoom + pan slider sits UNDER the Builder chord strip (was
+            above before). Grey visuals only. Drag the middle body to
+            pan the shared Time Bar + Builder view horizontally; drag
+            either edge to zoom. All three interactions work even if
+            the Builder is empty. Double-click resets zoom to 1x and
+            scroll to 0. This is the ONLY horizontal navigator now -
+            the previous native scrollbar under the Builder was removed
+            with the switch to overflow-x-hidden on the shared
+            container above. */}
+        <ZoomSlider
+          zoom={zoom}
+          onZoomChange={setZoom}
+          scrollFraction={scrollFraction}
+          onScrollFractionChange={setScrollFraction}
+        />
       </section>
 
       <div
