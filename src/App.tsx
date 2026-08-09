@@ -408,6 +408,150 @@ function clampBpm(value: number) {
   return Math.max(40, Math.min(240, Math.floor(value)));
 }
 
+// Inline SVG gear/cog icon used for the Settings button and the close button
+// inside the Settings modal. Kept in code (not a file asset) so it inherits
+// the current text color via `currentColor` and scales cleanly at any size.
+function SettingsGearIcon({ size = 24 }: { size?: number }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {/* Standard 8-tooth gear silhouette + inner circle. */}
+      <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" />
+      <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2.06 2.06 0 1 1-2.91 2.91l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.55V21a2.06 2.06 0 1 1-4.12 0v-.08A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2.06 2.06 0 1 1-2.91-2.91l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.55-1.03H3a2.06 2.06 0 1 1 0-4.12h.08A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2.06 2.06 0 1 1 2.91-2.91l.06.06a1.7 1.7 0 0 0 1.87.34H9a1.7 1.7 0 0 0 1.03-1.55V3a2.06 2.06 0 1 1 4.12 0v.08a1.7 1.7 0 0 0 1.03 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2.06 2.06 0 1 1 2.91 2.91l-.06.06a1.7 1.7 0 0 0-.34 1.87V9a1.7 1.7 0 0 0 1.55 1.03H21a2.06 2.06 0 1 1 0 4.12h-.08a1.7 1.7 0 0 0-1.55 1.03Z" />
+    </svg>
+  );
+}
+
+// Full-screen dark settings modal. Renders over the whole app. Two controls:
+//   - Size radio group (applies instantly on click via desktopBridge.resizeWindow)
+//   - Long-press ms (three radio presets + a fine 200..1000ms slider)
+// Top-right corner has another gear icon that closes the modal.
+function SettingsPanel(props: {
+  windowSize: "Small" | "Medium" | "Large";
+  onSizeChange: (s: "Small" | "Medium" | "Large") => void;
+  longPressMs: number;
+  onLongPressChange: (ms: number) => void;
+  onClose: () => void;
+}) {
+  const { windowSize, onSizeChange, longPressMs, onLongPressChange, onClose } = props;
+  const sizes: Array<"Small" | "Medium" | "Large"> = ["Small", "Medium", "Large"];
+  const longPressPresets = [300, 500, 800];
+
+  return (
+    <div
+      onClick={(e) => e.stopPropagation()}
+      className="fixed inset-0 z-50 flex flex-col bg-black text-white"
+      style={{ padding: 32 }}
+    >
+      {/* Header: title on the left, close (gear) on the right */}
+      <div className="mb-8 flex items-start justify-between">
+        <h1 className="text-2xl font-semibold tracking-wide">Settings</h1>
+        <button
+          type="button"
+          onClick={onClose}
+          title="Close settings"
+          aria-label="Close settings"
+          className="rounded-sm border border-neutral-600 bg-neutral-800 p-2 text-white hover:bg-neutral-700"
+        >
+          <SettingsGearIcon size={22} />
+        </button>
+      </div>
+
+      {/* Size */}
+      <div className="mb-8">
+        <div className="mb-2 text-sm font-semibold text-neutral-300">Size:</div>
+        <div className="flex gap-3">
+          {sizes.map((s) => (
+            <label
+              key={s}
+              className={`flex cursor-pointer items-center gap-2 rounded-sm border px-3 py-2 text-sm ${
+                windowSize === s
+                  ? "border-orange-400 bg-neutral-800 text-orange-200"
+                  : "border-neutral-600 bg-neutral-900 text-neutral-200 hover:bg-neutral-800"
+              }`}
+            >
+              <input
+                type="radio"
+                name="size"
+                value={s}
+                checked={windowSize === s}
+                onChange={() => onSizeChange(s)}
+                className="accent-orange-400"
+              />
+              <span>{s}</span>
+              <span className="text-[10px] text-neutral-400">
+                {SIZE_PRESETS[s].width}x{SIZE_PRESETS[s].height}
+              </span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Long-press */}
+      <div className="mb-8">
+        <div className="mb-2 text-sm font-semibold text-neutral-300">Long Press:</div>
+        <div className="mb-3 flex gap-3">
+          {longPressPresets.map((ms) => (
+            <label
+              key={ms}
+              className={`flex cursor-pointer items-center gap-2 rounded-sm border px-3 py-2 text-sm ${
+                longPressMs === ms
+                  ? "border-orange-400 bg-neutral-800 text-orange-200"
+                  : "border-neutral-600 bg-neutral-900 text-neutral-200 hover:bg-neutral-800"
+              }`}
+            >
+              <input
+                type="radio"
+                name="longpress"
+                value={ms}
+                checked={longPressMs === ms}
+                onChange={() => onLongPressChange(ms)}
+                className="accent-orange-400"
+              />
+              <span>{ms} ms</span>
+              {ms === 500 && <span className="text-[10px] text-neutral-400">(default)</span>}
+            </label>
+          ))}
+        </div>
+        {/* Fine slider: any value 200..1000ms in 50ms steps. Radio + slider
+            stay in sync - moving the slider off a preset value just leaves
+            all three radios un-checked; clicking a radio snaps back. */}
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-neutral-400">200</span>
+          <input
+            type="range"
+            min={200}
+            max={1000}
+            step={50}
+            value={longPressMs}
+            onChange={(e) => onLongPressChange(Number(e.target.value))}
+            className="flex-1 accent-orange-400"
+          />
+          <span className="text-xs text-neutral-400">1000</span>
+          <span className="ml-3 min-w-[70px] rounded-sm border border-neutral-600 bg-neutral-800 px-2 py-1 text-center text-xs">
+            {longPressMs} ms
+          </span>
+        </div>
+      </div>
+
+      <div className="mt-auto text-xs text-neutral-500">
+        Changes are saved automatically. Close this panel with the gear icon
+        in the top-right corner.
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const rows = useMemo(() => buildChordRows(), []);
   const rowById = useMemo(() => new Map(rows.map((row) => [row.id, row])), [rows]);
@@ -454,8 +598,10 @@ export default function App() {
   const [builderHistory, setBuilderHistory] = useState<BuilderChord[][]>([[]]);
   const [builderHistoryIndex, setBuilderHistoryIndex] = useState(0);
 
-  const [moveMode, setMoveMode] = useState(false);
-  const [multiSelectMode, setMultiSelectMode] = useState(false);
+  // moveMode / multiSelectMode used to gate the reorder-drag and multi-
+  // selection code paths; both are now always-on because selection is
+  // gesture-driven. The states are removed entirely - anything that used
+  // to read them was refactored away.
   const [scrollFollowMode, setScrollFollowMode] = useState(false);
   const [deleteMode, setDeleteMode] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -488,8 +634,9 @@ export default function App() {
   const builderHistoryIndexRef = useRef(builderHistoryIndex);
   const lastSelectedIndexRef = useRef<number | null>(null);
   const pausedElapsedRef = useRef(0);
-  const dragSelectingRef = useRef(false);
-  const dragSelectAddRef = useRef(true);
+  // dragSelectingRef / dragSelectAddRef removed with the old lasso-select
+  // behaviour. isDraggingBuilderRef stays - the OS drag session for reorder
+  // still uses it to swallow the trailing synthetic click.
   const isDraggingBuilderRef = useRef(false);
 
   // Set to true while a progression-chord button is being dragged, so the
@@ -497,6 +644,17 @@ export default function App() {
   // does not ALSO add the chord to the Builder (which would produce two
   // or three copies of the chord from a single user gesture).
   const isDraggingProgressionRef = useRef(false);
+
+  // Long-press tracking. mouseDownTimeRef captures the timestamp of the last
+  // mousedown on ANY chord button (Builder or table). If mouseup fires after
+  // longPressMs has elapsed, we treat the gesture as a "long-press" (enter
+  // selection mode, or start a drag if something is already selected).
+  // Otherwise it's a short tap - audition sound in Ch On/Off mode, toggle
+  // selection if we're already in multi-select mode, or add to Builder from
+  // the table.
+  const longPressTimerRef = useRef<number | null>(null);
+  const longPressFiredRef = useRef(false);
+  const suppressNextClickRef = useRef(false);
 
   // While a scrollToCode() smooth animation is running, we want to suppress
   // the onScroll -> snapToNearestRow() logic. Without this, the smooth
@@ -522,13 +680,40 @@ export default function App() {
   // the spacer stays large enough for the current window size.
   const [bottomSpacerHeight, setBottomSpacerHeight] = useState<number>(800);
 
-  // Window size presets (see SIZE_PRESETS below). Kept as a name so the
-  // currently-selected preset stays highlighted in the dropdown.
-  // Default matches the Electron BrowserWindow's initial 1480x920, which is
-  // now the "Large" preset. Keep these two in sync if the initial size
-  // in desktop/main.cjs ever changes.
-  const [windowSize, setWindowSize] = useState<"Small" | "Medium" | "Large">("Large");
-  const [sizeMenuOpen, setSizeMenuOpen] = useState(false);
+  // Window size presets (see SIZE_PRESETS below). Persisted to localStorage
+  // together with longPressMs so preferences survive across sessions.
+  const [windowSize, setWindowSize] = useState<"Small" | "Medium" | "Large">(() => {
+    try {
+      const v = localStorage.getItem("windowSize");
+      if (v === "Small" || v === "Medium" || v === "Large") return v;
+    } catch { /* localStorage might be disabled */ }
+    return "Large";
+  });
+  // sizeMenuOpen removed - the little Small/Medium/Large dropdown is gone,
+  // replaced by the Settings gear icon that opens a full-screen dark modal.
+
+  // Long-press threshold in milliseconds. Below this, a mouse-down + mouse-up
+  // is treated as a tap (audition sound if Ch On/Off is active, or toggle
+  // selection if we're already in multi-select mode). At or above this, the
+  // chord enters selection mode. Adjustable from the Settings panel.
+  const [longPressMs, setLongPressMs] = useState<number>(() => {
+    try {
+      const v = Number(localStorage.getItem("longPressMs"));
+      if (Number.isFinite(v) && v >= 100 && v <= 2000) return v;
+    } catch { /* ignore */ }
+    return 500;
+  });
+
+  // Settings modal (the dark panel with rotita zimtata).
+  const [settingsOpen, setSettingsOpen] = useState(false);
+
+  // Persist window size + long-press whenever they change.
+  useEffect(() => {
+    try { localStorage.setItem("windowSize", windowSize); } catch { /* ignore */ }
+  }, [windowSize]);
+  useEffect(() => {
+    try { localStorage.setItem("longPressMs", String(longPressMs)); } catch { /* ignore */ }
+  }, [longPressMs]);
 
   useEffect(() => {
     topCodeRef.current = topCode;
@@ -556,13 +741,12 @@ export default function App() {
   }, [builderHistoryIndex]);
 
   useEffect(() => {
-    const stopDragSelect = () => {
-      dragSelectingRef.current = false;
-    };
-    window.addEventListener("mouseup", stopDragSelect);
-    return () => {
-      window.removeEventListener("mouseup", stopDragSelect);
-    };
+    // Placeholder: the old lasso-select mouseup listener was removed with
+    // dragSelectingRef. Left as an empty effect on purpose so the surrounding
+    // effect chain (declaration order matters for hook parity across
+    // renders) stays identical to before, avoiding accidental hook-order
+    // regressions.
+    return () => {};
   }, []);
 
   const canUndo = snapshotIndex > 0;
@@ -610,14 +794,30 @@ export default function App() {
     setSelectedBuilderIds([]);
   };
 
-  const activateBuilderMode = (mode: "scroll" | "multi" | "select" | "delete" | "audition" | "none") => {
+  // Reduced set of "toolbar modes" after Select/Multi Select were removed
+  // and replaced with gesture-driven selection. Only these buttons still
+  // participate: Scroll On/Off, Delete, Ch On/Off. Selection persists
+  // independently of the mode.
+  const activateBuilderMode = (mode: "scroll" | "delete" | "audition" | "none") => {
     setScrollFollowMode(mode === "scroll");
-    setMultiSelectMode(mode === "multi");
-    setMoveMode(mode === "select");
     setDeleteMode(mode === "delete");
     setAuditionMode(mode === "audition");
-    if (mode !== "select" && mode !== "multi") {
-      setSelectedBuilderIds([]);
+  };
+
+  // Applies a size preset to both the React state (so the Settings panel
+  // radios stay in sync) AND the underlying Electron window. In the web
+  // build the bridge is undefined and only the state changes - browsers
+  // can't resize their own window.
+  const applyWindowSize = (name: "Small" | "Medium" | "Large") => {
+    setWindowSize(name);
+    const preset = SIZE_PRESETS[name];
+    const bridge = (window as any).desktopBridge;
+    if (bridge && typeof bridge.resizeWindow === "function") {
+      try {
+        bridge.resizeWindow(preset.width, preset.height);
+      } catch (err) {
+        console.error("[applyWindowSize] failed:", err);
+      }
     }
   };
 
@@ -961,8 +1161,15 @@ export default function App() {
     }, 140);
   };
 
-  const selectBuilderChord = (id: string, index: number) => {
-    if (!moveMode && !deleteMode) return;
+  // Called for a SHORT TAP on a Builder chord (mouseup < longPressMs after
+  // mousedown). Behaviour depends on current app mode:
+  //   1. Delete mode ON  -> remove the chord immediately.
+  //   2. Something already selected -> toggle THIS chord in/out of selection.
+  //   3. Nothing selected + Ch On/Off (audition) mode -> play the chord.
+  //   4. Nothing selected + audition off -> no-op (avoid accidental audition).
+  // Long-press to enter selection is handled separately (see gesture code
+  // on the button itself), not here.
+  const selectBuilderChord = (id: string, _index: number) => {
     if (deleteMode) {
       const next = builderRef.current.filter((ch) => ch.id !== id);
       setBuilderChords(next);
@@ -970,61 +1177,37 @@ export default function App() {
       setFlashBuilderId(id);
       window.setTimeout(() => setFlashBuilderId(""), 220);
       recordSnapshot(topCodeRef.current, guideCodeRef.current);
+      setSelectedBuilderIds((prev) => prev.filter((x) => x !== id));
       return;
     }
 
-    if (multiSelectMode && lastSelectedIndexRef.current !== null) {
-      const start = Math.min(lastSelectedIndexRef.current, index);
-      const end = Math.max(lastSelectedIndexRef.current, index);
-      const ids = builderRef.current.slice(start, end + 1).map((ch) => ch.id);
-      setSelectedBuilderIds((prev) => Array.from(new Set([...prev, ...ids])));
+    const hasSelection = selectedRef.current.length > 0;
+    if (hasSelection) {
+      // Toggle THIS chord in/out of the current selection.
+      setSelectedBuilderIds((prev) =>
+        prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+      );
       return;
     }
 
-    if (!multiSelectMode) {
-      setSelectedBuilderIds([id]);
-      lastSelectedIndexRef.current = index;
-      return;
+    // No selection - fall back to audition if enabled.
+    if (auditionMode) {
+      void playChordSound(builderRef.current.find((c) => c.id === id)?.label ?? "", 650);
     }
-
-    setSelectedBuilderIds((prev) => {
-      if (prev.includes(id)) {
-        return prev.filter((x) => x !== id);
-      }
-      return [...prev, id];
-    });
-    lastSelectedIndexRef.current = index;
+    // Otherwise do nothing (short tap on a Builder chord with nothing
+    // selected and audition off is a no-op).
   };
 
-  const beginDragSelect = (id: string, index: number) => {
-    if (!multiSelectMode) return;
-
-    dragSelectingRef.current = true;
-    const isSelected = selectedRef.current.includes(id);
-    dragSelectAddRef.current = !isSelected;
-
-    setSelectedBuilderIds((prev) => {
-      if (dragSelectAddRef.current) {
-        return prev.includes(id) ? prev : [...prev, id];
-      }
-      return prev.filter((x) => x !== id);
-    });
-
-    lastSelectedIndexRef.current = index;
+  // Enter "gesture selection" - triggered by a long-press on a Builder chord.
+  // If the chord isn't already selected, ADD it to the selection (never
+  // replace, so long-pressing chord-by-chord builds up a multi-selection).
+  const enterGestureSelection = (id: string) => {
+    setSelectedBuilderIds((prev) => (prev.includes(id) ? prev : [...prev, id]));
   };
 
-  const continueDragSelect = (id: string, index: number) => {
-    if (!multiSelectMode || !dragSelectingRef.current) return;
-
-    setSelectedBuilderIds((prev) => {
-      if (dragSelectAddRef.current) {
-        return prev.includes(id) ? prev : [...prev, id];
-      }
-      return prev.filter((x) => x !== id);
-    });
-
-    lastSelectedIndexRef.current = index;
-  };
+  // beginDragSelect / continueDragSelect removed - they implemented the
+  // old "click and drag across chords to lasso-select" behaviour, which is
+  // replaced by discrete long-press / short-tap gestures per chord.
 
   const reorderSelection = (insertIndex: number) => {
     const selectedIds = selectedRef.current;
@@ -1333,13 +1516,55 @@ export default function App() {
   };
 
   useEffect(() => {
-    const closeMenu = () => {
+    const closeMenu = (e: MouseEvent) => {
       setContextMenu(null);
-      setSizeMenuOpen(false);
+      // (No size dropdown to close anymore; kept the setContextMenu(null)
+      // above so right-click menus still get dismissed on any click.)
+
+      // Clear the gesture selection if the click happened OUTSIDE any
+      // Builder chord button. We detect that by walking up from the
+      // click target and looking for the data-builder-index attribute
+      // we put on each Builder button. This preserves the selection
+      // when you click a chord (to toggle it) and drops it when you
+      // click empty toolbar space, the chord table, etc.
+      const target = e.target as HTMLElement | null;
+      let node: HTMLElement | null = target;
+      let insideBuilderChord = false;
+      while (node) {
+        if (node.getAttribute && node.getAttribute("data-builder-index") !== null) {
+          insideBuilderChord = true;
+          break;
+        }
+        node = node.parentElement;
+      }
+      if (!insideBuilderChord && selectedRef.current.length > 0) {
+        setSelectedBuilderIds([]);
+      }
     };
     window.addEventListener("click", closeMenu);
+
+    // Delete / Backspace key removes the currently-selected chords.
+    // Skipped when the focus is in a text input (BPM editor, etc.) so
+    // typing in a text field still deletes characters normally.
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Delete" && e.key !== "Backspace") return;
+      const active = document.activeElement as HTMLElement | null;
+      const tag = active?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || active?.isContentEditable) return;
+      if (selectedRef.current.length === 0) return;
+      e.preventDefault();
+      const toDelete = new Set(selectedRef.current);
+      const next = builderRef.current.filter((c) => !toDelete.has(c.id));
+      setBuilderChords(next);
+      pushBuilderHistory(next);
+      setSelectedBuilderIds([]);
+      recordSnapshot(topCodeRef.current, guideCodeRef.current);
+    };
+    window.addEventListener("keydown", onKeyDown);
+
     return () => {
       window.removeEventListener("click", closeMenu);
+      window.removeEventListener("keydown", onKeyDown);
       if (scrollTimerRef.current !== null) window.clearTimeout(scrollTimerRef.current);
       if (jumpTimerRef.current !== null) window.clearTimeout(jumpTimerRef.current);
       if (playTimerRef.current !== null) window.clearInterval(playTimerRef.current);
@@ -1419,59 +1644,24 @@ export default function App() {
               Redo
             </button>
 
-            {/* Size preset dropdown. Small triangle button; clicking opens a
-                three-item menu (Small / Medium / Large). Selecting one calls
-                the Electron bridge to resize the native window - browsers
-                cannot resize their own window, so in the web build clicking
-                a size just gives feedback without actually resizing. */}
-            <div className="relative" onClick={(e) => e.stopPropagation()}>
-              <button
-                type="button"
-                onClick={() => setSizeMenuOpen((v) => !v)}
-                title={`Window size (currently ${windowSize})`}
-                aria-label="Window size"
-                className={`flex items-center gap-1 rounded-sm border border-black px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
-                  sizeMenuOpen ? "bg-green-300 shadow-[0_0_10px_#ff8827]" : "bg-[#FCBF8D]"
-                }`}
-              >
-                <span className="text-[10px]">{windowSize}</span>
-                <span aria-hidden="true" className="text-[9px] leading-none">&#9660;</span>
-              </button>
-              {sizeMenuOpen && (
-                <div className="absolute right-0 top-9 z-40 w-40 border border-black bg-white shadow-lg">
-                  {(Object.keys(SIZE_PRESETS) as Array<keyof typeof SIZE_PRESETS>).map((name) => {
-                    const preset = SIZE_PRESETS[name];
-                    const active = windowSize === name;
-                    return (
-                      <button
-                        key={name}
-                        type="button"
-                        onClick={() => {
-                          setWindowSize(name);
-                          setSizeMenuOpen(false);
-                          const bridge = (window as any).desktopBridge;
-                          if (bridge && typeof bridge.resizeWindow === "function") {
-                            try {
-                              bridge.resizeWindow(preset.width, preset.height);
-                            } catch (err) {
-                              console.error("[resizeWindow] failed:", err);
-                            }
-                          }
-                        }}
-                        className={`block w-full border-b border-black px-2 py-1 text-left text-xs hover:bg-green-100 ${
-                          active ? "bg-green-200 font-semibold" : ""
-                        }`}
-                      >
-                        <span>{name}</span>
-                        <span className="ml-2 text-[10px] text-neutral-500">
-                          {preset.width}x{preset.height}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
+            {/* Settings gear icon. Replaces the old Small/Medium/Large
+                dropdown. Clicking it opens a full-screen dark modal with:
+                  - Size radio group  (Small / Medium / Large)
+                  - Long-press ms     (radio group + fine slider)
+                Both persist to localStorage via the useEffects up top. */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSettingsOpen(true);
+              }}
+              title="Settings"
+              aria-label="Settings"
+              className="flex items-center justify-center rounded-sm border border-black bg-[#FCBF8D] p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] hover:bg-orange-200"
+              style={{ width: 32, height: 32 }}
+            >
+              <SettingsGearIcon size={22} />
+            </button>
           </div>
         </div>
 
@@ -1517,38 +1707,22 @@ export default function App() {
         <div className="mb-2 flex flex-wrap items-center gap-2">
           <h2 className="mr-2 text-sm font-semibold tracking-wide">Chord Progression Builder</h2>
 
-          <button
-            type="button"
-            onClick={() => {
-              if (multiSelectMode) activateBuilderMode("none");
-              else activateBuilderMode("multi");
-            }}
-            className={`rounded-sm border border-black px-3 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
-              multiSelectMode ? "bg-green-300 shadow-[0_0_10px_#ff8827]" : "bg-[#FCBF8D]"
-            }`}
-          >
-            Multi Select
-          </button>
-
-          <button
-            type="button"
-            onClick={() => {
-              if (moveMode) activateBuilderMode("none");
-              else activateBuilderMode("select");
-            }}
-            className={`rounded-sm border border-black px-3 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
-              moveMode ? "bg-green-300 shadow-[0_0_10px_#ff8827]" : "bg-[#FCBF8D]"
-            }`}
-          >
-            Select
-          </button>
-
+          {/* Multi Select + Select buttons removed - both behaviours are now
+              gesture-driven directly on the chord blocks:
+                - long-press (>= longPressMs) on any chord = enter selection
+                - short tap on other chords while something is selected = toggle add
+                - drag any selected chord = moves the entire selection group
+                - tap outside all chords = clear selection
+                - Ch On/Off + short tap = audition sound
+              Delete stays: click a selected chord while Delete mode is on,
+              OR press the Delete/Backspace key while chords are selected. */}
           <button
             type="button"
             onClick={() => {
               if (deleteMode) activateBuilderMode("none");
               else activateBuilderMode("delete");
             }}
+            title="Delete mode: click a chord to remove it. Or press Delete/Backspace to remove the current selection."
             className={`h-8 w-16 rounded-sm border border-black text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
               deleteMode ? "bg-green-300 shadow-[0_0_10px_#ff8827]" : "bg-[#FCBF8D]"
             }`}
@@ -1814,35 +1988,58 @@ export default function App() {
                 const selected = selectedBuilderIds.includes(chord.id);
                 const playing = isPlaying && playheadIndex === index;
                 const blinking = flashBuilderId === chord.id;
-                const canReorder = moveMode || multiSelectMode;
 
                 return (
                   <button
                     key={chord.id}
                     type="button"
                     data-builder-index={index}
-                    draggable={canReorder && selected}
+                    // A chord button is draggable only WHILE it's selected,
+                    // so an idle chord tap can't accidentally start a drag.
+                    // Dragging a selected chord moves the ENTIRE current
+                    // selection group as a block (see reorderSelection).
+                    draggable={selected}
                     onMouseDown={() => {
-                      if (multiSelectMode) {
-                        // If the clicked chord is already selected, allow drag-reorder on second action.
-                        if (selected) {
-                          return;
-                        }
-                        beginDragSelect(chord.id, index);
-                        return;
+                      // Start the long-press timer. If the pointer stays
+                      // pressed for longPressMs, we enter selection mode
+                      // for this chord. Otherwise the mouseup handler
+                      // clears the timer and treats it as a short tap.
+                      longPressFiredRef.current = false;
+                      if (longPressTimerRef.current !== null) {
+                        window.clearTimeout(longPressTimerRef.current);
                       }
-
-                      if (moveMode && !selected) {
-                        setSelectedBuilderIds([chord.id]);
+                      longPressTimerRef.current = window.setTimeout(() => {
+                        longPressFiredRef.current = true;
+                        enterGestureSelection(chord.id);
                         lastSelectedIndexRef.current = index;
+                        // A long-press must NOT also trigger the click that
+                        // fires when the user finally releases the button.
+                        suppressNextClickRef.current = true;
+                      }, longPressMs);
+                    }}
+                    onMouseUp={() => {
+                      if (longPressTimerRef.current !== null) {
+                        window.clearTimeout(longPressTimerRef.current);
+                        longPressTimerRef.current = null;
                       }
                     }}
-                    onMouseEnter={() => {
-                      continueDragSelect(chord.id, index);
+                    onMouseLeave={() => {
+                      // Pointer left the button before the long-press fired
+                      // (or user is starting to drag) - cancel the timer.
+                      if (longPressTimerRef.current !== null) {
+                        window.clearTimeout(longPressTimerRef.current);
+                        longPressTimerRef.current = null;
+                      }
                     }}
                     onDragStart={() => {
-                      if (!canReorder || !selected) return;
+                      if (!selected) return;
                       isDraggingBuilderRef.current = true;
+                      // Cancel any pending long-press timer - the user is
+                      // clearly doing a drag, not a hold.
+                      if (longPressTimerRef.current !== null) {
+                        window.clearTimeout(longPressTimerRef.current);
+                        longPressTimerRef.current = null;
+                      }
                     }}
                     onDragEnd={() => {
                       window.setTimeout(() => {
@@ -1850,10 +2047,10 @@ export default function App() {
                       }, 0);
                     }}
                     onDragOver={(e) => {
-                      if (canReorder) e.preventDefault();
+                      if (selectedBuilderIds.length > 0) e.preventDefault();
                     }}
                     onDrop={(e) => {
-                      if (!canReorder) return;
+                      if (selectedBuilderIds.length === 0) return;
                       e.preventDefault();
                       const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
                       const before = e.clientX < rect.left + rect.width / 2;
@@ -1861,13 +2058,13 @@ export default function App() {
                       reorderSelection(before ? baseIndex : baseIndex + 1);
                     }}
                     onClick={() => {
-                      if (isDraggingBuilderRef.current) {
+                      // Suppress the synthetic click after a long-press or
+                      // an OS-native drag - the gesture already did its job.
+                      if (suppressNextClickRef.current) {
+                        suppressNextClickRef.current = false;
                         return;
                       }
-                      if (auditionMode) {
-                        void playChordSound(chord.label, 650);
-                        return;
-                      }
+                      if (isDraggingBuilderRef.current) return;
                       selectBuilderChord(chord.id, index);
                     }}
                     onContextMenu={(e) => {
@@ -1879,7 +2076,9 @@ export default function App() {
                     }}
                     title={`${chord.label}  ->  ${chordNotesDisplay(chord.label)}`}
                     className={`h-full min-w-[118px] border border-black px-2 text-left text-xs transition-all ${
-                      selected || playing || blinking
+                      selected
+                        ? "bg-green-300 shadow-[0_0_12px_#ff8827] ring-2 ring-[#ff8827]"
+                        : playing || blinking
                         ? "bg-green-300 shadow-[0_0_10px_#4df72c]"
                         : "bg-[#bae3b4] hover:shadow-[0_0_8px_#4df72c]"
                     }`}
@@ -1963,6 +2162,16 @@ export default function App() {
                           <button
                             key={btnId}
                             type="button"
+                            // Green suggestion buttons in the chord table keep
+                            // their existing behaviour: short tap adds the
+                            // chord to the Builder (or auditions the sound if
+                            // Ch On/Off is on); dragging one drops it at a
+                            // specific position in the Builder. Long-press
+                            // gesture selection lives only on Builder blocks,
+                            // where multi-select/reorder makes sense - a
+                            // "selected suggestion" in the table would have
+                            // no meaning since the same suggestion often
+                            // appears on many rows.
                             draggable
                             onDragStart={(e) => {
                               e.dataTransfer.effectAllowed = "copy";
@@ -2096,6 +2305,19 @@ export default function App() {
         </div>
       )}
       </div>
+
+      {/* Dark settings modal - opens over the whole app when the gear icon
+          in the Scroll On History header is clicked. Auto-applies changes
+          on click; closes via the top-right gear icon inside the panel. */}
+      {settingsOpen && (
+        <SettingsPanel
+          windowSize={windowSize}
+          onSizeChange={applyWindowSize}
+          longPressMs={longPressMs}
+          onLongPressChange={setLongPressMs}
+          onClose={() => setSettingsOpen(false)}
+        />
+      )}
     </main>
   );
 }
