@@ -1382,6 +1382,13 @@ export default function App() {
     maxNegativeDelta: number;
     // Id-urile in ordine (pentru iterare deterministica).
     groupIds: string[];
+    // Acordul pe care s-a apasat efectiv mana `↔` - snap-ul absolut la
+    // grid se calculeaza raportat la end-ul ACESTUI acord (nu la
+    // fiecare membru al grupului). Toti ceilalti membri ai grupului
+    // primesc aceeasi delta rezultata din snap-ul primary-ului.
+    primaryId: string;
+    primaryStartBeat: number;
+    primaryInitialBeats: number;
   } | null>(null);
 
   // ------------------------------------------------------------------
@@ -1684,12 +1691,18 @@ export default function App() {
     }
     if (!Number.isFinite(maxNegativeDelta)) maxNegativeDelta = 0;
 
+    // Referinta la acordul "primary" (pe care s-a apasat handle-ul).
+    // Snap-ul absolut la grid se calculeaza raportat la END-ul lui.
+    const primary = list.find((c) => c.id === chordId)!;
     resizeAnchorRef.current = {
       startX: clientX,
       initialBeats,
       maxPositiveDelta,
       maxNegativeDelta,
       groupIds,
+      primaryId: chordId,
+      primaryStartBeat: primary.startBeat,
+      primaryInitialBeats: primary.beats,
     };
     resizeActiveRef.current = true;
     // Fortam cursorul pe TOATA fereastra ↔ pe durata resize-ului (chiar
@@ -3137,14 +3150,29 @@ export default function App() {
       const dxPx = e.clientX - anchor.startX;
       const beatWidth = effectiveBeatWidthRef.current;
       if (beatWidth <= 0) return;
-      let deltaBeats = dxPx / beatWidth;
-
-      // Snap: rotunjim delta la multipli de snapDurationBeats(snap).
-      // Snap = None -> lasam delta liber (pixel-perfect).
       const currentSnap = snapRef.current;
+
+      // Cuantizare ABSOLUTA pe grila: end-ul acordului PRIMARY (cel pe
+      // care s-a apasat mana ↔) se snap-uie la cea mai apropiata linie
+      // verticala a grilei ritmice (multipli de `step`), NU la un
+      // multiplu de step aplicat pe delta.
+      //
+      // Pasii:
+      //  1. Calculam end-ul propus in beats (start + latime initiala + delta pixeli / beatWidth).
+      //  2. Il rotunjim la cea mai apropiata linie de grid absolut.
+      //  3. Delta finala = end snap-uit - end initial. Aceeasi delta se
+      //     aplica pe tot grupul (cerinta userului anterioara).
+      //
+      // Snap = None -> lasam liber (pixel-perfect), fara cuantizare.
+      const primaryEndInitial = anchor.primaryStartBeat + anchor.primaryInitialBeats;
+      const primaryEndProposed = primaryEndInitial + dxPx / beatWidth;
+      let deltaBeats: number;
       if (currentSnap !== "None") {
         const step = snapDurationBeats(currentSnap);
-        deltaBeats = Math.round(deltaBeats / step) * step;
+        const primaryEndSnapped = Math.round(primaryEndProposed / step) * step;
+        deltaBeats = primaryEndSnapped - primaryEndInitial;
+      } else {
+        deltaBeats = primaryEndProposed - primaryEndInitial;
       }
 
       // Constrainere:
