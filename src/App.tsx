@@ -1879,7 +1879,8 @@ export default function App() {
   const applySwapMove = (
     base: BuilderChord[],
     groupIds: string[],
-    deltaBeats: number
+    deltaBeats: number,
+    currentSnap: SnapOption
   ): BuilderChord[] => {
     const groupSet = new Set(groupIds);
     const direction = deltaBeats >= 0 ? 1 : -1;
@@ -1949,12 +1950,42 @@ export default function App() {
     }
 
     // -----------------------------------------------------------------
-    // SAFETY NET: dupa swap, un non-membru swap-ed poate cadea peste
-    // un alt non-membru (care nu era in nicio pereche). Rezolvam cu
-    // pass slide-style: sortam totul, separam pereche-cu-pereche.
+    // PASUL 3: QUANTIZARE la grid pentru participantii la swap.
     // -----------------------------------------------------------------
+    // Cerinta user: dupa swap, aliniam startBeat-ul acordurilor swap-uite
+    // la cea mai apropiata linie de grid (multipli de step). Astfel
+    // eliminam gap-uri urate si eventuale suprapuneri minore rezultate
+    // din diferentele de lungime intre A si B.
+    // Snap = None -> nu quantizam (pozitiile raman pixel-perfect).
+    if (currentSnap !== "None" && finalPairs.length > 0) {
+      const step = snapDurationBeats(currentSnap);
+      const touchedIds = new Set<string>();
+      for (const p of finalPairs) {
+        touchedIds.add(p.member.id);
+        touchedIds.add(p.partner.id);
+      }
+      for (const c of moved) {
+        if (!touchedIds.has(c.id)) continue;
+        const snapped = Math.round(c.startBeat / step) * step;
+        c.startBeat = Math.max(0, snapped);
+      }
+    }
+
+    // -----------------------------------------------------------------
+    // PASUL 4: ORDER-PRESERVING CASCADE.
+    // -----------------------------------------------------------------
+    // Dupa swap + quantizare, un acord swap-uit poate cadea peste alt
+    // acord din progresie (care nu era in swap). Aplicam algoritm de
+    // slide cascading care garanteaza:
+    //   - ORDINEA VIZUALA finala (dupa startBeat) e respectata
+    //   - zero suprapuneri intre orice pereche
+    //   - `beats` nu se modifica niciodata
+    // Ordinea vizuala pentru cascade este cea REZULTATA dupa swap (nu
+    // cea originala, pentru ca A si B AU SCHIMBAT locurile - asta e
+    // scopul lui swap).
     const EPS = 1e-6;
     for (let pass = 0; pass < 20; pass++) {
+      // Sortam dupa startBeat rezultat (post-swap).
       moved.sort((a, b) => a.startBeat - b.startBeat);
       let anyOverlap = false;
       for (let i = 0; i < moved.length - 1; i++) {
@@ -1963,14 +1994,8 @@ export default function App() {
         const curEnd = cur.startBeat + cur.beats;
         if (nxt.startBeat < curEnd - EPS) {
           anyOverlap = true;
-          const curIsMember = groupSet.has(cur.id);
-          const nxtIsMember = groupSet.has(nxt.id);
-          if (!nxtIsMember) {
-            nxt.startBeat = curEnd;
-          } else if (!curIsMember) {
-            cur.startBeat = nxt.startBeat - cur.beats;
-            if (cur.startBeat < 0) cur.startBeat = 0;
-          }
+          // Impinge nxt spre dreapta la marginea lui cur (edge-to-edge).
+          nxt.startBeat = curEnd;
         }
       }
       if (!anyOverlap) break;
@@ -3349,7 +3374,7 @@ export default function App() {
       const mode = nudgeModeRef.current;
       let next: BuilderChord[];
       if (mode === "swap") {
-        next = applySwapMove(anchor.baseBuilder, anchor.groupIds, deltaBeats);
+        next = applySwapMove(anchor.baseBuilder, anchor.groupIds, deltaBeats, currentSnap);
       } else {
         next = applySlideMove(anchor.baseBuilder, anchor.groupIds, deltaBeats);
       }
