@@ -62,6 +62,16 @@ export function GraphicButton({
 
   // Daca lipsesc assets-urile, folosim fallback-ul HTML.
   if (!offSrc || !onSrc) {
+    // DEBUG: log cand se ajunge la fallback ca sa stim de ce butonul
+    // grafic nu apare. Vezi in Electron DevTools (Ctrl+Shift+I) tab Console.
+    if (typeof window !== "undefined") {
+      // eslint-disable-next-line no-console
+      console.warn("[GraphicButton] fallback HTML used - offSrc/onSrc missing", {
+        offSrc: offSrc ? offSrc.slice(0, 60) + "..." : "undefined",
+        onSrc: onSrc ? onSrc.slice(0, 60) + "..." : "undefined",
+        title,
+      });
+    }
     return (
       <button
         type="button"
@@ -78,6 +88,20 @@ export function GraphicButton({
 
   const showOn = active || down || (onHover && hover);
   const src = showOn ? onSrc : offSrc;
+
+  // DEBUG: log o singura data la primul render ca sa confirmam ca butonul
+  // grafic e ACTIV (nu fallback).
+  React.useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log("[GraphicButton] rendering GRAPHIC", {
+      title,
+      offSrcLen: offSrc?.length,
+      onSrcLen: onSrc?.length,
+      offSrcStart: offSrc?.slice(0, 40),
+    });
+    // vrem sa loguim o singura data per instanta, nu la fiecare hover
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <button
