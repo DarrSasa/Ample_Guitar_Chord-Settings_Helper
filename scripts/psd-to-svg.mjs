@@ -24,8 +24,48 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { readPsd } from 'ag-psd';
+import { readPsd, initializeCanvas } from 'ag-psd';
 import sharp from 'sharp';
+
+// ag-psd cere un createCanvas / createImageData chiar si cand cerem raw pixels.
+// Ii dam shim-uri pur JS (fara dependinta de biblioteca `canvas` nativa).
+function shimCreateCanvas(width, height) {
+  return {
+    width,
+    height,
+    getContext() {
+      return {
+        createImageData(w, h) {
+          return { data: new Uint8ClampedArray(w * h * 4), width: w, height: h };
+        },
+        getImageData(x, y, w, h) {
+          return { data: new Uint8ClampedArray(w * h * 4), width: w, height: h };
+        },
+        putImageData() {},
+        drawImage() {},
+      };
+    },
+    toDataURL() { return ''; },
+  };
+}
+function shimCreateImage() {
+  return { width: 0, height: 0, src: '' };
+}
+function shimCreateImageData(a, b) {
+  // Suporta ambele semnaturi: createImageData(w, h) SAU createImageData(imageDataExistent)
+  if (typeof a === 'number') {
+    const w = a, h = b;
+    return { data: new Uint8ClampedArray(w * h * 4), width: w, height: h };
+  }
+  if (a && typeof a === 'object') {
+    const w = a.width, h = a.height;
+    return { data: new Uint8ClampedArray(w * h * 4), width: w, height: h };
+  }
+  return { data: new Uint8ClampedArray(0), width: 0, height: 0 };
+}
+// initializeCanvas accepta 2 argumente: (createCanvas, createImageData).
+// Daca dam si createImageData direct, ag-psd nu mai apeleaza deloc canvas.getContext.
+initializeCanvas(shimCreateCanvas, shimCreateImageData);
 
 const [, , psdPath, baseName] = process.argv;
 if (!psdPath || !baseName) {
@@ -114,25 +154,32 @@ function layerToSharp(layer) {
   };
 }
 
-// Compune fundal + semn intr-un canvas transparent de marimea PSD, apoi trim.
+// Compune fundal + semn intr-un canvas transparent suficient de mare pentru
+// a incapea layerele chiar si cand ies din canvasul PSD (offset negativ etc).
 async function composeState(fundal, semn) {
-  const canvasWidth = psd.width;
-  const canvasHeight = psd.height;
-
   const f = layerToSharp(fundal);
   const s = layerToSharp(semn);
 
-  // Convertim fiecare layer intr-un PNG intermediar cu offset corect prin extend.
+  // Bounding box care cuprinde AMBELE layere.
+  const minLeft = Math.min(f.left, s.left);
+  const minTop = Math.min(f.top, s.top);
+  const maxRight = Math.max(f.left + f.width, s.left + s.width);
+  const maxBottom = Math.max(f.top + f.height, s.top + s.height);
+
+  const canvasWidth = maxRight - minLeft;
+  const canvasHeight = maxBottom - minTop;
+
+  // Convertim fiecare layer intr-un PNG intermediar.
   const fPng = await sharp(f.input, { raw: f.raw }).png().toBuffer();
   const sPng = await sharp(s.input, { raw: s.raw }).png().toBuffer();
 
-  // Punem fundalul si semnul pe un canvas transparent de marimea PSD.
+  // Punem fundalul si semnul pe canvasul mare (translatam relativ la min).
   const composed = await sharp({
     create: { width: canvasWidth, height: canvasHeight, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
   })
     .composite([
-      { input: fPng, left: f.left, top: f.top },
-      { input: sPng, left: s.left, top: s.top },
+      { input: fPng, left: f.left - minLeft, top: f.top - minTop },
+      { input: sPng, left: s.left - minLeft, top: s.top - minTop },
     ])
     .png()
     .toBuffer();

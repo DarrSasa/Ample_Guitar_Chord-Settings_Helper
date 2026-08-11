@@ -1,1 +1,16 @@
-{}
+{
+  "delete": {
+    "off": {
+      "svg": "svg/delete-off.svg",
+      "png": "png/delete-off.png",
+      "width": 520,
+      "height": 522
+    },
+    "on": {
+      "svg": "svg/delete-on.svg",
+      "png": "png/delete-on.png",
+      "width": 524,
+      "height": 526
+    }
+  }
+}
