@@ -3355,6 +3355,29 @@ export default function App() {
       }
       // Nu permitem startBeat negativ - clamp la 0.
       next = next.map((c) => (c.startBeat < 0 ? { ...c, startBeat: 0 } : c));
+
+      // GARANTIE DEFENSIVA: la mutare (slide sau swap), lungimea
+      // (`beats`) NU trebuie sa se schimbe la niciun acord. Restauram
+      // din baseBuilder daca cineva a modificat accidental. Log in
+      // consola daca se detecteaza vreo modificare (bug prinderea).
+      const beatsFromBase = new Map<string, number>();
+      anchor.baseBuilder.forEach((c) => beatsFromBase.set(c.id, c.beats));
+      next = next.map((c) => {
+        const originalBeats = beatsFromBase.get(c.id);
+        if (originalBeats !== undefined && Math.abs(c.beats - originalBeats) > 1e-9) {
+          // eslint-disable-next-line no-console
+          console.warn("[Move] chord beats changed during move - restored", {
+            id: c.id,
+            label: c.label,
+            newBeats: c.beats,
+            originalBeats,
+            mode,
+          });
+          return { ...c, beats: originalBeats };
+        }
+        return c;
+      });
+
       setBuilderChords(next);
     };
 
