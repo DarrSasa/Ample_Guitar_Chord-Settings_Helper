@@ -2486,13 +2486,10 @@ export default function App() {
       }
       return false;
     };
-    const isOverAChord = (target: HTMLElement | null): boolean => {
+    const isOverTableChord = (target: HTMLElement | null): boolean => {
       let node: HTMLElement | null = target;
       while (node) {
-        if (node.getAttribute) {
-          if (node.getAttribute("data-builder-index") !== null) return true;
-          if (node.getAttribute("data-table-chord") !== null) return true;
-        }
+        if (node.getAttribute && node.getAttribute("data-table-chord") !== null) return true;
         node = node.parentElement;
       }
       return false;
@@ -2502,8 +2499,21 @@ export default function App() {
       // Doar butonul stang.
       if (e.button !== 0) return;
       const target = e.target as HTMLElement | null;
-      // Daca e peste un acord, lasa handler-ele existente sa preia.
-      if (isOverAChord(target)) return;
+
+      // In Chord Table: daca e peste un buton verde, NU pornim rubber band -
+      // lasam handler-ele existente sa preia (long-press pe buton = adauga
+      // in selectia table). Rubber band-ul in table functioneaza numai pe
+      // zona alba dintre butoane.
+      if (isOverTableChord(target)) return;
+
+      // In Builder: rubber band-ul e permis SI pe zona alba SI direct peste
+      // un acord (utilizator asked for this) - long-press pe acord + drag
+      // porneste selectia dreptunghiulara.
+      // NOTA: pentru ca handler-ul de acord (onMouseDown de pe butonul
+      // Builder) porneste propriul timer de long-press (care ar intra in
+      // selectie individuala), aici facem "capture" pe fereastra si
+      // marcam ca daca s-a activat rubber band-ul, sarim peste orice
+      // efect al handler-ului local.
 
       let scope: "builder" | "table" | null = null;
       if (isInsideBuilderStrip(target)) scope = "builder";
@@ -2523,6 +2533,17 @@ export default function App() {
         const start = rubberStartRef.current;
         if (!start) return;
         setRubberRect({ left: start.x, top: start.y, width: 0, height: 0 });
+        // Anulam timer-ul de long-press local al butonului Builder (setat
+        // in onMouseDown-ul butonului) - altfel s-ar declansa si
+        // enterGestureSelection dupa aceleasi longPressMs si am avea
+        // dublu-efect (rubber band + selectia individuala pe acordul de
+        // sub cursor). suppressNextClickRef e setat la finalul lui
+        // onRubberMouseUp - impiedica closeMenu sa reseteze selectia.
+        if (longPressTimerRef.current !== null) {
+          window.clearTimeout(longPressTimerRef.current);
+          longPressTimerRef.current = null;
+        }
+        longPressFiredRef.current = false;
       }, longPressMs);
     };
 
@@ -3298,7 +3319,14 @@ export default function App() {
                         longPressTimerRef.current = null;
                       }
                     }}
-                    onDragStart={() => {
+                    onDragStart={(e) => {
+                      // Daca rubber band-ul este activ (long-press pe
+                      // acord urmat de miscare), impiedicam drag-ul nativ
+                      // HTML5 - utilizatorul face selectie, nu mutare.
+                      if (rubberActiveRef.current) {
+                        e.preventDefault();
+                        return;
+                      }
                       if (!selected) return;
                       isDraggingBuilderRef.current = true;
                       // Cancel any pending long-press timer - the user is
