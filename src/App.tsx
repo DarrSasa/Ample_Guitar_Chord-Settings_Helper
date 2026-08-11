@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Soundfont from "soundfont-player";
 import GraphicButton from "./components/GraphicButton";
 import RubberBandOverlay, { type RubberBandRect } from "./components/RubberBandOverlay";
+import NudgeToggle, { type NudgeMode } from "./components/NudgeToggle";
 
 // Asset-uri grafice generate din PSD prin `node scripts/psd-to-svg.mjs`.
 // import.meta.glob adauga fisierele DACA exista in `src/assets/graphics/svg/`;
@@ -1239,6 +1240,25 @@ export default function App() {
   useEffect(() => {
     try { localStorage.setItem("snap", snap); } catch { /* ignore */ }
   }, [snap]);
+
+  // Chord nudge: mod de coliziune la mutare cu drag.
+  //   "slide" = acordurile din jur se decaleaza ca sa faca loc
+  //   "swap"  = A si B isi inverseaza direct pozitiile (pastreaza-si
+  //             fiecare durata proprie)
+  // Persistat in localStorage.
+  const [nudgeMode, setNudgeMode] = useState<NudgeMode>(() => {
+    try {
+      const v = localStorage.getItem("nudgeMode");
+      if (v === "slide" || v === "swap") return v;
+    } catch { /* ignore */ }
+    return "slide";
+  });
+  const nudgeModeRef = useRef<NudgeMode>(nudgeMode);
+  useEffect(() => {
+    nudgeModeRef.current = nudgeMode;
+    try { localStorage.setItem("nudgeMode", nudgeMode); } catch { /* ignore */ }
+  }, [nudgeMode]);
+
   // One-shot cleanup: remove the old "timeSignature" localStorage key
   // written by a previous version, so it doesn't accumulate as dead data.
   useEffect(() => {
@@ -1363,6 +1383,31 @@ export default function App() {
     // Id-urile in ordine (pentru iterare deterministica).
     groupIds: string[];
   } | null>(null);
+
+  // ------------------------------------------------------------------
+  // Free-move (drag pentru mutare pe timeline)
+  // ------------------------------------------------------------------
+  // Model DAW: click+drag pe un acord SELECTAT il muta liber pe
+  // timeline. Nu face snap la grid (doar resize-ul face). Daca acordul
+  // (sau grupul) se suprapune cu alte acorduri la mouseup, aplicam
+  // slide (impinge) sau swap (inverseaza) in functie de nudgeMode.
+  //
+  // Anchor-ul salveaza starea initiala ca sa putem calcula pozitiile
+  // noi (initialStart + delta) live la fiecare mousemove.
+  const moveActiveRef = useRef(false);
+  const moveAnchorRef = useRef<{
+    startX: number;
+    // startBeat original pentru fiecare acord din grup, dupa id.
+    initialStarts: Map<string, number>;
+    // Snapshot COMPLET al builder-ului la inceputul drag-ului.
+    // Preview-ul la fiecare mousemove porneste de aici.
+    baseBuilder: BuilderChord[];
+    // Id-urile in ordine (pentru iterare deterministica).
+    groupIds: string[];
+  } | null>(null);
+  // Marker sa suprimam click-ul care urmeaza mouseup-ului dupa drag
+  // (altfel resetam selectia sau declansam alte handlere).
+  const suppressAfterMoveRef = useRef(false);
 
   // While a scrollToCode() smooth animation is running, we want to suppress
   // the onScroll -> snapToNearestRow() logic. Without this, the smooth
@@ -1651,6 +1696,151 @@ export default function App() {
     // daca mouse-ul iese temporar din zona handle-ului).
     document.body.style.cursor = "ew-resize";
     document.body.style.userSelect = "none";
+  };
+
+  // ------------------------------------------------------------------
+  // Free-move: initializare + logica slide/swap
+  // ------------------------------------------------------------------
+  // Pornit din onMouseDown-ul unui acord Builder (in main handler
+  // local), dupa ce am confirmat ca NU e long-press pentru selectie
+  // (mouse-ul se misca inainte sa expire timer-ul de long-press).
+  const beginMove = (chordId: string, clientX: number) => {
+    const list = builderRef.current;
+    const selected = new Set(selectedRef.current);
+    // Grupul de mutare: daca acordul apasat e in selectie -> tot
+    // grupul selectat; altfel doar acordul apasat.
+    let groupIds: string[];
+    if (selected.has(chordId) && selected.size > 1) {
+      groupIds = list.filter((c) => selected.has(c.id)).map((c) => c.id);
+    } else {
+      groupIds = [chordId];
+    }
+    const initialStarts = new Map<string, number>();
+    list.forEach((c) => {
+      if (groupIds.includes(c.id)) initialStarts.set(c.id, c.startBeat);
+    });
+    moveAnchorRef.current = {
+      startX: clientX,
+      initialStarts,
+      baseBuilder: list.map((c) => ({ ...c })),
+      groupIds,
+    };
+    moveActiveRef.current = true;
+    document.body.style.cursor = "grabbing";
+    document.body.style.userSelect = "none";
+  };
+
+  // Aplica modul SLIDE: A se muta peste B -> B (si vecinii lipiti in
+  // directia mutarii) se impinge in aceeasi directie cu (durata lui A).
+  // Preview-ul se calculeaza plecand DE FIECARE DATA de la baseBuilder
+  // (snapshot-ul din anchor), NU din state-ul curent - altfel s-ar
+  // acumula deplasarile la fiecare mousemove.
+  const applySlideMove = (
+    base: BuilderChord[],
+    groupIds: string[],
+    deltaBeats: number
+  ): BuilderChord[] => {
+    const groupSet = new Set(groupIds);
+    // Pasul 1: muta toate acordurile din grup cu deltaBeats.
+    const moved = base.map((c) => {
+      if (!groupSet.has(c.id)) return { ...c };
+      return { ...c, startBeat: c.startBeat + deltaBeats };
+    });
+    // Pasul 2: detectam suprapuneri intre membri de grup si non-membri
+    // + impingem non-membrii in directia mutarii pana dispare overlap-ul.
+    // Facem un pass simplu: pentru fiecare pereche (membru, non-membru)
+    // in ordine, daca se suprapun in mod pozitiv, translatam non-membrul.
+    // Iteram pana cand nu mai exista suprapuneri (max 20 pasi ca guard).
+    const direction = deltaBeats > 0 ? 1 : -1;
+    for (let pass = 0; pass < 20; pass++) {
+      let changed = false;
+      // Sortam ca sa procesam de la stanga la dreapta cand impingem
+      // spre dreapta, si invers spre stanga.
+      const order = [...moved].sort((a, b) =>
+        direction > 0 ? a.startBeat - b.startBeat : b.startBeat - a.startBeat
+      );
+      for (const m of order) {
+        if (!groupSet.has(m.id)) continue;
+        const mStart = m.startBeat;
+        const mEnd = m.startBeat + m.beats;
+        for (const n of moved) {
+          if (groupSet.has(n.id)) continue;
+          const nStart = n.startBeat;
+          const nEnd = n.startBeat + n.beats;
+          const overlap = mStart < nEnd && nStart < mEnd;
+          if (!overlap) continue;
+          // Cat de mult sa mutam n ca sa dispara overlap-ul, in
+          // directia miscarii?
+          if (direction > 0) {
+            // Impingem n spre dreapta: n.startBeat = mEnd
+            n.startBeat = mEnd;
+          } else {
+            // Impingem n spre stanga: n.end = mStart => n.startBeat = mStart - n.beats
+            n.startBeat = mStart - n.beats;
+          }
+          changed = true;
+        }
+      }
+      if (!changed) break;
+    }
+    return moved;
+  };
+
+  // Aplica modul SWAP: pentru fiecare membru de grup care se suprapune
+  // cu un non-membru, cele doua isi INVERSEAZA pozitiile (fiecare isi
+  // pastreaza durata proprie).
+  //
+  // Trigger: consideram suprapunere daca centrul acordului mutat cade
+  // in interiorul altui acord (comportament predictibil, evita swap-uri
+  // false doar dintr-o atingere marginala).
+  const applySwapMove = (
+    base: BuilderChord[],
+    groupIds: string[],
+    deltaBeats: number
+  ): BuilderChord[] => {
+    const groupSet = new Set(groupIds);
+    // Pasul 1: muta grupul cu deltaBeats (preview live).
+    const moved = base.map((c) => {
+      if (!groupSet.has(c.id)) return { ...c };
+      return { ...c, startBeat: c.startBeat + deltaBeats };
+    });
+    // Pasul 2: pentru fiecare membru al grupului, gasim primul
+    // non-membru al carui centru e acoperit de acordul mutat SAU
+    // vice-versa. Inversam startBeat-urile lor.
+    const swappedIds = new Set<string>();
+    for (const m of moved) {
+      if (!groupSet.has(m.id)) continue;
+      if (swappedIds.has(m.id)) continue;
+      const mStart = m.startBeat;
+      const mEnd = m.startBeat + m.beats;
+      const mCenter = (mStart + mEnd) / 2;
+      // Cautam candidat pentru swap.
+      let candidate: BuilderChord | undefined;
+      for (const n of moved) {
+        if (groupSet.has(n.id)) continue;
+        if (swappedIds.has(n.id)) continue;
+        const nStart = n.startBeat;
+        const nEnd = n.startBeat + n.beats;
+        const nCenter = (nStart + nEnd) / 2;
+        // Suprapunere semnificativa: fie centrul lui m e in [nStart, nEnd]
+        // fie centrul lui n e in [mStart, mEnd].
+        if ((mCenter >= nStart && mCenter <= nEnd) || (nCenter >= mStart && nCenter <= mEnd)) {
+          candidate = n;
+          break;
+        }
+      }
+      if (candidate) {
+        // Cu "keep_own" fiecare isi pastreaza durata proprie. A ia
+        // POZITIA (startBeat) lui B, B ia POZITIA originala a lui A
+        // (din baseBuilder, nu din moved, ca sa nu includem deltaBeats).
+        const originalStartA = base.find((x) => x.id === m.id)?.startBeat ?? m.startBeat;
+        m.startBeat = candidate.startBeat;
+        candidate.startBeat = originalStartA;
+        swappedIds.add(m.id);
+        swappedIds.add(candidate.id);
+      }
+    }
+    return moved;
   };
 
   const applyWindowSize = (name: "Small" | "Medium" | "Large") => {
@@ -2968,11 +3158,53 @@ export default function App() {
       document.body.style.userSelect = "";
     };
 
+    // -----------------------------------------------------------------
+    // Free-move handlers (drag pe acord = mutare pe timeline, no snap)
+    // -----------------------------------------------------------------
+    // La mousemove: calculam deltaBeats (pixel-perfect, fara snap),
+    // aplicam preview live in functie de nudgeMode. Baza e mereu
+    // baseBuilder-ul din anchor - astfel nu se cumuleaza deplasari.
+    const onMoveMouseMove = (e: MouseEvent) => {
+      const anchor = moveAnchorRef.current;
+      if (!anchor || !moveActiveRef.current) return;
+      e.preventDefault();
+      const dxPx = e.clientX - anchor.startX;
+      const beatWidth = effectiveBeatWidthRef.current;
+      if (beatWidth <= 0) return;
+      const deltaBeats = dxPx / beatWidth;
+      // Aplicam preview conform modului nudge curent.
+      const mode = nudgeModeRef.current;
+      let next: BuilderChord[];
+      if (mode === "swap") {
+        next = applySwapMove(anchor.baseBuilder, anchor.groupIds, deltaBeats);
+      } else {
+        next = applySlideMove(anchor.baseBuilder, anchor.groupIds, deltaBeats);
+      }
+      // Nu permitem startBeat negativ - clamp la 0.
+      next = next.map((c) => (c.startBeat < 0 ? { ...c, startBeat: 0 } : c));
+      setBuilderChords(next);
+    };
+
+    const onMoveMouseUp = (_e: MouseEvent) => {
+      if (!moveActiveRef.current) return;
+      moveActiveRef.current = false;
+      moveAnchorRef.current = null;
+      // Salvam un singur snapshot atomic in istoric (Prompt 3).
+      pushBuilderHistory(builderRef.current);
+      // Suprimam click-ul care urmeaza dupa mouseup.
+      suppressNextClickRef.current = true;
+      suppressAfterMoveRef.current = true;
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    };
+
     window.addEventListener("mousedown", onRubberMouseDown);
     window.addEventListener("mousemove", onRubberMouseMove);
     window.addEventListener("mouseup", onRubberMouseUp);
     window.addEventListener("mousemove", onResizeMouseMove);
     window.addEventListener("mouseup", onResizeMouseUp);
+    window.addEventListener("mousemove", onMoveMouseMove);
+    window.addEventListener("mouseup", onMoveMouseUp);
 
     return () => {
       window.removeEventListener("click", closeMenu);
@@ -2982,6 +3214,8 @@ export default function App() {
       window.removeEventListener("mouseup", onRubberMouseUp);
       window.removeEventListener("mousemove", onResizeMouseMove);
       window.removeEventListener("mouseup", onResizeMouseUp);
+      window.removeEventListener("mousemove", onMoveMouseMove);
+      window.removeEventListener("mouseup", onMoveMouseUp);
       if (rubberPressTimerRef.current !== null) window.clearTimeout(rubberPressTimerRef.current);
       if (scrollTimerRef.current !== null) window.clearTimeout(scrollTimerRef.current);
       if (jumpTimerRef.current !== null) window.clearTimeout(jumpTimerRef.current);
@@ -3178,6 +3412,12 @@ export default function App() {
           >
             Delete
           </GraphicButton>
+
+          {/* Chord nudge: comutator slide/swap (FL Studio style).
+              Determina comportamentul la mutarea unui acord peste altul:
+              - slide: vecinii se decaleaza ca sa faca loc
+              - swap: A si B isi inverseaza pozitiile */}
+          <NudgeToggle value={nudgeMode} onChange={setNudgeMode} />
 
           {/* Play / Pause: acelasi buton, doar grafica difera.
               - Cand NU canta (isPlaying=false): afiseaza grafica "play"
@@ -3603,12 +3843,25 @@ export default function App() {
                   <button
                     type="button"
                     data-builder-index={index}
-                    // A chord button is draggable only WHILE it's selected,
-                    // so an idle chord tap can't accidentally start a drag.
-                    // Dragging a selected chord moves the ENTIRE current
-                    // selection group as a block (see reorderSelection).
-                    draggable={selected}
-                    onMouseDown={() => {
+                    // Model DAW: mutarea acordurilor foloseste custom
+                    // mouse handlers (beginMove), NU drag&drop HTML5.
+                    // Draggable ramane doar pentru scenariile care nu
+                    // au fost inca migrate (drop din chord table, drop
+                    // MIDI catre DAW extern).
+                    draggable={false}
+                    onMouseDown={(e) => {
+                      // Butonul stang doar.
+                      if (e.button !== 0) return;
+                      // Daca acordul e SELECTAT (sau va fi tot el singur),
+                      // pornim IMEDIAT free-move. Long-press-ul de
+                      // selectie ramane pentru cazul cand acordul NU e
+                      // selectat inca (user tine apasat ca sa selecteze).
+                      if (selected) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        beginMove(chord.id, e.clientX);
+                        return;
+                      }
                       // Start the long-press timer. If the pointer stays
                       // pressed for longPressMs, we enter selection mode
                       // for this chord. Otherwise the mouseup handler
