@@ -12,5 +12,61 @@
       "width": 524,
       "height": 526
     }
+  },
+  "play": {
+    "off": {
+      "svg": "svg/play-off.svg",
+      "png": "png/play-off.png",
+      "width": 520,
+      "height": 522
+    },
+    "on": {
+      "svg": "svg/play-on.svg",
+      "png": "png/play-on.png",
+      "width": 524,
+      "height": 526
+    }
+  },
+  "pause": {
+    "off": {
+      "svg": "svg/pause-off.svg",
+      "png": "png/pause-off.png",
+      "width": 520,
+      "height": 522
+    },
+    "on": {
+      "svg": "svg/pause-on.svg",
+      "png": "png/pause-on.png",
+      "width": 524,
+      "height": 526
+    }
+  },
+  "stop": {
+    "off": {
+      "svg": "svg/stop-off.svg",
+      "png": "png/stop-off.png",
+      "width": 520,
+      "height": 522
+    },
+    "on": {
+      "svg": "svg/stop-on.svg",
+      "png": "png/stop-on.png",
+      "width": 524,
+      "height": 526
+    }
+  },
+  "drag": {
+    "off": {
+      "svg": "svg/drag-off.svg",
+      "png": "png/drag-off.png",
+      "width": 520,
+      "height": 522
+    },
+    "on": {
+      "svg": "svg/drag-on.svg",
+      "png": "png/drag-on.png",
+      "width": 524,
+      "height": 526
+    }
   }
 }

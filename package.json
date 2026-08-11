@@ -12,7 +12,12 @@
     "build": "vite build",
     "build:electron": "cross-env BUILD_TARGET=electron vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "psd:delete": "node scripts/psd-to-svg.mjs docs/graphics/psd/buton-delete.psd delete"
+    "psd:delete": "node scripts/psd-to-svg.mjs docs/graphics/psd/buton-delete.psd delete",
+    "psd:play": "node scripts/psd-to-svg.mjs docs/graphics/psd/buton-play.psd play",
+    "psd:pause": "node scripts/psd-to-svg.mjs docs/graphics/psd/buton-pause.psd pause",
+    "psd:stop": "node scripts/psd-to-svg.mjs docs/graphics/psd/buton-stop.psd stop",
+    "psd:drag": "node scripts/psd-to-svg.mjs docs/graphics/psd/buton-drag.psd drag",
+    "psd:all": "npm run psd:delete && npm run psd:play && npm run psd:pause && npm run psd:stop && npm run psd:drag"
   },
   "dependencies": {
     "@electron/packager": "^18.4.4",

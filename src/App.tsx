@@ -2627,23 +2627,41 @@ export default function App() {
             Delete
           </GraphicButton>
 
-          <button
-            type="button"
+          {/* Play / Pause: acelasi buton, doar grafica difera.
+              - Cand NU canta (isPlaying=false): afiseaza grafica "play"
+                (triunghi), tap = porneste redarea.
+              - Cand CANTA (isPlaying=true): afiseaza grafica "pause"
+                (doua bare), tap = pauza (playhead ramane pe loc).
+              `active` reflecta ca playback-ul e in curs SAU pe pauza -
+              butonul apare in stare On (luminos) pentru feedback vizual. */}
+          <GraphicButton
+            offSrc={isPlaying ? graphic("pause-off") : graphic("play-off")}
+            onSrc={isPlaying ? graphic("pause-on") : graphic("play-on")}
+            active={isPlaying || isPaused}
+            width={80}
+            height={32}
             onClick={togglePlay}
+            title={isPlaying ? "Pause playback (playhead stays put)" : "Play the progression"}
+            ariaLabel={isPlaying ? "Pause" : "Play"}
             className={`h-8 w-20 rounded-sm border border-black text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
               isPlaying || isPaused ? "bg-green-300 shadow-[0_0_10px_#ff8827]" : "bg-[#FCBF8D]"
             }`}
           >
             {isPlaying ? "Pause" : "Play"}
-          </button>
+          </GraphicButton>
 
-          <button
-            type="button"
+          <GraphicButton
+            offSrc={graphic("stop-off")}
+            onSrc={graphic("stop-on")}
+            width={56}
+            height={32}
             onClick={stopPlayback}
+            title="Stop playback and reset the playhead to the beginning"
+            ariaLabel="Stop"
             className="h-8 w-14 rounded-sm border border-black bg-[#FCBF8D] text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]"
           >
             Stop
-          </button>
+          </GraphicButton>
 
           {/* Snap control:
                 - Text "Snap"
@@ -2796,8 +2814,11 @@ export default function App() {
               its own button now, and mixing the two on one control turned
               out to be fragile (drag-end synthesised clicks, sync/async
               collisions, unclear failure modes). */}
-          <button
-            type="button"
+          <GraphicButton
+            offSrc={graphic("drag-off")}
+            onSrc={graphic("drag-on")}
+            width={64}
+            height={32}
             draggable
             onDragStart={dragMidiToDaw}
             onClick={() => {
@@ -2808,10 +2829,11 @@ export default function App() {
               alert("Drag this button into your DAW (or File Explorer) to drop the MIDI file.");
             }}
             title="Drag this button into your DAW (FL Studio, Reaper, Cubase, Ableton, ...) or into File Explorer to drop the MIDI file directly."
+            ariaLabel="Drag MIDI to DAW"
             className="cursor-grab rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] active:cursor-grabbing"
           >
             D&amp;D
-          </button>
+          </GraphicButton>
 
           <div className="flex items-center gap-1 rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
             <input

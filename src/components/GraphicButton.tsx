@@ -14,6 +14,9 @@ import React from "react";
  * Daca un asset nu exista inca (ex: PSD-ul nu a fost inca urcat), componenta
  * face fallback la butonul HTML clasic primit ca `children`, ca aplicatia sa
  * nu se strice.
+ *
+ * Suporta si mode "drag" (draggable + onDragStart) pentru butoane cum e D&D
+ * care trebuie sa initieze un drag OS-native catre alte aplicatii.
  */
 
 export type GraphicButtonProps = {
@@ -41,6 +44,12 @@ export type GraphicButtonProps = {
   className?: string;
   /** Dezactiveaza butonul. */
   disabled?: boolean;
+  /** Face butonul draggable (pentru drag&drop catre alte aplicatii). */
+  draggable?: boolean;
+  /** Handler pentru inceputul unui drag. */
+  onDragStart?: (e: React.DragEvent<HTMLButtonElement>) => void;
+  /** Cursor CSS custom (default: pointer, sau grab daca draggable). */
+  cursor?: string;
 };
 
 export function GraphicButton({
@@ -56,22 +65,16 @@ export function GraphicButton({
   children,
   className,
   disabled,
+  draggable,
+  onDragStart,
+  cursor,
 }: GraphicButtonProps) {
   const [hover, setHover] = React.useState(false);
   const [down, setDown] = React.useState(false);
 
-  // Daca lipsesc assets-urile, folosim fallback-ul HTML.
+  // Daca lipsesc assets-urile, folosim fallback-ul HTML - butonul textual
+  // clasic ramane functional pana cand aduci PSD-ul.
   if (!offSrc || !onSrc) {
-    // DEBUG: log cand se ajunge la fallback ca sa stim de ce butonul
-    // grafic nu apare. Vezi in Electron DevTools (Ctrl+Shift+I) tab Console.
-    if (typeof window !== "undefined") {
-      // eslint-disable-next-line no-console
-      console.warn("[GraphicButton] fallback HTML used - offSrc/onSrc missing", {
-        offSrc: offSrc ? offSrc.slice(0, 60) + "..." : "undefined",
-        onSrc: onSrc ? onSrc.slice(0, 60) + "..." : "undefined",
-        title,
-      });
-    }
     return (
       <button
         type="button"
@@ -80,6 +83,8 @@ export function GraphicButton({
         aria-label={ariaLabel}
         className={className}
         disabled={disabled}
+        draggable={draggable}
+        onDragStart={onDragStart}
       >
         {children}
       </button>
@@ -88,20 +93,9 @@ export function GraphicButton({
 
   const showOn = active || down || (onHover && hover);
   const src = showOn ? onSrc : offSrc;
-
-  // DEBUG: log o singura data la primul render ca sa confirmam ca butonul
-  // grafic e ACTIV (nu fallback).
-  React.useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log("[GraphicButton] rendering GRAPHIC", {
-      title,
-      offSrcLen: offSrc?.length,
-      onSrcLen: onSrc?.length,
-      offSrcStart: offSrc?.slice(0, 40),
-    });
-    // vrem sa loguim o singura data per instanta, nu la fiecare hover
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const resolvedCursor = disabled
+    ? "not-allowed"
+    : cursor ?? (draggable ? "grab" : "pointer");
 
   return (
     <button
@@ -114,13 +108,15 @@ export function GraphicButton({
       title={title}
       aria-label={ariaLabel ?? title}
       disabled={disabled}
+      draggable={draggable}
+      onDragStart={onDragStart}
       style={{
         width,
         height,
         padding: 0,
         border: "none",
         background: "transparent",
-        cursor: disabled ? "not-allowed" : "pointer",
+        cursor: resolvedCursor,
         display: "inline-block",
         lineHeight: 0,
         opacity: disabled ? 0.5 : 1,
