@@ -35,6 +35,20 @@ if (isElectronBuild) {
 export default defineConfig({
   base,
   plugins: [react(), tailwindcss(), ...(isElectronBuild ? [viteSingleFile()] : [])],
+  build: isElectronBuild
+    ? {
+        // Pentru build-ul Electron TOT trebuie sa fie intr-un singur fisier
+        // (index.html). Fara aceasta setare, Vite pastreaza SVG-urile si
+        // imaginile ca fisiere separate in dist/assets/, dar viteSingleFile
+        // nu le inlineaza - iar Electron le-ar cauta pe disc si ar afisa
+        // asset-uri lipsa (butonul grafic Delete raman ca fallback HTML).
+        //
+        // Setam assetsInlineLimit la Infinity => ORICE asset devine data URI
+        // in bundle. Combinat cu viteSingleFile care inlineaza JS + CSS,
+        // rezultatul e un singur .html complet self-contained.
+        assetsInlineLimit: Number.MAX_SAFE_INTEGER,
+      }
+    : undefined,
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),

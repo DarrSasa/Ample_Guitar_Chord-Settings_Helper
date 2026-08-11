@@ -5,13 +5,27 @@ import GraphicButton from "./components/GraphicButton";
 // Asset-uri grafice generate din PSD prin `node scripts/psd-to-svg.mjs`.
 // import.meta.glob adauga fisierele DACA exista in `src/assets/graphics/svg/`;
 // daca nu, valorile sunt undefined si GraphicButton face fallback la HTML clasic.
+//
+// Folosim `?raw` ca sa primim SVG-ul ca STRING (nu URL catre fisier extern).
+// Il convertim manual in data URI - astfel bundle-ul Electron ramane un
+// singur .html self-contained, fara fisiere externe pe langa el.
 const graphicAssets = import.meta.glob("./assets/graphics/svg/*.svg", {
   eager: true,
-  query: "?url",
+  query: "?raw",
   import: "default",
 }) as Record<string, string>;
+const graphicUrlCache = new Map<string, string>();
 function graphic(name: string): string | undefined {
-  return graphicAssets[`./assets/graphics/svg/${name}.svg`];
+  const key = `./assets/graphics/svg/${name}.svg`;
+  const raw = graphicAssets[key];
+  if (!raw) return undefined;
+  const cached = graphicUrlCache.get(key);
+  if (cached) return cached;
+  // Convert SVG string -> data URI. Folosim encodeURIComponent ca sa
+  // scapam de caractere problematice; browserul citeste direct.
+  const url = `data:image/svg+xml;utf8,${encodeURIComponent(raw)}`;
+  graphicUrlCache.set(key, url);
+  return url;
 }
 
 type ChordType = "Maj" | "min" | "sus2" | "sus4" | "aug" | "5" | "oct";
