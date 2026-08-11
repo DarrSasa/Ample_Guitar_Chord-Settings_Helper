@@ -196,10 +196,15 @@ function snapSubdivisionsPerBar(snap: SnapOption): number {
 // under the taller Builder strip (240px + 48px Time Bar + 14px zoom
 // slider + toolbar). Widths kept close to the previous values so the
 // aspect ratio still feels natural on a typical 16:9 monitor.
-const SIZE_PRESETS: Record<"Small" | "Medium" | "Large", { width: number; height: number }> = {
-  Small: { width: 1180, height: 900 },
-  Medium: { width: 1400, height: 950 },
-  Large: { width: 1600, height: 1000 },
+// `scale` este factorul cu care se multiplica toate dimensiunile UI-ului
+// (font-size, buton grafic, BEAT_WIDTH, TIME_BAR_HEIGHT etc.). Astfel, la
+// Small totul devine 85%, la Medium 100% (dimensiunile de baza), iar la
+// Large 115%. Latimea/inaltimea ferestrei sunt aproximativ propor\u021bionale
+// cu scale x baza (1400 x 950) ca sa nu ramai cu spatiu gol.
+const SIZE_PRESETS: Record<"Small" | "Medium" | "Large", { width: number; height: number; scale: number }> = {
+  Small:  { width: 1180, height: 900,  scale: 0.85 },
+  Medium: { width: 1400, height: 950,  scale: 1.00 },
+  Large:  { width: 1600, height: 1000, scale: 1.15 },
 };
 
 const GUITAR_PRESETS: GuitarPreset[] = [
@@ -537,8 +542,11 @@ function TimeBar(props: {
   snap: SnapOption;
   playheadX: number;
   onSeek: (px: number) => void;
+  /** Inaltimea Time Bar in pixeli (scalata cu uiScale de catre parinte). */
+  heightPx?: number;
 }) {
   const { rulerWidthPx, pixelsPerBeat, snap, playheadX, onSeek } = props;
+  const TIME_BAR_H = props.heightPx ?? TIME_BAR_HEIGHT;
   const barWidthPx = BEATS_PER_BAR * pixelsPerBeat;
   const rulerBars = Math.round(rulerWidthPx / barWidthPx);
 
@@ -579,7 +587,7 @@ function TimeBar(props: {
       aria-label="Time bar"
       onClick={handleClick}
       className="relative cursor-pointer border-b border-black bg-[#e8e8e8] select-none"
-      style={{ height: TIME_BAR_HEIGHT, width: `${rulerWidthPx}px` }}
+      style={{ height: TIME_BAR_H, width: `${rulerWidthPx}px` }}
     >
       {barNumbers}
       {/* Playhead marker occupying the FULL Time Bar height. Triangle
@@ -597,8 +605,8 @@ function TimeBar(props: {
           only applies to the actual triangle shape, not a hidden
           bounding box. */}
       {(() => {
-        const triH = TIME_BAR_HEIGHT;
-        const triW = Math.round(TIME_BAR_HEIGHT * 0.6);
+        const triH = TIME_BAR_H;
+        const triW = Math.round(TIME_BAR_H * 0.6);
         return (
           <svg
             className="pointer-events-none absolute top-0 z-10"
@@ -1019,7 +1027,7 @@ function SettingsPanel(props: {
               />
               <span>{s}</span>
               <span className="text-[10px] text-neutral-400">
-                {SIZE_PRESETS[s].width}x{SIZE_PRESETS[s].height}
+                {SIZE_PRESETS[s].width}x{SIZE_PRESETS[s].height} ({Math.round(SIZE_PRESETS[s].scale * 100)}%)
               </span>
             </label>
           ))}
@@ -1191,11 +1199,9 @@ export default function App() {
   // of the timeline", i.e. smaller chords (zoom out). This matches the
   // reversed convention the user asked for explicitly.
   const [zoom, setZoom] = useState<number>(1);
-  const effectiveBeatWidth = BEAT_WIDTH * zoom;
-  // Ref mirror so the playback tick loop can read the current zoom
-  // without closing over a stale value.
-  const effectiveBeatWidthRef = useRef(effectiveBeatWidth);
-  useEffect(() => { effectiveBeatWidthRef.current = effectiveBeatWidth; }, [effectiveBeatWidth]);
+  // NOTA: `effectiveBeatWidth` este calculat dupa ce definim `windowSize`
+  // + `uiScale` mai jos, ca sa poata include factorul de scale. Vezi
+  // sectiunea "uiScale + scaled sizes" de mai jos.
 
   // Horizontal scroll position of the SHARED Time Bar + Builder chord
   // strip, expressed as a fraction 0..1 of the total ruler width. Driven
@@ -1302,10 +1308,46 @@ export default function App() {
   // Settings modal (the dark panel with rotita zimtata).
   const [settingsOpen, setSettingsOpen] = useState(false);
 
+  // ------------------------------------------------------------------
+  // uiScale + scaled sizes
+  // ------------------------------------------------------------------
+  // Factor global de scalare al UI-ului, derivat din presetul de fereastra.
+  // Small = 0.85, Medium = 1.0, Large = 1.15. Aplicat pe font-size-ul
+  // containerului radacina (deci orice `em` se scaleaza automat) SI pe
+  // constantele pixel-perfect (BEAT_WIDTH, TIME_BAR_HEIGHT etc.) pentru
+  // ca zona de lucru (Builder, Time Bar, grid) sa creasca/scada proportional.
+  const uiScale = SIZE_PRESETS[windowSize].scale;
+
+  // Constante scalate. Le folosim in loc de constantele globale peste tot
+  // unde se face layout pixel-perfect.
+  const beatWidthScaled     = BEAT_WIDTH * uiScale;
+  const builderStripHeightScaled = Math.round(BUILDER_STRIP_HEIGHT * uiScale);
+  const timeBarHeightScaled = Math.round(TIME_BAR_HEIGHT * uiScale);
+
+  // Latimea unui beat, incluzand SI zoom-ul utilizator SI scale-ul global.
+  // `zoom` ramane comanda utilizatorului din slider (1x = default), scale
+  // este ambianta ferestrei.
+  const effectiveBeatWidth = beatWidthScaled * zoom;
+  // Ref mirror pentru bucla de playback ca sa citeasca valoarea curenta
+  // fara stale-closure.
+  const effectiveBeatWidthRef = useRef(effectiveBeatWidth);
+  useEffect(() => { effectiveBeatWidthRef.current = effectiveBeatWidth; }, [effectiveBeatWidth]);
+
   // Persist window size + long-press whenever they change.
   useEffect(() => {
     try { localStorage.setItem("windowSize", windowSize); } catch { /* ignore */ }
   }, [windowSize]);
+
+  // Aplica scale-ul pe documentElement (html) astfel incat Tailwind
+  // clasele care folosesc `rem` (text-xs, text-sm, w-16, h-8, gap-2 etc.)
+  // sa se scaleze automat. 1 rem = 16px baza * uiScale.
+  useEffect(() => {
+    const prev = document.documentElement.style.fontSize;
+    document.documentElement.style.fontSize = `${16 * uiScale}px`;
+    return () => {
+      document.documentElement.style.fontSize = prev;
+    };
+  }, [uiScale]);
   useEffect(() => {
     try { localStorage.setItem("longPressMs", String(longPressMs)); } catch { /* ignore */ }
   }, [longPressMs]);
@@ -2418,7 +2460,17 @@ export default function App() {
   const [playheadX, setPlayheadX] = useState(0);
 
   return (
-    <main className="h-screen w-screen overflow-hidden bg-[#acb0ac] p-0 text-black">
+    <main
+      className="h-screen w-screen overflow-hidden bg-[#acb0ac] p-0 text-black"
+      style={{
+        // Setam font-size-ul pe container-ul radacina in functie de scale.
+        // 16 px este baza browser-ului pentru "1 em" = deci orice CSS care
+        // foloseste `em` se scaleaza automat cu Small/Medium/Large.
+        // Tailwind text-xs / text-sm / text-base sunt in rem (relativ la
+        // html), deci nu se prind aici; dar orice `em` DA.
+        fontSize: `${16 * uiScale}px`,
+      }}
+    >
       <div className="flex h-full w-full flex-col gap-2 overflow-auto border border-black bg-[#acb0ac] p-2">
       <section className="border border-black bg-white/35 p-2">
         <div className="mb-2 flex items-center justify-between">
@@ -2895,12 +2947,13 @@ export default function App() {
             snap={snap}
             playheadX={playheadX}
             onSeek={handleTimeBarSeek}
+            heightPx={timeBarHeightScaled}
           />
 
           <div
             className="relative"
             style={{
-              height: BUILDER_STRIP_HEIGHT,
+              height: builderStripHeightScaled,
               // Same width as the Time Bar above, so they scroll in
               // lockstep as one visual unit.
               width: `${rulerContentWidth}px`,
@@ -2909,7 +2962,7 @@ export default function App() {
             {/* Vertical grid lines underneath everything. z-index 0. */}
             <BuilderGrid
               widthPx={rulerContentWidth}
-              heightPx={BUILDER_STRIP_HEIGHT}
+              heightPx={builderStripHeightScaled}
               pixelsPerBeat={effectiveBeatWidth}
               snap={snap}
             />
