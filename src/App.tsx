@@ -1925,79 +1925,130 @@ export default function App() {
     return moved;
   };
 
-  // Aplica modul SWAP: A si B isi schimba locurile FARA SUPRAPUNERE.
+  // Aplica modul SWAP: fiecare membru al grupului care se suprapune cu
+  // un non-membru face SCHIMB DE LOCURI edge-to-edge, fara suprapuneri.
   //
   // Regula (userul explicit):
   //   - Cand A e mutat de la STANGA spre DREAPTA peste B:
-  //       A ia startBeat-ul lui B.
-  //       B se muta la STANGA, terminandu-se exact unde incepe noul A
-  //       (adica B.startBeat = A.newStart - B.beats).
+  //       A ia startBeat-ul original al lui B.
+  //       B se muta la STANGA, terminandu-se exact unde incepe noul A.
   //   - Cand A e mutat de la DREAPTA spre STANGA peste B:
-  //       A ia startBeat-ul lui B.
-  //       B se muta la DREAPTA, incepand exact unde se termina noul A
-  //       (adica B.startBeat = A.newStart + A.beats).
-  //   Astfel A si B se aliniaza edge-to-edge fara suprapunere,
-  //   pastrandu-si fiecare durata proprie.
+  //       A ia startBeat-ul original al lui B.
+  //       B se muta la DREAPTA, incepand exact unde se termina noul A.
   //
-  // Trigger: consideram overlap valid pentru swap daca centrul lui A
-  // (dupa deltaBeats) cade in interiorul lui B (sau viceversa).
+  // Algoritm robust pentru selectie multipla (Prompt: eliminate stack
+  // overlaps at multi-select swap):
+  //   1. Trigger swap perechi: fiecare membru cauta cel mai apropiat
+  //      non-membru dupa distanta CENTRU-CENTRU (previne 2 membri sa
+  //      apuce acelasi candidat cu prioritati inversate).
+  //   2. Rezerva atomic: fiecare non-membru poate fi partener doar
+  //      pentru UN membru (primul care il revendica dupa distanta).
+  //   3. Aplic perechile SIMULTAN, calculand toate destinatiile din
+  //      snapshot-ul original (nu din stari intermediare - previne
+  //      valori inconsistente).
+  //   4. Safety net: rezolva orice overlap rezidual cu impins slide
+  //      (poate apare cand un non-membru swap-ed cade peste alt non-
+  //      membru care nu era in nicio pereche).
   const applySwapMove = (
     base: BuilderChord[],
     groupIds: string[],
     deltaBeats: number
   ): BuilderChord[] => {
     const groupSet = new Set(groupIds);
-    // Directia miscarii: >0 = spre dreapta, <0 = spre stanga.
     const direction = deltaBeats >= 0 ? 1 : -1;
     // Pasul 1: muta grupul cu deltaBeats (preview live).
     const moved = base.map((c) => {
       if (!groupSet.has(c.id)) return { ...c };
       return { ...c, startBeat: c.startBeat + deltaBeats };
     });
-    // Pasul 2: pentru fiecare membru al grupului, gasim primul
-    // non-membru al carui centru intra in acord (sau viceversa).
-    // Apoi aplicam regula edge-to-edge de mai sus.
-    const swappedIds = new Set<string>();
+    if (deltaBeats === 0) return moved;
+
+    // Snapshot al pozitiilor ORIGINALE (dinainte de shift) pentru
+    // fiecare acord - il folosim la calculul destinatiilor swap.
+    const originalStart = new Map<string, number>();
+    base.forEach((c) => originalStart.set(c.id, c.startBeat));
+
+    // Colectam intai perechile candidate (membru, non-membru) cu
+    // suprapunere, ordonate dupa distanta centrelor - astfel membrii
+    // "cei mai apropiati" de un non-membru il revendica primii.
+    type Pair = { member: BuilderChord; partner: BuilderChord; dist: number };
+    const pairs: Pair[] = [];
     for (const m of moved) {
       if (!groupSet.has(m.id)) continue;
-      if (swappedIds.has(m.id)) continue;
       const mStart = m.startBeat;
       const mEnd = m.startBeat + m.beats;
       const mCenter = (mStart + mEnd) / 2;
-      let candidate: BuilderChord | undefined;
       for (const n of moved) {
         if (groupSet.has(n.id)) continue;
-        if (swappedIds.has(n.id)) continue;
         const nStart = n.startBeat;
         const nEnd = n.startBeat + n.beats;
         const nCenter = (nStart + nEnd) / 2;
+        // Overlap suficient: fie centrul lui m in [nStart, nEnd] fie
+        // centrul lui n in [mStart, mEnd].
         if ((mCenter >= nStart && mCenter <= nEnd) || (nCenter >= mStart && nCenter <= mEnd)) {
-          candidate = n;
-          break;
+          const dist = Math.abs(mCenter - nCenter);
+          pairs.push({ member: m, partner: n, dist });
         }
-      }
-      if (candidate) {
-        // A (m) ia startBeat-ul original al lui B (candidate) - dinainte
-        // ca noi sa fi mutat ceva.
-        const bStartOriginal = candidate.startBeat;
-        // Setam noul startBeat pentru A.
-        m.startBeat = bStartOriginal;
-        // Setam noul startBeat pentru B in functie de directia miscarii:
-        //  - miscare spre DREAPTA => B se muta la stanga, terminand
-        //    unde incepe noul A (edge-to-edge la stanga lui A).
-        //  - miscare spre STANGA => B se muta la dreapta, incepand
-        //    unde se termina noul A (edge-to-edge la dreapta lui A).
-        if (direction > 0) {
-          candidate.startBeat = m.startBeat - candidate.beats;
-        } else {
-          candidate.startBeat = m.startBeat + m.beats;
-        }
-        // Clamp la 0 (nu permitem startBeat negativ dupa swap la stanga).
-        if (candidate.startBeat < 0) candidate.startBeat = 0;
-        swappedIds.add(m.id);
-        swappedIds.add(candidate.id);
       }
     }
+    // Sortam perechile crescator dupa distanta ca prioritatea sa fie
+    // membru <-> non-membru mai apropiati centre.
+    pairs.sort((a, b) => a.dist - b.dist);
+
+    // Rezervam perechi in ordine: fiecare membru si fiecare non-membru
+    // poate participa DOAR intr-o singura pereche.
+    const claimedMembers = new Set<string>();
+    const claimedPartners = new Set<string>();
+    const finalPairs: Pair[] = [];
+    for (const p of pairs) {
+      if (claimedMembers.has(p.member.id)) continue;
+      if (claimedPartners.has(p.partner.id)) continue;
+      finalPairs.push(p);
+      claimedMembers.add(p.member.id);
+      claimedPartners.add(p.partner.id);
+    }
+
+    // Aplicam toate perechile de swap SIMULTAN (destinatiile calculate
+    // din snapshot-ul original, nu din valori deja modificate).
+    for (const p of finalPairs) {
+      const bOriginalStart = originalStart.get(p.partner.id) ?? p.partner.startBeat;
+      const aNewStart = bOriginalStart; // A ia locul original al lui B
+      const bNewStart =
+        direction > 0
+          ? aNewStart - p.partner.beats  // B la stanga lui A, edge-to-edge
+          : aNewStart + p.member.beats;  // B la dreapta lui A, edge-to-edge
+      p.member.startBeat = aNewStart;
+      p.partner.startBeat = Math.max(0, bNewStart); // clamp la 0
+    }
+
+    // -----------------------------------------------------------------
+    // SAFETY NET: dupa swap, un non-membru swap-ed poate cadea peste
+    // un alt non-membru (care nu era in nicio pereche). Rezolvam cu
+    // pass slide-style: sortam totul, separam pereche-cu-pereche.
+    // -----------------------------------------------------------------
+    const EPS = 1e-6;
+    for (let pass = 0; pass < 20; pass++) {
+      moved.sort((a, b) => a.startBeat - b.startBeat);
+      let anyOverlap = false;
+      for (let i = 0; i < moved.length - 1; i++) {
+        const cur = moved[i];
+        const nxt = moved[i + 1];
+        const curEnd = cur.startBeat + cur.beats;
+        if (nxt.startBeat < curEnd - EPS) {
+          anyOverlap = true;
+          const curIsMember = groupSet.has(cur.id);
+          const nxtIsMember = groupSet.has(nxt.id);
+          if (!nxtIsMember) {
+            nxt.startBeat = curEnd;
+          } else if (!curIsMember) {
+            cur.startBeat = nxt.startBeat - cur.beats;
+            if (cur.startBeat < 0) cur.startBeat = 0;
+          }
+        }
+      }
+      if (!anyOverlap) break;
+    }
+
     return moved;
   };
 
