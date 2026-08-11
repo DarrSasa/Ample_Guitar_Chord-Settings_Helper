@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Soundfont from "soundfont-player";
 import GraphicButton from "./components/GraphicButton";
+import RubberBandOverlay, { type RubberBandRect } from "./components/RubberBandOverlay";
 
 // Asset-uri grafice generate din PSD prin `node scripts/psd-to-svg.mjs`.
 // import.meta.glob adauga fisierele DACA exista in `src/assets/graphics/svg/`;
@@ -1271,6 +1272,25 @@ export default function App() {
   const longPressFiredRef = useRef(false);
   const suppressNextClickRef = useRef(false);
 
+  // ------------------------------------------------------------------
+  // Rubber band (dreptunghi de selectie multipla)
+  // ------------------------------------------------------------------
+  // Long-press pe FUNDAL (Builder gol / Chord Table gol, NU peste un
+  // acord) urmat de drag = dreptunghi de selectie. Acordurile atinse
+  // de dreptunghi intra in selectia curenta.
+  //
+  // - rubberRect: coordonate live in viewport (clientX/clientY) - null
+  //   inseamna ca nu e activ.
+  // - rubberScope: care lista de selectii se completeaza cu ce s-a atins
+  //   ("builder" sau "table"). Determinat de zona in care a inceput
+  //   long-press-ul.
+  const [rubberRect, setRubberRect] = useState<RubberBandRect | null>(null);
+  const rubberScopeRef = useRef<"builder" | "table" | null>(null);
+  // Timer si punct de start pentru gestiunea long-press-ului de rubber band.
+  const rubberPressTimerRef = useRef<number | null>(null);
+  const rubberStartRef = useRef<{ x: number; y: number } | null>(null);
+  const rubberActiveRef = useRef(false);
+
   // While a scrollToCode() smooth animation is running, we want to suppress
   // the onScroll -> snapToNearestRow() logic. Without this, the smooth
   // animation's intermediate scroll events fire snapToNearestRow, which
@@ -2380,6 +2400,14 @@ export default function App() {
       // (No size dropdown to close anymore; kept the setContextMenu(null)
       // above so right-click menus still get dismissed on any click.)
 
+      // Dupa un rubber-band tocmai finalizat, sarim peste logica de clear
+      // ca sa nu pierdem selectia proaspat facuta. Flag-ul este setat la
+      // finalul lui onRubberMouseUp si consumat aici.
+      if (suppressNextClickRef.current) {
+        suppressNextClickRef.current = false;
+        return;
+      }
+
       // Clear gesture selections when the click happened OUTSIDE the
       // relevant surface:
       //   - Builder selection is cleared unless the click was on a Builder
@@ -2428,15 +2456,219 @@ export default function App() {
     };
     window.addEventListener("keydown", onKeyDown);
 
+    // -----------------------------------------------------------------
+    // Rubber band handlers (long-press pe fundal + drag = selectie)
+    // -----------------------------------------------------------------
+    // Politica:
+    //   - Long-press pe FUNDALUL Builder-ului (in interiorul stripului
+    //     de acorduri, dar NU peste vreun buton de acord) porneste
+    //     rubber band cu scope="builder".
+    //   - Long-press pe FUNDALUL Chord Table-ului (in interiorul zonei
+    //     de tabel, dar NU peste un buton verde de acord) porneste
+    //     rubber band cu scope="table".
+    //   - In restul situatiilor (peste un acord, in bara de sus, etc.)
+    //     NU se declanseaza rubber band - comportamentul existent
+    //     (long-press pe acord = selectie individuala, click = tap)
+    //     ramane neatins.
+    const isInsideBuilderStrip = (target: HTMLElement | null): boolean => {
+      let node: HTMLElement | null = target;
+      while (node) {
+        if (node.getAttribute && node.getAttribute("data-builder-strip") !== null) return true;
+        node = node.parentElement;
+      }
+      return false;
+    };
+    const isInsideTableSurface = (target: HTMLElement | null): boolean => {
+      let node: HTMLElement | null = target;
+      while (node) {
+        if (node.getAttribute && node.getAttribute("data-chord-table") !== null) return true;
+        node = node.parentElement;
+      }
+      return false;
+    };
+    const isOverAChord = (target: HTMLElement | null): boolean => {
+      let node: HTMLElement | null = target;
+      while (node) {
+        if (node.getAttribute) {
+          if (node.getAttribute("data-builder-index") !== null) return true;
+          if (node.getAttribute("data-table-chord") !== null) return true;
+        }
+        node = node.parentElement;
+      }
+      return false;
+    };
+
+    const onRubberMouseDown = (e: MouseEvent) => {
+      // Doar butonul stang.
+      if (e.button !== 0) return;
+      const target = e.target as HTMLElement | null;
+      // Daca e peste un acord, lasa handler-ele existente sa preia.
+      if (isOverAChord(target)) return;
+
+      let scope: "builder" | "table" | null = null;
+      if (isInsideBuilderStrip(target)) scope = "builder";
+      else if (isInsideTableSurface(target)) scope = "table";
+      if (!scope) return;
+
+      // Retinem punctul de start si pornim timer-ul long-press.
+      rubberStartRef.current = { x: e.clientX, y: e.clientY };
+      rubberScopeRef.current = scope;
+      rubberActiveRef.current = false;
+      if (rubberPressTimerRef.current !== null) {
+        window.clearTimeout(rubberPressTimerRef.current);
+      }
+      rubberPressTimerRef.current = window.setTimeout(() => {
+        // Long-press implinit fara ridicare de mouse -> activam rubber band.
+        rubberActiveRef.current = true;
+        const start = rubberStartRef.current;
+        if (!start) return;
+        setRubberRect({ left: start.x, top: start.y, width: 0, height: 0 });
+      }, longPressMs);
+    };
+
+    const onRubberMouseMove = (e: MouseEvent) => {
+      // Daca miscam mouse-ul semnificativ INAINTE ca timer-ul sa se
+      // implineasca, anulam - e clar un drag normal, nu un rubber band.
+      const start = rubberStartRef.current;
+      if (start && !rubberActiveRef.current) {
+        const dx = e.clientX - start.x;
+        const dy = e.clientY - start.y;
+        if (dx * dx + dy * dy > 25) {
+          if (rubberPressTimerRef.current !== null) {
+            window.clearTimeout(rubberPressTimerRef.current);
+            rubberPressTimerRef.current = null;
+          }
+          rubberStartRef.current = null;
+          rubberScopeRef.current = null;
+        }
+        return;
+      }
+      // Actualizam dreptunghiul cat timp rubber band-ul e activ.
+      if (!rubberActiveRef.current || !start) return;
+      const left = Math.min(start.x, e.clientX);
+      const top = Math.min(start.y, e.clientY);
+      const width = Math.abs(e.clientX - start.x);
+      const height = Math.abs(e.clientY - start.y);
+      setRubberRect({ left, top, width, height });
+    };
+
+    const rectsIntersect = (
+      a: { left: number; top: number; width: number; height: number },
+      b: { left: number; top: number; width: number; height: number }
+    ) => {
+      return !(
+        a.left + a.width < b.left ||
+        b.left + b.width < a.left ||
+        a.top + a.height < b.top ||
+        b.top + b.height < a.top
+      );
+    };
+
+    const onRubberMouseUp = (_e: MouseEvent) => {
+      if (rubberPressTimerRef.current !== null) {
+        window.clearTimeout(rubberPressTimerRef.current);
+        rubberPressTimerRef.current = null;
+      }
+      if (!rubberActiveRef.current) {
+        rubberStartRef.current = null;
+        rubberScopeRef.current = null;
+        return;
+      }
+      const scope = rubberScopeRef.current;
+      // Citim dreptunghiul final din state (via ref-ul salvat).
+      // Alternativa mai simpla: reconstruim din start + coordonatele curente.
+      const finalRectEl = document.querySelector<HTMLElement>("[data-rubber-final]");
+      let finalRect: { left: number; top: number; width: number; height: number } | null = null;
+      if (finalRectEl) {
+        const r = finalRectEl.getBoundingClientRect();
+        finalRect = { left: r.left, top: r.top, width: r.width, height: r.height };
+      }
+      // Fallback: cautam prin state-ul react
+      // (setRubberRect a fost apelat in mousemove ultima data)
+      if (!finalRect) {
+        // Cerem ultima valoare direct din DOM prin overlay - dar overlay-ul
+        // NU are data-attribute, deci reconstruim din e + start.
+        const start = rubberStartRef.current;
+        if (start) {
+          finalRect = {
+            left: Math.min(start.x, _e.clientX),
+            top: Math.min(start.y, _e.clientY),
+            width: Math.abs(_e.clientX - start.x),
+            height: Math.abs(_e.clientY - start.y),
+          };
+        }
+      }
+      // Testam ce acorduri sunt atinse.
+      if (finalRect && scope === "builder") {
+        const nodes = document.querySelectorAll<HTMLElement>("[data-builder-index]");
+        const hitIds: string[] = [];
+        nodes.forEach((node) => {
+          const r = node.getBoundingClientRect();
+          if (rectsIntersect(finalRect!, { left: r.left, top: r.top, width: r.width, height: r.height })) {
+            const idx = Number(node.getAttribute("data-builder-index"));
+            const chord = builderRef.current[idx];
+            if (chord) hitIds.push(chord.id);
+          }
+        });
+        if (hitIds.length > 0) {
+          // Adaugam la selectia existenta (nu resetam), pastrand ordinea
+          // originala din Builder.
+          setSelectedBuilderIds((prev) => {
+            const set = new Set(prev);
+            hitIds.forEach((id) => set.add(id));
+            return Array.from(set);
+          });
+        }
+      } else if (finalRect && scope === "table") {
+        const nodes = document.querySelectorAll<HTMLElement>("[data-table-chord]");
+        const hits: Array<{ btnId: string; label: string; code: number }> = [];
+        nodes.forEach((node) => {
+          const r = node.getBoundingClientRect();
+          if (rectsIntersect(finalRect!, { left: r.left, top: r.top, width: r.width, height: r.height })) {
+            const btnId = node.getAttribute("data-table-chord") ?? "";
+            const label = node.getAttribute("data-table-label") ?? "";
+            const codeStr = node.getAttribute("data-table-code") ?? "";
+            const code = Number(codeStr);
+            if (btnId && label && Number.isFinite(code)) {
+              hits.push({ btnId, label, code });
+            }
+          }
+        });
+        if (hits.length > 0) {
+          setSelectedTableChords((prev) => {
+            const seen = new Set(prev.map((x) => x.btnId));
+            const additions = hits.filter((h) => !seen.has(h.btnId));
+            return [...prev, ...additions];
+          });
+        }
+      }
+      // Reset stare.
+      rubberActiveRef.current = false;
+      rubberStartRef.current = null;
+      rubberScopeRef.current = null;
+      setRubberRect(null);
+      // Suprimam click-ul care ar putea urma mouseup-ului si ar reseta
+      // selectia noua.
+      suppressNextClickRef.current = true;
+    };
+
+    window.addEventListener("mousedown", onRubberMouseDown);
+    window.addEventListener("mousemove", onRubberMouseMove);
+    window.addEventListener("mouseup", onRubberMouseUp);
+
     return () => {
       window.removeEventListener("click", closeMenu);
       window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("mousedown", onRubberMouseDown);
+      window.removeEventListener("mousemove", onRubberMouseMove);
+      window.removeEventListener("mouseup", onRubberMouseUp);
+      if (rubberPressTimerRef.current !== null) window.clearTimeout(rubberPressTimerRef.current);
       if (scrollTimerRef.current !== null) window.clearTimeout(scrollTimerRef.current);
       if (jumpTimerRef.current !== null) window.clearTimeout(jumpTimerRef.current);
       if (playTimerRef.current !== null) window.clearInterval(playTimerRef.current);
       if (audioCtxRef.current) void audioCtxRef.current.close();
     };
-  }, []);
+  }, [longPressMs]);
 
   useEffect(() => {
     snapToNearestRow();
@@ -2988,6 +3220,7 @@ export default function App() {
 
           <div
             className="relative"
+            data-builder-strip=""
             style={{
               height: builderStripHeightScaled,
               // Same width as the Time Bar above, so they scroll in
@@ -3168,6 +3401,7 @@ export default function App() {
 
       <div
         ref={tableRef}
+        data-chord-table=""
         onScroll={() => {
           if (scrollTimerRef.current !== null) window.clearTimeout(scrollTimerRef.current);
           scrollTimerRef.current = window.setTimeout(() => {
@@ -3265,6 +3499,8 @@ export default function App() {
                             key={btnId}
                             type="button"
                             data-table-chord={btnId}
+                            data-table-label={nextChord.label}
+                            data-table-code={nextCode}
                             // Same gesture model as Builder chords:
                             //  - long-press >= longPressMs -> add THIS button
                             //    to the table selection (multi-select builds
@@ -3486,6 +3722,11 @@ export default function App() {
           onClose={() => setSettingsOpen(false)}
         />
       )}
+
+      {/* Rubber band overlay - dreptunghi de selectie live desenat la
+          nivel viewport peste tot UI-ul. Randat doar cat timp
+          `rubberRect !== null`. */}
+      <RubberBandOverlay rect={rubberRect} />
     </main>
   );
 }
