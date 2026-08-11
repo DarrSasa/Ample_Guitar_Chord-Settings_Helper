@@ -11,7 +11,8 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "build:electron": "cross-env BUILD_TARGET=electron vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "psd:delete": "node scripts/psd-to-svg.mjs docs/graphics/psd/buton-delete.psd delete"
   },
   "dependencies": {
     "@electron/packager": "^18.4.4",
@@ -29,7 +30,9 @@
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "5.1.1",
+    "ag-psd": "^31.0.2",
     "cross-env": "^7.0.3",
+    "sharp": "^0.35.3",
     "tailwindcss": "4.1.17",
     "typescript": "5.9.3",
     "vite": "7.3.2",

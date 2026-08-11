@@ -1,5 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Soundfont from "soundfont-player";
+import GraphicButton from "./components/GraphicButton";
+
+// Asset-uri grafice generate din PSD prin `node scripts/psd-to-svg.mjs`.
+// import.meta.glob adauga fisierele DACA exista in `src/assets/graphics/svg/`;
+// daca nu, valorile sunt undefined si GraphicButton face fallback la HTML clasic.
+const graphicAssets = import.meta.glob("./assets/graphics/svg/*.svg", {
+  eager: true,
+  query: "?url",
+  import: "default",
+}) as Record<string, string>;
+function graphic(name: string): string | undefined {
+  return graphicAssets[`./assets/graphics/svg/${name}.svg`];
+}
 
 type ChordType = "Maj" | "min" | "sus2" | "sus4" | "aug" | "5" | "oct";
 
@@ -2529,19 +2542,24 @@ export default function App() {
                 - Ch On/Off + short tap = audition sound
               Delete stays: click a selected chord while Delete mode is on,
               OR press the Delete/Backspace key while chords are selected. */}
-          <button
-            type="button"
+          <GraphicButton
+            offSrc={graphic("delete-off")}
+            onSrc={graphic("delete-on")}
+            active={deleteMode}
+            width={64}
+            height={32}
             onClick={() => {
               if (deleteMode) activateBuilderMode("none");
               else activateBuilderMode("delete");
             }}
             title="Delete mode: click a chord to remove it. Or press Delete/Backspace to remove the current selection."
+            ariaLabel="Delete"
             className={`h-8 w-16 rounded-sm border border-black text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
               deleteMode ? "bg-green-300 shadow-[0_0_10px_#ff8827]" : "bg-[#FCBF8D]"
             }`}
           >
             Delete
-          </button>
+          </GraphicButton>
 
           <button
             type="button"
