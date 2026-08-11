@@ -1411,6 +1411,12 @@ export default function App() {
     baseBuilder: BuilderChord[];
     // Id-urile in ordine (pentru iterare deterministica).
     groupIds: string[];
+    // Acordul pe care s-a apasat efectiv (cursorul e pe el). Snap-ul
+    // absolut la grid se calculeaza raportat la START-ul acestui acord
+    // (nu la fiecare membru al grupului). Toti ceilalti membri primesc
+    // aceeasi delta rezultata din snap-ul primary-ului.
+    primaryId: string;
+    primaryInitialStart: number;
   } | null>(null);
   // Marker sa suprimam click-ul care urmeaza mouseup-ului dupa drag
   // (altfel resetam selectia sau declansam alte handlere).
@@ -1732,11 +1738,14 @@ export default function App() {
     list.forEach((c) => {
       if (groupIds.includes(c.id)) initialStarts.set(c.id, c.startBeat);
     });
+    const primary = list.find((c) => c.id === chordId)!;
     moveAnchorRef.current = {
       startX: clientX,
       initialStarts,
       baseBuilder: list.map((c) => ({ ...c })),
       groupIds,
+      primaryId: chordId,
+      primaryInitialStart: primary.startBeat,
     };
     moveActiveRef.current = true;
     document.body.style.cursor = "grabbing";
@@ -3206,11 +3215,19 @@ export default function App() {
     };
 
     // -----------------------------------------------------------------
-    // Free-move handlers (drag pe acord = mutare pe timeline, no snap)
+    // Free-move handlers (drag pe acord = mutare pe timeline cu SNAP la
+    // grid absolut in functie de setarea `Snap` curenta)
     // -----------------------------------------------------------------
-    // La mousemove: calculam deltaBeats (pixel-perfect, fara snap),
-    // aplicam preview live in functie de nudgeMode. Baza e mereu
-    // baseBuilder-ul din anchor - astfel nu se cumuleaza deplasari.
+    // La mousemove:
+    //  - Calculam startBeat-ul propus pentru acordul PRIMARY (cel pe
+    //    care s-a apasat) = initialStart + delta_pixeli/beatWidth.
+    //  - Il snap-uim la cea mai apropiata linie verticala a grilei
+    //    ritmice (multipli de step = snapDurationBeats(currentSnap)).
+    //  - Delta finala = start snap-uit - start initial. Aceeasi delta
+    //    se aplica tuturor membrilor grupului (ca la resize).
+    //  - Snap = None -> mutare libera pixel-perfect, fara snap.
+    // Preview-ul (slide/swap) porneste mereu de la baseBuilder-ul din
+    // anchor - astfel nu se cumuleaza deplasari intre frame-uri.
     const onMoveMouseMove = (e: MouseEvent) => {
       const anchor = moveAnchorRef.current;
       if (!anchor || !moveActiveRef.current) return;
@@ -3218,7 +3235,21 @@ export default function App() {
       const dxPx = e.clientX - anchor.startX;
       const beatWidth = effectiveBeatWidthRef.current;
       if (beatWidth <= 0) return;
-      const deltaBeats = dxPx / beatWidth;
+      const currentSnap = snapRef.current;
+
+      // Snap ABSOLUT al startBeat-ului acordului PRIMARY la cea mai
+      // apropiata linie de grid ritmica. Delta rezultata se aplica pe
+      // tot grupul.
+      const primaryStartProposed = anchor.primaryInitialStart + dxPx / beatWidth;
+      let deltaBeats: number;
+      if (currentSnap !== "None") {
+        const step = snapDurationBeats(currentSnap);
+        const primaryStartSnapped = Math.round(primaryStartProposed / step) * step;
+        deltaBeats = primaryStartSnapped - anchor.primaryInitialStart;
+      } else {
+        deltaBeats = primaryStartProposed - anchor.primaryInitialStart;
+      }
+
       // Aplicam preview conform modului nudge curent.
       const mode = nudgeModeRef.current;
       let next: BuilderChord[];
