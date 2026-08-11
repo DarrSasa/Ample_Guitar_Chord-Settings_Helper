@@ -1757,174 +1757,96 @@ export default function App() {
     document.body.style.userSelect = "none";
   };
 
-  // Aplica modul SLIDE cu CASCADING PUSH pentru grupuri arbitrare.
+  // Aplica modul SLIDE cu ORDER-PRESERVING CASCADING PUSH.
   //
-  // Regula (Prompt): la selectii multiple, intregul grup se muta cu
-  // aceeasi delta (isi pastreaza spacing-ul intern). La contact cu un
-  // non-membru, il impinge in lant EDGE-TO-EDGE. La contact cu un alt
-  // membru (posibil sa se intampe daca grupul e strans dupa slide), la
-  // fel se propaga. Non-membrii nu pot impinge membrii inapoi (grupul
-  // ramane unde userul l-a pus). Zero suprapuneri garantate.
+  // IDEEA CHEIE (corectata dupa feedback user):
+  //   Cand un acord (A) e mutat, ORDINEA VIZUALA a acordurilor NU se
+  //   schimba niciodata. Daca A era la stanga lui B in progresia
+  //   originala, va ramane la stanga lui B si dupa mutare - chiar
+  //   daca deltaBeats l-ar duce matematic peste B.
+  //   Vecinii din calea lui A sunt IMPINSI (ca in FL Studio Playlist),
+  //   nu i se permite lui A sa treaca peste ei.
   //
-  // Algoritm SWEEP UNIFICAT:
-  //   1. Muta grupul cu deltaBeats.
-  //   2. Sorteaza TOATE acordurile in ordinea impingerii:
-  //        direction > 0 (dreapta) -> crescator dupa startBeat
-  //        direction < 0 (stanga)  -> descrescator dupa startBeat
-  //   3. Sweep intr-un singur pass linear cu un "frontier":
-  //        - frontier = pozitia extrema pana la care s-au propagat
-  //          impingerile pana acum (dreapta = end-ul cel mai la dreapta;
-  //          stanga = start-ul cel mai la stanga).
-  //        - Pentru fiecare acord in ordine:
-  //            - Membri de grup: NU se muta (au deja pozitia dictata de
-  //              deltaBeats). Doar actualizeaza frontier la marginea lui.
-  //            - Non-membri: daca se suprapun cu frontier, se muta
-  //              edge-to-edge la frontier; apoi frontier avanseaza la
-  //              marginea lor.
+  //   Astfel evitam iluzia de "swap" din slide - nu mai apare
+  //   niciodata ca A "sare" la mijlocul progresiei. Cascada e
+  //   monotona in ordinea originala.
   //
-  //   Aceasta abordare garanteaza:
-  //     - Membrii raman uniti (aceeasi delta pe toti).
-  //     - Non-membrii nu se suprapun cu membrii sau intre ei.
-  //     - Cascada propaga oricat de departe e necesar.
+  // Algoritm:
+  //   1. Aplic delta pe membri (non-membrii isi pastreaza pozitia).
+  //   2. Sortez lista `base` dupa startBeat original -> ORDINEA VIZUALA.
+  //   3. Iterez in ordinea originala:
+  //      - dreapta (delta > 0): de la stanga la dreapta, frontier =
+  //        end-ul cel mai la dreapta atins. Daca un acord ar cadea
+  //        peste vecinul din fata, il impingem la frontier.
+  //      - stanga (delta < 0): simetric, de la dreapta la stanga.
+  //
+  //   Astfel ordinea vizuala e pastrata garantat -> zero suprapuneri,
+  //   zero swap-uri accidentale.
   const applySlideMove = (
     base: BuilderChord[],
     groupIds: string[],
     deltaBeats: number
   ): BuilderChord[] => {
+    if (deltaBeats === 0) return base.map((c) => ({ ...c }));
     const groupSet = new Set(groupIds);
-    const moved = base.map((c) => {
+    // Pasul 1: aplic delta pe membri.
+    const moved: BuilderChord[] = base.map((c) => {
       if (!groupSet.has(c.id)) return { ...c };
       return { ...c, startBeat: c.startBeat + deltaBeats };
     });
-    if (deltaBeats === 0) return moved;
+
+    // Ordinea vizuala originala (dupa startBeat din `base`, dinainte
+    // de shift). Aceasta e ordinea pe care o pastram ORICE-ar fi.
+    const originalOrder = [...base]
+      .sort((a, b) => a.startBeat - b.startBeat)
+      .map((c) => c.id);
+    const byId = new Map<string, BuilderChord>();
+    moved.forEach((c) => byId.set(c.id, c));
+
     const direction = deltaBeats > 0 ? 1 : -1;
 
-    // Sortare in ordinea propagarii impingerii.
-    // TIE-BREAK IMPORTANT: la startBeat egal, MEMBRII vin ÎNAINTEA
-    // non-membrilor. Astfel membrii "seed"-uiesc frontier-ul primii,
-    // iar non-membrii aflati la aceeasi pozitie sunt corect impinsi.
-    // Fara acest tie-break, un non-membru procesat inainte de membrul
-    // cu care se suprapune ar putea "scapa" fara sa fie impins.
-    const sorted = [...moved].sort((a, b) => {
-      const primary = direction > 0 ? a.startBeat - b.startBeat : b.startBeat - a.startBeat;
-      if (primary !== 0) return primary;
-      const aMember = groupSet.has(a.id) ? 0 : 1;
-      const bMember = groupSet.has(b.id) ? 0 : 1;
-      return aMember - bMember;
-    });
-
-    // Iteram pass-uri pana cand nu mai exista suprapuneri (max 50 ca
-    // guard - in practica converge in 2-3 pass-uri chiar si pentru
-    // grupuri intretesute cu multi non-membri).
-    //
-    // Fiecare pass: sweep in ordinea impingerii cu un frontier;
-    // membrii NU se muta, non-membrii se impinge daca overlap.
-    // Un pass poate lasa suprapuneri "in urma" cand un membru vine
-    // dupa un non-membru la aceeasi pozitie originala - pass-ul
-    // urmator le rezolva prin re-sortare (membrul deja shifted a
-    // shifted frontier-ul).
-    //
-    // Detectam convergenta comparand pozitiile inainte/dupa pass.
-    const MAX_PASSES = 50;
-    for (let pass = 0; pass < MAX_PASSES; pass++) {
-      // Re-sort cu tie-break in fiecare pass (dupa update-urile din
-      // pass-ul anterior).
-      sorted.sort((a, b) => {
-        const primary = direction > 0 ? a.startBeat - b.startBeat : b.startBeat - a.startBeat;
-        if (primary !== 0) return primary;
-        const aMember = groupSet.has(a.id) ? 0 : 1;
-        const bMember = groupSet.has(b.id) ? 0 : 1;
-        return aMember - bMember;
-      });
-
-      // Snapshot inainte de pass ca sa detectam convergenta.
-      const snapshotBefore = sorted.map((c) => c.startBeat);
-
-      if (direction > 0) {
-        let frontier = Number.NEGATIVE_INFINITY;
-        for (const c of sorted) {
-          if (groupSet.has(c.id)) {
-            const cEnd = c.startBeat + c.beats;
-            // MEMBRU: nu-l mutam. Dar daca frontier a depasit start-ul
-            // lui, non-membrii dinaintea lui trebuie repozitionati -
-            // asta se va rezolva in pass-ul urmator prin re-sortare.
-            if (cEnd > frontier) frontier = cEnd;
-            continue;
-          }
-          // NON-MEMBRU: verifica overlap cu frontier.
-          if (c.startBeat < frontier) {
-            c.startBeat = frontier;
-          }
-          const cEnd = c.startBeat + c.beats;
-          if (cEnd > frontier) frontier = cEnd;
+    if (direction > 0) {
+      // Sweep spre DREAPTA in ordinea originala.
+      let frontier = Number.NEGATIVE_INFINITY;
+      for (const id of originalOrder) {
+        const c = byId.get(id)!;
+        if (c.startBeat < frontier) {
+          c.startBeat = frontier;
         }
-      } else {
-        let frontier = Number.POSITIVE_INFINITY;
-        for (const c of sorted) {
-          if (groupSet.has(c.id)) {
-            if (c.startBeat < frontier) frontier = c.startBeat;
-            continue;
+        frontier = c.startBeat + c.beats;
+      }
+    } else {
+      // Sweep spre STANGA in ordinea originala inversata.
+      let frontier = Number.POSITIVE_INFINITY;
+      let anyClamped = false;
+      for (let i = originalOrder.length - 1; i >= 0; i--) {
+        const c = byId.get(originalOrder[i])!;
+        const cEnd = c.startBeat + c.beats;
+        if (cEnd > frontier) {
+          c.startBeat = frontier - c.beats;
+        }
+        if (c.startBeat < 0) {
+          c.startBeat = 0;
+          anyClamped = true;
+        }
+        frontier = c.startBeat;
+      }
+      // Al doilea pass DOAR daca s-a facut clamp la 0. Repara
+      // suprapunerile create de acorduri care s-au inghesuit toate
+      // la 0 (nu aveau unde sa mearga mai la stanga). Le impinge la
+      // dreapta edge-to-edge in ordinea vizuala originala, dar
+      // NUMAI daca ar cadea unele peste altele - nu deranjeaza
+      // pozitiile care erau deja OK.
+      if (anyClamped) {
+        let leftFrontier = 0;
+        for (const id of originalOrder) {
+          const c = byId.get(id)!;
+          if (c.startBeat < leftFrontier) {
+            c.startBeat = leftFrontier;
           }
-          const cEnd = c.startBeat + c.beats;
-          if (cEnd > frontier) {
-            c.startBeat = frontier - c.beats;
-          }
-          if (c.startBeat < frontier) frontier = c.startBeat;
+          leftFrontier = c.startBeat + c.beats;
         }
       }
-
-      // Verificam convergenta.
-      let converged = true;
-      for (let i = 0; i < sorted.length; i++) {
-        if (Math.abs(sorted[i].startBeat - snapshotBefore[i]) > 1e-9) {
-          converged = false;
-          break;
-        }
-      }
-      if (converged) break;
-    }
-
-    // -----------------------------------------------------------------
-    // SAFETY NET FINAL: elimina ORICE suprapunere reziduala.
-    // -----------------------------------------------------------------
-    // In scenarii patologice (grupuri intretesute cu multi non-membri,
-    // combinatii de duratelor + delta care produc ties near-equal la
-    // limita float precision), sweep-ul iterativ poate lasa mici
-    // suprapuneri. Aici trecem cu un algoritm brut care GARANTEAZA
-    // zero overlap: sortam TOATE acordurile dupa startBeat crescator,
-    // apoi pentru orice pereche consecutiva (i, i+1), daca se suprapun
-    // le separam:
-    //   - Daca ambele sunt non-membri, il impingem pe i+1.
-    //   - Daca i+1 e membru, il impingem pe i (spre stanga, in casul
-    //     dreapta) sau blocam la marginea din stanga a membrului i+1.
-    //   - Daca ambele sunt membri (nu ar trebui - au aceeasi delta),
-    //     lasam ca este.
-    // Facem cateva pass-uri pana e curat.
-    const EPS = 1e-6;
-    for (let safetyPass = 0; safetyPass < 20; safetyPass++) {
-      moved.sort((a, b) => a.startBeat - b.startBeat);
-      let anyOverlap = false;
-      for (let i = 0; i < moved.length - 1; i++) {
-        const cur = moved[i];
-        const nxt = moved[i + 1];
-        const curEnd = cur.startBeat + cur.beats;
-        if (nxt.startBeat < curEnd - EPS) {
-          anyOverlap = true;
-          const curIsMember = groupSet.has(cur.id);
-          const nxtIsMember = groupSet.has(nxt.id);
-          if (!nxtIsMember) {
-            // Impingem nxt la marginea din dreapta a lui cur.
-            nxt.startBeat = curEnd;
-          } else if (!curIsMember) {
-            // Impingem cur inapoi la marginea din stanga a lui nxt.
-            cur.startBeat = nxt.startBeat - cur.beats;
-            if (cur.startBeat < 0) cur.startBeat = 0;
-          }
-          // Daca ambele sunt membri, nu facem nimic (nu ar trebui sa se
-          // intample cu aceeasi delta).
-        }
-      }
-      if (!anyOverlap) break;
     }
 
     return moved;
