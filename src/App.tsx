@@ -51,6 +51,14 @@ type BuilderChord = {
   // duration. Default 4 (= 1 bar in 4/4) matches the pre-Snap default
   // 'Bar' length so old saved progressions look the same.
   beats: number;
+  // ABSOLUTE start position on the timeline, measured in beats from 0.
+  // Model DAW-style: fiecare acord are pozitia lui pe timeline, iar intre
+  // acorduri pot exista goluri (spatii de liniste). Un acord ocupa
+  // intervalul [startBeat, startBeat + beats). Chorduri legate imediat
+  // (edge-to-edge) au chord[i+1].startBeat === chord[i].startBeat + chord[i].beats.
+  // Fisiere vechi salvate (fara startBeat) sunt migrate cu normalizeBuilder()
+  // care lipeste toate acordurile edge-to-edge de la 0.
+  startBeat: number;
 };
 
 type Snapshot = {
@@ -94,7 +102,8 @@ const MAX_HISTORY_ITEMS = 100;
 // Both zero now (user wants edge-to-edge chord blocks with no whitespace
 // between them, so borders visually merge into one continuous strip).
 const HISTORY_GAP = 0;
-const BUILDER_GAP = 0;
+// (BUILDER_GAP removed - Builder acum foloseste pozitionare absoluta,
+// nu flex+gap.)
 
 // Width in pixels of one BEAT of music on the Builder + Time Bar. All
 // horizontal geometry (chord block widths, playhead x, grid line spacing)
@@ -195,6 +204,28 @@ function snapSubdivisionsPerBar(snap: SnapOption): number {
     case "None":      return 0;  // was 16 - user asked for 'None' to
                                  // behave like Bar (no in-bar grid).
   }
+}
+
+// ---------------------------------------------------------------------
+// Utilitare pentru modelul DAW-style (acorduri cu pozitii absolute)
+// ---------------------------------------------------------------------
+
+// Sorteaza o lista de BuilderChord dupa startBeat. NU muta pozitiile,
+// doar reordoneaza array-ul. Necesar dupa move ca sa mentinem invarianta
+// "lista e mereu sortata dupa startBeat".
+function sortBuilderByStart(chords: BuilderChord[]): BuilderChord[] {
+  return [...chords].sort((a, b) => a.startBeat - b.startBeat);
+}
+
+// Returneaza sfarsitul absolut al progresiei (in beats).
+function progressionEndBeat(chords: BuilderChord[]): number {
+  if (chords.length === 0) return 0;
+  let end = 0;
+  for (const c of chords) {
+    const cEnd = c.startBeat + c.beats;
+    if (cEnd > end) end = cEnd;
+  }
+  return end;
 }
 
 // Standard General MIDI guitar programs (25 - 31), rendered through
@@ -513,21 +544,30 @@ function createMidiFile(chords: BuilderChord[], bpm: number) {
   track.push(0x00, 0xff, 0x51, 0x03, (tempo >> 16) & 0xff, (tempo >> 8) & 0xff, tempo & 0xff);
   track.push(0x00, 0xc0, 24);
 
-  chords.forEach((chord) => {
-    // Each chord now carries its own duration in beats. Fractional beat
-    // durations (e.g. 1/3 for triplets) are rounded to the nearest MIDI
-    // tick, so a 1/3-beat chord at ppq=480 becomes 160 ticks.
+  // Model DAW: acordurile pot fi separate de goluri (silence). Sortam
+  // dupa startBeat (defensiv) si tinem cont de "gap"-ul dintre sfarsitul
+  // acordului anterior si startul curent - il exportam ca delta pe primul
+  // note-on al acordului urmator.
+  const sorted = sortBuilderByStart(chords);
+  let cursorTicks = 0; // pozitia MIDI (in ticks) unde ne-am oprit
+  sorted.forEach((chord) => {
     const beatsForChord = chord.beats > 0 ? chord.beats : DEFAULT_CHORD_BEATS;
     const chordTicks = Math.max(1, Math.round(beatTicks * beatsForChord));
+    const startTicks = Math.max(0, Math.round(beatTicks * (chord.startBeat ?? 0)));
+    const gapTicks = Math.max(0, startTicks - cursorTicks);
 
     const notes = chordNotes(chord.label);
     notes.forEach((note, i) => {
-      track.push(...toVarLen(i === 0 ? 0 : 0), 0x90, note, 86);
+      // Primul note-on al acordului "consuma" tot gap-ul acumulat.
+      const delta = i === 0 ? gapTicks : 0;
+      track.push(...toVarLen(delta), 0x90, note, 86);
     });
 
     notes.forEach((note, i) => {
-      track.push(...toVarLen(i === 0 ? chordTicks : 0), 0x80, note, 0x00);
+      const delta = i === 0 ? chordTicks : 0;
+      track.push(...toVarLen(delta), 0x80, note, 0x00);
     });
+    cursorTicks = startTicks + chordTicks;
   });
 
   track.push(0x00, 0xff, 0x2f, 0x00);
@@ -1461,9 +1501,21 @@ export default function App() {
   const pushBuilderHistory = (nextBuilder: BuilderChord[]) => {
     const base = builderHistoryRef.current.slice(0, builderHistoryIndexRef.current + 1);
     const previous = base[base.length - 1] ?? [];
+    // Prompt 3: comparam TOATE campurile relevante (id, label, beats,
+    // startBeat), nu doar id + label. Altfel resize-ul si mutarea NU
+    // pusau nimic in istoric si Undo nu le vedea.
     const same =
       previous.length === nextBuilder.length &&
-      previous.every((item, idx) => item.id === nextBuilder[idx]?.id && item.label === nextBuilder[idx]?.label);
+      previous.every((item, idx) => {
+        const b = nextBuilder[idx];
+        return (
+          !!b &&
+          item.id === b.id &&
+          item.label === b.label &&
+          Math.abs(item.beats - b.beats) < 1e-9 &&
+          Math.abs((item.startBeat ?? 0) - (b.startBeat ?? 0)) < 1e-9
+        );
+      });
 
     if (same) {
       return;
@@ -1548,65 +1600,33 @@ export default function App() {
       if (groupSet.has(c.id)) initialBeats.set(c.id, c.beats);
     });
 
-    // Calcul maxPositiveDelta = min pe grup al distantei pana la primul
-    // acord neselectat lipit imediat dupa. Cum in Builder acordurile sunt
-    // lipite edge-to-edge (fara spatii), "urmatorul" e mereu list[i+1].
-    // Daca list[i+1] este in grup, obstacolul se muta mai departe pana
-    // gasim un ne-membru (sau atingem sfarsitul).
+    // Model DAW: fiecare acord are startBeat + beats independent. Un
+    // acord poate creste liber la dreapta pana c\u00e2nd end-ul (startBeat +
+    // beats) atinge startBeat-ul urmatorului acord neselectat care are
+    // startBeat >= end-ul curent. Grupul se opreste la primul acord care
+    // atinge un obstacol (=> maxPositiveDelta e MINIMUL pe grup).
     //
-    // Comportament dorit (user): grupul se opreste la primul obstacol
-    // (nu fiecare acord independent). Deci luam MINIMUL peste toti
-    // membrii grupului.
+    // "urmatorul acord neselectat" nu mai e list[i+1] ca la modelul
+    // edge-to-edge - poate fi orice acord in lista cu startBeat mai
+    // mare decat end-ul membrului nostru.
     let maxPositiveDelta = Infinity;
     for (const id of groupIds) {
-      const i = list.findIndex((c) => c.id === id);
-      if (i < 0) continue;
-      // Cauta primul acord dupa i care NU e in grup.
-      let space = Infinity; // daca nu gasim obstacol, e infinit (dincolo de rulerContentWidth utilizatorul e blocat oricum de container)
-      for (let j = i + 1; j < list.length; j++) {
-        if (!groupSet.has(list[j].id)) {
-          // Acordul i are dupa el urmatorul-neselectat la j. Spatiul de
-          // extindere pentru i este SUMA beats-urilor grupului dintre i+1
-          // si j-1 (spatiu deja ocupat de membri de grup dupa i, dar care
-          // se muta odata cu i pentru ca si ei sunt in grup? NU - ei sunt
-          // membri, deci extinderea E asupra fiecaruia; pozitiile lor
-          // absolute nu se schimba cu delta+, doar latimile lor).
-          //
-          // Corectat: intr-un Builder edge-to-edge, daca extindem TOATE
-          // acordurile grupului cu +delta beats, si intre i si j sunt
-          // doar membri de grup, atunci acordul j (primul neselectat)
-          // trebuie sa se mute cu (numar de membri de la i inclusiv pana
-          // la j-1 exclusiv) * delta beats. Dar j NU e in grup, deci
-          // ramane fix (asa e definit "obstacol"). Deci nu putem extinde
-          // dincolo de spatiul liber = 0 la j - i.
-          //
-          // Deci pentru grupul edge-to-edge cu obstacol la j, orice
-          // extindere pozitiva creeaza suprapunere. Concluzie: daca
-          // exista OBSTACOL lipit imediat dupa vreun membru "final" al
-          // grupului, maxPositiveDelta = 0 pentru acel membru.
-          //
-          // Insa daca intre i si j exista membri de grup (i+1, i+2, ...
-          // sunt toti in grup), atunci "obstacolul" pentru i este departe:
-          // extinderea lui i "impinge" ceilalti membri, care si ei se
-          // extind, si asa mai departe. Aici modelul devine complex.
-          //
-          // Simplificam: extinderea grupului = fiecare membru se face mai
-          // lat cu +delta. Suma expansiunilor = (nr membri) * delta.
-          // Aceasta suma NU se poate depune dincolo de obstacol (acord j).
-          // Daca membrii sunt CONSECUTIVI, expansiunea impinge j -> j
-          // trebuie sa nu se miste -> total expansiune <= 0 -> delta <= 0.
-          //
-          // Deci: pentru membru i cu obstacol imediat dupa el (j = i+1
-          // sau doar membri de grup intre i si j), maxPositiveDelta = 0.
-          space = 0;
-          break;
+      const chord = list.find((c) => c.id === id);
+      if (!chord) continue;
+      const endBeat = chord.startBeat + chord.beats;
+      // Cautam printre TOATE acordurile neselectate cu startBeat >= endBeat
+      // pe cel mai apropiat.
+      let space = Infinity;
+      for (const other of list) {
+        if (groupSet.has(other.id)) continue;
+        if (other.startBeat >= endBeat) {
+          const gap = other.startBeat - endBeat;
+          if (gap < space) space = gap;
         }
       }
       if (space < maxPositiveDelta) maxPositiveDelta = space;
     }
-    // Daca ultimul acord din Builder e in grup si NU are obstacol dupa
-    // el, maxPositiveDelta ramane Infinity -> il limitam la o valoare
-    // rezonabila (BEATS_PER_BAR * 100 = 400 beats, deajuns).
+    // Fara obstacol -> permitem extindere pana la o limita rezonabila.
     if (!Number.isFinite(maxPositiveDelta)) maxPositiveDelta = BEATS_PER_BAR * 100;
 
     // maxNegativeDelta = cel mai mic beats initial - MIN_CHORD_BEATS
@@ -1957,10 +1977,28 @@ export default function App() {
     // chords keep whatever beats they were added with (that's why we
     // store `beats` per chord and never rewrite it when snap changes).
     const beatsForNewChord = snapDurationBeats(snapRef.current);
-    const nextBuilder = [
+    // Model DAW: pozitia noului acord.
+    //  - insertIndex === base.length (adaugare la coada): se lipeste
+    //    de sfarsitul progresiei (progressionEndBeat).
+    //  - insertIndex intermediar: se pune la startBeat-ul acordului
+    //    care era pe pozitia respectiva (impinge acordurile din dreapta
+    //    cu beatsForNewChord ca sa faca loc).
+    let startBeatForNew: number;
+    let shiftedTail: BuilderChord[];
+    if (safeIndex >= base.length) {
+      startBeatForNew = progressionEndBeat(base);
+      shiftedTail = [];
+    } else {
+      startBeatForNew = base[safeIndex].startBeat;
+      shiftedTail = base.slice(safeIndex).map((c) => ({
+        ...c,
+        startBeat: c.startBeat + beatsForNewChord,
+      }));
+    }
+    const nextBuilder: BuilderChord[] = [
       ...base.slice(0, safeIndex),
-      { id: crypto.randomUUID(), label, beats: beatsForNewChord },
-      ...base.slice(safeIndex),
+      { id: crypto.randomUUID(), label, beats: beatsForNewChord, startBeat: startBeatForNew },
+      ...shiftedTail,
     ];
     setBuilderChords(nextBuilder);
     pushBuilderHistory(nextBuilder);
@@ -2019,15 +2057,36 @@ export default function App() {
     const safeIndex = Math.max(0, Math.min(insertIndex ?? base.length, base.length));
     // All chords in the batch get the same beats value (the current Snap).
     const beatsForNewChord = snapDurationBeats(snapRef.current);
-    const newBlocks = items.map((it) => ({
-      id: crypto.randomUUID(),
-      label: it.label,
-      beats: beatsForNewChord,
-    }));
+    // Model DAW: calculam startBeat pentru fiecare acord nou, unul dupa
+    // altul, plecand fie de la sfarsitul progresiei (adaugare la coada),
+    // fie de la startBeat-ul acordului aflat pe pozitia de inserare.
+    const totalShift = beatsForNewChord * items.length;
+    let cursor: number;
+    let shiftedTail: BuilderChord[];
+    if (safeIndex >= base.length) {
+      cursor = progressionEndBeat(base);
+      shiftedTail = [];
+    } else {
+      cursor = base[safeIndex].startBeat;
+      shiftedTail = base.slice(safeIndex).map((c) => ({
+        ...c,
+        startBeat: c.startBeat + totalShift,
+      }));
+    }
+    const newBlocks: BuilderChord[] = items.map((it) => {
+      const startBeat = cursor;
+      cursor += beatsForNewChord;
+      return {
+        id: crypto.randomUUID(),
+        label: it.label,
+        beats: beatsForNewChord,
+        startBeat,
+      };
+    });
     const nextBuilder = [
       ...base.slice(0, safeIndex),
       ...newBlocks,
-      ...base.slice(safeIndex),
+      ...shiftedTail,
     ];
     setBuilderChords(nextBuilder);
     pushBuilderHistory(nextBuilder);
@@ -2137,11 +2196,23 @@ export default function App() {
     const translated = insertIndex - removedBefore;
     const safeIndex = Math.max(0, Math.min(translated, remaining.length));
 
-    const next = [
+    // Model DAW: dupa reorder trebuie sa recalculam startBeat cumulativ
+    // pentru toate acordurile (fara goluri - reorder-ul le lipeste),
+    // sortand implicit dupa noua ordine. Golurile create manual prin
+    // resize se pierd la reorder - user poate reface din nou daca vrea.
+    // Alternativa (pastrare goluri) devine ambigua c\u00e2nd un grup
+    // neconsecutiv se ordoneaza contiguu.
+    const combined = [
       ...remaining.slice(0, safeIndex),
       ...selectedItems,
       ...remaining.slice(safeIndex),
     ];
+    let cursor = 0;
+    const next: BuilderChord[] = combined.map((c) => {
+      const positioned = { ...c, startBeat: cursor };
+      cursor += c.beats;
+      return positioned;
+    });
 
     setBuilderChords(next);
     pushBuilderHistory(next);
@@ -2165,17 +2236,32 @@ export default function App() {
 
   const pasteClipboard = (insertIndex: number) => {
     if (clipboardChords.length === 0) return;
-    // Paste preserves the ORIGINAL beats of each copied chord, not the
-    // current snap value - matches the "existing chords keep their length"
-    // rule (copy is treated like snapshot preservation).
-    const clones = clipboardChords.map((x) => ({
-      id: crypto.randomUUID(),
-      label: x.label,
-      beats: x.beats > 0 ? x.beats : DEFAULT_CHORD_BEATS,
-    }));
     const base = builderRef.current;
     const safeIndex = Math.max(0, Math.min(insertIndex, base.length));
-    const next = [...base.slice(0, safeIndex), ...clones, ...base.slice(safeIndex)];
+    // Model DAW: totalul de beats al clonelor determina cu cat se impinge
+    // tail-ul. Clonele primesc startBeat consecutiv de la pozitia inserarii.
+    const totalBeats = clipboardChords.reduce((s, x) => s + (x.beats > 0 ? x.beats : DEFAULT_CHORD_BEATS), 0);
+    let cursor: number;
+    let shiftedTail: BuilderChord[];
+    if (safeIndex >= base.length) {
+      cursor = progressionEndBeat(base);
+      shiftedTail = [];
+    } else {
+      cursor = base[safeIndex].startBeat;
+      shiftedTail = base.slice(safeIndex).map((c) => ({ ...c, startBeat: c.startBeat + totalBeats }));
+    }
+    const clones: BuilderChord[] = clipboardChords.map((x) => {
+      const beats = x.beats > 0 ? x.beats : DEFAULT_CHORD_BEATS;
+      const startBeat = cursor;
+      cursor += beats;
+      return {
+        id: crypto.randomUUID(),
+        label: x.label,
+        beats,
+        startBeat,
+      };
+    });
+    const next = [...base.slice(0, safeIndex), ...clones, ...shiftedTail];
     setBuilderChords(next);
     pushBuilderHistory(next);
     setSelectedBuilderIds(clones.map((x) => x.id));
@@ -2208,15 +2294,17 @@ export default function App() {
     if (builderRef.current.length === 0) return;
 
     const beatMs = 60000 / bpm;
-    // Cumulative start times of each chord, in ms from t=0.
-    // With variable per-chord durations we can't just multiply, we have
-    // to add up as we go. offsets[i] = start ms of chord i; offsets[N]
-    // = total playback ms.
-    const offsets: number[] = [0];
-    builderRef.current.forEach((c) => {
-      const b = c.beats > 0 ? c.beats : DEFAULT_CHORD_BEATS;
-      offsets.push(offsets[offsets.length - 1] + b * beatMs);
-    });
+    // Model DAW: fiecare acord are pozitie ABSOLUTA pe timeline
+    // (startBeat). offsets[i] = timpul (ms) la care ACORDUL i incepe
+    // sa sune. offsets[N] = end-ul ultimului acord. Intre offsets[i] si
+    // offsets[i]+beats[i]*beatMs = notele suna; dupa aceea si pana la
+    // offsets[i+1] = liniste (gol).
+    const sortedChords = sortBuilderByStart(builderRef.current);
+    const chordStartsMs: number[] = sortedChords.map((c) => (c.startBeat ?? 0) * beatMs);
+    const chordEndsMs: number[] = sortedChords.map(
+      (c) => ((c.startBeat ?? 0) + (c.beats > 0 ? c.beats : DEFAULT_CHORD_BEATS)) * beatMs
+    );
+    const offsets: number[] = [...chordStartsMs, chordEndsMs[chordEndsMs.length - 1]];
     const totalMs = offsets[offsets.length - 1];
 
     // Cache the FIRST chord's ms as playChordMsRef so places that still
@@ -2245,21 +2333,26 @@ export default function App() {
       const linearX = Math.min((elapsed / beatMs) * ebw, (totalMs / beatMs) * ebw);
       setPlayheadX(linearX);
 
-      // Find which chord we're currently in by binary-searching offsets.
-      // Linear scan is fine here (at most MAX_CHORDS=1440 iterations,
-      // per RAF-tick that's still cheap).
-      let idx = builderRef.current.length - 1;
-      for (let i = 0; i < offsets.length - 1; i++) {
-        if (elapsed < offsets[i + 1]) { idx = i; break; }
+      // Find which chord we're currently in. Cu goluri (silence intre
+      // acorduri) exista si intervale in care nu suna nimic. Cautam
+      // primul acord al carui interval [start, end) contine elapsed.
+      // Daca nu e in niciun acord (=> in gol), lasam playedIndexRef
+      // pe -1 ca sa nu re-declansam sunetul cand ajungem la urmatorul.
+      let idx = -1;
+      for (let i = 0; i < chordStartsMs.length; i++) {
+        if (elapsed >= chordStartsMs[i] && elapsed < chordEndsMs[i]) {
+          idx = i;
+          break;
+        }
       }
 
       if (idx !== playedIndexRef.current) {
         playedIndexRef.current = idx;
-        setPlayheadIndex(idx);
-        // Play THIS chord's audio for its own duration (not the first
-        // chord's duration - important once chords have mixed lengths).
-        const durMs = offsets[idx + 1] - offsets[idx];
-        void playChordSound(builderRef.current[idx].label, durMs * 0.94);
+        setPlayheadIndex(Math.max(0, idx));
+        if (idx >= 0) {
+          const durMs = chordEndsMs[idx] - chordStartsMs[idx];
+          void playChordSound(sortedChords[idx].label, durMs * 0.94);
+        }
       }
 
       if (elapsed >= totalMs) {
@@ -2334,16 +2427,12 @@ export default function App() {
   // chords fit even with fractional/variable beats. Add a spare full bar
   // at the end so drops after the last chord always find a target area.
   const builderMinPxWidth = useMemo(() => {
-    // No more Math.max(24, ...) clamp: at snap 1/2 beat and finer, that
-    // clamp forced every short chord to a 24px minimum, making them look
-    // identical in the Builder even though their beats values differed.
-    // We now honour the true width exactly - short chords look short.
-    const chordsWidth = builderChords.reduce(
-      (sum, c) => sum + (c.beats > 0 ? c.beats : DEFAULT_CHORD_BEATS) * effectiveBeatWidth,
-      0
-    );
+    // Model DAW: latimea necesara = pozitia + lungimea celui mai la
+    // dreapta acord (progressionEndBeat), NU suma lungimilor. Golurile
+    // dintre acorduri fac parte din timeline.
+    const endBeats = progressionEndBeat(builderChords);
     const oneExtraBar = BEATS_PER_BAR * effectiveBeatWidth;
-    return chordsWidth + oneExtraBar;
+    return endBeats * effectiveBeatWidth + oneExtraBar;
   }, [builderChords, effectiveBeatWidth]);
 
   // Total ruler width shared by the Time Bar and the Builder chord strip.
@@ -3481,7 +3570,12 @@ export default function App() {
               </>
             )}
 
-            <div className="relative z-10 flex h-full items-stretch" style={{ gap: BUILDER_GAP }}>
+            {/* Model DAW: fiecare acord e pozitionat ABSOLUT pe timeline
+                dupa startBeat-ul lui. Intre acorduri pot exista goluri
+                (spatii de liniste). Layoutul flex de dinainte lipea
+                acordurile edge-to-edge, ceea ce nu permitea scurtarea
+                unui acord fara sa se contracte progresia. */}
+            <div className="relative z-10 h-full" style={{ width: "100%" }}>
               {builderChords.map((chord, index) => {
                 const selected = selectedBuilderIds.includes(chord.id);
                 const playing = isPlaying && playheadIndex === index;
@@ -3491,11 +3585,20 @@ export default function App() {
                 // fie hittable).
                 const chordWidthPx = chord.beats * effectiveBeatWidth;
                 const handleWidthPx = Math.max(4, chordWidthPx / 16);
+                // Pozitia stanga a acordului pe timeline, in px.
+                const chordLeftPx = (chord.startBeat ?? 0) * effectiveBeatWidth;
 
                 return (
                   <span
                     key={chord.id}
-                    style={{ position: "relative", display: "inline-block", height: "100%" }}
+                    style={{
+                      position: "absolute",
+                      left: chordLeftPx,
+                      top: 0,
+                      width: `${chordWidthPx}px`,
+                      height: "100%",
+                      display: "inline-block",
+                    }}
                   >
                   <button
                     type="button"
@@ -3593,11 +3696,10 @@ export default function App() {
                     // the same time signature. Kept a minimum so ultra-
                     // short 1/8-step chords are still clickable.
                     style={{
-                      // Honour the chord's actual duration exactly (no
-                      // min clamp). Overflowing text is handled by the
-                      // shrink-to-fit CSS inside the button below.
-                      width: `${chord.beats * effectiveBeatWidth}px`,
-                      flexShrink: 0,
+                      // Butonul umple 100% din containerul <span> parinte
+                      // care controleaza pozitia + latimea in modelul DAW.
+                      width: "100%",
+                      height: "100%",
                     }}
                     className={`relative z-10 h-full border border-black px-1 text-left text-[11px] transition-all ${
                       selected
