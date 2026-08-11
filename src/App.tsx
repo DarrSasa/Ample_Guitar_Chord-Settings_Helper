@@ -1725,15 +1725,20 @@ export default function App() {
   // (mouse-ul se misca inainte sa expire timer-ul de long-press).
   const beginMove = (chordId: string, clientX: number) => {
     const list = builderRef.current;
-    const selected = new Set(selectedRef.current);
-    // Grupul de mutare: daca acordul apasat e in selectie -> tot
-    // grupul selectat; altfel doar acordul apasat.
-    let groupIds: string[];
-    if (selected.has(chordId) && selected.size > 1) {
-      groupIds = list.filter((c) => selected.has(c.id)).map((c) => c.id);
-    } else {
-      groupIds = [chordId];
-    }
+    // SIMPLIFICARE (user explicit): la mutare cu drag, muta DOAR
+    // acordul pe care e cursorul, chiar daca sunt selectate mai multe.
+    // Cand incepem mutarea, colapsam selectia la un singur element
+    // (acordul apasat). Multi-select ramane util pentru Delete, copy
+    // etc. dar nu pentru mutare. Astfel algoritmele de slide/swap
+    // primesc mereu un singur "membru" -> zero edge cases cu selectii
+    // multiple si zero suprapuneri.
+    setSelectedBuilderIds([chordId]);
+    // Actualizam si ref-ul imediat ca handler-ele care se declanseaza
+    // in acelasi tick sa vada selectia noua (setSelectedBuilderIds
+    // are efect abia la urmatorul render).
+    selectedRef.current = [chordId];
+
+    const groupIds: string[] = [chordId];
     const initialStarts = new Map<string, number>();
     list.forEach((c) => {
       if (groupIds.includes(c.id)) initialStarts.set(c.id, c.startBeat);
