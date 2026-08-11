@@ -1884,69 +1884,94 @@ export default function App() {
   ): BuilderChord[] => {
     const groupSet = new Set(groupIds);
     const direction = deltaBeats >= 0 ? 1 : -1;
-    // Pasul 1: muta grupul cu deltaBeats (preview live).
-    const moved = base.map((c) => {
-      if (!groupSet.has(c.id)) return { ...c };
-      return { ...c, startBeat: c.startBeat + deltaBeats };
-    });
-    if (deltaBeats === 0) return moved;
 
     // Snapshot al pozitiilor ORIGINALE (dinainte de shift) pentru
-    // fiecare acord - il folosim la calculul destinatiilor swap.
+    // fiecare acord - il folosim la calculul destinatiilor swap si
+    // pentru a decide daca s-a atins pragul de swap.
     const originalStart = new Map<string, number>();
     base.forEach((c) => originalStart.set(c.id, c.startBeat));
 
-    // Colectam intai perechile candidate (membru, non-membru) cu
-    // suprapunere, ordonate dupa distanta centrelor - astfel membrii
-    // "cei mai apropiati" de un non-membru il revendica primii.
-    type Pair = { member: BuilderChord; partner: BuilderChord; dist: number };
+    // Comportament SWAP "all-or-nothing" (evita saltul scurt inainte
+    // de swap):
+    //   - Pana cand centrul membrului nu ajunge INAUNTRUL unui vecin,
+    //     membrii NU se muta deloc (raman la pozitia originala).
+    //   - Cand centrul membrului intra in vecin, se declanseaza swap
+    //     complet - dintr-o data.
+    // Astfel utilizatorul nu vede acordurile "targaindu-se" cu delta
+    // mic inainte de swap; ele stau nemiscate, apoi dintr-o miscare
+    // sar in locurile inversate.
+    //
+    // Calculam intai pozitiile SHIFT-ate (pentru detectia swap-ului).
+    const shiftedPositions = new Map<string, number>();
+    base.forEach((c) => {
+      if (groupSet.has(c.id)) {
+        shiftedPositions.set(c.id, c.startBeat + deltaBeats);
+      } else {
+        shiftedPositions.set(c.id, c.startBeat);
+      }
+    });
+
+    // Colectam perechile candidate testand overlap intre pozitiile
+    // SHIFT-ate ale membrilor si pozitiile ORIGINALE ale non-membrilor.
+    type Pair = { memberId: string; partnerId: string; dist: number };
     const pairs: Pair[] = [];
-    for (const m of moved) {
-      if (!groupSet.has(m.id)) continue;
-      const mStart = m.startBeat;
-      const mEnd = m.startBeat + m.beats;
-      const mCenter = (mStart + mEnd) / 2;
-      for (const n of moved) {
+    for (const c of base) {
+      if (!groupSet.has(c.id)) continue;
+      const mStartShift = shiftedPositions.get(c.id)!;
+      const mEndShift = mStartShift + c.beats;
+      const mCenterShift = (mStartShift + mEndShift) / 2;
+      for (const n of base) {
         if (groupSet.has(n.id)) continue;
         const nStart = n.startBeat;
         const nEnd = n.startBeat + n.beats;
         const nCenter = (nStart + nEnd) / 2;
-        // Overlap suficient: fie centrul lui m in [nStart, nEnd] fie
-        // centrul lui n in [mStart, mEnd].
-        if ((mCenter >= nStart && mCenter <= nEnd) || (nCenter >= mStart && nCenter <= mEnd)) {
-          const dist = Math.abs(mCenter - nCenter);
-          pairs.push({ member: m, partner: n, dist });
+        // Trigger swap DOAR daca centrul membrului dupa shift intra
+        // in vecin (comportament predictibil, no false-positive).
+        if (mCenterShift >= nStart && mCenterShift <= nEnd) {
+          const dist = Math.abs(mCenterShift - nCenter);
+          pairs.push({ memberId: c.id, partnerId: n.id, dist });
         }
       }
     }
-    // Sortam perechile crescator dupa distanta ca prioritatea sa fie
-    // membru <-> non-membru mai apropiati centre.
     pairs.sort((a, b) => a.dist - b.dist);
 
-    // Rezervam perechi in ordine: fiecare membru si fiecare non-membru
-    // poate participa DOAR intr-o singura pereche.
+    // Rezervam perechi: fiecare membru si non-membru participa doar
+    // intr-o singura pereche.
     const claimedMembers = new Set<string>();
     const claimedPartners = new Set<string>();
     const finalPairs: Pair[] = [];
     for (const p of pairs) {
-      if (claimedMembers.has(p.member.id)) continue;
-      if (claimedPartners.has(p.partner.id)) continue;
+      if (claimedMembers.has(p.memberId)) continue;
+      if (claimedPartners.has(p.partnerId)) continue;
       finalPairs.push(p);
-      claimedMembers.add(p.member.id);
-      claimedPartners.add(p.partner.id);
+      claimedMembers.add(p.memberId);
+      claimedPartners.add(p.partnerId);
     }
 
-    // Aplicam toate perechile de swap SIMULTAN (destinatiile calculate
-    // din snapshot-ul original, nu din valori deja modificate).
+    // Cream `moved` cu pozitiile initiale (base) - membrii RAMAN la
+    // pozitia originala pana la swap. Astfel utilizatorul NU vede
+    // "salt scurt" cu delta mica inainte de swap.
+    const moved: BuilderChord[] = base.map((c) => ({ ...c }));
+
+    if (finalPairs.length === 0) {
+      // Niciun swap - membrii raman la pozitia originala.
+      // Nici quantizare, nici cascade. Returnam clona base neschimbata.
+      return moved;
+    }
+
+    // Aplicam swap-urile. Toate destinatiile calculate din snapshot-ul
+    // original.
     for (const p of finalPairs) {
-      const bOriginalStart = originalStart.get(p.partner.id) ?? p.partner.startBeat;
-      const aNewStart = bOriginalStart; // A ia locul original al lui B
+      const memberObj = moved.find((x) => x.id === p.memberId)!;
+      const partnerObj = moved.find((x) => x.id === p.partnerId)!;
+      const bOriginalStart = originalStart.get(p.partnerId) ?? partnerObj.startBeat;
+      const aNewStart = bOriginalStart;
       const bNewStart =
         direction > 0
-          ? aNewStart - p.partner.beats  // B la stanga lui A, edge-to-edge
-          : aNewStart + p.member.beats;  // B la dreapta lui A, edge-to-edge
-      p.member.startBeat = aNewStart;
-      p.partner.startBeat = Math.max(0, bNewStart); // clamp la 0
+          ? aNewStart - partnerObj.beats
+          : aNewStart + memberObj.beats;
+      memberObj.startBeat = aNewStart;
+      partnerObj.startBeat = Math.max(0, bNewStart);
     }
 
     // -----------------------------------------------------------------
@@ -1961,8 +1986,8 @@ export default function App() {
       const step = snapDurationBeats(currentSnap);
       const touchedIds = new Set<string>();
       for (const p of finalPairs) {
-        touchedIds.add(p.member.id);
-        touchedIds.add(p.partner.id);
+        touchedIds.add(p.memberId);
+        touchedIds.add(p.partnerId);
       }
       for (const c of moved) {
         if (!touchedIds.has(c.id)) continue;
