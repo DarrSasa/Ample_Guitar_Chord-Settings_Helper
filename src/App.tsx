@@ -1752,59 +1752,116 @@ export default function App() {
     document.body.style.userSelect = "none";
   };
 
-  // Aplica modul SLIDE: A se muta peste B -> B (si vecinii lipiti in
-  // directia mutarii) se impinge in aceeasi directie cu (durata lui A).
-  // Preview-ul se calculeaza plecand DE FIECARE DATA de la baseBuilder
-  // (snapshot-ul din anchor), NU din state-ul curent - altfel s-ar
-  // acumula deplasarile la fiecare mousemove.
+  // Aplica modul SLIDE cu CASCADING PUSH (ripple in lant).
+  //
+  // Regula:
+  //   - Grupul mutat cu deltaBeats.
+  //   - Daca se suprapune cu un vecin din directia miscarii, vecinul e
+  //     impins in aceeasi directie EDGE-TO-EDGE (fara suprapunere).
+  //   - Daca vecinul impins se suprapune la randul lui cu urmatorul,
+  //     si el il impinge - propagare in lant peste toata secventa.
+  //   - Nu apar suprapuneri intre acorduri; toate isi pastreaza
+  //     duratele proprii.
+  //
+  // Algoritm (garantat fara suprapuneri intr-un singur pass linear):
+  //   Idee cheie: ne uitam separat la fiecare membru al grupului si il
+  //   folosim ca "pusher" pentru toti non-membrii aflati in directia
+  //   miscarii. Non-membrii sunt sortati IN ORDINEA IMPINGERII, apoi
+  //   propagam edge-to-edge intr-un lant.
+  //
+  //   Cazul miscare spre DREAPTA (direction=+1):
+  //     - Pentru fiecare non-membru cu startBeat >= startBeat-ul cel
+  //       mai mic al grupului, sortam crescator dupa startBeat.
+  //     - Pornim cu "frontierRight" = end-ul cel mai la dreapta al
+  //       oricarui membru de grup care se suprapune cu primul non-membru.
+  //     - Mergem in ordine: daca un non-membru se suprapune cu
+  //       frontierRight, il setam startBeat = frontierRight; apoi
+  //       frontierRight = end-ul lui.
+  //
+  //   Simetric pentru miscare spre STANGA (direction=-1): sortam
+  //   descrescator si frontierLeft = start-ul cel mai la stanga al
+  //   membrilor grupului care se suprapun cu primul non-membru.
   const applySlideMove = (
     base: BuilderChord[],
     groupIds: string[],
     deltaBeats: number
   ): BuilderChord[] => {
     const groupSet = new Set(groupIds);
-    // Pasul 1: muta toate acordurile din grup cu deltaBeats.
     const moved = base.map((c) => {
       if (!groupSet.has(c.id)) return { ...c };
       return { ...c, startBeat: c.startBeat + deltaBeats };
     });
-    // Pasul 2: detectam suprapuneri intre membri de grup si non-membri
-    // + impingem non-membrii in directia mutarii pana dispare overlap-ul.
-    // Facem un pass simplu: pentru fiecare pereche (membru, non-membru)
-    // in ordine, daca se suprapun in mod pozitiv, translatam non-membrul.
-    // Iteram pana cand nu mai exista suprapuneri (max 20 pasi ca guard).
+    if (deltaBeats === 0) return moved;
     const direction = deltaBeats > 0 ? 1 : -1;
-    for (let pass = 0; pass < 20; pass++) {
-      let changed = false;
-      // Sortam ca sa procesam de la stanga la dreapta cand impingem
-      // spre dreapta, si invers spre stanga.
-      const order = [...moved].sort((a, b) =>
-        direction > 0 ? a.startBeat - b.startBeat : b.startBeat - a.startBeat
-      );
-      for (const m of order) {
-        if (!groupSet.has(m.id)) continue;
-        const mStart = m.startBeat;
-        const mEnd = m.startBeat + m.beats;
-        for (const n of moved) {
-          if (groupSet.has(n.id)) continue;
-          const nStart = n.startBeat;
-          const nEnd = n.startBeat + n.beats;
-          const overlap = mStart < nEnd && nStart < mEnd;
-          if (!overlap) continue;
-          // Cat de mult sa mutam n ca sa dispara overlap-ul, in
-          // directia miscarii?
-          if (direction > 0) {
-            // Impingem n spre dreapta: n.startBeat = mEnd
-            n.startBeat = mEnd;
-          } else {
-            // Impingem n spre stanga: n.end = mStart => n.startBeat = mStart - n.beats
-            n.startBeat = mStart - n.beats;
+
+    const members = moved.filter((c) => groupSet.has(c.id));
+    const nonMembers = moved.filter((c) => !groupSet.has(c.id));
+
+    if (direction > 0) {
+      // Impingem spre DREAPTA.
+      // Sortam non-membrii crescator dupa startBeat.
+      nonMembers.sort((a, b) => a.startBeat - b.startBeat);
+      // frontierRight = cel mai la dreapta punct pana la care s-au
+      // "extins" acordurile pushed pana acum. Initial 0.
+      let frontierRight = 0;
+      for (const n of nonMembers) {
+        // Verificam intai suprapunere cu vreun membru al grupului
+        // (grupul poate fi format din mai multi acorduri de dimensiuni
+        // variate).
+        let pushedByMember = false;
+        for (const m of members) {
+          const mEnd = m.startBeat + m.beats;
+          if (m.startBeat < n.startBeat + n.beats && n.startBeat < mEnd) {
+            // Overlap direct cu un membru - il impingem edge-to-edge
+            // la sfarsitul acelui membru (sau la frontierRight daca e
+            // mai mare, ca sa nu regresam impingerea cascada).
+            const target = Math.max(mEnd, frontierRight);
+            n.startBeat = target;
+            frontierRight = target + n.beats;
+            pushedByMember = true;
+            break;
           }
-          changed = true;
         }
+        if (pushedByMember) continue;
+        // Nu se suprapune cu vreun membru, dar poate se suprapune cu
+        // frontier-ul creat de non-membrii impinsi anterior.
+        if (n.startBeat < frontierRight) {
+          n.startBeat = frontierRight;
+        }
+        // Actualizam frontierRight ca max end-ul curent (chiar daca
+        // n a fost lasat pe loc, ii tinem cont pentru urmatorii).
+        const nEnd = n.startBeat + n.beats;
+        if (nEnd > frontierRight) frontierRight = nEnd;
       }
-      if (!changed) break;
+    } else {
+      // Impingem spre STANGA - simetric.
+      nonMembers.sort((a, b) => b.startBeat - a.startBeat);
+      // frontierLeft = cel mai la stanga punct pana la care s-au
+      // extins acordurile pushed. Initial +Infinity (nu limiteaza).
+      let frontierLeft = Number.POSITIVE_INFINITY;
+      for (const n of nonMembers) {
+        let pushedByMember = false;
+        for (const m of members) {
+          const mEnd = m.startBeat + m.beats;
+          if (m.startBeat < n.startBeat + n.beats && n.startBeat < mEnd) {
+            // Overlap direct cu un membru - il impingem edge-to-edge
+            // in stanga membrului (sau la frontierLeft daca e mai mic).
+            const target = Math.min(m.startBeat - n.beats, frontierLeft - n.beats);
+            n.startBeat = target;
+            frontierLeft = target;
+            pushedByMember = true;
+            break;
+          }
+        }
+        if (pushedByMember) continue;
+        // Se suprapune cu frontierLeft creat de non-membrii impinsi?
+        if (n.startBeat + n.beats > frontierLeft) {
+          n.startBeat = frontierLeft - n.beats;
+        }
+        if (n.startBeat < frontierLeft) frontierLeft = n.startBeat;
+      }
     }
+
     return moved;
   };
 
