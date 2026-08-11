@@ -1786,27 +1786,38 @@ export default function App() {
     return moved;
   };
 
-  // Aplica modul SWAP: pentru fiecare membru de grup care se suprapune
-  // cu un non-membru, cele doua isi INVERSEAZA pozitiile (fiecare isi
-  // pastreaza durata proprie).
+  // Aplica modul SWAP: A si B isi schimba locurile FARA SUPRAPUNERE.
   //
-  // Trigger: consideram suprapunere daca centrul acordului mutat cade
-  // in interiorul altui acord (comportament predictibil, evita swap-uri
-  // false doar dintr-o atingere marginala).
+  // Regula (userul explicit):
+  //   - Cand A e mutat de la STANGA spre DREAPTA peste B:
+  //       A ia startBeat-ul lui B.
+  //       B se muta la STANGA, terminandu-se exact unde incepe noul A
+  //       (adica B.startBeat = A.newStart - B.beats).
+  //   - Cand A e mutat de la DREAPTA spre STANGA peste B:
+  //       A ia startBeat-ul lui B.
+  //       B se muta la DREAPTA, incepand exact unde se termina noul A
+  //       (adica B.startBeat = A.newStart + A.beats).
+  //   Astfel A si B se aliniaza edge-to-edge fara suprapunere,
+  //   pastrandu-si fiecare durata proprie.
+  //
+  // Trigger: consideram overlap valid pentru swap daca centrul lui A
+  // (dupa deltaBeats) cade in interiorul lui B (sau viceversa).
   const applySwapMove = (
     base: BuilderChord[],
     groupIds: string[],
     deltaBeats: number
   ): BuilderChord[] => {
     const groupSet = new Set(groupIds);
+    // Directia miscarii: >0 = spre dreapta, <0 = spre stanga.
+    const direction = deltaBeats >= 0 ? 1 : -1;
     // Pasul 1: muta grupul cu deltaBeats (preview live).
     const moved = base.map((c) => {
       if (!groupSet.has(c.id)) return { ...c };
       return { ...c, startBeat: c.startBeat + deltaBeats };
     });
     // Pasul 2: pentru fiecare membru al grupului, gasim primul
-    // non-membru al carui centru e acoperit de acordul mutat SAU
-    // vice-versa. Inversam startBeat-urile lor.
+    // non-membru al carui centru intra in acord (sau viceversa).
+    // Apoi aplicam regula edge-to-edge de mai sus.
     const swappedIds = new Set<string>();
     for (const m of moved) {
       if (!groupSet.has(m.id)) continue;
@@ -1814,7 +1825,6 @@ export default function App() {
       const mStart = m.startBeat;
       const mEnd = m.startBeat + m.beats;
       const mCenter = (mStart + mEnd) / 2;
-      // Cautam candidat pentru swap.
       let candidate: BuilderChord | undefined;
       for (const n of moved) {
         if (groupSet.has(n.id)) continue;
@@ -1822,20 +1832,29 @@ export default function App() {
         const nStart = n.startBeat;
         const nEnd = n.startBeat + n.beats;
         const nCenter = (nStart + nEnd) / 2;
-        // Suprapunere semnificativa: fie centrul lui m e in [nStart, nEnd]
-        // fie centrul lui n e in [mStart, mEnd].
         if ((mCenter >= nStart && mCenter <= nEnd) || (nCenter >= mStart && nCenter <= mEnd)) {
           candidate = n;
           break;
         }
       }
       if (candidate) {
-        // Cu "keep_own" fiecare isi pastreaza durata proprie. A ia
-        // POZITIA (startBeat) lui B, B ia POZITIA originala a lui A
-        // (din baseBuilder, nu din moved, ca sa nu includem deltaBeats).
-        const originalStartA = base.find((x) => x.id === m.id)?.startBeat ?? m.startBeat;
-        m.startBeat = candidate.startBeat;
-        candidate.startBeat = originalStartA;
+        // A (m) ia startBeat-ul original al lui B (candidate) - dinainte
+        // ca noi sa fi mutat ceva.
+        const bStartOriginal = candidate.startBeat;
+        // Setam noul startBeat pentru A.
+        m.startBeat = bStartOriginal;
+        // Setam noul startBeat pentru B in functie de directia miscarii:
+        //  - miscare spre DREAPTA => B se muta la stanga, terminand
+        //    unde incepe noul A (edge-to-edge la stanga lui A).
+        //  - miscare spre STANGA => B se muta la dreapta, incepand
+        //    unde se termina noul A (edge-to-edge la dreapta lui A).
+        if (direction > 0) {
+          candidate.startBeat = m.startBeat - candidate.beats;
+        } else {
+          candidate.startBeat = m.startBeat + m.beats;
+        }
+        // Clamp la 0 (nu permitem startBeat negativ dupa swap la stanga).
+        if (candidate.startBeat < 0) candidate.startBeat = 0;
         swappedIds.add(m.id);
         swappedIds.add(candidate.id);
       }
