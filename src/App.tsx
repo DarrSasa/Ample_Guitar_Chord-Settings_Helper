@@ -1291,6 +1291,39 @@ export default function App() {
   const rubberStartRef = useRef<{ x: number; y: number } | null>(null);
   const rubberActiveRef = useRef(false);
 
+  // ------------------------------------------------------------------
+  // Resize handle pe acordurile din Builder
+  // ------------------------------------------------------------------
+  // Cand utilizatorul apasa in ultimul 1/16 al unui acord (mana `↔`) si
+  // trage, redimensionam acordul respectiv (si toate acordurile aflate
+  // in selectia curenta, cu aceeasi delta - "resize de grup").
+  //
+  // Regulile de comportament:
+  //   - Snap != None -> latimea rezultata sare in trepte de grid
+  //     (multipli de snapDurationBeats(snap)).
+  //   - Snap == None -> resize liber, pixel cu pixel (in beats).
+  //   - Latime minima = 0.125 beats (1/2 din Step) mereu.
+  //   - Coliziune: acordul nu poate depasi marginea din stanga a
+  //     urmatorului acord lipit. Pentru resize de grup, delta e limitat
+  //     la minimul dintre "spatiu disponibil pentru fiecare acord".
+  //
+  // State-ul e in refs (nu in useState) pentru ca handler-ele globale
+  // de mousemove/mouseup sa citeasca fara stale-closure.
+  const resizeActiveRef = useRef(false);
+  const resizeAnchorRef = useRef<{
+    startX: number;
+    // Snapshot al beats-urilor la inceputul resize-ului, indexate dupa
+    // id-ul acordului. Doar acordurile din grupul curent.
+    initialBeats: Map<string, number>;
+    // Delta MAXIMA (in beats, pozitiva sau negativa) pana la coliziune,
+    // calculata la inceput pentru fiecare acord in parte. Delta efectiv
+    // aplicat e clamped la min/max al grupului.
+    maxPositiveDelta: number;
+    maxNegativeDelta: number;
+    // Id-urile in ordine (pentru iterare deterministica).
+    groupIds: string[];
+  } | null>(null);
+
   // While a scrollToCode() smooth animation is running, we want to suppress
   // the onScroll -> snapToNearestRow() logic. Without this, the smooth
   // animation's intermediate scroll events fire snapToNearestRow, which
@@ -1479,6 +1512,127 @@ export default function App() {
   // radios stay in sync) AND the underlying Electron window. In the web
   // build the bridge is undefined and only the state changes - browsers
   // can't resize their own window.
+  // ------------------------------------------------------------------
+  // Resize: initializare (apelat de handle-ul din marginea dreapta)
+  // ------------------------------------------------------------------
+  // - Grupul redimensionat: acordul apasat + toate acordurile din
+  //   selectia curenta (daca acordul apasat e in selectie). Daca NU e
+  //   in selectie, redimensionam DOAR acordul apasat.
+  // - Calculam de la inceput cat de mult se poate extinde grupul spre
+  //   dreapta pana la primul obstacol (acord neselectat lipit imediat
+  //   dupa un membru al grupului) - asta e maxPositiveDelta.
+  // - Calculam si cat de mult putem micsora inainte ca vreun membru sa
+  //   scada sub minim (0.125 beats) - asta e maxNegativeDelta.
+  const MIN_CHORD_BEATS = 1 / 8; // 0.125 beats = "1/2 din Step"
+
+  const beginResize = (chordId: string, clientX: number) => {
+    const list = builderRef.current;
+    const idx = list.findIndex((c) => c.id === chordId);
+    if (idx < 0) return;
+
+    // Determinam grupul redimensionat.
+    const selected = new Set(selectedRef.current);
+    let groupIds: string[];
+    if (selected.has(chordId) && selected.size > 1) {
+      // Resize de grup: toate acordurile selectate.
+      groupIds = list.filter((c) => selected.has(c.id)).map((c) => c.id);
+    } else {
+      // Doar acordul apasat.
+      groupIds = [chordId];
+    }
+    const groupSet = new Set(groupIds);
+
+    // Snapshot initial al beats-urilor.
+    const initialBeats = new Map<string, number>();
+    list.forEach((c) => {
+      if (groupSet.has(c.id)) initialBeats.set(c.id, c.beats);
+    });
+
+    // Calcul maxPositiveDelta = min pe grup al distantei pana la primul
+    // acord neselectat lipit imediat dupa. Cum in Builder acordurile sunt
+    // lipite edge-to-edge (fara spatii), "urmatorul" e mereu list[i+1].
+    // Daca list[i+1] este in grup, obstacolul se muta mai departe pana
+    // gasim un ne-membru (sau atingem sfarsitul).
+    //
+    // Comportament dorit (user): grupul se opreste la primul obstacol
+    // (nu fiecare acord independent). Deci luam MINIMUL peste toti
+    // membrii grupului.
+    let maxPositiveDelta = Infinity;
+    for (const id of groupIds) {
+      const i = list.findIndex((c) => c.id === id);
+      if (i < 0) continue;
+      // Cauta primul acord dupa i care NU e in grup.
+      let space = Infinity; // daca nu gasim obstacol, e infinit (dincolo de rulerContentWidth utilizatorul e blocat oricum de container)
+      for (let j = i + 1; j < list.length; j++) {
+        if (!groupSet.has(list[j].id)) {
+          // Acordul i are dupa el urmatorul-neselectat la j. Spatiul de
+          // extindere pentru i este SUMA beats-urilor grupului dintre i+1
+          // si j-1 (spatiu deja ocupat de membri de grup dupa i, dar care
+          // se muta odata cu i pentru ca si ei sunt in grup? NU - ei sunt
+          // membri, deci extinderea E asupra fiecaruia; pozitiile lor
+          // absolute nu se schimba cu delta+, doar latimile lor).
+          //
+          // Corectat: intr-un Builder edge-to-edge, daca extindem TOATE
+          // acordurile grupului cu +delta beats, si intre i si j sunt
+          // doar membri de grup, atunci acordul j (primul neselectat)
+          // trebuie sa se mute cu (numar de membri de la i inclusiv pana
+          // la j-1 exclusiv) * delta beats. Dar j NU e in grup, deci
+          // ramane fix (asa e definit "obstacol"). Deci nu putem extinde
+          // dincolo de spatiul liber = 0 la j - i.
+          //
+          // Deci pentru grupul edge-to-edge cu obstacol la j, orice
+          // extindere pozitiva creeaza suprapunere. Concluzie: daca
+          // exista OBSTACOL lipit imediat dupa vreun membru "final" al
+          // grupului, maxPositiveDelta = 0 pentru acel membru.
+          //
+          // Insa daca intre i si j exista membri de grup (i+1, i+2, ...
+          // sunt toti in grup), atunci "obstacolul" pentru i este departe:
+          // extinderea lui i "impinge" ceilalti membri, care si ei se
+          // extind, si asa mai departe. Aici modelul devine complex.
+          //
+          // Simplificam: extinderea grupului = fiecare membru se face mai
+          // lat cu +delta. Suma expansiunilor = (nr membri) * delta.
+          // Aceasta suma NU se poate depune dincolo de obstacol (acord j).
+          // Daca membrii sunt CONSECUTIVI, expansiunea impinge j -> j
+          // trebuie sa nu se miste -> total expansiune <= 0 -> delta <= 0.
+          //
+          // Deci: pentru membru i cu obstacol imediat dupa el (j = i+1
+          // sau doar membri de grup intre i si j), maxPositiveDelta = 0.
+          space = 0;
+          break;
+        }
+      }
+      if (space < maxPositiveDelta) maxPositiveDelta = space;
+    }
+    // Daca ultimul acord din Builder e in grup si NU are obstacol dupa
+    // el, maxPositiveDelta ramane Infinity -> il limitam la o valoare
+    // rezonabila (BEATS_PER_BAR * 100 = 400 beats, deajuns).
+    if (!Number.isFinite(maxPositiveDelta)) maxPositiveDelta = BEATS_PER_BAR * 100;
+
+    // maxNegativeDelta = cel mai mic beats initial - MIN_CHORD_BEATS
+    // (deci membrul cu latimea cea mai mica dicteaza limita de micsorare).
+    let maxNegativeDelta = Infinity;
+    for (const id of groupIds) {
+      const orig = initialBeats.get(id) ?? MIN_CHORD_BEATS;
+      const allowed = orig - MIN_CHORD_BEATS;
+      if (allowed < maxNegativeDelta) maxNegativeDelta = allowed;
+    }
+    if (!Number.isFinite(maxNegativeDelta)) maxNegativeDelta = 0;
+
+    resizeAnchorRef.current = {
+      startX: clientX,
+      initialBeats,
+      maxPositiveDelta,
+      maxNegativeDelta,
+      groupIds,
+    };
+    resizeActiveRef.current = true;
+    // Fortam cursorul pe TOATA fereastra ↔ pe durata resize-ului (chiar
+    // daca mouse-ul iese temporar din zona handle-ului).
+    document.body.style.cursor = "ew-resize";
+    document.body.style.userSelect = "none";
+  };
+
   const applyWindowSize = (name: "Small" | "Medium" | "Large") => {
     setWindowSize(name);
     const preset = SIZE_PRESETS[name];
@@ -2673,9 +2827,63 @@ export default function App() {
       suppressNextClickRef.current = true;
     };
 
+    // -----------------------------------------------------------------
+    // Resize handlers (drag din marginea dreapta a unui acord)
+    // -----------------------------------------------------------------
+    // La mousemove global calculam delta in pixeli, convertim in beats
+    // conform snap-ului curent, si aplicam pe tot grupul.
+    const onResizeMouseMove = (e: MouseEvent) => {
+      const anchor = resizeAnchorRef.current;
+      if (!anchor || !resizeActiveRef.current) return;
+      e.preventDefault();
+      const dxPx = e.clientX - anchor.startX;
+      const beatWidth = effectiveBeatWidthRef.current;
+      if (beatWidth <= 0) return;
+      let deltaBeats = dxPx / beatWidth;
+
+      // Snap: rotunjim delta la multipli de snapDurationBeats(snap).
+      // Snap = None -> lasam delta liber (pixel-perfect).
+      const currentSnap = snapRef.current;
+      if (currentSnap !== "None") {
+        const step = snapDurationBeats(currentSnap);
+        deltaBeats = Math.round(deltaBeats / step) * step;
+      }
+
+      // Constrainere:
+      //  - lower: -anchor.maxNegativeDelta (nu putem micsora sub minim)
+      //  - upper: +anchor.maxPositiveDelta (nu putem trece de urmatorul
+      //    acord lipit, pentru niciun membru al grupului)
+      if (deltaBeats > anchor.maxPositiveDelta) deltaBeats = anchor.maxPositiveDelta;
+      if (deltaBeats < -anchor.maxNegativeDelta) deltaBeats = -anchor.maxNegativeDelta;
+
+      // Aplicam noile latimi.
+      const next = builderRef.current.map((c) => {
+        const orig = anchor.initialBeats.get(c.id);
+        if (orig === undefined) return c;
+        const nb = orig + deltaBeats;
+        return { ...c, beats: nb };
+      });
+      setBuilderChords(next);
+    };
+
+    const onResizeMouseUp = (_e: MouseEvent) => {
+      if (!resizeActiveRef.current) return;
+      resizeActiveRef.current = false;
+      resizeAnchorRef.current = null;
+      // Impinge o snapshot in istoric ca actiunea de resize sa fie undo-abila.
+      pushBuilderHistory(builderRef.current);
+      // Suprimam click-ul care ar putea reseta selectia dupa mouseup.
+      suppressNextClickRef.current = true;
+      // Restauram cursor-ul body-ului (l-am fortat la ↔ pe durata resize-ului).
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    };
+
     window.addEventListener("mousedown", onRubberMouseDown);
     window.addEventListener("mousemove", onRubberMouseMove);
     window.addEventListener("mouseup", onRubberMouseUp);
+    window.addEventListener("mousemove", onResizeMouseMove);
+    window.addEventListener("mouseup", onResizeMouseUp);
 
     return () => {
       window.removeEventListener("click", closeMenu);
@@ -2683,6 +2891,8 @@ export default function App() {
       window.removeEventListener("mousedown", onRubberMouseDown);
       window.removeEventListener("mousemove", onRubberMouseMove);
       window.removeEventListener("mouseup", onRubberMouseUp);
+      window.removeEventListener("mousemove", onResizeMouseMove);
+      window.removeEventListener("mouseup", onResizeMouseUp);
       if (rubberPressTimerRef.current !== null) window.clearTimeout(rubberPressTimerRef.current);
       if (scrollTimerRef.current !== null) window.clearTimeout(scrollTimerRef.current);
       if (jumpTimerRef.current !== null) window.clearTimeout(jumpTimerRef.current);
@@ -3276,10 +3486,18 @@ export default function App() {
                 const selected = selectedBuilderIds.includes(chord.id);
                 const playing = isPlaying && playheadIndex === index;
                 const blinking = flashBuilderId === chord.id;
+                // Latimea acordului in px (folosita si pentru dimensiunea
+                // handle-ului de resize = 1/16 din latime, min 4px ca sa
+                // fie hittable).
+                const chordWidthPx = chord.beats * effectiveBeatWidth;
+                const handleWidthPx = Math.max(4, chordWidthPx / 16);
 
                 return (
-                  <button
+                  <span
                     key={chord.id}
+                    style={{ position: "relative", display: "inline-block", height: "100%" }}
+                  >
+                  <button
                     type="button"
                     data-builder-index={index}
                     // A chord button is draggable only WHILE it's selected,
@@ -3323,7 +3541,7 @@ export default function App() {
                       // Daca rubber band-ul este activ (long-press pe
                       // acord urmat de miscare), impiedicam drag-ul nativ
                       // HTML5 - utilizatorul face selectie, nu mutare.
-                      if (rubberActiveRef.current) {
+                      if (rubberActiveRef.current || resizeActiveRef.current) {
                         e.preventDefault();
                         return;
                       }
@@ -3404,6 +3622,36 @@ export default function App() {
                       <FitText text={chordNotesDisplay(chord.label)} height={9} />
                     </div>
                   </button>
+                  {/* Resize handle: fasie transparenta pe ULTIMUL 1/16
+                      din latimea acordului, pe marginea DREAPTA. Doar
+                      aici cursorul devine `↔` si un mousedown porneste
+                      resize-ul. Suprapus peste butonul de acord cu
+                      z-30 (butonul e z-10). */}
+                  <div
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      right: 0,
+                      width: handleWidthPx,
+                      height: "100%",
+                      cursor: "ew-resize",
+                      zIndex: 30,
+                      // Nu blocam clickuri sub el DECAT cand chiar suntem
+                      // in ultimul 1/16 - pointerEvents auto face asta
+                      // implicit (handle-ul are propriile events).
+                    }}
+                    onMouseDown={(e) => {
+                      // Butonul stang doar.
+                      if (e.button !== 0) return;
+                      // Impiedicam mousedown-ul sa ajunga la butonul de
+                      // acord (nu vrem sa porneasca long-press-ul lui).
+                      e.stopPropagation();
+                      e.preventDefault();
+                      beginResize(chord.id, e.clientX);
+                    }}
+                  />
+                  </span>
                 );
               })}
             </div>
