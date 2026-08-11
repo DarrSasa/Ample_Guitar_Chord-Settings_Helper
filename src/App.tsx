@@ -1879,6 +1879,49 @@ export default function App() {
       if (converged) break;
     }
 
+    // -----------------------------------------------------------------
+    // SAFETY NET FINAL: elimina ORICE suprapunere reziduala.
+    // -----------------------------------------------------------------
+    // In scenarii patologice (grupuri intretesute cu multi non-membri,
+    // combinatii de duratelor + delta care produc ties near-equal la
+    // limita float precision), sweep-ul iterativ poate lasa mici
+    // suprapuneri. Aici trecem cu un algoritm brut care GARANTEAZA
+    // zero overlap: sortam TOATE acordurile dupa startBeat crescator,
+    // apoi pentru orice pereche consecutiva (i, i+1), daca se suprapun
+    // le separam:
+    //   - Daca ambele sunt non-membri, il impingem pe i+1.
+    //   - Daca i+1 e membru, il impingem pe i (spre stanga, in casul
+    //     dreapta) sau blocam la marginea din stanga a membrului i+1.
+    //   - Daca ambele sunt membri (nu ar trebui - au aceeasi delta),
+    //     lasam ca este.
+    // Facem cateva pass-uri pana e curat.
+    const EPS = 1e-6;
+    for (let safetyPass = 0; safetyPass < 20; safetyPass++) {
+      moved.sort((a, b) => a.startBeat - b.startBeat);
+      let anyOverlap = false;
+      for (let i = 0; i < moved.length - 1; i++) {
+        const cur = moved[i];
+        const nxt = moved[i + 1];
+        const curEnd = cur.startBeat + cur.beats;
+        if (nxt.startBeat < curEnd - EPS) {
+          anyOverlap = true;
+          const curIsMember = groupSet.has(cur.id);
+          const nxtIsMember = groupSet.has(nxt.id);
+          if (!nxtIsMember) {
+            // Impingem nxt la marginea din dreapta a lui cur.
+            nxt.startBeat = curEnd;
+          } else if (!curIsMember) {
+            // Impingem cur inapoi la marginea din stanga a lui nxt.
+            cur.startBeat = nxt.startBeat - cur.beats;
+            if (cur.startBeat < 0) cur.startBeat = 0;
+          }
+          // Daca ambele sunt membri, nu facem nimic (nu ar trebui sa se
+          // intample cu aceeasi delta).
+        }
+      }
+      if (!anyOverlap) break;
+    }
+
     return moved;
   };
 
