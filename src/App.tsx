@@ -3380,26 +3380,20 @@ export default function App() {
       const dxPx = e.clientX - anchor.startX;
       const beatWidth = effectiveBeatWidthRef.current;
       if (beatWidth <= 0) return;
-      const currentSnap = snapRef.current;
 
-      // Snap ABSOLUT al startBeat-ului acordului PRIMARY la cea mai
-      // apropiata linie de grid ritmica. Delta rezultata se aplica pe
-      // tot grupul.
-      const primaryStartProposed = anchor.primaryInitialStart + dxPx / beatWidth;
-      let deltaBeats: number;
-      if (currentSnap !== "None") {
-        const step = snapDurationBeats(currentSnap);
-        const primaryStartSnapped = Math.round(primaryStartProposed / step) * step;
-        deltaBeats = primaryStartSnapped - anchor.primaryInitialStart;
-      } else {
-        deltaBeats = primaryStartProposed - anchor.primaryInitialStart;
-      }
+      // REGULA (user explicit): Mutarea acordurilor prin zona alba NU
+      // face snap la grila ritmica - NICIODATA (nici la slide, nici la
+      // swap). Mutarea e mereu libera pixel-perfect. Snap-ul functioneaza
+      // DOAR pentru cursorul de resize ↔.
+      const deltaBeats = dxPx / beatWidth;
 
       // Aplicam preview conform modului nudge curent.
       const mode = nudgeModeRef.current;
       let next: BuilderChord[];
       if (mode === "swap") {
-        next = applySwapMove(anchor.baseBuilder, anchor.groupIds, deltaBeats, currentSnap);
+        // NOTA: pastram semnatura cu snap pentru compatibilitate, dar
+        // trecem mereu "None" ca sa dezactivam quantizarea intern.
+        next = applySwapMove(anchor.baseBuilder, anchor.groupIds, deltaBeats, "None");
       } else {
         next = applySlideMove(anchor.baseBuilder, anchor.groupIds, deltaBeats);
       }
