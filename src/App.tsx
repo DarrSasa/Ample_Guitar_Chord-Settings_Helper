@@ -3184,6 +3184,14 @@ export default function App() {
     const onRubberMouseDown = (e: MouseEvent) => {
       // Doar butonul stang.
       if (e.button !== 0) return;
+
+      // REGULA (user explicit - Etapa 3b):
+      // Rubber-band-ul (selectia multipla prin dreptunghi) e disponibil
+      // NUMAI cand butonul `Ch On/Off` este ACTIV (auditionMode = true).
+      // In modul editare (Ch = OFF), selectia se face doar prin click
+      // pe acorduri individuale - rubber-band-ul e dezactivat complet.
+      if (!auditionModeRef.current) return;
+
       const target = e.target as HTMLElement | null;
 
       // In Chord Table: daca e peste un buton verde, NU pornim rubber band -
