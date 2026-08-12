@@ -3227,24 +3227,37 @@ export default function App() {
     };
 
     const onRubberMouseMove = (e: MouseEvent) => {
-      // Daca miscam mouse-ul semnificativ INAINTE ca timer-ul sa se
-      // implineasca, anulam - e clar un drag normal, nu un rubber band.
       const start = rubberStartRef.current;
-      if (start && !rubberActiveRef.current) {
+      if (!start) return;
+      // Daca mouse-ul se misca semnificativ (>5px) INAINTE ca timer-ul
+      // sa se implineasca, ACTIVAM rubber-band-ul instant. In modul
+      // Ch = ON (singurul mod in care rubber-band-ul e permis), orice
+      // mousedown + drag inseamna intentia de selectie prin dreptunghi
+      // - nu asteptam long-press-ul complet.
+      if (!rubberActiveRef.current) {
         const dx = e.clientX - start.x;
         const dy = e.clientY - start.y;
         if (dx * dx + dy * dy > 25) {
+          // Activam rubber-band-ul instant.
           if (rubberPressTimerRef.current !== null) {
             window.clearTimeout(rubberPressTimerRef.current);
             rubberPressTimerRef.current = null;
           }
-          rubberStartRef.current = null;
-          rubberScopeRef.current = null;
+          rubberActiveRef.current = true;
+          setRubberRect({ left: start.x, top: start.y, width: 0, height: 0 });
+          // Anulam si timer-ul local de long-press al butonului (setat
+          // in onMouseDown-ul butonului) - altfel s-ar declansa si
+          // enterGestureSelection dupa longPressMs.
+          if (longPressTimerRef.current !== null) {
+            window.clearTimeout(longPressTimerRef.current);
+            longPressTimerRef.current = null;
+          }
+          longPressFiredRef.current = false;
+        } else {
+          return;
         }
-        return;
       }
       // Actualizam dreptunghiul cat timp rubber band-ul e activ.
-      if (!rubberActiveRef.current || !start) return;
       const left = Math.min(start.x, e.clientX);
       const top = Math.min(start.y, e.clientY);
       const width = Math.abs(e.clientX - start.x);
@@ -4542,6 +4555,17 @@ export default function App() {
                             //    'application/x-progression-chords-multi').
                             draggable
                             onDragStart={(e) => {
+                              // Daca rubber-band-ul e in curs de pornire
+                              // (timer pending) sau deja activ, blocam
+                              // drag-ul nativ HTML5 - utilizatorul face
+                              // selectie prin dreptunghi, nu drag catre
+                              // Builder. Fara asta apare cercul-taiat
+                              // "no-drop" al browserului si rubber-band-ul
+                              // se declanseaza cu intarziere / blocaj.
+                              if (rubberActiveRef.current || rubberPressTimerRef.current !== null) {
+                                e.preventDefault();
+                                return;
+                              }
                               e.dataTransfer.effectAllowed = "copy";
 
                               // If the dragged button is part of a
