@@ -61,3 +61,24 @@
   scrollbar-width: auto;
   scrollbar-color: #6f1c03 #d6d3c9;
 }
+
+/*
+ * Global cursor lock: cand utilizatorul redimensioneaza sau muta un
+ * acord (drag activ), atasam o clasa pe <html> care fixeaza cursorul
+ * pe TOATA fereastra la starea corespunzatoare. Fara asta, cand
+ * mouse-ul iese temporar de pe elementul de handle in timpul unei
+ * miscari rapide, cursorul revine la default/arrow (flicker vizual
+ * neplacut).
+ *
+ * !important e necesar ca sa castige peste orice `cursor` local
+ * definit pe butoane / SVG-uri / etc.
+ */
+html.cursor-resize,
+html.cursor-resize * {
+  cursor: ew-resize !important;
+}
+html.cursor-grabbing,
+html.cursor-grabbing * {
+  cursor: grabbing !important;
+}
+

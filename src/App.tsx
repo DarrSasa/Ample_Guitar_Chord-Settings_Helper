@@ -1773,7 +1773,11 @@ export default function App() {
       edge,
     };
     resizeActiveRef.current = true;
-    document.body.style.cursor = "ew-resize";
+    // Cursor lock global: aplicam clasa pe <html> ca sa fixam cursorul
+    // ew-resize pe TOATA fereastra pe durata drag-ului. Elimina
+    // flicker-ul cand mouse-ul iese temporar din zona handle-ului.
+    // Vezi src/index.css - regula `html.cursor-resize *`.
+    document.documentElement.classList.add("cursor-resize");
     document.body.style.userSelect = "none";
   };
 
@@ -1813,7 +1817,10 @@ export default function App() {
       primaryInitialStart: primary.startBeat,
     };
     moveActiveRef.current = true;
-    document.body.style.cursor = "grabbing";
+    // Cursor lock global pentru drag: aplicam clasa pe <html> ca sa
+    // fixam cursorul grabbing pe TOATA fereastra pe durata drag-ului.
+    // Elimina flicker-ul cand mouse-ul iese temporar din zona acordului.
+    document.documentElement.classList.add("cursor-grabbing");
     document.body.style.userSelect = "none";
   };
 
@@ -3429,8 +3436,8 @@ export default function App() {
       pushBuilderHistory(builderRef.current);
       // Suprimam click-ul care ar putea reseta selectia dupa mouseup.
       suppressNextClickRef.current = true;
-      // Restauram cursor-ul body-ului (l-am fortat la ↔ pe durata resize-ului).
-      document.body.style.cursor = "";
+      // Restauram cursorul la default la finalul drag-ului.
+      document.documentElement.classList.remove("cursor-resize");
       document.body.style.userSelect = "";
     };
 
@@ -3537,7 +3544,8 @@ export default function App() {
       // Suprimam click-ul care urmeaza dupa mouseup.
       suppressNextClickRef.current = true;
       suppressAfterMoveRef.current = true;
-      document.body.style.cursor = "";
+      // Restauram cursorul la default la finalul drag-ului.
+      document.documentElement.classList.remove("cursor-grabbing");
       document.body.style.userSelect = "";
     };
 
