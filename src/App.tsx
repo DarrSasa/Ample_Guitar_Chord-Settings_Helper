@@ -3176,28 +3176,22 @@ export default function App() {
       // Doar butonul stang.
       if (e.button !== 0) return;
 
-      // REGULA (user explicit - Etapa 3b):
-      // Rubber-band-ul (selectia multipla prin dreptunghi) e disponibil
-      // NUMAI cand butonul `Ch On/Off` este ACTIV (auditionMode = true).
-      // In modul editare (Ch = OFF), selectia se face doar prin click
-      // pe acorduri individuale - rubber-band-ul e dezactivat complet.
-      if (!auditionModeRef.current) return;
-
       const target = e.target as HTMLElement | null;
 
-      // Rubber-band-ul e permis ORIUNDE in Builder si Chord Table
-      // (inclusiv direct peste un acord / buton verde) - user explicit:
-      //   - Builder: long-press pe zona alba SAU pe acord + drag = rubber
-      //   - Table:   long-press pe zona alba SAU pe buton verde + drag = rubber
-      // Handler-ul local (onMouseDown pe butonul de acord) porneste
-      // propriul timer de long-press pentru selectie individuala; cand
-      // rubber-band-ul se activeaza dupa longPressMs, anuleaza acel
-      // timer si suprima click-ul rezultat.
-
+      // Determinam scope-ul (in ce zona a inceput apasarea).
       let scope: "builder" | "table" | null = null;
       if (isInsideBuilderStrip(target)) scope = "builder";
       else if (isInsideTableSurface(target)) scope = "table";
       if (!scope) return;
+
+      // REGULA (user explicit) - rubber-band per scope si mod:
+      //   - Chord Table (scope="table"):
+      //       Permis in AMBELE moduri (Ch OFF si Ch ON). Singura
+      //       diferenta e ca in Ch OFF nu se aude audiitie la tap.
+      //   - Builder (scope="builder"):
+      //       Permis DOAR in Ch ON. In Ch OFF, selectia in Builder
+      //       se face doar prin click pe acord individual + free-move.
+      if (scope === "builder" && !auditionModeRef.current) return;
 
       // Retinem punctul de start si pornim timer-ul long-press.
       rubberStartRef.current = { x: e.clientX, y: e.clientY };
