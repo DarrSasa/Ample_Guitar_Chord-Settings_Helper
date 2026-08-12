@@ -3282,7 +3282,11 @@ export default function App() {
         // nu long-press.
         const dx = e.clientX - start.x;
         const dy = e.clientY - start.y;
-        if (dx * dx + dy * dy > 25) {
+        // Prag foarte sensibil: 2px (4 = 2²). La cea mai mica alunecare
+        // a cursorului anulam rubber-band-ul si lasam HTML5 drag&drop
+        // sa preia - astfel short-press + drag e declansat imediat, fara
+        // sa trebuiasca utilizatorul sa miste mult mouse-ul.
+        if (dx * dx + dy * dy > 4) {
           if (rubberPressTimerRef.current !== null) {
             window.clearTimeout(rubberPressTimerRef.current);
             rubberPressTimerRef.current = null;
