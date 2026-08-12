@@ -1393,6 +1393,13 @@ export default function App() {
     primaryId: string;
     primaryStartBeat: number;
     primaryInitialBeats: number;
+    // Care margine a fost apucata: "right" (mareste end-ul) sau
+    // "left" (mareste start-ul, end-ul ramane fix).
+    edge: "left" | "right";
+    // Snapshot al startBeat-urilor pentru acordurile din grup - la
+    // resize dinspre stanga trebuie sa modificam si startBeat, nu
+    // doar beats. Doar acordurile din grupul curent.
+    initialStarts: Map<string, number>;
   } | null>(null);
 
   // ------------------------------------------------------------------
@@ -1639,7 +1646,7 @@ export default function App() {
   //   scada sub minim (0.125 beats) - asta e maxNegativeDelta.
   const MIN_CHORD_BEATS = 1 / 8; // 0.125 beats = "1/2 din Step"
 
-  const beginResize = (chordId: string, clientX: number) => {
+  const beginResize = (chordId: string, clientX: number, edge: "left" | "right") => {
     const list = builderRef.current;
     const idx = list.findIndex((c) => c.id === chordId);
     if (idx < 0) return;
@@ -1656,67 +1663,116 @@ export default function App() {
     }
     const groupSet = new Set(groupIds);
 
-    // Snapshot initial al beats-urilor.
+    // Snapshot initial al beats-urilor si al startBeat-urilor.
     const initialBeats = new Map<string, number>();
+    const initialStarts = new Map<string, number>();
     list.forEach((c) => {
-      if (groupSet.has(c.id)) initialBeats.set(c.id, c.beats);
+      if (groupSet.has(c.id)) {
+        initialBeats.set(c.id, c.beats);
+        initialStarts.set(c.id, c.startBeat);
+      }
     });
 
-    // Model DAW: fiecare acord are startBeat + beats independent. Un
-    // acord poate creste liber la dreapta pana c\u00e2nd end-ul (startBeat +
-    // beats) atinge startBeat-ul urmatorului acord neselectat care are
-    // startBeat >= end-ul curent. Grupul se opreste la primul acord care
-    // atinge un obstacol (=> maxPositiveDelta e MINIMUL pe grup).
+    // Calcul limite in functie de MARGINEA apucata:
     //
-    // "urmatorul acord neselectat" nu mai e list[i+1] ca la modelul
-    // edge-to-edge - poate fi orice acord in lista cu startBeat mai
-    // mare decat end-ul membrului nostru.
-    let maxPositiveDelta = Infinity;
-    for (const id of groupIds) {
-      const chord = list.find((c) => c.id === id);
-      if (!chord) continue;
-      const endBeat = chord.startBeat + chord.beats;
-      // Cautam printre TOATE acordurile neselectate cu startBeat >= endBeat
-      // pe cel mai apropiat.
-      let space = Infinity;
-      for (const other of list) {
-        if (groupSet.has(other.id)) continue;
-        if (other.startBeat >= endBeat) {
-          const gap = other.startBeat - endBeat;
-          if (gap < space) space = gap;
-        }
-      }
-      if (space < maxPositiveDelta) maxPositiveDelta = space;
-    }
-    // Fara obstacol -> permitem extindere pana la o limita rezonabila.
-    if (!Number.isFinite(maxPositiveDelta)) maxPositiveDelta = BEATS_PER_BAR * 100;
+    // EDGE = "right" (comportamentul existent):
+    //   - maxPositiveDelta = pana la primul acord neselectat lipit
+    //     dupa end-ul membrului (spatiu liber la dreapta).
+    //   - maxNegativeDelta = pana cand vreun membru scade sub minim.
+    //
+    // EDGE = "left" (NOU):
+    //   - Aici delta pozitiv = start-ul se MUTA LA DREAPTA (acordul
+    //     se micsoreaza dinspre stanga -> beats scade). Este limitat
+    //     de MIN_CHORD_BEATS (nu putem micsora sub minim).
+    //   - Delta negativ = start-ul se MUTA LA STANGA (acordul se
+    //     extinde dinspre stanga -> beats creste). Este limitat de
+    //     acordul neselectat aflat imediat la stanga.
+    //   Semnificatia semnelor pentru edge=left e simetric-inversata,
+    //   dar CODUL de aplicare foloseste aceeasi conventie (delta > 0
+    //   = mouse-ul se muta la dreapta).
+    let maxPositiveDelta: number;
+    let maxNegativeDelta: number;
 
-    // maxNegativeDelta = cel mai mic beats initial - MIN_CHORD_BEATS
-    // (deci membrul cu latimea cea mai mica dicteaza limita de micsorare).
-    let maxNegativeDelta = Infinity;
-    for (const id of groupIds) {
-      const orig = initialBeats.get(id) ?? MIN_CHORD_BEATS;
-      const allowed = orig - MIN_CHORD_BEATS;
-      if (allowed < maxNegativeDelta) maxNegativeDelta = allowed;
+    if (edge === "right") {
+      // Delta > 0 = extindere spre dreapta. Delta < 0 = comprimare.
+      maxPositiveDelta = Infinity;
+      for (const id of groupIds) {
+        const chord = list.find((c) => c.id === id);
+        if (!chord) continue;
+        const endBeat = chord.startBeat + chord.beats;
+        let space = Infinity;
+        for (const other of list) {
+          if (groupSet.has(other.id)) continue;
+          if (other.startBeat >= endBeat) {
+            const gap = other.startBeat - endBeat;
+            if (gap < space) space = gap;
+          }
+        }
+        if (space < maxPositiveDelta) maxPositiveDelta = space;
+      }
+      if (!Number.isFinite(maxPositiveDelta)) maxPositiveDelta = BEATS_PER_BAR * 100;
+
+      maxNegativeDelta = Infinity;
+      for (const id of groupIds) {
+        const orig = initialBeats.get(id) ?? MIN_CHORD_BEATS;
+        const allowed = orig - MIN_CHORD_BEATS;
+        if (allowed < maxNegativeDelta) maxNegativeDelta = allowed;
+      }
+      if (!Number.isFinite(maxNegativeDelta)) maxNegativeDelta = 0;
+    } else {
+      // EDGE = "left":
+      // Delta > 0 = start se muta la dreapta = comprimare (beats scade).
+      //   Limitat de MIN_CHORD_BEATS.
+      // Delta < 0 = start se muta la stanga = extindere (beats creste).
+      //   Limitat de acordul neselectat la STANGA.
+      maxPositiveDelta = Infinity;
+      for (const id of groupIds) {
+        const orig = initialBeats.get(id) ?? MIN_CHORD_BEATS;
+        const allowed = orig - MIN_CHORD_BEATS;
+        if (allowed < maxPositiveDelta) maxPositiveDelta = allowed;
+      }
+      if (!Number.isFinite(maxPositiveDelta)) maxPositiveDelta = 0;
+
+      maxNegativeDelta = Infinity;
+      for (const id of groupIds) {
+        const chord = list.find((c) => c.id === id);
+        if (!chord) continue;
+        const startBeat = chord.startBeat;
+        // Cautam printre TOATE acordurile neselectate cu end <= startBeat
+        // pe cel mai apropiat (obstacol la stanga).
+        let space = Infinity;
+        for (const other of list) {
+          if (groupSet.has(other.id)) continue;
+          const otherEnd = other.startBeat + other.beats;
+          if (otherEnd <= startBeat) {
+            const gap = startBeat - otherEnd;
+            if (gap < space) space = gap;
+          }
+        }
+        // Nu depasim 0 nici daca nu exista obstacol.
+        if (startBeat < space) space = startBeat;
+        if (space < maxNegativeDelta) maxNegativeDelta = space;
+      }
+      if (!Number.isFinite(maxNegativeDelta)) maxNegativeDelta = 0;
     }
-    if (!Number.isFinite(maxNegativeDelta)) maxNegativeDelta = 0;
 
     // Referinta la acordul "primary" (pe care s-a apasat handle-ul).
-    // Snap-ul absolut la grid se calculeaza raportat la END-ul lui.
+    // Snap-ul absolut la grid se calculeaza raportat la END-ul lui
+    // (pentru edge=right) sau la START-ul lui (pentru edge=left).
     const primary = list.find((c) => c.id === chordId)!;
     resizeAnchorRef.current = {
       startX: clientX,
       initialBeats,
+      initialStarts,
       maxPositiveDelta,
       maxNegativeDelta,
       groupIds,
       primaryId: chordId,
       primaryStartBeat: primary.startBeat,
       primaryInitialBeats: primary.beats,
+      edge,
     };
     resizeActiveRef.current = true;
-    // Fortam cursorul pe TOATA fereastra ↔ pe durata resize-ului (chiar
-    // daca mouse-ul iese temporar din zona handle-ului).
     document.body.style.cursor = "ew-resize";
     document.body.style.userSelect = "none";
   };
@@ -3310,42 +3366,57 @@ export default function App() {
       if (beatWidth <= 0) return;
       const currentSnap = snapRef.current;
 
-      // Cuantizare ABSOLUTA pe grila: end-ul acordului PRIMARY (cel pe
-      // care s-a apasat mana ↔) se snap-uie la cea mai apropiata linie
-      // verticala a grilei ritmice (multipli de `step`), NU la un
-      // multiplu de step aplicat pe delta.
-      //
-      // Pasii:
-      //  1. Calculam end-ul propus in beats (start + latime initiala + delta pixeli / beatWidth).
-      //  2. Il rotunjim la cea mai apropiata linie de grid absolut.
-      //  3. Delta finala = end snap-uit - end initial. Aceeasi delta se
-      //     aplica pe tot grupul (cerinta userului anterioara).
-      //
-      // Snap = None -> lasam liber (pixel-perfect), fara cuantizare.
-      const primaryEndInitial = anchor.primaryStartBeat + anchor.primaryInitialBeats;
-      const primaryEndProposed = primaryEndInitial + dxPx / beatWidth;
+      // Cuantizare ABSOLUTA pe grila (Snap != None):
+      // - EDGE = "right": end-ul acordului primary se snap-uie pe grid.
+      //   deltaBeats = end_snapped - end_initial. Modifica DOAR beats.
+      // - EDGE = "left":  start-ul acordului primary se snap-uie pe grid.
+      //   deltaBeats = start_snapped - start_initial. Modifica start si
+      //   beats (end ramane fix). deltaBeats > 0 = micsorare, < 0 = extindere.
+      // Snap = None -> mutare libera pixel-perfect.
       let deltaBeats: number;
-      if (currentSnap !== "None") {
-        const step = snapDurationBeats(currentSnap);
-        const primaryEndSnapped = Math.round(primaryEndProposed / step) * step;
-        deltaBeats = primaryEndSnapped - primaryEndInitial;
+      if (anchor.edge === "right") {
+        const primaryEndInitial = anchor.primaryStartBeat + anchor.primaryInitialBeats;
+        const primaryEndProposed = primaryEndInitial + dxPx / beatWidth;
+        if (currentSnap !== "None") {
+          const step = snapDurationBeats(currentSnap);
+          const primaryEndSnapped = Math.round(primaryEndProposed / step) * step;
+          deltaBeats = primaryEndSnapped - primaryEndInitial;
+        } else {
+          deltaBeats = primaryEndProposed - primaryEndInitial;
+        }
       } else {
-        deltaBeats = primaryEndProposed - primaryEndInitial;
+        const primaryStartInitial = anchor.primaryStartBeat;
+        const primaryStartProposed = primaryStartInitial + dxPx / beatWidth;
+        if (currentSnap !== "None") {
+          const step = snapDurationBeats(currentSnap);
+          const primaryStartSnapped = Math.round(primaryStartProposed / step) * step;
+          deltaBeats = primaryStartSnapped - primaryStartInitial;
+        } else {
+          deltaBeats = primaryStartProposed - primaryStartInitial;
+        }
       }
 
-      // Constrainere:
-      //  - lower: -anchor.maxNegativeDelta (nu putem micsora sub minim)
-      //  - upper: +anchor.maxPositiveDelta (nu putem trece de urmatorul
-      //    acord lipit, pentru niciun membru al grupului)
+      // Constrainere (limitele au fost calculate in beginResize functie
+      // de edge).
       if (deltaBeats > anchor.maxPositiveDelta) deltaBeats = anchor.maxPositiveDelta;
       if (deltaBeats < -anchor.maxNegativeDelta) deltaBeats = -anchor.maxNegativeDelta;
 
-      // Aplicam noile latimi.
+      // Aplicam schimbarile in functie de edge.
       const next = builderRef.current.map((c) => {
-        const orig = anchor.initialBeats.get(c.id);
-        if (orig === undefined) return c;
-        const nb = orig + deltaBeats;
-        return { ...c, beats: nb };
+        const origBeats = anchor.initialBeats.get(c.id);
+        const origStart = anchor.initialStarts.get(c.id);
+        if (origBeats === undefined || origStart === undefined) return c;
+        if (anchor.edge === "right") {
+          // Doar beats se modifica.
+          return { ...c, beats: origBeats + deltaBeats };
+        } else {
+          // startBeat creste cu delta, beats scade cu delta (end fix).
+          return {
+            ...c,
+            startBeat: origStart + deltaBeats,
+            beats: origBeats - deltaBeats,
+          };
+        }
       });
       setBuilderChords(next);
     };
@@ -4096,9 +4167,30 @@ export default function App() {
                 // handle-ului de resize = 1/16 din latime, min 4px ca sa
                 // fie hittable).
                 const chordWidthPx = chord.beats * effectiveBeatWidth;
-                const handleWidthPx = Math.max(4, chordWidthPx / 16);
+                const handleWidthFull = Math.max(4, chordWidthPx / 16);
                 // Pozitia stanga a acordului pe timeline, in px.
                 const chordLeftPx = (chord.startBeat ?? 0) * effectiveBeatWidth;
+                const chordStart = chord.startBeat ?? 0;
+                const chordEnd = chordStart + chord.beats;
+                // Detectam daca vreun acord vecin e LIPIT edge-to-edge
+                // pe stanga sau pe dreapta noastra. Cand asa este,
+                // impartim zona de handle la jumatate ca sa nu se
+                // suprapuna cu handle-ul vecinului si sa poata utilizatorul
+                // sa aleaga pe care il redimensioneaza.
+                let neighborOnLeft = false;
+                let neighborOnRight = false;
+                for (const other of builderChords) {
+                  if (other.id === chord.id) continue;
+                  const otherEnd = (other.startBeat ?? 0) + other.beats;
+                  const otherStart = other.startBeat ?? 0;
+                  if (Math.abs(otherEnd - chordStart) < 1e-6) neighborOnLeft = true;
+                  if (Math.abs(otherStart - chordEnd) < 1e-6) neighborOnRight = true;
+                  if (neighborOnLeft && neighborOnRight) break;
+                }
+                // Cand vecinul e lipit, handle-ul se reduce la jumatate
+                // (interior). Zona ramasa exterioara e a vecinului.
+                const handleLeftPx = neighborOnLeft ? handleWidthFull / 2 : handleWidthFull;
+                const handleRightPx = neighborOnRight ? handleWidthFull / 2 : handleWidthFull;
 
                 return (
                   <span
@@ -4263,33 +4355,47 @@ export default function App() {
                       <FitText text={chordNotesDisplay(chord.label)} height={9} />
                     </div>
                   </button>
-                  {/* Resize handle: fasie transparenta pe ULTIMUL 1/16
-                      din latimea acordului, pe marginea DREAPTA. Doar
-                      aici cursorul devine `↔` si un mousedown porneste
-                      resize-ul. Suprapus peste butonul de acord cu
-                      z-30 (butonul e z-10). */}
+                  {/* Resize handle STANGA: fasie transparenta pe primul
+                      1/16 din latimea acordului, pe marginea STANGA.
+                      Cand mouse-ul e aici, cursorul devine `↔` si un
+                      mousedown modifica startBeat (extindere/comprimare
+                      dinspre stanga, end ramane fix). */}
+                  <div
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: handleLeftPx,
+                      height: "100%",
+                      cursor: "ew-resize",
+                      zIndex: 30,
+                    }}
+                    onMouseDown={(e) => {
+                      if (e.button !== 0) return;
+                      e.stopPropagation();
+                      e.preventDefault();
+                      beginResize(chord.id, e.clientX, "left");
+                    }}
+                  />
+                  {/* Resize handle DREAPTA: fasie transparenta pe
+                      ULTIMUL 1/16 din latimea acordului. */}
                   <div
                     aria-hidden
                     style={{
                       position: "absolute",
                       top: 0,
                       right: 0,
-                      width: handleWidthPx,
+                      width: handleRightPx,
                       height: "100%",
                       cursor: "ew-resize",
                       zIndex: 30,
-                      // Nu blocam clickuri sub el DECAT cand chiar suntem
-                      // in ultimul 1/16 - pointerEvents auto face asta
-                      // implicit (handle-ul are propriile events).
                     }}
                     onMouseDown={(e) => {
-                      // Butonul stang doar.
                       if (e.button !== 0) return;
-                      // Impiedicam mousedown-ul sa ajunga la butonul de
-                      // acord (nu vrem sa porneasca long-press-ul lui).
                       e.stopPropagation();
                       e.preventDefault();
-                      beginResize(chord.id, e.clientX);
+                      beginResize(chord.id, e.clientX, "right");
                     }}
                   />
                   </span>
