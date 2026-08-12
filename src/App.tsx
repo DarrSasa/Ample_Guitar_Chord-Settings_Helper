@@ -3427,6 +3427,34 @@ export default function App() {
       });
 
       setBuilderChords(next);
+
+      // "RATCHET EFFECT" - anti-magnetism (user explicit): dupa ce
+      // vecinii au fost impinsi in directia miscarii, ei RAMAN acolo
+      // - nu revin inapoi cand acordul mutat se intoarce.
+      //
+      // Regula: doar NON-MEMBRII (vecinii) pot fi "ratchet-ati".
+      // Membrii raman cu startBeat original in baseBuilder ca sa
+      // putem calcula delta corect la fiecare mousemove.
+      //
+      // Aplicam doar in modul SLIDE (swap e all-or-nothing).
+      if (mode === "slide") {
+        const groupSet = new Set(anchor.groupIds);
+        const nextById = new Map<string, BuilderChord>();
+        next.forEach((c) => nextById.set(c.id, c));
+        for (const bc of anchor.baseBuilder) {
+          if (groupSet.has(bc.id)) continue; // membrii raman originali
+          const cur = nextById.get(bc.id);
+          if (!cur) continue;
+          // Ratchet: baseBuilder al vecinului "cliqueaza" spre pozitia
+          // la care a fost impins. Cand acordul mutat revine inapoi,
+          // vecinul NU coboara sub aceasta pozitie.
+          if (deltaBeats > 0 && cur.startBeat > bc.startBeat) {
+            bc.startBeat = cur.startBeat;
+          } else if (deltaBeats < 0 && cur.startBeat < bc.startBeat) {
+            bc.startBeat = cur.startBeat;
+          }
+        }
+      }
     };
 
     const onMoveMouseUp = (_e: MouseEvent) => {
