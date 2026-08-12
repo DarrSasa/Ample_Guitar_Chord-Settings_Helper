@@ -1214,7 +1214,8 @@ export default function App() {
   // gesture-driven. The states are removed entirely - anything that used
   // to read them was refactored away.
   const [scrollFollowMode, setScrollFollowMode] = useState(false);
-  const [deleteMode, setDeleteMode] = useState(false);
+  // deleteMode ELIMINAT (Etapa 4): butonul Delete e acum actiune-instant.
+  // Click pe el = sterge selectia curenta (Builder sau Table).
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [playheadIndex, setPlayheadIndex] = useState(0);
@@ -1296,7 +1297,11 @@ export default function App() {
   // state-ul React direct (stale closure).
   const auditionModeRef = useRef(auditionMode);
   useEffect(() => { auditionModeRef.current = auditionMode; }, [auditionMode]);
-  const [flashBuilderId, setFlashBuilderId] = useState<string>("");
+  // Efect vizual de flash portocaliu la stergere (nefolosit dupa Etapa 4 -
+  // Delete e instant, nu mai avem timp de animatie). Pastrat ca state
+  // pentru compatibilitate cu render-ul; setter-ul e prefixat cu `_`.
+  const [flashBuilderId, _setFlashBuilderId] = useState<string>("");
+  void _setFlashBuilderId; // marcam ca folosit ca sa scapam de warning
 
   // Snapshots start empty so the "Scroll On History" bar shows nothing on
   // fresh launch (previously it showed an initial C5 entry that the user
@@ -1623,9 +1628,8 @@ export default function App() {
   // and replaced with gesture-driven selection. Only these buttons still
   // participate: Scroll On/Off, Delete, Ch On/Off. Selection persists
   // independently of the mode.
-  const activateBuilderMode = (mode: "scroll" | "delete" | "audition" | "none") => {
+  const activateBuilderMode = (mode: "scroll" | "audition" | "none") => {
     setScrollFollowMode(mode === "scroll");
-    setDeleteMode(mode === "delete");
     setAuditionMode(mode === "audition");
   };
 
@@ -2555,16 +2559,10 @@ export default function App() {
   // Long-press to enter selection is handled separately (see gesture code
   // on the button itself), not here.
   const selectBuilderChord = (id: string, _index: number) => {
-    if (deleteMode) {
-      const next = builderRef.current.filter((ch) => ch.id !== id);
-      setBuilderChords(next);
-      pushBuilderHistory(next);
-      setFlashBuilderId(id);
-      window.setTimeout(() => setFlashBuilderId(""), 220);
-      recordSnapshot(topCodeRef.current, guideCodeRef.current);
-      setSelectedBuilderIds((prev) => prev.filter((x) => x !== id));
-      return;
-    }
+    // deleteMode ELIMINAT (user explicit - Etapa 4): butonul Delete e
+    // acum actiune-instant. Click pe acord in modul Ch=OFF selecteaza
+    // instant (handler-ul e in beginMove). Click cu selectie activa
+    // (Ch=ON) = toggle in/out.
 
     const hasSelection = selectedRef.current.length > 0;
     if (hasSelection) {
@@ -3781,30 +3779,38 @@ export default function App() {
         <div className="mb-2 flex flex-wrap items-center gap-2">
           <h2 className="mr-2 text-sm font-semibold tracking-wide">Chord Progression Builder</h2>
 
-          {/* Multi Select + Select buttons removed - both behaviours are now
-              gesture-driven directly on the chord blocks:
-                - long-press (>= longPressMs) on any chord = enter selection
-                - short tap on other chords while something is selected = toggle add
-                - drag any selected chord = moves the entire selection group
-                - tap outside all chords = clear selection
-                - Ch On/Off + short tap = audition sound
-              Delete stays: click a selected chord while Delete mode is on,
-              OR press the Delete/Backspace key while chords are selected. */}
+          {/* Delete button (Etapa 4 - user explicit): actiune-instant.
+              Click pe el sterge IMEDIAT selectia curenta (Builder si/sau
+              Table). Nu mai are mod "activ" - butonul ramane mereu Off,
+              cu grafica On la hover/apasare (feedback vizual).
+              Fara selectie -> click nu face nimic (no-op silent). */}
           <GraphicButton
             offSrc={graphic("delete-off")}
             onSrc={graphic("delete-on")}
-            active={deleteMode}
             width={64}
             height={32}
             onClick={() => {
-              if (deleteMode) activateBuilderMode("none");
-              else activateBuilderMode("delete");
+              // Sterge selectia din Builder (daca exista).
+              const builderSel = selectedRef.current;
+              if (builderSel.length > 0) {
+                const toDelete = new Set(builderSel);
+                const next = builderRef.current.filter((c) => !toDelete.has(c.id));
+                setBuilderChords(next);
+                pushBuilderHistory(next);
+                setSelectedBuilderIds([]);
+                recordSnapshot(topCodeRef.current, guideCodeRef.current);
+              }
+              // Sterge selectia din Chord Table (daca exista).
+              // In tabel, "stergere" = doar deselectare (butoanele sunt
+              // permanente - reprezinta sugestii de progresii, nu se
+              // pot sterge din UI).
+              if (selectedTableChordsRef.current.length > 0) {
+                setSelectedTableChords([]);
+              }
             }}
-            title="Delete mode: click a chord to remove it. Or press Delete/Backspace to remove the current selection."
+            title="Delete: sterge instantaneu selectia din Builder (si deselecteaza din Table)."
             ariaLabel="Delete"
-            className={`h-8 w-16 rounded-sm border border-black text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
-              deleteMode ? "bg-green-300 shadow-[0_0_10px_#ff8827]" : "bg-[#FCBF8D]"
-            }`}
+            className="h-8 w-16 rounded-sm border border-black bg-[#FCBF8D] text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]"
           >
             Delete
           </GraphicButton>
