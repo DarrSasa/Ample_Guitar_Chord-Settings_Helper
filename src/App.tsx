@@ -3172,15 +3172,6 @@ export default function App() {
       }
       return false;
     };
-    const isOverTableChord = (target: HTMLElement | null): boolean => {
-      let node: HTMLElement | null = target;
-      while (node) {
-        if (node.getAttribute && node.getAttribute("data-table-chord") !== null) return true;
-        node = node.parentElement;
-      }
-      return false;
-    };
-
     const onRubberMouseDown = (e: MouseEvent) => {
       // Doar butonul stang.
       if (e.button !== 0) return;
@@ -3194,20 +3185,14 @@ export default function App() {
 
       const target = e.target as HTMLElement | null;
 
-      // In Chord Table: daca e peste un buton verde, NU pornim rubber band -
-      // lasam handler-ele existente sa preia (long-press pe buton = adauga
-      // in selectia table). Rubber band-ul in table functioneaza numai pe
-      // zona alba dintre butoane.
-      if (isOverTableChord(target)) return;
-
-      // In Builder: rubber band-ul e permis SI pe zona alba SI direct peste
-      // un acord (utilizator asked for this) - long-press pe acord + drag
-      // porneste selectia dreptunghiulara.
-      // NOTA: pentru ca handler-ul de acord (onMouseDown de pe butonul
-      // Builder) porneste propriul timer de long-press (care ar intra in
-      // selectie individuala), aici facem "capture" pe fereastra si
-      // marcam ca daca s-a activat rubber band-ul, sarim peste orice
-      // efect al handler-ului local.
+      // Rubber-band-ul e permis ORIUNDE in Builder si Chord Table
+      // (inclusiv direct peste un acord / buton verde) - user explicit:
+      //   - Builder: long-press pe zona alba SAU pe acord + drag = rubber
+      //   - Table:   long-press pe zona alba SAU pe buton verde + drag = rubber
+      // Handler-ul local (onMouseDown pe butonul de acord) porneste
+      // propriul timer de long-press pentru selectie individuala; cand
+      // rubber-band-ul se activeaza dupa longPressMs, anuleaza acel
+      // timer si suprima click-ul rezultat.
 
       let scope: "builder" | "table" | null = null;
       if (isInsideBuilderStrip(target)) scope = "builder";
