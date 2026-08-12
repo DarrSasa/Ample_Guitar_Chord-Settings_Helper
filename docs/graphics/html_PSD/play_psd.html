@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<title>Play button preview - abordare PSD cu multi-strat</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    background: #acb0ac;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 32px;
+  }
+  h1 { margin: 0 0 8px 0; font-size: 18px; }
+  h2 { margin: 32px 0 12px 0; font-size: 14px; color: #444; }
+  .intro { max-width: 900px; margin-bottom: 24px; font-size: 13px; line-height: 1.5; }
+  .intro code { background: #d5d5d5; padding: 2px 6px; border-radius: 3px; }
+
+  .scale-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #d5d5d5;
+    padding: 10px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+  }
+  .scale-control input { width: 200px; }
+  .scale-control output {
+    font-family: monospace;
+    font-weight: bold;
+    min-width: 50px;
+    text-align: right;
+  }
+  .theme-toggle {
+    background: #d5d5d5;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid #999;
+    cursor: pointer;
+    margin-left: 12px;
+    font-family: inherit;
+  }
+  body.dark { background: #2a2d2a; color: #ddd; }
+  body.dark h2 { color: #ccc; }
+  body.dark .intro code { background: #444; color: #eee; }
+
+  .variant-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 16px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  body.dark .variant-row { background: rgba(255,255,255,0.05); }
+  .variant-label {
+    flex: 0 0 200px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .variant-label .desc {
+    display: block;
+    font-size: 11px;
+    font-weight: normal;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+  .btn-group { display: flex; gap: 20px; align-items: center; }
+  .btn-cell { text-align: center; }
+  .btn-cell .caption {
+    display: block;
+    font-size: 11px;
+    margin-top: 6px;
+    opacity: 0.7;
+  }
+
+  /* Container buton cu multi-strat.
+     Fiecare strat e un div/img absolut peste altul. Dimensiune de baza
+     180x90, scalata prin CSS variable. */
+  .btn-wrapper {
+    position: relative;
+    display: inline-block;
+    width: calc(180px * var(--scale, 1));
+    height: calc(90px * var(--scale, 1));
+    transition: transform 120ms ease;
+  }
+  .btn-wrapper:hover { transform: translateY(-2px); }
+  .btn-wrapper > * {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+
+  /* Corpul butonului (fundal-buton-play.png simulat cu gradiente cu profundime) */
+  .layer-body {
+    border-radius: 10px;
+    border: 1.5px solid #000;
+    box-shadow:
+      inset 0 2px 4px rgba(255,255,255,0.15),
+      inset 0 -3px 6px rgba(0,0,0,0.5),
+      0 2px 4px rgba(0,0,0,0.4);
+  }
+
+  /* Semn play (semn-play.png simulat cu clip-path) */
+  .layer-semn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .layer-semn::before {
+    content: '';
+    display: block;
+    width: 25%;
+    height: 45%;
+    background: currentColor;
+    clip-path: polygon(0 0, 0 100%, 100% 50%);
+  }
+
+  /* LED aprins (led-on.png simulat cu radial gradient) */
+  .layer-led {
+    border-radius: 10px;
+    mix-blend-mode: screen;
+  }
+
+  /* Halo exterior (halo-on.png simulat cu box-shadow multi-strat) */
+  .layer-halo {
+    border-radius: 10px;
+    pointer-events: none;
+  }
+
+  /* Reflexie sticla (reflexie.png simulat cu gradient linear pe top) */
+  .layer-reflexie {
+    border-radius: 10px 10px 0 0;
+    height: 40%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 100%);
+  }
+
+  /* Semnul iluminat de LED (peste layer-semn) */
+  .layer-semn-iluminat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    mix-blend-mode: screen;
+  }
+  .layer-semn-iluminat::before {
+    content: '';
+    display: block;
+    width: 25%;
+    height: 45%;
+    background: currentColor;
+    clip-path: polygon(0 0, 0 100%, 100% 50%);
+    filter: blur(2px);
+  }
+</style>
+</head>
+<body>
+
+<h1>Play button - preview cu 5 variante × 2 stari (abordare PSD multi-strat)</h1>
+<div class="intro">
+  Aceasta abordare foloseste <strong>divs/imagini suprapuse ca layere</strong> in loc de un singur SVG.
+  Simuleaza cum ai construi butonul in Photoshop: fiecare layer poate fi un PNG scanat / o poza reala,
+  iar CSS blend modes creaza efectele de lumina.
+  <br>
+  In HTML-ul de mai jos, layerele sunt simulate cu gradiente si box-shadow ca sa ai o preview
+  fara sa incarci fisiere reale. Cand fac butoanele finale, fiecare layer va fi un PNG separat
+  din PSD-ul tau.
+</div>
+
+<div class="scale-control">
+  <label>Scala:</label>
+  <input type="range" id="scale" min="0.5" max="2.5" step="0.1" value="1">
+  <output id="scaleOut">1.0x</output>
+  <button class="theme-toggle" onclick="document.body.classList.toggle('dark')">Toggle fundal</button>
+</div>
+
+<!-- ==================== VARIANTA 1: Bakelite retro ==================== -->
+<div class="variant-row">
+  <div class="variant-label">
+    Varianta 1: Bakelite retro
+    <span class="desc">Textura material bakelite maro-caramiziu, LED chihlimbar.</span>
+  </div>
+  <div class="btn-group">
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <div class="layer-body" style="background: radial-gradient(ellipse at 40% 25%, #6a4028 0%, #3a2010 60%, #180a04 100%);"></div>
+        <div class="layer-reflexie" style="opacity: 0.4;"></div>
+        <div class="layer-semn" style="color: #2a1006; opacity: 0.9;"></div>
+      </div>
+      <span class="caption">Off</span>
+    </div>
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <div class="layer-halo" style="box-shadow: 0 0 24px 8px rgba(255,180,60,0.6), 0 0 48px 16px rgba(255,120,20,0.35);"></div>
+        <div class="layer-body" style="background: radial-gradient(ellipse at 40% 25%, #8a5838 0%, #4e2e18 60%, #200c04 100%);"></div>
+        <div class="layer-led" style="background: radial-gradient(ellipse at 50% 50%, rgba(255,220,120,0.9) 0%, rgba(255,150,40,0.5) 40%, rgba(255,100,0,0) 100%);"></div>
+        <div class="layer-reflexie" style="opacity: 0.55;"></div>
+        <div class="layer-semn" style="color: #4a2410; opacity: 0.85;"></div>
+        <div class="layer-semn-iluminat" style="color: #ffe090;"></div>
+      </div>
+      <span class="caption">On</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== VARIANTA 2: Metal brushed cu LED albastru ==================== -->
+<div class="variant-row">
+  <div class="variant-label">
+    Varianta 2: Metal brushed
+    <span class="desc">Aluminiu periat cu LED albastru rece. Stil audio pro rack.</span>
+  </div>
+  <div class="btn-group">
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <div class="layer-body" style="background:
+          linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 20%, transparent 40%, rgba(255,255,255,0.04) 60%, transparent 80%, rgba(255,255,255,0.04) 100%),
+          linear-gradient(180deg, #6a6e72 0%, #3a3e42 50%, #202428 100%);"></div>
+        <div class="layer-reflexie" style="opacity: 0.35;"></div>
+        <div class="layer-semn" style="color: #1a1c1e; opacity: 0.9;"></div>
+      </div>
+      <span class="caption">Off</span>
+    </div>
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <div class="layer-halo" style="box-shadow: 0 0 22px 6px rgba(80,180,255,0.55), 0 0 44px 12px rgba(40,120,255,0.3);"></div>
+        <div class="layer-body" style="background:
+          linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 20%, transparent 40%, rgba(255,255,255,0.04) 60%, transparent 80%, rgba(255,255,255,0.04) 100%),
+          linear-gradient(180deg, #7a8288 0%, #444a50 50%, #242830 100%);"></div>
+        <div class="layer-led" style="background: radial-gradient(ellipse at 50% 50%, rgba(180,240,255,0.85) 0%, rgba(80,180,255,0.55) 35%, rgba(0,100,200,0) 100%);"></div>
+        <div class="layer-reflexie" style="opacity: 0.5;"></div>
+        <div class="layer-semn" style="color: #202428; opacity: 0.75;"></div>
+        <div class="layer-semn-iluminat" style="color: #e0f8ff;"></div>
+      </div>
+      <span class="caption">On</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== VARIANTA 3: Cauciuc mat cu LED verde ==================== -->
+<div class="variant-row">
+  <div class="variant-label">
+    Varianta 3: Cauciuc mat
+    <span class="desc">Suprafata cauciuc/silicon mat, LED verde smarald. Stil stompbox.</span>
+  </div>
+  <div class="btn-group">
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <div class="layer-body" style="background:
+          radial-gradient(circle at 35% 30%, rgba(255,255,255,0.06) 0%, transparent 50%),
+          linear-gradient(180deg, #2e3230 0%, #1a1c1a 50%, #0c0e0c 100%);
+          border-radius: 20px;"></div>
+        <div class="layer-semn" style="color: #4a4c4a; opacity: 0.95;"></div>
+      </div>
+      <span class="caption">Off</span>
+    </div>
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <div class="layer-halo" style="box-shadow: 0 0 26px 8px rgba(60,240,120,0.55), 0 0 52px 16px rgba(20,180,80,0.3); border-radius: 20px;"></div>
+        <div class="layer-body" style="background:
+          radial-gradient(circle at 35% 30%, rgba(255,255,255,0.08) 0%, transparent 50%),
+          linear-gradient(180deg, #3e4a3e 0%, #202820 50%, #101410 100%);
+          border-radius: 20px;"></div>
+        <div class="layer-led" style="background: radial-gradient(ellipse at 50% 50%, rgba(160,255,180,0.85) 0%, rgba(40,220,100,0.55) 35%, rgba(0,120,40,0) 100%); border-radius: 20px;"></div>
+        <div class="layer-semn" style="color: #2e402e; opacity: 0.6;"></div>
+        <div class="layer-semn-iluminat" style="color: #d0ffd8;"></div>
+      </div>
+      <span class="caption">On</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== VARIANTA 4: Sticla neagra cu LED rosu ==================== -->
+<div class="variant-row">
+  <div class="variant-label">
+    Varianta 4: Sticla neagra glossy
+    <span class="desc">Suprafata sticla glossy piano-black, LED rosu-rubin. Stil premium.</span>
+  </div>
+  <div class="btn-group">
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <div class="layer-body" style="background:
+          linear-gradient(180deg, #1a1a1c 0%, #0a0a0c 50%, #050506 100%);"></div>
+        <div class="layer-reflexie" style="background: linear-gradient(180deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0) 100%);"></div>
+        <div class="layer-semn" style="color: #2a1010; opacity: 0.85;"></div>
+      </div>
+      <span class="caption">Off</span>
+    </div>
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <div class="layer-halo" style="box-shadow: 0 0 28px 10px rgba(255,60,80,0.6), 0 0 56px 20px rgba(220,20,40,0.35);"></div>
+        <div class="layer-body" style="background:
+          linear-gradient(180deg, #2a1416 0%, #180608 50%, #0a0304 100%);"></div>
+        <div class="layer-led" style="background: radial-gradient(ellipse at 50% 50%, rgba(255,180,180,0.9) 0%, rgba(255,60,80,0.6) 35%, rgba(180,0,20,0) 100%);"></div>
+        <div class="layer-reflexie" style="background: linear-gradient(180deg, rgba(255,220,220,0.55) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);"></div>
+        <div class="layer-semn" style="color: #3a1416; opacity: 0.55;"></div>
+        <div class="layer-semn-iluminat" style="color: #ffe0e0;"></div>
+      </div>
+      <span class="caption">On</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== VARIANTA 5: Lemn cu LED violet ==================== -->
+<div class="variant-row">
+  <div class="variant-label">
+    Varianta 5: Lemn / natural
+    <span class="desc">Textura lemn cald, LED violet. Stil unic / boutique gear.</span>
+  </div>
+  <div class="btn-group">
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <div class="layer-body" style="background:
+          repeating-linear-gradient(180deg, transparent 0px, rgba(0,0,0,0.05) 3px, transparent 6px, rgba(255,255,255,0.02) 9px),
+          linear-gradient(180deg, #6a4a30 0%, #4a3020 50%, #2a1810 100%);"></div>
+        <div class="layer-reflexie" style="opacity: 0.28;"></div>
+        <div class="layer-semn" style="color: #1a0a04; opacity: 0.9;"></div>
+      </div>
+      <span class="caption">Off</span>
+    </div>
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <div class="layer-halo" style="box-shadow: 0 0 26px 8px rgba(200,80,255,0.55), 0 0 52px 16px rgba(140,40,220,0.3);"></div>
+        <div class="layer-body" style="background:
+          repeating-linear-gradient(180deg, transparent 0px, rgba(0,0,0,0.04) 3px, transparent 6px, rgba(255,255,255,0.03) 9px),
+          linear-gradient(180deg, #7a5a40 0%, #58382a 50%, #3a2018 100%);"></div>
+        <div class="layer-led" style="background: radial-gradient(ellipse at 50% 50%, rgba(240,180,255,0.85) 0%, rgba(200,80,255,0.55) 35%, rgba(120,20,180,0) 100%);"></div>
+        <div class="layer-reflexie" style="opacity: 0.42;"></div>
+        <div class="layer-semn" style="color: #2a1006; opacity: 0.65;"></div>
+        <div class="layer-semn-iluminat" style="color: #f5e0ff;"></div>
+      </div>
+      <span class="caption">On</span>
+    </div>
+  </div>
+</div>
+
+<h2>Note despre straturile folosite</h2>
+<div class="intro">
+  Fiecare buton "On" e compus din 5-6 straturi suprapuse (de jos in sus):
+  <ol>
+    <li><strong>Halo</strong> - <code>box-shadow</code> multi-strat cu culoarea LED-ului</li>
+    <li><strong>Body</strong> - textura + gradient (fundal-buton-play.png)</li>
+    <li><strong>LED</strong> - <code>radial-gradient</code> cu <code>mix-blend-mode: screen</code></li>
+    <li><strong>Reflexie sticla</strong> - <code>linear-gradient</code> pe top (reflexie-play.png)</li>
+    <li><strong>Semn baza</strong> - forma inchisa (semn-play.png)</li>
+    <li><strong>Semn iluminat</strong> - a doua copie cu <code>mix-blend-mode: screen</code> + blur (dublul luminii din LED)</li>
+  </ol>
+  Cand faci PSD-uri reale, fiecare va fi un layer separat. Scriptul <code>psd-to-svg.mjs</code>
+  va extrage layerele si le va compune la fel ca aici.
+</div>
+
+<script>
+  const scaleInput = document.getElementById('scale');
+  const scaleOut = document.getElementById('scaleOut');
+  function updateScale() {
+    document.documentElement.style.setProperty('--scale', scaleInput.value);
+    scaleOut.textContent = parseFloat(scaleInput.value).toFixed(1) + 'x';
+  }
+  scaleInput.addEventListener('input', updateScale);
+  updateScale();
+</script>
+
+</body>
+</html>

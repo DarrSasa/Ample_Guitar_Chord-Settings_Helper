@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<title>Play button preview - abordare SVG pur</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    background: #acb0ac; /* fundalul aplicatiei */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 32px;
+  }
+  h1 { margin: 0 0 8px 0; font-size: 18px; }
+  h2 { margin: 32px 0 12px 0; font-size: 14px; color: #444; }
+  .intro { max-width: 900px; margin-bottom: 24px; font-size: 13px; line-height: 1.5; }
+  .intro code { background: #d5d5d5; padding: 2px 6px; border-radius: 3px; }
+
+  .scale-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #d5d5d5;
+    padding: 10px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+  }
+  .scale-control input { width: 200px; }
+  .scale-control output {
+    font-family: monospace;
+    font-weight: bold;
+    min-width: 50px;
+    text-align: right;
+  }
+
+  .theme-toggle {
+    background: #d5d5d5;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid #999;
+    cursor: pointer;
+    margin-left: 12px;
+    font-family: inherit;
+  }
+  body.dark {
+    background: #2a2d2a;
+    color: #ddd;
+  }
+  body.dark h2 { color: #ccc; }
+  body.dark .intro code { background: #444; color: #eee; }
+
+  .variant-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 16px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  body.dark .variant-row {
+    background: rgba(255,255,255,0.05);
+  }
+  .variant-label {
+    flex: 0 0 200px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .variant-label .desc {
+    display: block;
+    font-size: 11px;
+    font-weight: normal;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+  .btn-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  .btn-cell {
+    text-align: center;
+  }
+  .btn-cell .caption {
+    display: block;
+    font-size: 11px;
+    margin-top: 6px;
+    opacity: 0.7;
+  }
+
+  /* Dimensiunea de baza: 180 x 90 (cu ~70% mai mare decat 64x32 din app).
+     Scale-ul se aplica prin CSS variable. */
+  .btn-wrapper {
+    display: inline-block;
+    width: calc(180px * var(--scale, 1));
+    height: calc(90px * var(--scale, 1));
+    transition: transform 120ms ease;
+  }
+  .btn-wrapper:hover { transform: translateY(-2px); }
+  .btn-wrapper svg { width: 100%; height: 100%; display: block; }
+</style>
+</head>
+<body>
+
+<h1>Play button - preview cu 5 variante × 2 stari</h1>
+<div class="intro">
+  Abordare SVG pura: fiecare buton e construit din gradiente + filtre SVG
+  (blur, glow, blend modes) care simuleaza legile fizice ale luminii.
+  <br>
+  <strong>Off</strong> = LED stins, buton in stare de repaus.
+  <strong>On</strong> = LED aprins, halo luminos, semnul iluminat.
+</div>
+
+<div class="scale-control">
+  <label>Scala:</label>
+  <input type="range" id="scale" min="0.5" max="2.5" step="0.1" value="1">
+  <output id="scaleOut">1.0x</output>
+  <button class="theme-toggle" onclick="document.body.classList.toggle('dark')">Toggle fundal</button>
+</div>
+
+<!-- ==================== VARIANTA 1 ==================== -->
+<div class="variant-row">
+  <div class="variant-label">
+    Varianta 1: Amber / retro
+    <span class="desc">Culoare vintage, LED galben-portocaliu. Halo cald.</span>
+  </div>
+  <div class="btn-group">
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <svg viewBox="0 0 180 90" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="v1-body-off" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#4a3a2a"/>
+              <stop offset="0.5" stop-color="#2e2418"/>
+              <stop offset="1" stop-color="#1a140c"/>
+            </linearGradient>
+            <linearGradient id="v1-bevel-off" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="rgba(255,255,255,0.15)"/>
+              <stop offset="0.5" stop-color="rgba(255,255,255,0)"/>
+              <stop offset="1" stop-color="rgba(0,0,0,0.4)"/>
+            </linearGradient>
+          </defs>
+          <!-- corp buton -->
+          <rect x="4" y="4" width="172" height="82" rx="10" fill="url(#v1-body-off)" stroke="#000" stroke-width="1.5"/>
+          <!-- bevel highlight -->
+          <rect x="4" y="4" width="172" height="82" rx="10" fill="url(#v1-bevel-off)"/>
+          <!-- simbol Play (triunghi) - stins -->
+          <polygon points="70,25 70,65 115,45" fill="#8a5a2a" opacity="0.7"/>
+        </svg>
+      </div>
+      <span class="caption">Off</span>
+    </div>
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <svg viewBox="0 0 180 90" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="v1-led-on" cx="0.5" cy="0.5" r="0.7">
+              <stop offset="0" stop-color="#ffcf5a" stop-opacity="0.9"/>
+              <stop offset="0.4" stop-color="#ff9820" stop-opacity="0.6"/>
+              <stop offset="1" stop-color="#ff6a00" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="v1-body-on" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#6a4a2a"/>
+              <stop offset="0.5" stop-color="#4e3818"/>
+              <stop offset="1" stop-color="#2a1e0c"/>
+            </linearGradient>
+            <linearGradient id="v1-bevel-on" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="rgba(255,220,150,0.35)"/>
+              <stop offset="0.5" stop-color="rgba(255,255,255,0)"/>
+              <stop offset="1" stop-color="rgba(0,0,0,0.3)"/>
+            </linearGradient>
+            <filter id="v1-halo" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="8"/>
+            </filter>
+          </defs>
+          <!-- halo exterior -->
+          <rect x="-10" y="-10" width="200" height="110" rx="20" fill="#ff9820" opacity="0.35" filter="url(#v1-halo)"/>
+          <!-- corp buton (mai luminos) -->
+          <rect x="4" y="4" width="172" height="82" rx="10" fill="url(#v1-body-on)" stroke="#000" stroke-width="1.5"/>
+          <!-- LED radial -->
+          <rect x="4" y="4" width="172" height="82" rx="10" fill="url(#v1-led-on)"/>
+          <!-- bevel highlight -->
+          <rect x="4" y="4" width="172" height="82" rx="10" fill="url(#v1-bevel-on)"/>
+          <!-- simbol Play iluminat -->
+          <polygon points="70,25 70,65 115,45" fill="#ffe090" style="mix-blend-mode: screen"/>
+          <polygon points="70,25 70,65 115,45" fill="#ffa040" opacity="0.5"/>
+        </svg>
+      </div>
+      <span class="caption">On</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== VARIANTA 2 ==================== -->
+<div class="variant-row">
+  <div class="variant-label">
+    Varianta 2: Cyan / futuristic
+    <span class="desc">LED albastru-cyan, halo rece. Stil sci-fi / neon.</span>
+  </div>
+  <div class="btn-group">
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <svg viewBox="0 0 180 90" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="v2-body-off" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#1e2a35"/>
+              <stop offset="0.5" stop-color="#12181e"/>
+              <stop offset="1" stop-color="#080b0e"/>
+            </linearGradient>
+            <linearGradient id="v2-bevel-off" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="rgba(255,255,255,0.12)"/>
+              <stop offset="0.5" stop-color="rgba(255,255,255,0)"/>
+              <stop offset="1" stop-color="rgba(0,0,0,0.5)"/>
+            </linearGradient>
+          </defs>
+          <rect x="4" y="4" width="172" height="82" rx="6" fill="url(#v2-body-off)" stroke="#000" stroke-width="1.5"/>
+          <rect x="4" y="4" width="172" height="82" rx="6" fill="url(#v2-bevel-off)"/>
+          <polygon points="70,25 70,65 115,45" fill="#2a4a5a" opacity="0.8"/>
+        </svg>
+      </div>
+      <span class="caption">Off</span>
+    </div>
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <svg viewBox="0 0 180 90" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="v2-led-on" cx="0.5" cy="0.5" r="0.7">
+              <stop offset="0" stop-color="#7fffff" stop-opacity="0.85"/>
+              <stop offset="0.4" stop-color="#00d0ff" stop-opacity="0.55"/>
+              <stop offset="1" stop-color="#0080ff" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="v2-body-on" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2a4a5a"/>
+              <stop offset="0.5" stop-color="#182838"/>
+              <stop offset="1" stop-color="#0a1218"/>
+            </linearGradient>
+            <linearGradient id="v2-bevel-on" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="rgba(180,240,255,0.35)"/>
+              <stop offset="0.5" stop-color="rgba(255,255,255,0)"/>
+              <stop offset="1" stop-color="rgba(0,0,0,0.4)"/>
+            </linearGradient>
+            <filter id="v2-halo" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="10"/>
+            </filter>
+          </defs>
+          <rect x="-12" y="-12" width="204" height="114" rx="20" fill="#00d0ff" opacity="0.45" filter="url(#v2-halo)"/>
+          <rect x="4" y="4" width="172" height="82" rx="6" fill="url(#v2-body-on)" stroke="#000" stroke-width="1.5"/>
+          <rect x="4" y="4" width="172" height="82" rx="6" fill="url(#v2-led-on)"/>
+          <rect x="4" y="4" width="172" height="82" rx="6" fill="url(#v2-bevel-on)"/>
+          <polygon points="70,25 70,65 115,45" fill="#e0ffff" style="mix-blend-mode: screen"/>
+          <polygon points="70,25 70,65 115,45" fill="#00d0ff" opacity="0.35"/>
+        </svg>
+      </div>
+      <span class="caption">On</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== VARIANTA 3 ==================== -->
+<div class="variant-row">
+  <div class="variant-label">
+    Varianta 3: Emerald / minimalist
+    <span class="desc">LED verde smarald, forma rotunjita. Stil Ableton / minimalist modern.</span>
+  </div>
+  <div class="btn-group">
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <svg viewBox="0 0 180 90" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="v3-body-off" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#404040"/>
+              <stop offset="0.5" stop-color="#2a2a2a"/>
+              <stop offset="1" stop-color="#181818"/>
+            </linearGradient>
+            <linearGradient id="v3-bevel-off" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="rgba(255,255,255,0.15)"/>
+              <stop offset="0.5" stop-color="rgba(255,255,255,0)"/>
+              <stop offset="1" stop-color="rgba(0,0,0,0.4)"/>
+            </linearGradient>
+          </defs>
+          <rect x="4" y="4" width="172" height="82" rx="24" fill="url(#v3-body-off)" stroke="#0a0a0a" stroke-width="1.5"/>
+          <rect x="4" y="4" width="172" height="82" rx="24" fill="url(#v3-bevel-off)"/>
+          <polygon points="72,26 72,64 114,45" fill="#5a5a5a"/>
+        </svg>
+      </div>
+      <span class="caption">Off</span>
+    </div>
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <svg viewBox="0 0 180 90" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="v3-led-on" cx="0.5" cy="0.5" r="0.7">
+              <stop offset="0" stop-color="#a0ffa0" stop-opacity="0.9"/>
+              <stop offset="0.4" stop-color="#20d060" stop-opacity="0.5"/>
+              <stop offset="1" stop-color="#008030" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="v3-body-on" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#506050"/>
+              <stop offset="0.5" stop-color="#303830"/>
+              <stop offset="1" stop-color="#181c18"/>
+            </linearGradient>
+            <linearGradient id="v3-bevel-on" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="rgba(200,255,200,0.35)"/>
+              <stop offset="0.5" stop-color="rgba(255,255,255,0)"/>
+              <stop offset="1" stop-color="rgba(0,0,0,0.35)"/>
+            </linearGradient>
+            <filter id="v3-halo" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="7"/>
+            </filter>
+          </defs>
+          <rect x="-8" y="-8" width="196" height="106" rx="28" fill="#20d060" opacity="0.4" filter="url(#v3-halo)"/>
+          <rect x="4" y="4" width="172" height="82" rx="24" fill="url(#v3-body-on)" stroke="#0a0a0a" stroke-width="1.5"/>
+          <rect x="4" y="4" width="172" height="82" rx="24" fill="url(#v3-led-on)"/>
+          <rect x="4" y="4" width="172" height="82" rx="24" fill="url(#v3-bevel-on)"/>
+          <polygon points="72,26 72,64 114,45" fill="#f0fff0" style="mix-blend-mode: screen"/>
+          <polygon points="72,26 72,64 114,45" fill="#20d060" opacity="0.3"/>
+        </svg>
+      </div>
+      <span class="caption">On</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== VARIANTA 4 ==================== -->
+<div class="variant-row">
+  <div class="variant-label">
+    Varianta 4: Ruby / dramatic
+    <span class="desc">LED rosu-rubin intens, halo puternic. Stil hardware synth vintage.</span>
+  </div>
+  <div class="btn-group">
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <svg viewBox="0 0 180 90" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="v4-body-off" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#38282a"/>
+              <stop offset="0.5" stop-color="#221618"/>
+              <stop offset="1" stop-color="#100808"/>
+            </linearGradient>
+            <linearGradient id="v4-bevel-off" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="rgba(255,255,255,0.12)"/>
+              <stop offset="0.5" stop-color="rgba(255,255,255,0)"/>
+              <stop offset="1" stop-color="rgba(0,0,0,0.5)"/>
+            </linearGradient>
+          </defs>
+          <rect x="4" y="4" width="172" height="82" rx="4" fill="url(#v4-body-off)" stroke="#000" stroke-width="2"/>
+          <rect x="4" y="4" width="172" height="82" rx="4" fill="url(#v4-bevel-off)"/>
+          <polygon points="70,25 70,65 115,45" fill="#5a2828" opacity="0.85"/>
+        </svg>
+      </div>
+      <span class="caption">Off</span>
+    </div>
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <svg viewBox="0 0 180 90" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="v4-led-on" cx="0.5" cy="0.5" r="0.7">
+              <stop offset="0" stop-color="#ffb0b0" stop-opacity="0.95"/>
+              <stop offset="0.35" stop-color="#ff2040" stop-opacity="0.7"/>
+              <stop offset="1" stop-color="#900010" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="v4-body-on" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#5a3838"/>
+              <stop offset="0.5" stop-color="#3a2020"/>
+              <stop offset="1" stop-color="#1a0a0a"/>
+            </linearGradient>
+            <linearGradient id="v4-bevel-on" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="rgba(255,200,200,0.4)"/>
+              <stop offset="0.5" stop-color="rgba(255,255,255,0)"/>
+              <stop offset="1" stop-color="rgba(0,0,0,0.4)"/>
+            </linearGradient>
+            <filter id="v4-halo" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="12"/>
+            </filter>
+          </defs>
+          <rect x="-14" y="-14" width="208" height="118" rx="14" fill="#ff2040" opacity="0.5" filter="url(#v4-halo)"/>
+          <rect x="4" y="4" width="172" height="82" rx="4" fill="url(#v4-body-on)" stroke="#000" stroke-width="2"/>
+          <rect x="4" y="4" width="172" height="82" rx="4" fill="url(#v4-led-on)"/>
+          <rect x="4" y="4" width="172" height="82" rx="4" fill="url(#v4-bevel-on)"/>
+          <polygon points="70,25 70,65 115,45" fill="#ffe0e0" style="mix-blend-mode: screen"/>
+          <polygon points="70,25 70,65 115,45" fill="#ff4060" opacity="0.4"/>
+        </svg>
+      </div>
+      <span class="caption">On</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== VARIANTA 5 ==================== -->
+<div class="variant-row">
+  <div class="variant-label">
+    Varianta 5: Purple / elegant
+    <span class="desc">LED violet-magenta, reflexie de sticla vizibila. Stil FabFilter / premium.</span>
+  </div>
+  <div class="btn-group">
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <svg viewBox="0 0 180 90" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="v5-body-off" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#382a38"/>
+              <stop offset="0.5" stop-color="#20182a"/>
+              <stop offset="1" stop-color="#100818"/>
+            </linearGradient>
+            <linearGradient id="v5-bevel-off" x1="0" y1="0" x2="0" y2="0.4">
+              <stop offset="0" stop-color="rgba(255,255,255,0.25)"/>
+              <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+            </linearGradient>
+            <linearGradient id="v5-shadow-off" x1="0" y1="0.6" x2="0" y2="1">
+              <stop offset="0" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="1" stop-color="rgba(0,0,0,0.5)"/>
+            </linearGradient>
+          </defs>
+          <rect x="4" y="4" width="172" height="82" rx="14" fill="url(#v5-body-off)" stroke="#000" stroke-width="1.5"/>
+          <rect x="4" y="4" width="172" height="82" rx="14" fill="url(#v5-shadow-off)"/>
+          <!-- reflexie sticla top -->
+          <rect x="8" y="8" width="164" height="30" rx="10" fill="url(#v5-bevel-off)"/>
+          <polygon points="70,25 70,65 115,45" fill="#4a2a4a" opacity="0.85"/>
+        </svg>
+      </div>
+      <span class="caption">Off</span>
+    </div>
+    <div class="btn-cell">
+      <div class="btn-wrapper">
+        <svg viewBox="0 0 180 90" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="v5-led-on" cx="0.5" cy="0.55" r="0.65">
+              <stop offset="0" stop-color="#f0b0ff" stop-opacity="0.9"/>
+              <stop offset="0.4" stop-color="#c040ff" stop-opacity="0.6"/>
+              <stop offset="1" stop-color="#6010a0" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="v5-body-on" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#5a3a5a"/>
+              <stop offset="0.5" stop-color="#38284a"/>
+              <stop offset="1" stop-color="#1a1028"/>
+            </linearGradient>
+            <linearGradient id="v5-bevel-on" x1="0" y1="0" x2="0" y2="0.4">
+              <stop offset="0" stop-color="rgba(255,220,255,0.45)"/>
+              <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+            </linearGradient>
+            <filter id="v5-halo" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="9"/>
+            </filter>
+          </defs>
+          <rect x="-10" y="-10" width="200" height="110" rx="20" fill="#c040ff" opacity="0.45" filter="url(#v5-halo)"/>
+          <rect x="4" y="4" width="172" height="82" rx="14" fill="url(#v5-body-on)" stroke="#000" stroke-width="1.5"/>
+          <rect x="4" y="4" width="172" height="82" rx="14" fill="url(#v5-led-on)"/>
+          <rect x="8" y="8" width="164" height="30" rx="10" fill="url(#v5-bevel-on)"/>
+          <polygon points="70,25 70,65 115,45" fill="#ffe0ff" style="mix-blend-mode: screen"/>
+          <polygon points="70,25 70,65 115,45" fill="#e090ff" opacity="0.4"/>
+        </svg>
+      </div>
+      <span class="caption">On</span>
+    </div>
+  </div>
+</div>
+
+<h2>Note despre efectele fizice folosite</h2>
+<div class="intro">
+  Fiecare buton "On" foloseste:
+  <ul>
+    <li><strong>Halo exterior</strong> - <code>feGaussianBlur</code> mare pe forma butonului cu culoarea LED-ului</li>
+    <li><strong>LED radial</strong> - <code>radialGradient</code> cu atenuare exponentiala (legea inversului patratului)</li>
+    <li><strong>Corp mai luminos</strong> - gradiente cu tonuri lift-uite (LED-ul reflecta si pe corpul butonului)</li>
+    <li><strong>Bevel top</strong> - highlight semi-transparent care simuleaza reflexia stratului de deasupra</li>
+    <li><strong>Semn iluminat</strong> - 2 straturi cu <code>mix-blend-mode: screen</code> pentru a-i aduce lumina LED-ului</li>
+    <li><strong>Border negru</strong> - pastreaza definitia formei chiar cu halo puternic</li>
+  </ul>
+</div>
+
+<script>
+  const scaleInput = document.getElementById('scale');
+  const scaleOut = document.getElementById('scaleOut');
+  function updateScale() {
+    document.documentElement.style.setProperty('--scale', scaleInput.value);
+    scaleOut.textContent = parseFloat(scaleInput.value).toFixed(1) + 'x';
+  }
+  scaleInput.addEventListener('input', updateScale);
+  updateScale();
+</script>
+
+</body>
+</html>
