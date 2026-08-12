@@ -1214,8 +1214,12 @@ export default function App() {
   // gesture-driven. The states are removed entirely - anything that used
   // to read them was refactored away.
   const [scrollFollowMode, setScrollFollowMode] = useState(false);
-  // deleteMode ELIMINAT (Etapa 4): butonul Delete e acum actiune-instant.
-  // Click pe el = sterge selectia curenta (Builder sau Table).
+  // deleteMode: cand e activ, butonul Delete e "aprins" (verde) si un
+  // click ulterior pe orice acord din Builder il sterge imediat. Se
+  // activeaza cand utilizatorul apasa Delete FARA sa aiba nimic selectat.
+  // Cu selectie activa, click pe Delete sterge instant selectia (fara
+  // sa intre in mod). Alt click pe Delete iese din mod.
+  const [deleteMode, setDeleteMode] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [playheadIndex, setPlayheadIndex] = useState(0);
@@ -2559,10 +2563,20 @@ export default function App() {
   // Long-press to enter selection is handled separately (see gesture code
   // on the button itself), not here.
   const selectBuilderChord = (id: string, _index: number) => {
-    // deleteMode ELIMINAT (user explicit - Etapa 4): butonul Delete e
-    // acum actiune-instant. Click pe acord in modul Ch=OFF selecteaza
-    // instant (handler-ul e in beginMove). Click cu selectie activa
-    // (Ch=ON) = toggle in/out.
+    // Delete mode activ -> click pe acord = stergere imediata.
+    // (Modul se activeaza cand apesi Delete FARA selectie; ramane
+    // activ pana la un al doilea click pe Delete sau pana la stergere.)
+    if (deleteMode) {
+      const next = builderRef.current.filter((c) => c.id !== id);
+      setBuilderChords(next);
+      pushBuilderHistory(next);
+      setSelectedBuilderIds((prev) => prev.filter((x) => x !== id));
+      recordSnapshot(topCodeRef.current, guideCodeRef.current);
+      // Iesim din delete mode dupa o stergere - utilizatorul poate
+      // reactiva daca vrea sa stearga mai multe.
+      setDeleteMode(false);
+      return;
+    }
 
     const hasSelection = selectedRef.current.length > 0;
     if (hasSelection) {
@@ -3781,38 +3795,54 @@ export default function App() {
         <div className="mb-2 flex flex-wrap items-center gap-2">
           <h2 className="mr-2 text-sm font-semibold tracking-wide">Chord Progression Builder</h2>
 
-          {/* Delete button (Etapa 4 - user explicit): actiune-instant.
-              Click pe el sterge IMEDIAT selectia curenta (Builder si/sau
-              Table). Nu mai are mod "activ" - butonul ramane mereu Off,
-              cu grafica On la hover/apasare (feedback vizual).
-              Fara selectie -> click nu face nimic (no-op silent). */}
+          {/* Delete button (user explicit - Etapa 4 + revizuire):
+              Are 2 comportamente in functie de context:
+                1. CU selectie in Builder/Table -> STERGE INSTANT selectia
+                   (nu intra in mod). Iese din delete mode daca era activ.
+                2. FARA selectie -> intra/iese in MOD DELETE ACTIV.
+                   Butonul se aprinde (grafica On + fundal verde).
+                   Click pe orice acord din Builder = il sterge imediat.
+              Al doilea click pe Delete iese din modul activ. */}
           <GraphicButton
             offSrc={graphic("delete-off")}
             onSrc={graphic("delete-on")}
+            active={deleteMode}
             width={64}
             height={32}
             onClick={() => {
-              // Sterge selectia din Builder (daca exista).
               const builderSel = selectedRef.current;
-              if (builderSel.length > 0) {
-                const toDelete = new Set(builderSel);
-                const next = builderRef.current.filter((c) => !toDelete.has(c.id));
-                setBuilderChords(next);
-                pushBuilderHistory(next);
-                setSelectedBuilderIds([]);
-                recordSnapshot(topCodeRef.current, guideCodeRef.current);
+              const tableSel = selectedTableChordsRef.current;
+              const hasAnySelection = builderSel.length > 0 || tableSel.length > 0;
+
+              if (hasAnySelection) {
+                // Cu selectie -> stergere instant si iesire din delete mode.
+                if (builderSel.length > 0) {
+                  const toDelete = new Set(builderSel);
+                  const next = builderRef.current.filter((c) => !toDelete.has(c.id));
+                  setBuilderChords(next);
+                  pushBuilderHistory(next);
+                  setSelectedBuilderIds([]);
+                  recordSnapshot(topCodeRef.current, guideCodeRef.current);
+                }
+                if (tableSel.length > 0) {
+                  setSelectedTableChords([]);
+                }
+                setDeleteMode(false);
+                return;
               }
-              // Sterge selectia din Chord Table (daca exista).
-              // In tabel, "stergere" = doar deselectare (butoanele sunt
-              // permanente - reprezinta sugestii de progresii, nu se
-              // pot sterge din UI).
-              if (selectedTableChordsRef.current.length > 0) {
-                setSelectedTableChords([]);
-              }
+
+              // Fara selectie -> toggle mod delete activ.
+              setDeleteMode((prev) => !prev);
             }}
-            title="Delete: sterge instantaneu selectia din Builder (si deselecteaza din Table)."
+            title={
+              deleteMode
+                ? "Delete mode: click pe orice acord din Builder pentru a-l sterge. Click aici pentru a iesi."
+                : "Delete: click pe selectie pentru stergere instant. Fara selectie: activeaza modul delete."
+            }
             ariaLabel="Delete"
-            className="h-8 w-16 rounded-sm border border-black bg-[#FCBF8D] text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]"
+            className={`h-8 w-16 rounded-sm border border-black text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
+              deleteMode ? "bg-green-300 shadow-[0_0_10px_#ff8827]" : "bg-[#FCBF8D]"
+            }`}
           >
             Delete
           </GraphicButton>
@@ -4295,6 +4325,21 @@ export default function App() {
                       //
                       // Snap la mutare NU e activ (Etapa 1) - misclarea e
                       // mereu libera pixel-perfect.
+                      // DELETE MODE ACTIV: click pe orice acord = stergere
+                      // instant (indiferent de Ch On/Off).
+                      if (deleteMode) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        const next = builderRef.current.filter((c) => c.id !== chord.id);
+                        setBuilderChords(next);
+                        pushBuilderHistory(next);
+                        setSelectedBuilderIds((prev) => prev.filter((x) => x !== chord.id));
+                        recordSnapshot(topCodeRef.current, guideCodeRef.current);
+                        // Iesim din delete mode dupa stergere.
+                        setDeleteMode(false);
+                        return;
+                      }
+
                       if (!auditionModeRef.current) {
                         // MODUL OFF: click = selectare + free-move imediat.
                         e.stopPropagation();
