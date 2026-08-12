@@ -3266,35 +3266,33 @@ export default function App() {
     const onRubberMouseMove = (e: MouseEvent) => {
       const start = rubberStartRef.current;
       if (!start) return;
-      // Daca mouse-ul se misca semnificativ (>5px) INAINTE ca timer-ul
-      // sa se implineasca, ACTIVAM rubber-band-ul instant. In modul
-      // Ch = ON (singurul mod in care rubber-band-ul e permis), orice
-      // mousedown + drag inseamna intentia de selectie prin dreptunghi
-      // - nu asteptam long-press-ul complet.
+      // Regula (user explicit):
+      //   - LONG-PRESS (mouse nemiscat >= longPressMs) -> rubber-band activ.
+      //   - SHORT-PRESS + DRAG (mouse-ul se misca INAINTE ca timer-ul
+      //     sa expire) -> ANULEZ rubber-band-ul, las HTML5 drag&drop
+      //     sa preia (drag catre Builder).
+      //
+      // Adica rubber-band-ul se declanseaza DOAR dupa expirarea
+      // timer-ului long-press (adica in callback-ul din setTimeout),
+      // nu la primele 5px de miscare.
       if (!rubberActiveRef.current) {
+        // Rubber-band-ul nu s-a activat inca (timer-ul long-press nu
+        // a expirat). Daca mouse-ul se misca semnificativ, anulam:
+        // e clar ca utilizatorul face drag rapid (HTML5 drag&drop),
+        // nu long-press.
         const dx = e.clientX - start.x;
         const dy = e.clientY - start.y;
         if (dx * dx + dy * dy > 25) {
-          // Activam rubber-band-ul instant.
           if (rubberPressTimerRef.current !== null) {
             window.clearTimeout(rubberPressTimerRef.current);
             rubberPressTimerRef.current = null;
           }
-          rubberActiveRef.current = true;
-          setRubberRect({ left: start.x, top: start.y, width: 0, height: 0 });
-          // Anulam si timer-ul local de long-press al butonului (setat
-          // in onMouseDown-ul butonului) - altfel s-ar declansa si
-          // enterGestureSelection dupa longPressMs.
-          if (longPressTimerRef.current !== null) {
-            window.clearTimeout(longPressTimerRef.current);
-            longPressTimerRef.current = null;
-          }
-          longPressFiredRef.current = false;
-        } else {
-          return;
+          rubberStartRef.current = null;
+          rubberScopeRef.current = null;
         }
+        return;
       }
-      // Actualizam dreptunghiul cat timp rubber band-ul e activ.
+      // Rubber-band-ul e activ - actualizam dreptunghiul.
       const left = Math.min(start.x, e.clientX);
       const top = Math.min(start.y, e.clientY);
       const width = Math.abs(e.clientX - start.x);
