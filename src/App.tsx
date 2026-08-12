@@ -3193,6 +3193,51 @@ export default function App() {
       //       se face doar prin click pe acord individual + free-move.
       if (scope === "builder" && !auditionModeRef.current) return;
 
+      // REGULA (user explicit): dupa ce s-a facut selectie multipla in
+      // tabel, urmatoarea apasare pe un buton DEJA SELECTAT + drag =
+      // HTML5 drag&drop catre Builder (mutare a selectiei), NU alt
+      // rubber-band. Detectam: daca targetul e un buton verde care are
+      // btnId in selectedTableChords, sarim din rubber-band si lasam
+      // dragstart-ul HTML5 sa preia.
+      if (scope === "table") {
+        // Cautam data-table-chord pe target sau ancestor.
+        let n: HTMLElement | null = target;
+        let btnId: string | null = null;
+        while (n) {
+          if (n.getAttribute && n.getAttribute("data-table-chord") !== null) {
+            btnId = n.getAttribute("data-table-chord");
+            break;
+          }
+          n = n.parentElement;
+        }
+        if (btnId && selectedTableChordsRef.current.some((s) => s.btnId === btnId)) {
+          // Butonul apasat e deja in selectie -> HTML5 drag preia.
+          return;
+        }
+      }
+      // Simetric pentru Builder: daca apasarea e pe un acord deja
+      // selectat, nu pornim rubber-band (utilizatorul vrea sa mute).
+      if (scope === "builder") {
+        let n: HTMLElement | null = target;
+        let bIdx: string | null = null;
+        while (n) {
+          if (n.getAttribute && n.getAttribute("data-builder-index") !== null) {
+            bIdx = n.getAttribute("data-builder-index");
+            break;
+          }
+          n = n.parentElement;
+        }
+        if (bIdx !== null) {
+          const idx = Number(bIdx);
+          const chord = builderRef.current[idx];
+          if (chord && selectedRef.current.includes(chord.id)) {
+            // Acordul apasat e deja in selectie -> nu pornim rubber-band
+            // (handler-ul local de mousedown va gestiona drag-ul).
+            return;
+          }
+        }
+      }
+
       // Retinem punctul de start si pornim timer-ul long-press.
       rubberStartRef.current = { x: e.clientX, y: e.clientY };
       rubberScopeRef.current = scope;
