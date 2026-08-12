@@ -1292,6 +1292,10 @@ export default function App() {
   const [guitarLoading, setGuitarLoading] = useState(false);
   const [volume, setVolume] = useState(0.72);
   const [auditionMode, setAuditionMode] = useState(false);
+  // Ref mirror pentru handler-ele globale de mouse care nu pot citi
+  // state-ul React direct (stale closure).
+  const auditionModeRef = useRef(auditionMode);
+  useEffect(() => { auditionModeRef.current = auditionMode; }, [auditionMode]);
   const [flashBuilderId, setFlashBuilderId] = useState<string>("");
 
   // Snapshots start empty so the "Scroll On History" bar shows nothing on
@@ -4092,20 +4096,34 @@ export default function App() {
                     onMouseDown={(e) => {
                       // Butonul stang doar.
                       if (e.button !== 0) return;
-                      // Daca acordul e SELECTAT (sau va fi tot el singur),
-                      // pornim IMEDIAT free-move. Long-press-ul de
-                      // selectie ramane pentru cazul cand acordul NU e
-                      // selectat inca (user tine apasat ca sa selecteze).
-                      if (selected) {
+
+                      // Comportament NOU (user explicit):
+                      //
+                      //  A) Cand `Ch On/Off` = OFF (auditionMode false):
+                      //     - Click pe acord = selectare INSTANTANEE + free-move
+                      //       incepe imediat (nu asteptam long-press).
+                      //     - Nu se aude nimic la apasare.
+                      //     - Long-press-ul e DEZACTIVAT complet aici.
+                      //
+                      //  B) Cand `Ch On/Off` = ON (auditionMode true):
+                      //     - Short press = audi\u0163ie (mouseup rapid < longPressMs)
+                      //     - Long press = intra in selectie multipla + tap-uri
+                      //       urmatoare adauga la selectie.
+                      //     - Mutare DEZACTIVATA in acest mod (drag pe acord
+                      //       nu muta - user asked pentru asta).
+                      //
+                      // Snap la mutare NU e activ (Etapa 1) - misclarea e
+                      // mereu libera pixel-perfect.
+                      if (!auditionModeRef.current) {
+                        // MODUL OFF: click = selectare + free-move imediat.
                         e.stopPropagation();
                         e.preventDefault();
                         beginMove(chord.id, e.clientX);
                         return;
                       }
-                      // Start the long-press timer. If the pointer stays
-                      // pressed for longPressMs, we enter selection mode
-                      // for this chord. Otherwise the mouseup handler
-                      // clears the timer and treats it as a short tap.
+
+                      // MODUL ON: pornim timer de long-press pentru selectie.
+                      // Short-press (mouseup < longPressMs) = audi\u0163ie.
                       longPressFiredRef.current = false;
                       if (longPressTimerRef.current !== null) {
                         window.clearTimeout(longPressTimerRef.current);
