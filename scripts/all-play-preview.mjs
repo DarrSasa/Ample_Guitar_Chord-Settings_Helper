@@ -264,31 +264,36 @@ function buildButtonSvg({ fundal, semn, state }) {
   // ViewBox patrat, dimensiune "virtuala" 100x100 (SVG-ul se scaleaza)
   const isOn = state === 'on';
 
-  // Halo curcubeu (user description):
-  //  - alb-galbui prima (mai gros)
-  //  - cyan a doua
-  //  - magenta a treia (cel mai subtire)
-  //  - spatiu intre cyan si magenta
-  //  - halou nu prea luminos, ingust, realist, transparent
-  //  - putin diformat artistic (obtinut prin scale ne-egal + rotate)
+  // Glow patrat realist (user request: fara halo curcubeu circular).
+  //
+  // Ideea: simulez lumina care emana dintr-un obiect luminos - urmeaza
+  // FORMA butonului (patrat) si se stinge treptat spre exterior. Folosesc
+  // mai multe straturi de <rect> mai mari decat butonul, fiecare cu blur
+  // gaussian tot mai mare - creaza efect de difuzie ambientala reala.
+  //
+  // Culoarea principala: alb-galbui cald (culoarea dominanta a texturii
+  // tale de piatra sticloasa). Culorile cyan/magenta din refractie sunt
+  // adaugate ca tuse subtile intr-un al doilea strat pentru varietate
+  // cromatica, dar NU inele separate - se amesteca in glow-ul principal.
+  //
+  // Toate straturile sunt SUB butonul propriu-zis (renders inainte de
+  // <clipPath>-ul butonului).
   const halo = isOn ? `
-    <g transform="translate(50,50)" opacity="0.65">
-      <!-- Rotire usoara si scale ne-egal (deformare artistica) -->
-      <g transform="rotate(-3) scale(1.02, 0.98)">
-        <!-- Alb-galbui, cel mai gros (ring cel mai apropiat de buton) -->
-        <circle cx="0" cy="0" r="48" fill="none"
-          stroke="#fff8d0" stroke-width="4.5"
-          filter="url(#halo-blur-white)" opacity="0.75"/>
-        <!-- Cyan, mediu -->
-        <circle cx="0" cy="0" r="52" fill="none"
-          stroke="#40e0ff" stroke-width="2.5"
-          filter="url(#halo-blur-cyan)" opacity="0.7"/>
-        <!-- Magenta, cel mai subtire, cu spatiu intre cyan si magenta -->
-        <circle cx="0" cy="0" r="57" fill="none"
-          stroke="#ff40c8" stroke-width="1.5"
-          filter="url(#halo-blur-magenta)" opacity="0.65"/>
-      </g>
-    </g>` : '';
+    <!-- Strat 1: glow foarte larg alb-galbui (raspandire exterioara). -->
+    <rect x="-14" y="-14" width="128" height="128" rx="16"
+      fill="#fff2c0" opacity="0.65" filter="url(#glow-blur-large)"/>
+    <!-- Strat 2: halo mediu alb-galbui cald (langa margini) -->
+    <rect x="-6" y="-6" width="112" height="112" rx="12"
+      fill="#ffdc78" opacity="0.60" filter="url(#glow-blur-medium)"/>
+    <!-- Strat 3: tenta subtila cyan (refractie sticla) -->
+    <rect x="-10" y="-10" width="120" height="120" rx="14"
+      fill="#60d8ff" opacity="0.22" filter="url(#glow-blur-large)"/>
+    <!-- Strat 4: tenta subtila magenta (refractie sticla) -->
+    <rect x="-12" y="-12" width="124" height="124" rx="15"
+      fill="#ff70d0" opacity="0.18" filter="url(#glow-blur-large)"/>
+    <!-- Strat 5: halo strans langa buton pentru "aprindere" clara -->
+    <rect x="0" y="0" width="100" height="100" rx="8"
+      fill="#fff8e0" opacity="0.55" filter="url(#glow-blur-small)"/>` : '';
 
   // Efect "pressed"/"raised": inset shadow interior pentru On, drop shadow
   // pentru Off. Ambele in SVG cu filter.
@@ -315,15 +320,18 @@ function buildButtonSvg({ fundal, semn, state }) {
       <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
 
-    <!-- Halo blur pentru fiecare culoare (transparente diferite) -->
-    <filter id="halo-blur-white" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="1.2"/>
+    <!-- Glow blur pentru straturile de lumina ambientala (halo patrat).
+         3 dimensiuni: small (langa buton) / medium / large (difuzie
+         larga in exterior). stdDeviation controleaza cat de "moale" e
+         raspandirea luminii. -->
+    <filter id="glow-blur-small" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2"/>
     </filter>
-    <filter id="halo-blur-cyan" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="0.9"/>
+    <filter id="glow-blur-medium" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4"/>
     </filter>
-    <filter id="halo-blur-magenta" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="0.7"/>
+    <filter id="glow-blur-large" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7"/>
     </filter>
 
     <!-- Inset shadow pentru starea "pressed" (On, buton introdus) -->
