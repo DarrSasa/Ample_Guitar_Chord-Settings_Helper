@@ -278,22 +278,29 @@ function buildButtonSvg({ fundal, semn, state }) {
   //
   // Toate straturile sunt SUB butonul propriu-zis (renders inainte de
   // <clipPath>-ul butonului).
+  // Halo difuz realist - o singura sursa de lumina, difuzata puternic
+  // prin gaussian blur mare. Marginile patratului dispar complet in
+  // difuzie -> arata ca aureola unei lampi vazute prin lentila, nu ca
+  // chenar patrat.
+  //
+  // Cheia: blur cu stdDeviation FOARTE MARE (10-15) pe un patrat plin
+  // (fara stroke). Astfel marginile clare se dizolva total, ramanand
+  // doar un halo moale.
+  //
+  // Adaug 2 straturi:
+  //  1. Un patrat MARE alb-galbui cald, blur foarte mare -> aura larga
+  //  2. Un patrat mediu alb-cyan-magenta (culoare compozita), blur mediu ->
+  //     miezul luminii, cu tenta multicolora din refractia sticlei
   const halo = isOn ? `
-    <!-- Strat 1: glow foarte larg alb-galbui (raspandire exterioara). -->
-    <rect x="-14" y="-14" width="128" height="128" rx="16"
-      fill="#fff2c0" opacity="0.65" filter="url(#glow-blur-large)"/>
-    <!-- Strat 2: halo mediu alb-galbui cald (langa margini) -->
-    <rect x="-6" y="-6" width="112" height="112" rx="12"
-      fill="#ffdc78" opacity="0.60" filter="url(#glow-blur-medium)"/>
-    <!-- Strat 3: tenta subtila cyan (refractie sticla) -->
+    <!-- Aura larga alb-galbuie: mari + super-blur -> difuzie totala -->
+    <rect x="-20" y="-20" width="140" height="140" rx="20"
+      fill="#ffe08c" opacity="0.7" filter="url(#glow-diffuse-large)"/>
+    <!-- Miez cald cu tenta magenta subtila -->
     <rect x="-10" y="-10" width="120" height="120" rx="14"
-      fill="#60d8ff" opacity="0.22" filter="url(#glow-blur-large)"/>
-    <!-- Strat 4: tenta subtila magenta (refractie sticla) -->
-    <rect x="-12" y="-12" width="124" height="124" rx="15"
-      fill="#ff70d0" opacity="0.18" filter="url(#glow-blur-large)"/>
-    <!-- Strat 5: halo strans langa buton pentru "aprindere" clara -->
-    <rect x="0" y="0" width="100" height="100" rx="8"
-      fill="#fff8e0" opacity="0.55" filter="url(#glow-blur-small)"/>` : '';
+      fill="#ffb890" opacity="0.55" filter="url(#glow-diffuse-medium)"/>
+    <!-- Tenta cyan subtila -->
+    <rect x="-8" y="-8" width="116" height="116" rx="12"
+      fill="#a0e0ff" opacity="0.35" filter="url(#glow-diffuse-large)"/>` : '';
 
   // Efect "pressed"/"raised": inset shadow interior pentru On, drop shadow
   // pentru Off. Ambele in SVG cu filter.
@@ -309,8 +316,11 @@ function buildButtonSvg({ fundal, semn, state }) {
     <rect x="4" y="4" width="92" height="46" rx="6" fill="url(#raised-highlight)" pointer-events="none"/>
     <rect x="4" y="50" width="92" height="46" fill="url(#raised-shadow)" pointer-events="none"/>` : '';
 
+  // viewBox EXTINS pentru a incapea halo-ul difuz (butonul ramane la
+  // 4..96, dar halo-ul iese la -20 si 120). preserveAspectRatio ramane
+  // default (xMidYMid meet) - butonul e centrat in containerul HTML/CSS.
   return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 -30 160 160" width="160" height="160">
   <defs>
     <!-- Umbre exterioare (drop shadow "cade lumina de sus") -->
     <filter id="drop-shadow-btn" x="-20%" y="-20%" width="140%" height="150%">
@@ -320,18 +330,15 @@ function buildButtonSvg({ fundal, semn, state }) {
       <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
 
-    <!-- Glow blur pentru straturile de lumina ambientala (halo patrat).
-         3 dimensiuni: small (langa buton) / medium / large (difuzie
-         larga in exterior). stdDeviation controleaza cat de "moale" e
-         raspandirea luminii. -->
-    <filter id="glow-blur-small" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="2"/>
+    <!-- Filtre pentru halo DIFUZ (nu chenar!). stdDeviation mare
+         dizolva complet marginile patratului -> difuzie continua a
+         luminii, ca aureola unei lampi vazute prin lentila.
+         Regiunea filtrului (-80%..180%) e larga ca sa nu taie difuzia. -->
+    <filter id="glow-diffuse-medium" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="8"/>
     </filter>
-    <filter id="glow-blur-medium" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="4"/>
-    </filter>
-    <filter id="glow-blur-large" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="7"/>
+    <filter id="glow-diffuse-large" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="12"/>
     </filter>
 
     <!-- Inset shadow pentru starea "pressed" (On, buton introdus) -->
@@ -366,10 +373,11 @@ function buildButtonSvg({ fundal, semn, state }) {
     </clipPath>
   </defs>
 
-  <g filter="url(#drop-shadow-btn)">
-    <!-- Halo (doar cand ON) sub buton -->
-    ${halo}
+  <!-- Halo (doar cand ON) SUB tot restul - inainte de drop-shadow, fara
+       filter parent care sa-l taie. -->
+  ${halo}
 
+  <g filter="url(#drop-shadow-btn)">
     <!-- Buton continut - clip patrat -->
     <g clip-path="url(#btn-clip)">
       <!-- Fundal buton (piatra sticloasa) -->
