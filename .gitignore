@@ -18,3 +18,7 @@ portable-out/
 installer-out/
 .desktop-build/
 Ample Guitar Chord Progression Helper/
+
+# Fisiere intermediare generate de scripturile PSD (self-contained HTMLs
+# le au deja embedded ca base64, deci PNG-urile nu sunt necesare in git).
+docs/graphics/generated/
