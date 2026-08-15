@@ -2415,7 +2415,18 @@ export default function App() {
     pushSnapshot({ topCode: nextTopCode, guideCode: nextGuideCode, label });
   };
 
-  const addChordToBuilderAndRecord = (label: string, targetCode: number, insertIndex?: number) => {
+  const addChordToBuilderAndRecord = (
+    label: string,
+    targetCode: number,
+    insertIndex?: number,
+    // Optional: pozitia + lungimea EXACTA (in beats) pentru noul acord,
+    // calculata de computeDropPlan. Cand e dat, ignora logica default
+    // (progressionEndBeat / shifted tail) si foloseste direct valorile.
+    // Modelul DAW: acordurile au pozitii absolute, deci nu se face
+    // "shift" pe restul progresiei - noul acord se plaseaza EXACT unde
+    // spune planul.
+    dropPos?: { startBeat: number; beats: number }
+  ) => {
     const base = builderRef.current;
     // Reject if the progression is already at the hard limit the spec
     // sets (360 bars x 4 = 1440 chords).
@@ -2424,19 +2435,20 @@ export default function App() {
       return;
     }
     const safeIndex = Math.max(0, Math.min(insertIndex ?? base.length, base.length));
-    // New chord gets its duration from the CURRENT snap value. Existing
-    // chords keep whatever beats they were added with (that's why we
-    // store `beats` per chord and never rewrite it when snap changes).
-    const beatsForNewChord = snapDurationBeats(snapRef.current);
+    const beatsForNewChord = dropPos ? dropPos.beats : snapDurationBeats(snapRef.current);
     // Model DAW: pozitia noului acord.
-    //  - insertIndex === base.length (adaugare la coada): se lipeste
-    //    de sfarsitul progresiei (progressionEndBeat).
-    //  - insertIndex intermediar: se pune la startBeat-ul acordului
-    //    care era pe pozitia respectiva (impinge acordurile din dreapta
-    //    cu beatsForNewChord ca sa faca loc).
+    //  - dropPos setat -> foloseste startBeat exact (fara shift pe tail).
+    //  - insertIndex === base.length (adaugare la coada, fara dropPos):
+    //    se lipeste de sfarsitul progresiei (progressionEndBeat).
+    //  - insertIndex intermediar (fara dropPos): startBeat = al acordului
+    //    de acolo, restul se shift (legacy path pentru context menu etc.).
     let startBeatForNew: number;
     let shiftedTail: BuilderChord[];
-    if (safeIndex >= base.length) {
+    if (dropPos) {
+      startBeatForNew = dropPos.startBeat;
+      // Fara shift - modelul DAW pastreaza pozitiile absolute.
+      shiftedTail = base.slice(safeIndex).map((c) => ({ ...c }));
+    } else if (safeIndex >= base.length) {
       startBeatForNew = progressionEndBeat(base);
       shiftedTail = [];
     } else {
@@ -2497,7 +2509,11 @@ export default function App() {
   // setBuilderChords + pushBuilderHistory + (optional) recordSnapshot.
   const addChordsToBuilderAndRecord = (
     items: Array<{ label: string; code: number }>,
-    insertIndex?: number
+    insertIndex?: number,
+    // Optional: pozitii + lungimi EXACTE pentru fiecare acord, calculate
+    // de computeDropPlan. Trebuie sa aiba EXACT items.length elemente.
+    // Cand e dat, ignora logica default (cursor / shifted tail).
+    dropPositions?: Array<{ startBeat: number; beats: number }>
   ) => {
     if (items.length === 0) return;
     const base = builderRef.current;
@@ -2506,34 +2522,47 @@ export default function App() {
       return;
     }
     const safeIndex = Math.max(0, Math.min(insertIndex ?? base.length, base.length));
-    // All chords in the batch get the same beats value (the current Snap).
-    const beatsForNewChord = snapDurationBeats(snapRef.current);
-    // Model DAW: calculam startBeat pentru fiecare acord nou, unul dupa
-    // altul, plecand fie de la sfarsitul progresiei (adaugare la coada),
-    // fie de la startBeat-ul acordului aflat pe pozitia de inserare.
-    const totalShift = beatsForNewChord * items.length;
-    let cursor: number;
+    const defaultBeats = snapDurationBeats(snapRef.current);
+
+    let newBlocks: BuilderChord[];
     let shiftedTail: BuilderChord[];
-    if (safeIndex >= base.length) {
-      cursor = progressionEndBeat(base);
-      shiftedTail = [];
-    } else {
-      cursor = base[safeIndex].startBeat;
-      shiftedTail = base.slice(safeIndex).map((c) => ({
-        ...c,
-        startBeat: c.startBeat + totalShift,
-      }));
-    }
-    const newBlocks: BuilderChord[] = items.map((it) => {
-      const startBeat = cursor;
-      cursor += beatsForNewChord;
-      return {
+
+    if (dropPositions && dropPositions.length === items.length) {
+      // Path explicit din computeDropPlan: fiecare acord are pozitia sa
+      // exacta. Fara shift pe tail (modelul DAW pastreaza pozitii absolute).
+      newBlocks = items.map((it, i) => ({
         id: crypto.randomUUID(),
         label: it.label,
-        beats: beatsForNewChord,
-        startBeat,
-      };
-    });
+        beats: dropPositions[i].beats,
+        startBeat: dropPositions[i].startBeat,
+      }));
+      shiftedTail = base.slice(safeIndex).map((c) => ({ ...c }));
+    } else {
+      // Legacy path: cursor incrementat + shifted tail (context menu, paste).
+      const totalShift = defaultBeats * items.length;
+      let cursor: number;
+      if (safeIndex >= base.length) {
+        cursor = progressionEndBeat(base);
+        shiftedTail = [];
+      } else {
+        cursor = base[safeIndex].startBeat;
+        shiftedTail = base.slice(safeIndex).map((c) => ({
+          ...c,
+          startBeat: c.startBeat + totalShift,
+        }));
+      }
+      newBlocks = items.map((it) => {
+        const startBeat = cursor;
+        cursor += defaultBeats;
+        return {
+          id: crypto.randomUUID(),
+          label: it.label,
+          beats: defaultBeats,
+          startBeat,
+        };
+      });
+    }
+
     const nextBuilder = [
       ...base.slice(0, safeIndex),
       ...newBlocks,
@@ -2733,6 +2762,172 @@ export default function App() {
       }
     }
     return builderRef.current.length;
+  };
+
+  // ------------------------------------------------------------------
+  // Drop planning: computeDropPlan (user explicit)
+  // ------------------------------------------------------------------
+  // Analizeaza pozitia drop-ului si numarul de acorduri si returneaza un
+  // plan cu pozitiile + lungimile pentru fiecare acord nou. Nu modifica
+  // state - doar calculeaza.
+  //
+  // Reguli (rezumat):
+  //   (a) Drop in gap INGUST (gap < snap): umple gap-ul; N acorduri
+  //       impart gap-ul egal (gap/N pentru fiecare, lipite).
+  //   (d) Drop in gap LARG (gap >= snap) sau in zona alba libera:
+  //       snap la cea mai apropiata bara ritmica din STANGA cursorului.
+  //       Fiecare acord = snap beats, lipite unul de altul.
+  //   Snap = None: se aplica regula (a) pentru orice drop in gap
+  //       (umple exact); pentru drop dupa progresie -> lipite la coada.
+  //   (e) Drop dupa progresie: primul acord la cea mai apropiata bara
+  //       ritmica din stanga cursorului, restul lipite in lant (fiecare
+  //       lat de snap-uri).
+
+  type DropPlan = {
+    // Pentru fiecare acord: startBeat + beats.
+    items: Array<{ startBeat: number; beats: number }>;
+    // insertIndex in array-ul builder-ului (pentru sortare consistenta).
+    // Restul acordurilor care erau la insertIndex si dupa NU se muta
+    // (modelul DAW: fiecare acord are startBeat absolut, deci nu e
+    // nevoie de "shift" la insert).
+    insertIndex: number;
+  };
+
+  const computeDropPlan = (clientX: number, itemsCount: number): DropPlan => {
+    const list = sortBuilderByStart(builderRef.current);
+    const bw = effectiveBeatWidthRef.current || BEAT_WIDTH;
+    const currentSnap = snapRef.current;
+    const snapBeats = snapDurationBeats(currentSnap);
+
+    // Aflam startBeat unde a cazut cursorul (in beats de la 0).
+    // Pentru asta ne folosim de containerul builder-strip si offset-ul
+    // de scroll.
+    const stripEl = document.querySelector<HTMLElement>("[data-builder-strip]");
+    if (!stripEl) {
+      // Fallback: la coada progresiei.
+      const start = progressionEndBeat(list);
+      const beats = snapBeats;
+      return {
+        items: Array.from({ length: itemsCount }, (_, i) => ({
+          startBeat: start + i * beats,
+          beats,
+        })),
+        insertIndex: list.length,
+      };
+    }
+    const rect = stripEl.getBoundingClientRect();
+    const dropX = clientX - rect.left; // pixeli in strip (fara scroll)
+    const dropBeat = dropX / bw;       // beats de la 0
+
+    // Cautam prev (ultimul acord CU startBeat + beats <= dropBeat) si
+    // next (primul acord CU startBeat >= dropBeat).
+    let prev: BuilderChord | null = null;
+    let next: BuilderChord | null = null;
+    let insertIndex = list.length;
+    for (let i = 0; i < list.length; i++) {
+      const c = list[i];
+      const cEnd = c.startBeat + c.beats;
+      if (cEnd <= dropBeat) {
+        prev = c;
+      } else {
+        // Primul acord care are startBeat sau end dupa dropBeat.
+        if (c.startBeat >= dropBeat) {
+          next = c;
+          insertIndex = i;
+          break;
+        } else {
+          // dropBeat cade in interiorul acordului (nu ideal - il
+          // consideram ca "peste" acord, insertIndex = dupa el).
+          insertIndex = i + 1;
+        }
+      }
+    }
+    if (!next && prev) insertIndex = list.length;
+
+    // Calculam gap-ul intre prev.end si next.start (sau end progresie).
+    const gapStart = prev ? prev.startBeat + prev.beats : 0;
+    const gapEnd = next ? next.startBeat : Number.POSITIVE_INFINITY;
+    const gapSize = gapEnd - gapStart;
+
+    // ---------------------------------------------------------------
+    // Cazuri:
+    // ---------------------------------------------------------------
+    // Caz 1: Snap = None → umple gap sau lipeste la coada.
+    if (currentSnap === "None") {
+      if (!next) {
+        // Drop dupa progresie - lipite la coada, fiecare cu snap default.
+        const defaultBeats = DEFAULT_CHORD_BEATS;
+        return {
+          items: Array.from({ length: itemsCount }, (_, i) => ({
+            startBeat: gapStart + i * defaultBeats,
+            beats: defaultBeats,
+          })),
+          insertIndex,
+        };
+      }
+      // Umple gap: fiecare acord = gap/N.
+      const each = gapSize / itemsCount;
+      return {
+        items: Array.from({ length: itemsCount }, (_, i) => ({
+          startBeat: gapStart + i * each,
+          beats: each,
+        })),
+        insertIndex,
+      };
+    }
+
+    // Caz 2: Snap != None si gap ingust (gap < snap * itemsCount).
+    // Umple gap-ul, impartit egal. Ignora snap-ul (nu incape).
+    // Verificare: fara `next` (drop dupa progresie) - nu e "gap ingust",
+    // trece la caz 3.
+    if (next && gapSize < snapBeats * itemsCount) {
+      const each = gapSize / itemsCount;
+      return {
+        items: Array.from({ length: itemsCount }, (_, i) => ({
+          startBeat: gapStart + i * each,
+          beats: each,
+        })),
+        insertIndex,
+      };
+    }
+
+    // Caz 3: Snap != None si gap larg SAU drop dupa progresie.
+    // Snap la bara ritmica din STANGA cursorului (regula d, e).
+    // Bara din stanga = Math.floor(dropBeat / snap) * snap.
+    let firstStart = Math.floor(dropBeat / snapBeats) * snapBeats;
+    // Nu putem intra peste prev (acordul din stanga) - clamp la gapStart.
+    if (firstStart < gapStart) firstStart = gapStart;
+    // Nici depasi gapEnd (acordul din dreapta, daca exista).
+    // Grup de N ocupa firstStart .. firstStart + N*snap. Daca depaseste
+    // gapEnd, comprimam ultimul acord ca sa nu treaca peste next.
+    const items: Array<{ startBeat: number; beats: number }> = [];
+    for (let i = 0; i < itemsCount; i++) {
+      const st = firstStart + i * snapBeats;
+      // Ultimul acord poate fi trunchiat daca depaseste gapEnd.
+      let bt = snapBeats;
+      if (next && st + bt > gapEnd) {
+        bt = Math.max(MIN_CHORD_BEATS, gapEnd - st);
+      }
+      if (bt < MIN_CHORD_BEATS) {
+        // Nu mai avem loc - opresc si return.
+        break;
+      }
+      items.push({ startBeat: st, beats: bt });
+    }
+    // Daca n-am putut plasa niciun acord (fara loc), fallback la caz 1
+    // (umple gap-ul integral).
+    if (items.length === 0 && next) {
+      const each = gapSize / itemsCount;
+      return {
+        items: Array.from({ length: itemsCount }, (_, i) => ({
+          startBeat: gapStart + i * each,
+          beats: each,
+        })),
+        insertIndex,
+      };
+    }
+
+    return { items, insertIndex };
   };
 
   const togglePlay = () => {
@@ -4221,13 +4416,11 @@ export default function App() {
             }
           }}
           onDrop={(e) => {
-            const insertIndex = findBuilderInsertIndex(e.clientX);
-
             // Internal Builder reorder drop (into whitespace or between
-            // chords). Route to reorderSelection, which already knows how
-            // to handle groups, non-consecutive selections, and end-of-list.
+            // chords). Route to reorderSelection, care primeste index.
             if (isDraggingBuilderRef.current) {
               e.preventDefault();
+              const insertIndex = findBuilderInsertIndex(e.clientX);
               reorderSelection(insertIndex);
               return;
             }
@@ -4238,30 +4431,27 @@ export default function App() {
             e.preventDefault();
 
             if (multiJson) {
-              // Multi-drop from the table. Parse the JSON payload and
-              // insert ALL chords in one batched state update via
-              // addChordsToBuilderAndRecord. Doing this in a forEach loop
-              // with addChordToBuilderAndRecord fails: builderRef.current
-              // stays stale across the synchronous loop, so only the last
-              // insert survives (which was the "only one chord made it"
-              // bug the user reported).
               try {
                 const items: Array<{ label: string; code: number }> = JSON.parse(multiJson);
                 if (Array.isArray(items) && items.length > 0) {
-                  addChordsToBuilderAndRecord(items, insertIndex);
+                  // computeDropPlan analizeaza pozitia cursorului si
+                  // decide (a) gap ingust / (d) bara ritmica / (e) dupa
+                  // progresie - vezi definitia functiei pentru reguli.
+                  const plan = computeDropPlan(e.clientX, items.length);
+                  addChordsToBuilderAndRecord(items, plan.insertIndex, plan.items);
                   return;
                 }
               } catch (err) {
                 console.error("[builder onDrop] multi payload parse failed:", err);
-                // Fall through to single-chord path below.
               }
             }
 
-            // Single-chord drop (legacy / non-multi drag).
+            // Single-chord drop.
             const codeStr = e.dataTransfer.getData("application/x-progression-code");
             const droppedCode = codeStr ? Number(codeStr) : NaN;
             const targetCode = Number.isFinite(droppedCode) ? droppedCode : topCodeRef.current;
-            addChordToBuilderAndRecord(label, targetCode, insertIndex);
+            const plan = computeDropPlan(e.clientX, 1);
+            addChordToBuilderAndRecord(label, targetCode, plan.insertIndex, plan.items[0]);
           }}
           onContextMenu={(e) => {
             e.preventDefault();
