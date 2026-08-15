@@ -3791,9 +3791,13 @@ export default function App() {
         </div>
       </section>
 
-      <section className="border border-black bg-white/35 p-2">
+      {/* Sectiunea "Chord Progression Builder" cu fundal albastru inchis
+          (#003970) - culoarea din PSD-ul all-pause.psd, layer
+          "fundal-sectiunea-builder", specificat de user.
+          Textul devine alb pentru contrast pe albastru inchis. */}
+      <section className="border border-black p-2" style={{ backgroundColor: "#003970", color: "#fff" }}>
         <div className="mb-2 flex flex-wrap items-center gap-2">
-          <h2 className="mr-2 text-sm font-semibold tracking-wide">Chord Progression Builder</h2>
+          <h2 className="mr-2 text-sm font-semibold tracking-wide text-white">Chord Progression Builder</h2>
 
           {/* Delete button (user explicit - Etapa 4 + revizuire):
               Are 2 comportamente in functie de context:
@@ -3858,20 +3862,19 @@ export default function App() {
                 (triunghi), tap = porneste redarea.
               - Cand CANTA (isPlaying=true): afiseaza grafica "pause"
                 (doua bare), tap = pauza (playhead ramane pe loc).
-              `active` reflecta ca playback-ul e in curs SAU pe pauza -
-              butonul apare in stare On (luminos) pentru feedback vizual. */}
+              PSD-urile all-play/all-pause CONTIN DEJA halo/umbra cu
+              Feather - imaginea PNG (500x500) include tot ce e vizual
+              necesar. Butonul e patrat, ~2x mai mare decat versiunea
+              anterioara. Halo poate iesi in afara zonei de click. */}
           <GraphicButton
             offSrc={isPlaying ? graphic("pause-off") : graphic("play-off")}
             onSrc={isPlaying ? graphic("pause-on") : graphic("play-on")}
             active={isPlaying || isPaused}
-            width={80}
-            height={32}
+            width={96}
+            height={96}
             onClick={togglePlay}
             title={isPlaying ? "Pause playback (playhead stays put)" : "Play the progression"}
             ariaLabel={isPlaying ? "Pause" : "Play"}
-            className={`h-8 w-20 rounded-sm border border-black text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
-              isPlaying || isPaused ? "bg-green-300 shadow-[0_0_10px_#ff8827]" : "bg-[#FCBF8D]"
-            }`}
           >
             {isPlaying ? "Pause" : "Play"}
           </GraphicButton>
