@@ -3741,16 +3741,15 @@ export default function App() {
             - Container height matches the chord-table row height (h-10 =
               40px inner + 1px padding + 1px border top/bottom) so the two
               feel visually consistent.
+            - User explicit: banda alba PASTREAZA MEREU grosimea chiar cand
+              e goala (fara snapshot-uri) - inainte se stringea la 0px
+              cand nu era nimic in ea si se latea doar cand aparea un
+              acord. Acum e mereu h-10.
             - overflow-x-scroll (not -auto) forces the horizontal scrollbar
-              to ALWAYS be visible, mirroring the vertical scrollbar of the
-              chord table below. Matches the user's request to have a
-              persistent horizontal 'scroll bar' under this section.
-            - HISTORY_GAP is now 0, so blocks sit edge-to-edge (see const at
-              top of file). The `border` on each block gives us a clean 1px
-              divider between neighbours - no double lines because adjacent
-              borders collapse visually. */}
-        <div className="overflow-x-scroll border border-black bg-white/70 px-1 py-1">
-          <div className="flex items-center" style={{ gap: HISTORY_GAP }}>
+              to ALWAYS be visible.
+            - HISTORY_GAP = 0 -> blocuri lipite edge-to-edge. */}
+        <div className="h-10 overflow-x-scroll border border-black bg-white/70 px-1 py-1">
+          <div className="flex h-full items-center" style={{ gap: HISTORY_GAP }}>
             {historyItems.map((item, pickIndex) => {
               const { code, label: blockLabel } = item;
               const selected = guidePickIndex === pickIndex;
@@ -3794,10 +3793,17 @@ export default function App() {
       {/* Sectiunea "Chord Progression Builder" cu fundal albastru inchis
           (#003970) - culoarea din PSD-ul all-pause.psd, layer
           "fundal-sectiunea-builder", specificat de user.
-          Textul devine alb pentru contrast pe albastru inchis. */}
+          Textul devine alb pentru contrast pe albastru inchis.
+
+          Layout (user explicit):
+            - Titlul "Chord Progression Builder" pe rand separat, sus-stanga
+              (lasa loc pe viitor pentru mai multe controale)
+            - Butoanele pe randul de dedesubt, cu flex-nowrap ca sa NU se
+              rupa Pause dedesubtul lui Play cand butoanele sunt mari
+              (96x96) - Pause trebuie sa stea la dreapta lui Play. */}
       <section className="border border-black p-2" style={{ backgroundColor: "#003970", color: "#fff" }}>
-        <div className="mb-2 flex flex-wrap items-center gap-2">
-          <h2 className="mr-2 text-sm font-semibold tracking-wide text-white">Chord Progression Builder</h2>
+        <h2 className="mb-2 text-sm font-semibold tracking-wide text-white">Chord Progression Builder</h2>
+        <div className="mb-2 flex flex-nowrap items-center gap-2 overflow-x-auto">
 
           {/* Delete button (user explicit - Etapa 4 + revizuire):
               Are 2 comportamente in functie de context:
