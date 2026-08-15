@@ -3737,19 +3737,23 @@ export default function App() {
           </div>
         </div>
 
-        {/* Scroll On History bar.
-            - Container height matches the chord-table row height (h-10 =
-              40px inner + 1px padding + 1px border top/bottom) so the two
-              feel visually consistent.
-            - User explicit: banda alba PASTREAZA MEREU grosimea chiar cand
-              e goala (fara snapshot-uri) - inainte se stringea la 0px
-              cand nu era nimic in ea si se latea doar cand aparea un
-              acord. Acum e mereu h-10.
-            - overflow-x-scroll (not -auto) forces the horizontal scrollbar
-              to ALWAYS be visible.
-            - HISTORY_GAP = 0 -> blocuri lipite edge-to-edge. */}
-        <div className="h-10 overflow-x-scroll border border-black bg-white/70 px-1 py-1">
-          <div className="flex h-full items-center" style={{ gap: HISTORY_GAP }}>
+        {/* Scroll On History strip.
+            Terminologie (user explicit):
+              - "chord block" = un buton individual cu un acord
+              - "chord strip" = banda orizontala cu blocuri (asta aici)
+              - "block height" = grosimea unui bloc (~40px = h-10)
+
+            User explicit: grosimea BENZII trebuie sa fie CAT UN BLOC
+            (~40px), NU bloc+scrollbar. Scroll bar-ul apare SEPARAT
+            SUB benzii, nu taie din grosimea blocurilor.
+
+            De aceea folosim h-14 (56px) = 40px pentru banda cu blocuri
+            + 16px pentru scroll bar dedesubt. Banda ramane la grosimea
+            ceruta chiar cand nu sunt snapshot-uri (h-10 fix pe wrapper
+            interior).
+        */}
+        <div className="overflow-x-scroll border border-black bg-white/70">
+          <div className="flex h-10 items-center px-1" style={{ gap: HISTORY_GAP }}>
             {historyItems.map((item, pickIndex) => {
               const { code, label: blockLabel } = item;
               const selected = guidePickIndex === pickIndex;
@@ -3872,18 +3876,53 @@ export default function App() {
               Feather - imaginea PNG (500x500) include tot ce e vizual
               necesar. Butonul e patrat, ~2x mai mare decat versiunea
               anterioara. Halo poate iesi in afara zonei de click. */}
-          <GraphicButton
-            offSrc={isPlaying ? graphic("pause-off") : graphic("play-off")}
-            onSrc={isPlaying ? graphic("pause-on") : graphic("play-on")}
-            active={isPlaying || isPaused}
-            width={96}
-            height={96}
-            onClick={togglePlay}
-            title={isPlaying ? "Pause playback (playhead stays put)" : "Play the progression"}
-            ariaLabel={isPlaying ? "Pause" : "Play"}
-          >
-            {isPlaying ? "Pause" : "Play"}
-          </GraphicButton>
+          {/* Play + Pause: DOUA butoane SEPARATE, una langa alta (user
+              explicit). Anterior era UN singur buton care schimba grafica
+              intre Play si Pause dupa `isPlaying` - user vrea sa se vada
+              ambele mereu.
+                - Butonul PLAY:  cand se apasa -> porneste redarea.
+                  Cand redarea e activa (isPlaying=true), apare aprins (On).
+                - Butonul PAUSE: cand se apasa -> pauza (playhead ramane pe loc).
+                  Cand e pe pauza (isPaused=true), apare aprins (On).
+              PSD-urile contin deja halo/umbra cu Feather - imaginea PNG
+              include tot ce e vizual necesar. flex-shrink: 0 ca butoanele
+              sa nu se comprime in container flex + `overflow-x-auto` pe
+              parintele lor. */}
+          <div style={{ flexShrink: 0 }}>
+            <GraphicButton
+              offSrc={graphic("play-off")}
+              onSrc={graphic("play-on")}
+              active={isPlaying}
+              width={96}
+              height={96}
+              onClick={() => {
+                // Daca e deja in redare, nu face nimic (evita restart accidental).
+                if (isPlaying) return;
+                togglePlay();
+              }}
+              title="Play the progression"
+              ariaLabel="Play"
+            >
+              Play
+            </GraphicButton>
+          </div>
+          <div style={{ flexShrink: 0 }}>
+            <GraphicButton
+              offSrc={graphic("pause-off")}
+              onSrc={graphic("pause-on")}
+              active={isPaused}
+              width={96}
+              height={96}
+              onClick={() => {
+                // Doar cand redarea e activa - altfel butonul nu are efect.
+                if (isPlaying) togglePlay();
+              }}
+              title="Pause playback (playhead stays put)"
+              ariaLabel="Pause"
+            >
+              Pause
+            </GraphicButton>
+          </div>
 
           <GraphicButton
             offSrc={graphic("stop-off")}
