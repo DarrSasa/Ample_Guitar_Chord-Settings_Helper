@@ -610,11 +610,42 @@ function TimeBar(props: {
   const gridStepBeats = subsPerBar === 0 ? BEATS_PER_BAR : BEATS_PER_BAR / subsPerBar;
   const gridStepPx = gridStepBeats * pixelsPerBeat;
 
+  // Snap-eaza X (in pixeli) la cea mai apropiata linie de grid conform
+  // snap-ului curent. Cand snap = None (subsPerBar = 0) -> fara snap
+  // (miscare libera pixel-perfect).
+  const snapX = (rawX: number): number => {
+    if (snap === "None") return Math.max(0, Math.min(rulerWidthPx, rawX));
+    return Math.max(0, Math.min(rulerWidthPx, Math.round(rawX / gridStepPx) * gridStepPx));
+  };
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const rawX = e.clientX - rect.left;
-    const snappedX = Math.max(0, Math.min(rulerWidthPx, Math.round(rawX / gridStepPx) * gridStepPx));
-    onSeek(snappedX);
+    onSeek(snapX(rawX));
+  };
+
+  // Drag pe capul playhead-ului: la mousedown pe SVG-ul playhead-ului,
+  // atasam listeners globali pana la mouseup - astfel drag-ul continua
+  // chiar daca cursorul iese din Time Bar in timpul miscarii.
+  const timeBarRef = useRef<HTMLDivElement | null>(null);
+  const beginPlayheadDrag = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const barEl = timeBarRef.current;
+    if (!barEl) return;
+    const barRect = barEl.getBoundingClientRect();
+    const onMove = (mv: MouseEvent) => {
+      const rawX = mv.clientX - barRect.left;
+      onSeek(snapX(rawX));
+    };
+    const onUp = () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+      document.documentElement.classList.remove("cursor-grabbing");
+    };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+    document.documentElement.classList.add("cursor-grabbing");
   };
 
   const barNumbers: React.ReactElement[] = [];
@@ -622,66 +653,80 @@ function TimeBar(props: {
     barNumbers.push(
       <div
         key={`bar-${b}`}
-        className="pointer-events-none absolute top-0 h-full border-l border-black"
+        className="pointer-events-none absolute top-0 h-full border-l border-white/30"
         style={{ left: `${b * barWidthPx}px`, width: `${barWidthPx}px` }}
       >
-        {/* Bar number stuck FLUSH-LEFT next to the vertical bar line
-            (per user request: "numerele lipite direct de linia
-            verticala, imediat in dreapta ei, foarte aproape de linie").
-            padding-left 2px is enough to keep the digit off the line
-            while still reading as "attached". */}
-        <span className="absolute left-[2px] top-[2px] text-[11px] font-semibold leading-none text-black">
+        {/* Bar number in ALB pe fundal negru (user explicit). Lipit
+            direct de linia verticala din stanga. */}
+        <span className="absolute left-[2px] top-[2px] text-[11px] font-semibold leading-none text-white">
           {b + 1}
         </span>
       </div>
     );
   }
 
+  // Playhead SVG modern (user explicit):
+  //  - triunghi ECHILATERAL (laturi egale)
+  //  - baza SUS (lipita de top-ul TimeBar), varful JOS (in interior)
+  //  - inaltime = JUMATATE din TIME_BAR_H
+  //  - glow subtil (drop-shadow portocaliu-lumincos)
+  //  - stil sci-fi: gradient cyan spre alb, aspect luminos
+  //  - draggable: click+drag pe el il muta pe Time Bar respectand snap
+  const triH = Math.round(TIME_BAR_H / 2);
+  // Echilateral: baza = triH * 2/sqrt(3) ~= triH * 1.155
+  const triW = Math.round(triH * (2 / Math.sqrt(3)));
+  // Extra latime pentru glow (nu se decupeaza)
+  const svgW = triW + 12;
+  const svgH = TIME_BAR_H + 4;
+
   return (
     <div
+      ref={timeBarRef}
       role="slider"
       aria-label="Time bar"
       onClick={handleClick}
-      className="relative cursor-pointer border-b border-black bg-[#e8e8e8] select-none"
-      style={{ height: TIME_BAR_H, width: `${rulerWidthPx}px` }}
+      className="relative cursor-pointer border-b border-black select-none"
+      style={{ height: TIME_BAR_H, width: `${rulerWidthPx}px`, backgroundColor: "#000" }}
     >
       {barNumbers}
-      {/* Playhead marker occupying the FULL Time Bar height. Triangle
-          shape with the base at the TOP of the Time Bar and the tip at
-          the BOTTOM - so the tip is exactly on the top edge of the
-          Builder chord strip immediately below, where the vertical
-          playhead line begins. This satisfies both:
-            - "raise the triangle and stick it to the TOP of the Time
-              Bar so it's fully visible and not buried below" (base at
-              top: 0),
-            - "the vertical playhead line coincides with the DOWN tip
-              of the triangle" (the tip's y is at TIME_BAR_HEIGHT,
-              which is where the chord strip starts).
-          Rendered as an SVG so the drop-shadow filter on the polygon
-          only applies to the actual triangle shape, not a hidden
-          bounding box. */}
-      {(() => {
-        const triH = TIME_BAR_H;
-        const triW = Math.round(TIME_BAR_H * 0.6);
-        return (
-          <svg
-            className="pointer-events-none absolute top-0 z-10"
-            style={{
-              left: `${Math.max(0, playheadX - triW / 2)}px`,
-              width: triW,
-              height: triH,
-              overflow: "visible",
-              filter: "drop-shadow(0 0 6px #ff8827)",
-            }}
-            viewBox={`0 0 ${triW} ${triH}`}
-          >
-            <polygon
-              points={`0,0 ${triW},0 ${triW / 2},${triH}`}
-              fill="#ff8827"
-            />
-          </svg>
-        );
-      })()}
+      <svg
+        className="absolute top-0 z-10"
+        style={{
+          left: `${Math.max(-6, playheadX - svgW / 2)}px`,
+          width: svgW,
+          height: svgH,
+          overflow: "visible",
+          cursor: "grab",
+        }}
+        viewBox={`0 0 ${svgW} ${svgH}`}
+        onMouseDown={beginPlayheadDrag}
+      >
+        <defs>
+          <linearGradient id="playhead-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#ffffff" stopOpacity="0.95"/>
+            <stop offset="0.5" stopColor="#7cdcff" stopOpacity="0.85"/>
+            <stop offset="1" stopColor="#00b0ff" stopOpacity="0.9"/>
+          </linearGradient>
+          <filter id="playhead-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="1.6"/>
+          </filter>
+        </defs>
+        {/* Glow layer sub triunghi (blur mare, culoare cyan-alb) */}
+        <polygon
+          points={`${(svgW - triW) / 2},2 ${(svgW + triW) / 2},2 ${svgW / 2},${triH + 2}`}
+          fill="#7cdcff"
+          opacity="0.6"
+          filter="url(#playhead-glow)"
+        />
+        {/* Triunghi principal cu gradient */}
+        <polygon
+          points={`${(svgW - triW) / 2},2 ${(svgW + triW) / 2},2 ${svgW / 2},${triH + 2}`}
+          fill="url(#playhead-grad)"
+          stroke="#ffffff"
+          strokeWidth="0.7"
+          strokeLinejoin="round"
+        />
+      </svg>
     </div>
   );
 }

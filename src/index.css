@@ -19,47 +19,43 @@
  * gracefully - Firefox falls back to its native styling.
  */
 
+/* Scrollbar visual style (user explicit): sa arate ca ZoomSlider-ul de
+   sub Builder - track gri-crem cu border negru + thumb gri inchis cu
+   mânere. Doar ASPECTUL vizual - fara zoom in/out (raman scrollbar-uri
+   normale, doar restilizate). */
 ::-webkit-scrollbar {
-  /* User asked for another 2x (previously 24, before that 12). Now 48px
-     - very chunky, easy to grab, matches the Time Bar's own height. */
-  width: 48px;
-  height: 48px;
+  width: 22px;   /* aproximativ ca inaltimea ZoomSlider-ului (BAR_HEIGHT=22) */
+  height: 22px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #d6d3c9;         /* warm neutral, close to the app frame color */
+  background: #d6d3c9;         /* gri-crem, ca track-ul ZoomSlider */
   border: 1px solid #000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #6f1c03;         /* the dark red-brown already used for hints */
+  background: #4a4a4a;         /* gri inchis, ca mânerele ZoomSlider */
   border: 1px solid #000;
-  border-radius: 2px;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8a2408;
+  background: #5c5c5c;
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background: #ff8827;         /* the app-wide orange highlight while dragging */
+  background: #6f6f6f;
 }
 
 ::-webkit-scrollbar-corner {
   background: #d6d3c9;
 }
 
-/*
- * Firefox uses a different set of properties (standard). Give the same
- * general look so cross-browser builds don't feel inconsistent.
- */
-/* Firefox equivalents - scrollbar-width doesn't accept an arbitrary px
-   value, only the keywords 'auto', 'thin', or 'none'. 'auto' is the
-   thickest Firefox will give us, matching the intent of the beefier
-   -webkit scrollbars above. */
+/* Firefox: nu are control fin pentru culoare/latime, ii dam variantele
+   corespunzatoare celor de mai sus. */
 * {
   scrollbar-width: auto;
-  scrollbar-color: #6f1c03 #d6d3c9;
+  scrollbar-color: #4a4a4a #d6d3c9;
 }
 
 /*
