@@ -3807,7 +3807,10 @@ export default function App() {
               (96x96) - Pause trebuie sa stea la dreapta lui Play. */}
       <section className="border border-black p-2" style={{ backgroundColor: "#003970", color: "#fff" }}>
         <h2 className="mb-2 text-sm font-semibold tracking-wide text-white">Chord Progression Builder</h2>
-        <div className="mb-2 flex flex-nowrap items-center gap-2 overflow-x-auto">
+        {/* NU folosim overflow-x-auto aici: creaza context de scroll
+            care DECUPEAZA dropdown-urile absolute (Snap, Guitar) - user
+            a semnalat ca acele controale nu mai functionau. */}
+        <div className="mb-2 flex flex-nowrap items-center gap-2">
 
           {/* Delete button (user explicit - Etapa 4 + revizuire):
               Are 2 comportamente in functie de context:
@@ -3867,60 +3870,30 @@ export default function App() {
               - swap: A si B isi inverseaza pozitiile */}
           <NudgeToggle value={nudgeMode} onChange={setNudgeMode} />
 
-          {/* Play / Pause: acelasi buton, doar grafica difera.
-              - Cand NU canta (isPlaying=false): afiseaza grafica "play"
-                (triunghi), tap = porneste redarea.
-              - Cand CANTA (isPlaying=true): afiseaza grafica "pause"
-                (doua bare), tap = pauza (playhead ramane pe loc).
-              PSD-urile all-play/all-pause CONTIN DEJA halo/umbra cu
-              Feather - imaginea PNG (500x500) include tot ce e vizual
-              necesar. Butonul e patrat, ~2x mai mare decat versiunea
-              anterioara. Halo poate iesi in afara zonei de click. */}
-          {/* Play + Pause: DOUA butoane SEPARATE, una langa alta (user
-              explicit). Anterior era UN singur buton care schimba grafica
-              intre Play si Pause dupa `isPlaying` - user vrea sa se vada
-              ambele mereu.
-                - Butonul PLAY:  cand se apasa -> porneste redarea.
-                  Cand redarea e activa (isPlaying=true), apare aprins (On).
-                - Butonul PAUSE: cand se apasa -> pauza (playhead ramane pe loc).
-                  Cand e pe pauza (isPaused=true), apare aprins (On).
-              PSD-urile contin deja halo/umbra cu Feather - imaginea PNG
-              include tot ce e vizual necesar. flex-shrink: 0 ca butoanele
-              sa nu se comprime in container flex + `overflow-x-auto` pe
-              parintele lor. */}
+          {/* Play / Pause: UN SINGUR buton care alterneaza grafica
+              (user explicit - revizuit).
+                - Cand redarea NU e in curs: grafica "play-off" (stins).
+                - Click 1 -> porneste redarea; grafica devine "pause-on"
+                  (Pause aprins, semnalizeaza ca acum poti apasa pentru pauza).
+                - Click 2 (in timpul redarii) -> pauza; grafica revine la
+                  "play-off" (stins) - butonul asteapta sa apesi din nou
+                  ca sa reia.
+              Practic: butonul afiseaza ACTIUNEA URMATOARE pe care o poate
+              face - Play cand e stop, Pause cand canta.
+              Fara hover glow: butonul se lumineaza NUMAI cand utilizatorul
+              apasa efectiv (onHover=false din GraphicButton). */}
           <div style={{ flexShrink: 0 }}>
             <GraphicButton
-              offSrc={graphic("play-off")}
-              onSrc={graphic("play-on")}
+              offSrc={isPlaying ? graphic("pause-off") : graphic("play-off")}
+              onSrc={isPlaying ? graphic("pause-on") : graphic("play-on")}
               active={isPlaying}
               width={96}
               height={96}
-              onClick={() => {
-                // Daca e deja in redare, nu face nimic (evita restart accidental).
-                if (isPlaying) return;
-                togglePlay();
-              }}
-              title="Play the progression"
-              ariaLabel="Play"
+              onClick={togglePlay}
+              title={isPlaying ? "Pause playback (playhead stays put)" : "Play the progression"}
+              ariaLabel={isPlaying ? "Pause" : "Play"}
             >
-              Play
-            </GraphicButton>
-          </div>
-          <div style={{ flexShrink: 0 }}>
-            <GraphicButton
-              offSrc={graphic("pause-off")}
-              onSrc={graphic("pause-on")}
-              active={isPaused}
-              width={96}
-              height={96}
-              onClick={() => {
-                // Doar cand redarea e activa - altfel butonul nu are efect.
-                if (isPlaying) togglePlay();
-              }}
-              title="Pause playback (playhead stays put)"
-              ariaLabel="Pause"
-            >
-              Pause
+              {isPlaying ? "Pause" : "Play"}
             </GraphicButton>
           </div>
 

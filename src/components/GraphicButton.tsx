@@ -56,7 +56,7 @@ export function GraphicButton({
   offSrc,
   onSrc,
   active = false,
-  onHover = true,
+  onHover = false,
   width = 64,
   height = 32,
   title,
