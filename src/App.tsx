@@ -1292,10 +1292,35 @@ export default function App() {
   const [bpm, setBpm] = useState(120);
   const [editingBpm, setEditingBpm] = useState(false);
   const [bpmText, setBpmText] = useState("120");
+  // Ref pe label-ul BPM pentru a atasa wheel listener non-passive
+  // (React onWheel e passive by default -> preventDefault NU functiona,
+  // rotita scrolla si pagina in acelasi timp). Vezi useEffect mai jos.
+  const bpmLabelRef = useRef<HTMLLabelElement | null>(null);
   const [guitarOpen, setGuitarOpen] = useState(false);
   const [guitarPreset, setGuitarPreset] = useState(GUITAR_PRESETS[0]);
   const [guitarLoading, setGuitarLoading] = useState(false);
   const [volume, setVolume] = useState(0.72);
+
+  // Wheel listener pe BPM cu { passive: false } - astfel preventDefault
+  // functioneaza si pagina NU mai scrolleaza cand utilizatorul rotieste
+  // rotita peste eticheta BPM. Fara acest hack, React ataseaza onWheel
+  // ca passive by default -> preventDefault e ignorat -> scroll dublu
+  // (BPM se modifica SI pagina se muta sus/jos).
+  useEffect(() => {
+    const el = bpmLabelRef.current;
+    if (!el) return;
+    const handler = (e: WheelEvent) => {
+      e.preventDefault();
+      setBpm((prev) => {
+        const next = clampBpm(prev + (e.deltaY > 0 ? -1 : 1));
+        setBpmText(String(next));
+        return next;
+      });
+    };
+    el.addEventListener("wheel", handler, { passive: false });
+    return () => el.removeEventListener("wheel", handler);
+  }, []);
+
   const [auditionMode, setAuditionMode] = useState(false);
   // Ref mirror pentru handler-ele globale de mouse care nu pot citi
   // state-ul React direct (stale closure).
@@ -2594,16 +2619,17 @@ export default function App() {
   const selectBuilderChord = (id: string, _index: number) => {
     // Delete mode activ -> click pe acord = stergere imediata.
     // (Modul se activeaza cand apesi Delete FARA selectie; ramane
-    // activ pana la un al doilea click pe Delete sau pana la stergere.)
+    // activ pana la un al doilea click pe Delete - user explicit poate
+    // sterge click dupa click mai multe acorduri fara sa reactiveze.)
     if (deleteMode) {
       const next = builderRef.current.filter((c) => c.id !== id);
       setBuilderChords(next);
       pushBuilderHistory(next);
       setSelectedBuilderIds((prev) => prev.filter((x) => x !== id));
       recordSnapshot(topCodeRef.current, guideCodeRef.current);
-      // Iesim din delete mode dupa o stergere - utilizatorul poate
-      // reactiva daca vrea sa stearga mai multe.
-      setDeleteMode(false);
+      // NU iesim din delete mode - ramane activ pentru stergeri
+      // multiple consecutive. User apasa butonul Delete din nou pentru
+      // a iesi din mod.
       return;
     }
 
@@ -2852,28 +2878,41 @@ export default function App() {
     // ---------------------------------------------------------------
     // Cazuri:
     // ---------------------------------------------------------------
-    // Caz 1: Snap = None → umple gap sau lipeste la coada.
+    // Caz 1: Snap = None (user explicit).
+    // Chiar si cu Snap=None, drop-ul respecta grid-ul implicit de 1 beat:
+    // acordul se snap-uieste la prima bara ritmica din STANGA cursorului
+    // (bara ritmica implicita = fiecare beat intreg). Lipite in lant.
+    // Fiecare acord = 1 beat lungime.
+    //
+    // Doar in cazul GAP INGUST (mai mic decat itemsCount beats) intre
+    // 2 acorduri existente, umple gap-ul integral (regula a extinsa).
     if (currentSnap === "None") {
-      if (!next) {
-        // Drop dupa progresie - lipite la coada, fiecare cu snap default.
-        const defaultBeats = DEFAULT_CHORD_BEATS;
+      const noneStep = 1; // 1 beat ca grid implicit pentru snap=None
+      if (next && gapSize < noneStep * itemsCount) {
+        // Gap ingust intre 2 acorduri - umple integral (regula a).
+        const each = gapSize / itemsCount;
         return {
           items: Array.from({ length: itemsCount }, (_, i) => ({
-            startBeat: gapStart + i * defaultBeats,
-            beats: defaultBeats,
+            startBeat: gapStart + i * each,
+            beats: each,
           })),
           insertIndex,
         };
       }
-      // Umple gap: fiecare acord = gap/N.
-      const each = gapSize / itemsCount;
-      return {
-        items: Array.from({ length: itemsCount }, (_, i) => ({
-          startBeat: gapStart + i * each,
-          beats: each,
-        })),
-        insertIndex,
-      };
+      // Gap larg SAU drop dupa progresie: snap la bara din STANGA.
+      let firstStart = Math.floor(dropBeat / noneStep) * noneStep;
+      if (firstStart < gapStart) firstStart = gapStart;
+      const items: Array<{ startBeat: number; beats: number }> = [];
+      for (let i = 0; i < itemsCount; i++) {
+        const st = firstStart + i * noneStep;
+        let bt = noneStep;
+        if (next && st + bt > gapEnd) {
+          bt = Math.max(MIN_CHORD_BEATS, gapEnd - st);
+        }
+        if (bt < MIN_CHORD_BEATS) break;
+        items.push({ startBeat: st, beats: bt });
+      }
+      return { items, insertIndex };
     }
 
     // Caz 2: Snap != None si gap ingust (gap < snap * itemsCount).
@@ -4199,15 +4238,8 @@ export default function App() {
               arrows (v/^) were removed - the click-to-edit + scroll-wheel
               affordances already cover the same interaction. */}
           <label
+            ref={bpmLabelRef}
             className="flex select-none items-center gap-1 rounded-sm border border-black bg-[#FCBF8D] px-2 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]"
-            onWheel={(e) => {
-              e.preventDefault();
-              setBpm((prev) => {
-                const next = clampBpm(prev + (e.deltaY > 0 ? -1 : 1));
-                setBpmText(String(next));
-                return next;
-              });
-            }}
           >
             BPM
             {editingBpm ? (
@@ -4594,8 +4626,9 @@ export default function App() {
                         pushBuilderHistory(next);
                         setSelectedBuilderIds((prev) => prev.filter((x) => x !== chord.id));
                         recordSnapshot(topCodeRef.current, guideCodeRef.current);
-                        // Iesim din delete mode dupa stergere.
-                        setDeleteMode(false);
+                        // NU iesim din delete mode - ramane activ pentru
+                        // stergeri consecutive (user explicit). Iesirea se
+                        // face apasand butonul Delete din nou.
                         return;
                       }
 
