@@ -3870,30 +3870,61 @@ export default function App() {
               - swap: A si B isi inverseaza pozitiile */}
           <NudgeToggle value={nudgeMode} onChange={setNudgeMode} />
 
-          {/* Play / Pause: UN SINGUR buton care alterneaza grafica
-              (user explicit - revizuit).
-                - Cand redarea NU e in curs: grafica "play-off" (stins).
-                - Click 1 -> porneste redarea; grafica devine "pause-on"
-                  (Pause aprins, semnalizeaza ca acum poti apasa pentru pauza).
-                - Click 2 (in timpul redarii) -> pauza; grafica revine la
-                  "play-off" (stins) - butonul asteapta sa apesi din nou
-                  ca sa reia.
-              Practic: butonul afiseaza ACTIUNEA URMATOARE pe care o poate
-              face - Play cand e stop, Pause cand canta.
-              Fara hover glow: butonul se lumineaza NUMAI cand utilizatorul
-              apasa efectiv (onHover=false din GraphicButton). */}
+          {/* Play / Pause: UN SINGUR buton cu 3 stari ciclice (user explicit):
+                1. STOP (isPlaying=false, isPaused=false):
+                   grafica = "play-off". Click -> porneste redarea.
+                2. REDA (isPlaying=true):
+                   grafica = "play-on". Click -> pauza (playhead stationar).
+                3. PAUZA (isPlaying=false, isPaused=true):
+                   grafica = "pause-on". Click -> REIA din pozitia curenta
+                   (playhead continua de unde s-a oprit), grafica revine
+                   la "play-on".
+              Ciclu Play/Pause: play-off <-> play-on <-> pause-on <-> play-on...
+              Resetul complet (playhead la 0 + revenire la play-off) se
+              face DOAR de butonul separat Stop.
+              PSD-ul pause-off NU e folosit in acest ciclu.
+              Fara hover glow (onHover=false in GraphicButton). */}
           <div style={{ flexShrink: 0 }}>
             <GraphicButton
-              offSrc={isPlaying ? graphic("pause-off") : graphic("play-off")}
-              onSrc={isPlaying ? graphic("pause-on") : graphic("play-on")}
-              active={isPlaying}
+              // Grafica afisata in functie de stare:
+              // - REDA (isPlaying) -> play-on (Off si On acelasi PNG pentru
+              //   ca "active" oricum forteaza On; folosim play-off pentru
+              //   coerenta atunci cand butonul nu e apasat, dar `active`
+              //   il forteaza vizual pe play-on).
+              // - PAUZA (isPaused) -> pause-on (forced On prin active).
+              // - STOP -> play-off (normal).
+              offSrc={
+                isPaused ? graphic("pause-on") :
+                isPlaying ? graphic("play-on") :
+                graphic("play-off")
+              }
+              onSrc={
+                isPaused ? graphic("pause-on") :
+                isPlaying ? graphic("play-on") :
+                graphic("play-on")
+              }
+              // active=true doar cand suntem in redare sau pauza, ca sa
+              // se afiseze grafica "On" (aprinsa).
+              active={isPlaying || isPaused}
               width={96}
               height={96}
-              onClick={togglePlay}
-              title={isPlaying ? "Pause playback (playhead stays put)" : "Play the progression"}
-              ariaLabel={isPlaying ? "Pause" : "Play"}
+              onClick={() => {
+                // Ciclu simplu: togglePlay() gestioneaza toate tranzitiile.
+                //   STOP -> PLAY (porneste)
+                //   PLAY -> PAUZA (playhead ramane pe loc)
+                //   PAUZA -> PLAY (reia din pozitia curenta)
+                // Reset complet (playhead la 0 + revenire la STOP) se
+                // face DOAR de butonul separat Stop, nu de acest buton.
+                togglePlay();
+              }}
+              title={
+                isPaused ? "Resume playback from current position" :
+                isPlaying ? "Pause playback (playhead stays put)" :
+                "Play the progression"
+              }
+              ariaLabel={isPaused ? "Resume" : isPlaying ? "Pause" : "Play"}
             >
-              {isPlaying ? "Pause" : "Play"}
+              {isPaused ? "Resume" : isPlaying ? "Pause" : "Play"}
             </GraphicButton>
           </div>
 
@@ -3926,15 +3957,21 @@ export default function App() {
                 type="button"
                 onClick={() => setSnapMenuOpen((v) => !v)}
                 title={`Snap grid (currently ${snap})`}
-                className={`flex h-6 items-center gap-1 border border-black bg-white px-2 text-[11px] ${
-                  snapMenuOpen ? "bg-green-100 shadow-[0_0_6px_#ff8827]" : ""
+                // Fundal albastru inchis + text alb (user explicit) ca sa
+                // fie citibil pe tema albastra a sectiunii Builder.
+                style={{ backgroundColor: "#003970", color: "#fff" }}
+                className={`flex h-6 items-center gap-1 border border-black px-2 text-[11px] ${
+                  snapMenuOpen ? "shadow-[0_0_6px_#ff8827]" : ""
                 }`}
               >
                 <span className="min-w-[54px] text-left">{snap}</span>
                 <span aria-hidden="true" className="text-[8px] leading-none">&#9660;</span>
               </button>
               {snapMenuOpen && (
-                <div className="absolute right-0 top-7 z-40 w-32 border border-black bg-white shadow-lg">
+                <div
+                  className="absolute right-0 top-7 z-40 w-32 border border-black shadow-lg"
+                  style={{ backgroundColor: "#003970", color: "#fff" }}
+                >
                   {SNAP_OPTIONS.map((opt) => (
                     <button
                       key={opt}
@@ -3943,9 +3980,14 @@ export default function App() {
                         setSnap(opt);
                         setSnapMenuOpen(false);
                       }}
-                      className={`block w-full border-b border-black px-2 py-1 text-left text-xs hover:bg-green-100 ${
-                        snap === opt ? "bg-green-200 font-semibold" : ""
+                      className={`block w-full border-b border-black px-2 py-1 text-left text-xs hover:brightness-125 ${
+                        snap === opt ? "font-semibold" : ""
                       }`}
+                      style={
+                        snap === opt
+                          ? { backgroundColor: "#0055a0", color: "#fff" }
+                          : { backgroundColor: "#003970", color: "#fff" }
+                      }
                     >
                       {opt}
                     </button>
@@ -3992,7 +4034,8 @@ export default function App() {
                     setEditingBpm(false);
                   }
                 }}
-                className="w-12 border border-black bg-white px-1 text-center"
+                className="w-12 border border-black px-1 text-center"
+                style={{ backgroundColor: "#003970", color: "#fff" }}
               />
             ) : (
               <button
@@ -4001,7 +4044,8 @@ export default function App() {
                   setEditingBpm(true);
                   setBpmText(String(bpm));
                 }}
-                className="w-12 border border-black bg-white px-1 text-center"
+                className="w-12 border border-black px-1 text-center"
+                style={{ backgroundColor: "#003970", color: "#fff" }}
                 title="Click to type a BPM value, or scroll over this box to nudge by 1."
               >
                 {bpm}
@@ -4022,7 +4066,10 @@ export default function App() {
               {guitarLoading ? "loading..." : guitarPreset.name}
             </button>
             {guitarOpen && (
-              <div className="absolute left-0 top-9 z-40 w-52 border border-black bg-white">
+              <div
+                className="absolute left-0 top-9 z-40 w-52 border border-black"
+                style={{ backgroundColor: "#003970", color: "#fff" }}
+              >
                 {GUITAR_PRESETS.map((preset) => (
                   <button
                     key={preset.name}
@@ -4032,7 +4079,8 @@ export default function App() {
                       setGuitarOpen(false);
                       void loadInstrument(preset);
                     }}
-                    className="block w-full border-b border-black px-2 py-1 text-left text-xs hover:bg-green-100"
+                    className="block w-full border-b border-black px-2 py-1 text-left text-xs hover:brightness-125"
+                    style={{ backgroundColor: "#003970", color: "#fff" }}
                   >
                     {preset.name}
                   </button>
