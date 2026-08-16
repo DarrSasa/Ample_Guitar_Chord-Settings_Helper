@@ -1,0 +1,20 @@
+{
+  "loop": {
+    "w": 448,
+    "h": 584,
+    "offsetX": 58,
+    "offsetY": 55
+  },
+  "play": {
+    "w": 365,
+    "h": 622,
+    "offsetX": 505,
+    "offsetY": 11
+  },
+  "stop": {
+    "w": 474,
+    "h": 650,
+    "offsetX": 873,
+    "offsetY": 1
+  }
+}

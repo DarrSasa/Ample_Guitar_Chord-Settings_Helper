@@ -30,6 +30,21 @@ function graphic(name: string): string | undefined {
   return url;
 }
 
+// PNG-urile perechilor extrase din all-layers.psd (loop, play/pause, stop).
+// Fiecare pereche are canvas comun (bbox reuniune off + on) astfel incat
+// off si on sunt aliniate perfect - la toggle butonul NU sare. Fisierele
+// sunt in src/assets/graphics/svg/all/pair/*.png si sunt inlocuite in
+// bundle-ul Vite ca URL-uri (viteSingleFile le va inlinia automat pentru
+// build-ul Electron gratie `assetsInlineLimit: Number.MAX_SAFE_INTEGER`).
+const pairAssets = import.meta.glob("./assets/graphics/svg/all/pair/*.png", {
+  eager: true,
+  import: "default",
+}) as Record<string, string>;
+function pairGraphic(name: string): string | undefined {
+  const key = `./assets/graphics/svg/all/pair/${name}.png`;
+  return pairAssets[key];
+}
+
 type ChordType = "Maj" | "min" | "sus2" | "sus4" | "aug" | "5" | "oct";
 
 type ChordRow = {
@@ -1268,6 +1283,20 @@ export default function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [playheadIndex, setPlayheadIndex] = useState(0);
+
+  // Loop mode: cand e activ, playhead-ul reia de la 0 cand ajunge la finalul
+  // progresiei (in loc sa se opreasca). Toggle via butonul Loop. Se
+  // dezactiveaza automat cand utilizatorul apasa Stop (user explicit).
+  const [loopActive, setLoopActive] = useState(false);
+  const loopActiveRef = useRef(false);
+  useEffect(() => { loopActiveRef.current = loopActive; }, [loopActive]);
+
+  // Stop flash: la click pe Stop, grafica stop-on ramane vizibila 400ms
+  // (efect vizual de confirmare), apoi revine la stop-off. `stopFlashOn`
+  // controleaza doar aspectul butonului Stop - actiunea (oprire playback
+  // + reset playhead + dezactivare loop) e instantanee.
+  const [stopFlashOn, setStopFlashOn] = useState(false);
+  const stopFlashTimerRef = useRef<number | null>(null);
   // Snap persists to localStorage so the user's rhythm grid setting
   // survives across sessions - same pattern used for windowSize /
   // longPressMs. Bar is the default (biggest grid = 1 full bar).
@@ -2371,6 +2400,19 @@ export default function App() {
     setPlayheadX(0);
     playedIndexRef.current = -1;
     pausedElapsedRef.current = 0;
+    // Stop dezactiveaza si Loop-ul (user explicit): daca playback-ul era
+    // in loop, nu se mai porneste automat la urmatorul Play.
+    setLoopActive(false);
+    // Flash vizual pe butonul Stop: 400ms grafica stop-on, apoi revine
+    // la stop-off automat (user explicit).
+    if (stopFlashTimerRef.current !== null) {
+      window.clearTimeout(stopFlashTimerRef.current);
+    }
+    setStopFlashOn(true);
+    stopFlashTimerRef.current = window.setTimeout(() => {
+      setStopFlashOn(false);
+      stopFlashTimerRef.current = null;
+    }, 400);
   };
 
   const ensureAudio = () => {
@@ -3090,6 +3132,18 @@ export default function App() {
       }
 
       if (elapsed >= totalMs) {
+        // LOOP MODE: cand playhead-ul ajunge la finalul progresiei si
+        // loop-ul e activ, reseteaza la 0 si continua redarea (user
+        // explicit). Fara loop, opreste normal.
+        if (loopActiveRef.current) {
+          playStartRef.current = performance.now();
+          pausedElapsedRef.current = 0;
+          playedIndexRef.current = -1;
+          setPlayheadIndex(0);
+          setPlayheadX(0);
+          rafRef.current = window.requestAnimationFrame(tick);
+          return;
+        }
         stopPlayback();
         return;
       }
@@ -4073,18 +4127,19 @@ export default function App() {
         </div>
       </section>
 
-      {/* Sectiunea "Chord Progression Builder" cu fundal albastru inchis
-          (#003970) - culoarea din PSD-ul all-pause.psd, layer
-          "fundal-sectiunea-builder", specificat de user.
-          Textul devine alb pentru contrast pe albastru inchis.
+      {/* Sectiunea "Chord Progression Builder" cu fundal gri metalic
+          (#677987) - culoarea din PSD-ul all-layers.psd, aleasa de user
+          pentru noile PSD-uri (loop / play-pause / stop) prelucrate cu
+          Feather in Photoshop.
+          Textul ramane alb pentru contrast pe gri inchis.
 
           Layout (user explicit):
             - Titlul "Chord Progression Builder" pe rand separat, sus-stanga
               (lasa loc pe viitor pentru mai multe controale)
             - Butoanele pe randul de dedesubt, cu flex-nowrap ca sa NU se
               rupa Pause dedesubtul lui Play cand butoanele sunt mari
-              (96x96) - Pause trebuie sa stea la dreapta lui Play. */}
-      <section className="border border-black p-2" style={{ backgroundColor: "#003970", color: "#fff" }}>
+              - Ordinea: Loop -> Play/Pause -> Stop -> ... */}
+      <section className="border border-black p-2" style={{ backgroundColor: "#677987", color: "#fff" }}>
         <h2 className="mb-2 text-sm font-semibold tracking-wide text-white">Chord Progression Builder</h2>
         {/* NU folosim overflow-x-auto aici: creaza context de scroll
             care DECUPEAZA dropdown-urile absolute (Snap, Guitar) - user
@@ -4149,76 +4204,104 @@ export default function App() {
               - swap: A si B isi inverseaza pozitiile */}
           <NudgeToggle value={nudgeMode} onChange={setNudgeMode} />
 
-          {/* Play / Pause: UN SINGUR buton cu 3 stari ciclice (user explicit):
-                1. STOP (isPlaying=false, isPaused=false):
-                   grafica = "play-off". Click -> porneste redarea.
-                2. REDA (isPlaying=true):
-                   grafica = "play-on". Click -> pauza (playhead stationar).
-                3. PAUZA (isPlaying=false, isPaused=true):
-                   grafica = "pause-on". Click -> REIA din pozitia curenta
-                   (playhead continua de unde s-a oprit), grafica revine
-                   la "play-on".
-              Ciclu Play/Pause: play-off <-> play-on <-> pause-on <-> play-on...
-              Resetul complet (playhead la 0 + revenire la play-off) se
-              face DOAR de butonul separat Stop.
-              PSD-ul pause-off NU e folosit in acest ciclu.
-              Fara hover glow (onHover=false in GraphicButton). */}
-          <div style={{ flexShrink: 0 }}>
-            <GraphicButton
-              // Grafica afisata in functie de stare:
-              // - REDA (isPlaying) -> play-on (Off si On acelasi PNG pentru
-              //   ca "active" oricum forteaza On; folosim play-off pentru
-              //   coerenta atunci cand butonul nu e apasat, dar `active`
-              //   il forteaza vizual pe play-on).
-              // - PAUZA (isPaused) -> pause-on (forced On prin active).
-              // - STOP -> play-off (normal).
-              offSrc={
-                isPaused ? graphic("pause-on") :
-                isPlaying ? graphic("play-on") :
-                graphic("play-off")
-              }
-              onSrc={
-                isPaused ? graphic("pause-on") :
-                isPlaying ? graphic("play-on") :
-                graphic("play-on")
-              }
-              // active=true doar cand suntem in redare sau pauza, ca sa
-              // se afiseze grafica "On" (aprinsa).
-              active={isPlaying || isPaused}
-              width={96}
-              height={96}
-              onClick={() => {
-                // Ciclu simplu: togglePlay() gestioneaza toate tranzitiile.
-                //   STOP -> PLAY (porneste)
-                //   PLAY -> PAUZA (playhead ramane pe loc)
-                //   PAUZA -> PLAY (reia din pozitia curenta)
-                // Reset complet (playhead la 0 + revenire la STOP) se
-                // face DOAR de butonul separat Stop, nu de acest buton.
-                togglePlay();
-              }}
-              title={
-                isPaused ? "Resume playback from current position" :
-                isPlaying ? "Pause playback (playhead stays put)" :
-                "Play the progression"
-              }
-              ariaLabel={isPaused ? "Resume" : isPlaying ? "Pause" : "Play"}
-            >
-              {isPaused ? "Resume" : isPlaying ? "Pause" : "Play"}
-            </GraphicButton>
-          </div>
+          {/*
+             LOOP / PLAY-PAUSE / STOP - noile 3 butoane grafice.
+             User a construit un PSD `all-layers.psd` (1400x650) cu 6
+             layere: loop-off, loop-on, pause-off, play-on, stop-off,
+             stop-on. Extractia le-a decupat la bbox comun per pereche
+             (loop 448x584, play 365x622, stop 474x650) astfel incat
+             off si on al aceleiasi perechi sunt aliniate pixel-perfect
+             -> la toggle butonul NU sare.
 
+             Ordine (user explicit): Loop -> Play/Pause -> Stop, cu
+             ~22px spatiu intre butoane (folosim gap-[22px]).
+             Dimensiunea vizuala: 96x96 pentru toate (pastreaza aspect
+             ratio prin object-fit implicit al <img>-ului din
+             GraphicButton). Pentru pastrarea proportiilor reale:
+                loop  448x584 -> aspect ~0.767 -> width=88, height=96
+                play  365x622 -> aspect ~0.587 -> width=68, height=96
+                stop  474x650 -> aspect ~0.729 -> width=84, height=96
+             (calculat: w = round(96 * bboxW / bboxH))
+          */}
+
+          {/* Sub-container cu Loop / Play-Pause / Stop, cu spatiere ~22px
+              intre butoane (user explicit). Pastram aceasta grupare
+              separata ca sa nu afecteze celelalte controale (Delete,
+              Snap, BPM, etc.) care raman cu gap-2 (8px) intre ele. */}
+          <div className="flex items-center" style={{ gap: 22 }}>
+
+          {/* LOOP button (user explicit):
+                - Initial: loop-off. Playhead redare normala (o singura data).
+                - Click -> loop-on. Playhead redare CONTINUA (la finalul
+                  progresiei revine la 0 si continua).
+                - Click pe loop-on -> loop-off (opreste loop-ul).
+                - STOP dezactiveaza automat Loop. */}
           <GraphicButton
-            offSrc={graphic("stop-off")}
-            onSrc={graphic("stop-on")}
-            width={56}
-            height={32}
+            offSrc={pairGraphic("loop-off")}
+            onSrc={pairGraphic("loop-on")}
+            active={loopActive}
+            width={88}
+            height={96}
+            onClick={() => setLoopActive((v) => !v)}
+            title={loopActive ? "Loop ON — dezactiveaza redarea in loop" : "Loop OFF — activeaza redarea in loop (playhead revine la 0 la finalul progresiei)"}
+            ariaLabel={loopActive ? "Loop On" : "Loop Off"}
+          >
+            {loopActive ? "Loop On" : "Loop"}
+          </GraphicButton>
+
+          {/* PLAY / PAUSE - UN SINGUR buton cu ciclu simplu (user explicit):
+                1. STOP  (isPlaying=false, isPaused=false):
+                   grafica = pause-off. Click -> porneste redarea.
+                2. REDA  (isPlaying=true):
+                   grafica = play-on. Click -> pauza (playhead stationar).
+                3. PAUZA (isPlaying=false, isPaused=true):
+                   grafica = pause-off (identica cu STOP dpv vizual).
+                   Click -> REIA din pozitia curenta (playhead continua
+                   de unde s-a oprit), grafica devine play-on.
+              Ciclu: pause-off <-> play-on <-> pause-off <-> play-on...
+              PSD-ul `pause-on` NU e folosit in acest ciclu (user explicit).
+              Reset complet (playhead la 0) se face DOAR de butonul Stop. */}
+          <GraphicButton
+            offSrc={pairGraphic("pause-off")}
+            onSrc={pairGraphic("play-on")}
+            // active=true doar cand chiar REDA (play-on grafic).
+            // In pauza => activ=false => afiseaza pause-off (aceeasi
+            // grafica ca la STOP), asa cum a specificat userul.
+            active={isPlaying}
+            width={68}
+            height={96}
+            onClick={togglePlay}
+            title={
+              isPaused ? "Resume playback from current position" :
+              isPlaying ? "Pause playback (playhead stays put)" :
+              "Play the progression"
+            }
+            ariaLabel={isPaused ? "Resume" : isPlaying ? "Pause" : "Play"}
+          >
+            {isPaused ? "Resume" : isPlaying ? "Pause" : "Play"}
+          </GraphicButton>
+
+          {/* STOP button (user explicit):
+                - Initial: stop-off.
+                - Click -> stop-on apare 400ms (flash vizual), apoi revine
+                  automat la stop-off.
+                - Efect actiune (instant): playhead revine la 0, redarea
+                  se opreste complet, Loop se dezactiveaza.
+              Flash-ul si actiunea sunt gestionate in stopPlayback(). */}
+          <GraphicButton
+            offSrc={pairGraphic("stop-off")}
+            onSrc={pairGraphic("stop-on")}
+            active={stopFlashOn}
+            width={84}
+            height={96}
             onClick={stopPlayback}
-            title="Stop playback and reset the playhead to the beginning"
+            title="Stop playback: reseteaza playhead la 0 si dezactiveaza Loop"
             ariaLabel="Stop"
-            className="h-8 w-14 rounded-sm border border-black bg-[#FCBF8D] text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]"
           >
             Stop
           </GraphicButton>
+
+          </div>{/* end sub-container Loop/Play/Stop */}
 
           {/* Snap control:
                 - Text "Snap"
@@ -4238,7 +4321,7 @@ export default function App() {
                 title={`Snap grid (currently ${snap})`}
                 // Fundal albastru inchis + text alb (user explicit) ca sa
                 // fie citibil pe tema albastra a sectiunii Builder.
-                style={{ backgroundColor: "#003970", color: "#fff" }}
+                style={{ backgroundColor: "#677987", color: "#fff" }}
                 className={`flex h-6 items-center gap-1 border border-black px-2 text-[11px] ${
                   snapMenuOpen ? "shadow-[0_0_6px_#ff8827]" : ""
                 }`}
@@ -4249,7 +4332,7 @@ export default function App() {
               {snapMenuOpen && (
                 <div
                   className="absolute right-0 top-7 z-40 w-32 border border-black shadow-lg"
-                  style={{ backgroundColor: "#003970", color: "#fff" }}
+                  style={{ backgroundColor: "#677987", color: "#fff" }}
                 >
                   {SNAP_OPTIONS.map((opt) => (
                     <button
@@ -4264,8 +4347,8 @@ export default function App() {
                       }`}
                       style={
                         snap === opt
-                          ? { backgroundColor: "#0055a0", color: "#fff" }
-                          : { backgroundColor: "#003970", color: "#fff" }
+                          ? { backgroundColor: "#7a8b99", color: "#fff" }
+                          : { backgroundColor: "#677987", color: "#fff" }
                       }
                     >
                       {opt}
@@ -4307,7 +4390,7 @@ export default function App() {
                   }
                 }}
                 className="w-12 border border-black px-1 text-center"
-                style={{ backgroundColor: "#003970", color: "#fff" }}
+                style={{ backgroundColor: "#677987", color: "#fff" }}
               />
             ) : (
               <button
@@ -4317,7 +4400,7 @@ export default function App() {
                   setBpmText(String(bpm));
                 }}
                 className="w-12 border border-black px-1 text-center"
-                style={{ backgroundColor: "#003970", color: "#fff" }}
+                style={{ backgroundColor: "#677987", color: "#fff" }}
                 title="Click to type a BPM value, or scroll over this box to nudge by 1."
               >
                 {bpm}
@@ -4340,7 +4423,7 @@ export default function App() {
             {guitarOpen && (
               <div
                 className="absolute left-0 top-9 z-40 w-52 border border-black"
-                style={{ backgroundColor: "#003970", color: "#fff" }}
+                style={{ backgroundColor: "#677987", color: "#fff" }}
               >
                 {GUITAR_PRESETS.map((preset) => (
                   <button
@@ -4352,7 +4435,7 @@ export default function App() {
                       void loadInstrument(preset);
                     }}
                     className="block w-full border-b border-black px-2 py-1 text-left text-xs hover:brightness-125"
-                    style={{ backgroundColor: "#003970", color: "#fff" }}
+                    style={{ backgroundColor: "#677987", color: "#fff" }}
                   >
                     {preset.name}
                   </button>

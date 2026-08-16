@@ -112,6 +112,75 @@ async function main() {
   fs.writeFileSync(path.join(OUT_DIR, 'positions.json'), JSON.stringify(positions, null, 2));
   console.log(`  ✓ positions.json`);
 
+  // ---------------------------------------------------------------------
+  // ETAPA 2: variante per-pereche (loop, play-pause, stop).
+  //
+  // Pentru fiecare pereche (off + on), calculam bbox-ul REUNIUNE al celor
+  // doua layere. Fiecare imagine din pereche o croim la ACEST bbox comun.
+  // Astfel:
+  //   - fiecare pereche are un canvas propriu, dimensiune minimala (nu
+  //     tot 1400x650)
+  //   - butonul off si on al aceleiasi perechi au EXACT aceeasi dimensiune
+  //     -> in UI, GraphicButton cu width/height fixe, la toggle nu sare
+  //   - RAPORTUL aspect al fiecarui buton e cel real din PSD (loop e mai
+  //     lat, play-on e mai inalt din cauza aureolei etc.)
+  //
+  // Iesire: src/assets/graphics/svg/all/pair/loop-off.png, loop-on.png,
+  //          pause-off.png, play-on.png, stop-off.png, stop-on.png
+  //   + pair-positions.json cu { pair: {w,h,offsetX,offsetY} } - offsetX/Y
+  //     e pozitia (left,top) a pair-bbox-ului in PSD-ul mare (util daca
+  //     vrem sa mentinem pozitii relative in viitor).
+  const PAIR_DIR = path.join(OUT_DIR, 'pair');
+  fs.mkdirSync(PAIR_DIR, { recursive: true });
+  const pairs = [
+    { key: 'loop',  off: 'loop-off',  on: 'loop-on'  },
+    { key: 'play',  off: 'pause-off', on: 'play-on'  },
+    { key: 'stop',  off: 'stop-off',  on: 'stop-on'  },
+  ];
+  const pairMeta = {};
+  for (const p of pairs) {
+    const a = flat[p.off];
+    const b = flat[p.on];
+    if (!a || !b) { console.warn(`  ! pereche "${p.key}" incompleta`); continue; }
+    const aL = a.left ?? 0, aT = a.top ?? 0, aR = a.right ?? 0, aB = a.bottom ?? 0;
+    const bL = b.left ?? 0, bT = b.top ?? 0, bR = b.right ?? 0, bB = b.bottom ?? 0;
+    const bboxL = Math.min(aL, bL);
+    const bboxT = Math.min(aT, bT);
+    const bboxR = Math.max(aR, bR);
+    const bboxB = Math.max(aB, bB);
+    const pw = bboxR - bboxL;
+    const ph = bboxB - bboxT;
+
+    for (const layerName of [p.off, p.on]) {
+      const layer = flat[layerName];
+      const lL = layer.left ?? 0;
+      const lT = layer.top  ?? 0;
+      const lw = (layer.right ?? 0) - lL;
+      const lh = (layer.bottom ?? 0) - lT;
+      const src = layer.imageData.data;
+      const layerBuf = Buffer.from(src.buffer, src.byteOffset, src.byteLength);
+      // pozitia layerului in interiorul pair-bbox-ului
+      const relLeft = lL - bboxL;
+      const relTop  = lT - bboxT;
+      const png = await sharp({
+        create: { width: pw, height: ph, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+      })
+        .composite([{
+          input: layerBuf,
+          raw: { width: lw, height: lh, channels: 4 },
+          left: relLeft, top: relTop,
+        }])
+        .png({ compressionLevel: 9 })
+        .toBuffer();
+      const outP = path.join(PAIR_DIR, `${layerName}.png`);
+      fs.writeFileSync(outP, png);
+      console.log(`  ✓ pair/${layerName}.png  ${pw}x${ph}  ${(png.length/1024).toFixed(0)} KB`);
+    }
+    pairMeta[p.key] = { w: pw, h: ph, offsetX: bboxL, offsetY: bboxT };
+  }
+  fs.writeFileSync(path.join(PAIR_DIR, 'pair-positions.json'), JSON.stringify(pairMeta, null, 2));
+  console.log(`  ✓ pair/pair-positions.json`);
+
   // --- HTML preview ---
   // convertim PNG-urile in data URI ca sa fie autoportante (ca la mostrele anterioare)
   const dataUri = {};
