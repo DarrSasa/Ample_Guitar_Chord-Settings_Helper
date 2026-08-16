@@ -181,7 +181,11 @@ const stopOn   = pngToDataUri(await toPreviewPng(stop.on.png,   stop.on.w,   sto
 // (aspect ratio-ul canvas-ului PSD).
 const PREVIEW_W = 130;
 const PREVIEW_H = 180;
-const GAP_PX = 22; // distanta ceruta de user
+// Distanta intre CANVAS-uri = 0 (lipite). Spatiul vizual de ~22px intre
+// butoanele efective apare natural din marginile transparente ale
+// canvas-urilor PSD (halo + umbra ocupa perimetrul, butonul efectiv e
+// in centru).
+const GAP_PX = 0;
 
 const html = `<!doctype html>
 <html lang="ro">
