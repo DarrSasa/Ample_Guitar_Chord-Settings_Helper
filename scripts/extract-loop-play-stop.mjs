@@ -125,35 +125,100 @@ const stop  = await extractPsd('docs/graphics/psd/stop-on-stop-off.psd', {
 // -----------------------------------------------------------------
 // Resize la ceva rezonabil (max 400 pe latura mare) si salvez SVG-uri.
 // Toate PSD-urile au acelasi canvas 473x650.
+// Detecteaza bounding box-ul netransparent al unei imagini PNG.
+// Returneaza { left, top, width, height } - zona utila.
+async function getBoundingBox(pngBuffer) {
+  const trimmed = await sharp(pngBuffer).trim({ threshold: 5 }).toBuffer();
+  const trimMeta = await sharp(trimmed).metadata();
+  const origMeta = await sharp(pngBuffer).metadata();
+  // sharp.trim() in versiunile noi returneaza trimOffsetLeft/Top in metadata.
+  // Daca nu, calculez indirect: dimensiune originala - dimensiune trimmed.
+  return {
+    left: (origMeta.width ?? 0) - (trimMeta.width ?? 0),  // aproximativ
+    top: (origMeta.height ?? 0) - (trimMeta.height ?? 0),
+    width: trimMeta.width ?? origMeta.width ?? 0,
+    height: trimMeta.height ?? origMeta.height ?? 0,
+  };
+}
+
+// Normalizeaza o PERECHE (off + on) la acelasi canvas patrat, centrand
+// AMBELE la fel. Foloseste On ca referinta (are halo mai mare, deci
+// bounding box mai mare) - Off e centrat pe acelasi canvas cu spatiu
+// mai mare in jur.
+//
+// Astfel butonul efectiv (in centrul canvas-ului) este in ACEEASI
+// pozitie in Off si On -> nu "sare" cand tranzitezi. Iar canvas-urile
+// sunt identice ca marime pentru toate cele 3 butoane -> spatiu uniform.
+async function normalizePair(offPng, onPng, targetSize) {
+  // Trim ambele imagini si iau bounding box-urile.
+  const offTrimmed = await sharp(offPng).trim({ threshold: 5 }).toBuffer();
+  const onTrimmed  = await sharp(onPng).trim({ threshold: 5 }).toBuffer();
+  const offMeta = await sharp(offTrimmed).metadata();
+  const onMeta  = await sharp(onTrimmed).metadata();
+  // Alegem MAX pe fiecare axa ca sa incapa ambele centrat.
+  const maxW = Math.max(offMeta.width ?? 0, onMeta.width ?? 0);
+  const maxH = Math.max(offMeta.height ?? 0, onMeta.height ?? 0);
+  const maxSide = Math.max(maxW, maxH);
+  // Fara padding suplimentar - canvas-ul = bounding box max (On cu halo).
+  // Astfel butoanele lipite au spatiu minim intre halo-uri, natural.
+  const pad = 0;
+  const canvasSide = maxSide + pad * 2;
+
+  // Compune fiecare (off + on) centrat pe canvas patrat identic.
+  const centerAndScale = async (trimmedBuf, trimMeta) => {
+    const w = trimMeta.width ?? 0;
+    const h = trimMeta.height ?? 0;
+    const composed = await sharp({
+      create: { width: canvasSide, height: canvasSide, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+    })
+      .composite([{
+        input: trimmedBuf,
+        left: Math.round((canvasSide - w) / 2),
+        top: Math.round((canvasSide - h) / 2),
+      }])
+      .png().toBuffer();
+    return await sharp(composed).resize(targetSize, targetSize, { kernel: 'lanczos3' })
+      .png({ compressionLevel: 9 }).toBuffer();
+  };
+  const offOut = await centerAndScale(offTrimmed, offMeta);
+  const onOut  = await centerAndScale(onTrimmed, onMeta);
+  return { off: offOut, on: onOut, canvasSide };
+}
+
 async function process(pngBuffer, w, h) {
   return await sharp(pngBuffer).resize(w, h, { kernel: 'lanczos3', fit: 'inside' })
     .png({ compressionLevel: 9 }).toBuffer();
 }
 
-const TARGET_MAX = 400;
-function scaleTo(w, h) {
-  const scale = Math.min(TARGET_MAX / w, TARGET_MAX / h);
-  return { w: Math.round(w * scale), h: Math.round(h * scale) };
-}
+const TARGET_SIZE = 400; // canvas patrat uniform pentru toate
+
+// Normalizez fiecare pereche (off + on) la canvas patrat identic
+// pentru fiecare buton. Astfel loop-off/loop-on/pause-off/play-on/
+// stop-off/stop-on au TOATE aceeasi dimensiune si centrare -> spatiul
+// vizual dintre butoane devine UNIFORM cand sunt asezate lipite.
+console.log('\nNormalizez perechile (off + on) la canvas patrat uniform...');
+const loopPair = await normalizePair(loop.off.png, loop.on.png, TARGET_SIZE);
+const ppPair   = await normalizePair(pp.pauseOff.png, pp.playOn.png, TARGET_SIZE);
+const stopPair = await normalizePair(stop.off.png, stop.on.png, TARGET_SIZE);
+console.log(`  loop  canvas: ${loopPair.canvasSide}x${loopPair.canvasSide} -> resize ${TARGET_SIZE}x${TARGET_SIZE}`);
+console.log(`  play  canvas: ${ppPair.canvasSide}x${ppPair.canvasSide} -> resize ${TARGET_SIZE}x${TARGET_SIZE}`);
+console.log(`  stop  canvas: ${stopPair.canvasSide}x${stopPair.canvasSide} -> resize ${TARGET_SIZE}x${TARGET_SIZE}`);
 
 const buttons = [
-  { name: 'loop-off',  data: loop.off },
-  { name: 'loop-on',   data: loop.on },
-  { name: 'pause-off', data: pp.pauseOff },
-  { name: 'play-on',   data: pp.playOn },
-  { name: 'stop-off',  data: stop.off },
-  { name: 'stop-on',   data: stop.on },
+  { name: 'loop-off',  png: loopPair.off },
+  { name: 'loop-on',   png: loopPair.on },
+  { name: 'pause-off', png: ppPair.off },
+  { name: 'play-on',   png: ppPair.on },
+  { name: 'stop-off',  png: stopPair.off },
+  { name: 'stop-on',   png: stopPair.on },
 ];
 
 console.log('\nSalvez SVG-uri finale...');
 for (const btn of buttons) {
-  if (!btn.data) continue;
-  const s = scaleTo(btn.data.w, btn.data.h);
-  const png = await process(btn.data.png, s.w, s.h);
-  const svg = buildSvg(png, s.w, s.h);
+  const svg = buildSvg(btn.png, TARGET_SIZE, TARGET_SIZE);
   const outPath = path.join(SVG_OUT, `${btn.name}.svg`);
   fs.writeFileSync(outPath, svg);
-  console.log(`  ${outPath}: ${(svg.length / 1024).toFixed(1)} KB (${s.w}x${s.h})`);
+  console.log(`  ${outPath}: ${(svg.length / 1024).toFixed(1)} KB`);
 }
 
 // -----------------------------------------------------------------
@@ -162,29 +227,30 @@ for (const btn of buttons) {
 function pngToDataUri(buf) {
   return `data:image/png;base64,${buf.toString('base64')}`;
 }
-async function toPreviewPng(pngBuffer, w, h) {
-  const s = scaleTo(w, h);
-  return await sharp(pngBuffer).resize(s.w, s.h, { kernel: 'lanczos3' }).png().toBuffer();
+// Butoanele normalizate deja au canvas patrat uniform 400x400 - le
+// redimensionez la 512x512 pentru preview HD.
+async function toPreviewPng(pngBuffer) {
+  return await sharp(pngBuffer).resize(512, 512, { kernel: 'lanczos3' }).png().toBuffer();
 }
 
-const loopOff  = pngToDataUri(await toPreviewPng(loop.off.png,  loop.off.w,  loop.off.h));
-const loopOn   = pngToDataUri(await toPreviewPng(loop.on.png,   loop.on.w,   loop.on.h));
-const pauseOff = pngToDataUri(await toPreviewPng(pp.pauseOff.png, pp.pauseOff.w, pp.pauseOff.h));
-const playOn   = pngToDataUri(await toPreviewPng(pp.playOn.png,   pp.playOn.w,   pp.playOn.h));
-const stopOff  = pngToDataUri(await toPreviewPng(stop.off.png,  stop.off.w,  stop.off.h));
-const stopOn   = pngToDataUri(await toPreviewPng(stop.on.png,   stop.on.w,   stop.on.h));
+const loopOff  = pngToDataUri(await toPreviewPng(loopPair.off));
+const loopOn   = pngToDataUri(await toPreviewPng(loopPair.on));
+const pauseOff = pngToDataUri(await toPreviewPng(ppPair.off));
+const playOn   = pngToDataUri(await toPreviewPng(ppPair.on));
+const stopOff  = pngToDataUri(await toPreviewPng(stopPair.off));
+const stopOn   = pngToDataUri(await toPreviewPng(stopPair.on));
 
 // Dimensiune butoane in preview: canvas-ul PSD e 473x650 (aspect
 // vertical), dar butonul propriu-zis (fara halo) ocupa doar zona
 // centrala. Cand cablam in app vom folosi containere PATRATE si
 // imaginea in overflow visible. Pentru preview afisez la ~130x180
 // (aspect ratio-ul canvas-ului PSD).
-const PREVIEW_W = 130;
-const PREVIEW_H = 180;
-// Distanta intre CANVAS-uri = 0 (lipite). Spatiul vizual de ~22px intre
-// butoanele efective apare natural din marginile transparente ale
-// canvas-urilor PSD (halo + umbra ocupa perimetrul, butonul efectiv e
-// in centru).
+// Butoanele au canvas normalizat 1:1 (patrat) cu butonul efectiv
+// centrat perfect si padding uniform 8% pentru halo/umbra. Cand sunt
+// asezate lipite (gap = 0), spatiul vizual dintre butoane devine
+// UNIFORM (~15-20px) fara diferente per PSD.
+const PREVIEW_W = 160;
+const PREVIEW_H = 160;
 const GAP_PX = 0;
 
 const html = `<!doctype html>
