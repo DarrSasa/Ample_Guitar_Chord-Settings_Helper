@@ -219,79 +219,76 @@ async function processButtonPair(offRawPng, onRawPng, scale) {
   const psdW = offMeta.width;
   const psdH = offMeta.height;
 
-  // trim() nu returneaza offset in versiunea actuala de sharp - fac
-  // manual prin extract si compare cu original.
-  // Alternativa: gasesc bounding box-ul manual din pixeli raw.
-  const { data, info } = await sharp(offRawPng).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-  let minX = info.width, maxX = 0, minY = info.height, maxY = 0;
-  for (let y = 0; y < info.height; y++) {
-    for (let x = 0; x < info.width; x++) {
-      const alpha = data[(y * info.width + x) * 4 + 3];
-      if (alpha > 30) {
-        if (x < minX) minX = x;
-        if (x > maxX) maxX = x;
-        if (y < minY) minY = y;
-        if (y > maxY) maxY = y;
+  // Detectez BUTONUL SOLID (nu halo). Halo-ul e semi-transparent
+  // (alpha 30-150), butonul solid are alpha > 200. Folosind threshold
+  // mare 200 gasesc centrul EXACT al butonului efectiv, ignorand
+  // asimetria halo-ului.
+  async function findSolidCenter(pngBuffer) {
+    const { data, info } = await sharp(pngBuffer).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+    let minX = info.width, maxX = 0, minY = info.height, maxY = 0;
+    for (let y = 0; y < info.height; y++) {
+      for (let x = 0; x < info.width; x++) {
+        const alpha = data[(y * info.width + x) * 4 + 3];
+        if (alpha > 200) {
+          if (x < minX) minX = x;
+          if (x > maxX) maxX = x;
+          if (y < minY) minY = y;
+          if (y > maxY) maxY = y;
+        }
       }
     }
+    return {
+      cx: (minX + maxX) / 2,
+      cy: (minY + maxY) / 2,
+      w: maxX - minX + 1,
+      h: maxY - minY + 1,
+    };
   }
-  const btnW = maxX - minX + 1;
-  const btnH = maxY - minY + 1;
-  const btnCX = (minX + maxX) / 2; // centrul butonului efectiv in PSD
-  const btnCY = (minY + maxY) / 2;
 
-  // Latimea decupajului = latimea butonului efectiv + spatiu suficient
-  // pentru halo-ul din On. Folosesc factorul 1.4 - lasa ~20% halo pe
-  // fiecare parte, dar nu ocupa tot canvas-ul PSD (care ar duce la
-  // spatii mari intre butoane cand sunt lipite).
-  const btnSide = Math.max(btnW, btnH);
+  const offSolid = await findSolidCenter(offRawPng);
+  const onSolid  = await findSolidCenter(onRawPng);
+  // Butonul solid din Off si On e ADESEA la pozitii diferite in PSD
+  // (utilizatorul a desenat butonul-on putin mai sus/mai lat cu halou).
+  // Deci trebuie sa decupez in jurul CENTRULUI PROPRIU al fiecarui
+  // buton solid - astfel Off si On au butonul PERFECT in centrul
+  // canvas-ului final.
+
+  // Cropside comun pentru toata perechea = pornim de la butonul solid
+  // (Off, care nu are halo) + margine 40% pentru halo-ul din On.
+  const btnSide = Math.max(offSolid.w, offSolid.h);
   const cropSide = Math.round(btnSide * 1.4);
 
-  // Decupez o zona patrata in jurul centrului butonului efectiv,
-  // ACELASI dreptunghi pentru Off si On.
-  const cropLeft = Math.round(btnCX - cropSide / 2);
-  const cropTop  = Math.round(btnCY - cropSide / 2);
+  async function cropAround(pngBuffer, cx, cy) {
+    const cropLeft = Math.round(cx - cropSide / 2);
+    const cropTop  = Math.round(cy - cropSide / 2);
+    const safeLeft = Math.max(0, cropLeft);
+    const safeTop  = Math.max(0, cropTop);
+    const safeRight  = Math.min(psdW,  cropLeft + cropSide);
+    const safeBottom = Math.min(psdH,  cropTop + cropSide);
+    const safeW = safeRight - safeLeft;
+    const safeH = safeBottom - safeTop;
+    const extracted = await sharp(pngBuffer)
+      .extract({ left: safeLeft, top: safeTop, width: safeW, height: safeH })
+      .png().toBuffer();
+    // Padding sa ajunga la cropSide x cropSide, pastrand pozitia
+    // relativa fata de cropLeft/cropTop originale (nu safe).
+    const offsetX = safeLeft - cropLeft;
+    const offsetY = safeTop - cropTop;
+    return await sharp({
+      create: { width: cropSide, height: cropSide, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+    }).composite([{ input: extracted, left: offsetX, top: offsetY }]).png().toBuffer();
+  }
 
-  // Clamp la PSD bounds
-  const safeLeft = Math.max(0, cropLeft);
-  const safeTop  = Math.max(0, cropTop);
-  const safeRight  = Math.min(psdW,  cropLeft + cropSide);
-  const safeBottom = Math.min(psdH, cropTop + cropSide);
-  const safeW = safeRight - safeLeft;
-  const safeH = safeBottom - safeTop;
+  // Decupez Off in jurul centrului sau propriu si On in jurul centrului
+  // sau propriu. Astfel BUTONUL SOLID e in centrul (cropSide/2, cropSide/2)
+  // in AMBELE - se aliniaza perfect vertical si orizontal.
+  const offCanvas = await cropAround(offRawPng, offSolid.cx, offSolid.cy);
+  const onCanvas  = await cropAround(onRawPng,  onSolid.cx,  onSolid.cy);
 
-  // Extract din Off si On. Dupa clamp, dimensiunile pot fi mai mici
-  // decat cropSide. Pentru consistenta, dupa extract compun pe canvas
-  // patrat cropSide x cropSide cu offset corect (astfel butonul ramane
-  // in centru, chiar daca halo-ul a fost taiat la marginile PSD-ului).
-  const offExtracted = await sharp(offRawPng)
-    .extract({ left: safeLeft, top: safeTop, width: safeW, height: safeH })
-    .png().toBuffer();
-  const onExtracted = await sharp(onRawPng)
-    .extract({ left: safeLeft, top: safeTop, width: safeW, height: safeH })
-    .png().toBuffer();
-
-  // Padding pentru a ajunge la cropSide x cropSide
-  const offsetX = safeLeft - cropLeft;
-  const offsetY = safeTop - cropTop;
-
-  const offCanvas = await sharp({
-    create: { width: cropSide, height: cropSide, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
-  }).composite([{ input: offExtracted, left: offsetX, top: offsetY }]).png().toBuffer();
-
-  const onCanvas = await sharp({
-    create: { width: cropSide, height: cropSide, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
-  }).composite([{ input: onExtracted, left: offsetX, top: offsetY }]).png().toBuffer();
-
-  // Scalez la TARGET_SIZE (canvas final unic pentru toate 6 imaginile).
   const offFinal = await sharp(offCanvas).resize(TARGET_SIZE, TARGET_SIZE, { kernel: 'lanczos3' }).png({ compressionLevel: 9 }).toBuffer();
   const onFinal  = await sharp(onCanvas).resize(TARGET_SIZE, TARGET_SIZE, { kernel: 'lanczos3' }).png({ compressionLevel: 9 }).toBuffer();
 
-  // scale param nu mai e folosit direct - toate perechile ajung la
-  // TARGET_SIZE prin resize final. Marimea butonului efectiv e uniforma
-  // pentru ca cropSide = btnSide * 1.4 in toate cele 3 perechi.
   void scale;
-
   return { off: offFinal, on: onFinal, cropSide, btnSide };
 }
 
