@@ -182,70 +182,137 @@ async function process(pngBuffer, w, h) {
 const TARGET_SIZE = 400; // canvas patrat uniform final
 const TARGET_BUTTON_SIZE = 350; // dimensiunea butonului efectiv (fara halo)
 
-// Pas 1: detectez bbox-ul butonului efectiv din OFF pentru fiecare pereche.
-// OFF are doar buton + umbra mica, deci bbox-ul e aproape identic cu
-// butonul propriu-zis.
+// Pas 1: detectez bbox-ul butonului efectiv din OFF (are doar buton +
+// umbra mica, aproape identic cu butonul propriu-zis).
 console.log('\nPas 1: detectez bbox butoane efective din OFF...');
-const loopOffBBox  = await trimBBox(loop.off.png,  30);
-const pauseOffBBox = await trimBBox(pp.pauseOff.png, 30);
-const stopOffBBox  = await trimBBox(stop.off.png,  30);
-console.log(`  loop-off:  ${loopOffBBox.w}x${loopOffBBox.h}`);
-console.log(`  pause-off: ${pauseOffBBox.w}x${pauseOffBBox.h}`);
-console.log(`  stop-off:  ${stopOffBBox.w}x${stopOffBBox.h}`);
-
-// Pas 2: calculez factor scalare pentru fiecare pereche astfel incat
-// butonul efectiv devine EXACT TARGET_BUTTON_SIZE dupa scalare.
-const loopScale  = TARGET_BUTTON_SIZE / Math.max(loopOffBBox.w,  loopOffBBox.h);
-const pauseScale = TARGET_BUTTON_SIZE / Math.max(pauseOffBBox.w, pauseOffBBox.h);
-const stopScale  = TARGET_BUTTON_SIZE / Math.max(stopOffBBox.w,  stopOffBBox.h);
-console.log(`\nPas 2: factori scalare -> button = ${TARGET_BUTTON_SIZE}px`);
-console.log(`  loop:  ${loopScale.toFixed(3)}`);
-console.log(`  pause: ${pauseScale.toFixed(3)}`);
-console.log(`  stop:  ${stopScale.toFixed(3)}`);
-
-// Pas 3: trim + scalez cu factor UNIC pentru fiecare pereche.
-// Off si On din aceeasi pereche primesc acelasi scale factor -> raman
-// aliniate intre ele; iar butoanele efective din perechi diferite ajung
-// la aceeasi marime.
-console.log('\nPas 3: trim + scalare uniforma per pereche...');
 const loopOffTrim  = await trimBBox(loop.off.png,  30);
-const loopOnTrim   = await trimBBox(loop.on.png,   30);
 const pauseOffTrim = await trimBBox(pp.pauseOff.png, 30);
-const playOnTrim   = await trimBBox(pp.playOn.png,   30);
 const stopOffTrim  = await trimBBox(stop.off.png,  30);
-const stopOnTrim   = await trimBBox(stop.on.png,   30);
+console.log(`  loop-off:  ${loopOffTrim.w}x${loopOffTrim.h}`);
+console.log(`  pause-off: ${pauseOffTrim.w}x${pauseOffTrim.h}`);
+console.log(`  stop-off:  ${stopOffTrim.w}x${stopOffTrim.h}`);
 
-const loopOffScaled  = await scaleBuffer(loopOffTrim.buf,  loopScale);
-const loopOnScaled   = await scaleBuffer(loopOnTrim.buf,   loopScale);
-const pauseOffScaled = await scaleBuffer(pauseOffTrim.buf, pauseScale);
-const playOnScaled   = await scaleBuffer(playOnTrim.buf,   pauseScale);
-const stopOffScaled  = await scaleBuffer(stopOffTrim.buf,  stopScale);
-const stopOnScaled   = await scaleBuffer(stopOnTrim.buf,   stopScale);
+// Pas 2: factori scalare per pereche.
+const loopScale  = TARGET_BUTTON_SIZE / Math.max(loopOffTrim.w,  loopOffTrim.h);
+const pauseScale = TARGET_BUTTON_SIZE / Math.max(pauseOffTrim.w, pauseOffTrim.h);
+const stopScale  = TARGET_BUTTON_SIZE / Math.max(stopOffTrim.w,  stopOffTrim.h);
+console.log(`\nPas 2: factori scalare -> button = ${TARGET_BUTTON_SIZE}px`);
+console.log(`  loop:  ${loopScale.toFixed(3)}   pause: ${pauseScale.toFixed(3)}   stop: ${stopScale.toFixed(3)}`);
 
-// Pas 4: calculez canvas final = max peste toate imaginile SCALATE
-// (acum halo-urile din On au dimensiuni diferite, dar butoanele
-// efective sunt identice).
-let canvasSide = 0;
-for (const buf of [loopOffScaled, loopOnScaled, pauseOffScaled, playOnScaled, stopOffScaled, stopOnScaled]) {
-  const m = await sharp(buf).metadata();
-  const s = Math.max(m.width ?? 0, m.height ?? 0);
-  if (s > canvasSide) canvasSide = s;
+// Pas 3: pentru fiecare PSD, extract layerele Off si On direct pe canvas
+// mare (pastrand POZITIILE originale), apoi scalez si decupez la BBOX-ul
+// butonului efectiv (detectat din Off) + o margine mica pentru halo.
+//
+// IMPORTANT: NU centrez fiecare imagine separat pe canvas (asta produce
+// deplasari diferite). In schimb, folosesc bbox-ul BUTONULUI (nu al
+// halo-ului) ca centru comun pentru Off si On.
+console.log('\nPas 3: extract cu centru comun (buton efectiv, nu halo)...');
+
+// Pentru fiecare buton am pozitia layerelor din PSD (already extracted).
+// Le procesez direct pe canvas-ul PSD (473x650), aflu bbox-ul butonului
+// din Off, apoi decupez o zona uniforma in jurul acelui bbox pentru
+// AMBELE Off si On (astfel butonul e in acelasi loc).
+
+async function processButtonPair(offRawPng, onRawPng, scale) {
+  // Trim Off ca sa aflu unde e butonul efectiv.
+  const offMeta = await sharp(offRawPng).metadata();
+  const psdW = offMeta.width;
+  const psdH = offMeta.height;
+
+  // trim() nu returneaza offset in versiunea actuala de sharp - fac
+  // manual prin extract si compare cu original.
+  // Alternativa: gasesc bounding box-ul manual din pixeli raw.
+  const { data, info } = await sharp(offRawPng).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  let minX = info.width, maxX = 0, minY = info.height, maxY = 0;
+  for (let y = 0; y < info.height; y++) {
+    for (let x = 0; x < info.width; x++) {
+      const alpha = data[(y * info.width + x) * 4 + 3];
+      if (alpha > 30) {
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+    }
+  }
+  const btnW = maxX - minX + 1;
+  const btnH = maxY - minY + 1;
+  const btnCX = (minX + maxX) / 2; // centrul butonului efectiv in PSD
+  const btnCY = (minY + maxY) / 2;
+
+  // Latimea decupajului = latimea butonului efectiv + spatiu suficient
+  // pentru halo-ul din On. Folosesc factorul 1.4 - lasa ~20% halo pe
+  // fiecare parte, dar nu ocupa tot canvas-ul PSD (care ar duce la
+  // spatii mari intre butoane cand sunt lipite).
+  const btnSide = Math.max(btnW, btnH);
+  const cropSide = Math.round(btnSide * 1.4);
+
+  // Decupez o zona patrata in jurul centrului butonului efectiv,
+  // ACELASI dreptunghi pentru Off si On.
+  const cropLeft = Math.round(btnCX - cropSide / 2);
+  const cropTop  = Math.round(btnCY - cropSide / 2);
+
+  // Clamp la PSD bounds
+  const safeLeft = Math.max(0, cropLeft);
+  const safeTop  = Math.max(0, cropTop);
+  const safeRight  = Math.min(psdW,  cropLeft + cropSide);
+  const safeBottom = Math.min(psdH, cropTop + cropSide);
+  const safeW = safeRight - safeLeft;
+  const safeH = safeBottom - safeTop;
+
+  // Extract din Off si On. Dupa clamp, dimensiunile pot fi mai mici
+  // decat cropSide. Pentru consistenta, dupa extract compun pe canvas
+  // patrat cropSide x cropSide cu offset corect (astfel butonul ramane
+  // in centru, chiar daca halo-ul a fost taiat la marginile PSD-ului).
+  const offExtracted = await sharp(offRawPng)
+    .extract({ left: safeLeft, top: safeTop, width: safeW, height: safeH })
+    .png().toBuffer();
+  const onExtracted = await sharp(onRawPng)
+    .extract({ left: safeLeft, top: safeTop, width: safeW, height: safeH })
+    .png().toBuffer();
+
+  // Padding pentru a ajunge la cropSide x cropSide
+  const offsetX = safeLeft - cropLeft;
+  const offsetY = safeTop - cropTop;
+
+  const offCanvas = await sharp({
+    create: { width: cropSide, height: cropSide, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+  }).composite([{ input: offExtracted, left: offsetX, top: offsetY }]).png().toBuffer();
+
+  const onCanvas = await sharp({
+    create: { width: cropSide, height: cropSide, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+  }).composite([{ input: onExtracted, left: offsetX, top: offsetY }]).png().toBuffer();
+
+  // Scalez la TARGET_SIZE (canvas final unic pentru toate 6 imaginile).
+  const offFinal = await sharp(offCanvas).resize(TARGET_SIZE, TARGET_SIZE, { kernel: 'lanczos3' }).png({ compressionLevel: 9 }).toBuffer();
+  const onFinal  = await sharp(onCanvas).resize(TARGET_SIZE, TARGET_SIZE, { kernel: 'lanczos3' }).png({ compressionLevel: 9 }).toBuffer();
+
+  // scale param nu mai e folosit direct - toate perechile ajung la
+  // TARGET_SIZE prin resize final. Marimea butonului efectiv e uniforma
+  // pentru ca cropSide = btnSide * 1.4 in toate cele 3 perechi.
+  void scale;
+
+  return { off: offFinal, on: onFinal, cropSide, btnSide };
 }
-console.log(`\nPas 4: canvas patrat final = ${canvasSide}x${canvasSide}`);
 
-// Pas 5: centrez fiecare pe canvas patrat identic + resize la TARGET_SIZE.
-console.log(`\nPas 5: centrare pe canvas patrat + resize la ${TARGET_SIZE}x${TARGET_SIZE}...`);
-const loopOffOut  = await centerOnCanvas(loopOffScaled,  canvasSide, TARGET_SIZE);
-const loopOnOut   = await centerOnCanvas(loopOnScaled,   canvasSide, TARGET_SIZE);
-const pauseOffOut = await centerOnCanvas(pauseOffScaled, canvasSide, TARGET_SIZE);
-const playOnOut   = await centerOnCanvas(playOnScaled,   canvasSide, TARGET_SIZE);
-const stopOffOut  = await centerOnCanvas(stopOffScaled,  canvasSide, TARGET_SIZE);
-const stopOnOut   = await centerOnCanvas(stopOnScaled,   canvasSide, TARGET_SIZE);
+const loopPair  = await processButtonPair(loop.off.png,  loop.on.png,  loopScale);
+const ppPairNew = await processButtonPair(pp.pauseOff.png, pp.playOn.png, pauseScale);
+const stopPair2 = await processButtonPair(stop.off.png,  stop.on.png,  stopScale);
+console.log(`  loop:  crop ${loopPair.cropSide} (btn ${loopPair.btnSide})`);
+console.log(`  play:  crop ${ppPairNew.cropSide} (btn ${ppPairNew.btnSide})`);
+console.log(`  stop:  crop ${stopPair2.cropSide} (btn ${stopPair2.btnSide})`);
+
+const loopOffOut  = loopPair.off;
+const loopOnOut   = loopPair.on;
+const pauseOffOut = ppPairNew.off;
+const playOnOut   = ppPairNew.on;
+const stopOffOut  = stopPair2.off;
+const stopOnOut   = stopPair2.on;
 
 // Alias-uri pentru compatibilitate cu HTML preview de mai jos.
-const loopPair = { off: loopOffOut, on: loopOnOut };
-const ppPair   = { off: pauseOffOut, on: playOnOut };
-const stopPair = { off: stopOffOut, on: stopOnOut };
+// Alias-uri pentru HTML preview de mai jos.
+const ppPair = ppPairNew;
+const stopPair = stopPair2;
 
 const buttons = [
   { name: 'loop-off',  png: loopOffOut },
