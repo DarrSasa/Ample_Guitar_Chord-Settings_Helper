@@ -125,64 +125,42 @@ const stop  = await extractPsd('docs/graphics/psd/stop-on-stop-off.psd', {
 // -----------------------------------------------------------------
 // Resize la ceva rezonabil (max 400 pe latura mare) si salvez SVG-uri.
 // Toate PSD-urile au acelasi canvas 473x650.
-// Detecteaza bounding box-ul netransparent al unei imagini PNG.
-// Returneaza { left, top, width, height } - zona utila.
-async function getBoundingBox(pngBuffer) {
-  const trimmed = await sharp(pngBuffer).trim({ threshold: 5 }).toBuffer();
-  const trimMeta = await sharp(trimmed).metadata();
-  const origMeta = await sharp(pngBuffer).metadata();
-  // sharp.trim() in versiunile noi returneaza trimOffsetLeft/Top in metadata.
-  // Daca nu, calculez indirect: dimensiune originala - dimensiune trimmed.
-  return {
-    left: (origMeta.width ?? 0) - (trimMeta.width ?? 0),  // aproximativ
-    top: (origMeta.height ?? 0) - (trimMeta.height ?? 0),
-    width: trimMeta.width ?? origMeta.width ?? 0,
-    height: trimMeta.height ?? origMeta.height ?? 0,
-  };
+// Normalizare GLOBALA: gaseste bounding box-ul cel mai mare peste TOATE
+// cele 6 imagini si foloseste-l ca dimensiune UNIFORMA de canvas.
+// Astfel toate butoanele au aceleasi dimensiuni si sunt centrate identic,
+// eliminand diferentele de spatiere si aliniere verticala.
+//
+// Threshold 30 (nu 5) - taie halo-ul aproape invizibil care de fapt
+// nu contribuie vizual dar ocupa spatiu in bounding box.
+async function computeGlobalBBox(pngs) {
+  let maxW = 0, maxH = 0;
+  for (const png of pngs) {
+    const trimmed = await sharp(png).trim({ threshold: 30 }).toBuffer();
+    const meta = await sharp(trimmed).metadata();
+    if ((meta.width ?? 0) > maxW) maxW = meta.width ?? 0;
+    if ((meta.height ?? 0) > maxH) maxH = meta.height ?? 0;
+  }
+  return { maxW, maxH, side: Math.max(maxW, maxH) };
 }
 
-// Normalizeaza o PERECHE (off + on) la acelasi canvas patrat, centrand
-// AMBELE la fel. Foloseste On ca referinta (are halo mai mare, deci
-// bounding box mai mare) - Off e centrat pe acelasi canvas cu spatiu
-// mai mare in jur.
-//
-// Astfel butonul efectiv (in centrul canvas-ului) este in ACEEASI
-// pozitie in Off si On -> nu "sare" cand tranzitezi. Iar canvas-urile
-// sunt identice ca marime pentru toate cele 3 butoane -> spatiu uniform.
-async function normalizePair(offPng, onPng, targetSize) {
-  // Trim ambele imagini si iau bounding box-urile.
-  const offTrimmed = await sharp(offPng).trim({ threshold: 5 }).toBuffer();
-  const onTrimmed  = await sharp(onPng).trim({ threshold: 5 }).toBuffer();
-  const offMeta = await sharp(offTrimmed).metadata();
-  const onMeta  = await sharp(onTrimmed).metadata();
-  // Alegem MAX pe fiecare axa ca sa incapa ambele centrat.
-  const maxW = Math.max(offMeta.width ?? 0, onMeta.width ?? 0);
-  const maxH = Math.max(offMeta.height ?? 0, onMeta.height ?? 0);
-  const maxSide = Math.max(maxW, maxH);
-  // Fara padding suplimentar - canvas-ul = bounding box max (On cu halo).
-  // Astfel butoanele lipite au spatiu minim intre halo-uri, natural.
-  const pad = 0;
-  const canvasSide = maxSide + pad * 2;
-
-  // Compune fiecare (off + on) centrat pe canvas patrat identic.
-  const centerAndScale = async (trimmedBuf, trimMeta) => {
-    const w = trimMeta.width ?? 0;
-    const h = trimMeta.height ?? 0;
-    const composed = await sharp({
-      create: { width: canvasSide, height: canvasSide, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
-    })
-      .composite([{
-        input: trimmedBuf,
-        left: Math.round((canvasSide - w) / 2),
-        top: Math.round((canvasSide - h) / 2),
-      }])
-      .png().toBuffer();
-    return await sharp(composed).resize(targetSize, targetSize, { kernel: 'lanczos3' })
-      .png({ compressionLevel: 9 }).toBuffer();
-  };
-  const offOut = await centerAndScale(offTrimmed, offMeta);
-  const onOut  = await centerAndScale(onTrimmed, onMeta);
-  return { off: offOut, on: onOut, canvasSide };
+// Normalizeaza o imagine: trim + centrare pe un canvas patrat de
+// dimensiunea data. Fara padding suplimentar.
+async function normalizeToSquare(pngBuffer, canvasSide, targetSize) {
+  const trimmed = await sharp(pngBuffer).trim({ threshold: 30 }).toBuffer();
+  const meta = await sharp(trimmed).metadata();
+  const w = meta.width ?? 0;
+  const h = meta.height ?? 0;
+  const centered = await sharp({
+    create: { width: canvasSide, height: canvasSide, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+  })
+    .composite([{
+      input: trimmed,
+      left: Math.round((canvasSide - w) / 2),
+      top: Math.round((canvasSide - h) / 2),
+    }])
+    .png().toBuffer();
+  return await sharp(centered).resize(targetSize, targetSize, { kernel: 'lanczos3' })
+    .png({ compressionLevel: 9 }).toBuffer();
 }
 
 async function process(pngBuffer, w, h) {
@@ -192,25 +170,38 @@ async function process(pngBuffer, w, h) {
 
 const TARGET_SIZE = 400; // canvas patrat uniform pentru toate
 
-// Normalizez fiecare pereche (off + on) la canvas patrat identic
-// pentru fiecare buton. Astfel loop-off/loop-on/pause-off/play-on/
-// stop-off/stop-on au TOATE aceeasi dimensiune si centrare -> spatiul
-// vizual dintre butoane devine UNIFORM cand sunt asezate lipite.
-console.log('\nNormalizez perechile (off + on) la canvas patrat uniform...');
-const loopPair = await normalizePair(loop.off.png, loop.on.png, TARGET_SIZE);
-const ppPair   = await normalizePair(pp.pauseOff.png, pp.playOn.png, TARGET_SIZE);
-const stopPair = await normalizePair(stop.off.png, stop.on.png, TARGET_SIZE);
-console.log(`  loop  canvas: ${loopPair.canvasSide}x${loopPair.canvasSide} -> resize ${TARGET_SIZE}x${TARGET_SIZE}`);
-console.log(`  play  canvas: ${ppPair.canvasSide}x${ppPair.canvasSide} -> resize ${TARGET_SIZE}x${TARGET_SIZE}`);
-console.log(`  stop  canvas: ${stopPair.canvasSide}x${stopPair.canvasSide} -> resize ${TARGET_SIZE}x${TARGET_SIZE}`);
+// Calculez bounding box-ul GLOBAL peste toate cele 6 imagini.
+// Astfel canvas-ul e IDENTIC pentru toate -> centrare identica ->
+// aliniere verticala perfecta + spatiu uniform intre butoane cand
+// sunt lipite.
+console.log('\nCalculez bounding box global peste toate 6 imaginile...');
+const globalBBox = await computeGlobalBBox([
+  loop.off.png, loop.on.png,
+  pp.pauseOff.png, pp.playOn.png,
+  stop.off.png, stop.on.png,
+]);
+console.log(`  Global bbox (trim threshold 30): ${globalBBox.maxW}x${globalBBox.maxH}, side patrat: ${globalBBox.side}`);
+
+console.log('\nNormalizez fiecare buton pe canvas patrat identic...');
+const loopOffOut  = await normalizeToSquare(loop.off.png,  globalBBox.side, TARGET_SIZE);
+const loopOnOut   = await normalizeToSquare(loop.on.png,   globalBBox.side, TARGET_SIZE);
+const pauseOffOut = await normalizeToSquare(pp.pauseOff.png, globalBBox.side, TARGET_SIZE);
+const playOnOut   = await normalizeToSquare(pp.playOn.png,   globalBBox.side, TARGET_SIZE);
+const stopOffOut  = await normalizeToSquare(stop.off.png,  globalBBox.side, TARGET_SIZE);
+const stopOnOut   = await normalizeToSquare(stop.on.png,   globalBBox.side, TARGET_SIZE);
+
+// Alias-uri pentru compatibilitate cu HTML preview de mai jos.
+const loopPair = { off: loopOffOut, on: loopOnOut };
+const ppPair   = { off: pauseOffOut, on: playOnOut };
+const stopPair = { off: stopOffOut, on: stopOnOut };
 
 const buttons = [
-  { name: 'loop-off',  png: loopPair.off },
-  { name: 'loop-on',   png: loopPair.on },
-  { name: 'pause-off', png: ppPair.off },
-  { name: 'play-on',   png: ppPair.on },
-  { name: 'stop-off',  png: stopPair.off },
-  { name: 'stop-on',   png: stopPair.on },
+  { name: 'loop-off',  png: loopOffOut },
+  { name: 'loop-on',   png: loopOnOut },
+  { name: 'pause-off', png: pauseOffOut },
+  { name: 'play-on',   png: playOnOut },
+  { name: 'stop-off',  png: stopOffOut },
+  { name: 'stop-on',   png: stopOnOut },
 ];
 
 console.log('\nSalvez SVG-uri finale...');
