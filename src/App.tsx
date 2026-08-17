@@ -4,6 +4,9 @@ import GraphicButton from "./components/GraphicButton";
 import RubberBandOverlay, { type RubberBandRect } from "./components/RubberBandOverlay";
 import NudgeToggle, { type NudgeMode } from "./components/NudgeToggle";
 import TransportButtons from "./components/TransportButtons";
+import { SamplerEngine } from "./sampler/SamplerEngine";
+import { discoverLibraries, makeSampleFetcher } from "./sampler/scanLibraries";
+import type { GuitarLibraryInfo } from "./sampler/types";
 
 // Asset-uri grafice generate din PSD prin `node scripts/psd-to-svg.mjs`.
 // import.meta.glob adauga fisierele DACA exista in `src/assets/graphics/svg/`;
@@ -1080,18 +1083,31 @@ function SettingsGearIcon({ size = 24 }: { size?: number }) {
   );
 }
 
-// Full-screen dark settings modal. Renders over the whole app. Two controls:
+// Full-screen dark settings modal. Renders over the whole app. Controls:
 //   - Size radio group (applies instantly on click via desktopBridge.resizeWindow)
 //   - Long-press ms (three radio presets + a fine 200..1000ms slider)
+//   - Sound source (soundfonts vs guitar samples)
 // Top-right corner has another gear icon that closes the modal.
 function SettingsPanel(props: {
   windowSize: "Small" | "Medium" | "Large";
   onSizeChange: (s: "Small" | "Medium" | "Large") => void;
   longPressMs: number;
   onLongPressChange: (ms: number) => void;
+  soundSource: "soundfonts" | "guitar-samples";
+  onSoundSourceChange: (src: "soundfonts" | "guitar-samples") => void;
+  guitarLibrariesCount: number;
   onClose: () => void;
 }) {
-  const { windowSize, onSizeChange, longPressMs, onLongPressChange, onClose } = props;
+  const {
+    windowSize,
+    onSizeChange,
+    longPressMs,
+    onLongPressChange,
+    soundSource,
+    onSoundSourceChange,
+    guitarLibrariesCount,
+    onClose,
+  } = props;
   const sizes: Array<"Small" | "Medium" | "Large"> = ["Small", "Medium", "Large"];
   const longPressPresets = [300, 500, 800];
 
@@ -1190,6 +1206,57 @@ function SettingsPanel(props: {
             {longPressMs} ms
           </span>
         </div>
+      </div>
+
+      {/* Sound source */}
+      <div className="mb-8">
+        <div className="mb-2 text-sm font-semibold text-neutral-300">Sound source:</div>
+        <div className="flex flex-col gap-2">
+          <label
+            className={`flex cursor-pointer items-center gap-2 rounded-sm border px-3 py-2 text-sm ${
+              soundSource === "soundfonts"
+                ? "border-orange-400 bg-neutral-800 text-orange-200"
+                : "border-neutral-600 bg-neutral-900 text-neutral-200 hover:bg-neutral-800"
+            }`}
+          >
+            <input
+              type="checkbox"
+              checked={soundSource === "soundfonts"}
+              onChange={() => onSoundSourceChange("soundfonts")}
+              className="accent-orange-400"
+            />
+            <span>SoundFonts</span>
+            <span className="text-[10px] text-neutral-400">(chitare General MIDI — implicit)</span>
+          </label>
+
+          <label
+            className={`flex cursor-pointer items-center gap-2 rounded-sm border px-3 py-2 text-sm ${
+              soundSource === "guitar-samples"
+                ? "border-orange-400 bg-neutral-800 text-orange-200"
+                : "border-neutral-600 bg-neutral-900 text-neutral-200 hover:bg-neutral-800"
+            }`}
+          >
+            <input
+              type="checkbox"
+              checked={soundSource === "guitar-samples"}
+              onChange={() => onSoundSourceChange("guitar-samples")}
+              className="accent-orange-400"
+            />
+            <span>Guitar Samples</span>
+            <span className="text-[10px] text-neutral-400">(librăriile multi-sample din „guitar samples”)</span>
+          </label>
+        </div>
+        {guitarLibrariesCount === 0 ? (
+          <div className="mt-2 text-[11px] text-neutral-500">
+            Nu s-a găsit nicio librărie în folderul „guitar samples”. Când
+            alegi Guitar Samples fără librării, sunetul cade automat pe
+            SoundFonts.
+          </div>
+        ) : (
+          <div className="mt-2 text-[11px] text-neutral-500">
+            {guitarLibrariesCount} librărie{guitarLibrariesCount === 1 ? "" : "i"} detectată{guitarLibrariesCount === 1 ? "" : "e"} în „guitar samples”.
+          </div>
+        )}
       </div>
 
       <div className="mt-auto text-xs text-neutral-500">
@@ -1369,6 +1436,45 @@ export default function App() {
   const [guitarPreset, setGuitarPreset] = useState(GUITAR_PRESETS[0]);
   const [guitarLoading, setGuitarLoading] = useState(false);
   const [volume, setVolume] = useState(0.72);
+
+  // Sursa de sunet pentru chitara: soundfonts (GM, implicit) sau
+  // guitar-samples (librariile multi-sample din "guitar samples").
+  // Persistata in localStorage. Ref mirror pentru handler-ele care ruleaza
+  // in bucle de playback (ca sa nu prinda stale closure).
+  const [soundSource, setSoundSource] = useState<"soundfonts" | "guitar-samples">(() => {
+    try {
+      const v = localStorage.getItem("soundSource");
+      if (v === "soundfonts" || v === "guitar-samples") return v;
+    } catch { /* localStorage poate fi dezactivat */ }
+    return "soundfonts";
+  });
+  const soundSourceRef = useRef<"soundfonts" | "guitar-samples">(soundSource);
+
+  // Motorul sampler (creat leneș, doar daca exista punte IPC -> Electron).
+  const samplerEngineRef = useRef<SamplerEngine | null>(null);
+  // Librariile descoperite in "guitar samples" (prin IPC).
+  const [guitarLibraries, setGuitarLibraries] = useState<GuitarLibraryInfo[]>([]);
+  const guitarLibrariesRef = useRef<GuitarLibraryInfo[]>([]);
+
+  // Persista sursa de sunet + tine ref-ul la zi (pentru bucle de playback).
+  useEffect(() => {
+    soundSourceRef.current = soundSource;
+    try { localStorage.setItem("soundSource", soundSource); } catch { /* ignore */ }
+  }, [soundSource]);
+
+  // Descopera librariile de chitara la pornire. In browser (fara Electron)
+  // discoverLibraries intoarce [] — samplerul nu e disponibil, dar aplicatia
+  // (soundfonts) ramane functionala.
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      const libs = await discoverLibraries();
+      if (cancelled) return;
+      guitarLibrariesRef.current = libs;
+      setGuitarLibraries(libs);
+    })();
+    return () => { cancelled = true; };
+  }, []);
 
   // Wheel listener pe BPM cu { passive: false } - astfel preventDefault
   // functioneaza si pagina NU mai scrolleaza cand utilizatorul rotieste
@@ -2434,6 +2540,48 @@ export default function App() {
     }
   };
 
+  // Intoarce motorul sampler (creat o singura data), sau null daca nu exista
+  // punte IPC (adica nu rulam in Electron).
+  const getSamplerEngine = (): SamplerEngine | null => {
+    if (samplerEngineRef.current) return samplerEngineRef.current;
+    const fetch = makeSampleFetcher();
+    if (!fetch) return null;
+    samplerEngineRef.current = new SamplerEngine(fetch, audioCtxRef.current ?? undefined);
+    return samplerEngineRef.current;
+  };
+
+  // Reda notele prin sampler (librariile multi-sample). Returneaza true daca
+  // a reusit, false daca trebuie sa cadem pe soundfont.
+  // NOTA (Etapa 4): fara meniu de selectie inca (vine in Etapa 5), folosim
+  // automat PRIMA librarie care are note individuale (single notes).
+  const playViaSampler = async (
+    notes: number[],
+    durationMs: number,
+    when: number
+  ): Promise<boolean> => {
+    const libs = guitarLibrariesRef.current;
+    const lib = libs.find((l) => l.hasSingleNotes && l.singleNotes.length > 0);
+    if (!lib) {
+      console.debug("[Sampler] Nicio librarie guitar samples disponibila — folosesc soundfont.");
+      return false;
+    }
+    const engine = getSamplerEngine();
+    if (!engine) return false;
+    try {
+      const specs = notes.map((midi) => ({ midi, velocity: 100 }));
+      await engine.playChord(lib.singleNotes, specs, {
+        when,
+        duration: durationMs / 1000,
+        gain: Math.max(0.01, volume * 0.7),
+        fadeOut: lib.defaultFadeOut ?? 0.05,
+      });
+      return true;
+    } catch (err) {
+      console.debug("[Sampler] Eroare la redarea guitar samples:", err);
+      return false;
+    }
+  };
+
   const playChordSound = async (label: string, durationMs: number) => {
     const ctx = ensureAudio();
     if (ctx.state === "suspended") {
@@ -2441,6 +2589,12 @@ export default function App() {
     }
     const now = ctx.currentTime;
     const notes = chordNotes(label);
+
+    // Sursa activa = guitar-samples -> redam prin motorul sampler; daca nu
+    // reuseste (fara librarii / fara Electron), cadem pe soundfont.
+    if (soundSourceRef.current === "guitar-samples") {
+      if (await playViaSampler(notes, durationMs, now)) return;
+    }
 
     if (!instrumentRef.current) {
       await loadInstrument(guitarPreset);
@@ -5173,6 +5327,9 @@ export default function App() {
           onSizeChange={applyWindowSize}
           longPressMs={longPressMs}
           onLongPressChange={setLongPressMs}
+          soundSource={soundSource}
+          onSoundSourceChange={setSoundSource}
+          guitarLibrariesCount={guitarLibraries.length}
           onClose={() => setSettingsOpen(false)}
         />
       )}

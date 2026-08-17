@@ -43,8 +43,11 @@ export class SamplerEngine {
   private pending = new Map<string, Promise<AudioBuffer>>();
   private fetchSample: SampleFetcher;
 
-  constructor(fetchSample: SampleFetcher) {
+  // `ctx` optional: daca aplicatia are deja un AudioContext (ex. pentru
+  // soundfonts), il refolosim in loc sa cream unul nou.
+  constructor(fetchSample: SampleFetcher, ctx?: AudioContext) {
     this.fetchSample = fetchSample;
+    this.ctx = ctx ?? null;
   }
 
   ensureContext(): AudioContext {
