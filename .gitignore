@@ -13,6 +13,14 @@ release/
 public/soundfonts/*
 !public/soundfonts/README.txt
 
+# Guitar sample libraries (multi-sample .exs/.gig + WAV) - pot fi de la
+# sute de MB pana la cativa GB. NU intra in git. Userul le tine LOCAL in
+# public/guitar samples/ (copiate in EXE la build de Build-Installer.ps1).
+# Se comiteaza DOAR README.md. Fiecare librarie poate avea un descriptor
+# `library.json` (optional) - si ala ramane local, langa librarie.
+public/guitar samples/*
+!public/guitar samples/README.md
+
 # Build output folders
 portable-out/
 installer-out/

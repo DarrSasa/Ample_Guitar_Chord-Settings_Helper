@@ -3,14 +3,18 @@
 // functia returneaza o lista goala — samplerul nu e disponibil, dar restul
 // aplicatiei (soundfonts) ramane intact.
 
-import type { DirEntry, GuitarLibraryInfo } from "./types";
-import { scanLibraries as scanAll } from "./parseLibrary";
+import type { DirEntry, GuitarLibraryInfo, LibraryDescriptor } from "./types";
+import { scanLibraries as scanAll } from "./parseLibrary.ts";
+import { applyDescriptor } from "./descriptor.ts";
 import type { SampleFetcher } from "./SamplerEngine";
 
 export interface GuitarSamplesListing {
   root: string;
   exists: boolean;
   entries: DirEntry[];
+  // Descriptorii `library.json` cititi de procesul principal (cheie = numele
+  // folderului de librarie de nivel 1). Optionali.
+  descriptors?: Record<string, LibraryDescriptor>;
 }
 
 export interface SampleReadResult {
@@ -35,14 +39,17 @@ export function bridgeAvailable(): boolean {
   return !!(b && typeof b.listGuitarSamples === "function" && typeof b.readGuitarSample === "function");
 }
 
-// Intoarce librariile gasite in "guitar samples" (prin IPC). Returneaza o
-// lista goala daca puntea lipseste sau folderul nu exista.
+// Intoarce librariile gasite in "guitar samples" (prin IPC), cu descriptoarele
+// aplicate. Returneaza o lista goala daca puntea lipseste sau folderul nu
+// exista.
 export async function discoverLibraries(): Promise<GuitarLibraryInfo[]> {
   const bridge = getBridge();
   if (!bridge || typeof bridge.listGuitarSamples !== "function") return [];
   const listing = await bridge.listGuitarSamples();
   if (!listing || !listing.exists) return [];
-  return scanAll(listing.entries);
+  const libs = scanAll(listing.entries);
+  const descriptors = listing.descriptors || {};
+  return libs.map((lib) => applyDescriptor(lib, descriptors[lib.id]));
 }
 
 // Fetcher de sample-uri pentru SamplerEngine, construit peste IPC.

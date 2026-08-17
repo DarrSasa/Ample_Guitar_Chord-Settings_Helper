@@ -29,11 +29,27 @@ Realsamples-Electric-Guitar-Vol2/
 - **Adaugare librarie** = copiezi folderul ei aici. Motorul sampler o
   descopera automat (scaneaza recursiv).
 - **Stergere librarie** = stergi folderul ei. Nu trebuie modificat cod.
-- Fiecare librarie poate avea un descriptor `*.json` (generat automat din
-  `.exs`, sau scris manual pt. `.gig` convertit) care descrie: nota de baza,
-  key range, velocity layers, loop points, articulatii.
-- Prefixul vendorului (ex. `RS - Electric Guitar Vol.2`) se ia din descriptor
-  sau din numele folderului.
+- Fiecare librarie poate avea un descriptor **`library.json`** (optional) cu
+  suprascrieri: prefix vendor, nume afisat, fade-out, hint de loop. Vezi
+  `docs/sampler/DESCRIPTOR-FORMAT.md`. Daca lipseste, totul se deduce din
+  numele folderelor/fisierelor.
+- Prefixul vendorului (ex. `RS - Electric Guitar Vol.2`) se ia din
+  `library.json` sau, implicit, din partea dinainte de " - " din numele
+  folderului.
+- Verificare rapida fara build: `node --experimental-strip-types scripts/list-libraries.mjs`
+
+## Structura asteptata de sampler
+
+```
+<Librarie>/
+  ├── Single Notes/            (optional, dar recomandat)
+  │     ├── 0 - E2/            (N = index -> MIDI 40 + N)
+  │     │     ├── 1_E2.wav     (prefix numeric = velocity layer 1..32)
+  │     │     └── ...
+  │     └── 1 - F2/ ...
+  ├── Chords/                  (optional)
+  │     └── A Major/ 1_AC.wav ... (velocity layer 1..8)
+  └── library.json             (optional)
 
 ## Atentie la dimensiune
 

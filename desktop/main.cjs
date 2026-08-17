@@ -388,18 +388,42 @@ function listDirRecursive(dir, baseDir) {
   return out;
 }
 
+// Citeste descriptorii optionali `library.json` (cate unul per librarie, la
+// nivelul 2 din listing: "<librarie>/library.json"). Intoarce un map cu
+// cheia = numele folderului de librarie. Un JSON invalid e doar atentionat
+// in log, nu blocheaza scanarea.
+function readLibraryDescriptors(root, entries) {
+  const descriptors = {};
+  for (const e of entries) {
+    if (e.isDirectory) continue;
+    if (e.name.toLowerCase() !== "library.json") continue;
+    const parts = e.path.split("/");
+    if (parts.length !== 2) continue; // direct in folderul de librarie
+    const libName = parts[0];
+    try {
+      const full = path.join(root, e.path);
+      descriptors[libName] = JSON.parse(fs.readFileSync(full, "utf8"));
+    } catch (err) {
+      console.warn(`[guitar-samples] descriptor invalid ignorat: ${e.path}`, err && err.message);
+    }
+  }
+  return descriptors;
+}
+
 ipcMain.handle("list-guitar-samples", () => {
   const root = resolveGuitarSamplesRoot();
   if (!fs.existsSync(root)) {
-    return { root, exists: false, entries: [] };
+    return { root, exists: false, entries: [], descriptors: {} };
   }
   try {
-    return { root, exists: true, entries: listDirRecursive(root, root) };
+    const entries = listDirRecursive(root, root);
+    return { root, exists: true, entries, descriptors: readLibraryDescriptors(root, entries) };
   } catch (err) {
     return {
       root,
       exists: true,
       entries: [],
+      descriptors: {},
       error: String(err && err.message ? err.message : err),
     };
   }

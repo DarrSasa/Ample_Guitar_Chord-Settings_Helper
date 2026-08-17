@@ -41,9 +41,29 @@ export interface GuitarLibraryInfo {
   hasChords: boolean;
   singleNotes: SingleNoteGroup[];
   chords: ChordGroup[];
+  // Din descriptorul optional library.json (daca exista).
+  defaultFadeOut?: number;
+  loop?: { enabled?: boolean; crossfade?: number };
 }
 
 // Variantele in care apare o librarie in meniul de chitare / Settings:
 //   "single" -> (Single Notes)
 //   "full"   -> (Single Notes+Chords) — apare doar daca libraria are Chords.
 export type LibraryVariant = "single" | "full";
+
+// Descriptor OPTIONAL per librarie (fisierul `library.json` din folderul
+// librariei). Suprascrie doar ce nu poate fi dedus din structura de foldere.
+// Daca lipseste, totul se deduce automat.
+export interface LibraryDescriptor {
+  // Suprascrie prefixul vendorului / numele afisat (deduse din numele folderului).
+  vendorPrefix?: string;
+  displayName?: string;
+  // Secunde de fade-out la finalul fiecarui sample (default in engine: 0.02).
+  defaultFadeOut?: number;
+  // Metadate de loop (viitor): daca sample-urile sunt loop-uite, notele tinute
+  // pot fi sustinute. Nu avem inca loop points din WAV, deci e doar un hint.
+  loop?: {
+    enabled?: boolean;
+    crossfade?: number; // secunde de crossfade pentru loop fara click
+  };
+}
