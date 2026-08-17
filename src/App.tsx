@@ -6,7 +6,8 @@ import NudgeToggle, { type NudgeMode } from "./components/NudgeToggle";
 import TransportButtons from "./components/TransportButtons";
 import { SamplerEngine } from "./sampler/SamplerEngine";
 import { discoverLibraries, makeSampleFetcher } from "./sampler/scanLibraries";
-import type { GuitarLibraryInfo } from "./sampler/types";
+import type { GuitarLibraryInfo, LibraryVariant } from "./sampler/types";
+import { buildLibraryChoices, resolveLibraryChoice } from "./sampler/libraryRegistry";
 
 // Asset-uri grafice generate din PSD prin `node scripts/psd-to-svg.mjs`.
 // import.meta.glob adauga fisierele DACA exista in `src/assets/graphics/svg/`;
@@ -1455,6 +1456,15 @@ export default function App() {
   // Librariile descoperite in "guitar samples" (prin IPC).
   const [guitarLibraries, setGuitarLibraries] = useState<GuitarLibraryInfo[]>([]);
   const guitarLibrariesRef = useRef<GuitarLibraryInfo[]>([]);
+  // Libraria/varianta selectata in meniul de chitara (cand sursa e
+  // guitar-samples). Id de forma "<librarie>::<single|full>". Persistat.
+  const [selectedLibraryId, setSelectedLibraryId] = useState<string | null>(() => {
+    try {
+      const v = localStorage.getItem("selectedLibraryId");
+      return v || null;
+    } catch { return null; }
+  });
+  const selectedLibraryIdRef = useRef<string | null>(selectedLibraryId);
 
   // Persista sursa de sunet + tine ref-ul la zi (pentru bucle de playback).
   useEffect(() => {
@@ -1475,6 +1485,26 @@ export default function App() {
     })();
     return () => { cancelled = true; };
   }, []);
+
+  // Alegerile disponibile in meniul de chitara (librarie x varianta).
+  const libraryChoices = useMemo(() => buildLibraryChoices(guitarLibraries), [guitarLibraries]);
+
+  // Ref-ul pentru libraria selectata ramane la zi (folosit in bucle de
+  // playback unde playChordSound e capturat o singura data).
+  useEffect(() => {
+    selectedLibraryIdRef.current = selectedLibraryId;
+    try { localStorage.setItem("selectedLibraryId", selectedLibraryId ?? ""); } catch { /* ignore */ }
+  }, [selectedLibraryId]);
+
+  // Daca libraria selectata nu mai exista (sau nu era selectata nimic),
+  // alege automat prima disponibila.
+  useEffect(() => {
+    if (libraryChoices.length === 0) return;
+    const stillValid = libraryChoices.some((c) => c.id === selectedLibraryIdRef.current);
+    if (!stillValid) {
+      setSelectedLibraryId(libraryChoices[0].id);
+    }
+  }, [libraryChoices]);
 
   // Wheel listener pe BPM cu { passive: false } - astfel preventDefault
   // functioneaza si pagina NU mai scrolleaza cand utilizatorul rotieste
@@ -2552,34 +2582,79 @@ export default function App() {
 
   // Reda notele prin sampler (librariile multi-sample). Returneaza true daca
   // a reusit, false daca trebuie sa cadem pe soundfont.
-  // NOTA (Etapa 4): fara meniu de selectie inca (vine in Etapa 5), folosim
-  // automat PRIMA librarie care are note individuale (single notes).
+  // Foloseste libraria/varianta SELECTATA in meniul de chitara:
+  //   - "single" -> note individuale (playChord pe single notes);
+  //   - "full"   -> incearca acordul PREINREGISTRAT (Maj/min), altfel cade
+  //                 pe notele individuale.
   const playViaSampler = async (
+    label: string,
     notes: number[],
     durationMs: number,
     when: number
   ): Promise<boolean> => {
     const libs = guitarLibrariesRef.current;
-    const lib = libs.find((l) => l.hasSingleNotes && l.singleNotes.length > 0);
+    const selId = selectedLibraryIdRef.current;
+
+    let lib: GuitarLibraryInfo | null = null;
+    let variant: LibraryVariant = "single";
+    if (selId) {
+      const resolved = resolveLibraryChoice(libs, selId);
+      if (resolved) {
+        lib = resolved.lib;
+        variant = resolved.variant;
+      }
+    }
+    if (!lib) {
+      // Fallback de siguranta: prima librarie cu note individuale.
+      lib = libs.find((l) => l.hasSingleNotes && l.singleNotes.length > 0) ?? null;
+      variant = "single";
+    }
     if (!lib) {
       console.debug("[Sampler] Nicio librarie guitar samples disponibila — folosesc soundfont.");
       return false;
     }
+
     const engine = getSamplerEngine();
     if (!engine) return false;
-    try {
-      const specs = notes.map((midi) => ({ midi, velocity: 100 }));
-      await engine.playChord(lib.singleNotes, specs, {
-        when,
-        duration: durationMs / 1000,
-        gain: Math.max(0.01, volume * 0.7),
-        fadeOut: lib.defaultFadeOut ?? 0.05,
-      });
-      return true;
-    } catch (err) {
-      console.debug("[Sampler] Eroare la redarea guitar samples:", err);
-      return false;
+
+    const velocity = 100;
+    const opts = {
+      when,
+      duration: durationMs / 1000,
+      gain: Math.max(0.01, volume * 0.7),
+      fadeOut: lib.defaultFadeOut ?? 0.05,
+    };
+
+    // Varianta "full": acord preinregistrat daca e Major/minor si exista.
+    if (variant === "full" && lib.hasChords) {
+      const parsed = parseLabel(label);
+      const quality =
+        parsed.type === "Maj" ? "major" : parsed.type === "min" ? "minor" : null;
+      if (quality) {
+        const chord = engine.findChordGroup(lib.chords, parsed.root, quality);
+        if (chord) {
+          try {
+            await engine.playChordSample(chord, velocity, opts);
+            return true;
+          } catch (err) {
+            console.debug("[Sampler] Acord preinregistrat indisponibil, cad pe note:", err);
+          }
+        }
+      }
     }
+
+    // Note individuale (varianta "single", sau fallback din "full").
+    if (lib.hasSingleNotes && lib.singleNotes.length > 0) {
+      try {
+        const specs = notes.map((midi) => ({ midi, velocity }));
+        await engine.playChord(lib.singleNotes, specs, opts);
+        return true;
+      } catch (err) {
+        console.debug("[Sampler] Eroare la redarea guitar samples:", err);
+        return false;
+      }
+    }
+    return false;
   };
 
   const playChordSound = async (label: string, durationMs: number) => {
@@ -2593,7 +2668,7 @@ export default function App() {
     // Sursa activa = guitar-samples -> redam prin motorul sampler; daca nu
     // reuseste (fara librarii / fara Electron), cadem pe soundfont.
     if (soundSourceRef.current === "guitar-samples") {
-      if (await playViaSampler(notes, durationMs, now)) return;
+      if (await playViaSampler(label, notes, durationMs, now)) return;
     }
 
     if (!instrumentRef.current) {
@@ -4466,28 +4541,60 @@ export default function App() {
                 guitarOpen ? "shadow-[0_0_10px_#ff8827]" : ""
               }`}
             >
-              {guitarLoading ? "loading..." : guitarPreset.name}
+              {guitarLoading && soundSource === "soundfonts"
+                ? "loading..."
+                : soundSource === "guitar-samples"
+                ? (libraryChoices.find((c) => c.id === selectedLibraryId)?.label ??
+                  (libraryChoices.length > 0 ? "Alege libraria..." : "Guitar Samples (niciuna)"))
+                : guitarPreset.name}
             </button>
             {guitarOpen && (
               <div
-                className="absolute left-0 top-9 z-40 w-52 border border-black"
+                className="absolute left-0 top-9 z-40 w-72 max-w-[80vw] border border-black"
                 style={{ backgroundColor: "#677987", color: "#fff" }}
               >
-                {GUITAR_PRESETS.map((preset) => (
-                  <button
-                    key={preset.name}
-                    type="button"
-                    onClick={() => {
-                      setGuitarPreset(preset);
-                      setGuitarOpen(false);
-                      void loadInstrument(preset);
-                    }}
-                    className="block w-full border-b border-black px-2 py-1 text-left text-xs hover:brightness-125"
-                    style={{ backgroundColor: "#677987", color: "#fff" }}
-                  >
-                    {preset.name}
-                  </button>
-                ))}
+                {soundSource === "guitar-samples" ? (
+                  libraryChoices.length === 0 ? (
+                    <div className="px-2 py-2 text-[11px]" style={{ color: "#ffd9ad" }}>
+                      Nicio librarie in „guitar samples”. Pune folderele de librarie
+                      in folderul „guitar samples” si reporneste aplicatia.
+                    </div>
+                  ) : (
+                    libraryChoices.map((choice) => (
+                      <button
+                        key={choice.id}
+                        type="button"
+                        onClick={() => {
+                          setSelectedLibraryId(choice.id);
+                          setGuitarOpen(false);
+                        }}
+                        className={`block w-full border-b border-black px-2 py-1 text-left text-xs hover:brightness-125 ${
+                          choice.id === selectedLibraryId ? "brightness-125" : ""
+                        }`}
+                        style={{ backgroundColor: "#677987", color: "#fff" }}
+                      >
+                        {choice.id === selectedLibraryId ? "✓ " : ""}
+                        {choice.label}
+                      </button>
+                    ))
+                  )
+                ) : (
+                  GUITAR_PRESETS.map((preset) => (
+                    <button
+                      key={preset.name}
+                      type="button"
+                      onClick={() => {
+                        setGuitarPreset(preset);
+                        setGuitarOpen(false);
+                        void loadInstrument(preset);
+                      }}
+                      className="block w-full border-b border-black px-2 py-1 text-left text-xs hover:brightness-125"
+                      style={{ backgroundColor: "#677987", color: "#fff" }}
+                    >
+                      {preset.name}
+                    </button>
+                  ))
+                )}
               </div>
             )}
           </div>
