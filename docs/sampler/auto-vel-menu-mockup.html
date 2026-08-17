@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Auto Vel — mockup meniu (propunere design)</title>
+<style>
+  :root {
+    --bg-window: #acb0ac;
+    --bg-builder: #003970;
+    --bg-panel: #677987;
+    --bg-panel-dark: #58697a;
+    --orange: #FCBF8D;
+    --accent: #ff8827;
+    --ink: #111;
+    --text: #fff;
+    --muted: rgba(255,255,255,0.66);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg-window);
+    color: var(--ink);
+    padding: 32px;
+  }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .sub { font-size: 13px; color: #333; margin: 0 0 28px; }
+
+  .scene { margin-bottom: 40px; }
+  .scene-title { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: #333; margin: 0 0 10px; }
+
+  /* Bara de toolbar (fundalul Builder) */
+  .toolbar {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-builder);
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 2px;
+  }
+  .btn {
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--orange);
+    border: 1px solid #000;
+    border-radius: 2px;
+    padding: 0 10px;
+    font-size: 12px;
+    color: var(--ink);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn.active { box-shadow: 0 0 10px var(--accent), inset 0 1px 0 rgba(255,255,255,0.75); }
+
+  /* Buton split: eticheta (toggle) + sageata (meniu) */
+  .split {
+    position: relative;
+    display: inline-flex;
+    align-items: stretch;
+    height: 32px;
+    background: var(--orange);
+    border: 1px solid #000;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
+  }
+  .split.active { box-shadow: 0 0 10px var(--accent), inset 0 1px 0 rgba(255,255,255,0.75); }
+  .split .label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 10px;
+    font-size: 12px;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .split .divider { width: 1px; background: #000; opacity: .35; }
+  .split .chev {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 8px;
+    font-size: 10px;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .badge {
+    background: var(--bg-builder);
+    color: #fff;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: .04em;
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+
+  /* Meniu dropdown */
+  .menu {
+    position: absolute;
+    top: 38px;
+    left: 0;
+    z-index: 40;
+    width: 320px;
+    background: var(--bg-panel);
+    color: var(--text);
+    border: 1px solid #000;
+    border-radius: 2px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    padding: 4px 0;
+  }
+  .menu-head {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    padding: 6px 12px 4px;
+    border-bottom: 1px solid rgba(0,0,0,0.35);
+    margin-bottom: 4px;
+  }
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0,0,0,0.18);
+  }
+  .item:last-child { border-bottom: none; }
+  .item:hover { filter: brightness(1.18); }
+  .item.selected { background: var(--bg-panel-dark); }
+  .num {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.32);
+    border: 1px solid rgba(0,0,0,0.4);
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .item .body { flex: 1 1 auto; min-width: 0; }
+  .item .title { display: flex; align-items: baseline; gap: 6px; }
+  .item .code { font-weight: 800; letter-spacing: .06em; color: #ffd9ad; }
+  .item .name { font-size: 12px; font-weight: 600; }
+  .item .desc { font-size: 11px; color: var(--muted); margin-top: 1px; line-height: 1.25; }
+  .check { flex: 0 0 auto; color: #ffd9ad; font-weight: 800; font-size: 13px; margin-top: 2px; }
+
+  .legend { font-size: 12px; color: #333; margin-top: 10px; line-height: 1.5; }
+  .legend b { color: #000; }
+</style>
+</head>
+<body>
+
+  <h1>Auto Vel — propunere de design pentru meniu</h1>
+  <p class="sub">Buton „split" (etichetă = toggle ON/OFF, săgeata ▾ = meniu sugestii) + rânduri pe 2 linii pentru denumiri lungi.</p>
+
+  <!-- Stare OFF -->
+  <div class="scene">
+    <p class="scene-title">1 · Stare OFF (click pe etichetă = activare)</p>
+    <div class="toolbar">
+      <div class="btn">Snap ▾</div>
+      <div class="btn">BPM ▾</div>
+      <div class="btn">Guitar ▾</div>
+      <div class="split">
+        <div class="label">Auto Vel <span class="badge">off</span></div>
+        <div class="divider"></div>
+        <div class="chev">▾</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stare ON + meniu deschis -->
+  <div class="scene">
+    <p class="scene-title">2 · Stare ON, cu meniul de sugestii deschis</p>
+    <div class="toolbar">
+      <div class="btn">Snap ▾</div>
+      <div class="btn">BPM ▾</div>
+      <div class="btn">Guitar ▾</div>
+      <div class="split active">
+        <div class="label">Auto Vel <span class="badge">DS</span></div>
+        <div class="divider"></div>
+        <div class="chev">▾</div>
+
+        <div class="menu">
+          <div class="menu-head">Strategii velocity</div>
+
+          <div class="item selected">
+            <span class="num">1</span>
+            <div class="body">
+              <div class="title"><span class="code">DS</span><span class="name">Downstroke</span></div>
+              <div class="desc">accent pe bas, sunet plin (sweep descendent)</div>
+            </div>
+            <span class="check">✓</span>
+          </div>
+
+          <div class="item">
+            <span class="num">2</span>
+            <div class="body">
+              <div class="title"><span class="code">US</span><span class="name">Upstroke</span></div>
+              <div class="desc">accent pe acute, mai discret (sweep ascendent)</div>
+            </div>
+          </div>
+
+          <div class="item">
+            <span class="num">3</span>
+            <div class="body">
+              <div class="title"><span class="code">DSU</span><span class="name">Down/Up alternat</span></div>
+              <div class="desc">DS pe acorduri impare, US pe acorduri pare</div>
+            </div>
+          </div>
+
+          <div class="item">
+            <span class="num">4</span>
+            <div class="body">
+              <div class="title"><span class="code">BB</span><span class="name">Backbeat</span></div>
+              <div class="desc">accent pe bătăile 2 și 4 ale măsurii</div>
+            </div>
+          </div>
+
+          <div class="item">
+            <span class="num">5</span>
+            <div class="body">
+              <div class="title"><span class="code">MT</span><span class="name">Melody Top</span></div>
+              <div class="desc">vocea de sus (nota cea mai înaltă) scoasă în evidență</div>
+            </div>
+          </div>
+
+          <div class="item">
+            <span class="num">6</span>
+            <div class="body">
+              <div class="title"><span class="code">BR</span><span class="name">Bass Root</span></div>
+              <div class="desc">rădăcina (basul) accentuată, restul mai încet</div>
+            </div>
+          </div>
+
+          <div class="item">
+            <span class="num">7</span>
+            <div class="body">
+              <div class="title"><span class="code">SW</span><span class="name">Swell</span></div>
+              <div class="desc">crescendo treptat de la primul la ultimul acord</div>
+            </div>
+          </div>
+
+          <div class="item">
+            <span class="num">8</span>
+            <div class="body">
+              <div class="title"><span class="code">PL</span><span class="name">Pulse</span></div>
+              <div class="desc">accent pe bătaia 1 a fiecărei măsuri</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <p class="legend">
+      <b>Click pe „Auto Vel"</b> → activează/dezactivează (badge trece „off" ↔ codul strategiei).<br>
+      <b>Click pe „▾"</b> → deschide meniul; alegi strategia 1..8 (se activează automat cu strategia aleasă).<br>
+      <b>Rândul selectat</b> → fundal mai închis + check ✓ în dreapta.
+    </p>
+  </div>
+
+</body>
+</html>

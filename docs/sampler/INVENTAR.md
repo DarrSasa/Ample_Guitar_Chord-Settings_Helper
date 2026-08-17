@@ -87,14 +87,39 @@ RS - Acoustic Guitar 1/
 - **1392 WAV** + 3 `.exs` + 3 alte fisiere (.gig/.pdf).
 - (detaliul exact pe foldere se va fixa la parsarea completa a librariei.)
 
-## Decizii de luat (cu userul)
+## Decizii (rezolvate cu userul)
 
-1. **Sursa principala de sunet:** Single Notes (flexibil, orice acord) vs
-   Chords (natural, doar Maj/Min) vs **ambele** (Chords cand acordul e Maj/Min,
-   altfel Single Notes). Recomand: **ambele**.
-2. **DS/US (down/up stroke):** libraria NU pare sa aiba mostre separate DS/US
-   in Chords - doar 8 velocity layers. De confirmat cu PDF-ul user guide daca
-   exista variante de strum direction undeva. In Auto Vel, DS/US vor fi
-   atunci **modele de accent pe velocity** (bas vs acut), nu schimb de sample.
-3. **Loop points:** lipsesc din metadate. Daca sample-urile nu sunt loop-uite,
-   notele tinute se sting dupa ~7-8s. De confirmat din PDF daca sunt one-shot.
+1. **Variante de librarie in Settings / meniu (2 optiuni pe librarie):**
+   - `<Prefix> - <Nume> (Single Notes)`
+   - `<Prefix> - <Nume> (Single Notes+Chords)`
+   Exemplu: `RS - Acoustic Guitar 1 (Single Notes)` si
+   `RS - Acoustic Guitar 1 (Single Notes+Chords)`.
+2. **Strumming (buton dedicat, pe viitor)** foloseste varianta cu **Chords**
+   (libraria completa) -> acorduri preinregistrate, cele mai naturale pentru
+   down/up stroke.
+3. **Auto Vel** = modele de accent pe velocity (DS = bas accentuat, US = acute
+   accentuate etc.), nu schimb de sample. Vezi lista finala mai jos.
+4. **Loop points:** lipsesc din metadate (fara chunk `smpl`). De confirmat din
+   PDF daca sample-urile sunt loop-uite sau one-shot.
+
+## Auto Vel — strategii (lista finala pentru meniu)
+
+| # | Cod | Nume | Descriere |
+|---|-----|------|-----------|
+| 1 | DS  | Downstroke | accent pe bas, sunet plin (sweep descendent) |
+| 2 | US  | Upstroke | accent pe acute, mai discret (sweep ascendent) |
+| 3 | DSU | Down/Up alternat | DS pe acorduri impare, US pe pare |
+| 4 | BB  | Backbeat | accent pe bătăile 2 și 4 |
+| 5 | MT  | Melody Top | nota cea mai înaltă scoasă în evidență |
+| 6 | BR  | Bass Root | rădăcina (basul) accentuată |
+| 7 | SW  | Swell | crescendo de la primul la ultimul acord |
+| 8 | PL  | Pulse | accent pe bătaia 1 a fiecărei măsuri |
+
+## Auto Vel — design vizual (decis)
+
+- **Buton "split"**: eticheta `Auto Vel` = toggle ON/OFF; săgeata `▾` = deschide
+  meniul de sugestii. Cand e activ, badge-ul arata codul (ex. `DS`).
+- **Meniu**: rânduri pe 2 linii (număr + cod bold + nume scurt pe linia 1;
+  descriere pe linia 2, text mic estompat); panou mai lat decat Snap, fundal
+  albastru `#677987` (ca Snap/Guitar); rândul selectat are check ✓.
+- Mockup: `docs/sampler/auto-vel-menu-mockup.html`.
