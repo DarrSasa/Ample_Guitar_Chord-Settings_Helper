@@ -19,6 +19,11 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+// Folderul in care se afla acest script (corect SI pe Windows, spre
+// deosebire de new URL(import.meta.url).pathname care strica calea pe win).
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const root = process.argv[2] || "public/guitar samples";
 const absRoot = path.resolve(root);
@@ -198,6 +203,8 @@ if (wavTotal > DETAIL_WAV_LIMIT) {
   log("       Daca vrei detaliu la mai multe, spune-mi si maresc limita.");
 }
 
-const outPath = path.join(path.dirname(new URL(import.meta.url).pathname), "library-report.txt");
+// Salvam raportul LANGA acest script (in folderul scripts/), cu calea
+// absoluta rezolvata, ca sa fie usor de gasit pe Windows.
+const outPath = path.resolve(__dirname, "library-report.txt");
 fs.writeFileSync(outPath, report.join("\n"), "utf8");
 console.log("\n[Raport salvat in] " + outPath);
