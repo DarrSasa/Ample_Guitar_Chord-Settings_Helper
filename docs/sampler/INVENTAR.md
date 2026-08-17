@@ -94,9 +94,14 @@ RS - Acoustic Guitar 1/
    - `<Prefix> - <Nume> (Single Notes+Chords)`
    Exemplu: `RS - Acoustic Guitar 1 (Single Notes)` si
    `RS - Acoustic Guitar 1 (Single Notes+Chords)`.
-2. **Strumming (buton dedicat, pe viitor)** foloseste varianta cu **Chords**
-   (libraria completa) -> acorduri preinregistrate, cele mai naturale pentru
-   down/up stroke.
+2. **Strumming (buton dedicat, pe viitor)** foloseste varianta
+   **(Single Notes)**: strumming = reglari de note MIDI in stil piano roll,
+   iar notele vor fi alese automat din scripturi cu teorie muzicala despre
+   chitara (down/up stroke = ordinea + accentul notelor din arpegiu). Pentru
+   asta trebuie NOTE INDIVIDUALE, nu acorduri preinregistrate.
+   - Varianta `(Single Notes)` = sursa pentru strumming.
+   - Varianta `(Single Notes+Chords)` = acorduri preinregistrate complete
+     (Major/Minor), utile pentru playback simplu/full, NU pentru strumming.
 3. **Auto Vel** = modele de accent pe velocity (DS = bas accentuat, US = acute
    accentuate etc.), nu schimb de sample. Vezi lista finala mai jos.
 4. **Loop points:** lipsesc din metadate (fara chunk `smpl`). De confirmat din
