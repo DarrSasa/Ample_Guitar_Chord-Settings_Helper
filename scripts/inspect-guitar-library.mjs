@@ -169,15 +169,30 @@ function walk(dir, indent) {
       } else if (ext === ".exs") {
         exsTotal++;
         log(`${indent}[EXS] ${e.name} (${human(size)})`);
-        try {
-          const txt = fs.readFileSync(full, "utf8");
-          const lines = txt.split(/\r?\n/);
-          const maxLines = 400;
-          log(`${indent}  --- continut .exs (primele ${Math.min(lines.length, maxLines)} linii) ---`);
-          lines.slice(0, maxLines).forEach((l) => log(`${indent}  ${l}`));
-          if (lines.length > maxLines) log(`${indent}  ... (${lines.length - maxLines} linii ramase, trunchiate)`);
-        } catch (err) {
-          log(`${indent}  (nu pot citi: ${err.message})`);
+        // Unele librarii (ex. Realsamples) livreaza sub extensia .exs fisiere
+        // de fapt BINARE (GigaStudio). Nu le varsam ca text - ar umple
+        // raportul cu gunoi binar. Detectam binarul dupa byte-ul NUL.
+        const probe = Buffer.alloc(4096);
+        const fdx = fs.openSync(full, "r");
+        const n = fs.readSync(fdx, probe, 0, probe.length, 0);
+        fs.closeSync(fdx);
+        let isBinary = false;
+        for (let i = 0; i < n; i++) {
+          if (probe[i] === 0) { isBinary = true; break; }
+        }
+        if (isBinary) {
+          log(`${indent}  (fisier BINAR - probabil GigaStudio redenumit .exs; nu afisez continutul)`);
+        } else {
+          try {
+            const txt = fs.readFileSync(full, "utf8");
+            const lines = txt.split(/\r?\n/);
+            const maxLines = 400;
+            log(`${indent}  --- continut .exs (primele ${Math.min(lines.length, maxLines)} linii) ---`);
+            lines.slice(0, maxLines).forEach((l) => log(`${indent}  ${l}`));
+            if (lines.length > maxLines) log(`${indent}  ... (${lines.length - maxLines} linii ramase, trunchiate)`);
+          } catch (err) {
+            log(`${indent}  (nu pot citi: ${err.message})`);
+          }
         }
       } else {
         otherFiles.push({ name: e.name, size });
