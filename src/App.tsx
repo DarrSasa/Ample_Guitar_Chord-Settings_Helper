@@ -2021,20 +2021,23 @@ export default function App() {
     return moved;
   };
 
-  // Aplica modul SWAP: A si B isi INVERSEAZA direct pozitiile de start,
-  // fiecare pastrandu-si durata (beats) proprie. FARA snap la grid.
+  // Aplica modul SWAP: A si B isi INVERSEAZA locurile, fiecare pastrandu-si
+  // durata (beats) proprie. FARA snap la grid.
   //
   // Regula (user explicit):
-  //   - A (acordul tras) preia startBeat-ul ORIGINAL al lui B.
-  //   - B preia startBeat-ul ORIGINAL al lui A.
-  //   - Fiecare isi pastreaza lungimea intacta.
+  //   - Acordurile isi schimba pozitiile (cel din stanga trece in dreapta
+  //     si invers), fiecare cu lungimea intacta.
+  //   - Blocul exterior [min(start), max(end)] ramane NESCHIMBAT: acordul
+  //     care ajunge in STANGA se aliniaza la marginea STANGA originala,
+  //     cel care ajunge in DREAPTA se aliniaza la marginea DREAPTA
+  //     originala. Astfel NU apare nici gap nou, nici suprapunere,
+  //     indiferent de lungimi. Gap-ul original (daca exista) ramane
+  //     exact intre ele.
   //
-  // De ce schimb PUR de pozitii (NU lipire edge-to-edge): daca A si B
-  // au lungimi diferite sau exista un gap intre ele, lipirea
-  // edge-to-edge "trage" ambele acorduri intr-o parte si muta gap-ul
-  // de la mijloc spre un capat - exact bug-ul raportat ("acordurile se
-  // muta intr-o parte si apare un gap"). Cu schimbul pur, fiecare acord
-  // ajunge EXACT pe locul celuilalt, iar gap-ul ramane neschimbat.
+  // De ce NU simplu schimb de startBeat: daca A si B au LUNGIMI DIFERITE,
+  // schimbul pur al pozitiilor de start lasa intre ele un gap egal cu
+  // |lungimeA - lungimeB| (acordul scurt nu umple locul acordului lung).
+  // Alinierea la marginile exterioare rezolva asta si tine blocul pe loc.
   //
   // Comportament "all-or-nothing" (evita saltul scurt inainte de swap):
   //   - Pana cand centrul membrului nu ajunge INAUNTRUL unui vecin,
@@ -2042,10 +2045,10 @@ export default function App() {
   //   - Cand centrul membrului intra in vecin, se declanseaza swap
   //     complet - dintr-o data.
   //
-  // Daca dupa schimbul pur apare o suprapunere (posibil doar la lungimi
-  // foarte diferite, ex. un acord de 1 beat inversat cu unul de 3), o
-  // cascade edge-to-edge rezolva suprapunerea impingand spre dreapta,
-  // fara a modifica duratele.
+  // Safety net: dupa swap, un acord swap-uit poate (rar, la progresii cu
+  // 3+ acorduri si lungimi foarte diferite) sa cada peste un al treilea
+  // acord. O cascade edge-to-edge rezolva suprapunerea impingand spre
+  // dreapta, fara a modifica duratele.
   const applySwapMove = (
     base: BuilderChord[],
     groupIds: string[],
@@ -2108,13 +2111,28 @@ export default function App() {
       return moved;
     }
 
-    // Aplicam inversarea: schimb PUR al pozitiilor de start. Fiecare
-    // acord ajunge EXACT pe startBeat-ul original al celuilalt.
+    // Aplicam inversarea: schimb de locuri cu blocul exterior pastrat pe
+    // loc. Fiecare acord isi pastreaza durata; marginea stanga si marginea
+    // dreapta ale blocului original raman fixe, deci nu apare gap nou.
     for (const p of finalPairs) {
       const memberObj = moved.find((x) => x.id === p.memberId)!;
       const partnerObj = moved.find((x) => x.id === p.partnerId)!;
-      memberObj.startBeat = originalStart.get(p.partnerId)!;
-      partnerObj.startBeat = originalStart.get(p.memberId)!;
+      const mStart = originalStart.get(p.memberId)!;
+      const pStart = originalStart.get(p.partnerId)!;
+      const mEnd = mStart + memberObj.beats;
+      const pEnd = pStart + partnerObj.beats;
+
+      if (mStart <= pStart) {
+        // Membrul era la stanga: partenerul preia marginea stanga,
+        // membrul se aliniaza sa se termine la marginea dreapta originala.
+        partnerObj.startBeat = mStart;
+        memberObj.startBeat = pEnd - memberObj.beats;
+      } else {
+        // Membrul era la dreapta: membrul preia marginea stanga,
+        // partenerul se aliniaza sa se termine la marginea dreapta originala.
+        memberObj.startBeat = pStart;
+        partnerObj.startBeat = mEnd - partnerObj.beats;
+      }
     }
 
     // Siguranta: rezolva orice suprapunere reziduala (posibila doar la
