@@ -4,10 +4,17 @@ import GraphicButton from "./components/GraphicButton";
 import RubberBandOverlay, { type RubberBandRect } from "./components/RubberBandOverlay";
 import NudgeToggle, { type NudgeMode } from "./components/NudgeToggle";
 import TransportButtons from "./components/TransportButtons";
+import AutoVelButton from "./components/AutoVelButton";
 import { SamplerEngine } from "./sampler/SamplerEngine";
 import { discoverLibraries, makeSampleFetcher } from "./sampler/scanLibraries";
 import type { GuitarLibraryInfo, LibraryVariant } from "./sampler/types";
 import { buildLibraryChoices, resolveLibraryChoice } from "./sampler/libraryRegistry";
+import {
+  applyAutoVel,
+  defaultVelocities,
+  AUTO_VEL_STRATEGIES,
+  type AutoVelStrategyId,
+} from "./sampler/velocity";
 
 // Asset-uri grafice generate din PSD prin `node scripts/psd-to-svg.mjs`.
 // import.meta.glob adauga fisierele DACA exista in `src/assets/graphics/svg/`;
@@ -1438,6 +1445,22 @@ export default function App() {
   const [guitarLoading, setGuitarLoading] = useState(false);
   const [volume, setVolume] = useState(0.72);
 
+  // Auto Vel: toggle + strategie selectata (DS/US/DSU/BB/MT/BR/SW/PL).
+  // Persistate in localStorage; ref-uri pentru buclele de playback.
+  const [autoVelActive, setAutoVelActive] = useState<boolean>(() => {
+    try { return localStorage.getItem("autoVelActive") === "1"; } catch { return false; }
+  });
+  const [autoVelStrategy, setAutoVelStrategy] = useState<AutoVelStrategyId>(() => {
+    try {
+      const v = localStorage.getItem("autoVelStrategy");
+      if (v && AUTO_VEL_STRATEGIES.some((s) => s.id === v)) return v as AutoVelStrategyId;
+    } catch { /* ignore */ }
+    return "DS";
+  });
+  const [autoVelOpen, setAutoVelOpen] = useState(false);
+  const autoVelActiveRef = useRef(autoVelActive);
+  const autoVelStrategyRef = useRef(autoVelStrategy);
+
   // Sursa de sunet pentru chitara: soundfonts (GM, implicit) sau
   // guitar-samples (librariile multi-sample din "guitar samples").
   // Persistata in localStorage. Ref mirror pentru handler-ele care ruleaza
@@ -1495,6 +1518,16 @@ export default function App() {
     selectedLibraryIdRef.current = selectedLibraryId;
     try { localStorage.setItem("selectedLibraryId", selectedLibraryId ?? ""); } catch { /* ignore */ }
   }, [selectedLibraryId]);
+
+  // Auto Vel: persistenta + ref-uri la zi.
+  useEffect(() => {
+    autoVelActiveRef.current = autoVelActive;
+    try { localStorage.setItem("autoVelActive", autoVelActive ? "1" : "0"); } catch { /* ignore */ }
+  }, [autoVelActive]);
+  useEffect(() => {
+    autoVelStrategyRef.current = autoVelStrategy;
+    try { localStorage.setItem("autoVelStrategy", autoVelStrategy); } catch { /* ignore */ }
+  }, [autoVelStrategy]);
 
   // Daca libraria selectata nu mai exista (sau nu era selectata nimic),
   // alege automat prima disponibila.
@@ -2589,6 +2622,7 @@ export default function App() {
   const playViaSampler = async (
     label: string,
     notes: number[],
+    velocities: number[],
     durationMs: number,
     when: number
   ): Promise<boolean> => {
@@ -2617,7 +2651,6 @@ export default function App() {
     const engine = getSamplerEngine();
     if (!engine) return false;
 
-    const velocity = 100;
     const opts = {
       when,
       duration: durationMs / 1000,
@@ -2634,7 +2667,10 @@ export default function App() {
         const chord = engine.findChordGroup(lib.chords, parsed.root, quality);
         if (chord) {
           try {
-            await engine.playChordSample(chord, velocity, opts);
+            // Acordul preinregistrat e UN singur sample (toate notele impreuna),
+            // deci folosim velocity-ul MEDIU al notelor (reprezentativ).
+            const avg = Math.round(velocities.reduce((a, b) => a + b, 0) / Math.max(1, velocities.length));
+            await engine.playChordSample(chord, avg, opts);
             return true;
           } catch (err) {
             console.debug("[Sampler] Acord preinregistrat indisponibil, cad pe note:", err);
@@ -2646,7 +2682,7 @@ export default function App() {
     // Note individuale (varianta "single", sau fallback din "full").
     if (lib.hasSingleNotes && lib.singleNotes.length > 0) {
       try {
-        const specs = notes.map((midi) => ({ midi, velocity }));
+        const specs = notes.map((midi, i) => ({ midi, velocity: velocities[i] ?? 100 }));
         await engine.playChord(lib.singleNotes, specs, opts);
         return true;
       } catch (err) {
@@ -2657,7 +2693,11 @@ export default function App() {
     return false;
   };
 
-  const playChordSound = async (label: string, durationMs: number) => {
+  const playChordSound = async (
+    label: string,
+    durationMs: number,
+    autoVelCtx?: { chordIndex: number; startBeat: number; totalChords: number }
+  ) => {
     const ctx = ensureAudio();
     if (ctx.state === "suspended") {
       await ctx.resume();
@@ -2665,10 +2705,21 @@ export default function App() {
     const now = ctx.currentTime;
     const notes = chordNotes(label);
 
+    // Auto Vel: calculam velocity-ul fiecarei note conform strategiei active.
+    // Cand e dezactivat, toate notele au velocity default 100.
+    const velocities = autoVelActiveRef.current
+      ? applyAutoVel(notes, autoVelStrategyRef.current, {
+          chordIndex: autoVelCtx?.chordIndex ?? 0,
+          startBeat: autoVelCtx?.startBeat ?? 0,
+          totalChords: autoVelCtx?.totalChords ?? 1,
+          beatsPerBar: BEATS_PER_BAR,
+        })
+      : defaultVelocities(notes);
+
     // Sursa activa = guitar-samples -> redam prin motorul sampler; daca nu
     // reuseste (fara librarii / fara Electron), cadem pe soundfont.
     if (soundSourceRef.current === "guitar-samples") {
-      if (await playViaSampler(label, notes, durationMs, now)) return;
+      if (await playViaSampler(label, notes, velocities, durationMs, now)) return;
     }
 
     if (!instrumentRef.current) {
@@ -2694,10 +2745,14 @@ export default function App() {
     }
 
     if (instrumentRef.current) {
-      notes.forEach((note) => {
+      notes.forEach((note, i) => {
+        // Auto Vel pe soundfont: velocity -> amplitudine (perceptie
+        // aproximativ lineara). Gain-ul de baza ramane volume * 0.7.
+        const vel = velocities[i] ?? 100;
+        const gainFactor = Math.pow(vel / 100, 2);
         instrumentRef.current.play(note, now, {
           duration: durationMs / 1000,
-          gain: Math.max(0.01, volume * 0.7),
+          gain: Math.max(0.01, volume * 0.7 * gainFactor),
         });
       });
       return;
@@ -2915,7 +2970,14 @@ export default function App() {
 
     // No selection - fall back to audition if enabled.
     if (auditionMode) {
-      void playChordSound(builderRef.current.find((c) => c.id === id)?.label ?? "", 650);
+      const sorted = sortBuilderByStart(builderRef.current);
+      const chord = sorted.find((c) => c.id === id);
+      const ci = chord ? sorted.indexOf(chord) : 0;
+      void playChordSound(chord?.label ?? "", 650, {
+        chordIndex: ci,
+        startBeat: chord?.startBeat ?? 0,
+        totalChords: sorted.length,
+      });
     }
     // Otherwise do nothing (short tap on a Builder chord with nothing
     // selected and audition off is a no-op).
@@ -3311,7 +3373,11 @@ export default function App() {
         setPlayheadIndex(Math.max(0, idx));
         if (idx >= 0) {
           const durMs = chordEndsMs[idx] - chordStartsMs[idx];
-          void playChordSound(sortedChords[idx].label, durMs * 0.94);
+          void playChordSound(sortedChords[idx].label, durMs * 0.94, {
+            chordIndex: idx,
+            startBeat: sortedChords[idx].startBeat ?? 0,
+            totalChords: sortedChords.length,
+          });
         }
       }
 
@@ -3612,6 +3678,7 @@ export default function App() {
     const closeMenu = (e: MouseEvent) => {
       setContextMenu(null);
       setSnapMenuOpen(false);
+      setAutoVelOpen(false);
       // (No size dropdown to close anymore; kept the setContextMenu(null)
       // above so right-click menus still get dismissed on any click.)
 
@@ -4387,6 +4454,22 @@ export default function App() {
               - slide: vecinii se decaleaza ca sa faca loc
               - swap: A si B isi inverseaza pozitiile */}
           <NudgeToggle value={nudgeMode} onChange={setNudgeMode} />
+
+          {/* Auto Vel: buton split (toggle + meniu de strategii). Atribuie
+              velocity pe fiecare nota a fiecarui acord, conform strategiei
+              alese (DS/US/DSU/BB/MT/BR/SW/PL). Velocity -> layer in sampler
+              (32 straturi la Single Notes, 8 la Chords). */}
+          <AutoVelButton
+            active={autoVelActive}
+            strategy={autoVelStrategy}
+            open={autoVelOpen}
+            onToggle={() => setAutoVelActive((v) => !v)}
+            onOpenChange={setAutoVelOpen}
+            onSelect={(id) => {
+              setAutoVelStrategy(id);
+              setAutoVelActive(true);
+            }}
+          />
 
           {/*
              LOOP / PLAY-PAUSE / STOP - noile 3 butoane grafice.
