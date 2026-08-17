@@ -2021,84 +2021,66 @@ export default function App() {
     return moved;
   };
 
-  // Aplica modul SWAP: fiecare membru al grupului care se suprapune cu
-  // un non-membru face SCHIMB DE LOCURI edge-to-edge, fara suprapuneri.
+  // Aplica modul SWAP: A si B isi INVERSEAZA direct pozitiile de start,
+  // fiecare pastrandu-si durata (beats) proprie. FARA snap la grid.
   //
-  // Regula (userul explicit):
-  //   - Cand A e mutat de la STANGA spre DREAPTA peste B:
-  //       A ia startBeat-ul original al lui B.
-  //       B se muta la STANGA, terminandu-se exact unde incepe noul A.
-  //   - Cand A e mutat de la DREAPTA spre STANGA peste B:
-  //       A ia startBeat-ul original al lui B.
-  //       B se muta la DREAPTA, incepand exact unde se termina noul A.
+  // Regula (user explicit):
+  //   - A (acordul tras) preia startBeat-ul ORIGINAL al lui B.
+  //   - B preia startBeat-ul ORIGINAL al lui A.
+  //   - Fiecare isi pastreaza lungimea intacta.
   //
-  // Algoritm robust pentru selectie multipla (Prompt: eliminate stack
-  // overlaps at multi-select swap):
-  //   1. Trigger swap perechi: fiecare membru cauta cel mai apropiat
-  //      non-membru dupa distanta CENTRU-CENTRU (previne 2 membri sa
-  //      apuce acelasi candidat cu prioritati inversate).
-  //   2. Rezerva atomic: fiecare non-membru poate fi partener doar
-  //      pentru UN membru (primul care il revendica dupa distanta).
-  //   3. Aplic perechile SIMULTAN, calculand toate destinatiile din
-  //      snapshot-ul original (nu din stari intermediare - previne
-  //      valori inconsistente).
-  //   4. Safety net: rezolva orice overlap rezidual cu impins slide
-  //      (poate apare cand un non-membru swap-ed cade peste alt non-
-  //      membru care nu era in nicio pereche).
+  // De ce schimb PUR de pozitii (NU lipire edge-to-edge): daca A si B
+  // au lungimi diferite sau exista un gap intre ele, lipirea
+  // edge-to-edge "trage" ambele acorduri intr-o parte si muta gap-ul
+  // de la mijloc spre un capat - exact bug-ul raportat ("acordurile se
+  // muta intr-o parte si apare un gap"). Cu schimbul pur, fiecare acord
+  // ajunge EXACT pe locul celuilalt, iar gap-ul ramane neschimbat.
+  //
+  // Comportament "all-or-nothing" (evita saltul scurt inainte de swap):
+  //   - Pana cand centrul membrului nu ajunge INAUNTRUL unui vecin,
+  //     membrii NU se muta deloc (raman la pozitia originala).
+  //   - Cand centrul membrului intra in vecin, se declanseaza swap
+  //     complet - dintr-o data.
+  //
+  // Daca dupa schimbul pur apare o suprapunere (posibil doar la lungimi
+  // foarte diferite, ex. un acord de 1 beat inversat cu unul de 3), o
+  // cascade edge-to-edge rezolva suprapunerea impingand spre dreapta,
+  // fara a modifica duratele.
   const applySwapMove = (
     base: BuilderChord[],
     groupIds: string[],
-    deltaBeats: number,
-    currentSnap: SnapOption
+    deltaBeats: number
   ): BuilderChord[] => {
     const groupSet = new Set(groupIds);
-    const direction = deltaBeats >= 0 ? 1 : -1;
 
-    // Snapshot al pozitiilor ORIGINALE (dinainte de shift) pentru
-    // fiecare acord - il folosim la calculul destinatiilor swap si
-    // pentru a decide daca s-a atins pragul de swap.
+    // Snapshot al pozitiilor ORIGINALE (dinainte de shift). Il folosim
+    // pentru destinatiile swap-ului - nu din stari intermediare.
     const originalStart = new Map<string, number>();
     base.forEach((c) => originalStart.set(c.id, c.startBeat));
 
-    // Comportament SWAP "all-or-nothing" (evita saltul scurt inainte
-    // de swap):
-    //   - Pana cand centrul membrului nu ajunge INAUNTRUL unui vecin,
-    //     membrii NU se muta deloc (raman la pozitia originala).
-    //   - Cand centrul membrului intra in vecin, se declanseaza swap
-    //     complet - dintr-o data.
-    // Astfel utilizatorul nu vede acordurile "targaindu-se" cu delta
-    // mic inainte de swap; ele stau nemiscate, apoi dintr-o miscare
-    // sar in locurile inversate.
-    //
-    // Calculam intai pozitiile SHIFT-ate (pentru detectia swap-ului).
+    // Pozitiile SHIFT-ate ale membrilor (doar pentru detectia pragului).
     const shiftedPositions = new Map<string, number>();
     base.forEach((c) => {
-      if (groupSet.has(c.id)) {
-        shiftedPositions.set(c.id, c.startBeat + deltaBeats);
-      } else {
-        shiftedPositions.set(c.id, c.startBeat);
-      }
+      shiftedPositions.set(c.id, groupSet.has(c.id) ? c.startBeat + deltaBeats : c.startBeat);
     });
 
-    // Colectam perechile candidate testand overlap intre pozitiile
-    // SHIFT-ate ale membrilor si pozitiile ORIGINALE ale non-membrilor.
+    // Colectam perechile candidate: centrul membrului (dupa shift) cade
+    // in intervalul [start, end] al unui non-membru.
     type Pair = { memberId: string; partnerId: string; dist: number };
     const pairs: Pair[] = [];
     for (const c of base) {
       if (!groupSet.has(c.id)) continue;
       const mStartShift = shiftedPositions.get(c.id)!;
-      const mEndShift = mStartShift + c.beats;
-      const mCenterShift = (mStartShift + mEndShift) / 2;
+      const mCenterShift = (mStartShift + (mStartShift + c.beats)) / 2;
       for (const n of base) {
         if (groupSet.has(n.id)) continue;
         const nStart = n.startBeat;
         const nEnd = n.startBeat + n.beats;
         const nCenter = (nStart + nEnd) / 2;
         // Trigger swap DOAR daca centrul membrului dupa shift intra
-        // in vecin (comportament predictibil, no false-positive).
+        // in vecin (comportament predictibil, fara false-positive).
         if (mCenterShift >= nStart && mCenterShift <= nEnd) {
-          const dist = Math.abs(mCenterShift - nCenter);
-          pairs.push({ memberId: c.id, partnerId: n.id, dist });
+          pairs.push({ memberId: c.id, partnerId: n.id, dist: Math.abs(mCenterShift - nCenter) });
         }
       }
     }
@@ -2117,69 +2099,29 @@ export default function App() {
       claimedPartners.add(p.partnerId);
     }
 
-    // Cream `moved` cu pozitiile initiale (base) - membrii RAMAN la
-    // pozitia originala pana la swap. Astfel utilizatorul NU vede
-    // "salt scurt" cu delta mica inainte de swap.
+    // `moved` porneste ca o clona a lui `base`. Membrii RAMAN la pozitia
+    // originala pana la swap - utilizatorul nu vede niciun "salt scurt".
     const moved: BuilderChord[] = base.map((c) => ({ ...c }));
 
     if (finalPairs.length === 0) {
-      // Niciun swap - membrii raman la pozitia originala.
-      // Nici quantizare, nici cascade. Returnam clona base neschimbata.
+      // Niciun swap inca - membrii raman la pozitia originala.
       return moved;
     }
 
-    // Aplicam swap-urile. Toate destinatiile calculate din snapshot-ul
-    // original.
+    // Aplicam inversarea: schimb PUR al pozitiilor de start. Fiecare
+    // acord ajunge EXACT pe startBeat-ul original al celuilalt.
     for (const p of finalPairs) {
       const memberObj = moved.find((x) => x.id === p.memberId)!;
       const partnerObj = moved.find((x) => x.id === p.partnerId)!;
-      const bOriginalStart = originalStart.get(p.partnerId) ?? partnerObj.startBeat;
-      const aNewStart = bOriginalStart;
-      const bNewStart =
-        direction > 0
-          ? aNewStart - partnerObj.beats
-          : aNewStart + memberObj.beats;
-      memberObj.startBeat = aNewStart;
-      partnerObj.startBeat = Math.max(0, bNewStart);
+      memberObj.startBeat = originalStart.get(p.partnerId)!;
+      partnerObj.startBeat = originalStart.get(p.memberId)!;
     }
 
-    // -----------------------------------------------------------------
-    // PASUL 3: QUANTIZARE la grid pentru participantii la swap.
-    // -----------------------------------------------------------------
-    // Cerinta user: dupa swap, aliniam startBeat-ul acordurilor swap-uite
-    // la cea mai apropiata linie de grid (multipli de step). Astfel
-    // eliminam gap-uri urate si eventuale suprapuneri minore rezultate
-    // din diferentele de lungime intre A si B.
-    // Snap = None -> nu quantizam (pozitiile raman pixel-perfect).
-    if (currentSnap !== "None" && finalPairs.length > 0) {
-      const step = snapDurationBeats(currentSnap);
-      const touchedIds = new Set<string>();
-      for (const p of finalPairs) {
-        touchedIds.add(p.memberId);
-        touchedIds.add(p.partnerId);
-      }
-      for (const c of moved) {
-        if (!touchedIds.has(c.id)) continue;
-        const snapped = Math.round(c.startBeat / step) * step;
-        c.startBeat = Math.max(0, snapped);
-      }
-    }
-
-    // -----------------------------------------------------------------
-    // PASUL 4: ORDER-PRESERVING CASCADE.
-    // -----------------------------------------------------------------
-    // Dupa swap + quantizare, un acord swap-uit poate cadea peste alt
-    // acord din progresie (care nu era in swap). Aplicam algoritm de
-    // slide cascading care garanteaza:
-    //   - ORDINEA VIZUALA finala (dupa startBeat) e respectata
-    //   - zero suprapuneri intre orice pereche
-    //   - `beats` nu se modifica niciodata
-    // Ordinea vizuala pentru cascade este cea REZULTATA dupa swap (nu
-    // cea originala, pentru ca A si B AU SCHIMBAT locurile - asta e
-    // scopul lui swap).
+    // Siguranta: rezolva orice suprapunere reziduala (posibila doar la
+    // lungimi foarte diferite) cu o cascade edge-to-edge care pastreaza
+    // duratele intacte si nu muta nimic daca nu exista suprapuneri.
     const EPS = 1e-6;
     for (let pass = 0; pass < 20; pass++) {
-      // Sortam dupa startBeat rezultat (post-swap).
       moved.sort((a, b) => a.startBeat - b.startBeat);
       let anyOverlap = false;
       for (let i = 0; i < moved.length - 1; i++) {
@@ -3860,9 +3802,9 @@ export default function App() {
       const mode = nudgeModeRef.current;
       let next: BuilderChord[];
       if (mode === "swap") {
-        // NOTA: pastram semnatura cu snap pentru compatibilitate, dar
-        // trecem mereu "None" ca sa dezactivam quantizarea intern.
-        next = applySwapMove(anchor.baseBuilder, anchor.groupIds, deltaBeats, "None");
+        // NOTA (user explicit): la inversarea acordurilor (swap), NU se
+        // aplica NICIODATA snap la grid - pozitiile raman pixel-perfect.
+        next = applySwapMove(anchor.baseBuilder, anchor.groupIds, deltaBeats);
       } else {
         next = applySlideMove(anchor.baseBuilder, anchor.groupIds, deltaBeats);
       }
