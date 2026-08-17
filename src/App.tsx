@@ -3,6 +3,7 @@ import Soundfont from "soundfont-player";
 import GraphicButton from "./components/GraphicButton";
 import RubberBandOverlay, { type RubberBandRect } from "./components/RubberBandOverlay";
 import NudgeToggle, { type NudgeMode } from "./components/NudgeToggle";
+import TransportButtons from "./components/TransportButtons";
 
 // Asset-uri grafice generate din PSD prin `node scripts/psd-to-svg.mjs`.
 // import.meta.glob adauga fisierele DACA exista in `src/assets/graphics/svg/`;
@@ -30,20 +31,14 @@ function graphic(name: string): string | undefined {
   return url;
 }
 
-// PNG-urile perechilor extrase din all-layers.psd (loop, play/pause, stop).
-// Fiecare pereche are canvas comun (bbox reuniune off + on) astfel incat
-// off si on sunt aliniate perfect - la toggle butonul NU sare. Fisierele
-// sunt in src/assets/graphics/svg/all/pair/*.png si sunt inlocuite in
-// bundle-ul Vite ca URL-uri (viteSingleFile le va inlinia automat pentru
-// build-ul Electron gratie `assetsInlineLimit: Number.MAX_SAFE_INTEGER`).
-const pairAssets = import.meta.glob("./assets/graphics/svg/all/pair/*.png", {
-  eager: true,
-  import: "default",
-}) as Record<string, string>;
-function pairGraphic(name: string): string | undefined {
-  const key = `./assets/graphics/svg/all/pair/${name}.png`;
-  return pairAssets[key];
-}
+// NOTA: PNG-urile pentru Loop/Play-Pause/Stop sunt gestionate direct de
+// componenta `TransportButtons` (src/components/TransportButtons.tsx),
+// care importa PNG-urile pline (docW x docH) din
+// src/assets/graphics/svg/all/*.png si le suprapune pe un stage cu
+// dimensiunea PSD-ului, pastrand exact layout-ul original (distante,
+// aliniament vertical). Nu mai avem nevoie de `pairGraphic()` — canvasurile
+// per-pereche (src/assets/graphics/svg/all/pair/) raman pe disc dar nu
+// sunt importate in bundle.
 
 type ChordType = "Maj" | "min" | "sus2" | "sus4" | "aug" | "5" | "oct";
 
@@ -4224,84 +4219,23 @@ export default function App() {
              (calculat: w = round(96 * bboxW / bboxH))
           */}
 
-          {/* Sub-container cu Loop / Play-Pause / Stop, cu spatiere ~22px
-              intre butoane (user explicit). Pastram aceasta grupare
-              separata ca sa nu afecteze celelalte controale (Delete,
-              Snap, BPM, etc.) care raman cu gap-2 (8px) intre ele. */}
-          <div className="flex items-center" style={{ gap: 22 }}>
-
-          {/* LOOP button (user explicit):
-                - Initial: loop-off. Playhead redare normala (o singura data).
-                - Click -> loop-on. Playhead redare CONTINUA (la finalul
-                  progresiei revine la 0 si continua).
-                - Click pe loop-on -> loop-off (opreste loop-ul).
-                - STOP dezactiveaza automat Loop. */}
-          <GraphicButton
-            offSrc={pairGraphic("loop-off")}
-            onSrc={pairGraphic("loop-on")}
-            active={loopActive}
-            width={88}
-            height={96}
-            onClick={() => setLoopActive((v) => !v)}
-            title={loopActive ? "Loop ON — dezactiveaza redarea in loop" : "Loop OFF — activeaza redarea in loop (playhead revine la 0 la finalul progresiei)"}
-            ariaLabel={loopActive ? "Loop On" : "Loop Off"}
-          >
-            {loopActive ? "Loop On" : "Loop"}
-          </GraphicButton>
-
-          {/* PLAY / PAUSE - UN SINGUR buton cu ciclu simplu (user explicit):
-                1. STOP  (isPlaying=false, isPaused=false):
-                   grafica = pause-off. Click -> porneste redarea.
-                2. REDA  (isPlaying=true):
-                   grafica = play-on. Click -> pauza (playhead stationar).
-                3. PAUZA (isPlaying=false, isPaused=true):
-                   grafica = pause-off (identica cu STOP dpv vizual).
-                   Click -> REIA din pozitia curenta (playhead continua
-                   de unde s-a oprit), grafica devine play-on.
-              Ciclu: pause-off <-> play-on <-> pause-off <-> play-on...
-              PSD-ul `pause-on` NU e folosit in acest ciclu (user explicit).
-              Reset complet (playhead la 0) se face DOAR de butonul Stop. */}
-          <GraphicButton
-            offSrc={pairGraphic("pause-off")}
-            onSrc={pairGraphic("play-on")}
-            // active=true doar cand chiar REDA (play-on grafic).
-            // In pauza => activ=false => afiseaza pause-off (aceeasi
-            // grafica ca la STOP), asa cum a specificat userul.
-            active={isPlaying}
-            width={68}
-            height={96}
-            onClick={togglePlay}
-            title={
-              isPaused ? "Resume playback from current position" :
-              isPlaying ? "Pause playback (playhead stays put)" :
-              "Play the progression"
-            }
-            ariaLabel={isPaused ? "Resume" : isPlaying ? "Pause" : "Play"}
-          >
-            {isPaused ? "Resume" : isPlaying ? "Pause" : "Play"}
-          </GraphicButton>
-
-          {/* STOP button (user explicit):
-                - Initial: stop-off.
-                - Click -> stop-on apare 400ms (flash vizual), apoi revine
-                  automat la stop-off.
-                - Efect actiune (instant): playhead revine la 0, redarea
-                  se opreste complet, Loop se dezactiveaza.
-              Flash-ul si actiunea sunt gestionate in stopPlayback(). */}
-          <GraphicButton
-            offSrc={pairGraphic("stop-off")}
-            onSrc={pairGraphic("stop-on")}
-            active={stopFlashOn}
-            width={84}
-            height={96}
-            onClick={stopPlayback}
-            title="Stop playback: reseteaza playhead la 0 si dezactiveaza Loop"
-            ariaLabel="Stop"
-          >
-            Stop
-          </GraphicButton>
-
-          </div>{/* end sub-container Loop/Play/Stop */}
+          {/* LOOP / PLAY-PAUSE / STOP — folosim componenta TransportButtons
+              care reda EXACT layout-ul PSD-ului all-layers.psd construit
+              de user in Photoshop (distantele si aliniamentul vertical
+              intre butoane sunt cele din PSD, nu re-aranjam nimic in cod).
+              Inaltimea vizuala = 110px; latimea rezulta automat din
+              raportul PSD (1400/650 ≈ 2.15) -> ~237px. Astfel butoanele
+              arata identic cu preview-ul HTML confirmat de user. */}
+          <TransportButtons
+            loopActive={loopActive}
+            isPlaying={isPlaying}
+            isPaused={isPaused}
+            stopFlashOn={stopFlashOn}
+            onLoopClick={() => setLoopActive((v) => !v)}
+            onPlayPauseClick={togglePlay}
+            onStopClick={stopPlayback}
+            height={110}
+          />
 
           {/* Snap control:
                 - Text "Snap"
