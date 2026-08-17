@@ -35,6 +35,15 @@ try {
     resizeWindow: (width, height) => {
       return ipcRenderer.sendSync("resize-window", { width, height });
     },
+    // Guitar samples (sampler engine): listare recursiva a folderului
+    // "guitar samples" + citirea octetilor unui fisier audio (pentru
+    // decodeAudioData in renderer).
+    listGuitarSamples: () => {
+      return ipcRenderer.invoke("list-guitar-samples");
+    },
+    readGuitarSample: (relPath) => {
+      return ipcRenderer.invoke("read-guitar-sample", { relPath });
+    },
   });
 
   // Also log to the renderer console so it shows up in DevTools.

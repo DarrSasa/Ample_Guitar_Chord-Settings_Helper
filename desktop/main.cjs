@@ -345,6 +345,85 @@ ipcMain.on("midi-drag", (event, payload) => {
   }
 });
 
+// ---------------------------------------------------------------------------
+// Guitar samples (sampler engine) - listare + citire octeti prin IPC.
+// Rendererul NU poate citi fisierele audio direct (pagina e incarcata prin
+// file://, iar Chromium blocheaza fetch-ul pe fisiere locale). De aceea
+// procesul principal listeaza folderul si citeste octetii, iar rendererul
+// ii decodeaza cu Web Audio (decodeAudioData).
+// ---------------------------------------------------------------------------
+
+// Radacina librariilor de chitara. In build-ul impachetat:
+//   __dirname = <app>/resources/app/desktop  ->  root = .../dist/guitar samples
+// Build-Installer.ps1 copiaza public/guitar samples/* in dist/guitar samples.
+function resolveGuitarSamplesRoot() {
+  return path.join(__dirname, "..", "dist", "guitar samples");
+}
+
+// Listare recursiva (directoare + fisiere) cu cai relative (separator "/")
+// fata de radacina. Sortata: directoare intai, apoi fisiere, natural pe nume.
+function listDirRecursive(dir, baseDir) {
+  const out = [];
+  let names;
+  try {
+    names = fs.readdirSync(dir, { withFileTypes: true });
+  } catch {
+    return out;
+  }
+  names.sort((a, b) => {
+    if (a.isDirectory() !== b.isDirectory()) return a.isDirectory() ? -1 : 1;
+    return a.name.localeCompare(b.name, undefined, { numeric: true });
+  });
+  for (const d of names) {
+    const full = path.join(dir, d.name);
+    const rel = path.relative(baseDir, full).split(path.sep).join("/");
+    const isDir = d.isDirectory();
+    let size = 0;
+    if (!isDir) {
+      try { size = fs.statSync(full).size; } catch { /* best effort */ }
+    }
+    out.push({ name: d.name, path: rel, isDirectory: isDir, size });
+    if (isDir) out.push(...listDirRecursive(full, baseDir));
+  }
+  return out;
+}
+
+ipcMain.handle("list-guitar-samples", () => {
+  const root = resolveGuitarSamplesRoot();
+  if (!fs.existsSync(root)) {
+    return { root, exists: false, entries: [] };
+  }
+  try {
+    return { root, exists: true, entries: listDirRecursive(root, root) };
+  } catch (err) {
+    return {
+      root,
+      exists: true,
+      entries: [],
+      error: String(err && err.message ? err.message : err),
+    };
+  }
+});
+
+ipcMain.handle("read-guitar-sample", (_event, payload) => {
+  try {
+    const root = resolveGuitarSamplesRoot();
+    const rel = String(payload && payload.relPath ? payload.relPath : "");
+    const full = path.resolve(root, rel);
+    // Protectie: permitem citirea DOAR din interiorul radacinii guitar samples.
+    if (full !== root && !full.startsWith(root + path.sep)) {
+      return { ok: false, error: "invalid path" };
+    }
+    if (!fs.existsSync(full) || fs.statSync(full).isDirectory()) {
+      return { ok: false, error: "missing file" };
+    }
+    const bytes = fs.readFileSync(full);
+    return { ok: true, bytes: new Uint8Array(bytes) };
+  } catch (err) {
+    return { ok: false, error: String(err && err.message ? err.message : err) };
+  }
+});
+
 // A 32x32 opaque orange (#ff8827) PNG - big enough for Electron's
 // startDrag to accept as a valid drag image on every platform. Kept as a
 // base64 literal so we don't depend on any external icon files existing.
