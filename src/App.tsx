@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Soundfont from "soundfont-player";
 import GraphicButton from "./components/GraphicButton";
 import RubberBandOverlay, { type RubberBandRect } from "./components/RubberBandOverlay";
-import NudgeToggle, { type NudgeMode } from "./components/NudgeToggle";
+import { type NudgeMode } from "./components/NudgeToggle";
 import TransportButtons from "./components/TransportButtons";
 import AutoVelButton from "./components/AutoVelButton";
 import { SamplerEngine } from "./sampler/SamplerEngine";
@@ -4471,11 +4471,22 @@ export default function App() {
             Delete
           </GraphicButton>
 
-          {/* Chord nudge: comutator slide/swap (FL Studio style).
-              Determina comportamentul la mutarea unui acord peste altul:
-              - slide: vecinii se decaleaza ca sa faca loc
-              - swap: A si B isi inverseaza pozitiile */}
-          <NudgeToggle value={nudgeMode} onChange={setNudgeMode} />
+          {/* Chord nudge: buton simplu care comuta alternativ intre Slide si
+              Swap la fiecare apasare (user explicit). Label-ul butonului
+              arata mereu modul ACTIV. Logica slide/swap din engine ramane
+              neschimbata - doar UI-ul e un buton, nu un comutator FL. */}
+          <button
+            type="button"
+            onClick={() => setNudgeMode((v) => (v === "slide" ? "swap" : "slide"))}
+            title={
+              nudgeMode === "slide"
+                ? "Nudge: Slide (impinge vecinii). Click pentru a comuta pe Swap."
+                : "Nudge: Swap (inverseaza locurile). Click pentru a comuta pe Slide."
+            }
+            className="h-8 rounded-sm border border-black bg-[#FCBF8D] px-3 text-xs font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]"
+          >
+            {nudgeMode === "slide" ? "Slide" : "Swap"}
+          </button>
 
           {/* Auto Vel: buton split (toggle + meniu de strategii). Atribuie
               velocity pe fiecare nota a fiecarui acord, conform strategiei
@@ -4642,20 +4653,28 @@ export default function App() {
               onClick={() => {
                 setGuitarOpen((prev) => !prev);
               }}
-              className={`h-8 rounded-sm border border-black bg-[#FCBF8D] px-2 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
+              title={
+                soundSource === "guitar-samples"
+                  ? (libraryChoices.find((c) => c.id === selectedLibraryId)?.label ?? "Alege libraria")
+                  : guitarPreset.name
+              }
+              className={`flex h-8 max-w-[220px] items-center gap-1 rounded-sm border border-black bg-[#FCBF8D] px-2 text-[11px] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
                 guitarOpen ? "shadow-[0_0_10px_#ff8827]" : ""
               }`}
             >
-              {guitarLoading && soundSource === "soundfonts"
-                ? "loading..."
-                : soundSource === "guitar-samples"
-                ? (libraryChoices.find((c) => c.id === selectedLibraryId)?.label ??
-                  (libraryChoices.length > 0 ? "Alege libraria..." : "Guitar Samples (niciuna)"))
-                : guitarPreset.name}
+              <span className="truncate">
+                {guitarLoading && soundSource === "soundfonts"
+                  ? "loading..."
+                  : soundSource === "guitar-samples"
+                  ? (libraryChoices.find((c) => c.id === selectedLibraryId)?.label ??
+                    (libraryChoices.length > 0 ? "Alege libraria..." : "Guitar Samples (niciuna)"))
+                  : guitarPreset.name}
+              </span>
+              <span aria-hidden="true" className="flex-none text-[8px] leading-none">&#9660;</span>
             </button>
             {guitarOpen && (
               <div
-                className="absolute left-0 top-9 z-40 w-72 max-w-[80vw] border border-black"
+                className="absolute left-0 top-9 z-40 w-80 max-w-[85vw] border border-black shadow-lg"
                 style={{ backgroundColor: "#677987", color: "#fff" }}
               >
                 {soundSource === "guitar-samples" ? (
@@ -4673,13 +4692,16 @@ export default function App() {
                           setSelectedLibraryId(choice.id);
                           setGuitarOpen(false);
                         }}
-                        className={`block w-full border-b border-black px-2 py-1 text-left text-xs hover:brightness-125 ${
+                        title={choice.label}
+                        className={`flex w-full items-center gap-1 border-b border-black px-2 py-1 text-left text-[11px] hover:brightness-125 ${
                           choice.id === selectedLibraryId ? "brightness-125" : ""
                         }`}
                         style={{ backgroundColor: "#677987", color: "#fff" }}
                       >
-                        {choice.id === selectedLibraryId ? "✓ " : ""}
-                        {choice.label}
+                        <span className="flex-none">
+                          {choice.id === selectedLibraryId ? "✓" : ""}
+                        </span>
+                        <span className="truncate whitespace-nowrap">{choice.label}</span>
                       </button>
                     ))
                   )
@@ -4693,7 +4715,7 @@ export default function App() {
                         setGuitarOpen(false);
                         void loadInstrument(preset);
                       }}
-                      className="block w-full border-b border-black px-2 py-1 text-left text-xs hover:brightness-125"
+                      className="block w-full truncate whitespace-nowrap border-b border-black px-2 py-1 text-left text-[11px] hover:brightness-125"
                       style={{ backgroundColor: "#677987", color: "#fff" }}
                     >
                       {preset.name}
