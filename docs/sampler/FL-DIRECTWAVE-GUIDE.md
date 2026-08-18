@@ -258,3 +258,34 @@ zone (mapping), NU sample-urile.
    - Ample Guitar produce sunet la randare (canta note in plugin inainte);
    - "Monolithic" daca e bifat, fișierul rezultat ar fi ~350 MB, nu 348 KB.
 
+
+## 8. Note goale + sunete "slide" = ai esantionat tastele KEYSWITCH
+
+Ample Guitar are **taste de keyswitch** la capatul de jos al claviaturii
+(slide down/up, hammer-on/pull-off, palm mute etc.). Ele NU sunt note — o
+tasta keyswitch apasata SINGURA produce **liniste** sau un **sunet scurt de
+slide/articulatie**.
+
+**Simptome (exact ca la tine):**
+- note goale (liniste) sub o anumita nota;
+- unele sample-uri suna "slide" la anumite velocity-uri.
+
+**Cum rezolvi:**
+
+1. In FL, deschide AGM si priveste **tastatura din interfata** (clapele):
+   tastele keyswitch au alta culoare / etichete (Slide, Hammer, Palm Mute...).
+2. Canta tastele **de jos in sus**, una cate una, si gaseste **PRIMA nota
+   reala** (sunet curat, sustinut — NU slide, NU liniste).
+3. Re-eșantioneaza cu **Low note = prima nota reala** (nu E1 daca E1 era
+   keyswitch), High note = C5.
+4. Pastreaza **Max velocity = 120**, 8 layers, Key zones = 1, restul ca mai sus.
+5. **Verifica DUPĂ**: toate notele esantionate trebuie sa sune curat, fara
+   slide si fara liniste. Numara: ~45 note x 8 layers = ~360 sample-uri.
+
+**Despre transpunerea de 2 octave — NU transpuneti in DirectWave:**
+
+AGM "suna" cu 2 octave mai sus decat eticheta tastei (tastele E1-C5 produc
+sunet E3-C7, cum ai masurat in Edison). Asta NU e o greseala a ta si NU se
+corecteaza in DirectWave — o corectam NOI dupa conversie cu campul
+`pitchOffset` din `library.json`. Daca transpui manual in DirectWave, doar
+strici mapping-ul.
