@@ -17,7 +17,7 @@ combinatii de note din acea gama.
 
 Nota minima si maxima intre care DirectWave va reda si inregistra note.
 
-**Recomandare: `E2 (40)` → `E6 (88)`**
+**Setare confirmata cu userul: `E2 (40)` → `E6 (88)`**
 
 De ce exact acest interval:
 
@@ -29,9 +29,6 @@ De ce exact acest interval:
   = E5 (76), PLUS marja pentru cele 2 inversiuni (care ridica vocea cu pana
   la ~1 octava). E6 (88) e si capatul natural al unei chitare 24 frets.
 
-Daca vrei sa economisesti timp/spatiu, poti opri la **C6 (84)** — tot acopera
-acordurile + inversiunile.
-
 > Verificare: uita-te la tastatura din interfata Ample Guitar (clapele colorate).
 > Notele reale sunt cele din zona "de cântat". NU esantiona tastele de
 > keyswitch (de regula la capatul de jos) — alea declanseaza tehnici (strum,
@@ -39,12 +36,10 @@ acordurile + inversiunile.
 
 ### Note skip (pasul de esantionare, in semitonuri)
 
-- **2 semitonuri** (ton intreg) — echilibru bun calitate/dimensiune. RECOMANDAT.
-- **1 semiton** (cromatic) — calitate maxima, dar de ~2 ori mai multe mostre.
+**Setare confirmata: 1 semiton (cromatic) — calitate maxima.**
 
-Motorul nostru (SamplerEngine) gaseste automat cea mai apropiata nota si
-transpune doar diferenta mica ramasa, deci pasul de 2 semitonuri suna aproape
-identic cu cel cromatic.
+Motorul nostru gaseste oricum cea mai apropiata nota si transpune diferenta
+mica, dar cromatic = zero transpunere (fiecare nota are sample-ul ei exact).
 
 ## 2. Velocity layers (Configure settings)
 
@@ -73,10 +68,10 @@ Daca vrei mai rapid/mic: **4 layere** la `32, 64, 96, 127` e suficient.
 
 | Setare | Valoare | De ce |
 |---|---|---|
-| **Note length** | 5–6 secunde | Capteaza decaderea naturala a corzii (sample-urile Realsamples sunt ~7–8s). |
+| **Note length** | 6 s | Capteaza decaderea naturala a corzii |
 | **Loop** | **OFF** (one-shot) | Chitara decade natural; loop-ul artificial ar suna "orga". |
-| **Sample rate / bit depth** | 44.1 kHz / 24-bit (sau 32-bit float) | Identic cu librariile existente; 32-bit float = mai mult headroom. |
-| **Mono / Stereo** | Stereo (sau Mono pt. spatiu) | Stereo = sunet Ample complet; Mono = fisiere la jumatate. Motorul reda ambele. |
+| **Sample rate / bit depth** | 44.1 kHz / 24-bit | Identic cu librariile existente. |
+| **Stereo** | **OFF (Mono)** | Fisiere la jumatate din dimensiune; motorul reda mono fara probleme. |
 
 ## 4. Modul Ample Guitar inainte de esantionare
 
@@ -92,11 +87,31 @@ Ample Guitar are 3 moduri de redare cu timbre diferite: **finger, strum, pick**.
 - `finger` e mai muiat/cald — bun ca **varianta separata** de librarie, nu ca
   sursa principala.
 
-**Lock articulatia (IMPORTANT):** inainte de esantionare, asigura-te ca modul
-pick reda o **singura articulatie consecventa** (ex. downstroke). Daca Ample
-Guitar comuta intre down/up stroke in functie de velocity, atunci straturile de
-velocity ar contine articulatii diferite (nu doar dinamica). Scopul: **velocity
-layer = dinamica (soft->tare), nu schimbare de articulatie**.
+**Deocamdata se face DOAR `pick`.** Calibrarile separate (finger/strum) se vor
+discuta pe viitor.
+
+### Cum verifici ca pick reda o singura articulatie consecventa
+
+Scopul: **velocity layer = dinamica (soft→tare), NU schimbare de articulatie**
+(down/up stroke). Pasii:
+
+1. **Pune Ample Guitar pe modul Pick** (selectorul de mod: Pick/Strum/Finger).
+2. **Canta aceeasi nota la velocity diferite** (sau pune o nota in FL Piano Roll
+   si da-i velocity 20, apoi 127; asculta-le pe rand).
+   - Daca la velocity mic suna ca un **upstroke mai slab** iar la velocity mare
+     ca un **downstroke dur** => articulatia e legata de velocity (de evitat).
+   - Daca suna doar **mai incet / mai tare**, cu acelasi caracter de atac =>
+     velocity = doar dinamica (ceea ce vrem).
+3. **Uita-te la interfata Ample Guitar** daca exista un indicator de
+   "stroke" (down/up) sau o cheie de keyswitch care se aprinde cand canti la
+   anumite velocity — ala iti arata ca velocity declanseaza articulatii.
+4. Daca exista un meniu "Articulation" / "Auto" care alege articulatia dupa
+   velocity, seteaza-l pe o **singura articulatie fixa** (Down), nu pe Auto.
+   (Denumirea exacta a optiunii difera intre versiuni — cauta in manualul
+   Ample Guitar "articulation" / "stroke" / "velocity switch".)
+5. **Test final de incredere:** inregistreaza un sir de note cu velocity diferite
+   in FL si priveste waveform-ul — atacul trebuie sa aiba ACEEASI forma (doar
+   inaltimea/amplitudinea difera), nu forme diferite de atac.
 
 De asemenea: fara strum auto / fara keyswitch-uri active, ca fiecare tasta sa
 cante o singura nota curata.
@@ -108,12 +123,10 @@ Foloseste separatorul ` - ` ca prefixul vendorului sa fie detectat corect:
 
 ```
 AGM - 4.1.0 (Pick)
-AGM - 4.1.0 (Finger)      <- viitor
-AGM - 4.1.0 (Strum)       <- viitor
 ```
 
-Asa in meniu apar ca:
-`AGM - 4.1.0 (Pick) (Single Notes)` etc. (prefix = "AGM").
+Asa in meniu apare: `AGM - 4.1.0 (Pick) (Single Notes)` (prefix = "AGM").
+Pe viitor: `AGM - 4.1.0 (Finger)`, `AGM - 4.1.0 (Strum)`.
 
 ## 5. Ce urmeaza (dupa conversie)
 
@@ -122,14 +135,27 @@ key range si velocity range** — exact ce trebuie. Cand mi-l aduci, scriu
 parserul de `.exs` (XML) care citeste direct zonele (mai precis decat parsarea
 din numele folderelor, pe care o folosim acum pentru Realsamples).
 
+**Ce pot verifica eu DUPA conversie (din fisierele rezultate):**
+
+- sample rate, bit depth, **mono/stereo** (din header-ul WAV `fmt`);
+- **nota minima/maxima** (din numele folderelor/fisierelor sau din zonele .exs);
+- **cate straturi de velocity** (din prefixul numeric al fisierelor sau din
+  zonele .exs);
+- **durata** sample-urilor (din dimensiunea WAV + sample rate);
+- **loop** (din chunk-ul `smpl`, daca exista).
+
+Deci NU trebuie sa notezi setarile manual — cand ai conversia gata, rulezi
+`node --experimental-strip-types scripts/inspect-guitar-library.mjs <cale>`
+(sau imi trimiti `.exs`-ul + un WAV) si iti confirm daca totul corespunde.
+
 ## Rezumat rapid (copy-paste)
 
 ```
 Key range:      E2 (40)  →  E6 (88)
-Note skip:      every 2 semitones
+Note skip:      1 semitone (cromatic)
 Velocity:       8 layers @ 16, 32, 48, 64, 80, 96, 112, 127
 Note length:    6 s
 Loop:           OFF
-Quality:        44.1 kHz / 24-bit (sau 32-bit float)
-Stereo:         ON (sau mono pt. spatiu)
+Quality:        44.1 kHz / 24-bit
+Stereo:         OFF (mono)
 ```

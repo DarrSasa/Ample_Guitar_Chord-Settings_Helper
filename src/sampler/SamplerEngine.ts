@@ -120,17 +120,44 @@ export class SamplerEngine {
     }
   }
 
-  // Reda un singur sample cu pitch-shift (daca e nevoie) + velocity -> gain.
-  private async playSample(
+  // Rezolva NOTA -> calea sample-ului (cel mai apropiat sample + layer de
+  // velocity). Intoarce null daca nu exista niciun sample potrivit.
+  private resolveSample(
+    groups: SingleNoteGroup[],
+    midi: number,
+    velocity: number
+  ): { relPath: string; sampleMidi: number } | null {
+    const g = this.findNoteGroup(groups, midi);
+    if (!g) return null;
+    const layerIdx = this.velocityToLayerIndex(velocity, g.layers.length);
+    return { relPath: g.layers[layerIdx], sampleMidi: g.midi };
+  }
+
+  // Calculeaza timpul de start astfel incat mai multe note sa inceapa EXACT
+  // simultan. Daca `when` e in trecut (posibil cand sample-urile au fost
+  // incarcate asincron), il impingem putin in viitor ca toate notele unui
+  // acord sa porneasca impreuna (evita efectul de "strum" la primul acord).
+  private scheduleStart(when?: number): number {
+    const now = this.ensureContext().currentTime;
+    const lookahead = 0.03; // mica marja ca sa nu pornim "in trecut"
+    if (when === undefined) return now + lookahead;
+    return Math.max(when, now + lookahead);
+  }
+
+  // Porneste un sample DEJA INCARCAT (sincron, fara await) cu pitch-shift
+  // (daca e nevoie) + velocity -> gain.
+  private startSample(
     relPath: string,
     sampleMidi: number,
     targetMidi: number,
     velocity: number,
     opts: PlayOptions
-  ): Promise<void> {
+  ): void {
     const ctx = this.ensureContext();
-    const buf = await this.load(relPath);
-    const when = opts.when ?? ctx.currentTime;
+    const buf = this.buffers.get(relPath);
+    if (!buf) return; // nu ar trebui sa se intample (se incarca inainte)
+
+    const when = this.scheduleStart(opts.when);
     const gainScale = opts.gain ?? 1;
 
     const src = ctx.createBufferSource();
@@ -165,20 +192,43 @@ export class SamplerEngine {
     velocity: number,
     opts: PlayOptions = {}
   ): Promise<void> {
-    const g = this.findNoteGroup(groups, midi);
-    if (!g) return;
-    const layerIdx = this.velocityToLayerIndex(velocity, g.layers.length);
-    const relPath = g.layers[layerIdx];
-    await this.playSample(relPath, g.midi, midi, velocity, opts);
+    const res = this.resolveSample(groups, midi, velocity);
+    if (!res) return;
+    await this.load(res.relPath);
+    this.startSample(res.relPath, res.sampleMidi, midi, velocity, opts);
   }
 
-  // Reda un acord complet (note + velocity per nota).
+  // Reda un acord complet (note + velocity per nota). Toate notele se incarca
+  // INAINTE de a porni, apoi pornesc la ACELASI timp — garantat simultan,
+  // fara efect de "strum" la prima redare.
   async playChord(
     groups: SingleNoteGroup[],
     notes: PlayNoteSpec[],
     opts: PlayOptions = {}
   ): Promise<void> {
-    await Promise.all(notes.map((n) => this.playNote(groups, n.midi, n.velocity, opts)));
+    const resolved: Array<{
+      relPath: string;
+      sampleMidi: number;
+      midi: number;
+      velocity: number;
+    }> = [];
+    for (const n of notes) {
+      const r = this.resolveSample(groups, n.midi, n.velocity);
+      if (r) resolved.push({ ...r, midi: n.midi, velocity: n.velocity });
+    }
+
+    if (resolved.length === 0) return;
+
+    // 1) Incarca TOTI octetii (in paralel) — dupa asta totul e in memorie.
+    await Promise.all(resolved.map((r) => this.load(r.relPath)));
+
+    // 2) Un SINGUR timp de start comun pentru toate notele.
+    const when = this.scheduleStart(opts.when);
+
+    // 3) Porneste-le pe toate sincron.
+    resolved.forEach((r) => {
+      this.startSample(r.relPath, r.sampleMidi, r.midi, r.velocity, { ...opts, when });
+    });
   }
 
   // Reda un acord PREINREGISTRAT (folder Chords), fara pitch-shift.
@@ -189,7 +239,8 @@ export class SamplerEngine {
   ): Promise<void> {
     const layerIdx = this.velocityToLayerIndex(velocity, chord.layers.length);
     const relPath = chord.layers[layerIdx];
+    await this.load(relPath);
     // sampleMidi = targetMidi (nu transpunem deloc).
-    await this.playSample(relPath, 60, 60, velocity, opts);
+    this.startSample(relPath, 60, 60, velocity, opts);
   }
 }

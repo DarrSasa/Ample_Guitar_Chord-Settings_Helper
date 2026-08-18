@@ -557,7 +557,11 @@ function chunk(id: string, data: number[]) {
 // (defensive default, keeps old saved sessions compatible).
 const DEFAULT_CHORD_BEATS = 4;
 
-function createMidiFile(chords: BuilderChord[], bpm: number) {
+function createMidiFile(
+  chords: BuilderChord[],
+  bpm: number,
+  velForChord?: (chord: BuilderChord, index: number, sorted: BuilderChord[]) => number[]
+) {
   const ppq = 480;
   const beatTicks = ppq;
   const tempo = Math.floor(60000000 / Math.max(40, Math.min(240, bpm)));
@@ -572,17 +576,20 @@ function createMidiFile(chords: BuilderChord[], bpm: number) {
   // note-on al acordului urmator.
   const sorted = sortBuilderByStart(chords);
   let cursorTicks = 0; // pozitia MIDI (in ticks) unde ne-am oprit
-  sorted.forEach((chord) => {
+  sorted.forEach((chord, chordIndex) => {
     const beatsForChord = chord.beats > 0 ? chord.beats : DEFAULT_CHORD_BEATS;
     const chordTicks = Math.max(1, Math.round(beatTicks * beatsForChord));
     const startTicks = Math.max(0, Math.round(beatTicks * (chord.startBeat ?? 0)));
     const gapTicks = Math.max(0, startTicks - cursorTicks);
 
     const notes = chordNotes(chord.label);
+    // Velocity per nota (Auto Vel) — daca nu e dat, folosim 86 (default).
+    const velocities = velForChord ? velForChord(chord, chordIndex, sorted) : notes.map(() => 86);
     notes.forEach((note, i) => {
       // Primul note-on al acordului "consuma" tot gap-ul acumulat.
       const delta = i === 0 ? gapTicks : 0;
-      track.push(...toVarLen(delta), 0x90, note, 86);
+      const vel = Math.max(1, Math.min(127, Math.round(velocities[i] ?? 86)));
+      track.push(...toVarLen(delta), 0x90, note, vel);
     });
 
     notes.forEach((note, i) => {
@@ -3454,7 +3461,19 @@ export default function App() {
     if (builderRef.current.length === 0) {
       return null;
     }
-    return createMidiFile(builderRef.current, bpm);
+    // Exportam velocity PER NOTA (Auto Vel), ca in FL Studio notele sa aiba
+    // nivele diferite de velocity (pentru reglari ulterioare). Cand Auto Vel
+    // e dezactivat, toate notele au 86 (default-ul existent).
+    return createMidiFile(builderRef.current, bpm, (chord, index, sorted) => {
+      const notes = chordNotes(chord.label);
+      if (!autoVelActiveRef.current) return notes.map(() => 86);
+      return applyAutoVel(notes, autoVelStrategyRef.current, {
+        chordIndex: index,
+        startBeat: chord.startBeat ?? 0,
+        totalChords: sorted.length,
+        beatsPerBar: BEATS_PER_BAR,
+      });
+    });
   };
 
   // (totalBuilderBeats was here previously - removed after TimeBar
