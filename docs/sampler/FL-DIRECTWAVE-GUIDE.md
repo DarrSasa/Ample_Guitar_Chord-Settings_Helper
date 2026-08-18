@@ -17,17 +17,24 @@ combinatii de note din acea gama.
 
 Nota minima si maxima intre care DirectWave va reda si inregistra note.
 
-**Setare confirmata cu userul: `E2 (40)` → `E6 (88)`**
+**Ample Guitar AGM are key range `E1 (28)` → `C5 (72)`** (din manualul PDF).
 
-De ce exact acest interval:
+Deci esantionam **in interiorul gamei instrumentului** — nu are rost sa cerem
+note peste C5 (nu exista acolo).
 
-- **Jos (E2 = 40):** e coarda joasa E a chitarei (acelasi punct de plecare ca
-  libraria Realsamples `0 - E2` = MIDI 40). Aplicatia nu coboara sub C3 (48)
-  pentru radacini, dar E2 lasa loc pentru bas (viitor) si pentru inversiile
-  care duc basul mai jos.
-- **Sus (E6 = 88):** acopera radacina maxima B3 (59) + extensia add11 (+17)
-  = E5 (76), PLUS marja pentru cele 2 inversiuni (care ridica vocea cu pana
-  la ~1 octava). E6 (88) e si capatul natural al unei chitare 24 frets.
+**Setare: `E1 (28)` → `C5 (72)`** (sau `E2 (40)` → `C5 (72)` daca E1 e doar
+keyswitch, nu nota reala — vezi verificarea de mai jos).
+
+De ce:
+
+- **Jos:** E1 (28) e foarte jos (sub coarda E standard). Aplicatia nu coboara
+  sub C3 (48) la radacini, dar E1/E2 lasa loc pentru **bas (viitor)** si
+  **inversii** care duc basul mai jos. Daca E1 e keyswitch (nu suna ca o nota),
+  porneste de la E2 (40).
+- **Sus:** C5 (72) e capatul natural al instrumentului. Aplicatia poate genera,
+  rar, note pana la **E5 (76)** (ex. B Maj add11). Notele 73–76 (C#5..E5) nu
+  au sample propriu -> motorul nostru le transpune automat din C5 (diferenta
+  de 1–4 semitonuri, neglijabila si doar pe acordurile cele mai acute).
 
 > Verificare: uita-te la tastatura din interfata Ample Guitar (clapele colorate).
 > Notele reale sunt cele din zona "de cântat". NU esantiona tastele de
@@ -46,23 +53,37 @@ mica, dar cromatic = zero transpunere (fiecare nota are sample-ul ei exact).
 DirectWave inregistreaza fiecare nota de cateva ori, la intensitati diferite.
 Cate layere pui, atatea "grade de atac" va avea chitara in aplicatia noastra.
 
-**Recomandare: 8 layere**, cu vitezele:
+**IMPORTANT (din manualul AGM): velocity NU e doar dinamica la Ample Guitar:**
+
+- **velocity < 127** -> articulatie **Sustain** (nota tinuta normala).
+- **velocity = 127** -> articulatie **Pop** (atac scurt, diferit).
+
+Deci **NU esantionam la velocity 127** — altfel layer-ul cel mai tare ar fi
+"Pop", nu "Sustain mai tare", iar Auto Vel ar declansa din greseala articulatia
+Pop. Vrem ca **velocity layer = dinamica (soft→tare) a articulatiei Sustain**.
+
+**Setare: 8 layere, toate sub 127:**
 
 ```
-16, 32, 48, 64, 80, 96, 112, 127
+16, 32, 48, 64, 80, 96, 112, 120
 ```
 
 De ce:
 
+- Toate valorile sunt < 127 -> toate declanseaza **Sustain** (doar dinamica).
 - Motorul nostru mapeaza velocity MIDI 0..127 uniform pe cate layere exista —
   deci merge cu ORICATE layere (nu esti blocat la 32 ca la Realsamples).
-- Strategiile "Auto Vel" din aplicatie produc valori in banda ~66..121
-  (ex. DS = 114/94/79, MT = 118/82/66). Cele 8 layere de mai sus dau 4 praguri
-  in banda asta (80, 96, 112, 127) => tranzitii naturale de dinamica.
-- 32 de layere (ca Realsamples) ar suna aproape identic, dar dureaza de 4 ori
-  mai mult si ocupa de 4 ori mai mult. 8 e punctul optim.
+- Strategiile "Auto Vel" produc valori in banda ~66..121 (ex. DS = 114/94/79,
+  MT = 118/82/66). Pragurile 80, 96, 112, 120 dau tranzitii naturale.
 
-Daca vrei mai rapid/mic: **4 layere** la `32, 64, 96, 127` e suficient.
+Daca vrei mai rapid/mic: **4 layere** la `32, 64, 96, 120` e suficient (tot
+sub 127, deci tot Sustain).
+
+### Articulatia "Pop" (pentru viitor)
+
+"Pop"-ul il pastram pentru viitorul buton **"Auto Art"** (articulatii): il vom
+esantiona SEPARAT (un set propriu de note la velocity 127), declansat prin
+selectie de articulatie, NU prin velocity.
 
 ## 3. Celelalte setari
 
@@ -92,26 +113,29 @@ discuta pe viitor.
 
 ### Cum verifici ca pick reda o singura articulatie consecventa
 
-Scopul: **velocity layer = dinamica (soft→tare), NU schimbare de articulatie**
-(down/up stroke). Pasii:
+**RASPUNS GASIT (din manualul AGM + test in FL):**
 
-1. **Pune Ample Guitar pe modul Pick** (selectorul de mod: Pick/Strum/Finger).
-2. **Canta aceeasi nota la velocity diferite** (sau pune o nota in FL Piano Roll
-   si da-i velocity 20, apoi 127; asculta-le pe rand).
-   - Daca la velocity mic suna ca un **upstroke mai slab** iar la velocity mare
-     ca un **downstroke dur** => articulatia e legata de velocity (de evitat).
-   - Daca suna doar **mai incet / mai tare**, cu acelasi caracter de atac =>
-     velocity = doar dinamica (ceea ce vrem).
-3. **Uita-te la interfata Ample Guitar** daca exista un indicator de
-   "stroke" (down/up) sau o cheie de keyswitch care se aprinde cand canti la
-   anumite velocity — ala iti arata ca velocity declanseaza articulatii.
-4. Daca exista un meniu "Articulation" / "Auto" care alege articulatia dupa
-   velocity, seteaza-l pe o **singura articulatie fixa** (Down), nu pe Auto.
-   (Denumirea exacta a optiunii difera intre versiuni — cauta in manualul
-   Ample Guitar "articulation" / "stroke" / "velocity switch".)
-5. **Test final de incredere:** inregistreaza un sir de note cu velocity diferite
-   in FL si priveste waveform-ul — atacul trebuie sa aiba ACEEASI forma (doar
-   inaltimea/amplitudinea difera), nu forme diferite de atac.
+- **velocity < 127** -> articulatie **Sustain**.
+- **velocity = 127** -> articulatie **Pop**.
+
+Adica AGM are **2 articulatii legate de velocity**. Consecinta practica:
+
+- Pentru **velocity = dinamica** (ce vrem acum), esantionam **doar Sustain**
+  -> toate layerele de velocity trebuie sa fie **< 127** (vezi sectiunea 2).
+- "Pop" il lasam pentru viitorul buton "Auto Art" (esantionat separat).
+
+Asadar NU mai e nevoie sa "blochezi" manual o articulatie pentru pick — doar
+respecta regula de mai sus: nu esantiona la velocity 127. Daca vrei sa fii
+sigur ca nu exista si ALTE comutatoare de articulatie legate de velocity (in
+afara de Sustain/Pop), fa testul de mai jos o singura data:
+
+1. **Pune Ample Guitar pe modul Pick.**
+2. **Canta aceeasi nota la velocity 20 si la velocity 120** (nu 127) si
+   asculta-le: trebuie sa fie ACEEASI articulatie, doar mai incet / mai tare.
+3. Daca la 120 suna la fel ca la 20 (doar dinamica), e perfect.
+4. Daca la 120 se schimba caracterul (alta articulatie), exista un alt
+   comutator -> cauta in manual "articulation" / "velocity switch" si pune-l
+   pe o singura articulatie fixa.
 
 De asemenea: fara strum auto / fara keyswitch-uri active, ca fiecare tasta sa
 cante o singura nota curata.
@@ -151,9 +175,9 @@ Deci NU trebuie sa notezi setarile manual — cand ai conversia gata, rulezi
 ## Rezumat rapid (copy-paste)
 
 ```
-Key range:      E2 (40)  →  E6 (88)
+Key range:      E1 (28)  →  C5 (72)     (sau E2(40)->C5(72) daca E1 e keyswitch)
 Note skip:      1 semitone (cromatic)
-Velocity:       8 layers @ 16, 32, 48, 64, 80, 96, 112, 127
+Velocity:       8 layers @ 16, 32, 48, 64, 80, 96, 112, 120   (TOT < 127 = Sustain)
 Note length:    6 s
 Loop:           OFF
 Quality:        44.1 kHz / 24-bit
