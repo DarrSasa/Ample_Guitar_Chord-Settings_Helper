@@ -172,6 +172,39 @@ Deci NU trebuie sa notezi setarile manual — cand ai conversia gata, rulezi
 `node --experimental-strip-types scripts/inspect-guitar-library.mjs <cale>`
 (sau imi trimiti `.exs`-ul + un WAV) si iti confirm daca totul corespunde.
 
+## 6. Offset de inaltime (descoperire: sunetul e cu 2 octave mai sus)
+
+**Constatare (verificata de user in FL Studio Edison, "detect pitch regions"):**
+
+- Ample Guitar AGM **suna** in gama **E3-C7** (Edison).
+- Manualul PDF zice gama **E1-C5** (tastatura/notatia).
+
+Deci instrumentul e "transpus": tasta MIDI joaca o nota, dar sunetul iese cu
+**2 octave mai sus**. Pentru samplerul nostru asta inseamna ca numele fisierelor
+(DirectWave denumeste dupa tasta) NU se potrivesc cu inaltimea reala a sunetului.
+
+**Cum rezolvam (fara re-esantionare):** descriptorul `library.json` accepta
+campul `pitchOffset` (semitonuri). Dupa conversie, verific inaltimea reala a
+sample-urilor si setez valoarea corecta:
+
+```json
+{
+  "vendorPrefix": "AGM",
+  "displayName": "4.1.0 (Pick)",
+  "pitchOffset": 12
+}
+```
+
+> `pitchOffset` = "cate semitonuri adaugam la MIDI-ul dedus de parser (care
+> presupune index 0 = E2 = 40) ca sa obtinem inaltimea REALA a sunetului".
+> Valoarea EXACTA o determin eu dupa masurare (probabil **+12** sau **+24**,
+> in functie de cum denumeste DirectWave folderele si de ce octava porneste).
+> Nu o seta tu din oficiu — imi trimiti conversia si o fixez corect.
+
+**Ce faci tu la conversie:** esantioneaza intreaga gama de TASTE din manual
+(E1-C5). NU incerca sa "repari" tu octava in DirectWave — o corectam noi in
+`library.json` dupa ce masor pitch-ul real al sample-urilor.
+
 ## Rezumat rapid (copy-paste)
 
 ```

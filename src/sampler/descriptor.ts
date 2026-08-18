@@ -10,6 +10,12 @@ export function applyDescriptor(
   desc?: LibraryDescriptor | null
 ): GuitarLibraryInfo {
   if (!desc) return lib;
+
+  const pitchOffset =
+    typeof desc.pitchOffset === "number" && Number.isFinite(desc.pitchOffset)
+      ? desc.pitchOffset
+      : 0;
+
   return {
     ...lib,
     vendorPrefix:
@@ -30,5 +36,12 @@ export function applyDescriptor(
           crossfade: desc.loop.crossfade ?? lib.loop?.crossfade,
         }
       : lib.loop,
+    pitchOffset,
+    // Aplicam offset-ul de inaltime pe notele individuale (chord-urile
+    // preinregistrate sunt acorduri intregi, nu au sens de transpus).
+    singleNotes:
+      pitchOffset !== 0
+        ? lib.singleNotes.map((g) => ({ ...g, midi: g.midi + pitchOffset }))
+        : lib.singleNotes,
   };
 }

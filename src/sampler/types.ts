@@ -44,6 +44,8 @@ export interface GuitarLibraryInfo {
   // Din descriptorul optional library.json (daca exista).
   defaultFadeOut?: number;
   loop?: { enabled?: boolean; crossfade?: number };
+  // Offset de inaltime (semitones) aplicat la notele individuale.
+  pitchOffset?: number;
 }
 
 // Variantele in care apare o librarie in meniul de chitare / Settings:
@@ -66,4 +68,9 @@ export interface LibraryDescriptor {
     enabled?: boolean;
     crossfade?: number; // secunde de crossfade pentru loop fara click
   };
+  // Offset de inaltime (in semitonuri) adaugat la MIDI-ul dedus automat al
+  // fiecarei note (40 + index folder) ca sa obtinem INALTIMEA REALA (sounding
+  // pitch) a sample-ului. Util cand instrumentul e "transpus" (ex. tastatura
+  // afiseaza o nota, dar sunetul e cu 2 octave mai sus). Default 0.
+  pitchOffset?: number;
 }

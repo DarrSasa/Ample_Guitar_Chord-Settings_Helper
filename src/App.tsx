@@ -588,7 +588,10 @@ function createMidiFile(
     notes.forEach((note, i) => {
       // Primul note-on al acordului "consuma" tot gap-ul acumulat.
       const delta = i === 0 ? gapTicks : 0;
-      const vel = Math.max(1, Math.min(127, Math.round(velocities[i] ?? 86)));
+      // Plafonam la 126, nu 127: la Ample Guitar (si alte librarii), velocity
+      // 127 poate declansa o ARTICULATIE diferita (ex. "Pop"), nu doar dinamica.
+      // Exportam maxim 126 ca MIDI-ul sa ramana mereu "Sustain" (doar dinamica).
+      const vel = Math.max(1, Math.min(126, Math.round(velocities[i] ?? 86)));
       track.push(...toVarLen(delta), 0x90, note, vel);
     });
 

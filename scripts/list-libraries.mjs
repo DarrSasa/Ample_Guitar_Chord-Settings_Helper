@@ -71,6 +71,7 @@ for (const lib of libs) {
   console.log(`    Single Notes: ${lib.hasSingleNotes ? lib.singleNotes.length + " note (MIDI " + lib.singleNotes[0].midi + ".." + lib.singleNotes[lib.singleNotes.length - 1].midi + ")" : "—"}`);
   console.log(`    Chords: ${lib.hasChords ? lib.chords.length + " (ex. " + lib.chords.map((c) => c.root + (c.quality === "major" ? "" : "m")).slice(0, 6).join(", ") + ")" : "—"}`);
   if (lib.defaultFadeOut !== undefined) console.log(`    defaultFadeOut: ${lib.defaultFadeOut}s`);
+  if (lib.pitchOffset !== undefined && lib.pitchOffset !== 0) console.log(`    pitchOffset: ${lib.pitchOffset} semitonuri`);
   if (lib.loop) console.log(`    loop: ${JSON.stringify(lib.loop)}`);
 }
 

@@ -35,6 +35,7 @@ public/guitar samples/
 | `vendorPrefix` | string | Prefix vendor afisat in meniu (ex. "RS"). Daca lipseste, se deduce din numele folderului (partea dinainte de " - "). |
 | `displayName` | string | Numele afisat fara prefix. Daca lipseste, se deduce din numele folderului (partea de dupa " - "). |
 | `defaultFadeOut` | number (secunde) | Fade-out implicit la finalul fiecarui sample redat. Default in motor: 0.02s. |
+| `pitchOffset` | number (semitonuri) | Offset adaugat la MIDI-ul dedus al fiecarei note (40 + index folder) ca sa obtinem inaltimea REALA a sample-ului. Folosit cand instrumentul e "transpus" (ex. AGM: tastatura joaca E1-C5 dar sunetul e E3-C7). |
 | `loop.enabled` | boolean | Hint (viitor): sample-urile sunt loop-uite -> notele tinute pot fi sustinute. |
 | `loop.crossfade` | number (secunde) | Crossfade pentru loop fara click (viitor). |
 
