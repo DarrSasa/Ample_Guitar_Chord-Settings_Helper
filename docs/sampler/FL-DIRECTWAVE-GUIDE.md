@@ -100,6 +100,7 @@ selectie de articulatie, NU prin velocity.
 | **Declick in/out** | **ON (ambele)** | Fade 20 ms ca sa nu apara click la start/final (inofensiv pentru atac). |
 | **Root offset** | **0** | Cu Key zones = 1, root-ul e exact tasta. NU e pentru corectat transpunerea de 2 octave (aia o facem in library.json cu pitchOffset). |
 | **Cycle layers** | **1** | Round-robin (note repetate diferite). Noi nu-l folosim; fiecare cycle layer inmulteste dimensiunea patch-ului. |
+| **Link velocity to gain** | **OFF** | Daca e ON, velocity schimba doar VOLUMUL unui singur sample, nu alege un strat diferit — exact ce NU vrem. Noi vrem velocity = strat de sample (dinamica inregistrata). |
 | **Miscellaneous: Open in DirectWave** | optional | Doar deschide patch-ul in editor dupa randare. Nu afecteaza sample-urile. |
 
 ## 4. Modul Ample Guitar inainte de esantionare
@@ -228,4 +229,5 @@ Normalize:      OFF
 Mixer FX:       OFF
 Root offset:    0
 Cycle layers:   1
+Link velocity to gain:  OFF
 ```
