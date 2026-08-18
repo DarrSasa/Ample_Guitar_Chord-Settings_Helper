@@ -17,33 +17,31 @@ combinatii de note din acea gama.
 
 Nota minima si maxima intre care DirectWave va reda si inregistra note.
 
-**Gama REALA a instrumentului (masurata de user in FL Studio): `E3 (52)` → `C7 (96)`.**
+**Gama REALA a instrumentului (masurata de user in FL Studio): `E3 (40)` → `C7 (84)`.**
 
-- Aceasta e zona de note curate (fara keyswitch, fara slide, fara liniste).
-- `E3-C7` in notatia FL Studio = `E1-C5` din manualul PDF (conventii de
-  octava diferite: FL pune middle C pe C5, manualul pe C3). Sunt ACELASI
-  sunete — nu e nicio transpunere de 2 octave de reparat la inregistrare.
-- Tastele de SUB E3 (E1-E2 in notatia manualului) sunt **keyswitch-uri**
-  (slide, hammer etc.) — apasate singure produc liniste sau slide. NU se
-  esantioneaza.
+- In FL Studio, middle C = C5, deci: **E3 = MIDI 40** si **C7 = MIDI 84**.
+- `E3-C7` (FL) = `E1-C5` (manual PDF, convenție Yamaha cu middle C = C3) =
+  **MIDI 40..84**. Sunt ACELASI sunete — nu e nicio transpunere de 2 octave
+  de reparat la inregistrare.
+- Tastele de SUB E3 (sub MIDI 40) sunt **keyswitch-uri** (slide, hammer etc.) —
+  apasate singure produc liniste sau slide. NU se esantioneaza.
 
-**Setare: `E3 (52)` → `C7 (96)`.**
+**Setare: `E3 (40)` → `C7 (84)`.**
 
-Total: **45 de note** (52..96) x 8 velocity layers = **360 de sample-uri**
+Total: **45 de note** (40..84) x 8 velocity layers = **360 de sample-uri**
 ≈ **350 MB** (sanity check: daca iese mult mai putin, ceva nu s-a esantionat).
 
 De ce exact acest interval:
 
-- **Jos (E3 = 52):** e prima nota reala a chitarei. Sub ea nu exista note,
-  doar keyswitch.
-- **Sus (C7 = 96):** e ultima nota reala a instrumentului.
+- **Jos (E3 = MIDI 40):** e prima nota reala a chitarei (coarda joasa E).
+  Sub ea nu exista note, doar keyswitch.
+- **Sus (C7 = MIDI 84):** e ultima nota reala a instrumentului.
 
 > IMPORTANT (pentru aplicatie): acordurile aplicatiei pleaca de la radacina
-> C3 (48) pana la ~E5 (76). Notele 48-51 (C3, C#3, D3, D#3) sunt SUB E3 (52),
-> deci NU au sample propriu — motorul nostru le va transpune din E3 (cea mai
-> apropiata nota reala). E normal si acceptabil; discutam mai tarziu daca e
-> nevoie de un range mai jos (ex. alte librarii sau un mod de octava inferioara
-> al AGM).
+> C3 (MIDI 48) si urca pana la ~E5 (MIDI 76). Gama 40..84 **acopera complet**
+> acest interval (40 <= 48), deci toate notele acordurilor au sample propriu.
+> Inversiile viitoare care coboara basul sub 40 vor fi transpuse din E3 — se
+> discuta cand ajungem la ele.
 
 > Verificare: uita-te la tastatura din interfata Ample Guitar (clapele colorate).
 > Notele reale sunt cele din zona "de cântat". NU esantiona tastele de
@@ -226,7 +224,7 @@ sample-urilor si setez valoarea corecta:
 ## Rezumat rapid (copy-paste)
 
 ```
-Key range:      E3 (52)  →  C7 (96)
+Key range:      E3 (40)  →  C7 (84)
 Note skip:      1 semitone (cromatic)
 Velocity:       8 layers @ 16, 32, 48, 64, 80, 96, 112, 120   (TOT < 127 = Sustain)
 Stop on:        Max Length
