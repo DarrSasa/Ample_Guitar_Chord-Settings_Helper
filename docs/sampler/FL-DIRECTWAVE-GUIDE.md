@@ -98,6 +98,8 @@ selectie de articulatie, NU prin velocity.
 | **Normalize** | **OFF** | Daca e ON, fiecare sample e amplificat la 100% si pierzi dinamica dintre velocity layers. |
 | **Mixer/Insert/Master FX** | **OFF (debifate)** | Vrem sunetul brut al chitarei, fara efecte din mixerul FL. |
 | **Declick in/out** | **ON (ambele)** | Fade 20 ms ca sa nu apara click la start/final (inofensiv pentru atac). |
+| **Root offset** | **0** | Cu Key zones = 1, root-ul e exact tasta. NU e pentru corectat transpunerea de 2 octave (aia o facem in library.json cu pitchOffset). |
+| **Cycle layers** | **1** | Round-robin (note repetate diferite). Noi nu-l folosim; fiecare cycle layer inmulteste dimensiunea patch-ului. |
 | **Miscellaneous: Open in DirectWave** | optional | Doar deschide patch-ul in editor dupa randare. Nu afecteaza sample-urile. |
 
 ## 4. Modul Ample Guitar inainte de esantionare
@@ -224,4 +226,6 @@ Quality:        44.1 kHz / 32-bit float
 Stereo:         OFF (mono)
 Normalize:      OFF
 Mixer FX:       OFF
+Root offset:    0
+Cycle layers:   1
 ```
