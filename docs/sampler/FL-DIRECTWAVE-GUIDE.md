@@ -231,3 +231,30 @@ Root offset:    0
 Cycle layers:   1
 Link velocity to gain:  OFF
 ```
+
+## 7. Depanare: ai obtinut doar un .dwp mic (~300 KB)
+
+**Problema:** `.dwp`-ul are doar ~348 KB (programul), fara sample-uri.
+
+**De ce:** o librarie completa E1-C5 cromatic x 8 velocity x 6s mono 32-float
+= ~360 sample-uri x ~1 MB = **~350 MB**. Un .dwp mic = doar definitiile de
+zone (mapping), NU sample-urile.
+
+**Verificare pas cu pas:**
+
+1. Dupa "Create DirectWave instrument", FL creaza un canal DirectWave nou.
+   Deschide-l si **apasa taste E1..C5**:
+   - daca SUNa -> sample-urile exista (doar nu au fost salvate ca fisiere);
+   - daca e TACUT -> randarea a esuat -> reia cu setarile corecte.
+2. Daca suna, salveaza pachetul: meniul de disc (folder icon, sus-stanga) ->
+   **"Save program as..."** -> alege un folder. Rezulta:
+   - `Ample Guitar M.dwp` (program, mic);
+   - un **subfolder cu .wav-urile** (~350 MB) — acolo e libraria.
+   Verifica folderul: exista subfolderul cu .wav-uri? Atunci in Chicken
+   Systems Translator deschizi .dwp-ul (gaseste sample-urile langa el) si
+   convertesti in .gig -> .exs.
+3. Daca sample-urile lipsesc, reia randarea si verifica:
+   - Key zones = 1; Max velocity = 120 (nu 127); Stop on = Max Length, 6 s;
+   - Ample Guitar produce sunet la randare (canta note in plugin inainte);
+   - "Monolithic" daca e bifat, fișierul rezultat ar fi ~350 MB, nu 348 KB.
+
