@@ -67,9 +67,27 @@ export class SamplerEngine {
   }
 
   // Mapare velocity MIDI (0..127) -> index de layer (0..layerCount-1).
-  velocityToLayerIndex(velocity: number, layerCount: number): number {
+  // Daca avem velocity-urile REALE ale straturilor (layerVelocities), alegem
+  // stratul cu velocity-ul CEL MAI APROPIAT de cel cerut; altfel mapam uniform.
+  velocityToLayerIndex(
+    velocity: number,
+    layerCount: number,
+    layerVelocities?: number[]
+  ): number {
     if (layerCount <= 0) return 0;
     const v = Math.max(0, Math.min(127, Math.round(velocity)));
+    if (layerVelocities && layerVelocities.length === layerCount) {
+      let best = 0;
+      let bestDist = Number.POSITIVE_INFINITY;
+      for (let i = 0; i < layerCount; i++) {
+        const d = Math.abs(layerVelocities[i] - v);
+        if (d < bestDist) {
+          bestDist = d;
+          best = i;
+        }
+      }
+      return best;
+    }
     return Math.min(layerCount - 1, Math.round((v / 127) * (layerCount - 1)));
   }
 
@@ -129,7 +147,7 @@ export class SamplerEngine {
   ): { relPath: string; sampleMidi: number } | null {
     const g = this.findNoteGroup(groups, midi);
     if (!g) return null;
-    const layerIdx = this.velocityToLayerIndex(velocity, g.layers.length);
+    const layerIdx = this.velocityToLayerIndex(velocity, g.layers.length, g.layerVelocities);
     return { relPath: g.layers[layerIdx], sampleMidi: g.midi };
   }
 

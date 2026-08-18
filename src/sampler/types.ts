@@ -20,6 +20,11 @@ export interface SingleNoteGroup {
   folderName: string; // ex. "0 - E2"
   folderPath: string; // ex. "RS - Acoustic Guitar 1/Single Notes/0 - E2"
   layers: string[];   // cai relative catre fisiere audio
+  // (optional) velocity-ul REAL la care a fost inregistrat fiecare strat,
+  // paralel cu `layers` (ex. DirectWave: [15, 30, 45, 60, 76, 91, 106, 121]).
+  // Cand exista, motorul alege stratul cu velocity-ul CEL MAI APROPIAT de
+  // velocity-ul cerut, in loc de maparea uniforma pe index.
+  layerVelocities?: number[];
 }
 
 // Un acord preinregistrat (folder Chords): radacina + calitate + straturi.
