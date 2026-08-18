@@ -5260,6 +5260,10 @@ export default function App() {
                     }}
                     onContextMenu={(e) => {
                       e.preventDefault();
+                      // Oprim propagarea ca handler-ul fundalului Builder-ului
+                      // (onContextMenu de pe strip) sa NU suprascrie meniul cu
+                      // chordId:null — altfel toate comenzile aparea dezactivate.
+                      e.stopPropagation();
                       const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
                       const before = e.clientX < rect.left + rect.width / 2;
                       const idx = builderRef.current.findIndex((x) => x.id === chord.id);
@@ -5659,7 +5663,7 @@ export default function App() {
             const canPaste = clipboard !== null && clipboard.chords.length > 0 && !(auditionMode && clipboard.chords.length > 1);
             const itemCls = (enabled: boolean, last = false) =>
               `block w-full px-2 py-1 text-left ${last ? "" : "border-b border-black"} ${
-                enabled ? "hover:bg-green-100" : "text-neutral-400"
+                enabled ? "text-neutral-900 hover:bg-green-100" : "text-neutral-500"
               }`;
 
             return (
