@@ -89,10 +89,16 @@ selectie de articulatie, NU prin velocity.
 
 | Setare | Valoare | De ce |
 |---|---|---|
-| **Note length** | 6 s | Capteaza decaderea naturala a corzii |
+| **Stop on** | **Max Length (6 s)** — NU "Silence" | Chitara electrica are hum/zgomot de amplificator la coada; "Silence" poate sa nu detecteze niciodata linistea sau sa taie incorect. "Max Length" = predictibil, toate notele la exact 6 s. |
+| **Note length / Max length** | 6 s | Capteaza decaderea naturala a corzii. |
 | **Loop** | **OFF** (one-shot) | Chitara decade natural; loop-ul artificial ar suna "orga". |
-| **Sample rate / bit depth** | 44.1 kHz / 24-bit | Identic cu librariile existente. |
+| **Sample rate** | 44.1 kHz (sau cat e default) | Standard. |
+| **Bit depth** | **32-bit float** (NU 16) | Calitate maxima, headroom mare, zero clipping. Fisiere mai mari (~2x), dar am ales calitate maxima. Motorul + Chicken Systems le citesc fara probleme. |
 | **Stereo** | **OFF (Mono)** | Fisiere la jumatate din dimensiune; motorul reda mono fara probleme. |
+| **Normalize** | **OFF** | Daca e ON, fiecare sample e amplificat la 100% si pierzi dinamica dintre velocity layers. |
+| **Mixer/Insert/Master FX** | **OFF (debifate)** | Vrem sunetul brut al chitarei, fara efecte din mixerul FL. |
+| **Declick in/out** | **ON (ambele)** | Fade 20 ms ca sa nu apara click la start/final (inofensiv pentru atac). |
+| **Miscellaneous: Open in DirectWave** | optional | Doar deschide patch-ul in editor dupa randare. Nu afecteaza sample-urile. |
 
 ## 4. Modul Ample Guitar inainte de esantionare
 
@@ -211,8 +217,11 @@ sample-urilor si setez valoarea corecta:
 Key range:      E1 (28)  →  C5 (72)     (sau E2(40)->C5(72) daca E1 e keyswitch)
 Note skip:      1 semitone (cromatic)
 Velocity:       8 layers @ 16, 32, 48, 64, 80, 96, 112, 120   (TOT < 127 = Sustain)
+Stop on:        Max Length
 Note length:    6 s
 Loop:           OFF
-Quality:        44.1 kHz / 24-bit
+Quality:        44.1 kHz / 32-bit float
 Stereo:         OFF (mono)
+Normalize:      OFF
+Mixer FX:       OFF
 ```
