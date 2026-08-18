@@ -80,9 +80,40 @@ Daca vrei mai rapid/mic: **4 layere** la `32, 64, 96, 127` e suficient.
 
 ## 4. Modul Ample Guitar inainte de esantionare
 
-Pune Ample Guitar in modul in care **fiecare tasta canta o singura nota curata**
-(adica fara strum auto / fara keyswitch-uri active). Altfel DirectWave va
-inregistra si sunete de strum/keyswitch ca si cum ar fi note.
+Ample Guitar are 3 moduri de redare cu timbre diferite: **finger, strum, pick**.
+
+**Pentru samplerul nostru alegem `PICK`** (decis cu userul), pentru ca:
+
+- Samplerul nostru construieste acordurile din **NOTE INDIVIDUALE** (nu inregistram
+  acorduri). Din cele 3 moduri, `pick` da cele mai **clare si distincte** note
+  individuale — cand suprapui notele intr-un acord, fiecare ramane citita.
+- `strum` e gandit pentru acorduri/strumming (nu produce note individuale curate
+  pentru esantionare). Va fi util abia la viitorul buton de **Strumming**.
+- `finger` e mai muiat/cald — bun ca **varianta separata** de librarie, nu ca
+  sursa principala.
+
+**Lock articulatia (IMPORTANT):** inainte de esantionare, asigura-te ca modul
+pick reda o **singura articulatie consecventa** (ex. downstroke). Daca Ample
+Guitar comuta intre down/up stroke in functie de velocity, atunci straturile de
+velocity ar contine articulatii diferite (nu doar dinamica). Scopul: **velocity
+layer = dinamica (soft->tare), nu schimbare de articulatie**.
+
+De asemenea: fara strum auto / fara keyswitch-uri active, ca fiecare tasta sa
+cante o singura nota curata.
+
+### Nume de folder (conventie)
+
+Fiecare mod va fi o **librarie separata** (folder separat in "guitar samples").
+Foloseste separatorul ` - ` ca prefixul vendorului sa fie detectat corect:
+
+```
+AGM - 4.1.0 (Pick)
+AGM - 4.1.0 (Finger)      <- viitor
+AGM - 4.1.0 (Strum)       <- viitor
+```
+
+Asa in meniu apar ca:
+`AGM - 4.1.0 (Pick) (Single Notes)` etc. (prefix = "AGM").
 
 ## 5. Ce urmeaza (dupa conversie)
 
