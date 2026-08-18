@@ -17,24 +17,33 @@ combinatii de note din acea gama.
 
 Nota minima si maxima intre care DirectWave va reda si inregistra note.
 
-**Ample Guitar AGM are key range `E1 (28)` → `C5 (72)`** (din manualul PDF).
+**Gama REALA a instrumentului (masurata de user in FL Studio): `E3 (52)` → `C7 (96)`.**
 
-Deci esantionam **in interiorul gamei instrumentului** — nu are rost sa cerem
-note peste C5 (nu exista acolo).
+- Aceasta e zona de note curate (fara keyswitch, fara slide, fara liniste).
+- `E3-C7` in notatia FL Studio = `E1-C5` din manualul PDF (conventii de
+  octava diferite: FL pune middle C pe C5, manualul pe C3). Sunt ACELASI
+  sunete — nu e nicio transpunere de 2 octave de reparat la inregistrare.
+- Tastele de SUB E3 (E1-E2 in notatia manualului) sunt **keyswitch-uri**
+  (slide, hammer etc.) — apasate singure produc liniste sau slide. NU se
+  esantioneaza.
 
-**Setare: `E1 (28)` → `C5 (72)`** (sau `E2 (40)` → `C5 (72)` daca E1 e doar
-keyswitch, nu nota reala — vezi verificarea de mai jos).
+**Setare: `E3 (52)` → `C7 (96)`.**
 
-De ce:
+Total: **45 de note** (52..96) x 8 velocity layers = **360 de sample-uri**
+≈ **350 MB** (sanity check: daca iese mult mai putin, ceva nu s-a esantionat).
 
-- **Jos:** E1 (28) e foarte jos (sub coarda E standard). Aplicatia nu coboara
-  sub C3 (48) la radacini, dar E1/E2 lasa loc pentru **bas (viitor)** si
-  **inversii** care duc basul mai jos. Daca E1 e keyswitch (nu suna ca o nota),
-  porneste de la E2 (40).
-- **Sus:** C5 (72) e capatul natural al instrumentului. Aplicatia poate genera,
-  rar, note pana la **E5 (76)** (ex. B Maj add11). Notele 73–76 (C#5..E5) nu
-  au sample propriu -> motorul nostru le transpune automat din C5 (diferenta
-  de 1–4 semitonuri, neglijabila si doar pe acordurile cele mai acute).
+De ce exact acest interval:
+
+- **Jos (E3 = 52):** e prima nota reala a chitarei. Sub ea nu exista note,
+  doar keyswitch.
+- **Sus (C7 = 96):** e ultima nota reala a instrumentului.
+
+> IMPORTANT (pentru aplicatie): acordurile aplicatiei pleaca de la radacina
+> C3 (48) pana la ~E5 (76). Notele 48-51 (C3, C#3, D3, D#3) sunt SUB E3 (52),
+> deci NU au sample propriu — motorul nostru le va transpune din E3 (cea mai
+> apropiata nota reala). E normal si acceptabil; discutam mai tarziu daca e
+> nevoie de un range mai jos (ex. alte librarii sau un mod de octava inferioara
+> al AGM).
 
 > Verificare: uita-te la tastatura din interfata Ample Guitar (clapele colorate).
 > Notele reale sunt cele din zona "de cântat". NU esantiona tastele de
@@ -217,7 +226,7 @@ sample-urilor si setez valoarea corecta:
 ## Rezumat rapid (copy-paste)
 
 ```
-Key range:      E1 (28)  →  C5 (72)     (sau E2(40)->C5(72) daca E1 e keyswitch)
+Key range:      E3 (52)  →  C7 (96)
 Note skip:      1 semitone (cromatic)
 Velocity:       8 layers @ 16, 32, 48, 64, 80, 96, 112, 120   (TOT < 127 = Sustain)
 Stop on:        Max Length
