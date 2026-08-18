@@ -15,6 +15,12 @@ import {
   AUTO_VEL_STRATEGIES,
   type AutoVelStrategyId,
 } from "./sampler/velocity";
+import {
+  applyPaste,
+  makeCopyClipboard,
+  makeCutClipboard,
+  type ClipboardData,
+} from "./clipboardLogic";
 
 // Asset-uri grafice generate din PSD prin `node scripts/psd-to-svg.mjs`.
 // import.meta.glob adauga fisierele DACA exista in `src/assets/graphics/svg/`;
@@ -100,6 +106,8 @@ type ContextMenuState = {
   x: number;
   y: number;
   insertIndex: number;
+  // Id-ul acordului sub care s-a dat click dreapta (null = pe fundal).
+  chordId: string | null;
 } | null;
 
 type GuitarPreset = {
@@ -1344,7 +1352,14 @@ export default function App() {
 
   const [builderChords, setBuilderChords] = useState<BuilderChord[]>([]);
   const [selectedBuilderIds, setSelectedBuilderIds] = useState<string[]>([]);
-  const [clipboardChords, setClipboardChords] = useState<BuilderChord[]>([]);
+  // Clipboard-ul pentru copy/cut/paste (cu mod + gap pt cut).
+  const [clipboard, setClipboard] = useState<ClipboardData | null>(null);
+  const clipboardRef = useRef<ClipboardData | null>(null);
+  // Paste mode (ghost urmareste cursorul; click stanga plaseaza).
+  const [pastePending, setPastePending] = useState(false);
+  const pastePendingRef = useRef(false);
+  // Pozitia ghost-ului (linia de inserare), in coordonate viewport.
+  const [ghost, setGhost] = useState<{ x: number; top: number; height: number } | null>(null);
   const [contextMenu, setContextMenu] = useState<ContextMenuState>(null);
   const [builderHistory, setBuilderHistory] = useState<BuilderChord[][]>([[]]);
   const [builderHistoryIndex, setBuilderHistoryIndex] = useState(0);
@@ -3072,52 +3087,97 @@ export default function App() {
     recordSnapshot(topCodeRef.current, guideCodeRef.current);
   };
 
-  const deleteSelected = () => {
-    if (selectedRef.current.length === 0) return;
-    const selectedSet = new Set(selectedRef.current);
-    const next = builderRef.current.filter((x) => !selectedSet.has(x.id));
+  // Acordurile pe care actioneaza cut/copy/delete: selectia existenta, sau
+  // (daca nu e nimic selectat) acordul de sub cursorul de click dreapta.
+  const effectiveTargetIds = (chordId: string | null): string[] => {
+    if (selectedRef.current.length > 0) return selectedRef.current;
+    if (chordId) return [chordId];
+    return [];
+  };
+
+  const selectCommand = (chordId: string | null) => {
+    if (!chordId) return;
+    if (!auditionModeRef.current) {
+      // Ch On/Off INACTIV: selectie unica (inlocuieste).
+      selectedRef.current = [chordId];
+      setSelectedBuilderIds([chordId]);
+    } else {
+      // Ch On/Off ACTIV: adauga/scoate din selectie (ca long-press+tap).
+      const prev = selectedRef.current;
+      const next = prev.includes(chordId) ? prev.filter((x) => x !== chordId) : [...prev, chordId];
+      selectedRef.current = next;
+      setSelectedBuilderIds(next);
+    }
+  };
+
+  // Paste mode (ghost) — se activeaza dupa cut/copy si se incheie la
+  // click stanga (plaseaza), Escape (anuleaza) sau click pe 'paste' in meniu.
+  const enterPasteMode = () => {
+    pastePendingRef.current = true;
+    setPastePending(true);
+    document.body.style.cursor = "copy";
+  };
+  const exitPasteMode = () => {
+    pastePendingRef.current = false;
+    setPastePending(false);
+    setGhost(null);
+    document.body.style.cursor = "";
+  };
+
+  const copyCommand = (chordId: string | null) => {
+    const ids = effectiveTargetIds(chordId);
+    if (ids.length === 0) return;
+    const idSet = new Set(ids);
+    const target = sortBuilderByStart(builderRef.current).filter((c) => idSet.has(c.id));
+    const clip = makeCopyClipboard(target);
+    clipboardRef.current = clip;
+    setClipboard(clip);
+    enterPasteMode();
+  };
+
+  const cutCommand = (chordId: string | null) => {
+    const ids = effectiveTargetIds(chordId);
+    if (ids.length === 0) return;
+    // Regula: cu Ch On/Off ACTIV, cut/copy/paste merg doar pe UN singur acord.
+    if (auditionModeRef.current && ids.length > 1) return;
+    const idSet = new Set(ids);
+    const target = sortBuilderByStart(builderRef.current).filter((c) => idSet.has(c.id));
+    const clip = makeCutClipboard(target);
+    clipboardRef.current = clip;
+    setClipboard(clip);
+    // Taiere: eliminam acordurile, vecinii raman PE LOC (apare gap).
+    const next = builderRef.current.filter((c) => !idSet.has(c.id));
     setBuilderChords(next);
     pushBuilderHistory(next);
+    selectedRef.current = [];
+    setSelectedBuilderIds([]);
+    recordSnapshot(topCodeRef.current, guideCodeRef.current);
+    enterPasteMode();
+  };
+
+  const deleteCommand = (chordId: string | null) => {
+    const ids = effectiveTargetIds(chordId);
+    if (ids.length === 0) return;
+    const idSet = new Set(ids);
+    // Stergere: vecinii raman PE LOC (gap ramane), la fel ca pana acum.
+    const next = builderRef.current.filter((c) => !idSet.has(c.id));
+    setBuilderChords(next);
+    pushBuilderHistory(next);
+    selectedRef.current = [];
     setSelectedBuilderIds([]);
     recordSnapshot(topCodeRef.current, guideCodeRef.current);
   };
 
-  const copySelected = () => {
-    const set = new Set(selectedRef.current);
-    setClipboardChords(builderRef.current.filter((x) => set.has(x.id)).map((x) => ({ ...x })));
-  };
-
-  const pasteClipboard = (insertIndex: number) => {
-    if (clipboardChords.length === 0) return;
-    const base = builderRef.current;
-    const safeIndex = Math.max(0, Math.min(insertIndex, base.length));
-    // Model DAW: totalul de beats al clonelor determina cu cat se impinge
-    // tail-ul. Clonele primesc startBeat consecutiv de la pozitia inserarii.
-    const totalBeats = clipboardChords.reduce((s, x) => s + (x.beats > 0 ? x.beats : DEFAULT_CHORD_BEATS), 0);
-    let cursor: number;
-    let shiftedTail: BuilderChord[];
-    if (safeIndex >= base.length) {
-      cursor = progressionEndBeat(base);
-      shiftedTail = [];
-    } else {
-      cursor = base[safeIndex].startBeat;
-      shiftedTail = base.slice(safeIndex).map((c) => ({ ...c, startBeat: c.startBeat + totalBeats }));
-    }
-    const clones: BuilderChord[] = clipboardChords.map((x) => {
-      const beats = x.beats > 0 ? x.beats : DEFAULT_CHORD_BEATS;
-      const startBeat = cursor;
-      cursor += beats;
-      return {
-        id: crypto.randomUUID(),
-        label: x.label,
-        beats,
-        startBeat,
-      };
-    });
-    const next = [...base.slice(0, safeIndex), ...clones, ...shiftedTail];
+  const pasteCommand = (insertIndex: number) => {
+    const clip = clipboardRef.current;
+    if (!clip || clip.chords.length === 0) return;
+    // Regula: cu Ch On/Off ACTIV, paste doar pt. un singur acord in clipboard.
+    if (auditionModeRef.current && clip.chords.length > 1) return;
+    const { next, cloneIds } = applyPaste(builderRef.current, clip, insertIndex);
     setBuilderChords(next);
     pushBuilderHistory(next);
-    setSelectedBuilderIds(clones.map((x) => x.id));
+    selectedRef.current = cloneIds;
+    setSelectedBuilderIds(cloneIds);
     recordSnapshot(topCodeRef.current, guideCodeRef.current);
   };
 
@@ -3129,8 +3189,39 @@ export default function App() {
         const idx = Number(node.dataset.builderIndex ?? "0");
         return clientX < rect.left + rect.width / 2 ? idx : idx + 1;
       }
+      if (clientX < rect.left) {
+        // cursor inaintea acestui acord -> hotarul de dinaintea lui.
+        return Number(node.dataset.builderIndex ?? "0");
+      }
     }
     return builderRef.current.length;
+  };
+
+  // Pozitia ghost-ului (linie de inserare) in coordonate VIEWPORT, pentru
+  // overlay-ul fixed. Hotarul = marginea stanga/dreapta a acordului cel mai
+  // apropiat de cursor.
+  const computeGhostPosition = (clientX: number) => {
+    const stripEl = document.querySelector<HTMLElement>("[data-builder-strip]");
+    if (!stripEl) return null;
+    const stripRect = stripEl.getBoundingClientRect();
+    const nodes = Array.from(stripEl.querySelectorAll<HTMLElement>("[data-builder-index]"));
+    if (nodes.length === 0) {
+      return { x: stripRect.left, top: stripRect.top, height: stripRect.height };
+    }
+    let x = stripRect.left;
+    for (const node of nodes) {
+      const rect = node.getBoundingClientRect();
+      if (clientX < rect.left) {
+        x = rect.left;
+        break;
+      }
+      if (clientX <= rect.right) {
+        x = clientX < rect.left + rect.width / 2 ? rect.left : rect.right;
+        break;
+      }
+      x = rect.right;
+    }
+    return { x, top: stripRect.top, height: stripRect.height };
   };
 
   // ------------------------------------------------------------------
@@ -4222,6 +4313,47 @@ export default function App() {
     window.addEventListener("mousemove", onMoveMouseMove);
     window.addEventListener("mouseup", onMoveMouseUp);
 
+    // --- Paste mode (ghost): dupa cut/copy, ghost-ul urmareste cursorul si
+    // se plaseaza la click stanga pe Builder. Click dreapta deschide meniul
+    // (si anuleaza ghost-ul); Escape anuleaza tot. Listenerii sunt in faza
+    // CAPTURE ca sa intrerupa click-ul inainte de handler-ele acordurilor. ---
+    const onPasteMouseMove = (e: MouseEvent) => {
+      if (!pastePendingRef.current) return;
+      setGhost(computeGhostPosition(e.clientX));
+    };
+    const isInBuilder = (target: EventTarget | null): boolean => {
+      const el = target as HTMLElement | null;
+      return !!el && !!el.closest("[data-builder-strip]");
+    };
+    const onPasteClick = (e: MouseEvent) => {
+      if (!pastePendingRef.current) return;
+      if (e.button !== 0) return;
+      if (!isInBuilder(e.target)) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const idx = findBuilderInsertIndex(e.clientX);
+      pasteCommand(idx);
+      exitPasteMode();
+    };
+    const onPasteContextMenu = (e: MouseEvent) => {
+      if (!pastePendingRef.current) return;
+      if (!isInBuilder(e.target)) return;
+      e.preventDefault();
+      const idx = findBuilderInsertIndex(e.clientX);
+      setContextMenu({ x: e.clientX, y: e.clientY, insertIndex: idx, chordId: null });
+      exitPasteMode();
+    };
+    const onPasteKeyDown = (e: KeyboardEvent) => {
+      if (!pastePendingRef.current) return;
+      if (e.key === "Escape") {
+        exitPasteMode();
+      }
+    };
+    window.addEventListener("mousemove", onPasteMouseMove, true);
+    window.addEventListener("click", onPasteClick, true);
+    window.addEventListener("contextmenu", onPasteContextMenu, true);
+    window.addEventListener("keydown", onPasteKeyDown, true);
+
     return () => {
       window.removeEventListener("click", closeMenu);
       window.removeEventListener("keydown", onKeyDown);
@@ -4232,6 +4364,10 @@ export default function App() {
       window.removeEventListener("mouseup", onResizeMouseUp);
       window.removeEventListener("mousemove", onMoveMouseMove);
       window.removeEventListener("mouseup", onMoveMouseUp);
+      window.removeEventListener("mousemove", onPasteMouseMove, true);
+      window.removeEventListener("click", onPasteClick, true);
+      window.removeEventListener("contextmenu", onPasteContextMenu, true);
+      window.removeEventListener("keydown", onPasteKeyDown, true);
       if (rubberPressTimerRef.current !== null) window.clearTimeout(rubberPressTimerRef.current);
       if (scrollTimerRef.current !== null) window.clearTimeout(scrollTimerRef.current);
       if (jumpTimerRef.current !== null) window.clearTimeout(jumpTimerRef.current);
@@ -4897,7 +5033,7 @@ export default function App() {
           }}
           onContextMenu={(e) => {
             e.preventDefault();
-            setContextMenu({ x: e.clientX, y: e.clientY, insertIndex: builderRef.current.length });
+            setContextMenu({ x: e.clientX, y: e.clientY, insertIndex: builderRef.current.length, chordId: null });
           }}
         >
           {/* The Time Bar sits DIRECTLY on top of the Builder chord strip
@@ -5127,7 +5263,7 @@ export default function App() {
                       const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
                       const before = e.clientX < rect.left + rect.width / 2;
                       const idx = builderRef.current.findIndex((x) => x.id === chord.id);
-                      setContextMenu({ x: e.clientX, y: e.clientY, insertIndex: before ? idx : idx + 1 });
+                      setContextMenu({ x: e.clientX, y: e.clientY, insertIndex: before ? idx : idx + 1, chordId: chord.id });
                     }}
                     title={`${chord.label}  ->  ${chordNotesDisplay(chord.label)}  [${chord.beats} beats]`}
                     // Width proportional to the chord's own beats value, so
@@ -5509,45 +5645,97 @@ export default function App() {
           className="fixed z-50 w-28 border border-black bg-white text-xs shadow-lg"
           style={{ left: contextMenu.x, top: contextMenu.y }}
         >
-          <button
-            type="button"
-            onClick={() => {
-              copySelected();
-              setContextMenu(null);
-            }}
-            disabled={selectedBuilderIds.length === 0}
-            className={`block w-full border-b border-black px-2 py-1 text-left ${
-              selectedBuilderIds.length === 0 ? "text-neutral-400" : "hover:bg-green-100"
-            }`}
-          >
-            copy
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              pasteClipboard(contextMenu.insertIndex);
-              setContextMenu(null);
-            }}
-            disabled={clipboardChords.length === 0}
-            className={`block w-full border-b border-black px-2 py-1 text-left ${
-              clipboardChords.length === 0 ? "text-neutral-400" : "hover:bg-green-100"
-            }`}
-          >
-            paste
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              deleteSelected();
-              setContextMenu(null);
-            }}
-            disabled={selectedBuilderIds.length === 0}
-            className={`block w-full px-2 py-1 text-left ${
-              selectedBuilderIds.length === 0 ? "text-neutral-400" : "hover:bg-green-100"
-            }`}
-          >
-            delete
-          </button>
+          {(() => {
+            const hasSelection = selectedBuilderIds.length > 0;
+            const targetCount = hasSelection
+              ? selectedBuilderIds.length
+              : contextMenu.chordId
+              ? 1
+              : 0;
+            const singleOnlyBlocked = auditionMode && targetCount > 1;
+            const canSelect = contextMenu.chordId !== null;
+            const canEdit = targetCount > 0 && !singleOnlyBlocked;
+            const canDelete = targetCount > 0;
+            const canPaste = clipboard !== null && clipboard.chords.length > 0 && !(auditionMode && clipboard.chords.length > 1);
+            const itemCls = (enabled: boolean, last = false) =>
+              `block w-full px-2 py-1 text-left ${last ? "" : "border-b border-black"} ${
+                enabled ? "hover:bg-green-100" : "text-neutral-400"
+              }`;
+
+            return (
+              <>
+                <button
+                  type="button"
+                  disabled={!canSelect}
+                  onClick={() => {
+                    selectCommand(contextMenu.chordId);
+                    setContextMenu(null);
+                  }}
+                  className={itemCls(canSelect)}
+                >
+                  select
+                </button>
+                <button
+                  type="button"
+                  disabled={!canEdit}
+                  onClick={() => {
+                    cutCommand(contextMenu.chordId);
+                    setContextMenu(null);
+                  }}
+                  className={itemCls(canEdit)}
+                >
+                  cut
+                </button>
+                <button
+                  type="button"
+                  disabled={!canEdit}
+                  onClick={() => {
+                    copyCommand(contextMenu.chordId);
+                    setContextMenu(null);
+                  }}
+                  className={itemCls(canEdit)}
+                >
+                  copy
+                </button>
+                <button
+                  type="button"
+                  disabled={!canPaste}
+                  onClick={() => {
+                    pasteCommand(contextMenu.insertIndex);
+                    exitPasteMode();
+                    setContextMenu(null);
+                  }}
+                  className={itemCls(canPaste)}
+                >
+                  paste
+                </button>
+                <button
+                  type="button"
+                  disabled={!canDelete}
+                  onClick={() => {
+                    deleteCommand(contextMenu.chordId);
+                    setContextMenu(null);
+                  }}
+                  className={itemCls(canDelete, true)}
+                >
+                  delete
+                </button>
+              </>
+            );
+          })()}
+        </div>
+      )}
+
+      {/* Ghost de paste: linie verticala la hotarul de inserare, in timp ce
+          clipboard-ul "urmareste" cursorul (paste mode). */}
+      {pastePending && ghost && (
+        <div
+          className="pointer-events-none fixed z-40"
+          style={{ left: ghost.x - 1, top: ghost.top, width: 2, height: ghost.height }}
+        >
+          <div
+            className="h-full w-full bg-[#ff8827] opacity-90 shadow-[0_0_10px_#ff8827]"
+          />
         </div>
       )}
       </div>
