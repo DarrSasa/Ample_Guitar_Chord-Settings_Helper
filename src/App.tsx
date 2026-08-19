@@ -4787,7 +4787,7 @@ export default function App() {
               }}
               title={
                 soundSource === "guitar-samples"
-                  ? (libraryChoices.find((c) => c.id === selectedLibraryId)?.label ?? "Alege libraria")
+                  ? (libraryChoices.find((c) => c.id === selectedLibraryId)?.folderName ?? "Alege libraria")
                   : guitarPreset.name
               }
               className={`flex h-8 max-w-[220px] items-center gap-1 rounded-sm border border-black bg-[#FCBF8D] px-2 text-[11px] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
@@ -4798,7 +4798,7 @@ export default function App() {
                 {guitarLoading && soundSource === "soundfonts"
                   ? "loading..."
                   : soundSource === "guitar-samples"
-                  ? (libraryChoices.find((c) => c.id === selectedLibraryId)?.label ??
+                  ? (libraryChoices.find((c) => c.id === selectedLibraryId)?.folderName ??
                     (libraryChoices.length > 0 ? "Alege libraria..." : "Guitar Samples (niciuna)"))
                   : guitarPreset.name}
               </span>
@@ -4824,7 +4824,7 @@ export default function App() {
                           setSelectedLibraryId(choice.id);
                           setGuitarOpen(false);
                         }}
-                        title={choice.label}
+                        title={choice.folderName}
                         className={`flex w-full items-center gap-1 border-b border-black px-2 py-1 text-left text-[11px] hover:brightness-125 ${
                           choice.id === selectedLibraryId ? "brightness-125" : ""
                         }`}
@@ -4833,7 +4833,7 @@ export default function App() {
                         <span className="flex-none">
                           {choice.id === selectedLibraryId ? "✓" : ""}
                         </span>
-                        <span className="truncate whitespace-nowrap">{choice.label}</span>
+                        <span className="truncate whitespace-nowrap">{choice.folderName}</span>
                       </button>
                     ))
                   )

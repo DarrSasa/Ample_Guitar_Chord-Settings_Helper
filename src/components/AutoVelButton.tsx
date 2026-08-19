@@ -51,9 +51,13 @@ export default function AutoVelButton({
           className="flex h-full items-center gap-1.5 px-2"
         >
           <span>Auto Vel</span>
+          {/* BADGE: chenar albastru inchis la AMBELE stari (off + cod), mai
+              mare, text la aceeasi inaltime (text-xs) cu eticheta 'Auto Vel'.
+              Diferenta dintre stari = doar fundalul (plin la activ / gol la
+              inactiv). */}
           <span
-            className={`rounded-sm px-1 text-[10px] font-bold leading-4 ${
-              active ? "bg-[#003970] text-white" : "bg-black/20 text-black/70"
+            className={`inline-flex min-w-[34px] items-center justify-center rounded-sm border-2 border-[#003970] px-1.5 text-xs font-extrabold uppercase leading-none ${
+              active ? "h-[22px] bg-[#003970]" : "h-[22px] bg-transparent"
             }`}
           >
             {active ? (selected?.code ?? "?") : "off"}

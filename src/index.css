@@ -1,32 +1,32 @@
 @import "tailwindcss";
 
 /*
- * Fontul Bebas Neue — ingobat LOCAL (fisierele .woff2 sunt in
+ * Fontul Montserrat 800 — ingobat LOCAL (fisierele .woff2 sunt in
  * src/assets/fonts/, comise in repo). Nu depinde de npm/node_modules,
  * merge offline in EXE. In build-ul Electron (single-file) fonturile sunt
  * inline ca data URI.
  */
 @font-face {
-  font-family: "Bebas Neue";
+  font-family: "Montserrat";
   font-style: normal;
-  font-weight: 400;
+  font-weight: 800;
   font-display: swap;
-  src: url("./assets/fonts/bebas-neue-latin-400-normal.woff2") format("woff2");
+  src: url("./assets/fonts/montserrat-latin-800-normal.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: "Bebas Neue";
+  font-family: "Montserrat";
   font-style: normal;
-  font-weight: 400;
+  font-weight: 800;
   font-display: swap;
-  src: url("./assets/fonts/bebas-neue-latin-ext-400-normal.woff2") format("woff2");
+  src: url("./assets/fonts/montserrat-latin-ext-800-normal.woff2") format("woff2");
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 /*
  * Fontul global + stilul caracterelor (user explicit):
- *   - Bebas Neue (modern, condensat, toate majuscule)
- *   - caractere ALBE cu contur NEGRU subtire (0.6px) imprejurul lor
+ *   - Montserrat 800 (ExtraBold, modern)
+ *   - caractere ALBE cu contur NEGRU INGROSAT (2.5px) imprejurul lor
  *   - aplicat peste toate textele din aplicatie (inclusiv etichetele de
  *     acord din Builder, care sunt SVG <text> in componenta FitText)
  *   - iconitele (SVG path/circle) NU sunt atinse — raman pe currentColor
@@ -35,19 +35,20 @@
 html,
 body,
 #root {
-  font-family: "Bebas Neue", "Arial Narrow", sans-serif;
+  font-family: "Montserrat", "Arial", sans-serif;
+  font-weight: 800;
 }
 
 #root *:not(svg):not(svg *) {
   color: #ffffff !important;
-  -webkit-text-stroke: 0.6px #000000;
+  -webkit-text-stroke: 2.5px #000000;
   paint-order: stroke fill;
 }
 
 #root svg text {
   fill: #ffffff !important;
   stroke: #000000;
-  stroke-width: 0.6px;
+  stroke-width: 2.5px;
   paint-order: stroke fill;
 }
 
