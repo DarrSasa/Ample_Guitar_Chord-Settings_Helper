@@ -1,6 +1,34 @@
 @import "tailwindcss";
 
 /*
+ * Fontul global + stilul caracterelor (user explicit):
+ *   - Bebas Neue (modern, condensat, toate majuscule)
+ *   - caractere ALBE cu contur NEGRU subtire (0.6px) imprejurul lor
+ *   - aplicat peste toate textele din aplicatie (inclusiv etichetele de
+ *     acord din Builder, care sunt SVG <text> in componenta FitText)
+ *   - iconitele (SVG path/circle) NU sunt atinse — raman pe currentColor
+ */
+:root,
+html,
+body,
+#root {
+  font-family: "Bebas Neue", "Arial Narrow", sans-serif;
+}
+
+#root *:not(svg):not(svg *) {
+  color: #ffffff !important;
+  -webkit-text-stroke: 0.6px #000000;
+  paint-order: stroke fill;
+}
+
+#root svg text {
+  fill: #ffffff !important;
+  stroke: #000000;
+  stroke-width: 0.6px;
+  paint-order: stroke fill;
+}
+
+/*
  * Custom scrollbars for the whole app.
  *
  * Electron/Chromium's default scrollbar in Windows is nearly white on white

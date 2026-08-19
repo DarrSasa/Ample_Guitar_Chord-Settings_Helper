@@ -1088,7 +1088,7 @@ function FitText({
 // Inline SVG gear/cog icon used for the Settings button and the close button
 // inside the Settings modal. Kept in code (not a file asset) so it inherits
 // the current text color via `currentColor` and scales cleanly at any size.
-function SettingsGearIcon({ size = 24 }: { size?: number }) {
+function SettingsGearIcon({ size = 24, color }: { size?: number; color?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -1096,7 +1096,7 @@ function SettingsGearIcon({ size = 24 }: { size?: number }) {
       width={size}
       height={size}
       fill="none"
-      stroke="currentColor"
+      stroke={color ?? "currentColor"}
       strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -4470,7 +4470,7 @@ export default function App() {
               className="flex items-center justify-center rounded-sm border border-black bg-[#FCBF8D] p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] hover:bg-orange-200"
               style={{ width: 32, height: 32 }}
             >
-              <SettingsGearIcon size={22} />
+              <SettingsGearIcon size={22} color="#1f2937" />
             </button>
           </div>
         </div>
