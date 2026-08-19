@@ -6,7 +6,7 @@
 #   portable-out\Ample Guitar Chord Progression Helper-win32-x64\
 #     resources\app\dist\guitar samples\   <-- aici pui librariile (.dwp + WAV)
 #
-# In folderul sursa (public\guitar samples) NU mai tii librarii — ramane gol.
+# In folderul sursa (public\guitar samples) NU mai tii librarii - ramane gol.
 # Asa NU mai copiezi niciodata mostrele la fiecare update.
 #
 # Scriptul face:
@@ -19,6 +19,9 @@
 #
 # Folosire (din folderul proiectului, in PowerShell):
 #   .\Update-Portable.ps1
+#
+# NOTA: acest fisier foloseste DOAR caractere ASCII (fara diacritice, fara
+# liniute speciale), ca sa fie citit corect de PowerShell 5.1 (Windows).
 # =============================================================================
 
 param(
@@ -37,14 +40,14 @@ $stash       = Join-Path $portableOut "_guitar-samples-stash"
 $hadSamples = Test-Path $samples
 
 try {
-  # 1) Mutam mostrele deoparte (instant — doar redenumim folderul).
+  # 1) Mutam mostrele deoparte (instant - doar redenumim folderul).
   if ($hadSamples) {
     if (Test-Path $stash) { Remove-Item $stash -Recurse -Force }
     Move-Item $samples $stash
     $libCount = (Get-ChildItem -Path $stash -Directory -ErrorAction SilentlyContinue | Measure-Object).Count
     Write-Host "[OK] Mostre pastrate temporar: $libCount librarie(-i) in 'guitar samples'." -ForegroundColor Green
   } else {
-    Write-Host "[i] Nu exista inca 'guitar samples' in portabil — nimic de pastrat." -ForegroundColor DarkGray
+    Write-Host "[i] Nu exista inca 'guitar samples' in portabil - nimic de pastrat." -ForegroundColor DarkGray
   }
 
   # 2) Build portabil peste cel vechi. Sursa (public/guitar samples) e goala,
@@ -58,7 +61,7 @@ try {
     throw "Build-ul nu a produs EXE-ul la calea asteptata. Vezi mesajele de mai sus."
   }
 
-  # 4) Aducem mostrele inapoi (instant) — inlocuiesc folderul gol nou.
+  # 4) Aducem mostrele inapoi (instant) - inlocuiesc folderul gol nou.
   if ($hadSamples) {
     if (Test-Path $samples) { Remove-Item $samples -Recurse -Force }
     Move-Item $stash $samples
