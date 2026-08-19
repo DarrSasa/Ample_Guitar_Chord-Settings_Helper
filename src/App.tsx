@@ -1395,13 +1395,10 @@ export default function App() {
   // Snap persists to localStorage so the user's rhythm grid setting
   // survives across sessions - same pattern used for windowSize /
   // longPressMs. Bar is the default (biggest grid = 1 full bar).
-  const [snap, setSnap] = useState<SnapOption>(() => {
-    try {
-      const v = localStorage.getItem("snap") as SnapOption | null;
-      if (v && SNAP_OPTIONS.includes(v)) return v;
-    } catch { /* ignore */ }
-    return "Bar";
-  });
+  // Default FIX la deschidere (user explicit): Snap = "Bar". Nu mai citim
+  // valoarea veche din localStorage, ca programul sa porneasca mereu la
+  // defaultul asta.
+  const [snap, setSnap] = useState<SnapOption>("Bar");
   const [snapMenuOpen, setSnapMenuOpen] = useState(false);
   // Ref mirror of `snap` so functions with stale closures (drag/drop
   // handlers that capture snap at render time) always see the latest
@@ -1419,14 +1416,8 @@ export default function App() {
   //   "slide" = acordurile din jur se decaleaza ca sa faca loc
   //   "swap"  = A si B isi inverseaza direct pozitiile (pastreaza-si
   //             fiecare durata proprie)
-  // Persistat in localStorage.
-  const [nudgeMode, setNudgeMode] = useState<NudgeMode>(() => {
-    try {
-      const v = localStorage.getItem("nudgeMode");
-      if (v === "slide" || v === "swap") return v;
-    } catch { /* ignore */ }
-    return "slide";
-  });
+  // Default FIX la deschidere (user explicit): "slide".
+  const [nudgeMode, setNudgeMode] = useState<NudgeMode>("slide");
   const nudgeModeRef = useRef<NudgeMode>(nudgeMode);
   useEffect(() => {
     nudgeModeRef.current = nudgeMode;
@@ -1472,9 +1463,8 @@ export default function App() {
 
   // Auto Vel: toggle + strategie selectata (DS/US/DSU/BB/MT/BR/SW/PL).
   // Persistate in localStorage; ref-uri pentru buclele de playback.
-  const [autoVelActive, setAutoVelActive] = useState<boolean>(() => {
-    try { return localStorage.getItem("autoVelActive") === "1"; } catch { return false; }
-  });
+  // Default FIX la deschidere (user explicit): Auto Vel = OFF.
+  const [autoVelActive, setAutoVelActive] = useState<boolean>(false);
   const [autoVelStrategy, setAutoVelStrategy] = useState<AutoVelStrategyId>(() => {
     try {
       const v = localStorage.getItem("autoVelStrategy");
@@ -1805,6 +1795,23 @@ export default function App() {
   // fara stale-closure.
   const effectiveBeatWidthRef = useRef(effectiveBeatWidth);
   useEffect(() => { effectiveBeatWidthRef.current = effectiveBeatWidth; }, [effectiveBeatWidth]);
+
+  // -------------------------------------------------------------------
+  // Zoom default la deschidere (user explicit): setam zoom-ul astfel incat
+  // in Builder sa fie vizibile EXACT 8 masuri (zoom in), intotdeauna la
+  // pornire. Recalculam la mount si la schimbarea presetului de fereastra.
+  // barPx = latimea unei masuri la zoom 1 = BEATS_PER_BAR * beatWidthScaled.
+  // zoom = latimeaVizibila / (8 * barPx), clampat la [1, 8] (min/max slider).
+  // -------------------------------------------------------------------
+  useEffect(() => {
+    const el = timelineScrollRef.current;
+    if (!el) return;
+    const visibleWidth = el.clientWidth;
+    if (visibleWidth <= 0) return;
+    const barPx = BEATS_PER_BAR * beatWidthScaled; // la zoom 1
+    const target = visibleWidth / (8 * barPx);
+    setZoom(Math.min(8, Math.max(1, target)));
+  }, [windowSize, uiScale, beatWidthScaled]);
 
   // Persist window size + long-press whenever they change.
   useEffect(() => {
