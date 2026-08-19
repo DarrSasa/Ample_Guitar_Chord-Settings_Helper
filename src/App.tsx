@@ -1114,6 +1114,22 @@ function SettingsGearIcon({ size = 24, color }: { size?: number; color?: string 
 //   - Long-press ms (three radio presets + a fine 200..1000ms slider)
 //   - Sound source (soundfonts vs guitar samples)
 // Top-right corner has another gear icon that closes the modal.
+// Modul de persistenta al preferintelor "tweak" (user explicit — se alege
+// din Settings, ca doua optiuni):
+//   - "defaults"  -> la pornire, tweak-urile revin la valorile implicite
+//                    (Slide / Auto Vel OFF / Snap Bar / zoom 8 masuri).
+//   - "remember"  -> la pornire, se restaureaza ULTIMELE tweak-uri facute de
+//                    user (din localStorage), ca inainte.
+type PrefsMode = "remember" | "defaults";
+
+function readPrefsMode(): PrefsMode {
+  try {
+    const v = localStorage.getItem("prefsMode");
+    if (v === "remember" || v === "defaults") return v;
+  } catch { /* localStorage poate fi dezactivat */ }
+  return "defaults";
+}
+
 function SettingsPanel(props: {
   windowSize: "Small" | "Medium" | "Large";
   onSizeChange: (s: "Small" | "Medium" | "Large") => void;
@@ -1122,6 +1138,8 @@ function SettingsPanel(props: {
   soundSource: "soundfonts" | "guitar-samples";
   onSoundSourceChange: (src: "soundfonts" | "guitar-samples") => void;
   guitarLibrariesCount: number;
+  prefsMode: PrefsMode;
+  onPrefsModeChange: (m: PrefsMode) => void;
   onClose: () => void;
 }) {
   const {
@@ -1132,6 +1150,8 @@ function SettingsPanel(props: {
     soundSource,
     onSoundSourceChange,
     guitarLibrariesCount,
+    prefsMode,
+    onPrefsModeChange,
     onClose,
   } = props;
   const sizes: Array<"Small" | "Medium" | "Large"> = ["Small", "Medium", "Large"];
@@ -1231,6 +1251,50 @@ function SettingsPanel(props: {
           <span className="ml-3 min-w-[70px] rounded-sm border border-neutral-600 bg-neutral-800 px-2 py-1 text-center text-xs">
             {longPressMs} ms
           </span>
+        </div>
+      </div>
+
+      {/* Startup settings: cum se comporta tweak-urile la pornire */}
+      <div className="mb-8">
+        <div className="mb-2 text-sm font-semibold text-neutral-300">Startup settings:</div>
+        <div className="flex flex-col gap-2">
+          <label
+            className={`flex cursor-pointer items-center gap-2 rounded-sm border px-3 py-2 text-sm ${
+              prefsMode === "defaults"
+                ? "border-orange-400 bg-neutral-800 text-orange-200"
+                : "border-neutral-600 bg-neutral-900 text-neutral-200 hover:bg-neutral-800"
+            }`}
+          >
+            <input
+              type="radio"
+              name="prefsmode"
+              value="defaults"
+              checked={prefsMode === "defaults"}
+              onChange={() => onPrefsModeChange("defaults")}
+              className="accent-orange-400"
+            />
+            <span>Start with defaults</span>
+            <span className="text-[10px] text-neutral-400">(Slide / Auto Vel OFF / Snap Bar / 8 measures)</span>
+          </label>
+
+          <label
+            className={`flex cursor-pointer items-center gap-2 rounded-sm border px-3 py-2 text-sm ${
+              prefsMode === "remember"
+                ? "border-orange-400 bg-neutral-800 text-orange-200"
+                : "border-neutral-600 bg-neutral-900 text-neutral-200 hover:bg-neutral-800"
+            }`}
+          >
+            <input
+              type="radio"
+              name="prefsmode"
+              value="remember"
+              checked={prefsMode === "remember"}
+              onChange={() => onPrefsModeChange("remember")}
+              className="accent-orange-400"
+            />
+            <span>Remember last settings</span>
+            <span className="text-[10px] text-neutral-400">(restores your last tweaks at launch)</span>
+          </label>
         </div>
       </div>
 
@@ -1395,10 +1459,23 @@ export default function App() {
   // Snap persists to localStorage so the user's rhythm grid setting
   // survives across sessions - same pattern used for windowSize /
   // longPressMs. Bar is the default (biggest grid = 1 full bar).
-  // Default FIX la deschidere (user explicit): Snap = "Bar". Nu mai citim
-  // valoarea veche din localStorage, ca programul sa porneasca mereu la
-  // defaultul asta.
-  const [snap, setSnap] = useState<SnapOption>("Bar");
+  // Modul de persistenta al tweak-urilor (ales din Settings). El insusi se
+  // salveaza mereu, ca alegerea sa supravietuiasca intre sesiuni.
+  const [prefsMode, setPrefsMode] = useState<PrefsMode>(readPrefsMode);
+  useEffect(() => {
+    try { localStorage.setItem("prefsMode", prefsMode); } catch { /* ignore */ }
+  }, [prefsMode]);
+
+  // Snap: la "defaults" -> mereu "Bar"; la "remember" -> ultima valoare.
+  const [snap, setSnap] = useState<SnapOption>(() => {
+    if (readPrefsMode() === "remember") {
+      try {
+        const v = localStorage.getItem("snap") as SnapOption | null;
+        if (v && SNAP_OPTIONS.includes(v)) return v;
+      } catch { /* ignore */ }
+    }
+    return "Bar";
+  });
   const [snapMenuOpen, setSnapMenuOpen] = useState(false);
   // Ref mirror of `snap` so functions with stale closures (drag/drop
   // handlers that capture snap at render time) always see the latest
@@ -1416,8 +1493,17 @@ export default function App() {
   //   "slide" = acordurile din jur se decaleaza ca sa faca loc
   //   "swap"  = A si B isi inverseaza direct pozitiile (pastreaza-si
   //             fiecare durata proprie)
-  // Default FIX la deschidere (user explicit): "slide".
-  const [nudgeMode, setNudgeMode] = useState<NudgeMode>("slide");
+  // Default la deschidere: la "defaults" -> mereu "slide"; la "remember" ->
+  // ultima valoare aleasa de user.
+  const [nudgeMode, setNudgeMode] = useState<NudgeMode>(() => {
+    if (readPrefsMode() === "remember") {
+      try {
+        const v = localStorage.getItem("nudgeMode");
+        if (v === "slide" || v === "swap") return v;
+      } catch { /* ignore */ }
+    }
+    return "slide";
+  });
   const nudgeModeRef = useRef<NudgeMode>(nudgeMode);
   useEffect(() => {
     nudgeModeRef.current = nudgeMode;
@@ -1438,7 +1524,15 @@ export default function App() {
   // i.e. bigger chord blocks (zoom in). Dragging OUTWARD means "see more
   // of the timeline", i.e. smaller chords (zoom out). This matches the
   // reversed convention the user asked for explicitly.
-  const [zoom, setZoom] = useState<number>(1);
+  const [zoom, setZoom] = useState<number>(() => {
+    if (readPrefsMode() === "remember") {
+      try {
+        const v = Number(localStorage.getItem("zoom"));
+        if (Number.isFinite(v) && v >= 1 && v <= 8) return v;
+      } catch { /* ignore */ }
+    }
+    return 1;
+  });
   // NOTA: `effectiveBeatWidth` este calculat dupa ce definim `windowSize`
   // + `uiScale` mai jos, ca sa poata include factorul de scale. Vezi
   // sectiunea "uiScale + scaled sizes" de mai jos.
@@ -1463,8 +1557,14 @@ export default function App() {
 
   // Auto Vel: toggle + strategie selectata (DS/US/DSU/BB/MT/BR/SW/PL).
   // Persistate in localStorage; ref-uri pentru buclele de playback.
-  // Default FIX la deschidere (user explicit): Auto Vel = OFF.
-  const [autoVelActive, setAutoVelActive] = useState<boolean>(false);
+  // Default la deschidere: la "defaults" -> Auto Vel OFF; la "remember" ->
+  // ultima stare aleasa de user.
+  const [autoVelActive, setAutoVelActive] = useState<boolean>(() => {
+    if (readPrefsMode() === "remember") {
+      try { return localStorage.getItem("autoVelActive") === "1"; } catch { /* ignore */ }
+    }
+    return false;
+  });
   const [autoVelStrategy, setAutoVelStrategy] = useState<AutoVelStrategyId>(() => {
     try {
       const v = localStorage.getItem("autoVelStrategy");
@@ -1797,13 +1897,15 @@ export default function App() {
   useEffect(() => { effectiveBeatWidthRef.current = effectiveBeatWidth; }, [effectiveBeatWidth]);
 
   // -------------------------------------------------------------------
-  // Zoom default la deschidere (user explicit): setam zoom-ul astfel incat
-  // in Builder sa fie vizibile EXACT 8 masuri (zoom in), intotdeauna la
-  // pornire. Recalculam la mount si la schimbarea presetului de fereastra.
+  // Zoom default la deschidere (user explicit): in modul "defaults", setam
+  // zoom-ul astfel incat in Builder sa fie vizibile EXACT 8 masuri (zoom in),
+  // intotdeauna la pornire. In modul "remember", pastram zoom-ul din
+  // localStorage (ultimul tweak al userului).
   // barPx = latimea unei masuri la zoom 1 = BEATS_PER_BAR * beatWidthScaled.
   // zoom = latimeaVizibila / (8 * barPx), clampat la [1, 8] (min/max slider).
   // -------------------------------------------------------------------
   useEffect(() => {
+    if (prefsMode !== "defaults") return;
     const el = timelineScrollRef.current;
     if (!el) return;
     const visibleWidth = el.clientWidth;
@@ -1811,7 +1913,14 @@ export default function App() {
     const barPx = BEATS_PER_BAR * beatWidthScaled; // la zoom 1
     const target = visibleWidth / (8 * barPx);
     setZoom(Math.min(8, Math.max(1, target)));
-  }, [windowSize, uiScale, beatWidthScaled]);
+  }, [prefsMode, windowSize, uiScale, beatWidthScaled]);
+
+  // Persistam zoom-ul doar in modul "remember" (ca la "defaults" sa nu
+  // suprascriem ultima valoare buna cu cea de 8 masuri).
+  useEffect(() => {
+    if (prefsMode !== "remember") return;
+    try { localStorage.setItem("zoom", String(zoom)); } catch { /* ignore */ }
+  }, [zoom, prefsMode]);
 
   // Persist window size + long-press whenever they change.
   useEffect(() => {
@@ -5760,6 +5869,8 @@ export default function App() {
           soundSource={soundSource}
           onSoundSourceChange={setSoundSource}
           guitarLibrariesCount={guitarLibraries.length}
+          prefsMode={prefsMode}
+          onPrefsModeChange={setPrefsMode}
           onClose={() => setSettingsOpen(false)}
         />
       )}
