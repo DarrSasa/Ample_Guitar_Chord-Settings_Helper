@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Stiluri de scriere — alegere font pentru program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Roboto:wght@400;700&family=Montserrat:wght@600;800&family=Poppins:wght@600;800&family=Oswald:wght@500;700&family=Bebas+Neue&family=Anton&family=Raleway:wght@600;800&family=Nunito:wght@700;900&family=Exo+2:wght@600;800&family=Playfair+Display:wght@700;900&family=Merriweather:wght@700;900&family=Lora:wght@600;700&family=Cinzel:wght@600;900&family=Abril+Fatface&family=DM+Serif+Display&family=Lobster&family=Pacifico&family=Righteous&family=Fredoka+One&family=Bangers&family=Creepster&family=Press+Start+2P&family=Monoton&family=Black+Ops+One&family=Rock+Salt&family=Permanent+Marker&family=Dancing+Script:wght@700&family=Great+Vibes&family=Sacramento&family=JetBrains+Mono:wght@600;800&family=Space+Mono:wght@700&family=VT323&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  :root {
+    --bg: #1e232a;
+    --panel: #2a3038;
+    --btn-bg: #FCBF8D;
+    --accent: #ff8827;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Inter, system-ui, sans-serif;
+    background: var(--bg);
+    color: #eee;
+    padding: 28px;
+  }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { font-size: 13px; color: #9aa3ad; margin: 0 0 24px; line-height: 1.5; }
+  .section-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin: 28px 0 12px;
+    border-bottom: 1px solid #3a424c;
+    padding-bottom: 6px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 14px;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid #3a424c;
+    border-radius: 6px;
+    padding: 14px;
+  }
+  .card .name {
+    font-size: 11px;
+    color: #9aa3ad;
+    margin-bottom: 10px;
+    font-family: Inter, sans-serif;
+  }
+  .outline {
+    color: #fff;
+    -webkit-text-stroke: 1px #000;
+    paint-order: stroke fill;
+  }
+  .big {
+    font-size: 44px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    word-break: break-word;
+  }
+  .btn-sample {
+    display: inline-block;
+    background: var(--btn-bg);
+    border: 1px solid #000;
+    border-radius: 2px;
+    padding: 4px 10px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
+    font-size: 12px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .hint {
+    font-size: 12px;
+    color: #9aa3ad;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+  <h1>Stiluri de scriere — cuvântul: „Ample"</h1>
+  <p class="sub">
+    Toate mostrele sunt albe cu <b>contur negru subțire</b> (1px). Sub fiecare
+    font vezi un exemplu <b>mare</b> și unul la <b>dimensiune de buton (12px)</b>
+    pe fundalul portocaliu al butoanelor din program. Alege un font (sau mai
+    multe: unul pentru titluri/butoane, altul pentru liste) și spune-mi numele.
+  </p>
+
+  <div id="root"></div>
+
+  <p class="hint">
+    Notă tehnică: conturul e făcut cu <code>-webkit-text-stroke: 1px #000</code> +
+    <code>color: #fff</code> — funcționează în Electron (Chromium), Chrome, Edge,
+    Firefox. În aplicație fontul ales va fi înglobat local (merge offline în EXE).
+  </p>
+
+<script>
+  const SECTIONS = [
+    { title: "Sans-serif (modern, curat)", items: [
+      ["Inter 400", "Inter"], ["Inter 700", "Inter"], ["Roboto 700", "Roboto"],
+      ["Montserrat 800", "Montserrat"], ["Poppins 800", "Poppins"],
+      ["Oswald 600", "Oswald"], ["Bebas Neue", "Bebas Neue"], ["Anton", "Anton"],
+      ["Raleway 800", "Raleway"], ["Nunito 900", "Nunito"], ["Exo 2 800", "Exo 2"],
+    ]},
+    { title: "Serif (elegant, clasic)", items: [
+      ["Playfair Display 900", "Playfair Display"], ["Merriweather 900", "Merriweather"],
+      ["Lora 700", "Lora"], ["Cinzel 900", "Cinzel"], ["Abril Fatface", "Abril Fatface"],
+      ["DM Serif Display", "DM Serif Display"],
+    ]},
+    { title: "Display / Artistic (decorativ)", items: [
+      ["Lobster", "Lobster"], ["Pacifico", "Pacifico"], ["Righteous", "Righteous"],
+      ["Fredoka One", "Fredoka One"], ["Bangers", "Bangers"], ["Creepster", "Creepster"],
+      ["Press Start 2P", "Press Start 2P"], ["Monoton", "Monoton"],
+      ["Black Ops One", "Black Ops One"], ["Rock Salt", "Rock Salt"],
+      ["Permanent Marker", "Permanent Marker"],
+    ]},
+    { title: "Script / Scris de mână", items: [
+      ["Dancing Script 700", "Dancing Script"], ["Great Vibes", "Great Vibes"],
+      ["Sacramento", "Sacramento"],
+    ]},
+    { title: "Monospace (tehnic, aliniat)", items: [
+      ["JetBrains Mono 800", "JetBrains Mono"], ["Space Mono 700", "Space Mono"],
+      ["VT323", "VT323"],
+    ]},
+  ];
+
+  const root = document.getElementById("root");
+  const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  for (const section of SECTIONS) {
+    const h = document.createElement("div");
+    h.className = "section-title";
+    h.textContent = section.title;
+    root.appendChild(h);
+
+    const grid = document.createElement("div");
+    grid.className = "grid";
+    for (const [name, family] of section.items) {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const label = document.createElement("div");
+      label.className = "name";
+      label.textContent = name;
+      card.appendChild(label);
+
+      const big = document.createElement("div");
+      big.className = "big outline";
+      big.style.fontFamily = `"${family}", sans-serif`;
+      big.textContent = "Ample";
+      card.appendChild(big);
+
+      const btn = document.createElement("div");
+      btn.className = "btn-sample outline";
+      btn.style.fontFamily = `"${family}", sans-serif`;
+      btn.textContent = "Ample";
+      card.appendChild(btn);
+
+      grid.appendChild(card);
+    }
+    root.appendChild(grid);
+  }
+</script>
+</body>
+</html>

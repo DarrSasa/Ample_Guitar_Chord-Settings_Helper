@@ -1916,14 +1916,8 @@ export default function App() {
     setSelectedBuilderIds([]);
   };
 
-  // Reduced set of "toolbar modes" after Select/Multi Select were removed
-  // and replaced with gesture-driven selection. Only these buttons still
-  // participate: Scroll On/Off, Delete, Ch On/Off. Selection persists
-  // independently of the mode.
-  const activateBuilderMode = (mode: "scroll" | "audition" | "none") => {
-    setScrollFollowMode(mode === "scroll");
-    setAuditionMode(mode === "audition");
-  };
+  // (Inlaturat: activateBuilderMode care cupla Scroll On/Off cu Ch On/Off.
+  // Acum fiecare buton isi comuta propria stare, independent — user explicit.)
 
   // Applies a size preset to both the React state (so the Settings panel
   // radios stay in sync) AND the underlying Electron window. In the web
@@ -2366,11 +2360,8 @@ export default function App() {
   };
 
   const toggleChordAudition = () => {
-    if (auditionMode) {
-      activateBuilderMode("none");
-      return;
-    }
-    activateBuilderMode("audition");
+    // Independent de Scroll On/Off: doar comuta Ch On/Off.
+    setAuditionMode((v) => !v);
   };
 
   const getProgressionSuggestions = (chord: ChordRow): ProgressionSuggestion[] => {
@@ -3812,6 +3803,11 @@ export default function App() {
       //     chord (data-table-chord) OR on a Builder chord (so dragging
       //     from table INTO Builder doesn't lose the table selection).
       const target = e.target as HTMLElement | null;
+      // Click IN INTERIORUL meniului de context (select/cut/copy/paste/delete):
+      // NU trebuie sa goleasca selectia (comanda 'select' tocmai o seteaza).
+      if (target && target.closest && target.closest("[data-context-menu]")) {
+        return;
+      }
       let insideBuilderChord = false;
       let insideTableChord = false;
       let node: HTMLElement | null = target;
@@ -4949,8 +4945,8 @@ export default function App() {
           <button
             type="button"
             onClick={() => {
-              if (scrollFollowMode) activateBuilderMode("none");
-              else activateBuilderMode("scroll");
+              // Independent de Ch On/Off: doar comuta Scroll On/Off.
+              setScrollFollowMode((v) => !v);
             }}
             className={`rounded-sm border border-black px-3 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
               scrollFollowMode ? "bg-green-300 shadow-[0_0_10px_#ff8827]" : "bg-[#FCBF8D]"
@@ -5646,6 +5642,7 @@ export default function App() {
 
       {contextMenu && (
         <div
+          data-context-menu=""
           className="fixed z-50 w-28 border border-black bg-white text-xs shadow-lg"
           style={{ left: contextMenu.x, top: contextMenu.y }}
         >
