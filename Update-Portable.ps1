@@ -11,7 +11,9 @@
 #
 # Scriptul face:
 #   1. MUTA temporar (instant, acelasi disc) folderul 'guitar samples' din
-#      programul portabil, ca build-ul sa nu-l stearga.
+#      programul portabil intr-un loc de STASH AFARA folderului 'portable-out'.
+#      (Important: Build-Installer.ps1 STERGE tot 'portable-out' la build, deci
+#      stash-ul NU poate sta in interiorul lui.)
 #   2. Ruleaza Build-Installer.ps1 -Mode Portable -SkipInstall (build NOU peste
 #      cel vechi).
 #   3. MUTA inapoi folderul 'guitar samples' in noul portabil.
@@ -35,17 +37,22 @@ Set-Location -Path $PSScriptRoot
 $portableOut = Join-Path $PSScriptRoot "portable-out"
 $appFolder   = Join-Path $portableOut "Ample Guitar Chord Progression Helper-win32-x64"
 $samples     = Join-Path $appFolder "resources\app\dist\guitar samples"
-$stash       = Join-Path $portableOut "_guitar-samples-stash"
+# Stash-ul sta in .desktop-build (gitignored), AFARA 'portable-out', ca
+# Build-Installer.ps1 (care sterge tot portable-out) sa NU-l atinga.
+$stash       = Join-Path $PSScriptRoot ".desktop-build\_guitar-samples-stash"
 
 $hadSamples = Test-Path $samples
 
 try {
   # 1) Mutam mostrele deoparte (instant - doar redenumim folderul).
   if ($hadSamples) {
+    if (-not (Test-Path (Split-Path $stash))) {
+      New-Item -ItemType Directory -Path (Split-Path $stash) -Force | Out-Null
+    }
     if (Test-Path $stash) { Remove-Item $stash -Recurse -Force }
     Move-Item $samples $stash
     $libCount = (Get-ChildItem -Path $stash -Directory -ErrorAction SilentlyContinue | Measure-Object).Count
-    Write-Host "[OK] Mostre pastrate temporar: $libCount librarie(-i) in 'guitar samples'." -ForegroundColor Green
+    Write-Host "[OK] Mostre pastrate temporar in: $stash ($libCount librarie-i)." -ForegroundColor Green
   } else {
     Write-Host "[i] Nu exista inca 'guitar samples' in portabil - nimic de pastrat." -ForegroundColor DarkGray
   }
