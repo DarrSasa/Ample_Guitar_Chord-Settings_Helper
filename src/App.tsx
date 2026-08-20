@@ -60,10 +60,16 @@ function LockIcon({ open, size = 22 }: { open: boolean; size?: number }) {
   const key = `./assets/graphics/svg/${open ? "lock-open" : "lock-close"}.svg`;
   const raw = graphicAssets[key];
   if (!raw) return null;
-  const svg = raw.replace("<svg ", `<svg width="${size}" height="${size}" `);
+  // Culoarea e injectata DIRECT in `fill` (nu prin `currentColor` mostenit
+  // dintr-un span) — un !important global din index.css forteaza `color: #fff`
+  // pe toate elementele non-SVG, deci mostenirea prin currentColor nu merge.
+  const color = open ? "#12ff60" : "#ffffff";
+  const svg = raw
+    .replace("<svg ", `<svg width="${size}" height="${size}" `)
+    .replace(/fill="currentColor"/g, `fill="${color}"`);
   return (
     <span
-      style={{ color: open ? "#12ff60" : "#ffffff", display: "inline-flex", lineHeight: 0 }}
+      style={{ display: "inline-flex", lineHeight: 0 }}
       dangerouslySetInnerHTML={{ __html: svg }}
     />
   );
@@ -3962,19 +3968,23 @@ export default function App() {
       }
       let insideBuilderChord = false;
       let insideTableChord = false;
+      let insideHistoryBlock = false;
       let node: HTMLElement | null = target;
       while (node) {
         if (node.getAttribute) {
           if (node.getAttribute("data-builder-index") !== null) insideBuilderChord = true;
           if (node.getAttribute("data-table-chord") !== null) insideTableChord = true;
+          if (node.getAttribute("data-history-block") !== null) insideHistoryBlock = true;
         }
-        if (insideBuilderChord && insideTableChord) break;
+        if (insideBuilderChord && insideTableChord && insideHistoryBlock) break;
         node = node.parentElement;
       }
       if (!insideBuilderChord && !insideTableChord && selectedRef.current.length > 0) {
         setSelectedBuilderIds([]);
       }
-      if (!insideTableChord && !insideBuilderChord && selectedTableChordsRef.current.length > 0) {
+      // Selectia din tabel NU se goleste la click pe un bloc din "Scroll On
+      // History" (altfel selectarea prin istoric ar fi anulata imediat).
+      if (!insideTableChord && !insideBuilderChord && !insideHistoryBlock && selectedTableChordsRef.current.length > 0) {
         setSelectedTableChords([]);
       }
     };
@@ -4652,6 +4662,7 @@ export default function App() {
                 <button
                   key={`history-${snapIdx}`}
                   type="button"
+                  data-history-block=""
                   // h-10 mirrors the h-10 of the chord-suggestion buttons in
                   // the chord table so both bars have exactly the same
                   // block dimensions. min-w kept so short labels don't
