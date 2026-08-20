@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PREVIEW — culori noi acorduri + lacăt</title>
+<style>
+  :root {
+    --win: #acb0ac;
+    --builder: #677987;
+    --orange: #FCBF8D;
+    --accent: #ff8827;
+    --chord-base: #099938;
+    --chord-hover: #07b741;
+    --chord-sel: #07b741;
+    --chord-sel-glow: #12ff60;
+    --lock-open: #12ff60;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: #2a2f36;
+    color: #eee;
+    padding: 24px;
+  }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .sub { font-size: 12px; color: #9aa3ad; margin: 0 0 24px; line-height: 1.5; }
+
+  .app {
+    width: 1060px; max-width: 100%; margin: 0 auto;
+    background: var(--win); border: 1px solid #000; padding: 10px;
+  }
+  .section { border: 1px solid #000; padding: 8px; margin-bottom: 8px; }
+  .history-section { background: rgba(255,255,255,0.35); }
+  .builder-section { background: var(--builder); }
+  h2 { font-size: 14px; margin: 0 0 8px; color: #fff; }
+  .row { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+  .row.justify { justify-content: space-between; }
+
+  .btn {
+    display: inline-flex; align-items: center; height: 32px; padding: 0 10px;
+    background: var(--orange); border: 1px solid #000; border-radius: 2px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.75); font-size: 12px; color: #fff;
+  }
+
+  /* Bloc de acord (istoric + tabel) — culoare de baza #099938, hover glow #07b741 */
+  .chord-block {
+    position: relative;
+    display: inline-flex; align-items: center;
+    min-width: 120px; height: 40px;
+    background: var(--chord-base);
+    border: 1px solid #000;
+    padding: 0 10px;
+    font-size: 12px; font-weight: 700; color: #fff;
+    -webkit-text-stroke: 2.5px #000; paint-order: stroke fill;
+    transition: box-shadow 120ms;
+  }
+  .chord-block:hover { box-shadow: 0 0 8px var(--chord-hover); }
+  .chord-block.selected {
+    background: var(--chord-sel);
+    box-shadow: 0 0 12px var(--chord-sel-glow);
+    outline: 2px solid var(--chord-sel-glow);
+  }
+
+  /* Lacat in colt stanga-sus */
+  .lock { position: absolute; top: -8px; left: -6px; }
+
+  /* Builder strip */
+  .strip { position: relative; height: 120px; background: rgba(0,0,0,0.15); border: 1px solid #000; }
+  .strip .chord-block { position: absolute; top: 30px; height: 60px; min-width: 0; padding: 0 10px; justify-content: center; }
+  .gridline { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(0,0,0,0.25); }
+
+  /* Tabel */
+  table { width: 100%; border-collapse: collapse; background: #fff; }
+  th, td { border: 1px solid #000; padding: 4px 6px; font-size: 11px; text-align: left; color: #000; }
+  th { background: #d6d3c9; }
+  td .chord-block { height: 40px; min-width: 90px; }
+
+  .note { font-size: 12px; color: #9aa3ad; margin-top: 8px; }
+  .legend { margin-top: 14px; font-size: 12px; color: #ccc; line-height: 1.7; }
+  .swatch { display: inline-block; width: 14px; height: 14px; border: 1px solid #000; vertical-align: -2px; margin-right: 6px; }
+</style>
+</head>
+<body>
+  <h1>PREVIEW — culori noi pentru blocurile de acorduri + lacăt</h1>
+  <p class="sub">
+    Baza: <b>#099938</b> · hover glow: <b>#07b741</b> · selectat: <b>#07b741</b> + glow <b>#12ff60</b> ·
+    lacăt închis: <b>#ffffff</b> · lacăt deschis: <b>#12ff60</b>.
+  </p>
+
+  <div class="app">
+    <!-- SCROLL ON HISTORY -->
+    <section class="section history-section">
+      <div class="row justify">
+        <h2 style="color:#000">SCROLL ON HISTORY</h2>
+        <div class="row">
+          <span class="btn">UNDO</span><span class="btn">REDO</span>
+          <span class="btn" style="width:32px;padding:0;justify-content:center;">⚙</span>
+        </div>
+      </div>
+      <div class="row">
+        <span class="chord-block">
+          <span class="lock"><!-- lacat inchis = alb --></span>
+          C MAJ
+        </span>
+        <span class="chord-block">
+          <span class="lock"></span>
+          G MAJ
+        </span>
+        <span class="chord-block selected">
+          <span class="lock"></span>
+          A MIN
+        </span>
+        <span class="chord-block">
+          <span class="lock"></span>
+          F MAJ
+        </span>
+      </div>
+      <p class="note">Lacătele se plasează în colțul stânga-sus al fiecărui bloc (aici doar poziția; detaliul SVG se face din lock.psd pe care îl trimiți).</p>
+    </section>
+
+    <!-- CHORD PROGRESSION BUILDER -->
+    <section class="section builder-section">
+      <h2>CHORD PROGRESSION BUILDER</h2>
+      <div class="row" style="margin-bottom:8px;">
+        <span class="btn">DELETE</span><span class="btn">SLIDE</span>
+        <span class="btn">AUTO VEL <span style="background:#003970;border:2px solid #003970;border-radius:2px;padding:0 6px;margin-left:4px;">OFF</span></span>
+        <span class="btn">▶</span>
+        <span class="btn">SNAP ▾</span><span class="btn">BPM 120</span>
+        <span class="btn">AGM - 4.1.0 (PICK) ▾</span>
+        <span class="btn">SAVE</span><span class="btn">D&amp;D</span>
+        <span class="btn">CH ON\OFF</span><span class="btn">SCROLL ON\OFF</span>
+      </div>
+      <div class="strip">
+        <div class="gridline" style="left:12.5%"></div>
+        <div class="gridline" style="left:37.5%"></div>
+        <div class="gridline" style="left:62.5%"></div>
+        <div class="gridline" style="left:87.5%"></div>
+        <span class="chord-block" style="left:2%; width:17%;">C MAJ</span>
+        <span class="chord-block" style="left:21%; width:13%;">G MAJ</span>
+        <span class="chord-block selected" style="left:36%; width:13%;">A MIN</span>
+        <span class="chord-block" style="left:51%; width:17%;">F MAJ</span>
+      </div>
+    </section>
+
+    <!-- TABEL -->
+    <section class="section history-section">
+      <table>
+        <thead><tr><th>#</th><th>ROOT</th><th>TYPE</th><th>EXT</th><th>ALT</th><th>BASS</th><th>CHORDS FOR PROGRESSIONS</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>C</td><td>Maj</td><td>-</td><td>-</td><td>C</td><td><span class="chord-block">C MAJ</span></td></tr>
+          <tr><td>2</td><td>C</td><td>min</td><td>-</td><td>-</td><td>C</td><td><span class="chord-block selected">C MIN</span></td></tr>
+          <tr><td>3</td><td>D</td><td>Maj</td><td>-</td><td>-</td><td>D</td><td><span class="chord-block">D MAJ</span></td></tr>
+          <tr><td>4</td><td>G</td><td>Maj</td><td>7</td><td>-</td><td>G</td><td><span class="chord-block">G MAJ 7</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <div class="legend">
+    <b>Legenda culorilor:</b><br>
+    <span class="swatch" style="background:#099938"></span> Bloc acord (bază) — <code>#099938</code><br>
+    <span class="swatch" style="background:#07b741"></span> Hover glow / fundal selectat — <code>#07b741</code><br>
+    <span class="swatch" style="background:#12ff60"></span> Glow selectat / lacăt deschis — <code>#12ff60</code><br>
+    <span class="swatch" style="background:#ffffff"></span> Lacăt închis — <code>#ffffff</code>
+  </div>
+
+<script>
+  // Lacat SVG (clasic) — culoarea corpului in functie de stare:
+  //   closed = #ffffff, open = #12ff60. Contur negru 2.5px.
+  function lockSvg(open) {
+    const fill = open ? '#12ff60' : '#ffffff';
+    const shackle = open
+      ? 'M9 5 V4 a3 3 0 0 1 6 0 v1'          // arc deschis (ridicat)
+      : 'M9 7 V4 a3 3 0 0 1 6 0 v3';         // arc inchis
+    return `<svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <rect x="5" y="11" width="14" height="9" rx="2" fill="${fill}" stroke="#000" stroke-width="2.5"/>
+      <path d="${shackle}" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="12" cy="14.5" r="1.6" fill="#000"/>
+      <rect x="11" y="15.4" width="2" height="2.6" fill="#000"/>
+    </svg>`;
+  }
+  // Aplicam lacatele: primul bloc = inchis (alb), restul = deschis (#12ff60),
+  // iar blocul selectat din tabel are lacat deschis.
+  const locks = document.querySelectorAll('.lock');
+  locks.forEach((l, i) => {
+    l.innerHTML = lockSvg(i !== 0);
+  });
+</script>
+</body>
+</html>

@@ -4609,7 +4609,7 @@ export default function App() {
                   // the chord table so both bars have exactly the same
                   // block dimensions. min-w kept so short labels don't
                   // shrink to a sliver.
-                  className="h-10 min-w-[118px] border border-black px-2 text-left text-xs bg-[#bae3b4]"
+                  className="h-10 min-w-[118px] border border-black px-2 text-left text-xs bg-[#099938] hover:shadow-[0_0_8px_#07b741]"
                   onClick={() => {
                     // Delete mode activ: click = stergere individuala a blocului
                     // (ramane activ pentru stergeri consecutive, ca in Builder).
@@ -5384,10 +5384,10 @@ export default function App() {
                     }}
                     className={`relative z-10 h-full border border-black px-1 text-left text-[11px] transition-all ${
                       selected
-                        ? "bg-green-300/90 shadow-[0_0_12px_#ff8827] ring-2 ring-[#ff8827]"
+                        ? "bg-[#07b741] shadow-[0_0_12px_#12ff60] ring-2 ring-[#12ff60]"
                         : playing || blinking
-                        ? "bg-green-300/90 shadow-[0_0_10px_#4df72c]"
-                        : "bg-[#bae3b4]/90 hover:shadow-[0_0_8px_#4df72c]"
+                        ? "bg-[#07b741] shadow-[0_0_10px_#12ff60]"
+                        : "bg-[#099938] hover:shadow-[0_0_8px_#07b741]"
                     }`}
                   >
                     {/* The chord label + its notes list are rendered via
@@ -5716,10 +5716,10 @@ export default function App() {
                             title={`${nextChord.label}  ->  ${chordNotesDisplay(nextChord.label)}`}
                             className={`h-10 border border-black px-2 text-xs transition-all ${
                               selected
-                                ? "bg-green-300 shadow-[0_0_12px_#ff8827] ring-2 ring-[#ff8827]"
+                                ? "bg-[#07b741] shadow-[0_0_12px_#12ff60] ring-2 ring-[#12ff60]"
                                 : pressed
-                                ? "bg-green-300 shadow-[0_0_10px_#4df72c]"
-                                : "bg-[#bae3b4] hover:shadow-[0_0_8px_#4df72c]"
+                                ? "bg-[#07b741] shadow-[0_0_10px_#12ff60]"
+                                : "bg-[#099938] hover:shadow-[0_0_8px_#07b741]"
                             }`}
                           >
                             {nextChord.label}
