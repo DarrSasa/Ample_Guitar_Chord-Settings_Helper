@@ -49,6 +49,26 @@ function graphic(name: string): string | undefined {
   return url;
 }
 
+// Iconita de lacat pentru "Scroll On History", din PSD-ul lock.psd convertit
+// in SVG (src/assets/graphics/svg/lock-open.svg + lock-close.svg). SVg-urile
+// folosesc fill="currentColor", deci culoarea vine din `color`:
+//   - inchis (locked)   = #ffffff (alb)
+//   - deschis (unlocked)= #12ff60 (verde)
+// FARA contur negru (user explicit). Se scaleaza odata cu programul (width/
+// height in px date de apelator, raportul e pastrat de viewBox).
+function LockIcon({ open, size = 22 }: { open: boolean; size?: number }) {
+  const key = `./assets/graphics/svg/${open ? "lock-open" : "lock-close"}.svg`;
+  const raw = graphicAssets[key];
+  if (!raw) return null;
+  const svg = raw.replace("<svg ", `<svg width="${size}" height="${size}" `);
+  return (
+    <span
+      style={{ color: open ? "#12ff60" : "#ffffff", display: "inline-flex", lineHeight: 0 }}
+      dangerouslySetInnerHTML={{ __html: svg }}
+    />
+  );
+}
+
 // NOTA: PNG-urile pentru Loop/Play-Pause/Stop sunt gestionate direct de
 // componenta `TransportButtons` (src/components/TransportButtons.tsx),
 // care importa PNG-urile pline (docW x docH) din
@@ -1413,7 +1433,12 @@ export default function App() {
   useEffect(() => {
     selectedTableChordsRef.current = selectedTableChords;
   }, [selectedTableChords]);
-  const [startActive, setStartActive] = useState(false);
+  // Blocurile din "Scroll On History" care au lacătul ÎNCHIS (stare "blocat").
+  // Stocam snapshotIndex-ul blocului. Un lacat inchis blocheaza selectarea
+  // ALTOR acorduri (selectia ramane pe acordul blocat). Lacatul functioneaza
+  // doar la Scroll OFF si doar daca acordul e selectat cand dai click pe el.
+  const [lockedHistoryIdx, setLockedHistoryIdx] = useState<number[]>([]);
+  const lockedHistoryRef = useRef<number[]>([]);
   const [guideCode, setGuideCode] = useState<number | null>(null);
 
   const [builderChords, setBuilderChords] = useState<BuilderChord[]>([]);
@@ -1961,6 +1986,9 @@ export default function App() {
   useEffect(() => {
     selectedRef.current = selectedBuilderIds;
   }, [selectedBuilderIds]);
+  useEffect(() => {
+    lockedHistoryRef.current = lockedHistoryIdx;
+  }, [lockedHistoryIdx]);
   useEffect(() => {
     builderHistoryRef.current = builderHistory;
   }, [builderHistory]);
@@ -2837,13 +2865,19 @@ export default function App() {
     const ni = Math.min(snapshotIndexRef.current, Math.max(0, next.length - 1));
     snapshotIndexRef.current = ni;
     setSnapshotIndex(ni);
+    // Curatam lacatele (indecsii se schimba dupa stergere).
+    lockedHistoryRef.current = [];
+    setLockedHistoryIdx([]);
   };
 
-  // --- Scroll On History: selectarea acordului in tabel ---
-  // Cand Scroll On/Off e OFF si Start e activ, click pe un bloc de istoric
-  // selecteaza/deselecteaza acordul corespunzator in tabel (butonul de
-  // sugestie de baza al randului). Selectia intra in selectedTableChords
-  // (folosita apoi pentru drag in Builder sau Delete).
+  // --- Scroll On History: selectarea acordului in tabel + lacat ---
+  // Cand Scroll On/Off e OFF, click pe un bloc de istoric selecteaza/deselecteaza
+  // acordul corespunzator in tabel (butonul de sugestie de baza al randului).
+  // Selectia intra in selectedTableChords (folosita pentru drag in Builder sau
+  // Delete). Un lacat inchis blocheaza selectarea ALTOR acorduri.
+  const isChordSelected = (code: number) =>
+    selectedTableChordsRef.current.some((s) => s.code === code);
+
   const toggleTableChordSelection = (code: number) => {
     const row = rowByCode.get(code);
     if (!row) return;
@@ -2856,6 +2890,26 @@ export default function App() {
       : [...prev, { btnId, label, code }];
     selectedTableChordsRef.current = next;
     setSelectedTableChords(next);
+  };
+
+  // Toggle lacat inchis/deschis pe un bloc de istoric. Functioneaza DOAR daca
+  // acordul e selectat (user explicit) si doar la Scroll OFF (verificat la
+  // click). Cand se blocheaza, se sterge orice alta selectie in afara de acest
+  // acord, ca selectia sa ramana pe acordul blocat.
+  const toggleHistoryLock = (code: number, snapIdx: number) => {
+    if (!isChordSelected(code)) return;
+    const prev = lockedHistoryRef.current;
+    const isLocked = prev.includes(snapIdx);
+    const next = isLocked ? prev.filter((x) => x !== snapIdx) : [...prev, snapIdx];
+    lockedHistoryRef.current = next;
+    setLockedHistoryIdx(next);
+    if (!isLocked) {
+      // Blocam selectia pe acest acord: pastram doar selectia lui in tabel.
+      const row = rowByCode.get(code);
+      const label = row ? chordDisplay(row) : "";
+      selectedTableChordsRef.current = [{ btnId: `${row?.id}-${row?.id}-0`, label, code }];
+      setSelectedTableChords([{ btnId: `${row?.id}-${row?.id}-0`, label, code }]);
+    }
   };
 
   const addChordToBuilderAndRecord = (
@@ -4532,15 +4586,6 @@ export default function App() {
           <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={() => setStartActive((prev) => !prev)}
-              className={`rounded-sm border border-black px-3 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
-                startActive ? "bg-green-300 shadow-[0_0_10px_#ff8827,inset_0_1px_0_rgba(255,255,255,0.9)]" : "bg-[#FCBF8D]"
-              }`}
-            >
-              Start
-            </button>
-            <button
-              type="button"
               onClick={handleUndo}
               disabled={!canUndo}
               className={`rounded-sm border border-black px-3 py-1 text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ${
@@ -4600,6 +4645,8 @@ export default function App() {
           <div className="flex h-10 items-center px-1" style={{ gap: HISTORY_GAP }}>
             {historyItems.map((item) => {
               const { code, label: blockLabel, snapshotIndex: snapIdx } = item;
+              const isLocked = lockedHistoryIdx.includes(snapIdx);
+              const chordSelected = isChordSelected(code);
 
               return (
                 <button
@@ -4609,7 +4656,11 @@ export default function App() {
                   // the chord table so both bars have exactly the same
                   // block dimensions. min-w kept so short labels don't
                   // shrink to a sliver.
-                  className="h-10 min-w-[118px] border border-black px-2 text-left text-xs bg-[#099938] hover:shadow-[0_0_8px_#07b741]"
+                  className={`relative h-10 min-w-[118px] border border-black pl-6 pr-2 text-left text-xs transition-all ${
+                    chordSelected
+                      ? "bg-[#07b741] shadow-[0_0_12px_#12ff60] ring-2 ring-[#12ff60]"
+                      : "bg-[#099938] hover:shadow-[0_0_8px_#07b741]"
+                  }`}
                   onClick={() => {
                     // Delete mode activ: click = stergere individuala a blocului
                     // (ramane activ pentru stergeri consecutive, ca in Builder).
@@ -4617,19 +4668,32 @@ export default function App() {
                       deleteHistoryRun(snapIdx);
                       return;
                     }
-                    // Click pe un bloc de istoric NU il re-inregistreaza NICIODATA
-                    // (nici primul, nici ultimul), indiferent de Start.
+                    // Scroll On/Off = ON: doar muta glisorul vertical al
+                    // tabelului la acordul respectiv. Nu se selecteaza nimic.
                     if (scrollFollowMode) {
-                      // Scroll On/Off = ON: muta glisorul tabelului la acord.
                       scrollToCode(code, "smooth");
-                    } else if (startActive) {
-                      // Scroll On/Off = OFF + Start activ: selecteaza/deselecteaza
-                      // acordul corespunzator in tabel.
-                      toggleTableChordSelection(code);
+                      return;
                     }
-                    // Scroll OFF + Start inactiv: nimic (nu se poate selecta).
+                    // Scroll OFF: selectia functioneaza. Daca exista un lacat
+                    // inchis (blocat), selectia ramane pe acordul blocat — nu
+                    // se mai pot selecta ALTE acorduri.
+                    if (lockedHistoryRef.current.length > 0) return;
+                    toggleTableChordSelection(code);
                   }}
                 >
+                  {/* Lacat in coltul stanga-sus, aproape de text. */}
+                  <span
+                    className="absolute left-1 top-1"
+                    onClick={(e) => {
+                      // Lacatul functioneaza DOAR la Scroll OFF si doar daca
+                      // acordul e selectat cand dai click pe el.
+                      e.stopPropagation();
+                      if (scrollFollowMode || deleteMode) return;
+                      toggleHistoryLock(code, snapIdx);
+                    }}
+                  >
+                    <LockIcon open={!isLocked} size={18} />
+                  </span>
                   {blockLabel}
                 </button>
               );
