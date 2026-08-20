@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lacăt Scroll On History — demo (variante SVG)</title>
+<style>
+  :root {
+    --win: #acb0ac;
+    --chord: #bae3b4;
+    --border: #000;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: #2a2f36;
+    color: #eee;
+    padding: 24px;
+  }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .sub { font-size: 12px; color: #9aa3ad; margin: 0 0 24px; line-height: 1.5; }
+  .section-title {
+    font-size: 12px; text-transform: uppercase; letter-spacing: .1em;
+    color: #ff8827; margin: 26px 0 12px; border-bottom: 1px solid #3a424c; padding-bottom: 6px;
+  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .card { background: #333a42; border: 1px solid #3a424c; border-radius: 6px; padding: 12px; text-align: center; }
+  .card .name { font-size: 11px; color: #9aa3ad; margin-bottom: 8px; }
+  .locks { display: flex; justify-content: center; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .lock-group { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .lock-label { font-size: 9px; color: #9aa3ad; text-transform: uppercase; letter-spacing: .06em; }
+
+  /* Exemplu de acord din istoric (bloc verde, 40px) */
+  .history-row { display: flex; gap: 10px; }
+  .history-block {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-width: 150px;
+    height: 40px;
+    background: var(--chord);
+    border: 1px solid var(--border);
+    padding: 0 10px 0 10px;
+    font-size: 12px;
+    color: #fff;
+    -webkit-text-stroke: 2.5px #000;
+    paint-order: stroke fill;
+    font-weight: 700;
+  }
+  .lock-corner {
+    position: absolute;
+    top: -8px;           /* iese putin deasupra blocului */
+    left: -6px;          /* foarte aproape de text / colț stânga-sus */
+  }
+  .note { font-size: 12px; color: #9aa3ad; margin-top: 6px; }
+</style>
+</head>
+<body>
+  <h1>Lacăt pentru „Scroll On History" — variante SVG</h1>
+  <p class="sub">
+    Iconița e <b>albă cu contur negru de 2.5px</b>, poziționată în <b>colțul stânga-sus</b>
+    al acordului, aproape de text. Două stări: <b>Lacăt Închis</b> (blochează selectarea)
+    și <b>Lacăt Deschis</b> (permite selectarea). Alege o variantă + dimensiune.
+  </p>
+
+  <div class="section-title">Exemplu pe un acord din istoric (colț stânga-sus)</div>
+  <div class="history-row">
+    <span class="history-block">
+      <span class="lock-corner" id="example-lock"></span>
+      C MAJ
+    </span>
+    <span class="history-block">
+      <span class="lock-corner" id="example-lock-open"></span>
+      G MAJ
+    </span>
+  </div>
+  <p class="note">Stânga: lacăt ÎNCHIS &nbsp;·&nbsp; Dreapta: lacăt DESCHIS.</p>
+
+  <div id="root"></div>
+
+<script>
+  // Generatoare de lacat (viewBox 24x24), alb + contur negru 2.5px.
+  // Fiecare varianta are cele 2 stari: closed / open.
+  const STROKE = '#000';
+  const STROKE_W = 2.5;
+
+  function shackle(closed, fromX1, fromY1, fromX2, fromY2) {
+    // arc de lacat: coboara din stanga in dreapta
+    const d = closed
+      ? `M${fromX1} ${fromY1} V8 a4 4 0 0 1 8 0 v${fromY1 - 8}`
+      : `M${fromX1} ${fromY1 - 2} V6.5 a4 4 0 0 1 8 0 v${fromY1 - 2 - 6.5}`;
+    return `<path d="${d}" fill="none" stroke="${STROKE}" stroke-width="${STROKE_W}" stroke-linecap="round"/>`;
+  }
+
+  const VARIANTS = {
+    clasic: (s) => `
+      ${shackle(s === "closed", 8, 11, 16, 11)}
+      <rect x="5" y="11" width="14" height="9" rx="2" fill="#fff" stroke="${STROKE}" stroke-width="${STROKE_W}"/>
+      <circle cx="12" cy="14.5" r="1.6" fill="#000"/>
+      <rect x="11" y="15.4" width="2" height="2.6" fill="#000"/>
+    `,
+    patrat: (s) => `
+      ${shackle(s === "closed", 8, 11, 16, 11)}
+      <rect x="5" y="11" width="14" height="9" rx="0.5" fill="#fff" stroke="${STROKE}" stroke-width="${STROKE_W}"/>
+      <circle cx="12" cy="14.5" r="1.5" fill="#000"/>
+      <rect x="11" y="15.3" width="2" height="2.7" fill="#000"/>
+    `,
+    minimal: (s) => `
+      ${shackle(s === "closed", 8, 11, 16, 11)}
+      <rect x="5" y="11" width="14" height="9" rx="2" fill="none" stroke="${STROKE}" stroke-width="${STROKE_W}"/>
+      <circle cx="12" cy="15" r="1.2" fill="none" stroke="${STROKE}" stroke-width="1.8"/>
+    `,
+    bold: (s) => `
+      <rect x="4" y="10" width="16" height="11" rx="2.5" fill="#fff" stroke="${STROKE}" stroke-width="3"/>
+      <rect x="9.5" y="6.5" width="5" height="4" rx="1" fill="none" stroke="${STROKE}" stroke-width="3"/>
+      <circle cx="12" cy="14" r="1.7" fill="#000"/>
+      <rect x="11" y="15" width="2" height="3" fill="#000"/>
+    `,
+    placa: (s) => `
+      <rect x="5" y="7" width="14" height="13" rx="3" fill="#fff" stroke="${STROKE}" stroke-width="${STROKE_W}"/>
+      <circle cx="12" cy="11.5" r="1.7" fill="#000"/>
+      <rect x="11" y="12.6" width="2" height="3.5" fill="#000"/>
+      <path d="${s === "closed" ? "M9 7 V5.5 a3 3 0 0 1 6 0 V7" : "M9 5 V4 a3 3 0 0 1 6 0 v1"}" fill="none" stroke="${STROKE}" stroke-width="${STROKE_W}" stroke-linecap="round"/>
+    `,
+  };
+
+  function lockSvg(variant, state, size) {
+    const inner = VARIANTS[variant](state);
+    return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+  }
+
+  const NAMES = { clasic: "Clasic", patrat: "Pătrat", minimal: "Minimal (linie)", bold: "Bold", placa: "Placă" };
+  const SIZES = [16, 22, 28];
+
+  const root = document.getElementById("root");
+  for (const [variant, name] of Object.entries(NAMES)) {
+    const h = document.createElement("div");
+    h.className = "section-title";
+    h.textContent = name;
+    root.appendChild(h);
+
+    const grid = document.createElement("div");
+    grid.className = "grid";
+    for (const size of SIZES) {
+      const card = document.createElement("div");
+      card.className = "card";
+      const label = document.createElement("div");
+      label.className = "name";
+      label.textContent = `${size}px`;
+      card.appendChild(label);
+
+      const locks = document.createElement("div");
+      locks.className = "locks";
+      for (const state of ["closed", "open"]) {
+        const g = document.createElement("div");
+        g.className = "lock-group";
+        g.innerHTML = lockSvg(variant, state, size);
+        const l = document.createElement("span");
+        l.className = "lock-label";
+        l.textContent = state === "closed" ? "Închis" : "Deschis";
+        g.appendChild(l);
+        locks.appendChild(g);
+      }
+      card.appendChild(locks);
+      grid.appendChild(card);
+    }
+    root.appendChild(grid);
+  }
+
+  // Exemplele din antet (colt stanga-sus, aproape de text)
+  document.getElementById("example-lock").innerHTML = lockSvg("clasic", "closed", 22);
+  document.getElementById("example-lock-open").innerHTML = lockSvg("clasic", "open", 22);
+</script>
+</body>
+</html>

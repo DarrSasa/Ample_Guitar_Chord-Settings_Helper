@@ -2809,6 +2809,36 @@ export default function App() {
     pushSnapshot({ topCode: nextTopCode, guideCode: nextGuideCode, label });
   };
 
+  // --- Scroll On History: stergere (Etapa 1) ---
+  // Cu Delete mode activ, click pe un bloc de istoric sterge intreaga lui
+  // "serie" (snapshot-uri consecutive cu acelasi code + label).
+  const deleteHistoryRun = (snapshotIdx: number) => {
+    const snaps = snapshotsRef.current;
+    if (snaps.length === 0 || snapshotIdx < 0 || snapshotIdx >= snaps.length) return;
+
+    // Eticheta/codul fiecarui snapshot (ca sa detectam seria).
+    const info = snaps.map((snap) => {
+      const row = rowByCode.get(snap.topCode);
+      const label = snap.label || (row ? chordDisplay(row) : `#${snap.topCode}`);
+      return { code: snap.topCode, label };
+    });
+
+    let start = snapshotIdx;
+    while (start > 0 && info[start - 1].code === info[snapshotIdx].code && info[start - 1].label === info[snapshotIdx].label) start--;
+    let end = snapshotIdx + 1;
+    while (end < snaps.length && info[end].code === info[snapshotIdx].code && info[end].label === info[snapshotIdx].label) end++;
+
+    const toRemove = new Set<number>();
+    for (let k = start; k < end; k++) toRemove.add(k);
+
+    const next = snaps.filter((_, k) => !toRemove.has(k));
+    snapshotsRef.current = next;
+    setSnapshots(next);
+    const ni = Math.min(snapshotIndexRef.current, Math.max(0, next.length - 1));
+    snapshotIndexRef.current = ni;
+    setSnapshotIndex(ni);
+  };
+
   // --- Scroll On History: selectarea acordului in tabel ---
   // Cand Scroll On/Off e OFF si Start e activ, click pe un bloc de istoric
   // selecteaza/deselecteaza acordul corespunzator in tabel (butonul de
@@ -4581,6 +4611,12 @@ export default function App() {
                   // shrink to a sliver.
                   className="h-10 min-w-[118px] border border-black px-2 text-left text-xs bg-[#bae3b4]"
                   onClick={() => {
+                    // Delete mode activ: click = stergere individuala a blocului
+                    // (ramane activ pentru stergeri consecutive, ca in Builder).
+                    if (deleteMode) {
+                      deleteHistoryRun(snapIdx);
+                      return;
+                    }
                     // Click pe un bloc de istoric NU il re-inregistreaza NICIODATA
                     // (nici primul, nici ultimul), indiferent de Start.
                     if (scrollFollowMode) {
