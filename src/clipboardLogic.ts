@@ -4,10 +4,15 @@
 // Reguli (user explicit):
 //   - copy+paste: acordurile din dreapta se muta mereu la DREAPTA (fac loc).
 //   - cut+paste:  se inchide gap-ul lasat de taiere — tot ce e la DREAPTA
-//     gap-ului se muta la STANGA cu exact latimea gap-ului; acordul tăiat
-//     se insereaza la pozitia aleasa (cu push-right ca la copy, apoi gap-ul
-//     se inchide).
+//     gap-ului se muta la STANGA cu exact latimea gap-ului.
 //   - cut/delete NU misca vecinii (lasa gap pe loc).
+//   - PASTE IN GAP (valabil si pentru copy, si pentru cut): cand lipesti un
+//     SINGUR acord intr-un spatiu liber, acordul se potriveste in gap:
+//       1.1 daca e mai LUNG decat gap-ul -> se micsoreaza exact la gap.
+//       1.2 daca e mai SCURT -> se aliniaza la bara ritmica din stanga
+//           cursorului; daca nu incape pana la acordul din dreapta, se
+//           micsoreaza sa se potriveasca. Vecinii raman FIXI (nu se misca,
+//           nu-si modifica lungimea).
 
 export interface ClipChord {
   id: string;
@@ -22,6 +27,14 @@ export interface ClipboardData {
   cutStart: number; // valid doar pt cut (start-ul gap-ului)
   gapWidth: number; // valid doar pt cut (latimea gap-ului = suma beats)
 }
+
+export interface PasteResult {
+  next: ClipChord[];
+  cloneIds: string[];
+}
+
+const MIN_CHORD_BEATS = 1 / 8;
+const EPS = 1e-9;
 
 export function sortByStart<T extends ClipChord>(arr: T[]): T[] {
   return [...arr].sort((a, b) => a.startBeat - b.startBeat);
@@ -49,17 +62,97 @@ export function makeCopyClipboard(target: ClipChord[]): ClipboardData {
   };
 }
 
-// Aplica paste-ul peste `base` la `insertIndex` (0..base.length, in ordinea
-// vizuala sortata). Returneaza noul array + id-urile clonelor inserate.
+// Rezolva suprapunerile reziduale (push la dreapta, pastrand duratele).
+function resolveOverlaps(arr: ClipChord[]): ClipChord[] {
+  const next = sortByStart(arr);
+  for (let i = 0; i < next.length - 1; i++) {
+    const end = next[i].startBeat + next[i].beats;
+    if (next[i + 1].startBeat < end - EPS) {
+      next[i + 1] = { ...next[i + 1], startBeat: end };
+    }
+  }
+  return next;
+}
+
+// Inchide gap-ul lasat de "cut": tot ce e la dreapta marginii gap-ului
+// (cutStart + gapWidth) se muta la stanga cu gapWidth.
+function closeCutGap(arr: ClipChord[], clip: ClipboardData): ClipChord[] {
+  const edge = clip.cutStart + clip.gapWidth;
+  return arr.map((c) =>
+    c.startBeat >= edge - EPS ? { ...c, startBeat: c.startBeat - clip.gapWidth } : c
+  );
+}
+
+// Aplica paste-ul peste `base`.
+//   - `insertIndex`: pozitia in ordinea vizuala (folosita cand NU suntem in gap).
+//   - `dropBeat`: pozitia cursorului in batai (folosita pt. regulile de gap).
+//   - `snapBeats`: pasul de grid ritmic (pt. alinierea la bara din stanga).
 export function applyPaste(
   base: ClipChord[],
   clip: ClipboardData,
-  insertIndex: number
-): { next: ClipChord[]; cloneIds: string[] } {
+  insertIndex: number,
+  dropBeat?: number,
+  snapBeats?: number
+): PasteResult {
   const sorted = sortByStart(base);
-  const totalWidth = clip.chords.reduce((s, x) => s + x.beats, 0);
-  const safeIndex = Math.max(0, Math.min(insertIndex, sorted.length));
+  const totalWidth = clip.chords.reduce((s, x) => s + (x.beats > 0 ? x.beats : 4), 0);
 
+  // --- PASTE IN GAP (un singur acord) ---
+  if (
+    clip.chords.length === 1 &&
+    dropBeat !== undefined &&
+    snapBeats !== undefined &&
+    snapBeats > 0
+  ) {
+    const L = clip.chords[0].beats > 0 ? clip.chords[0].beats : 4;
+
+    // Gasim gap-ul care contine dropBeat.
+    let prev: ClipChord | null = null;
+    let next: ClipChord | null = null;
+    for (let i = 0; i < sorted.length; i++) {
+      const c = sorted[i];
+      if (c.startBeat + c.beats <= dropBeat + EPS) prev = c;
+      else { next = c; break; }
+    }
+    const gapStart = prev ? prev.startBeat + prev.beats : 0;
+    const gapEnd = next ? next.startBeat : Number.POSITIVE_INFINITY;
+    const inRealGap = gapEnd - gapStart > EPS;
+
+    if (inRealGap) {
+      const gapW = gapEnd - gapStart;
+      let start: number;
+      let beats: number;
+
+      if (L >= gapW - EPS) {
+        // 1.1: acord mai lung decat gap-ul -> micsorat exact la gap.
+        start = gapStart;
+        beats = gapW;
+      } else {
+        // 1.2: acord mai scurt -> aliniere la bara ritmica din stanga.
+        let firstStart = Math.floor(dropBeat / snapBeats) * snapBeats;
+        // Caz A: bara e "acoperita" de acordul din stanga -> lipeste de el.
+        if (firstStart < gapStart) firstStart = gapStart;
+        beats = L;
+        // Caz C: nu incape pana la acordul din dreapta -> micsorat.
+        if (firstStart + beats > gapEnd - EPS) {
+          beats = Math.max(MIN_CHORD_BEATS, gapEnd - firstStart);
+        }
+        start = firstStart;
+      }
+
+      const cloneId = crypto.randomUUID();
+      const clone: ClipChord = { id: cloneId, label: clip.chords[0].label, beats, startBeat: start };
+
+      // Vecinii raman FIXI (nu se misca, nu se modifica). Daca e cut, se
+      // inchide totusi gap-ul taietii (regula cut+paste).
+      let nextArr: ClipChord[] = [...sorted, clone];
+      if (clip.mode === "cut") nextArr = closeCutGap(nextArr, clip);
+      return { next: resolveOverlaps(nextArr), cloneIds: [cloneId] };
+    }
+  }
+
+  // --- Paste normal (nu in gap): push-dreapta ---
+  const safeIndex = Math.max(0, Math.min(insertIndex, sorted.length));
   let cursor: number;
   let shiftedTail: ClipChord[];
   if (safeIndex >= sorted.length) {
@@ -80,24 +173,6 @@ export function applyPaste(
   });
 
   let next: ClipChord[] = [...sorted.slice(0, safeIndex), ...clones, ...shiftedTail];
-
-  if (clip.mode === "cut") {
-    // Inchidem gap-ul: tot ce e la dreapta marginii gap-ului (cutStart +
-    // gapWidth) se muta la stanga cu gapWidth.
-    const edge = clip.cutStart + clip.gapWidth;
-    next = next.map((c) =>
-      c.startBeat >= edge - 1e-6 ? { ...c, startBeat: c.startBeat - clip.gapWidth } : c
-    );
-    // Siguranta: rezolva suprapunerile reziduale (cazuri de colt), pastrand
-    // duratele intacte si ordinea vizuala (push dreapta).
-    next = sortByStart(next);
-    for (let i = 0; i < next.length - 1; i++) {
-      const end = next[i].startBeat + next[i].beats;
-      if (next[i + 1].startBeat < end - 1e-6) {
-        next[i + 1] = { ...next[i + 1], startBeat: end };
-      }
-    }
-  }
-
-  return { next, cloneIds };
+  if (clip.mode === "cut") next = closeCutGap(next, clip);
+  return { next: resolveOverlaps(next), cloneIds };
 }

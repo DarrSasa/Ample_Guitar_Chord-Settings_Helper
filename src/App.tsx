@@ -21,6 +21,7 @@ import {
   makeCutClipboard,
   type ClipboardData,
 } from "./clipboardLogic";
+import { applySlideMove } from "./slideLogic";
 
 // Asset-uri grafice generate din PSD prin `node scripts/psd-to-svg.mjs`.
 // import.meta.glob adauga fisierele DACA exista in `src/assets/graphics/svg/`;
@@ -106,6 +107,8 @@ type ContextMenuState = {
   x: number;
   y: number;
   insertIndex: number;
+  // Pozitia cursorului in batai (pt. paste in gap).
+  dropBeat: number;
   // Id-ul acordului sub care s-a dat click dreapta (null = pe fundal).
   chordId: string | null;
 } | null;
@@ -1691,6 +1694,14 @@ export default function App() {
   const [snapshots, setSnapshots] = useState<Snapshot[]>([]);
   const [snapshotIndex, setSnapshotIndex] = useState(-1);
 
+  // Selectia multipla pe blocurile din "Scroll On History" (long-press+tap),
+  // stearsa cu Delete (buton/tasta). Stocam snapshotIndex-urile selectate.
+  const [selectedHistoryIdx, setSelectedHistoryIdx] = useState<number[]>([]);
+  const selectedHistoryIdxRef = useRef<number[]>([]);
+  // Timer + flag pentru gestul de long-press pe blocurile de istoric.
+  const historyPressTimerRef = useRef<number | null>(null);
+  const historySuppressClickRef = useRef(false);
+
   const topCodeRef = useRef(topCode);
   const builderRef = useRef(builderChords);
   const guideCodeRef = useRef(guideCode);
@@ -1959,6 +1970,9 @@ export default function App() {
   useEffect(() => {
     selectedRef.current = selectedBuilderIds;
   }, [selectedBuilderIds]);
+  useEffect(() => {
+    selectedHistoryIdxRef.current = selectedHistoryIdx;
+  }, [selectedHistoryIdx]);
   useEffect(() => {
     builderHistoryRef.current = builderHistory;
   }, [builderHistory]);
@@ -2230,100 +2244,8 @@ export default function App() {
     document.body.style.userSelect = "none";
   };
 
-  // Aplica modul SLIDE cu ORDER-PRESERVING CASCADING PUSH.
-  //
-  // IDEEA CHEIE (corectata dupa feedback user):
-  //   Cand un acord (A) e mutat, ORDINEA VIZUALA a acordurilor NU se
-  //   schimba niciodata. Daca A era la stanga lui B in progresia
-  //   originala, va ramane la stanga lui B si dupa mutare - chiar
-  //   daca deltaBeats l-ar duce matematic peste B.
-  //   Vecinii din calea lui A sunt IMPINSI (ca in FL Studio Playlist),
-  //   nu i se permite lui A sa treaca peste ei.
-  //
-  //   Astfel evitam iluzia de "swap" din slide - nu mai apare
-  //   niciodata ca A "sare" la mijlocul progresiei. Cascada e
-  //   monotona in ordinea originala.
-  //
-  // Algoritm:
-  //   1. Aplic delta pe membri (non-membrii isi pastreaza pozitia).
-  //   2. Sortez lista `base` dupa startBeat original -> ORDINEA VIZUALA.
-  //   3. Iterez in ordinea originala:
-  //      - dreapta (delta > 0): de la stanga la dreapta, frontier =
-  //        end-ul cel mai la dreapta atins. Daca un acord ar cadea
-  //        peste vecinul din fata, il impingem la frontier.
-  //      - stanga (delta < 0): simetric, de la dreapta la stanga.
-  //
-  //   Astfel ordinea vizuala e pastrata garantat -> zero suprapuneri,
-  //   zero swap-uri accidentale.
-  const applySlideMove = (
-    base: BuilderChord[],
-    groupIds: string[],
-    deltaBeats: number
-  ): BuilderChord[] => {
-    if (deltaBeats === 0) return base.map((c) => ({ ...c }));
-    const groupSet = new Set(groupIds);
-    // Pasul 1: aplic delta pe membri.
-    const moved: BuilderChord[] = base.map((c) => {
-      if (!groupSet.has(c.id)) return { ...c };
-      return { ...c, startBeat: c.startBeat + deltaBeats };
-    });
-
-    // Ordinea vizuala originala (dupa startBeat din `base`, dinainte
-    // de shift). Aceasta e ordinea pe care o pastram ORICE-ar fi.
-    const originalOrder = [...base]
-      .sort((a, b) => a.startBeat - b.startBeat)
-      .map((c) => c.id);
-    const byId = new Map<string, BuilderChord>();
-    moved.forEach((c) => byId.set(c.id, c));
-
-    const direction = deltaBeats > 0 ? 1 : -1;
-
-    if (direction > 0) {
-      // Sweep spre DREAPTA in ordinea originala.
-      let frontier = Number.NEGATIVE_INFINITY;
-      for (const id of originalOrder) {
-        const c = byId.get(id)!;
-        if (c.startBeat < frontier) {
-          c.startBeat = frontier;
-        }
-        frontier = c.startBeat + c.beats;
-      }
-    } else {
-      // Sweep spre STANGA in ordinea originala inversata.
-      let frontier = Number.POSITIVE_INFINITY;
-      let anyClamped = false;
-      for (let i = originalOrder.length - 1; i >= 0; i--) {
-        const c = byId.get(originalOrder[i])!;
-        const cEnd = c.startBeat + c.beats;
-        if (cEnd > frontier) {
-          c.startBeat = frontier - c.beats;
-        }
-        if (c.startBeat < 0) {
-          c.startBeat = 0;
-          anyClamped = true;
-        }
-        frontier = c.startBeat;
-      }
-      // Al doilea pass DOAR daca s-a facut clamp la 0. Repara
-      // suprapunerile create de acorduri care s-au inghesuit toate
-      // la 0 (nu aveau unde sa mearga mai la stanga). Le impinge la
-      // dreapta edge-to-edge in ordinea vizuala originala, dar
-      // NUMAI daca ar cadea unele peste altele - nu deranjeaza
-      // pozitiile care erau deja OK.
-      if (anyClamped) {
-        let leftFrontier = 0;
-        for (const id of originalOrder) {
-          const c = byId.get(id)!;
-          if (c.startBeat < leftFrontier) {
-            c.startBeat = leftFrontier;
-          }
-          leftFrontier = c.startBeat + c.beats;
-        }
-      }
-    }
-
-    return moved;
-  };
+  // Modul SLIDE e acum implementat in src/slideLogic.ts (pur, testabil) —
+  // dreapta = cascada push, stanga = stop lipit de vecin. Importat mai sus.
 
   // Aplica modul SWAP: A si B isi INVERSEAZA locurile, fiecare pastrandu-si
   // durata (beats) proprie. FARA snap la grid.
@@ -2898,6 +2820,51 @@ export default function App() {
     pushSnapshot({ topCode: nextTopCode, guideCode: nextGuideCode, label });
   };
 
+  // --- Scroll On History: selectie + stergere (Etapa 2) ---
+  // Toggle-ul unui bloc de istoric in selectia multipla (long-press + tap).
+  const toggleHistorySelection = (snapshotIdx: number) => {
+    const prev = selectedHistoryIdxRef.current;
+    const next = prev.includes(snapshotIdx)
+      ? prev.filter((x) => x !== snapshotIdx)
+      : [...prev, snapshotIdx];
+    selectedHistoryIdxRef.current = next;
+    setSelectedHistoryIdx(next);
+  };
+
+  // Sterge blocurile de istoric selectate (sau un singur snapshotIndex).
+  // Fiecare bloc afisat reprezinta o "serie" de snapshot-uri consecutive cu
+  // acelasi (code, label) — stergem intreaga serie.
+  const deleteHistoryRuns = (indices: number[]) => {
+    const snaps = snapshotsRef.current;
+    if (snaps.length === 0 || indices.length === 0) return;
+
+    // Eticheta/codul fiecarui snapshot (ca sa detectam seria).
+    const info = snaps.map((snap) => {
+      const row = rowByCode.get(snap.topCode);
+      const label = snap.label || (row ? chordDisplay(row) : `#${snap.topCode}`);
+      return { code: snap.topCode, label };
+    });
+
+    const toRemove = new Set<number>();
+    for (const i of indices) {
+      if (i < 0 || i >= snaps.length) continue;
+      let start = i;
+      while (start > 0 && info[start - 1].code === info[i].code && info[start - 1].label === info[i].label) start--;
+      let end = i + 1;
+      while (end < snaps.length && info[end].code === info[i].code && info[end].label === info[i].label) end++;
+      for (let k = start; k < end; k++) toRemove.add(k);
+    }
+
+    const next = snaps.filter((_, k) => !toRemove.has(k));
+    snapshotsRef.current = next;
+    setSnapshots(next);
+    const ni = Math.min(snapshotIndexRef.current, Math.max(0, next.length - 1));
+    snapshotIndexRef.current = ni;
+    setSnapshotIndex(ni);
+    selectedHistoryIdxRef.current = [];
+    setSelectedHistoryIdx([]);
+  };
+
   const addChordToBuilderAndRecord = (
     label: string,
     targetCode: number,
@@ -3275,12 +3242,25 @@ export default function App() {
     recordSnapshot(topCodeRef.current, guideCodeRef.current);
   };
 
-  const pasteCommand = (insertIndex: number) => {
+  // Converteste o coordonata X (viewport) in batai de timeline (dropBeat),
+  // folosind banda Builder-ului ca referinta (identic cu computeDropPlan).
+  const clientXToBeat = (clientX: number): number => {
+    const stripEl = document.querySelector<HTMLElement>("[data-builder-strip]");
+    const bw = effectiveBeatWidthRef.current || BEAT_WIDTH;
+    if (!stripEl) return 0;
+    const rect = stripEl.getBoundingClientRect();
+    return (clientX - rect.left) / bw;
+  };
+
+  const pasteCommand = (insertIndex: number, dropBeat?: number) => {
     const clip = clipboardRef.current;
     if (!clip || clip.chords.length === 0) return;
     // Regula: cu Ch On/Off ACTIV, paste doar pt. un singur acord in clipboard.
     if (auditionModeRef.current && clip.chords.length > 1) return;
-    const { next, cloneIds } = applyPaste(builderRef.current, clip, insertIndex);
+    // Pasul de grid pentru regulile de gap: "None" -> grila implicita de
+    // 1 beat (ca la drop), altfel pasul din Snap.
+    const snapBeats = snapRef.current === "None" ? 1 : snapDurationBeats(snapRef.current);
+    const { next, cloneIds } = applyPaste(builderRef.current, clip, insertIndex, dropBeat, snapBeats);
     setBuilderChords(next);
     pushBuilderHistory(next);
     selectedRef.current = cloneIds;
@@ -3926,13 +3906,15 @@ export default function App() {
       }
       let insideBuilderChord = false;
       let insideTableChord = false;
+      let insideHistoryBlock = false;
       let node: HTMLElement | null = target;
       while (node) {
         if (node.getAttribute) {
           if (node.getAttribute("data-builder-index") !== null) insideBuilderChord = true;
           if (node.getAttribute("data-table-chord") !== null) insideTableChord = true;
+          if (node.getAttribute("data-history-block") !== null) insideHistoryBlock = true;
         }
-        if (insideBuilderChord && insideTableChord) break;
+        if (insideBuilderChord && insideTableChord && insideHistoryBlock) break;
         node = node.parentElement;
       }
       if (!insideBuilderChord && !insideTableChord && selectedRef.current.length > 0) {
@@ -3940,6 +3922,11 @@ export default function App() {
       }
       if (!insideTableChord && !insideBuilderChord && selectedTableChordsRef.current.length > 0) {
         setSelectedTableChords([]);
+      }
+      // Selectia pe "Scroll On History" se sterge la click in afara blocurilor.
+      if (!insideHistoryBlock && selectedHistoryIdxRef.current.length > 0) {
+        selectedHistoryIdxRef.current = [];
+        setSelectedHistoryIdx([]);
       }
     };
     window.addEventListener("click", closeMenu);
@@ -3952,6 +3939,12 @@ export default function App() {
       const active = document.activeElement as HTMLElement | null;
       const tag = active?.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA" || active?.isContentEditable) return;
+      // Prioritate: daca e ceva selectat in "Scroll On History", stergem aia.
+      if (selectedHistoryIdxRef.current.length > 0) {
+        e.preventDefault();
+        deleteHistoryRuns(selectedHistoryIdxRef.current);
+        return;
+      }
       if (selectedRef.current.length === 0) return;
       e.preventDefault();
       const toDelete = new Set(selectedRef.current);
@@ -4331,11 +4324,10 @@ export default function App() {
       const beatWidth = effectiveBeatWidthRef.current;
       if (beatWidth <= 0) return;
 
-      // REGULA (user explicit): Mutarea acordurilor prin zona alba NU
-      // face snap la grila ritmica - NICIODATA (nici la slide, nici la
-      // swap). Mutarea e mereu libera pixel-perfect. Snap-ul functioneaza
-      // DOAR pentru cursorul de resize ↔.
-      const deltaBeats = dxPx / beatWidth;
+      // REGULA (user explicit): SLIDE face snap la grila ritmica (raportat la
+      // barele din stanga); SWAP nu face NICIODATA snap (pixel-perfect).
+      // Acordurile NU isi modifica lungimile — doar se face snap-ul.
+      let deltaBeats = dxPx / beatWidth;
 
       // Aplicam preview conform modului nudge curent.
       const mode = nudgeModeRef.current;
@@ -4345,6 +4337,15 @@ export default function App() {
         // aplica NICIODATA snap la grid - pozitiile raman pixel-perfect.
         next = applySwapMove(anchor.baseBuilder, anchor.groupIds, deltaBeats);
       } else {
+        // SLIDE: snap la grila ritmica (start-ul acordului tras se aliniaza
+        // la cea mai apropiata linie de grid; Snap = None -> liber).
+        const curSnap = snapRef.current;
+        if (curSnap !== "None") {
+          const step = snapDurationBeats(curSnap);
+          const proposed = anchor.primaryInitialStart + deltaBeats;
+          const snapped = Math.round(proposed / step) * step;
+          deltaBeats = snapped - anchor.primaryInitialStart;
+        }
         next = applySlideMove(anchor.baseBuilder, anchor.groupIds, deltaBeats);
       }
       // Nu permitem startBeat negativ - clamp la 0.
@@ -4444,7 +4445,7 @@ export default function App() {
       e.preventDefault();
       e.stopPropagation();
       const idx = findBuilderInsertIndex(e.clientX);
-      pasteCommand(idx);
+      pasteCommand(idx, clientXToBeat(e.clientX));
       exitPasteMode();
     };
     const onPasteContextMenu = (e: MouseEvent) => {
@@ -4452,7 +4453,7 @@ export default function App() {
       if (!isInBuilder(e.target)) return;
       e.preventDefault();
       const idx = findBuilderInsertIndex(e.clientX);
-      setContextMenu({ x: e.clientX, y: e.clientY, insertIndex: idx, chordId: null });
+      setContextMenu({ x: e.clientX, y: e.clientY, insertIndex: idx, dropBeat: clientXToBeat(e.clientX), chordId: null });
       exitPasteMode();
     };
     const onPasteKeyDown = (e: KeyboardEvent) => {
@@ -4609,33 +4610,71 @@ export default function App() {
         <div className="overflow-x-scroll border border-black bg-white/70">
           <div className="flex h-10 items-center px-1" style={{ gap: HISTORY_GAP }}>
             {historyItems.map((item, pickIndex) => {
-              const { code, label: blockLabel } = item;
-              const selected = guidePickIndex === pickIndex;
+              const { code, label: blockLabel, snapshotIndex: snapIdx } = item;
+              const isGuide = guidePickIndex === pickIndex;
+              const isHistorySelected = selectedHistoryIdx.includes(snapIdx);
 
               return (
                 <button
-                  key={`history-${pickIndex}-${code}`}
+                  key={`history-${snapIdx}`}
                   type="button"
+                  data-history-block=""
                   // h-10 mirrors the h-10 of the chord-suggestion buttons in
                   // the chord table so both bars have exactly the same
                   // block dimensions. min-w kept so short labels don't
                   // shrink to a sliver.
                   className={`h-10 min-w-[118px] border border-black px-2 text-left text-xs ${
-                    selected ? "bg-green-300 shadow-[0_0_10px_#4df72c]" : "bg-[#bae3b4]"
+                    isGuide
+                      ? "bg-green-300 shadow-[0_0_10px_#4df72c]"
+                      : isHistorySelected
+                      ? "bg-[#86efac] ring-2 ring-[#ff8827] shadow-[0_0_10px_#ff8827]"
+                      : "bg-[#bae3b4]"
                   }`}
+                  onMouseDown={(e) => {
+                    if (e.button !== 0) return;
+                    // Delete mode: click scurt = stergere (vezi onClick).
+                    if (deleteMode) return;
+                    // Long-press -> selectie multipla (long-press + tap).
+                    historySuppressClickRef.current = false;
+                    if (historyPressTimerRef.current !== null) {
+                      window.clearTimeout(historyPressTimerRef.current);
+                    }
+                    historyPressTimerRef.current = window.setTimeout(() => {
+                      historySuppressClickRef.current = true;
+                      toggleHistorySelection(snapIdx);
+                      historyPressTimerRef.current = null;
+                    }, longPressMs);
+                  }}
+                  onMouseUp={() => {
+                    if (historyPressTimerRef.current !== null) {
+                      window.clearTimeout(historyPressTimerRef.current);
+                      historyPressTimerRef.current = null;
+                    }
+                  }}
+                  onMouseLeave={() => {
+                    if (historyPressTimerRef.current !== null) {
+                      window.clearTimeout(historyPressTimerRef.current);
+                      historyPressTimerRef.current = null;
+                    }
+                  }}
                   onClick={() => {
+                    if (historySuppressClickRef.current) {
+                      historySuppressClickRef.current = false;
+                      return;
+                    }
+                    if (deleteMode) {
+                      // Opțiunea A: Delete mode + click = stergere individuala.
+                      deleteHistoryRuns([snapIdx]);
+                      return;
+                    }
                     if (startActive) {
-                      // Start mode: mark this history block as the "guide"
-                      // chord (turns green with a glow). Also push a fresh
-                      // snapshot pinned to this block's own code+label, so
-                      // Undo/Redo lands the user back on the chord they
-                      // guided TO, not wherever they happened to be
-                      // scrolled at the moment of the click.
+                      // Start mode: mark this history block as the "guide".
                       setGuideCode(code);
                       setGuidePickIndex(pickIndex);
                       pushSnapshot({ topCode: code, guideCode: code, label: blockLabel });
                     } else {
-                      recordSnapshot(code, guideCodeRef.current, blockLabel);
+                      // 2.2: click pe un bloc existent NU il re-inregistreaza —
+                      // doar face scroll la acordul respectiv.
                       scrollToCode(code, "smooth");
                     }
                   }}
@@ -4684,7 +4723,8 @@ export default function App() {
             onClick={() => {
               const builderSel = selectedRef.current;
               const tableSel = selectedTableChordsRef.current;
-              const hasAnySelection = builderSel.length > 0 || tableSel.length > 0;
+              const historySel = selectedHistoryIdxRef.current;
+              const hasAnySelection = builderSel.length > 0 || tableSel.length > 0 || historySel.length > 0;
 
               if (hasAnySelection) {
                 // Cu selectie -> stergere instant si iesire din delete mode.
@@ -4698,6 +4738,10 @@ export default function App() {
                 }
                 if (tableSel.length > 0) {
                   setSelectedTableChords([]);
+                }
+                // Selectie pe "Scroll On History" -> sterge blocurile.
+                if (historySel.length > 0) {
+                  deleteHistoryRuns(historySel);
                 }
                 setDeleteMode(false);
                 return;
@@ -5145,7 +5189,7 @@ export default function App() {
           }}
           onContextMenu={(e) => {
             e.preventDefault();
-            setContextMenu({ x: e.clientX, y: e.clientY, insertIndex: builderRef.current.length, chordId: null });
+            setContextMenu({ x: e.clientX, y: e.clientY, insertIndex: builderRef.current.length, dropBeat: clientXToBeat(e.clientX), chordId: null });
           }}
         >
           {/* The Time Bar sits DIRECTLY on top of the Builder chord strip
@@ -5379,7 +5423,7 @@ export default function App() {
                       const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect();
                       const before = e.clientX < rect.left + rect.width / 2;
                       const idx = builderRef.current.findIndex((x) => x.id === chord.id);
-                      setContextMenu({ x: e.clientX, y: e.clientY, insertIndex: before ? idx : idx + 1, chordId: chord.id });
+                      setContextMenu({ x: e.clientX, y: e.clientY, insertIndex: before ? idx : idx + 1, dropBeat: clientXToBeat(e.clientX), chordId: chord.id });
                     }}
                     title={`${chord.label}  ->  ${chordNotesDisplay(chord.label)}  [${chord.beats} beats]`}
                     // Width proportional to the chord's own beats value, so
@@ -5818,7 +5862,7 @@ export default function App() {
                   type="button"
                   disabled={!canPaste}
                   onClick={() => {
-                    pasteCommand(contextMenu.insertIndex);
+                    pasteCommand(contextMenu.insertIndex, contextMenu.dropBeat);
                     exitPasteMode();
                     setContextMenu(null);
                   }}
