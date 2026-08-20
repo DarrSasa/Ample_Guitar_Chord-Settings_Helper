@@ -2891,9 +2891,9 @@ export default function App() {
     const label = chordDisplay(row);
     const prev = selectedTableChordsRef.current;
     const exists = prev.some((s) => s.btnId === btnId);
-    const next = exists
-      ? prev.filter((s) => s.btnId !== btnId)
-      : [...prev, { btnId, label, code }];
+    // Selectie UNICA: cand selectezi un acord din istoric, orice alt acord se
+    // deselecteaza (in tabel ramane selectat doar acesta).
+    const next = exists ? [] : [{ btnId, label, code }];
     selectedTableChordsRef.current = next;
     setSelectedTableChords(next);
   };

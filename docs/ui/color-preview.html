@@ -10,11 +10,11 @@
     --builder: #677987;
     --orange: #FCBF8D;
     --accent: #ff8827;
-    --chord-base: #099938;
-    --chord-hover: #07b741;
-    --chord-sel: #07b741;
-    --chord-sel-glow: #12ff60;
-    --lock-open: #12ff60;
+    --chord-base: #37926a;      /* NOU */
+    --chord-hover: #07b741;     /* NOU */
+    --chord-sel: #3fac7c;       /* NOU */
+    --chord-sel-glow: #12ff60;  /* NOU */
+    --lock-open: #4ed499;       /* NOU */
   }
   * { box-sizing: border-box; }
   body {
@@ -44,7 +44,7 @@
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.75); font-size: 12px; color: #fff;
   }
 
-  /* Bloc de acord (istoric + tabel) — culoare de baza #099938, hover glow #07b741 */
+  /* Bloc de acord (istoric + tabel) — culoare de baza #37926a, hover glow #07b741 */
   .chord-block {
     position: relative;
     display: inline-flex; align-items: center;
@@ -85,8 +85,8 @@
 <body>
   <h1>PREVIEW — culori noi pentru blocurile de acorduri + lacăt</h1>
   <p class="sub">
-    Baza: <b>#099938</b> · hover glow: <b>#07b741</b> · selectat: <b>#07b741</b> + glow <b>#12ff60</b> ·
-    lacăt închis: <b>#ffffff</b> · lacăt deschis: <b>#12ff60</b>.
+    Baza: <b>#37926a</b> · hover glow: <b>#07b741</b> · selectat: <b>#3fac7c</b> + glow <b>#12ff60</b> ·
+    lacăt închis: <b>#ffffff</b> · lacăt deschis: <b>#4ed499</b>.
   </p>
 
   <div class="app">
@@ -160,24 +160,25 @@
 
   <div class="legend">
     <b>Legenda culorilor:</b><br>
-    <span class="swatch" style="background:#099938"></span> Bloc acord (bază) — <code>#099938</code><br>
-    <span class="swatch" style="background:#07b741"></span> Hover glow / fundal selectat — <code>#07b741</code><br>
-    <span class="swatch" style="background:#12ff60"></span> Glow selectat / lacăt deschis — <code>#12ff60</code><br>
-    <span class="swatch" style="background:#ffffff"></span> Lacăt închis — <code>#ffffff</code>
+    <span class="swatch" style="background:#37926a"></span> Bloc acord (bază) — <code>#37926a</code><br>
+    <span class="swatch" style="background:#3fac7c"></span> Fundal selectat — <code>#3fac7c</code><br>
+    <span class="swatch" style="background:#12ff60"></span> Glow selectat — <code>#12ff60</code><br>
+    <span class="swatch" style="background:#07b741"></span> Glow hover — <code>#07b741</code><br>
+    <span class="swatch" style="background:#4ed499"></span> Lacăt deschis — <code>#4ed499</code>
   </div>
 
 <script>
   // Lacat din lock.psd (vectorizat) — fill recolorabil.
-  //   closed = #ffffff, open = #12ff60. FARA contur negru.
+  //   closed = #ffffff, open = #4ed499. FARA contur negru.
   const D_OPEN = `M 323.5 97 L 365.5 98 L 398.5 104 Q 429.8 112.8 448 134.5 Q 457.7 145.8 461 163.5 L 461 281 L 488.5 281 L 500 289.5 L 504 298.5 L 504 566.5 L 502 574.5 L 496.5 582 L 487.5 587 L 189.5 587 Q 182.1 584.9 178 579.5 L 173 568.5 L 173 297.5 Q 175.4 288.4 182.5 284 L 188.5 281 L 215 281 L 215 164.5 L 217 155.5 L 222 143.5 Q 229.3 130.8 240.5 122 Q 256 110 277.5 104 L 301.5 99 L 322.5 98 L 323.5 97 Z M 333 140 L 332 141 L 315 141 L 314 142 L 301 143 L 283 148 L 268 156 Q 260 161 258 171 L 258 184 L 259 185 L 259 281 L 418 281 L 419 280 L 419 172 L 413 160 L 405 153 L 385 145 L 362 141 L 333 140 Z M 332 338 Q 319 340 312 347 Q 300 356 296 373 Q 294 387 298 396 Q 303 408 312 416 L 312 424 L 310 434 L 306 447 L 305 456 L 289 524 L 290 528 L 294 530 L 384 530 L 386 529 L 387 527 L 385 511 L 382 502 L 381 493 L 378 484 L 375 466 L 364 420 L 366 414 L 376 402 L 381 388 Q 383 364 372 354 Q 365 344 354 340 L 346 338 L 332 338 Z `;
   const D_CLOSE = `M 322.5 97 L 367.5 98 L 398.5 104 Q 415.3 108.7 428.5 117 L 448 134.5 Q 457.7 145.8 461 163.5 L 461 281 L 488.5 281 Q 495.9 283.6 500 289.5 L 504 298.5 L 504 567.5 Q 502.4 576.9 496.5 582 L 487.5 587 L 189.5 587 Q 181.5 584.5 177 578.5 L 173 569.5 L 173 297.5 Q 175.4 288.4 182.5 284 L 188.5 281 L 215 281 L 215 164.5 Q 220.5 136 240.5 122 Q 256 110 277.5 104 L 301.5 99 L 321.5 98 L 322.5 97 Z M 337 140 L 336 141 L 316 141 L 315 142 L 307 142 L 297 144 L 278 150 L 268 156 L 259 167 L 259 281 L 418 281 L 419 280 L 419 173 L 415 163 L 405 153 L 388 146 L 370 142 L 341 141 L 337 140 Z M 332 338 Q 319 340 312 347 Q 300 356 296 373 Q 294 387 298 396 Q 303 408 312 416 L 312 424 L 310 434 L 307 443 L 300 479 L 289 525 L 290 528 L 294 530 L 384 530 L 386 529 L 387 527 L 385 511 L 382 502 L 374 462 L 371 453 L 370 444 L 367 435 L 366 426 L 364 421 L 366 414 Q 373 407 378 398 L 381 387 L 380 370 Q 377 359 371 353 L 356 341 L 346 338 L 332 338 Z `;
   const VB = `173 97 331 490`;
   function lockSvg(open) {
-    const fill = open ? "#12ff60" : "#ffffff";
+    const fill = open ? "#4ed499" : "#ffffff";
     const d = open ? D_OPEN : D_CLOSE;
     return `<svg width="22" height="22" viewBox="${VB}" xmlns="http://www.w3.org/2000/svg"><path fill="${fill}" d="${d}"/></svg>`;
   }
-  // Aplicam lacatele: primul bloc = inchis (alb), restul = deschis (#12ff60),
+  // Aplicam lacatele: primul bloc = inchis (alb), restul = deschis (#4ed499),
   // iar blocul selectat din tabel are lacat deschis.
   const locks = document.querySelectorAll('.lock');
   locks.forEach((l, i) => {
