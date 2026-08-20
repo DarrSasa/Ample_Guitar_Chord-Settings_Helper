@@ -15,8 +15,8 @@ Urcă fișierul **`lock.psd`** direct in acest folder (`docs/ui/`), pe ramura
 - Documentul va avea cele 2 layere ca PNG-uri in interior.
 
 Dupa ce il urci, il convertesc in SVG (scalabil cu marirea programului) cu
-culorile stabilite: închis = `#ffffff`, deschis = `#12ff60`, ambele cu contur
-negru de 2.5px.
+culorile stabilite: închis = `#ffffff`, deschis = `#12ff60`. FARA contur negru
+(user explicit).
 
 ## Fisiere de previzualizare
 

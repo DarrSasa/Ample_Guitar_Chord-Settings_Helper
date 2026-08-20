@@ -168,15 +168,16 @@
 
 <script>
   // Lacat SVG (clasic) — culoarea corpului in functie de stare:
-  //   closed = #ffffff, open = #12ff60. Contur negru 2.5px.
+  //   closed = #ffffff, open = #12ff60. FARA contur negru (user explicit).
+  //   Detaliile interne (gaură + dantura) raman in negru, dar fara stroke.
   function lockSvg(open) {
     const fill = open ? '#12ff60' : '#ffffff';
     const shackle = open
       ? 'M9 5 V4 a3 3 0 0 1 6 0 v1'          // arc deschis (ridicat)
       : 'M9 7 V4 a3 3 0 0 1 6 0 v3';         // arc inchis
     return `<svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <rect x="5" y="11" width="14" height="9" rx="2" fill="${fill}" stroke="#000" stroke-width="2.5"/>
-      <path d="${shackle}" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"/>
+      <rect x="5" y="11" width="14" height="9" rx="2" fill="${fill}"/>
+      <path d="${shackle}" fill="none" stroke="${fill}" stroke-width="4.5" stroke-linecap="round"/>
       <circle cx="12" cy="14.5" r="1.6" fill="#000"/>
       <rect x="11" y="15.4" width="2" height="2.6" fill="#000"/>
     </svg>`;
