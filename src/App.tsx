@@ -53,7 +53,7 @@ function graphic(name: string): string | undefined {
 // in SVG (src/assets/graphics/svg/lock-open.svg + lock-close.svg). SVg-urile
 // folosesc fill="currentColor", deci culoarea vine din `color`:
 //   - inchis (locked)   = #ffffff (alb)
-//   - deschis (unlocked)= #12ff60 (verde)
+//   - deschis (unlocked)= #4ed499 (verde)
 // FARA contur negru (user explicit). Se scaleaza odata cu programul (width/
 // height in px date de apelator, raportul e pastrat de viewBox).
 function LockIcon({ open, size = 22 }: { open: boolean; size?: number }) {
@@ -63,7 +63,7 @@ function LockIcon({ open, size = 22 }: { open: boolean; size?: number }) {
   // Culoarea e injectata DIRECT in `fill` (nu prin `currentColor` mostenit
   // dintr-un span) — un !important global din index.css forteaza `color: #fff`
   // pe toate elementele non-SVG, deci mostenirea prin currentColor nu merge.
-  const color = open ? "#12ff60" : "#ffffff";
+  const color = open ? "#4ed499" : "#ffffff";
   const svg = raw
     .replace("<svg ", `<svg width="${size}" height="${size}" `)
     .replace(/fill="currentColor"/g, `fill="${color}"`);
@@ -4669,8 +4669,8 @@ export default function App() {
                   // shrink to a sliver.
                   className={`relative h-10 min-w-[118px] border border-black pl-6 pr-2 text-left text-xs transition-all ${
                     chordSelected
-                      ? "bg-[#07b741] shadow-[0_0_12px_#12ff60] ring-2 ring-[#12ff60]"
-                      : "bg-[#099938] hover:shadow-[0_0_8px_#07b741]"
+                      ? "bg-[#3fac7c] shadow-[0_0_12px_#12ff60] ring-2 ring-[#12ff60]"
+                      : "bg-[#37926a] hover:shadow-[0_0_8px_#07b741]"
                   }`}
                   onClick={() => {
                     // Delete mode activ: click = stergere individuala a blocului
@@ -5459,10 +5459,10 @@ export default function App() {
                     }}
                     className={`relative z-10 h-full border border-black px-1 text-left text-[11px] transition-all ${
                       selected
-                        ? "bg-[#07b741] shadow-[0_0_12px_#12ff60] ring-2 ring-[#12ff60]"
+                        ? "bg-[#3fac7c] shadow-[0_0_12px_#12ff60] ring-2 ring-[#12ff60]"
                         : playing || blinking
-                        ? "bg-[#07b741] shadow-[0_0_10px_#12ff60]"
-                        : "bg-[#099938] hover:shadow-[0_0_8px_#07b741]"
+                        ? "bg-[#3fac7c] shadow-[0_0_10px_#12ff60]"
+                        : "bg-[#37926a] hover:shadow-[0_0_8px_#07b741]"
                     }`}
                   >
                     {/* The chord label + its notes list are rendered via
@@ -5791,10 +5791,10 @@ export default function App() {
                             title={`${nextChord.label}  ->  ${chordNotesDisplay(nextChord.label)}`}
                             className={`h-10 border border-black px-2 text-xs transition-all ${
                               selected
-                                ? "bg-[#07b741] shadow-[0_0_12px_#12ff60] ring-2 ring-[#12ff60]"
+                                ? "bg-[#3fac7c] shadow-[0_0_12px_#12ff60] ring-2 ring-[#12ff60]"
                                 : pressed
-                                ? "bg-[#07b741] shadow-[0_0_10px_#12ff60]"
-                                : "bg-[#099938] hover:shadow-[0_0_8px_#07b741]"
+                                ? "bg-[#3fac7c] shadow-[0_0_10px_#12ff60]"
+                                : "bg-[#37926a] hover:shadow-[0_0_8px_#07b741]"
                             }`}
                           >
                             {nextChord.label}
