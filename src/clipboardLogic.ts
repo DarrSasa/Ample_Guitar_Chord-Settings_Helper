@@ -76,7 +76,18 @@ function resolveOverlaps(arr: ClipChord[]): ClipChord[] {
 
 // Inchide gap-ul lasat de "cut": tot ce e la dreapta marginii gap-ului
 // (cutStart + gapWidth) se muta la stanga cu gapWidth.
-function closeCutGap(arr: ClipChord[], clip: ClipboardData): ClipChord[] {
+//
+// NU inchidem gap-ul daca taietura e la INCEPUTUL progresiei (nu exista niciun
+// acord la stanga gaurii) — altfel, dupa paste, TOATA progresia s-ar muta la
+// stanga (user explicit: nu trebuie sa existe nicio miscare a progresiei cand
+// tai primul acord si lipesti inapoi intr-un gap).
+function closeCutGap(
+  arr: ClipChord[],
+  clip: ClipboardData,
+  baseSorted: ClipChord[]
+): ClipChord[] {
+  const hasLeft = baseSorted.some((c) => c.startBeat + c.beats <= clip.cutStart + EPS);
+  if (!hasLeft) return arr;
   const edge = clip.cutStart + clip.gapWidth;
   return arr.map((c) =>
     c.startBeat >= edge - EPS ? { ...c, startBeat: c.startBeat - clip.gapWidth } : c
@@ -144,9 +155,10 @@ export function applyPaste(
       const clone: ClipChord = { id: cloneId, label: clip.chords[0].label, beats, startBeat: start };
 
       // Vecinii raman FIXI (nu se misca, nu se modifica). Daca e cut, se
-      // inchide totusi gap-ul taietii (regula cut+paste).
+      // inchide totusi gap-ul taietii (regula cut+paste), DAR doar daca nu e
+      // taietura de la inceputul progresiei (closeCutGap face verificarea).
       let nextArr: ClipChord[] = [...sorted, clone];
-      if (clip.mode === "cut") nextArr = closeCutGap(nextArr, clip);
+      if (clip.mode === "cut") nextArr = closeCutGap(nextArr, clip, sorted);
       return { next: resolveOverlaps(nextArr), cloneIds: [cloneId] };
     }
   }
@@ -173,6 +185,6 @@ export function applyPaste(
   });
 
   let next: ClipChord[] = [...sorted.slice(0, safeIndex), ...clones, ...shiftedTail];
-  if (clip.mode === "cut") next = closeCutGap(next, clip);
+  if (clip.mode === "cut") next = closeCutGap(next, clip, sorted);
   return { next: resolveOverlaps(next), cloneIds };
 }

@@ -73,6 +73,20 @@ const cutLong = makeCutClipboard([{ id: "B", label: "B", beats: 3, startBeat: 1 
 r = applyPaste([A1, C3], cutLong, 1, 2, 1); // gap [1,3): B micsorat la 2, apoi inchide gap-ul taietii
 assert(fmt(r.next) === "A@0[1] B@1[2] C@3[1]", "cut+paste in gap: B micsorat -> " + fmt(r.next));
 
+console.log("== NOU: cut pe PRIMUL acord + paste in gap = fara miscarea progresiei ==");
+// A@0..1 (primul), B@3..4, C@4..5. Cut A (cutStart 0, gapWidth 1).
+// Paste A in gap-ul [0,3) la dropBeat=2 -> A la 2; B si C raman PE LOC.
+const AFirst = { id: "A", label: "A", beats: 1, startBeat: 0 };
+const B3 = { id: "B", label: "B", beats: 1, startBeat: 3 };
+const C4 = { id: "C", label: "C", beats: 1, startBeat: 4 };
+const cutFirst = makeCutClipboard([AFirst]);
+r = applyPaste([B3, C4], cutFirst, 1, 2, 1); // dropBeat=2 in gap [0,3)
+assert(fmt(r.next) === "A@2[1] B@3[1] C@4[1]", "cut primul + paste in gap -> B,C nemiscati: " + fmt(r.next));
+
+console.log("== NOU: cut pe PRIMUL acord + paste la coada = fara miscarea progresiei ==");
+r = applyPaste([B3, C4], cutFirst, 2); // paste la coada (fara dropBeat)
+assert(fmt(r.next) === "B@3[1] C@4[1] A@5[1]", "cut primul + paste coada -> B,C nemiscati: " + fmt(r.next));
+
 console.log("== progressionEndBeat ==");
 assert(progressionEndBeat([A, C]) === 3, "end(A,C) = 3");
 

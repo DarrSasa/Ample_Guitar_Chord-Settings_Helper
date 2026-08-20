@@ -44,6 +44,22 @@ console.log("== delta 0 = fara schimbari ==");
 r = applySlideMove([A, B], ["A"], 0);
 assert(fmt(r) === "A@0 B@4", "delta 0 -> neschimbat -> " + fmt(r));
 
+console.log("== NOU: STANGA impinge grupul la stanga (cascada, simetric cu dreapta) ==");
+// A@4..6, B@6..8 (progresia incepe la beat 4 = leading gap 0..4).
+// Move B left by 1 -> tot grupul se muta la stanga (A e impins la 3).
+const A4 = { id: "A", beats: 2, startBeat: 4 };
+const B6 = { id: "B", beats: 2, startBeat: 6 };
+r = applySlideMove([A4, B6], ["B"], -1);
+assert(fmt(r) === "A@3 B@5", "B tras stanga impinge A -> " + fmt(r));
+assert(beatsOf(r, "A") === 2 && beatsOf(r, "B") === 2, "lungimi intacte");
+
+console.log("== NOU: STANGA fara gap ramas (totul la 0) -> oprire ==");
+// A@0..2, B@2..4 (lipite la 0). Move B left -> nimic nu se misca.
+const A0 = { id: "A", beats: 2, startBeat: 0 };
+const B2 = { id: "B", beats: 2, startBeat: 2 };
+r = applySlideMove([A0, B2], ["B"], -1);
+assert(fmt(r) === "A@0 B@2", "fara gap -> oprire -> " + fmt(r));
+
 console.log("");
 console.log(`Rezultat: ${passed} ok, ${failed} fail`);
 process.exit(failed === 0 ? 0 : 1);

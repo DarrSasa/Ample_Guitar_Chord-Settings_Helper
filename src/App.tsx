@@ -1415,7 +1415,6 @@ export default function App() {
   }, [selectedTableChords]);
   const [startActive, setStartActive] = useState(false);
   const [guideCode, setGuideCode] = useState<number | null>(null);
-  const [guidePickIndex, setGuidePickIndex] = useState<number | null>(null);
 
   const [builderChords, setBuilderChords] = useState<BuilderChord[]>([]);
   const [selectedBuilderIds, setSelectedBuilderIds] = useState<string[]>([]);
@@ -1694,14 +1693,6 @@ export default function App() {
   const [snapshots, setSnapshots] = useState<Snapshot[]>([]);
   const [snapshotIndex, setSnapshotIndex] = useState(-1);
 
-  // Selectia multipla pe blocurile din "Scroll On History" (long-press+tap),
-  // stearsa cu Delete (buton/tasta). Stocam snapshotIndex-urile selectate.
-  const [selectedHistoryIdx, setSelectedHistoryIdx] = useState<number[]>([]);
-  const selectedHistoryIdxRef = useRef<number[]>([]);
-  // Timer + flag pentru gestul de long-press pe blocurile de istoric.
-  const historyPressTimerRef = useRef<number | null>(null);
-  const historySuppressClickRef = useRef(false);
-
   const topCodeRef = useRef(topCode);
   const builderRef = useRef(builderChords);
   const guideCodeRef = useRef(guideCode);
@@ -1970,9 +1961,6 @@ export default function App() {
   useEffect(() => {
     selectedRef.current = selectedBuilderIds;
   }, [selectedBuilderIds]);
-  useEffect(() => {
-    selectedHistoryIdxRef.current = selectedHistoryIdx;
-  }, [selectedHistoryIdx]);
   useEffect(() => {
     builderHistoryRef.current = builderHistory;
   }, [builderHistory]);
@@ -2563,7 +2551,7 @@ export default function App() {
     setTopCode(nearest);
   };
 
-  const stopPlayback = () => {
+  const stopPlayback = (flash = true) => {
     if (playTimerRef.current !== null) {
       window.clearInterval(playTimerRef.current);
       playTimerRef.current = null;
@@ -2581,6 +2569,7 @@ export default function App() {
     // Stop dezactiveaza si Loop-ul (user explicit): daca playback-ul era
     // in loop, nu se mai porneste automat la urmatorul Play.
     setLoopActive(false);
+    if (!flash) return;
     // Flash vizual pe butonul Stop: 400ms grafica stop-on, apoi revine
     // la stop-off automat (user explicit).
     if (stopFlashTimerRef.current !== null) {
@@ -2820,49 +2809,23 @@ export default function App() {
     pushSnapshot({ topCode: nextTopCode, guideCode: nextGuideCode, label });
   };
 
-  // --- Scroll On History: selectie + stergere (Etapa 2) ---
-  // Toggle-ul unui bloc de istoric in selectia multipla (long-press + tap).
-  const toggleHistorySelection = (snapshotIdx: number) => {
-    const prev = selectedHistoryIdxRef.current;
-    const next = prev.includes(snapshotIdx)
-      ? prev.filter((x) => x !== snapshotIdx)
-      : [...prev, snapshotIdx];
-    selectedHistoryIdxRef.current = next;
-    setSelectedHistoryIdx(next);
-  };
-
-  // Sterge blocurile de istoric selectate (sau un singur snapshotIndex).
-  // Fiecare bloc afisat reprezinta o "serie" de snapshot-uri consecutive cu
-  // acelasi (code, label) — stergem intreaga serie.
-  const deleteHistoryRuns = (indices: number[]) => {
-    const snaps = snapshotsRef.current;
-    if (snaps.length === 0 || indices.length === 0) return;
-
-    // Eticheta/codul fiecarui snapshot (ca sa detectam seria).
-    const info = snaps.map((snap) => {
-      const row = rowByCode.get(snap.topCode);
-      const label = snap.label || (row ? chordDisplay(row) : `#${snap.topCode}`);
-      return { code: snap.topCode, label };
-    });
-
-    const toRemove = new Set<number>();
-    for (const i of indices) {
-      if (i < 0 || i >= snaps.length) continue;
-      let start = i;
-      while (start > 0 && info[start - 1].code === info[i].code && info[start - 1].label === info[i].label) start--;
-      let end = i + 1;
-      while (end < snaps.length && info[end].code === info[i].code && info[end].label === info[i].label) end++;
-      for (let k = start; k < end; k++) toRemove.add(k);
-    }
-
-    const next = snaps.filter((_, k) => !toRemove.has(k));
-    snapshotsRef.current = next;
-    setSnapshots(next);
-    const ni = Math.min(snapshotIndexRef.current, Math.max(0, next.length - 1));
-    snapshotIndexRef.current = ni;
-    setSnapshotIndex(ni);
-    selectedHistoryIdxRef.current = [];
-    setSelectedHistoryIdx([]);
+  // --- Scroll On History: selectarea acordului in tabel ---
+  // Cand Scroll On/Off e OFF si Start e activ, click pe un bloc de istoric
+  // selecteaza/deselecteaza acordul corespunzator in tabel (butonul de
+  // sugestie de baza al randului). Selectia intra in selectedTableChords
+  // (folosita apoi pentru drag in Builder sau Delete).
+  const toggleTableChordSelection = (code: number) => {
+    const row = rowByCode.get(code);
+    if (!row) return;
+    const btnId = `${row.id}-${row.id}-0`;
+    const label = chordDisplay(row);
+    const prev = selectedTableChordsRef.current;
+    const exists = prev.some((s) => s.btnId === btnId);
+    const next = exists
+      ? prev.filter((s) => s.btnId !== btnId)
+      : [...prev, { btnId, label, code }];
+    selectedTableChordsRef.current = next;
+    setSelectedTableChords(next);
   };
 
   const addChordToBuilderAndRecord = (
@@ -2928,7 +2891,12 @@ export default function App() {
     // "C Maj" because it rebuilt the label from just the target row's
     // root+type, losing extension/alteration/bass. Now the bar shows the
     // exact chord that was added.
-    if (scrollFollowMode) {
+    //
+    // PRIMUL acord adaugat in Builder se inregistreaza INTOTDEAUNA in
+    // istoric (apare la inceputul listei), indiferent de Scroll On/Off.
+    // Restul se inregistreaza doar cand Scroll On/Off e activ.
+    const isFirstChord = base.length === 0;
+    if (scrollFollowMode || isFirstChord) {
       recordSnapshot(targetCode, guideCodeRef.current, label);
     }
 
@@ -3025,7 +2993,9 @@ export default function App() {
     // Only record ONE Scroll On History entry for the whole batch (using
     // the FIRST item's code+label). Adding N entries for a multi-drop
     // would spam the history bar for no clear benefit.
-    if (scrollFollowMode) {
+    // Primul batch (cand Builder-ul era gol) se inregistreaza INTOTDEAUNA.
+    const isFirstBatch = base.length === 0;
+    if (scrollFollowMode || isFirstBatch) {
       const first = items[0];
       const codeForSnap = Number.isFinite(first.code) ? first.code : topCodeRef.current;
       recordSnapshot(codeForSnap, guideCodeRef.current, first.label);
@@ -3593,7 +3563,9 @@ export default function App() {
   };
 
   const applySnapshot = (snapshot: Snapshot, index: number) => {
-    stopPlayback();
+    // Oprim playback-ul FARA flash pe butonul Stop (undo/redo nu trebuie sa
+    // aprinda butonul Stop din Builder — user explicit).
+    stopPlayback(false);
     setGuideCode(snapshot.guideCode);
     setSelectedBuilderIds([]);
     setSnapshotIndex(index);
@@ -3906,15 +3878,13 @@ export default function App() {
       }
       let insideBuilderChord = false;
       let insideTableChord = false;
-      let insideHistoryBlock = false;
       let node: HTMLElement | null = target;
       while (node) {
         if (node.getAttribute) {
           if (node.getAttribute("data-builder-index") !== null) insideBuilderChord = true;
           if (node.getAttribute("data-table-chord") !== null) insideTableChord = true;
-          if (node.getAttribute("data-history-block") !== null) insideHistoryBlock = true;
         }
-        if (insideBuilderChord && insideTableChord && insideHistoryBlock) break;
+        if (insideBuilderChord && insideTableChord) break;
         node = node.parentElement;
       }
       if (!insideBuilderChord && !insideTableChord && selectedRef.current.length > 0) {
@@ -3922,11 +3892,6 @@ export default function App() {
       }
       if (!insideTableChord && !insideBuilderChord && selectedTableChordsRef.current.length > 0) {
         setSelectedTableChords([]);
-      }
-      // Selectia pe "Scroll On History" se sterge la click in afara blocurilor.
-      if (!insideHistoryBlock && selectedHistoryIdxRef.current.length > 0) {
-        selectedHistoryIdxRef.current = [];
-        setSelectedHistoryIdx([]);
       }
     };
     window.addEventListener("click", closeMenu);
@@ -3939,12 +3904,6 @@ export default function App() {
       const active = document.activeElement as HTMLElement | null;
       const tag = active?.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA" || active?.isContentEditable) return;
-      // Prioritate: daca e ceva selectat in "Scroll On History", stergem aia.
-      if (selectedHistoryIdxRef.current.length > 0) {
-        e.preventDefault();
-        deleteHistoryRuns(selectedHistoryIdxRef.current);
-        return;
-      }
       if (selectedRef.current.length === 0) return;
       e.preventDefault();
       const toDelete = new Set(selectedRef.current);
@@ -4609,74 +4568,30 @@ export default function App() {
         */}
         <div className="overflow-x-scroll border border-black bg-white/70">
           <div className="flex h-10 items-center px-1" style={{ gap: HISTORY_GAP }}>
-            {historyItems.map((item, pickIndex) => {
+            {historyItems.map((item) => {
               const { code, label: blockLabel, snapshotIndex: snapIdx } = item;
-              const isGuide = guidePickIndex === pickIndex;
-              const isHistorySelected = selectedHistoryIdx.includes(snapIdx);
 
               return (
                 <button
                   key={`history-${snapIdx}`}
                   type="button"
-                  data-history-block=""
                   // h-10 mirrors the h-10 of the chord-suggestion buttons in
                   // the chord table so both bars have exactly the same
                   // block dimensions. min-w kept so short labels don't
                   // shrink to a sliver.
-                  className={`h-10 min-w-[118px] border border-black px-2 text-left text-xs ${
-                    isGuide
-                      ? "bg-green-300 shadow-[0_0_10px_#4df72c]"
-                      : isHistorySelected
-                      ? "bg-[#86efac] ring-2 ring-[#ff8827] shadow-[0_0_10px_#ff8827]"
-                      : "bg-[#bae3b4]"
-                  }`}
-                  onMouseDown={(e) => {
-                    if (e.button !== 0) return;
-                    // Delete mode: click scurt = stergere (vezi onClick).
-                    if (deleteMode) return;
-                    // Long-press -> selectie multipla (long-press + tap).
-                    historySuppressClickRef.current = false;
-                    if (historyPressTimerRef.current !== null) {
-                      window.clearTimeout(historyPressTimerRef.current);
-                    }
-                    historyPressTimerRef.current = window.setTimeout(() => {
-                      historySuppressClickRef.current = true;
-                      toggleHistorySelection(snapIdx);
-                      historyPressTimerRef.current = null;
-                    }, longPressMs);
-                  }}
-                  onMouseUp={() => {
-                    if (historyPressTimerRef.current !== null) {
-                      window.clearTimeout(historyPressTimerRef.current);
-                      historyPressTimerRef.current = null;
-                    }
-                  }}
-                  onMouseLeave={() => {
-                    if (historyPressTimerRef.current !== null) {
-                      window.clearTimeout(historyPressTimerRef.current);
-                      historyPressTimerRef.current = null;
-                    }
-                  }}
+                  className="h-10 min-w-[118px] border border-black px-2 text-left text-xs bg-[#bae3b4]"
                   onClick={() => {
-                    if (historySuppressClickRef.current) {
-                      historySuppressClickRef.current = false;
-                      return;
-                    }
-                    if (deleteMode) {
-                      // Opțiunea A: Delete mode + click = stergere individuala.
-                      deleteHistoryRuns([snapIdx]);
-                      return;
-                    }
-                    if (startActive) {
-                      // Start mode: mark this history block as the "guide".
-                      setGuideCode(code);
-                      setGuidePickIndex(pickIndex);
-                      pushSnapshot({ topCode: code, guideCode: code, label: blockLabel });
-                    } else {
-                      // 2.2: click pe un bloc existent NU il re-inregistreaza —
-                      // doar face scroll la acordul respectiv.
+                    // Click pe un bloc de istoric NU il re-inregistreaza NICIODATA
+                    // (nici primul, nici ultimul), indiferent de Start.
+                    if (scrollFollowMode) {
+                      // Scroll On/Off = ON: muta glisorul tabelului la acord.
                       scrollToCode(code, "smooth");
+                    } else if (startActive) {
+                      // Scroll On/Off = OFF + Start activ: selecteaza/deselecteaza
+                      // acordul corespunzator in tabel.
+                      toggleTableChordSelection(code);
                     }
+                    // Scroll OFF + Start inactiv: nimic (nu se poate selecta).
                   }}
                 >
                   {blockLabel}
@@ -4723,8 +4638,7 @@ export default function App() {
             onClick={() => {
               const builderSel = selectedRef.current;
               const tableSel = selectedTableChordsRef.current;
-              const historySel = selectedHistoryIdxRef.current;
-              const hasAnySelection = builderSel.length > 0 || tableSel.length > 0 || historySel.length > 0;
+              const hasAnySelection = builderSel.length > 0 || tableSel.length > 0;
 
               if (hasAnySelection) {
                 // Cu selectie -> stergere instant si iesire din delete mode.
@@ -4738,10 +4652,6 @@ export default function App() {
                 }
                 if (tableSel.length > 0) {
                   setSelectedTableChords([]);
-                }
-                // Selectie pe "Scroll On History" -> sterge blocurile.
-                if (historySel.length > 0) {
-                  deleteHistoryRuns(historySel);
                 }
                 setDeleteMode(false);
                 return;
