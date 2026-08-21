@@ -44,9 +44,14 @@ se termina.
 
 ## PASUL 3 — Instalezi Ghostscript (cerut de OCRmyPDF) — o singura data
 
-1. Intri pe: `https://ghostscript.com/releases/gsdnld.html`
-2. Descarca **64-bit** pentru Windows (ex. `gs10xxw64.exe`).
-3. Il rulezi si instalezi cu setarile default.
+1. Intri pe: `https://github.com/ArtifexSoftware/ghostpdl-downloads/releases`
+   (sau direct: `https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10071/gs10071w64.exe`)
+2. Descarca **Ghostscript 10.07.1 for Windows (64 bit)** = fisierul `gs10071w64.exe`.
+3. Il rulezi (dublu-click) si instalezi cu setarile default (Next -> Next -> Finish).
+
+> Confirmare: `gs10071w64.exe` de la `ArtifexSoftware` (GitHub-ul oficial al
+> producatorului) e exact ce trebuie — Ghostscript 10.07.1, 64-bit, licenta
+> AGPL. NU descarca versiunea de 32-bit.
 
 ---
 
