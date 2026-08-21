@@ -1,107 +1,192 @@
-# Ghid: pregatirea unei carti scanate pentru analiza AI
+# Ghid complet, pas cu pas: pregatirea unei carti pentru analiza AI
 
-Scop: transformam o carte despre teorie muzicala (chitara) intr-un pachet pe
-care agentul AI il poate citi INTEGRAL — textul (OCR) + partiturile (MusicXML,
-nu imagini).
+Acest ghid te duce de la cartea scanata (PDF) pana la un pachet pe care
+agentul AI il poate citi INTEGRAL: **textul** (OCR) + **partiturile** (MusicXML).
+Nu trebuie sa faci NICIUN screenshot manual — un script gaseste singur
+partiturile din fiecare pagina.
 
-## Ce poate si ce nu poate agentul AI
+## Ce ai nevoie inainte sa incepi
 
-- **Text selectabil** -> il citeste perfect.
-- **Imagini / partituri scanate** -> NU le "vede".
-- **MusicXML** (`.musicxml` / `.xml` / `.mxl`) -> il parseaza complet:
-  note, articulatii, dinamici, legato, ties, acorduri.
-- **ABC** -> se poate obtine prin conversie (music21), dar MusicXML e mai bogat
-  si preferat.
+1. **Python instalat** pe PC (il ai deja — verifica cu `python --version`).
+2. Acces la internet pentru instalarea uneltelor (o singura data).
+3. Cartea in format **PDF**.
 
-## Unelte de instalat (o singura data, pe Windows)
+---
 
-1. **Tesseract OCR** (build UB Mannheim):
-   https://github.com/UB-Mannheim/tesseract/wiki
-2. **Ghostscript** (64-bit, necesar pentru OCRmyPDF):
-   https://ghostscript.com/releases/gsdnld.html
-3. **Audiveris** (OMR — partituri -> MusicXML):
-   https://github.com/Audiveris/audiveris/releases
-4. Pachete Python:
-   ```powershell
-   pip install ocrmypdf pymupdf
-   ```
+## PASUL 1 — Instalezi bibliotecile Python (o singura data)
 
-## Pasii de lucru
-
-### A. Faci PDF-ul cautabil (strat de text)
-```powershell
-ocrmypdf --skip-text carte_scanata.pdf carte_searchable.pdf
-```
-`--skip-text` pastreaza textul existent; daca PDF-ul e 100% imagini, scoate
-flagul ca sa OCR-eze tot.
-
-### Limbile OCR (engleza / spaniola / rusa)
-
-Tesseract suporta toate limbile; trebuie doar sa-i spui care + sa ai datele de
-limba instalate (la installer-ul UB Mannheim: "Additional language data" ->
-bifeaza Spanish + Russian; sau descarci `spa.traineddata` si `rus.traineddata`
-din `tesseract-ocr/tessdata` si le pui in folderul `tessdata`).
+Deschide **PowerShell** si ruleaza:
 
 ```powershell
-# engleza (implicit)
-ocrmypdf -l eng carte.pdf carte_searchable.pdf
-
-# spaniola
-ocrmypdf -l spa carte.pdf carte_searchable.pdf
-
-# rusa
-ocrmypdf -l rus carte.pdf carte_searchable.pdf
-
-# mixt (ex. rusa + engleza)
-ocrmypdf -l rus+eng carte.pdf carte_searchable.pdf
+pip install pymupdf opencv-python-headless numpy ocrmypdf
 ```
 
-> Nota: OMR-ul pentru partituri (Audiveris) NU depinde de limba — recunoaste
-> notele si articulatiile indiferent de limba titlurilor/versurilor. Agentul
-> AI poate citi si analiza textul in engleza, spaniola si rusa.
+Astepti pana scrie "Successfully installed ...". Nu inchide fereastra pana nu
+se termina.
 
-### B. Partiturile -> MusicXML (semi-manual, dar robust)
-1. Decupezi fiecare partitura (Snipping Tool sau din PDF viewer) -> PNG.
-2. O deschizi in **Audiveris** -> export **MusicXML** (`.mxl`).
-3. O denumesti DUPA PAGINA, in folderul `scores/`:
-   ```
-   page-014-score-01.mxl    (pagina 14, partitura 1)
-   page-014-score-02.mxl
-   page-021-score-01.mxl
-   ```
+> Daca scrie `pip` nu e gasit: ruleaza `python -m pip install ...` in loc de
+> `pip install ...`.
 
-> Nu exista o metoda 100% automata care sa detecteze singura partiturile
-> dintr-o carte oarecare. Textul e automat; partiturile le decupezi tu (rapid)
-> si Audiveris le converteste automat. Audiveris merge bine pe partituri
-> tiparite curate; pe notatii dense sau scrise de mana poate rata detalii.
+---
 
-### C. Imbini totul cu scriptul nostru
+## PASUL 2 — Instalezi Tesseract OCR (pt. text) — o singura data
+
+1. Intri pe: `https://github.com/UB-Mannheim/tesseract/wiki`
+2. Descarci installer-ul de Windows (`.exe`).
+3. Il rulezi. **Important:** la pasul "Choose Components", bifezi limbile:
+   - **English** (implicit)
+   - **Spanish**
+   - **Russian**
+4. Il instalezi in locatia default: `C:\Program Files\Tesseract-OCR`.
+5. Noteaza calea de instalare (o vei folosi la Pasul 4).
+
+---
+
+## PASUL 3 — Instalezi Ghostscript (cerut de OCRmyPDF) — o singura data
+
+1. Intri pe: `https://ghostscript.com/releases/gsdnld.html`
+2. Descarca **64-bit** pentru Windows (ex. `gs10xxw64.exe`).
+3. Il rulezi si instalezi cu setarile default.
+
+---
+
+## PASUL 4 — Faci PDF-ul "cautabil" (OCR pe text)
+
+Pune cartea intr-un folder simplu, fara spatii in nume, ex.:
+
+```
+C:\carti\cartea.pdf
+```
+
+In PowerShell:
+
 ```powershell
-python scripts\package-book.py "C:\carti\carte_searchable.pdf" "C:\carti\scores"
-```
-Rezultat: `carte_searchable.md` (langa PDF) cu textul pe pagini + marcatori
-`[SCORE: scores/page-014-score-01.mxl]` la pagina potrivita.
-
-### D. Uploadezi pe GitHub
-1. Creezi/folosesti folderul `docs/music-theory/` pe ramura
-   `arena/01a00f12-ample-guitar-chord-settings-he`.
-2. Uploadezi: `book.md` + folderul `scores/`.
-3. Spui agentului "cartea e pe GitHub" -> el citeste textul + partiturile.
-
-## Structura finala (ce vad eu)
-
-```
-docs/music-theory/
-  book.md                      <- textul complet + marcatori [SCORE: ...]
-  scores/
-    page-014-score-01.mxl
-    page-014-score-02.mxl
-    ...
+# inlocuieste limba cu: eng / spa / rus / rus+eng (in functie de carte)
+& "C:\Program Files\Tesseract-OCR\ocrmypdf" -l spa "C:\carti\cartea.pdf" "C:\carti\cartea_searchable.pdf"
 ```
 
-## Nota despre calitate
+> Daca nu exista `ocrmypdf.exe` in folderul Tesseract, foloseste direct:
+> `ocrmypdf -l spa "C:\carti\cartea.pdf" "C:\carti\cartea_searchable.pdf"`
+> (functioneaza daca Pasul 1 a mers).
 
-- OCR pe text tiparit e foarte bun; pe tabele/diagrame poate fi dezordonat.
-- MusicXML pastreaza articulatiile si dinamica; ABC ar pierde din ele.
-- Daca o partitura e esentiala si Audiveris o citeste prost, poti s-o scrii
-  tu ca text/MIDI (ex. "E7 = E3 G#3 B3 D4") si o adaugi manual in book.md.
+Rezultat: `cartea_searchable.pdf` — acelasi PDF, dar acum are text selectabil.
+
+---
+
+## PASUL 5 — Instalezi Audiveris (pt. partituri -> MusicXML) — o singura data
+
+1. Intri pe: `https://github.com/Audiveris/audiveris/releases`
+2. Descarca installer-ul de Windows (`.msi`).
+3. Il rulezi si instalezi cu setarile default.
+4. **Audiveris are nevoie de Java.** Daca la prima pornire zice ca lipseste
+   Java, instalezi Java de aici: `https://adoptium.net` (versiunea **Temurin 21**, 64-bit).
+5. Noteaza calea catre `Audiveris.bat` (de regula
+   `C:\Program Files\Audiveris\bin\Audiveris.bat`).
+
+> Daca preferi sa sari peste Audiveris deocamdata: poti. Pasul 6 iti scoate
+> partiturile ca **PNG**; le putem converti in MusicXML mai tarziu. Dar ca
+> agentul AI sa citeasca notele, e nevoie de Audiveris.
+
+---
+
+## PASUL 6 — Extragi AUTOMAT partiturile (fara screenshot-uri)
+
+Din folderul proiectului (unde e `scripts\`), rulezi:
+
+```powershell
+cd C:\MY_PYTHON_PROJECTS\Ample_Guitar_Chord-Settings_Helper
+python scripts\extract-scores.py "C:\carti\cartea_searchable.pdf"
+```
+
+Ce face scriptul:
+- randeaza fiecare pagina la 300 DPI;
+- gaseste singur liniile orizontale (= portativele);
+- decupeaza fiecare partitura si o salveaza ca:
+  ```
+  C:\carti\scores\score-p001-a.png   (pagina 1, partitura a)
+  C:\carti\scores\score-p001-b.png   (pagina 1, partitura b)
+  C:\carti\scores\score-p002-a.png   (pagina 2, partitura a)
+  ...
+  ```
+- scrie `C:\carti\scores\manifest.json` cu lista + legaturile de continuare.
+
+### Cu Audiveris (recomandat — scoate direct MusicXML)
+
+```powershell
+python scripts\extract-scores.py "C:\carti\cartea_searchable.pdf" --audiveris "C:\Program Files\Audiveris\bin\Audiveris.bat"
+```
+
+Acum, langa fiecare `score-pNNN-a.png` apare si `score-pNNN-a.mxl` (MusicXML)
+cu notele + articulatiile.
+
+### Daca vrei sa ajustezi calitatea detecției
+
+```powershell
+# dpi mai mare = mai exact, dar mai lent
+python scripts\extract-scores.py "C:\carti\cartea_searchable.pdf" --dpi 400
+```
+
+---
+
+## PASUL 7 — VERIFICI rezultatul (important!)
+
+Deschide folderul `C:\carti\scores\` si uita-te la cateva PNG-uri:
+- Partiturile sunt decupate intregi? (nu taiate)
+- Nu s-au decupat bucati de TEXT in loc de partituri?
+
+Daca ceva e gresit (partitura taiata sau text confundat cu partitura), spune-mi
+si ajustez pragurile scriptului. **Nu e nevoie sa refaci nimic manual.**
+
+---
+
+## PASUL 8 — Combini textul + partiturile intr-un singur fisier
+
+```powershell
+python scripts\package-book.py "C:\carti\cartea_searchable.pdf" "C:\carti\scores"
+```
+
+Rezultat: `C:\carti\cartea_searchable.md` — textul pe pagini + marcatori
+`[SCORE: scores/score-p001-a.mxl]` acolo unde sunt partiturile.
+
+---
+
+## PASUL 9 — Uploadezi pe GitHub (unde citesc eu)
+
+1. Intri pe:
+   `https://github.com/DarrSasa/Ample_Guitar_Chord-Settings_Helper/tree/arena/01a00f12-ample-guitar-chord-settings-he/docs/music-theory`
+2. **Add file -> Upload files**.
+3. Trage: `cartea_searchable.md` + tot folderul `scores\` (cu `.mxl`-urile).
+4. **Commit changes** (direct pe ramura `arena/...`).
+5. Imi spui "cartea e pe GitHub" — o citesc integral.
+
+---
+
+## Rezumat rapid (comenzile in ordine)
+
+```powershell
+# 1) biblioteci Python
+pip install pymupdf opencv-python-headless numpy ocrmypdf
+
+# 2) OCR text (schimba 'spa' cu limba cartii: eng / spa / rus)
+ocrmypdf -l spa "C:\carti\cartea.pdf" "C:\carti\cartea_searchable.pdf"
+
+# 3) extragi partiturile (cu MusicXML prin Audiveris)
+python scripts\extract-scores.py "C:\carti\cartea_searchable.pdf" --audiveris "C:\Program Files\Audiveris\bin\Audiveris.bat"
+
+# 4) combini totul
+python scripts\package-book.py "C:\carti\cartea_searchable.pdf" "C:\carti\scores"
+
+# 5) uploadezi in docs/music-theory/ pe GitHub
+```
+
+## Note cinstit (la ce sa te astepti)
+
+- **OCR pe text tiparit** = foarte bun. Pe tabele/diagrame poate fi dezordonat.
+- **Detectia partiturilor** = euristica; merge bine pe partituri tiparite
+  curate. Verifica vizual rezultatul (Pasul 7).
+- **Audiveris (OMR)** = bun pe partituri tiparite; pe notatii foarte dense sau
+  scrise de mana poate rata detalii. MusicXML e cel mai bogat rezultat.
+- O partitura care **continua pe pagina urmatoare** e marcata in
+  `manifest.json` cu `"continuation_of": "previous-page"`, iar numele sunt
+  `score-p36-a` (pagina 36) si `score-p37-b` (pagina 37) — adica partile unei
+  partituri intinse pe mai multe pagini.

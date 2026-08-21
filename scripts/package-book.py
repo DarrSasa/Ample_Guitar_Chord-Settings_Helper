@@ -41,9 +41,14 @@ def extract_pages(pdf_path):
 
 
 def parse_score_filename(fname):
-    """'page-014-score-01.musicxml' -> 14 ; altfel None."""
+    """'page-014-score-01.musicxml' -> 14 ; 'score-p014-a.mxl' -> 14 ; altfel None."""
     m = re.match(r"page-(\d+)-score-\d+\.(musicxml|xml|mxl)$", fname, re.I)
-    return int(m.group(1)) if m else None
+    if m:
+        return int(m.group(1))
+    m2 = re.match(r"score-p(\d+)-[a-z]+\.(musicxml|xml|mxl)$", fname, re.I)
+    if m2:
+        return int(m2.group(1))
+    return None
 
 
 def main():
