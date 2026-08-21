@@ -35,6 +35,31 @@ ocrmypdf --skip-text carte_scanata.pdf carte_searchable.pdf
 `--skip-text` pastreaza textul existent; daca PDF-ul e 100% imagini, scoate
 flagul ca sa OCR-eze tot.
 
+### Limbile OCR (engleza / spaniola / rusa)
+
+Tesseract suporta toate limbile; trebuie doar sa-i spui care + sa ai datele de
+limba instalate (la installer-ul UB Mannheim: "Additional language data" ->
+bifeaza Spanish + Russian; sau descarci `spa.traineddata` si `rus.traineddata`
+din `tesseract-ocr/tessdata` si le pui in folderul `tessdata`).
+
+```powershell
+# engleza (implicit)
+ocrmypdf -l eng carte.pdf carte_searchable.pdf
+
+# spaniola
+ocrmypdf -l spa carte.pdf carte_searchable.pdf
+
+# rusa
+ocrmypdf -l rus carte.pdf carte_searchable.pdf
+
+# mixt (ex. rusa + engleza)
+ocrmypdf -l rus+eng carte.pdf carte_searchable.pdf
+```
+
+> Nota: OMR-ul pentru partituri (Audiveris) NU depinde de limba — recunoaste
+> notele si articulatiile indiferent de limba titlurilor/versurilor. Agentul
+> AI poate citi si analiza textul in engleza, spaniola si rusa.
+
 ### B. Partiturile -> MusicXML (semi-manual, dar robust)
 1. Decupezi fiecare partitura (Snipping Tool sau din PDF viewer) -> PNG.
 2. O deschizi in **Audiveris** -> export **MusicXML** (`.mxl`).
