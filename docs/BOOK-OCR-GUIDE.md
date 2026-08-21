@@ -52,6 +52,9 @@ se termina.
 
 ## PASUL 4 — Faci PDF-ul "cautabil" (OCR pe text)
 
+> **Nu se descarca si nu se instaleaza NIMIC la acest pas.** Totul a fost
+> instalat la pasii 1-3. Aici doar PORNIȚI uneltele ca sa lucreze.
+
 Pune cartea intr-un folder simplu, fara spatii in nume, ex.:
 
 ```
@@ -62,14 +65,27 @@ In PowerShell:
 
 ```powershell
 # inlocuieste limba cu: eng / spa / rus / rus+eng (in functie de carte)
-& "C:\Program Files\Tesseract-OCR\ocrmypdf" -l spa "C:\carti\cartea.pdf" "C:\carti\cartea_searchable.pdf"
+ocrmypdf -l spa "C:\carti\cartea.pdf" "C:\carti\cartea_searchable.pdf"
 ```
 
-> Daca nu exista `ocrmypdf.exe` in folderul Tesseract, foloseste direct:
-> `ocrmypdf -l spa "C:\carti\cartea.pdf" "C:\carti\cartea_searchable.pdf"`
-> (functioneaza daca Pasul 1 a mers).
+Ce se intampla cand rulezi comanda (pas cu pas):
+1. `ocrmypdf` (instalat la Pasul 1) deschide `cartea.pdf` — care e doar POZE cu
+   paginile (text ne-selectabil).
+2. Randeaza fiecare pagina ca imagine.
+3. Trimite fiecare imagine la **Tesseract** (Pasul 2), care citeste literele
+   si scoate text.
+4. Pune textul ca un STRAT INVIZIBIL peste fiecare pagina.
+5. Salveaza un fisier NOU: `cartea_searchable.pdf` (originalul ramane neatins).
 
-Rezultat: `cartea_searchable.pdf` — acelasi PDF, dar acum are text selectabil.
+Rezultat: acum `cartea_searchable.pdf` are text selectabil -> scripturile
+noastre (si agentul AI) il pot citi.
+
+`-l` = limba cartii: `-l eng` (engleza), `-l spa` (spaniola), `-l rus` (rusa),
+`-l rus+eng` (mixta).
+
+> Daca `ocrmypdf` nu e gasit, foloseste calea completa:
+> `"C:\Program Files\Tesseract-OCR\ocrmypdf" -l spa "..." "..."`
+> (de regula simplu `ocrmypdf` merge dupa Pasul 1).
 
 ---
 
