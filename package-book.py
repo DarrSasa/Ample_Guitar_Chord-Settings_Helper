@@ -187,8 +187,51 @@ def clasifica_cuvinte(cuvinte, lat, inalt):
 # ---------------------------------------------------------------------------
 # curatarea PNG-ului pentru OMR (albim cuvintele, marim imaginea)
 # ---------------------------------------------------------------------------
+def prelungeste_portativ(img):
+    """Prelungeste liniile portativului spre dreapta cu o 'masura goala'
+    desenata + bara finala. Audiveris refuza portativele foarte SCURTE
+    (sub ~20 de interlinii lungime) cu 'No system found' - exemplele
+    mici de 1-2 masuri din carti au nevoie de alungirea asta."""
+    h, w = img.shape
+    ink = img < 200
+    rowink = ink.sum(axis=1)
+    prag = 0.35 * w
+    este = rowink >= prag
+    centre = []
+    grosimi = []
+    y = 0
+    while y < h:
+        if este[y]:
+            y0 = y
+            while y < h and este[y]:
+                y += 1
+            centre.append((y0 + y - 1) // 2)
+            grosimi.append(max(1, y - y0))
+        else:
+            y += 1
+    if len(centre) < 2:
+        return img  # nu gasim liniile - lasam imaginea neschimbata
+    gros = max(1, int(np.median(grosimi)))
+    # capatul din dreapta al portativului existent
+    randuri_linii = np.zeros(h, bool)
+    for c in centre:
+        randuri_linii[max(0, c - gros):min(h, c + gros + 1)] = True
+    cols = np.where(ink[randuri_linii].any(axis=0))[0]
+    dreapta = int(cols[-1]) if cols.size else w - 1
+    # prelungim cu de ~2 ori latimea actuala (plafonat)
+    ext = int(min(2.0 * w, 1600))
+    nou = np.full((h, w + ext), 255, dtype=np.uint8)
+    nou[:, :w] = img
+    for c in centre:
+        nou[max(0, c - gros // 2):min(h, c - gros // 2 + gros),
+            max(0, dreapta - 2):w + ext - 12] = 0
+    # bara finala, de la prima la ultima linie
+    nou[centre[0]:centre[-1] + 1, w + ext - 12:w + ext - 8] = 0
+    return nou
+
+
 def pregateste_pentru_omr(png_path, de_albit, out_path, scala=2, margine=40,
-                          binarizeaza=False, canvas=False):
+                          binarizeaza=False, canvas=False, extinde=False):
     """Pregateste PNG-ul pentru Audiveris: albeste DOAR cuvintele validate
     (etichete/titluri reale), mareste imaginea, adauga margine alba
     (OMR-ul are nevoie de spatiu in jurul portativului) si, optional,
@@ -203,6 +246,9 @@ def pregateste_pentru_omr(png_path, de_albit, out_path, scala=2, margine=40,
     h, w = img.shape
     for (x0, y0, x1, y1) in de_albit:
         img[max(0, y0 - 2):min(h, y1 + 2), max(0, x0 - 2):min(w, x1 + 2)] = 255
+    if extinde:
+        img = prelungeste_portativ(img)
+        h, w = img.shape
     if scala != 1:
         img = cv2.resize(img, (w * scala, h * scala), interpolation=cv2.INTER_CUBIC)
     if binarizeaza:
@@ -470,9 +516,11 @@ def main():
             with tempfile.TemporaryDirectory() as tmp:
                 incercari = [
                     dict(scala=args.scala_omr, margine=40, binarizeaza=False),
+                    dict(scala=args.scala_omr, margine=100, binarizeaza=False,
+                         extinde=True),
                     dict(scala=args.scala_omr * 2, margine=150, binarizeaza=False),
-                    dict(scala=args.scala_omr * 2, margine=0, binarizeaza=True,
-                         canvas=True),
+                    dict(scala=args.scala_omr, margine=0, binarizeaza=True,
+                         canvas=True, extinde=True),
                 ]
                 produs, stare = None, "esec"
                 for k, conf in enumerate(incercari):
@@ -484,10 +532,16 @@ def main():
                         arata_eroarea=(k == len(incercari) - 1))
                     if produs:
                         if k > 0:
+                            extra = []
+                            if conf.get("extinde"):
+                                extra.append("portativ prelungit")
+                            if conf.get("canvas"):
+                                extra.append("pagina A4")
+                            if conf.get("binarizeaza"):
+                                extra.append("binarizat")
                             print(f"  {baza}: a mers la incercarea {k + 1} "
                                   f"(scara {conf['scala']}x"
-                                  f"{', pagina A4' if conf.get('canvas') else ''}"
-                                  f"{', binarizat' if conf['binarizeaza'] else ''})")
+                                  f"{', ' + ', '.join(extra) if extra else ''})")
                         break
                 if produs:
                     ext = os.path.splitext(produs)[1].lower()
