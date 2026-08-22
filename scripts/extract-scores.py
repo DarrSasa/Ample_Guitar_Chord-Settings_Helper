@@ -76,13 +76,15 @@ def render_page_gray(page, dpi):
 # ---------------------------------------------------------------------------
 # 2. Detectia liniilor orizontale (portative)
 # ---------------------------------------------------------------------------
-def detect_horizontal_lines(gray, dpi=300, min_line_frac=0.30):
+def detect_horizontal_lines(gray, dpi=300, min_line_frac=0.12):
     """Intoarce lista de (center_y, w, x0, x1) pentru liniile orizontale lungi."""
     h, w = gray.shape
     # Binarizare inversa (negru = 255).
     _, bw = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
 
-    min_line_w = int(w * min_line_frac)
+    # Linie de portativ poate fi ingusta (partituri mici, o singura coloana).
+    # Cerem minim 12% din latimea paginii, dar cel putin 120px.
+    min_line_w = max(120, int(w * min_line_frac))
     hsize = max(15, int(w / 60))  # kernel orizontal lung
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (hsize, 1))
     horizontal = cv2.morphologyEx(bw, cv2.MORPH_OPEN, kernel)
@@ -93,7 +95,7 @@ def detect_horizontal_lines(gray, dpi=300, min_line_frac=0.30):
         x, y, cw, ch = cv2.boundingRect(c)
         # Linie de portativ: lunga, subtire. Grosimea tipica la 300dpi e 4-8px
         # (linia de 1-1.5pt din PDF). Acceptam pana la ~ dpi/40.
-        if cw >= min_line_w and ch <= max(5, int(dpi / 40)):
+        if cw >= min_line_w and ch <= max(6, int(dpi / 40)):
             lines.append((y + ch // 2, cw, x, x + cw))
     lines.sort(key=lambda t: t[0])
     return lines
@@ -102,60 +104,86 @@ def detect_horizontal_lines(gray, dpi=300, min_line_frac=0.30):
 def group_lines_into_staves(lines, dpi):
     """Grupeaza liniile in stave (portative) de 4-6 linii cu SPATIERE REGULATA.
 
-    Un portativ real are 5 linii la distanta aproape EGALA. Cerem asta explicit
-    ca sa eliminam fals-pozitivele (tabele, chenare, text subliniat) si
-    fragmentele. Returneaza tuple: (top, bot, left, right, nr_linii, interline).
+    Folosim o fereastra glisanta: un portativ = 5 linii consecutive la distanta
+    APROAPE EGALA intre ele. Metoda e INDEPENDENTA de scala (merge si la
+    partituri mari, si la partituri mici), pentru ca interlinia e dedusa local
+    din grup, nu dintr-un prag fix.
     """
     if not lines:
         return []
-    max_gap = max(12, int(dpi / 20))  # ~15px la 300dpi
     staves = []
+    n = len(lines)
     i = 0
-    while i < len(lines):
-        group = [lines[i]]
-        j = i + 1
-        while j < len(lines) and (lines[j][0] - lines[j - 1][0]) <= max_gap:
-            group.append(lines[j])
-            j += 1
+    while i <= n - 4:
+        # Candidat: liniile i..i+4 (5 linii).
+        ys = [lines[i + k][0] for k in range(5)]
+        gaps = [ys[k + 1] - ys[k] for k in range(4)]
+        med = sum(gaps) / 4
+        if med <= 0:
+            i += 1
+            continue
+        # Distanta intre linii trebuie sa fie consistenta (30% variatie max)
+        # si intr-un domeniu plauzibil (3..60px la 300dpi).
+        regular = all(3 <= g <= 60 and abs(g - med) <= med * 0.30 for g in gaps)
+        if not regular:
+            i += 1
+            continue
+
+        # Prelungim grupul cat mai permit liniile regulate (ex. TAB pe 6 linii).
+        j = i + 5
+        while j < n:
+            g = lines[j][0] - lines[j - 1][0]
+            if abs(g - med) <= med * 0.30:
+                j += 1
+            else:
+                break
+        group = lines[i:j]
 
         if 4 <= len(group) <= 6:
-            gaps = [group[k][0] - group[k - 1][0] for k in range(1, len(group))]
-            med = sum(gaps) / len(gaps)
-            regular = all(abs(g - med) <= med * 0.4 for g in gaps)
-
             lefts = [g[2] for g in group]
             rights = [g[3] for g in group]
             width = max(rights) - min(lefts)
             if width <= 0:
                 width = 1
-            aligned_left = (max(lefts) - min(lefts)) <= 0.15 * width
-            aligned_right = (max(rights) - min(rights)) <= 0.15 * width
-
-            if regular and aligned_left and aligned_right:
+            aligned_left = (max(lefts) - min(lefts)) <= 0.20 * width
+            aligned_right = (max(rights) - min(rights)) <= 0.20 * width
+            if aligned_left and aligned_right:
                 top = min(g[0] for g in group)
                 bot = max(g[0] for g in group)
                 staves.append((top, bot, min(lefts), max(rights), len(group), med))
-        i = j
+                i = j
+                continue
+        i += 1
     return staves
 
 
 def merge_staves_into_systems(staves, dpi):
-    """Uneste stavele FOARTE apropiate (acelasi sistem, ex. pian/voce) intr-un crop."""
+    """Uneste portativele unui ACELASI exemplu muzical intr-un singur crop.
+
+    O partitura dintr-o carte poate avea:
+      - un singur portativ (5 linii);
+      - mai multe portative LIPITE (pian = 2 portative cu acolada, sau mai multe
+        instrumente);
+      - mai multe SISTEME suprapuse (acelasi exemplu continuat pe verticala).
+
+    Regula: unim doua portative daca distanta verticala dintre ele e mai mica
+    decat ~18 interlinii (generos, ca sa prindem toate portativele exemplului,
+    de sus pana jos). Exemplele diferite din carte sunt despartite de text, deci
+    au spatii si mai mari -> raman separate.
+    """
     if not staves:
         return []
     staves = sorted(staves, key=lambda s: s[0])
-    systems = []
+    blocks = []
     for s in staves:
         interline = s[5]
-        # Sistem = stave la distanta de pana la ~10 interlinii (acopera si
-        # liniile ajutatoare dintre doua portative de pian).
-        gap = max(40, int(interline * 10))
-        if systems and (s[0] - systems[-1][1]) <= gap:
-            t, b, l, r, n, il = systems[-1]
-            systems[-1] = (t, max(b, s[1]), min(l, s[2]), max(r, s[3]), n + s[4], max(il, interline))
+        gap_threshold = max(60, int(interline * 18))
+        if blocks and (s[0] - blocks[-1][1]) <= gap_threshold:
+            t, b, l, r, n, il = blocks[-1]
+            blocks[-1] = (t, max(b, s[1]), min(l, s[2]), max(r, s[3]), n + s[4], max(il, interline))
         else:
-            systems.append(list(s))
-    return systems
+            blocks.append(list(s))
+    return blocks
 
 
 def pad_box(box, shape, pad_top, pad_bot, pad_side):
