@@ -33,3 +33,4 @@ docs/graphics/generated/
 
 # Raport generat de inspect-guitar-library.mjs (temporar, nu se comiteaza)
 scripts/library-report.txt
+__pycache__/
