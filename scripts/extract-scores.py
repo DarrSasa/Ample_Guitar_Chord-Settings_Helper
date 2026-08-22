@@ -93,9 +93,11 @@ def detect_horizontal_lines(gray, dpi=300, min_line_frac=0.12):
     lines = []
     for c in contours:
         x, y, cw, ch = cv2.boundingRect(c)
-        # Linie de portativ: lunga, subtire. Grosimea tipica la 300dpi e 4-8px
-        # (linia de 1-1.5pt din PDF). Acceptam pana la ~ dpi/40.
-        if cw >= min_line_w and ch <= max(6, int(dpi / 40)):
+        # Linie de portativ: foarte LUNGA raportat la inaltime. Acceptam si
+        # linii mai "groase" pentru ca un cap de nota asezat PE linie o face
+        # un blob mai inalt (pana la ~1 interlinie). Alegem prin raport de
+        # aspect (latime/inaltime >= 6), nu prin inaltime absoluta.
+        if cw >= min_line_w and ch <= max(8, int(dpi / 18)) and (cw / max(ch, 1)) >= 6:
             lines.append((y + ch // 2, cw, x, x + cw))
     lines.sort(key=lambda t: t[0])
     return lines
@@ -209,6 +211,78 @@ def touches_top(box, shape, tol_frac=0.02):
 
 
 # ---------------------------------------------------------------------------
+# 3b. Extindere "constienta de text" + verificare portativ real
+# ---------------------------------------------------------------------------
+def _ink_profile(gray):
+    """Profilul vertical de cerneala: cati pixeli inchisi pe fiecare rand."""
+    _, bw = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+    return (bw > 0).sum(axis=1)
+
+
+def expand_to_ink_region(gray, top, bot, min_blank_px):
+    """Extinde intervalul vertical [top, bot] ca sa includa tot textul/notele
+    APROPIATE (titlul de sus, legenda de jos), dar se opreste la primul gol
+    (banda goala) de cel putin `min_blank_px` pixeli. Astfel nu prindem
+    paragrafele de text din corpul cartii, care sunt despartite de goluri mari.
+    """
+    h, w = gray.shape
+    rowink = _ink_profile(gray)
+    blank_thresh = max(3, int(w * 0.004))
+    blank = rowink <= blank_thresh
+
+    # Extindere in SUS.
+    new_top = max(0, top)
+    run = 0
+    for y in range(max(0, top - 1), -1, -1):
+        if blank[y]:
+            run += 1
+            if run >= min_blank_px:
+                new_top = min(y + run, h)
+                break
+        else:
+            run = 0
+            new_top = y
+
+    # Extindere in JOS.
+    new_bot = min(h, bot)
+    run = 0
+    for y in range(min(h - 1, bot), h):
+        if blank[y]:
+            run += 1
+            if run >= min_blank_px:
+                new_bot = max(0, y - run)
+                break
+        else:
+            run = 0
+            new_bot = y + 1
+
+    return new_top, new_bot
+
+
+def expand_horizontal_to_ink(gray, top, bot, left, right):
+    """Largestete crop-ul pe orizontala cat sa includa textul/notele din banda
+    verticala [top, bot] (titlurile pot fi mai late decat portativul)."""
+    band = gray[top:bot, :]
+    _, bw = cv2.threshold(band, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+    colink = (bw > 0).sum(axis=0)
+    cols = np.where(colink > 0)[0]
+    if len(cols) == 0:
+        return left, right
+    return int(cols.min()), int(cols.max() + 1)
+
+
+def crop_has_staff(crop, dpi=300):
+    """Verifica daca un crop contine un portativ REAL (>=4 linii regulate).
+
+    Folosit ca sa eliminam crop-urile care NU sunt partituri (fotografii gri,
+    tabele, grafice) — ele nu au 5 linii de portativ regulate.
+    """
+    lines = detect_horizontal_lines(crop, dpi, min_line_frac=0.4)
+    staves = group_lines_into_staves(lines, dpi)
+    return len(staves) > 0
+
+
+# ---------------------------------------------------------------------------
 # 4. Audiveris (optional) -> MusicXML
 # ---------------------------------------------------------------------------
 def run_audiveris(audiveris_path, png_path, out_dir):
@@ -282,13 +356,32 @@ def main():
             letter_idx = 0
             for si, sys_box in enumerate(systems):
                 interline = sys_box[5] if len(sys_box) > 5 else 15
-                # Padding vertical GENEROS: notele se intind ~3-4 interlinii
-                # deasupra si dedesubtul portativului. Fara asta, crop-urile
-                # taiau notele (user: "partiturile sunt taiate sus/jos").
+                # Padding vertical de baza (notele se intind ~3-4 interlinii
+                # deasupra si dedesubtul portativului).
                 pad_v = max(40, int(interline * 4))
                 pad_side = int(interline * 2)
                 t, b, l, r = pad_box(sys_box[:4], gray.shape, pad_v, pad_v, pad_side)
+
+                # Extindere "constienta de text": includem si titlul/legenda de
+                # sus/jos, dar ne oprim la primul gol mare (ca sa nu prindem
+                # paragrafele de text din corpul cartii). Titlurile sunt de
+                # obicei mai apropiate de portativ decat paragrafele corpului.
+                min_blank = max(80, int(interline * 6))
+                t, b = expand_to_ink_region(gray, t, b, min_blank)
+                l, r = expand_horizontal_to_ink(gray, t, b, l, r)
+                # Margine finala mica, ca titlul/legenda sa nu fie lipite de
+                # marginea crop-ului (altfel se taie la marginea literei).
+                t = max(0, t - 12)
+                b = min(gray.shape[0], b + 12)
+                l = max(0, l - 12)
+                r = min(gray.shape[1], r + 12)
+
                 crop = gray[t:b, l:r]
+
+                # Verificare: crop-ul chiar contine un portativ real? Daca nu
+                # (e o fotografie gri, tabel, grafic), il sarim.
+                if not crop_has_staff(crop, args.dpi):
+                    continue
 
                 # Sarim peste fragmente prea mici (Audiveris pica pe ele).
                 if (b - t) < max(40, int(interline * 2.5)):
