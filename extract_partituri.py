@@ -32,16 +32,22 @@ ETAPA 2 - Filtrarea imaginilor color vs. alb-negru/gri
 ETAPA 3 - Detectarea, etichetarea si extragerea partiturilor
     * Tine evidenta zonelor sterse la etapele 1-2 si scaneaza EXCLUSIV in
       zonele ramase.
-    * Detecteaza SEGMENTE de linie orizontala (gri sau negre, subtiri si
-      continue - morfologie cu fereastra plata 1 x L), apoi le grupeaza in
-      partituri: cel putin 2 linii paralele, cu spatiu EGAL intre ele,
-      aceeasi intindere stanga-dreapta, iar spatiul dintre linii format
-      din pixeli albi sau aproape albi (NU gri). Astfel functioneaza si
-      cu mai multe portative mici asezate unul langa altul pe acelasi rand.
-    * Scaneaza fiecare pagina de 20+ ori, inclinand fereastra cu cate 1
-      grad (de la -10 la +10 grade), ca sa prinda si partiturile stramb
-      imprimate; crop-urile exportate sunt deja INDREPTATE.
-    * Tine evidenta paginilor pe care apare/dispare fiecare partitura.
+    * Scanarea se face cu un DREPTUNGHI PLAT (lungime ~1/10 din latimea
+      paginii): merge de la stanga la dreapta pe fiecare banda (gaseste si
+      portativele consecutive, unul dupa altul), apoi coboara o treapta si
+      reia, pana jos. Dupa fiecare trecere completa a paginii, unghiul se
+      schimba cu cate 1 grad: intai in jos de 10 ori (-1..-10), apoi in
+      sus de 10 ori (+1..+10) - asa sunt prinse si partiturile stramb
+      imprimate, iar crop-urile exportate sunt deja INDREPTATE.
+    * Dreptunghiul cauta linii paralele NEGRE sau GRI (dar nu gri foarte
+      deschis - ala e alb inchis), cel putin 2, cu spatiu EGAL intre ele,
+      umplut de la stanga la dreapta cu pixeli albi sau aproape albi.
+    * Daca langa partitura (inauntru, deasupra, sub, la stanga ori la
+      dreapta) scrie ceva pe UN SINGUR rand (nu doua suprapuse), cuvintele
+      acelea sunt incluse in imaginea partiturii.
+    * Tine evidenta paginilor pe care apare/dispare fiecare partitura;
+      daca intre doua partituri exista text de cel putin DOUA randuri
+      (oricat de lungi/scurte), sunt considerate partituri DIFERITE.
       Identificarea NU se scrie in PDF - ea devine NUMELE fisierului PNG:
           partitura-A-p22-23.png   (incepe pe pagina 22, continua pe 23;
           partitura-B-p22-23.png    litera deosebeste partiturile care
@@ -358,17 +364,21 @@ def etapa2_filtrare_imagini(doc, zone_sterse):
 # ETAPA 3 - detectarea partiturilor (segmente de linie + grupare)
 # ===========================================================================
 def segmente_orizontale(gray, masca_permisa, dpi):
-    """Gaseste SEGMENTELE de linie orizontala din imagine, folosind o
-    fereastra plata 1 x L (deschidere morfologica): raman doar pixelii
-    care fac parte din serii orizontale continue de cel putin L.
+    """Scanarea cu dreptunghiul plat (fereastra 1 x L, L = ~1/10 din
+    latimea paginii): fereastra este plimbata DE LA STANGA LA DREAPTA pe
+    fiecare banda de pixeli, apoi coboara cu o treapta si o ia de la
+    capat, pana la finalul paginii. Pasul folosit este cel mai mic posibil
+    (1 pixel), deci acopera inclusiv toate cele 10 pozitii ale scanarii
+    "in 10 pasi" - asa sunt gasite si portativele consecutive, asezate
+    unul dupa altul pe acelasi rand.
 
-    Fereastra "se deplaseaza de sus in jos": segmentele sunt intoarse in
-    ordinea de sus in jos a paginii. Liniile cautate pot fi NEGRE sau GRI
-    (pixel < CERNEALA), dar nu gri foarte deschis (ala e alb inchis).
-    Lungimea de scanare L este ~1/10 din LATIMEA paginii.
+    Raman doar seriile orizontale continue de cel putin L pixeli
+    intunecati: linii NEGRE sau GRI (pixel < CERNEALA), dar nu gri foarte
+    deschis (ala e alb inchis).
 
-    Intoarce lista de (y_centru, x_stanga, x_dreapta), doar linii SUBTIRI
-    (liniile de portativ au 1-3 pixeli; textul si pozele sunt mai inalte).
+    Intoarce lista de (y_centru, x_stanga, x_dreapta) in ordinea de sus in
+    jos, doar linii SUBTIRI (liniile de portativ au 1-3 pixeli; textul si
+    pozele sunt mai inalte).
     """
     L = max(20, int(round(gray.shape[1] * FRACT_LATIME)))  # ~1/10 din latime
     grosime_max = max(4, int(round(dpi / 30.0)))           # ~7 px la 200 dpi
@@ -573,6 +583,7 @@ def analizeaza_text_pagina(page, majoritar, dpi, shape):
     """
     masca = np.zeros(shape, dtype=bool)
     izolate = []
+    toate = []   # toate randurile de text (px), pt. regula "2 randuri intre partituri"
     scale = dpi / 72.0
     h, w = shape
 
@@ -616,6 +627,7 @@ def analizeaza_text_pagina(page, majoritar, dpi, shape):
 
     for (r, text, fract_maj), vecin in zip(randuri, are_vecin):
         x0, y0, x1, y1 = rect_px(r, scale)
+        toate.append((x0, y0, x1, y1))
         if vecin:
             # rand de paragraf -> albit in imaginea de decizie (indiferent
             # de format: albirea e doar pentru detectie, nu sterge nimic)
@@ -625,7 +637,23 @@ def analizeaza_text_pagina(page, majoritar, dpi, shape):
         else:
             izolate.append((max(0, x0 - 2), max(0, y0 - 2),
                             min(w, x1 + 2), min(h, y1 + 2)))
-    return masca, izolate
+    return masca, izolate, toate
+
+
+def numara_randuri_vizuale(rects):
+    """Numara RANDURILE VIZUALE de text: bucatile OCR aflate in aceeasi
+    banda pe verticala (se suprapun vertical) se numara ca UN rand,
+    indiferent cate bucati sunt si cat de lungi/scurte."""
+    benzi = []  # (y0, y1)
+    for (_, ry0, _, ry1) in sorted(rects, key=lambda t: t[1]):
+        for k, (by0, by1) in enumerate(benzi):
+            ov = min(by1, ry1) - max(by0, ry0)
+            if ov >= 0.5 * min(by1 - by0, ry1 - ry0):
+                benzi[k] = (min(by0, ry0), max(by1, ry1))
+                break
+        else:
+            benzi.append((ry0, ry1))
+    return len(benzi)
 
 
 def rects_in_cadru(rects, M):
@@ -846,6 +874,7 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
 
     # 1) Detectie pe fiecare pagina, doar in zonele ramase (nesterse).
     detectii = []
+    randuri_text = []   # toate randurile de text ale fiecarei pagini (px)
     for pno, page in enumerate(doc):
         gray = render_gray(page, dpi)
         h, w = gray.shape
@@ -856,8 +885,9 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
         # imaginea de DECIZIE: paragrafele (randuri de text stivuite) devin
         # albe, ca sa nu fie confundate cu partiturile si sa nu fie incluse
         # in chenare; randurile SINGURE raman si se ataseaza partiturilor
-        masca_par, randuri_izolate = analizeaza_text_pagina(page, majoritar,
-                                                            dpi, gray.shape)
+        masca_par, randuri_izolate, toate_rd = analizeaza_text_pagina(
+            page, majoritar, dpi, gray.shape)
+        randuri_text.append(toate_rd)
         gray_dec = gray.copy()
         gray_dec[masca_par] = 255
         gasite = scaneaza_pagina(gray, gray_dec, masca, dpi, randuri_izolate)
@@ -870,6 +900,8 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
     # 2) Evidenta: pe ce pagini apare si dispare fiecare partitura.
     #    O partitura care se termina la finalul unei pagini si alta care
     #    incepe imediat la inceputul paginii urmatoare = ACEEASI partitura.
+    #    DAR: daca intre ele exista text de cel putin DOUA randuri (oricat
+    #    de lungi sau scurte), sunt doua partituri DIFERITE.
     partituri = []
     for pno, gasite in enumerate(detectii):
         for i, det in enumerate(gasite):
@@ -883,7 +915,17 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
                     aproape_de_jos = (h_ant - det_ant["bbox"][3]) < prag
                     aproape_de_sus = det["bbox"][1] < det["interlinie"] * 6
                     if aproape_de_jos and aproape_de_sus:
-                        este_continuare = True
+                        # cate RANDURI de text sunt intre cele doua bucati?
+                        # (sub partitura de pe pagina veche + deasupra celei
+                        # de pe pagina noua)
+                        sub = [r for r in randuri_text[pno - 1]
+                               if r[1] >= det_ant["bbox"][3]]
+                        deasupra = [r for r in randuri_text[pno]
+                                    if r[3] <= det["bbox"][1]]
+                        n_randuri = (numara_randuri_vizuale(sub)
+                                     + numara_randuri_vizuale(deasupra))
+                        if n_randuri < 2:
+                            este_continuare = True
             if este_continuare:
                 partituri[-1]["bucati"].append((pno, det))
             else:
