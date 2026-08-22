@@ -100,11 +100,15 @@ def detect_horizontal_lines(gray, dpi=300, min_line_frac=0.30):
 
 
 def group_lines_into_staves(lines, dpi):
-    """Grupeaza liniile apropiate in stave (o portativa = 3..6 linii)."""
+    """Grupeaza liniile in stave (portative) de 4-6 linii cu SPATIERE REGULATA.
+
+    Un portativ real are 5 linii la distanta aproape EGALA. Cerem asta explicit
+    ca sa eliminam fals-pozitivele (tabele, chenare, text subliniat) si
+    fragmentele. Returneaza tuple: (top, bot, left, right, nr_linii, interline).
+    """
     if not lines:
         return []
-    # Distanta tipica dintre liniile unei portative la 300dpi: ~ 8-12 px.
-    max_gap = max(12, int(dpi / 20))
+    max_gap = max(12, int(dpi / 20))  # ~15px la 300dpi
     staves = []
     i = 0
     while i < len(lines):
@@ -113,40 +117,54 @@ def group_lines_into_staves(lines, dpi):
         while j < len(lines) and (lines[j][0] - lines[j - 1][0]) <= max_gap:
             group.append(lines[j])
             j += 1
-        # O portativa completa are ~5 linii; acceptam 3..8 ca sa fim toleranti.
-        if 3 <= len(group) <= 8:
-            top = min(g[0] for g in group)
-            bot = max(g[0] for g in group)
-            left = min(g[2] for g in group)
-            right = max(g[3] for g in group)
-            staves.append((top, bot, left, right, len(group)))
+
+        if 4 <= len(group) <= 6:
+            gaps = [group[k][0] - group[k - 1][0] for k in range(1, len(group))]
+            med = sum(gaps) / len(gaps)
+            regular = all(abs(g - med) <= med * 0.4 for g in gaps)
+
+            lefts = [g[2] for g in group]
+            rights = [g[3] for g in group]
+            width = max(rights) - min(lefts)
+            if width <= 0:
+                width = 1
+            aligned_left = (max(lefts) - min(lefts)) <= 0.15 * width
+            aligned_right = (max(rights) - min(rights)) <= 0.15 * width
+
+            if regular and aligned_left and aligned_right:
+                top = min(g[0] for g in group)
+                bot = max(g[0] for g in group)
+                staves.append((top, bot, min(lefts), max(rights), len(group), med))
         i = j
     return staves
 
 
 def merge_staves_into_systems(staves, dpi):
-    """Uneste stavele apropiate pe verticala intr-un singur sistem (o partitura)."""
+    """Uneste stavele FOARTE apropiate (acelasi sistem, ex. pian/voce) intr-un crop."""
     if not staves:
         return []
-    gap = max(20, int(dpi / 10))
     staves = sorted(staves, key=lambda s: s[0])
     systems = []
     for s in staves:
+        interline = s[5]
+        # Sistem = stave la distanta de pana la ~10 interlinii (acopera si
+        # liniile ajutatoare dintre doua portative de pian).
+        gap = max(40, int(interline * 10))
         if systems and (s[0] - systems[-1][1]) <= gap:
-            t, b, l, r, n = systems[-1]
-            systems[-1] = (t, max(b, s[1]), min(l, s[2]), max(r, s[3]), n + s[4])
+            t, b, l, r, n, il = systems[-1]
+            systems[-1] = (t, max(b, s[1]), min(l, s[2]), max(r, s[3]), n + s[4], max(il, interline))
         else:
             systems.append(list(s))
     return systems
 
 
-def pad_box(box, shape, pad):
+def pad_box(box, shape, pad_top, pad_bot, pad_side):
     top, bot, left, right = box
     h, w = shape[:2]
-    top = max(0, top - pad)
-    bot = min(h, bot + pad)
-    left = max(0, left - pad)
-    right = min(w, right + pad)
+    top = max(0, top - pad_top)
+    bot = min(h, bot + pad_bot)
+    left = max(0, left - pad_side)
+    right = min(w, right + pad_side)
     return top, bot, left, right
 
 
@@ -231,15 +249,26 @@ def main():
         page_entry = {"page": page_idx + 1, "scores": []}
 
         if systems:
-            pad = int(args.dpi / 12)
+            letter_idx = 0
             for si, sys_box in enumerate(systems):
-                t, b, l, r = pad_box(sys_box[:4], gray.shape, pad)
+                interline = sys_box[5] if len(sys_box) > 5 else 15
+                # Padding vertical GENEROS: notele se intind ~3-4 interlinii
+                # deasupra si dedesubtul portativului. Fara asta, crop-urile
+                # taiau notele (user: "partiturile sunt taiate sus/jos").
+                pad_v = max(40, int(interline * 4))
+                pad_side = int(interline * 2)
+                t, b, l, r = pad_box(sys_box[:4], gray.shape, pad_v, pad_v, pad_side)
                 crop = gray[t:b, l:r]
 
-                letter = chr(ord("a") + si)
+                # Sarim peste fragmente prea mici (Audiveris pica pe ele).
+                if (b - t) < max(40, int(interline * 2.5)):
+                    continue
+
+                letter = chr(ord("a") + letter_idx)
+                letter_idx += 1
                 is_cont = False
                 # Partitura continua din pagina anterioara?
-                if si == 0 and touches_top(sys_box[:4], gray.shape) and prev_open_bottom:
+                if letter_idx == 1 and touches_top(sys_box[:4], gray.shape) and prev_open_bottom:
                     is_cont = True
 
                 png_name = f"score-p{page_idx + 1:03d}-{letter}.png"
