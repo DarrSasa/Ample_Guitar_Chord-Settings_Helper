@@ -8,9 +8,9 @@ MusicXML, intr-un singur fisier `book.md` pe care il poate citi agentul AI.
 
 Intrari:
   1. <carte.pdf>   PDF-ul scanat/ocrizat. Textul se extrage cu PyMuPDF.
-  2. <scores/>     folder cu fisiere MusicXML, denumite DUPA PAGINA:
-                     page-NNN-score-MM.(musicxml|xml|mxl)
-                   ex: page-014-score-01.musicxml  = pagina 14, partitura 1
+  2. <music-pages/>  folderul produs de extract-scores.py, cu:
+                       page-NNN.mxl   (MusicXML, una pe pagina cu muzica)
+                       manifest.json  (lista paginilor cu muzica)
 
 Iesire:
   book.md  (langa PDF), cu:
@@ -44,7 +44,16 @@ def extract_pages(pdf_path):
 
 
 def parse_score_filename(fname):
-    """'page-014-score-01.musicxml' -> 14 ; 'score-p014-a.mxl' -> 14 ; altfel None."""
+    """Extrage numarul paginii din numele unui fisier de partitura.
+
+    Suporta mai multe conventii:
+      - page-NNN.mxl               (extract-scores.py nou)
+      - page-014-score-01.musicxml (conventia veche)
+      - score-p014-a.mxl           (conventia veche)
+    """
+    m = re.match(r"page-(\d+)\.(musicxml|xml|mxl)$", fname, re.I)
+    if m:
+        return int(m.group(1))
     m = re.match(r"page-(\d+)-score-\d+\.(musicxml|xml|mxl)$", fname, re.I)
     if m:
         return int(m.group(1))

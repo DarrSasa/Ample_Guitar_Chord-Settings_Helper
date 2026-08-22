@@ -3,42 +3,48 @@
 """
 extract-scores.py
 
-Scaneaza un PDF (cartea) pagina cu pagina si extrage AUTOMAT partiturile
-(zonele cu portative), fara sa fie nevoie de screenshot-uri manuale.
+Scaneaza un PDF (cartea) pagina cu pagina, gaseste PAGINILE care contin
+partituri si le salveaza intregi (fara sa le taie), apoi (optional) ruleaza
+Audiveris pe fiecare pagina ca sa scoata MusicXML cu notele + textul din
+partitura (versuri, titluri, acorduri).
 
-Cum functioneaza (pe scurt):
-  1. Randeaza fiecare pagina la 300 DPI (imagine gri).
-  2. Detecteaza liniile orizontale lungi (= portative) cu OpenCV.
-  3. Grupeaza liniile in "sisteme" (grupuri de 5 linii apropiate).
-  4. Decupeaza fiecare sistem intr-un fisier PNG:
-       scores/score-pNNN-a.png   (pagina NNN, partitura a)
-       scores/score-pNNN-b.png   (pagina NNN, partitura b)
-       ...
-  5. Detecteaza partiturile care CONTINUA pe pagina urmatoare (marginea de
-     jos a unei pagini e "deschisa" si urmatoarea pagina incepe "deschis") si
-     le leaga in manifest.json.
-  6. (Optional) Ruleaza Audiveris pe fiecare crop -> MusicXML (*.mxl), ca
-     agentul AI sa poata citi notele + articulatiile.
+STRATEGIE (de ce asa si nu crop per portativ):
+  - Detectarea PRECISA a fiecarui portativ separat, intr-o carte mixta
+    (text + partituri + tabele + fotografii gri), este o problema de computer
+    vision grea. Orice heuristica de decupare taie sau pierde partituri.
+  - In schimb, detectarea la nivel de PAGINA ("contine pagina muzica?") este
+    FIABILA: un portativ = 5 linii orizontale la distanta regulata, gasite
+    prin proiectie orizontala + varfuri.
+  - De partea GREA (gasirea exacta a portativelor, a textului din ele, a
+    versurilor) se ocupa AUDIVERIS, care e construit fix pentru asta.
+
+Cum functioneaza:
+  1. Randeaza fiecare pagina la DPI (default 300).
+  2. Detecteaza daca pagina are portative (proiectie orizontala + varfuri).
+  3. Daca da, salveaza PAGINA INTREAGA:
+       music-pages/page-NNN.png   (pagina NNN)
+  4. Scrie manifest.json cu numerele de pagina.
+  5. (Optional) Ruleaza Audiveris pe fiecare pagina -> MusicXML (*.mxl).
 
 Dependinte (o singura data):
     pip install pymupdf opencv-python-headless numpy
 
 Folosire:
     python scripts\\extract-scores.py "C:\\carti\\carte.pdf"
-    python scripts\\extract-scores.py "C:\\carti\\carte.pdf" --audiveris "C:\\Audiveris\\bin\\Audiveris.bat"
-    python scripts\\extract-scores.py "C:\\carti\\carte.pdf" --dpi 300 --min-lines 4
+    python scripts\\extract-scores.py "C:\\carti\\carte.pdf" --audiveris "C:\\Program Files\\Audiveris\\Audiveris.exe"
+    python scripts\\extract-scores.py "C:\\carti\\carte.pdf" --dpi 300 --out "C:\\carti\\music"
 
-Iesire (langa PDF):
-    scores/score-pNNN-a.png ...        <- crop-urile partiturilor
-    scores/manifest.json               <- legaturile (continuari, pagina, ordine)
-    scores/score-pNNN-a.mxl ...        <- MusicXML (doar daca dai --audiveris)
+Iesire:
+    music-pages/page-NNN.png       <- paginile cu muzica (intregi)
+    music-pages/manifest.json      <- numerele de pagina
+    music-pages/page-NNN.mxl       <- MusicXML (doar daca dai --audiveris)
 
 NOTE (cinstit):
-  - Detecția e HEURISTICA. Merge bine pe partituri tiparite curate; pe
-    pagini foarte dense sau cu scanuri inclinate poate rata/agrega. Verifica
-    rezultatul vizual.
-  - Daca o pagina are portative in TAB (chitara), se detecteaza la fel
-    (liniile orizontale).
+  - Detecția la nivel de pagina e buna, dar nu perfecta: pe pagini cu tabele
+    sau grafice cu linii regulate pot aparea fals-pozitive. Verifica manifest.
+  - Audiveris merge bine pe partituri tiparite curate; pe notatii dense sau
+    scrise de mana poate rata detalii. Rezultatul final (MusicXML) e cel mai
+    bogat format posibil.
 """
 
 import json
@@ -52,8 +58,6 @@ import numpy as np
 import cv2
 
 try:
-    # PyMuPDF: variantele noi se importa ca `pymupdf`, cele vechi ca `fitz`.
-    # Incercam mai intai varianta noua, ca sa nu mai apara avertismente.
     import pymupdf as fitz
 except ImportError:
     try:
@@ -64,7 +68,7 @@ except ImportError:
 
 
 # ---------------------------------------------------------------------------
-# 1. Randarea paginilor
+# Randarea paginilor
 # ---------------------------------------------------------------------------
 def render_page_gray(page, dpi):
     mat = fitz.Matrix(dpi / 72.0, dpi / 72.0)
@@ -74,222 +78,90 @@ def render_page_gray(page, dpi):
 
 
 # ---------------------------------------------------------------------------
-# 2. Detectia liniilor orizontale (portative)
+# Detectia portativelor prin PROIECTIE ORIZONTALA + VARFURI (robusta)
 # ---------------------------------------------------------------------------
-def detect_horizontal_lines(gray, dpi=300, min_line_frac=0.12):
-    """Intoarce lista de (center_y, w, x0, x1) pentru liniile orizontale lungi."""
-    h, w = gray.shape
-    # Binarizare inversa (negru = 255).
-    _, bw = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+def detect_staves(gray, dpi=300):
+    """Gaseste portativele (grupuri de 4-6 linii orizontale la distanta regulata).
 
-    # Linie de portativ poate fi ingusta (partituri mici, o singura coloana).
-    # Cerem minim 12% din latimea paginii, dar cel putin 120px.
-    min_line_w = max(120, int(w * min_line_frac))
-    hsize = max(15, int(w / 60))  # kernel orizontal lung
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (hsize, 1))
-    horizontal = cv2.morphologyEx(bw, cv2.MORPH_OPEN, kernel)
+    Proiectia orizontala (cata cerneala pe fiecare rand) arata o linie de
+    portativ ca un VARF local — robust la inclinare si la intreruperi (note,
+    barlini, cheia sol). Apoi grupam 4-6 varfuri consecutive cu distanta
+    regulata (interlinie dedusa local -> merge la orice scala).
 
-    contours, _ = cv2.findContours(horizontal, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    lines = []
-    for c in contours:
-        x, y, cw, ch = cv2.boundingRect(c)
-        # Linie de portativ: foarte LUNGA raportat la inaltime. Acceptam si
-        # linii mai "groase" pentru ca un cap de nota asezat PE linie o face
-        # un blob mai inalt (pana la ~1 interlinie). Alegem prin raport de
-        # aspect (latime/inaltime >= 6), nu prin inaltime absoluta.
-        if cw >= min_line_w and ch <= max(8, int(dpi / 18)) and (cw / max(ch, 1)) >= 6:
-            lines.append((y + ch // 2, cw, x, x + cw))
-    lines.sort(key=lambda t: t[0])
-    return lines
-
-
-def group_lines_into_staves(lines, dpi):
-    """Grupeaza liniile in stave (portative) de 4-6 linii cu SPATIERE REGULATA.
-
-    Folosim o fereastra glisanta: un portativ = 5 linii consecutive la distanta
-    APROAPE EGALA intre ele. Metoda e INDEPENDENTA de scala (merge si la
-    partituri mari, si la partituri mici), pentru ca interlinia e dedusa local
-    din grup, nu dintr-un prag fix.
+    Intoarce lista de (top, bot, left, right, nr_linii, interline).
     """
-    if not lines:
+    h, w = gray.shape
+    _, bw = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+    rowink = (bw > 0).sum(axis=1).astype(np.float64)
+
+    sm = np.convolve(rowink, np.ones(3) / 3, mode="same")
+
+    # Un rand e "linie de portativ" daca are multa cerneala orizontala
+    # (>= 14% din latime). Exclude randurile obisnuite de text (~10-12%).
+    thr = w * 0.14
+    peaks = []
+    for y in range(1, h - 1):
+        if sm[y] >= thr and sm[y] >= sm[y - 1] and sm[y] >= sm[y + 1]:
+            peaks.append(y)
+
+    if len(peaks) < 4:
         return []
+
+    # Interlinie plauzibila, relativ la DPI (300dpi: 6..75px) — acopera de la
+    # portative mici la partituri la scala mare, si exclude liniile de tabel
+    # (la distanta >= 50px).
+    min_gap = max(2, int(dpi * 0.02))
+    max_gap = int(dpi * 0.25)
+
     staves = []
-    n = len(lines)
-    if n < 5:
-        return []
+    n = len(peaks)
     i = 0
-    while i + 4 < n:  # avem nevoie de liniile i..i+4 (5 linii)
-        # Candidat: liniile i..i+4 (5 linii).
-        ys = [lines[i + k][0] for k in range(5)]
+    while i + 4 < n:
+        ys = peaks[i:i + 5]
         gaps = [ys[k + 1] - ys[k] for k in range(4)]
         med = sum(gaps) / 4
         if med <= 0:
             i += 1
             continue
-        # Distanta intre linii trebuie sa fie consistenta (30% variatie max)
-        # si intr-un domeniu plauzibil (3..60px la 300dpi).
-        regular = all(3 <= g <= 60 and abs(g - med) <= med * 0.30 for g in gaps)
+        regular = all(min_gap <= g <= max_gap and abs(g - med) <= med * 0.30 for g in gaps)
         if not regular:
             i += 1
             continue
 
-        # Prelungim grupul cat mai permit liniile regulate (ex. TAB pe 6 linii).
+        # Prelungim grupul cat permit varfurile regulate (ex. TAB pe 6 linii).
         j = i + 5
         while j < n:
-            g = lines[j][0] - lines[j - 1][0]
+            g = peaks[j] - peaks[j - 1]
             if abs(g - med) <= med * 0.30:
                 j += 1
             else:
                 break
-        group = lines[i:j]
 
-        if 4 <= len(group) <= 6:
-            lefts = [g[2] for g in group]
-            rights = [g[3] for g in group]
-            width = max(rights) - min(lefts)
-            if width <= 0:
-                width = 1
-            aligned_left = (max(lefts) - min(lefts)) <= 0.20 * width
-            aligned_right = (max(rights) - min(rights)) <= 0.20 * width
-            if aligned_left and aligned_right:
-                top = min(g[0] for g in group)
-                bot = max(g[0] for g in group)
-                staves.append((top, bot, min(lefts), max(rights), len(group), med))
-                i = j
-                continue
+        if 4 <= j - i <= 6:
+            top = min(ys)
+            bot = max(peaks[j - 1], peaks[i + 4])
+            pad = max(10, int(med * 4))
+            y0 = max(0, top - pad)
+            y1 = min(h, bot + pad)
+            band = bw[y0:y1, :]
+            colink = (band > 0).sum(axis=0)
+            cols = np.where(colink > 0)[0]
+            left = int(cols.min()) if len(cols) else 0
+            right = int(cols.max() + 1) if len(cols) else w
+            staves.append((top, bot, left, right, j - i, med))
+            i = j
+            continue
         i += 1
+
     return staves
 
 
-def merge_staves_into_systems(staves, dpi):
-    """Uneste portativele unui ACELASI exemplu muzical intr-un singur crop.
-
-    O partitura dintr-o carte poate avea:
-      - un singur portativ (5 linii);
-      - mai multe portative LIPITE (pian = 2 portative cu acolada, sau mai multe
-        instrumente);
-      - mai multe SISTEME suprapuse (acelasi exemplu continuat pe verticala).
-
-    Regula: unim doua portative daca distanta verticala dintre ele e mai mica
-    decat ~18 interlinii (generos, ca sa prindem toate portativele exemplului,
-    de sus pana jos). Exemplele diferite din carte sunt despartite de text, deci
-    au spatii si mai mari -> raman separate.
-    """
-    if not staves:
-        return []
-    staves = sorted(staves, key=lambda s: s[0])
-    blocks = []
-    for s in staves:
-        interline = s[5]
-        gap_threshold = max(60, int(interline * 18))
-        if blocks and (s[0] - blocks[-1][1]) <= gap_threshold:
-            t, b, l, r, n, il = blocks[-1]
-            blocks[-1] = (t, max(b, s[1]), min(l, s[2]), max(r, s[3]), n + s[4], max(il, interline))
-        else:
-            blocks.append(list(s))
-    return blocks
-
-
-def pad_box(box, shape, pad_top, pad_bot, pad_side):
-    top, bot, left, right = box
-    h, w = shape[:2]
-    top = max(0, top - pad_top)
-    bot = min(h, bot + pad_bot)
-    left = max(0, left - pad_side)
-    right = min(w, right + pad_side)
-    return top, bot, left, right
-
-
-def touches_bottom(box, shape, tol_frac=0.02):
-    _, bot, _, _ = box
-    return bot >= shape[0] * (1 - tol_frac)
-
-
-def touches_top(box, shape, tol_frac=0.02):
-    top, _, _, _ = box
-    return top <= shape[0] * tol_frac
-
-
 # ---------------------------------------------------------------------------
-# 3b. Extindere "constienta de text" + verificare portativ real
-# ---------------------------------------------------------------------------
-def _ink_profile(gray):
-    """Profilul vertical de cerneala: cati pixeli inchisi pe fiecare rand."""
-    _, bw = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
-    return (bw > 0).sum(axis=1)
-
-
-def expand_to_ink_region(gray, top, bot, min_blank_px):
-    """Extinde intervalul vertical [top, bot] ca sa includa tot textul/notele
-    APROPIATE (titlul de sus, legenda de jos), dar se opreste la primul gol
-    (banda goala) de cel putin `min_blank_px` pixeli. Astfel nu prindem
-    paragrafele de text din corpul cartii, care sunt despartite de goluri mari.
-    """
-    h, w = gray.shape
-    rowink = _ink_profile(gray)
-    blank_thresh = max(3, int(w * 0.004))
-    blank = rowink <= blank_thresh
-
-    # Extindere in SUS.
-    new_top = max(0, top)
-    run = 0
-    for y in range(max(0, top - 1), -1, -1):
-        if blank[y]:
-            run += 1
-            if run >= min_blank_px:
-                new_top = min(y + run, h)
-                break
-        else:
-            run = 0
-            new_top = y
-
-    # Extindere in JOS.
-    new_bot = min(h, bot)
-    run = 0
-    for y in range(min(h - 1, bot), h):
-        if blank[y]:
-            run += 1
-            if run >= min_blank_px:
-                new_bot = max(0, y - run)
-                break
-        else:
-            run = 0
-            new_bot = y + 1
-
-    return new_top, new_bot
-
-
-def expand_horizontal_to_ink(gray, top, bot, left, right):
-    """Largestete crop-ul pe orizontala cat sa includa textul/notele din banda
-    verticala [top, bot] (titlurile pot fi mai late decat portativul)."""
-    band = gray[top:bot, :]
-    _, bw = cv2.threshold(band, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
-    colink = (bw > 0).sum(axis=0)
-    cols = np.where(colink > 0)[0]
-    if len(cols) == 0:
-        return left, right
-    return int(cols.min()), int(cols.max() + 1)
-
-
-def crop_has_staff(crop, dpi=300):
-    """Verifica daca un crop contine un portativ REAL (>=4 linii regulate).
-
-    Folosit ca sa eliminam crop-urile care NU sunt partituri (fotografii gri,
-    tabele, grafice) — ele nu au 5 linii de portativ regulate.
-    """
-    lines = detect_horizontal_lines(crop, dpi, min_line_frac=0.4)
-    staves = group_lines_into_staves(lines, dpi)
-    return len(staves) > 0
-
-
-# ---------------------------------------------------------------------------
-# 4. Audiveris (optional) -> MusicXML
+# Audiveris (optional) -> MusicXML
 # ---------------------------------------------------------------------------
 def run_audiveris(audiveris_path, png_path, out_dir):
     try:
         subprocess.run(
-            # `--` separa flagurile de fisierele de intrare (ca in documentatia
-            # oficiala Audiveris).
             [audiveris_path, "-batch", "-export", "-output", out_dir, "--", png_path],
             check=True,
             capture_output=True,
@@ -297,24 +169,23 @@ def run_audiveris(audiveris_path, png_path, out_dir):
         )
     except Exception as e:
         print(f"  ! Audiveris a esuat pe {os.path.basename(png_path)}: {e}")
-        return False
+        return
 
-    # Audiveris pune rezultatele intr-un subfolder numit dupa fisier (fara
-    # extensie). ex: scores/score-p001-a/score-p001-a.mxl
-    # Mutam .mxl-ul la suprafata (flat) ca package-book.py sa-l gaseasca direct:
-    #   scores/score-p001-a.mxl
+    # Audiveris pune rezultatele intr-un subfolder numit dupa fisier. Mutam
+    # .mxl-urile la suprafata, cu numele paginii.
     base = os.path.splitext(os.path.basename(png_path))[0]
     book_dir = os.path.join(out_dir, base)
-    mxl_dst = os.path.join(out_dir, base + ".mxl")
-    if os.path.isfile(mxl_dst):
-        return True
-    if os.path.isdir(book_dir):
-        for f in os.listdir(book_dir):
-            if f.lower().endswith(".mxl"):
-                shutil.move(os.path.join(book_dir, f), mxl_dst)
-                return True
-    print(f"  ! Audiveris nu a produs .mxl pentru {os.path.basename(png_path)}")
-    return False
+    if not os.path.isdir(book_dir):
+        print(f"  ! Audiveris nu a produs rezultate pentru {base}")
+        return
+    found = False
+    for f in os.listdir(book_dir):
+        if f.lower().endswith(".mxl"):
+            dst = os.path.join(out_dir, base + ".mxl")
+            shutil.move(os.path.join(book_dir, f), dst)
+            found = True
+    if not found:
+        print(f"  ! Audiveris nu a gasit note in {base} (poate e o imagine/foto, nu partitura)")
 
 
 # ---------------------------------------------------------------------------
@@ -324,9 +195,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("pdf", help="calea catre PDF")
     ap.add_argument("--dpi", type=int, default=300)
-    ap.add_argument("--min-lines", type=int, default=3, help="min. linii per portativa")
-    ap.add_argument("--audiveris", default="", help="calea catre Audiveris.bat (optional)")
-    ap.add_argument("--out", default="", help="folderul de iesire (default: 'scores' langa PDF)")
+    ap.add_argument("--audiveris", default="", help="calea catre Audiveris.exe (optional)")
+    ap.add_argument("--out", default="", help="folderul de iesire (default: 'music-pages' langa PDF)")
     args = ap.parse_args()
 
     pdf_path = args.pdf
@@ -335,94 +205,40 @@ def main():
         sys.exit(1)
 
     base_dir = os.path.dirname(os.path.abspath(pdf_path))
-    out_dir = args.out or os.path.join(base_dir, "scores")
+    out_dir = args.out or os.path.join(base_dir, "music-pages")
     os.makedirs(out_dir, exist_ok=True)
 
     doc = fitz.open(pdf_path)
     manifest = {"pages": []}
 
-    prev_open_bottom = False  # ultima partitura a paginii trecute atinge josul?
-
     for page_idx in range(len(doc)):
         page = doc[page_idx]
         gray = render_page_gray(page, args.dpi)
-        lines = detect_horizontal_lines(gray, args.dpi)
-        staves = group_lines_into_staves(lines, args.dpi)
-        systems = merge_staves_into_systems(staves, args.dpi)
+        staves = detect_staves(gray, args.dpi)
 
-        page_entry = {"page": page_idx + 1, "scores": []}
+        if not staves:
+            continue
 
-        if systems:
-            letter_idx = 0
-            for si, sys_box in enumerate(systems):
-                interline = sys_box[5] if len(sys_box) > 5 else 15
-                # Padding vertical de baza (notele se intind ~3-4 interlinii
-                # deasupra si dedesubtul portativului).
-                pad_v = max(40, int(interline * 4))
-                pad_side = int(interline * 2)
-                t, b, l, r = pad_box(sys_box[:4], gray.shape, pad_v, pad_v, pad_side)
+        # Pagina are muzica: o salvam INTREAGA (nu decupam nimic — de
+        # portativele exacte si de text se ocupa Audiveris).
+        png_name = f"page-{page_idx + 1:03d}.png"
+        png_path = os.path.join(out_dir, png_name)
+        cv2.imwrite(png_path, gray)
 
-                # Extindere "constienta de text": includem si titlul/legenda de
-                # sus/jos, dar ne oprim la primul gol mare (ca sa nu prindem
-                # paragrafele de text din corpul cartii). Titlurile sunt de
-                # obicei mai apropiate de portativ decat paragrafele corpului.
-                min_blank = max(80, int(interline * 6))
-                t, b = expand_to_ink_region(gray, t, b, min_blank)
-                l, r = expand_horizontal_to_ink(gray, t, b, l, r)
-                # Margine finala mica, ca titlul/legenda sa nu fie lipite de
-                # marginea crop-ului (altfel se taie la marginea literei).
-                t = max(0, t - 12)
-                b = min(gray.shape[0], b + 12)
-                l = max(0, l - 12)
-                r = min(gray.shape[1], r + 12)
+        manifest["pages"].append({"page": page_idx + 1, "file": png_name, "staves": len(staves)})
+        print(f"Pagina {page_idx + 1}: MUZICA ({len(staves)} portativ(e))")
 
-                crop = gray[t:b, l:r]
+        if args.audiveris:
+            run_audiveris(args.audiveris, png_path, out_dir)
 
-                # Verificare: crop-ul chiar contine un portativ real? Daca nu
-                # (e o fotografie gri, tabel, grafic), il sarim.
-                if not crop_has_staff(crop, args.dpi):
-                    continue
-
-                # Sarim peste fragmente prea mici (Audiveris pica pe ele).
-                if (b - t) < max(40, int(interline * 2.5)):
-                    continue
-
-                letter = chr(ord("a") + letter_idx)
-                letter_idx += 1
-                is_cont = False
-                # Partitura continua din pagina anterioara?
-                if letter_idx == 1 and touches_top(sys_box[:4], gray.shape) and prev_open_bottom:
-                    is_cont = True
-
-                png_name = f"score-p{page_idx + 1:03d}-{letter}.png"
-                png_path = os.path.join(out_dir, png_name)
-                cv2.imwrite(png_path, crop)
-
-                score_entry = {
-                    "file": png_name,
-                    "letter": letter,
-                    "page": page_idx + 1,
-                    "continuation_of": "previous-page" if is_cont else None,
-                }
-                page_entry["scores"].append(score_entry)
-
-                if args.audiveris:
-                    run_audiveris(args.audiveris, png_path, out_dir)
-
-            # Ultima partitura a paginii atinge josul? (posibila continuare)
-            prev_open_bottom = touches_bottom(systems[-1][:4], gray.shape)
-        else:
-            prev_open_bottom = False
-
-        manifest["pages"].append(page_entry)
-        print(f"Pagina {page_idx + 1}: {len(page_entry['scores'])} partitura(i)")
+    doc.close()
 
     manifest_path = os.path.join(out_dir, "manifest.json")
     with open(manifest_path, "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=2)
 
-    total = sum(len(p["scores"]) for p in manifest["pages"])
-    print(f"\nDONE. {total} partitura(i) extrase in: {out_dir}")
+    total = len(manifest["pages"])
+    print(f"\nDONE. {total} pagini cu muzica gasite in: {out_dir}")
     print(f"      manifest: {manifest_path}")
 
 
