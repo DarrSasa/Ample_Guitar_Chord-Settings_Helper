@@ -30,23 +30,28 @@ ETAPA 3 - Detectarea, etichetarea si extragerea partiturilor
     * Scaneaza fiecare pagina de 20+ ori, inclinand fereastra cu cate 1
       grad (de la -10 la +10 grade), ca sa prinda si partiturile stramb
       imprimate.
-    * Tine evidenta paginilor pe care apare/dispare fiecare partitura si
-      scrie un text de identificare DEASUPRA fiecareia in PDF-ul de
-      iesire (ex: "partitura A-p:22-23" daca incepe pe pagina 22 si
-      continua pe 23).
-    * Exporta fiecare partitura ca PNG (indreptata, daca era inclinata).
+    * Tine evidenta paginilor pe care apare/dispare fiecare partitura.
+      Identificarea NU se scrie in PDF - ea devine NUMELE fisierului PNG:
+          partitura-A-p22-23.png   (incepe pe pagina 22, continua pe 23;
+          partitura-B-p22-23.png    litera deosebeste partiturile care
+                                    impart aceleasi pagini)
+          partitura-p31.png        (singura partitura pe pagina 31 ->
+                                    fara litera)
+    * O partitura care continua pe pagina urmatoare este LIPITA intr-un
+      singur PNG (bucatile, indreptate, sunt puse una sub alta).
 
-Iesire:
-    <pdf>-procesat.pdf          <- PDF-ul filtrat + etichete
-    partituri/partitura-A-p22.png  (etc.)
-    partituri/manifest.json     <- evidenta partiturilor si a zonelor sterse
+Iesire (scriptul ruleaza in folderul parental, PNG-urile merg in
+subfolderul "imagini_partituri"):
+    <pdf>-procesat.pdf                     <- PDF-ul filtrat (etapele 1-2)
+    imagini_partituri/partitura-A-p22-23.png  (etc.)
+    imagini_partituri/manifest.json        <- evidenta partiturilor
 
 Dependinte (o singura data):
     pip install pymupdf opencv-python-headless numpy
 
 Folosire:
-    python scripts/proceseaza-pdf-partituri.py "carte.pdf"
-    python scripts/proceseaza-pdf-partituri.py "carte.pdf" --out-dir partituri --dpi 200
+    python extract_partituri.py "carte.pdf"
+    python extract_partituri.py "carte.pdf" --out-dir imagini_partituri --dpi 200
 """
 
 import argparse
@@ -444,7 +449,13 @@ def scaneaza_pagina(gray, masca_permisa, dpi):
 
 
 def etapa3_partituri(doc, dpi, zone_sterse, out_dir):
-    """Detecteaza partiturile, le eticheteaza in PDF si le exporta ca PNG."""
+    """Detecteaza partiturile si le exporta ca PNG in `out_dir`.
+
+    Identificarea NU se scrie in PDF: ea devine numele fisierului PNG.
+    Litera (A, B, ...) se adauga DOAR cand mai multe partituri impart
+    aceleasi pagini si trebuie deosebite intre ele:
+        partitura-A-p22-23.png, partitura-B-p22-23.png, partitura-p31.png
+    """
     scale = dpi / 72.0
     os.makedirs(out_dir, exist_ok=True)
 
@@ -467,10 +478,8 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir):
     # 2) Evidenta: pe ce pagini apare si dispare fiecare partitura.
     #    O partitura care se termina la finalul unei pagini si alta care
     #    incepe imediat la inceputul paginii urmatoare = ACEEASI partitura.
-    partituri = []  # {'litera', 'bucati': [(pagina, det)], 'pagini': [..]}
+    partituri = []  # {'bucati': [(pagina, det), ...]}
     for pno, gasite in enumerate(detectii):
-        page = doc[pno]
-        h_px = int(page.rect.height * scale)
         for i, det in enumerate(gasite):
             este_continuare = False
             if i == 0 and pno > 0 and partituri:
@@ -488,40 +497,70 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir):
             else:
                 partituri.append({"bucati": [(pno, det)]})
 
-    # 3) Etichetare in PDF + export PNG.
-    manifest = {"partituri": [], "zone_sterse": {}}
-    for idx, p in enumerate(partituri):
-        litera = litera_partitura(idx)
-        pagini = sorted({pg + 1 for pg, _ in p["bucati"]})
-        if len(pagini) > 1:
-            eticheta = f"partitura {litera}-p:{pagini[0]}-{pagini[-1]}"
-        else:
-            eticheta = f"partitura {litera}-p:{pagini[0]}"
+    # 3) Numele fisierelor: litera doar cand mai multe partituri impart
+    #    aceleasi pagini (grupuri de pagini suprapuse).
+    for p in partituri:
+        p["pagini"] = sorted({pg + 1 for pg, _ in p["bucati"]})
+    for p in partituri:
+        vecini = [q for q in partituri
+                  if q is not p and set(q["pagini"]) & set(p["pagini"])]
+        p["are_litera"] = bool(vecini)
+    # Literele se dau in ordine, per grup de pagini care se suprapun.
+    litere_folosite = 0
+    grup_anterior = None
+    for p in partituri:
+        if not p["are_litera"]:
+            p["litera"] = None
+            continue
+        grup_curent = tuple(p["pagini"])
+        # resetam alfabetul cand trecem la alt grup de pagini
+        if grup_anterior is not None and not (set(grup_curent) & set(grup_anterior)):
+            litere_folosite = 0
+        p["litera"] = litera_partitura(litere_folosite)
+        litere_folosite += 1
+        grup_anterior = grup_curent
 
-        fisiere = []
-        for pg, det in p["bucati"]:
-            page = doc[pg]
-            x0, y0, x1, y1 = det["bbox"]
-            # Textul de identificare, DIRECT DEASUPRA partiturii.
-            tx = x0 / scale
-            ty = max(10.0, y0 / scale - 4.0)
-            page.insert_text(fitz.Point(tx, ty), eticheta,
-                             fontsize=9, color=(0.85, 0, 0))
-            # Export PNG (crop-ul e deja indreptat de scanarea inclinata).
-            nume = f"partitura-{litera}-p{pg + 1}.png"
-            cale = os.path.join(out_dir, nume)
-            cv2.imwrite(cale, det["crop"])
-            fisiere.append(nume)
+    # 4) Export PNG: bucatile de pe pagini consecutive se lipesc vertical
+    #    intr-un singur fisier.
+    manifest = {"partituri": [], "zone_sterse": {}}
+    for p in partituri:
+        pagini = p["pagini"]
+        pg_txt = f"p{pagini[0]}" if len(pagini) == 1 else f"p{pagini[0]}-{pagini[-1]}"
+        if p["litera"]:
+            nume = f"partitura-{p['litera']}-{pg_txt}.png"
+        else:
+            nume = f"partitura-{pg_txt}.png"
+
+        cropuri = [det["crop"] for _, det in p["bucati"]]
+        if len(cropuri) == 1:
+            imagine = cropuri[0]
+        else:
+            # Lipim bucatile una sub alta, aliniate la stanga, cu un mic
+            # spatiu alb intre ele.
+            lat = max(c.shape[1] for c in cropuri)
+            bucati_egale = []
+            gol = np.full((12, lat), 255, dtype=np.uint8)
+            for k, c in enumerate(cropuri):
+                if c.shape[1] < lat:
+                    pad = np.full((c.shape[0], lat - c.shape[1]), 255, dtype=np.uint8)
+                    c = np.hstack([c, pad])
+                bucati_egale.append(c)
+                if k < len(cropuri) - 1:
+                    bucati_egale.append(gol)
+            imagine = np.vstack(bucati_egale)
+
+        cale = os.path.join(out_dir, nume)
+        cv2.imwrite(cale, imagine)
 
         manifest["partituri"].append({
-            "eticheta": eticheta,
+            "fisier": nume,
             "pagini": pagini,
             "unghi_grade": p["bucati"][0][1]["unghi"],
             "nr_linii": [det["nr_linii"] for _, det in p["bucati"]],
-            "fisiere_png": fisiere,
         })
-        print(f"  {eticheta}  (linii: {[d['nr_linii'] for _, d in p['bucati']]}, "
-              f"unghi: {p['bucati'][0][1]['unghi']} grade) -> {', '.join(fisiere)}")
+        print(f"  {nume}  (pagini: {pagini}, linii: "
+              f"{[d['nr_linii'] for _, d in p['bucati']]}, "
+              f"unghi: {p['bucati'][0][1]['unghi']} grade)")
 
     manifest["zone_sterse"] = {
         str(pno + 1): [list(map(float, (r.x0, r.y0, r.x1, r.y1))) for r in zone]
@@ -541,8 +580,9 @@ def main():
         description="Filtreaza textul majoritar suprapus si imaginile color "
                     "dintr-un PDF, apoi detecteaza/eticheteaza/exporta partiturile.")
     ap.add_argument("pdf", help="calea catre fisierul PDF de procesat")
-    ap.add_argument("--out-dir", default="partituri",
-                    help="folderul pentru PNG-uri si manifest (default: partituri)")
+    ap.add_argument("--out-dir", default="imagini_partituri",
+                    help="subfolderul pentru PNG-uri si manifest "
+                         "(default: imagini_partituri, langa script)")
     ap.add_argument("--out-pdf", default=None,
                     help="calea PDF-ului procesat (default: <pdf>-procesat.pdf)")
     ap.add_argument("--dpi", type=int, default=200,
