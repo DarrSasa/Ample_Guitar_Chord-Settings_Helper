@@ -51,10 +51,15 @@ import numpy as np
 import cv2
 
 try:
-    import fitz  # PyMuPDF
+    # PyMuPDF: variantele noi se importa ca `pymupdf`, cele vechi ca `fitz`.
+    # Incercam mai intai varianta noua, ca sa nu mai apara avertismente.
+    import pymupdf as fitz
 except ImportError:
-    print("Lipseste PyMuPDF. Ruleaza:  pip install pymupdf")
-    sys.exit(1)
+    try:
+        import fitz  # PyMuPDF (varianta veche)
+    except ImportError:
+        print("Lipseste PyMuPDF. Ruleaza:  pip install pymupdf")
+        sys.exit(1)
 
 
 # ---------------------------------------------------------------------------

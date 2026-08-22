@@ -31,7 +31,10 @@ import sys
 
 def extract_pages(pdf_path):
     """Intoarce lista de texte, una pe pagina."""
-    import fitz  # PyMuPDF
+    try:
+        import pymupdf as fitz  # varianta noua
+    except ImportError:
+        import fitz  # varianta veche
     doc = fitz.open(pdf_path)
     pages = []
     for page in doc:
