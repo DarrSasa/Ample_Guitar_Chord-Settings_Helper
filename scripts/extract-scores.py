@@ -113,8 +113,10 @@ def group_lines_into_staves(lines, dpi):
         return []
     staves = []
     n = len(lines)
+    if n < 5:
+        return []
     i = 0
-    while i <= n - 4:
+    while i + 4 < n:  # avem nevoie de liniile i..i+4 (5 linii)
         # Candidat: liniile i..i+4 (5 linii).
         ys = [lines[i + k][0] for k in range(5)]
         gaps = [ys[k + 1] - ys[k] for k in range(4)]
