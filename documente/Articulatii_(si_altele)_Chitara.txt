@@ -1,0 +1,251 @@
+EU:
+vreau să dau unui LLM să citească Aceste cărți și sa extragă explicații despre articulatii sonore
+am un proiect tehnic (unde un LLM trebuie să extragă reguli precise, șabloane logice și parametri 
+de interpretare pentru a fi convertiți în date MIDI precum Velocity, Note Length, Key Switches sau CC-uri), 
+dacă știi cum să transform lista asta cât mai bine posibil pentru ca LLM-ul sa introducă toate informațiile în program, 
+nu numai despre articulații dar tot ce are legătură una cu alta și cum trebuie asta construit în etape într un program
+ce se relationeaza cu ce si etapele, eu presupun ca prima etapa este alegerea genului muzical, apoi, progresia de acorduri si lungimile acordurilor,
+iar apoi nu stiu exact cum, dar tu fa toata explicatia cu structura necesara, adauga si arp, melodie, bass, stocato tot ce apare adica in interpretarile chitaristice.
+
+acum fami lista transformata, nu cum este ea jos:
+1.Gen muzical:
+Subiect: Articulatii - 'Cartea 1', 'Cartea 2'...
+Subiect: Efecte Speciale - 'Cartea 1', 'Cartea 2'...
+Alt Subiect important din teoria muzicala la chitari:...
+...
+
+cu:
+The definitive guitar handbook
+3-phrasing-articulation-and-the-guitar.pdf
+Abel-Carlevaro-School-of-Guitar-Exposition-of-Instrumental-Theory.pdf
+alternate-picking-guitar-explained-free-ebook.pdf
+Classical & Fingerstyle Guitar Techniques by David Oakes.pdf
+comping-ebook.pdf
+David Braid - Play Classical Guitar.pdf
+Extended Techniques for the Classical Guitar.pdf
+Fernandez Eduardo Technique,Mechanism,Learning.pdf
+kiryanov_gitara2.pdf
+Learn-and-Master-Guitar-Lesson-Book.pdf
+modes-of-the-major-scale-22transposed22.pdf
+sweep-picking-edited-1-1.pdf
+The Contemporary Guitar - Schneider.pdf
+The definitive guitar handbook-part 1.pdf
+The Techniques of E-Guitar Playing – Seth F. Josel & Lou.pdf
+The Techniques of Guitar Playing by Seth f. Josel.pdf
+tremolo-use-now-wp.pdf
+Paul Gilreath - The Guide To MIDI Orchestration.pdf
+Jazz Guitar Phrasing Workout by William Bay-Long.png
+Matteo Carcassi Classical Guitar Method-Long.png
+
+Encyclopedia of Guitar Chords.pdf
+
+Berklee Rhythm Blues Guitar.pdf
+Essentials Funk Rhythm Guitar.pdf
+Rhythm-Guitar-Encyclopedia.pdf
+Rhythm Guitar 1 (Spanish).pdf
+Rhythm Guitar Playing Book 1.pdf
+
+Bass Guitar Fretboard Memorization - Andy Schneider.pdf
+Guitar Mode Encyclopedia.pdf
+Guitar Scales Encyclopedia - Andy Schneider.pdf
+Guitar Scales Encyclopedia Fast Reference For The Scales You Need in Every Key by Andy Schneider.pdf
+Guitar Scales Infinity - Andy Schneider.pdf
+Jazz Guitar Scales.pdf
+Jody Fisher - Guitar Mode Encyclopedia.pdf
+
+Encyclopedia of Guitar Virtuosity.pdf
+The definitive guitar handbook
+--------------------------------------------------------------------
+RASPUNS:
+Pentru a converti această bibliotecă într-un program funcțional de generare și interpretare MIDI, cărțile trebuie organizate 
+într-un **pipeline liniar în 7 etape**. LLM-ul nu va citi cărțile ca pe un text simplu, ci va extrage din ele reguli de calcul 
+pentru fiecare modul al algoritmului.
+
+---
+
+### Arhitectura Programului: Pipeline-ul în 7 Etape
+
+```
+[Etapa 1: Stil & Tempo] ➔ [Etapa 2: Acorduri & Voicing] ➔ [Etapa 3: Melodie & Bas]
+                                                                  │
+[Etapa 7: Date MIDI Final] ◄─ [Etapa 6: Articulații] ◄─ [Etapa 5: Ergonomie] ◄─ [Etapa 4: Ritm]
+
+```
+
+---
+
+#### Etapa 1: Contextul Stilistic și Regimul de Performanță
+
+* **Rolul în algoritm:** Definește cadrul global. Stabilește genul muzical, tempo-ul, tipul de chitară (clasică, acustică, 
+electrică clean/distors), feeling-ul ritmic (straight vs. swing) și tipul de VST/sampler utilizat.
+* **Date de intrare:** Gen muzical (ex: Jazz, Funk, Metal, Flamenco), Tempo (BPM).
+* **Date de ieșire:** Set de reguli globale (parametri de humanize, grilă ritmică, limite dinamice).
+* **Cărți alocate pentru extractia de reguli:**
+* `Paul Gilreath - The Guide To MIDI Orchestration.pdf` – reguli de mapare a samplerelor și comportament MIDI pe genuri.
+* `Learn-and-Master-Guitar-Lesson-Book.pdf` – convenții generale de stil.
+* `The definitive guitar handbook` & `The definitive guitar handbook-part 1.pdf` – parametri de cadru pe genuri muzicale.
+
+
+
+---
+
+#### Etapa 2: Arhitectura Armonică și Voicing-ul de Chitară (Chord & Layout Engine)
+
+* **Rolul în algoritm:** Primește progresia de acorduri și o traduce din „acorduri de pian” în **voicing-uri reale de chitară** 
+(forme ergonomice pe 6 corzi, drop-2, drop-3, power chords, open chords).
+* **Date de intrare:** Progresia de acorduri (ex: $ii - V - I$) și duratele lor (măsuri/timpi).
+* **Date de ieșire:** Tablou de note pe corzi/taste reprezentând acordul ancorat pe grif.
+* **Cărți alocate pentru extracția de reguli:**
+* `Encyclopedia of Guitar Chords.pdf` – baza de date de acorduri și poziții pe tastieră.
+* `comping-ebook.pdf` – reguli de voicings pentru Jazz/Funk (drop-2, drop-3, ghidarea vocilor interne).
+* `Rhythm-Guitar-Encyclopedia.pdf`, `Rhythm Guitar Playing Book 1.pdf`, `Rhythm Guitar 1 (Spanish).pdf` – structuri de 
+acompaniament ritmic-armonic.
+* `Berklee Rhythm Blues Guitar.pdf` – voicing-uri specifice Blues, Soul și R&B.
+
+
+
+---
+
+#### Etapa 3: Generarea Liniilor Melodice, Arpegiilor și Basului (Chord-Scale Engine)
+
+* **Rolul în algoritm:** Generează liniile de solo, liniile de bas sau structurile de arpegiu peste acordurile stabilite în Etapa 
+2, respectând teoria acord-scară.
+* **Date de intrare:** Voicing-ul acordului + tipul de linie dorit (Melodie, Arpegiu, Walking Bass).
+* **Date de ieșire:** Secvență de pitch-uri (valori MIDI 0-127) în ordine cronologică.
+* **Cărți alocate pentru extracția de reguli:**
+* `Guitar Mode Encyclopedia.pdf`, `Jody Fisher - Guitar Mode Encyclopedia.pdf` – maparea modurilor pe tipuri de acorduri.
+* `Guitar Scales Encyclopedia - Andy Schneider.pdf`, `Guitar Scales Infinity - Andy Schneider.pdf`, `Guitar Scales Encyclopedia 
+Fast Reference...` – căutarea notelor permise și conexiunile pe tot gâtul.
+* `Jazz Guitar Scales.pdf`, `modes-of-the-major-scale-22transposed22.pdf` – selecția scărilor pentru linii solistice.
+* `Bass Guitar Fretboard Memorization - Andy Schneider.pdf` – reguli de construcție a liniilor de bas și ancorarea pe corzile 
+4/5/6.
+
+
+
+---
+
+#### Etapa 4: Pattern-uri Ritmice și Textură (Strumming, Fingerpicking, Funk Muting)
+
+* **Rolul în algoritm:** Sparge acordurile și liniile melodice în modele ritmice concrete: bătaie de chitară (strumming sus/jos), 
+ciupit polifonic (fingerstyle), scratching de funk sau staccato.
+* **Date de intrare:** Notele din Etapele 2-3 + Pattern Ritmic.
+* **Date de ieșire:** Timestamp-uri exacte pentru Note-On și Note-Off (staccato = durată scurtă, legato = durată suprapusă).
+* **Cărți alocate pentru extracția de reguli:**
+* `Essentials Funk Rhythm Guitar.pdf` – mecanica ritmică de 16-imi, ghost notes ritmice, strumming tăiat/staccato.
+* `Classical & Fingerstyle Guitar Techniques by David Oakes.pdf` – modele de ciupire (p-i-m-a) și separarea ritmică a vocilor.
+* `David Braid - Play Classical Guitar.pdf`, `Matteo Carcassi Classical Guitar Method-Long.png` – tipare clasice de arpegii și 
+acompaniament.
+* `tremolo-use-now-wp.pdf` – repetiții ritmice rapide de înaltă frecvență (subdiviziuni de 16-imi/32-imi).
+
+
+
+---
+
+#### Etapa 5: Mecanica Fizică și Maparea pe Tastieră (Fret & String Selection Engine)
+
+* **Rolul în algoritm:** Stabilește **pe ce coardă și la ce tastă exactă** se cântă fiecare notă. Elimină săriturile imposibile 
+de degete și alege poziția optimă pentru timbrul dorit (coardă groasă = sunet cald; coardă subțire = sunet strălucitor).
+* **Date de intrare:** Pitch-ul notei + viteza pasajului.
+* **Date de ieșire:** Asignare exactă: `[Nota: E4, Coarda: 2, Tasta: 5]`.
+* **Cărți alocate pentru extracția de reguli:**
+* `Abel-Carlevaro-School-of-Guitar-Exposition-of-Instrumental-Theory.pdf` – biomecanica mâinilor, schimbarea pozițiilor (shifts), 
+stăpânirea opririi rezonanței (dampening).
+* `Fernandez Eduardo Technique,Mechanism,Learning.pdf` – fizica atacului, unghiul penei/degetului și fizica rezonanței.
+* `kiryanov_gitara2.pdf` – logica degetației și ergonomia pe gâtul chitarei.
+
+
+
+---
+
+#### Etapa 6: Modulul de Articulație Expresivă și Micro-Dinamica (Sensul Execuției)
+
+* **Rolul în algoritm:** Determină modul exact în care este atacată sau modificată fiecare notă în context: Legato 
+(Hammer-on/Pull-off), Slide, Bend, Palm Mute, Vibrato, Rasgueado sau efecte percutante.
+* **Date de intrare:** Notele mapate pe corzi din Etapa 5 + Contextul melodic (intervale între note succesive).
+* **Date de ieșire:** Tag-uri de articulație atașate fiecărei note (ex: `Note 1: Normal Attack`, `Note 2: Hammer-On`, `Note 3: 
+Palm Mute`).
+* **Cărți alocate pentru extracția de reguli:**
+* `The Techniques of Guitar Playing by Seth f. Josel.pdf` – atlasul complet de articulații acustice, microtonalitate, timbre 
+(ponticello/tasto).
+* `The Techniques of E-Guitar Playing – Seth F. Josel & Lou.pdf` – articulații specifice chitarei electrice (palm mute, pinch 
+harmonics, whammy bar, feedback).
+* `Extended Techniques for the Classical Guitar.pdf` – efecte speciale (golpe, percuție pe corp, string buzz, bartok pizzicato).
+* `The Contemporary Guitar - Schneider.pdf` – acustica avansată a articulațiilor și notația contemporană.
+* `3-phrasing-articulation-and-the-guitar.pdf` – reguli de context: de ce și când se aplică un legato, slide sau accent în 
+funcție de frază.
+* `Jazz Guitar Phrasing Workout by William Bay-Long.png` – frazare de swing, oprirea notelor pe timpii slabi, ghost notes.
+* `alternate-picking-guitar-explained-free-ebook.pdf`, `sweep-picking-edited-1-1.pdf`, `Encyclopedia of Guitar Virtuosity.pdf` – 
+articulații de mare viteză (economia mișcării penei).
+
+
+
+---
+
+#### Etapa 7: Conversia în Date MIDI Brute (The MIDI Translation Engine)
+
+* **Rolul în algoritm:** Mapează toate instrucțiunile biomecanice și expresive din Etapele 1-6 în date MIDI standard citite de 
+orice VST de chitară (Ample Sound, Shreddage, Ilya Efimov, Native Instruments).
+* **Date de intrare:** Note + Timestamp-uri + Tag-uri de articulație + Asignare Corzi.
+* **Date de ieșire:** Fişier sau stream MIDI conținând:
+* **Velocity (0-127):** calculat din forța de atac și accente.
+* **Gate Time (% Note Length):** calculat din staccato, legato sau dampening.
+* **Key Switches:** note foarte joase/înalte folosite de VST pentru schimbarea articulației (ex: $C{-1}$ = Palm Mute, $C\#{-1}$ = 
+Open).
+* **CC-uri (Control Change):** CC1 (Modulation/Vibrato), CC11 (Expression/Volum), CC65 (Portamento/Slide), Pitch Bend.
+
+
+* **Cărți alocate pentru extracția de reguli:**
+* `Paul Gilreath - The Guide To MIDI Orchestration.pdf` – traducerea directă a dinamicii acustice în parametri MIDI controlabili.
+* *Sinteza regulilor din Carlevaro + Fernández + Josel* – convertirea forței fizice exprimate în Newtoni/viteză în curbe de 
+Velocity MIDI.
+
+
+
+---
+
+### Schemă de Funcționare a Datelor în Program
+
+| Etapă | Modul Program | Date Primite (Input) | Date Generate (Output) |
+| --- | --- | --- | --- |
+| **1** | **Global Config** | Gen: *Funk*, BPM: *112* | Regulă Swing: 60%, Dynamic Range: 80-120 |
+| **2** | **Chord Engine** | Progresie: `Am7 - D7` | Voicing-uri pe corzi: `Am7 [X,0,5,5,5,X]` |
+| **3** | **Melody/Bass** | Voicing `Am7` | Linie de bas: `A1 -> C2 -> D2` |
+| **4** | **Rhythm Engine** | Linie de bas | Model ritmic: 16-imi cu accent pe timpii 1 și 3.5 |
+| **5** | **Fret Mapper** | Note: `A1, C2, D2` | Corzi/Taste: `Coarda 6 Tasta 5`, `Coarda 6 Tasta 8` |
+| **6** | **Articulation** | Tranziție `C2 -> D2` | Tag atribuit: `Slide (Portamento)` |
+| **7** | **MIDI Converter** | Tag `Slide` + Nota `D2` | **MIDI:** Note `D2` (Vel: 105, Gate: 95%), **CC65:** 127, **KeySwitch:** 
+$D{-1}$ |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
