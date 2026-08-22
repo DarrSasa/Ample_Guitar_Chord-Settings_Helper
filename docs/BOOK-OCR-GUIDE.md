@@ -92,6 +92,25 @@ noastre (si agentul AI) il pot citi.
 > `"C:\Program Files\Tesseract-OCR\ocrmypdf" -l spa "..." "..."`
 > (de regula simplu `ocrmypdf` merge dupa Pasul 1).
 
+### Ce faci daca primesti eroarea "TaggedPDFError" / "does not need OCR"
+
+Daca ocrmypdf se opreste cu mesajul:
+
+```
+TaggedPDFError: This PDF is marked as a Tagged PDF. ... does not need OCR.
+```
+
+**E o veste BUNA**: cartea NU e scanata — are deja text selectabil (a fost
+generata din Word/alt program). Atunci **sari peste OCR complet** si folosesti
+PDF-ul ORIGINAL direct la Pasii 6 si 8 (scripturile noastre citesc textul
+selectabil si gasesc partiturile care sunt imagini). Exemplele muzicale sunt
+aproape mereu imagini, deci detecția partiturilor merge oricum.
+
+```
+python scripts\extract-scores.py "cartea.pdf" --audiveris "C:\Program Files\Audiveris\Audiveris.exe"
+python scripts\package-book.py "cartea.pdf" "scores"
+```
+
 ---
 
 ## PASUL 5 — Instalezi Audiveris (pt. partituri -> MusicXML) — o singura data
