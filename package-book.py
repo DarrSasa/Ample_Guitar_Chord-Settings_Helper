@@ -146,8 +146,13 @@ def clasifica_cuvinte(cuvinte, lat, inalt):
        - 'stanga'  : eticheta partii (Vln, Vla, Violin I) -> part-name
        - 'sus'     : legenda/titlul de deasupra -> movement-title
        - 'altele'  : restul cuvintelor bune -> credit-words
+
+    Intoarce si `de_albit`: bbox-urile cuvintelor VALIDATE, singurele care
+    au voie sa fie albite inainte de OMR. Gunoaiele OCR ("©):", "e)",
+    "<->") NU se albesc: ele sunt de fapt chei/note citite gresit -
+    albirea lor ar sterge chiar muzica si Audiveris n-ar mai gasi nimic.
     """
-    eticheta, titlu, altele = None, None, []
+    eticheta, titlu, altele, de_albit = None, None, [], []
     for c in cuvinte:
         brut = c["text"]
         text = curata_cuvant(brut)
@@ -160,6 +165,7 @@ def clasifica_cuvinte(cuvinte, lat, inalt):
             valid = valideaza_eticheta(brut)
             if valid and (eticheta is None or len(valid) > len(eticheta)):
                 eticheta = valid
+                de_albit.append(c["bbox"])
                 continue
         if not cuvant_bun(text):
             continue
@@ -169,22 +175,24 @@ def clasifica_cuvinte(cuvinte, lat, inalt):
             if (litere >= 5 and any(ch in "aeiouAEIOU" for ch in text)
                     and (titlu is None or len(text) > len(titlu))):
                 titlu = text
+                de_albit.append(c["bbox"])
         else:
             # pentru credit-words cerem cuvinte ceva mai lungi, ca sa nu
             # ajunga in XML gunoaie OCR de 2 litere ("ae", "oe", "es")
             if sum(1 for ch in text if ch.isalpha()) >= 4:
                 altele.append(text)
-    return eticheta, titlu, altele
+    return eticheta, titlu, altele, de_albit
 
 
 # ---------------------------------------------------------------------------
 # curatarea PNG-ului pentru OMR (albim cuvintele, marim imaginea)
 # ---------------------------------------------------------------------------
-def pregateste_pentru_omr(png_path, cuvinte, out_path, scala=2, margine=40,
-                          binarizeaza=False):
-    """Pregateste PNG-ul pentru Audiveris: albeste cuvintele descriptive,
-    mareste imaginea, adauga o margine alba generoasa (OMR-ul are nevoie
-    de spatiu in jurul portativului) si, optional, binarizeaza."""
+def pregateste_pentru_omr(png_path, de_albit, out_path, scala=2, margine=40,
+                          binarizeaza=False, canvas=False):
+    """Pregateste PNG-ul pentru Audiveris: albeste DOAR cuvintele validate
+    (etichete/titluri reale), mareste imaginea, adauga margine alba
+    (OMR-ul are nevoie de spatiu in jurul portativului) si, optional,
+    binarizeaza sau aseaza crop-ul pe o pagina A4 sintetica."""
     if cv2 is None:
         shutil.copyfile(png_path, out_path)
         return
@@ -193,14 +201,25 @@ def pregateste_pentru_omr(png_path, cuvinte, out_path, scala=2, margine=40,
         shutil.copyfile(png_path, out_path)
         return
     h, w = img.shape
-    for c in cuvinte:
-        x0, y0, x1, y1 = c["bbox"]
+    for (x0, y0, x1, y1) in de_albit:
         img[max(0, y0 - 2):min(h, y1 + 2), max(0, x0 - 2):min(w, x1 + 2)] = 255
     if scala != 1:
         img = cv2.resize(img, (w * scala, h * scala), interpolation=cv2.INTER_CUBIC)
     if binarizeaza:
         _, img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    if margine > 0:
+    if canvas:
+        # pagina A4 sintetica la ~300 dpi, cu crop-ul asezat sus
+        H, W = 3508, 2480
+        ih, iw = img.shape
+        if ih <= H - 600 and iw <= W - 600:
+            pagina = np.full((H, W), 255, dtype=np.uint8)
+            ox = max(300, (W - iw) // 2)
+            pagina[300:300 + ih, ox:ox + iw] = img
+            img = pagina
+        else:
+            img = cv2.copyMakeBorder(img, 300, 300, 300, 300,
+                                     cv2.BORDER_CONSTANT, value=255)
+    elif margine > 0:
         img = cv2.copyMakeBorder(img, margine, margine, margine, margine,
                                  cv2.BORDER_CONSTANT, value=255)
     cv2.imwrite(out_path, img)
@@ -433,31 +452,41 @@ def main():
         cuvinte = info.get("cuvinte", [])
         baza = os.path.splitext(fname)[0]
 
-        # 1) conversia cu Audiveris (pe imaginea curatata de cuvinte).
-        #    Daca esueaza, reincercam cu imagine tot mai mare, margine alba
-        #    generoasa si, la final, binarizata - crop-urile mici au nevoie
-        #    de ajutor ca sa treaca de minimul cerut de OMR.
+        # clasificam cuvintele INAINTE de OMR: doar cele validate
+        # (etichete/titluri reale) au voie sa fie albite in imagine
+        lat, inalt = 1000, 200
+        if cv2 is not None:
+            img0 = cv2.imread(os.path.join(args.imagini, fname),
+                              cv2.IMREAD_GRAYSCALE)
+            if img0 is not None:
+                inalt, lat = img0.shape
+        eticheta, titlu, altele, de_albit = clasifica_cuvinte(cuvinte, lat, inalt)
+
+        # 1) conversia cu Audiveris. Daca esueaza, reincercam cu imagine
+        #    tot mai mare, margine alba generoasa, binarizare si, la final,
+        #    crop-ul asezat pe o pagina A4 sintetica.
         cale_xml = None
         if args.audiveris:
             with tempfile.TemporaryDirectory() as tmp:
                 incercari = [
                     dict(scala=args.scala_omr, margine=40, binarizeaza=False),
                     dict(scala=args.scala_omr * 2, margine=150, binarizeaza=False),
-                    dict(scala=args.scala_omr * 2, margine=150, binarizeaza=True),
+                    dict(scala=args.scala_omr * 2, margine=0, binarizeaza=True,
+                         canvas=True),
                 ]
                 produs, stare = None, "esec"
                 for k, conf in enumerate(incercari):
                     png_curat = os.path.join(tmp, baza + ".png")
                     pregateste_pentru_omr(os.path.join(args.imagini, fname),
-                                          cuvinte, png_curat, **conf)
+                                          de_albit, png_curat, **conf)
                     produs, stare = ruleaza_audiveris(
                         args.audiveris, png_curat, tmp,
                         arata_eroarea=(k == len(incercari) - 1))
                     if produs:
                         if k > 0:
                             print(f"  {baza}: a mers la incercarea {k + 1} "
-                                  f"(scara {conf['scala']}x, margine "
-                                  f"{conf['margine']}px"
+                                  f"(scara {conf['scala']}x"
+                                  f"{', pagina A4' if conf.get('canvas') else ''}"
                                   f"{', binarizat' if conf['binarizeaza'] else ''})")
                         break
                 if produs:
@@ -478,14 +507,6 @@ def main():
 
         # 2) injectam cuvintele descriptive in XML, la locul corect
         if cale_xml:
-            img_dim = None
-            if cv2 is not None:
-                img = cv2.imread(os.path.join(args.imagini, fname),
-                                 cv2.IMREAD_GRAYSCALE)
-                if img is not None:
-                    img_dim = (img.shape[1], img.shape[0])
-            lat, inalt = img_dim if img_dim else (1000, 200)
-            eticheta, titlu, altele = clasifica_cuvinte(cuvinte, lat, inalt)
             if injecteaza_cuvinte_xml(cale_xml, eticheta, titlu, altele):
                 detalii = [x for x in (eticheta and f"part-name='{eticheta}'",
                                        titlu and f"titlu='{titlu}'") if x]
