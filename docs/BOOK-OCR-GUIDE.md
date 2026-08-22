@@ -97,11 +97,18 @@ noastre (si agentul AI) il pot citi.
 ## PASUL 5 — Instalezi Audiveris (pt. partituri -> MusicXML) — o singura data
 
 1. Intri pe: `https://github.com/Audiveris/audiveris/releases`
-2. Descarca installer-ul de Windows (`.msi`).
+2. Descarca installer-ul de Windows: **`Audiveris-5.11.0-windows-x86_64.msi`**
+   (cel FARA "Console" in nume — are interfata grafica).
 3. Il rulezi si instalezi cu setarile default.
-4. **Audiveris are nevoie de Java.** Daca la prima pornire zice ca lipseste
-   Java, instalezi Java de aici: `https://adoptium.net` (versiunea **Temurin 21**, 64-bit).
-5. Noteaza calea catre `Audiveris.bat` (de regula
+4. **Java:** nu trebuie sa instalezi nimic separat — Audiveris 5.11 isi aduce
+   propriul Java in pachet. (Verificare: daca programul SE DESCHIDE si iti
+   arata ferestrele, Java merge. Chiar daca `java -version` in PowerShell da
+   eroare "nu e recunoscut", NU e o problema — Audiveris nu depinde de un
+   Java global.)
+5. La prima pornire, iti va cere sa instalezi "limbaje OCR" — bifeaza
+   **English, Spanish, Russian** (sunt pentru textul DIN partituri: titluri,
+   versuri, indicatii). Notele muzicale se citesc oricum, indiferent de limba.
+6. Noteaza calea catre `Audiveris.bat` (de regula
    `C:\Program Files\Audiveris\bin\Audiveris.bat`).
 
 > Daca preferi sa sari peste Audiveris deocamdata: poti. Pasul 6 iti scoate
