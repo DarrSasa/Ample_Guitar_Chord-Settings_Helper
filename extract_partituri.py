@@ -89,7 +89,9 @@ except ImportError:
 # ---------------------------------------------------------------------------
 ALB = 235           # pixel >= ALB  -> "alb sau aproape alb" (nu gri)
 GRI_INCHIS = 140    # pixel <  GRI_INCHIS -> cerneala (negru / gri inchis)
-CERNEALA = 200      # pixel <  CERNEALA -> poate fi linie (negru sau gri)
+CERNEALA = 208      # pixel <  CERNEALA -> poate fi linie: negru SAU gri,
+                    # dar nu gri foarte deschis (ala e "alb inchis")
+FRACT_LATIME = 0.10 # lungimea minima a liniilor cautate ~ 1/10 din latimea paginii
 PRAG_COLOR = 22     # diferenta max intre canalele R/G/B ca un pixel sa fie "gri"
 FRACT_COLOR = 0.02  # >2% pixeli colorati -> imaginea e "color"
 ACOPERIRE_SCAN = 0.8  # o imagine care acopera >=80% din pagina = scanul paginii
@@ -356,15 +358,20 @@ def etapa2_filtrare_imagini(doc, zone_sterse):
 # ETAPA 3 - detectarea partiturilor (segmente de linie + grupare)
 # ===========================================================================
 def segmente_orizontale(gray, masca_permisa, dpi):
-    """Gaseste SEGMENTELE de linie orizontala (gri sau negre) din imagine,
-    folosind o fereastra plata 1 x L (deschidere morfologica): raman doar
-    pixelii care fac parte din serii orizontale continue de cel putin L.
+    """Gaseste SEGMENTELE de linie orizontala din imagine, folosind o
+    fereastra plata 1 x L (deschidere morfologica): raman doar pixelii
+    care fac parte din serii orizontale continue de cel putin L.
+
+    Fereastra "se deplaseaza de sus in jos": segmentele sunt intoarse in
+    ordinea de sus in jos a paginii. Liniile cautate pot fi NEGRE sau GRI
+    (pixel < CERNEALA), dar nu gri foarte deschis (ala e alb inchis).
+    Lungimea de scanare L este ~1/10 din LATIMEA paginii.
 
     Intoarce lista de (y_centru, x_stanga, x_dreapta), doar linii SUBTIRI
     (liniile de portativ au 1-3 pixeli; textul si pozele sunt mai inalte).
     """
-    L = max(40, int(dpi * 0.30))                 # ~0.8 cm la 200 dpi
-    grosime_max = max(4, int(round(dpi / 30.0))) # ~7 px la 200 dpi
+    L = max(20, int(round(gray.shape[1] * FRACT_LATIME)))  # ~1/10 din latime
+    grosime_max = max(4, int(round(dpi / 30.0)))           # ~7 px la 200 dpi
     binar = ((gray < CERNEALA) & masca_permisa).astype(np.uint8)
     deschis = cv2.morphologyEx(binar, cv2.MORPH_OPEN, np.ones((1, L), np.uint8))
     n, _, stats, cent = cv2.connectedComponentsWithStats(deschis, 8)
@@ -438,11 +445,15 @@ def grupeaza_segmente(segs, gray, dpi):
     return [g["linii"] for g in grupuri if len(g["linii"]) >= 2]
 
 
-def rafineaza_chenar(rot, x0, y0, x1, y1, interlinie, si_vertical=True):
+def rafineaza_chenar(rot, x0, y0, x1, y1, interlinie, si_vertical=True, miez=None):
     """Extinde chenarul unei partituri (in imaginea deja indreptata) pana
     intalneste spatiu alb in toate directiile, cu o toleranta de ~1.5
     interlinii (ca sa prinda notele, codiletele, legato-urile si liniile
-    de portativ ratate de detectie), apoi adauga o margine alba mica."""
+    de portativ ratate de detectie), apoi adauga o margine alba mica.
+
+    Extinderea ORIZONTALA se uita doar in banda miezului (liniile
+    portativului +/- 2 interlinii), ca sa nu "mearga" pe randurile de
+    text/legendele portativului vecin, aflate mai sus sau mai jos."""
     h, w = rot.shape
     look = max(6, int(interlinie * 1.5))
     look_x = max(5, int(interlinie))   # orizontal mai strans: nu lipim
@@ -465,21 +476,46 @@ def rafineaza_chenar(rot, x0, y0, x1, y1, interlinie, si_vertical=True):
         if rnd.size == 0:
             break
         y1 = y1 + int(rnd[-1]) + 1
-    # stanga
+    # stanga / dreapta: doar in banda miezului (liniile +/- 2 interlinii)
+    if miez is not None:
+        hy0 = max(y0, int(miez[0] - 2 * interlinie))
+        hy1 = min(y1, int(miez[1] + 2 * interlinie))
+    else:
+        hy0, hy1 = y0, y1
+
+    def _bara_la_margine(xa, xb):
+        """Exista o bara de masura (linie verticala pe toata inaltimea
+        miezului) intre coloanele xa..xb? Un portativ terminat cu bara,
+        urmat de gol, NU se mai extinde peste gol (acolo incepe
+        portativul vecin)."""
+        if miez is None:
+            return False
+        my0 = max(0, int(miez[0] - 2)); my1 = min(h, int(miez[1] + 3))
+        banda = rot[my0:my1, max(0, xa):min(w, xb)]
+        if banda.size == 0:
+            return False
+        col_ink = (banda < CERNEALA).mean(axis=0)
+        return bool((col_ink >= 0.85).any())
+
     limita = max(0, x0 - lim_x)
     while x0 > limita:
-        banda = rot[y0:y1, max(0, x0 - look_x):x0]
+        banda = rot[hy0:hy1, max(0, x0 - look_x):x0]
         col = np.where((banda < CERNEALA).any(axis=0))[0]
         if col.size == 0:
             break
+        gol = banda.shape[1] - 1 - int(col[-1])
+        if gol >= 3 and _bara_la_margine(x0, x0 + int(2 * interlinie)):
+            break  # portativul incepe cu bara, golul e al vecinului
         x0 = max(0, x0 - look_x) + int(col[0])
     # dreapta
     limita = min(w, x1 + lim_x)
     while x1 < limita:
-        banda = rot[y0:y1, x1:min(w, x1 + look_x)]
+        banda = rot[hy0:hy1, x1:min(w, x1 + look_x)]
         col = np.where((banda < CERNEALA).any(axis=0))[0]
         if col.size == 0:
             break
+        if int(col[0]) >= 3 and _bara_la_margine(x1 - int(2 * interlinie), x1):
+            break  # portativ terminat cu bara + gol -> nu sarim golul
         x1 = x1 + int(col[-1]) + 1
 
     # margine alba mica de jur imprejur (orizontal mai putin, ca sa nu
@@ -522,47 +558,134 @@ def crop_arata_a_partitura(crop):
     return alb >= 0.45 and gri <= 0.30
 
 
-def masca_text_pagina(page, majoritar, dpi, shape):
-    """Masca (True = text de corp) construita din stratul de text al
-    paginii: randurile LUNGI scrise majoritar cu formatul majoritar.
-    Randurile scurte (ex. "Vln", "Vla" - etichetele partiturilor) raman
-    neatinse. Folosita ca IMAGINE DE DECIZIE: detectia si extinderea
-    chenarelor trateaza aceste zone ca alb, ca sa nu muste din paragrafe;
-    crop-ul exportat se taie insa din imaginea reala."""
-    m = np.zeros(shape, dtype=bool)
-    if not majoritar:
-        return m
+def analizeaza_text_pagina(page, majoritar, dpi, shape):
+    """Analizeaza stratul de text al paginii si intoarce:
+
+    1. masca_paragrafe (True = text de corp): randurile care fac parte din
+       PARAGRAFE (au un alt rand de text imediat deasupra sau dedesubt).
+       Ele devin "albe" in imaginea de DECIZIE, ca detectia si extinderea
+       chenarelor sa nu muste din paragrafe.
+    2. randuri_izolate: dreptunghiuri (in pixeli) ale randurilor SINGURE
+       (un singur rand, nu doua suprapuse/stivuite). Acestea sunt titluri,
+       legende sau etichete (ex. "Vln", "Violin Open Strings") si se
+       INCLUD in imaginea partiturii daca sunt in interiorul ei ori
+       imediat deasupra, sub, la stanga sau la dreapta ei.
+    """
+    masca = np.zeros(shape, dtype=bool)
+    izolate = []
     scale = dpi / 72.0
     h, w = shape
+
+    randuri = []  # (rect, text)
     for bloc in page.get_text("dict").get("blocks", []):
         if bloc.get("type", 0) != 0:
             continue
         for linie in bloc.get("lines", []):
             spans = linie.get("spans", [])
             text = "".join(s.get("text", "") for s in spans).strip()
-            if len(text) < 12:
-                continue  # randurile scurte pot fi etichete muzicale
+            if len(text) < 2:
+                continue  # "randuri" fantoma de 1 caracter: de obicei note
+                          # sau simboluri muzicale citite gresit de OCR
             n_tot = sum(len(s.get("text", "").strip()) for s in spans) or 1
             n_maj = sum(len(s.get("text", "").strip()) for s in spans
                         if cheie_format(s) == majoritar)
-            if n_maj / n_tot < 0.5:
+            randuri.append((fitz.Rect(linie["bbox"]), text, n_maj / n_tot))
+
+    # Un rand are "vecin" daca alt rand de text e imediat deasupra sau
+    # dedesubt (gol vertical mic) -> paragraf. Nu cerem suprapunere
+    # orizontala: OCR-ul rupe uneori randurile in bucati mici, cu goluri
+    # mari unde nu a recunoscut cuvintele; e suficient ca bucatile sa fie
+    # in aceeasi coloana de text (distanta orizontala rezonabila).
+    lat_pag = float(page.rect.width)
+    are_vecin = [False] * len(randuri)
+    for i in range(len(randuri)):
+        ri = randuri[i][0]
+        for j in range(i + 1, len(randuri)):
+            rj = randuri[j][0]
+            gol_h = max(0.0, max(ri.x0 - rj.x1, rj.x0 - ri.x1))
+            if gol_h > 0.25 * lat_pag:
                 continue
-            x0, y0, x1, y1 = rect_px(fitz.Rect(linie["bbox"]), scale)
-            m[max(0, y0 - 2):min(h, y1 + 2), max(0, x0 - 2):min(w, x1 + 2)] = True
-    return m
+            gol_v = max(ri.y0 - rj.y1, rj.y0 - ri.y1)
+            # bucatile din ACELASI rand vizual nu se considera vecine
+            # (ex. mai multe titluri scurte, unul lânga altul)
+            ov_v = -gol_v
+            if ov_v >= 0.5 * min(ri.height, rj.height):
+                continue
+            if gol_v < 0.9 * max(ri.height, rj.height):
+                are_vecin[i] = are_vecin[j] = True
+
+    for (r, text, fract_maj), vecin in zip(randuri, are_vecin):
+        x0, y0, x1, y1 = rect_px(r, scale)
+        if vecin:
+            # rand de paragraf -> albit in imaginea de decizie (indiferent
+            # de format: albirea e doar pentru detectie, nu sterge nimic)
+            if len(text) >= 8:
+                masca[max(0, y0 - 2):min(h, y1 + 2),
+                      max(0, x0 - 2):min(w, x1 + 2)] = True
+        else:
+            izolate.append((max(0, x0 - 2), max(0, y0 - 2),
+                            min(w, x1 + 2), min(h, y1 + 2)))
+    return masca, izolate
 
 
-def scaneaza_pagina(gray, gray_dec, masca_permisa, dpi):
-    """Scaneaza pagina cu fereastra plata, inclinata de la -10 la +10 grade
-    (pas de 1 grad). Detectiile din toate trecerile sunt adunate, apoi
+def rects_in_cadru(rects, M):
+    """Transforma dreptunghiurile (px, pagina nerotita) in cadrul rotit."""
+    if M is None:
+        return list(rects)
+    out = []
+    for (x0, y0, x1, y1) in rects:
+        pts = np.array([[x0, y0], [x1, y0], [x1, y1], [x0, y1]], dtype=np.float64)
+        tr = np.hstack([pts, np.ones((4, 1))]) @ M.T
+        out.append((float(tr[:, 0].min()), float(tr[:, 1].min()),
+                    float(tr[:, 0].max()), float(tr[:, 1].max())))
+    return out
+
+
+def include_randuri_izolate(box, randuri, interlinie, w, h, miez=None):
+    """Extinde chenarul partiturii ca sa cuprinda randurile de text SINGURE
+    aflate in interior, deasupra, sub, la stanga sau la dreapta ei.
+
+    O singura trecere, fata de chenarul ORIGINAL (fara inlantuire: un rand
+    inclus nu trage dupa el alte randuri mai indepartate). Regula pentru
+    stanga/dreapta cere ca randul (ex. eticheta "Vln") sa fie la nivelul
+    liniilor portativului (miez = (y_prima_linie, y_ultima_linie))."""
+    x0, y0, x1, y1 = box
+    nx0, ny0, nx1, ny1 = x0, y0, x1, y1
+    miez_y0, miez_y1 = miez if miez else (y0, y1)
+    for (rx0, ry0, rx1, ry1) in randuri:
+        ov_h = min(x1, rx1) - max(x0, rx0)
+        ov_v = min(y1, ry1) - max(y0, ry0)
+        gol_v = max(0.0, max(y0 - ry1, ry0 - y1))
+        gol_h = max(0.0, max(x0 - rx1, rx0 - x1))
+        centru_r = 0.5 * (ry0 + ry1)
+        in_interior = ov_h > 0 and ov_v > 0
+        deasupra_sub = (ov_h >= 0.2 * (rx1 - rx0) and gol_v <= 3 * interlinie
+                        and gol_h == 0.0)
+        stanga_dreapta = (gol_h <= 4 * interlinie and gol_v == 0.0
+                          and miez_y0 - interlinie <= centru_r <= miez_y1 + interlinie)
+        if in_interior or deasupra_sub or stanga_dreapta:
+            nx0 = min(nx0, int(rx0)); ny0 = min(ny0, int(ry0))
+            nx1 = max(nx1, int(rx1)); ny1 = max(ny1, int(ry1))
+    return (max(0, nx0), max(0, ny0), min(w, nx1), min(h, ny1))
+
+
+def scaneaza_pagina(gray, gray_dec, masca_permisa, dpi, randuri_izolate=()):
+    """Scaneaza pagina cu fereastra plata, deplasand-o de sus in jos.
+    Ordinea trecerilor: intai drept (0 grade), apoi treptat cate 1 grad in
+    JOS de 10 ori (-1..-10), apoi cate 1 grad in SUS de 10 ori (+1..+10) -
+    unghiul se tot schimba pana sunt gasite partiturile cu cel putin 2
+    linii paralele. Detectiile din toate trecerile sunt adunate, apoi
     duplicatele (aceeasi partitura vazuta la unghiuri vecine) sunt
     eliminate, pastrand varianta cu cele mai multe linii / cele mai lungi /
-    cel mai mic unghi. Crop-urile intoarse sunt deja INDREPTATE."""
+    cel mai mic unghi. Crop-urile intoarse sunt deja INDREPTATE, iar
+    randurile de text SINGURE din jurul partiturii sunt incluse in ele."""
     h, w = gray.shape
     centru = (w / 2.0, h / 2.0)
     candidati = []
 
-    for unghi in range(-10, 11):  # 21 de treceri: -10..+10, pas 1 grad
+    # 0 grade, apoi 10 treceri cu grade in jos, apoi 10 cu grade in sus
+    unghiuri = [0] + [-a for a in range(1, 11)] + [a for a in range(1, 11)]
+    for unghi in unghiuri:
         if unghi == 0:
             rot, rot_dec, rot_masca, M = gray, gray_dec, masca_permisa, None
         else:
@@ -578,6 +701,7 @@ def scaneaza_pagina(gray, gray_dec, masca_permisa, dpi):
         segs = segmente_orizontale(rot_dec, rot_masca, dpi)
         grupuri = grupeaza_segmente(segs, rot_dec, dpi)
         M_inv = cv2.invertAffineTransform(M) if M is not None else None
+        randuri_rot = rects_in_cadru(randuri_izolate, M)
 
         for g in grupuri:
             ys = [l[0] for l in g]
@@ -588,7 +712,11 @@ def scaneaza_pagina(gray, gray_dec, masca_permisa, dpi):
             # directiile (prinde notele, legato-urile si liniile ratate).
             # Decizia se ia pe imaginea FARA text de corp (rot_dec).
             x0, y0, x1, y1 = rafineaza_chenar(rot_dec, xs0, ys[0], xs1, ys[-1] + 1,
-                                              interlinie)
+                                              interlinie, miez=(ys[0], ys[-1]))
+            # Includem randurile de text SINGURE din jurul partiturii.
+            x0, y0, x1, y1 = include_randuri_izolate((x0, y0, x1, y1),
+                                                     randuri_rot, interlinie, w, h,
+                                                     miez=(ys[0], ys[-1]))
             crop = rot[y0:y1, x0:x1].copy()  # crop-ul e deja INDREPTAT
             nr_linii = max(len(g), numara_linii_in_chenar(rot_dec, x0, y0, x1, y1))
 
@@ -640,11 +768,16 @@ def scaneaza_pagina(gray, gray_dec, masca_permisa, dpi):
         interlinie = max(a["interlinie"], b["interlinie"])
         if gol > 3 * interlinie:
             return False
-        # exista cerneala in fasia dintre chenare? (liniile continua)
+        # liniile continua prin gol doar daca exista RANDURI de pixeli
+        # intunecati care traverseaza fasia dintre chenare aproape complet
+        # (cel putin 2 linii paralele care merg mai departe)
         fy0 = max(0, max(ay0, by0)); fy1 = min(h, min(ay1, by1))
         fx0 = max(0, stanga["bbox"][2]); fx1 = min(w, dreapta["bbox"][0])
         fasie = gray[fy0:fy1, fx0:fx1]
-        return fasie.size > 0 and float((fasie < GRI_INCHIS).mean()) > 0.01
+        if fasie.size == 0:
+            return False
+        randuri_pline = ((fasie < CERNEALA).mean(axis=1) >= 0.6)
+        return int(randuri_pline.sum()) >= 2
 
     unite = True
     while unite:
@@ -679,6 +812,10 @@ def scaneaza_pagina(gray, gray_dec, masca_permisa, dpi):
                 # fragmentelor (extindem doar orizontal)
                 cx0, cy0, cx1, cy1 = rafineaza_chenar(rot2_dec, cx0, cy0, cx1, cy1,
                                                       interlinie, si_vertical=False)
+                cx0, cy0, cx1, cy1 = include_randuri_izolate(
+                    (cx0, cy0, cx1, cy1),
+                    rects_in_cadru(randuri_izolate, M2 if unghi != 0 else None),
+                    interlinie, w, h)
                 nou = {
                     "bbox": bb,
                     "unghi": unghi,
@@ -716,12 +853,14 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
         for r in zone_sterse[pno]:
             x0, y0, x1, y1 = rect_px(r, scale)
             masca[max(0, y0):min(h, y1), max(0, x0):min(w, x1)] = False
-        # imaginea de DECIZIE: textul de corp (format majoritar, randuri
-        # lungi) devine alb, ca sa nu fie confundat cu partiturile si sa
-        # nu fie inclus in chenare
+        # imaginea de DECIZIE: paragrafele (randuri de text stivuite) devin
+        # albe, ca sa nu fie confundate cu partiturile si sa nu fie incluse
+        # in chenare; randurile SINGURE raman si se ataseaza partiturilor
+        masca_par, randuri_izolate = analizeaza_text_pagina(page, majoritar,
+                                                            dpi, gray.shape)
         gray_dec = gray.copy()
-        gray_dec[masca_text_pagina(page, majoritar, dpi, gray.shape)] = 255
-        gasite = scaneaza_pagina(gray, gray_dec, masca, dpi)
+        gray_dec[masca_par] = 255
+        gasite = scaneaza_pagina(gray, gray_dec, masca, dpi, randuri_izolate)
         gasite.sort(key=lambda p: (p["bbox"][1], p["bbox"][0]))
         detectii.append(gasite)
         if gasite:

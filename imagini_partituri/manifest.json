@@ -47,7 +47,7 @@
       ],
       "unghi_grade": 0,
       "nr_linii": [
-        5
+        6
       ]
     },
     {
@@ -55,7 +55,7 @@
       "pagini": [
         3
       ],
-      "unghi_grade": -1,
+      "unghi_grade": 0,
       "nr_linii": [
         5
       ]
@@ -65,7 +65,7 @@
       "pagini": [
         3
       ],
-      "unghi_grade": -2,
+      "unghi_grade": 0,
       "nr_linii": [
         5
       ]
@@ -75,7 +75,7 @@
       "pagini": [
         3
       ],
-      "unghi_grade": 0,
+      "unghi_grade": -1,
       "nr_linii": [
         5
       ]
@@ -115,7 +115,7 @@
       "pagini": [
         8
       ],
-      "unghi_grade": -1,
+      "unghi_grade": 1,
       "nr_linii": [
         5
       ]
@@ -135,9 +135,9 @@
       "pagini": [
         9
       ],
-      "unghi_grade": 5,
+      "unghi_grade": 3,
       "nr_linii": [
-        4
+        3
       ]
     },
     {
