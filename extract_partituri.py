@@ -48,9 +48,10 @@ ETAPA 3 - Detectarea, etichetarea si extragerea partiturilor
     * Tine evidenta paginilor pe care apare/dispare fiecare partitura;
       daca intre doua partituri exista text de cel putin DOUA randuri
       (oricat de lungi/scurte), sunt considerate partituri DIFERITE.
-      Identificarea NU se scrie in PDF - ea devine NUMELE fisierului PNG:
-          partitura-A-p22-23.png   (incepe pe pagina 22, continua pe 23;
-          partitura-B-p22-23.png    litera deosebeste partiturile care
+      Identificarea NU se scrie in PDF - ea devine NUMELE fisierului PNG,
+      cu pagina inaintea literei, ca fisierele sa stea in ordinea cartii:
+          partitura-p22-23-A.png   (incepe pe pagina 22, continua pe 23;
+          partitura-p22-23-B.png    litera deosebeste partiturile care
                                     impart aceleasi pagini)
           partitura-p31.png        (singura partitura pe pagina 31 ->
                                     fara litera)
@@ -255,18 +256,17 @@ def etapa1_filtrare_text(doc, dpi, zone_sterse):
         for r in de_sters:
             page.add_redact_annot(r)
         if de_sters:
-            # Pe paginile scanate stergem si pixelii scanului; altfel doar
-            # textul (imaginile raman neatinse).
-            if pagina_e_scan(page):
-                mod_img = getattr(fitz, "PDF_REDACT_IMAGE_PIXELS", 2)
-            else:
-                mod_img = getattr(fitz, "PDF_REDACT_IMAGE_NONE", 0)
+            # Stergem DOAR literele (stratul de text); pixelii imaginilor
+            # raman neatinsi - pe cartile scanate OCR-ul citeste uneori
+            # NOTELE ca litere, iar stergerea pixelilor ar lasa
+            # dreptunghiuri albe peste muzica.
+            img_none = getattr(fitz, "PDF_REDACT_IMAGE_NONE", 0)
             try:
                 page.apply_redactions(
-                    images=mod_img,
+                    images=img_none,
                     graphics=getattr(fitz, "PDF_REDACT_LINE_ART_NONE", 0))
             except TypeError:  # versiuni mai vechi de PyMuPDF
-                page.apply_redactions(images=mod_img)
+                page.apply_redactions(images=img_none)
             zone_sterse[pno].extend(de_sters)
             total_sterse += len(de_sters)
 
@@ -587,7 +587,13 @@ def analizeaza_text_pagina(page, majoritar, dpi, shape):
     scale = dpi / 72.0
     h, w = shape
 
-    randuri = []  # (rect, text)
+    randuri = []  # (rect, text, fract_majoritar, e_eticheta)
+    marime_maj = None
+    if majoritar and "|" in str(majoritar):
+        try:
+            marime_maj = float(str(majoritar).split("|")[1])
+        except ValueError:
+            marime_maj = None
     for bloc in page.get_text("dict").get("blocks", []):
         if bloc.get("type", 0) != 0:
             continue
@@ -600,7 +606,19 @@ def analizeaza_text_pagina(page, majoritar, dpi, shape):
             n_tot = sum(len(s.get("text", "").strip()) for s in spans) or 1
             n_maj = sum(len(s.get("text", "").strip()) for s in spans
                         if cheie_format(s) == majoritar)
-            randuri.append((fitz.Rect(linie["bbox"]), text, n_maj / n_tot))
+            # ETICHETA de partitura (ex. "Vln", "Vla", "Violin I"): text
+            # scurt cu FORMAT MAI MARE decat al textului majoritar al
+            # PDF-ului. Se pastreaza mereu si se ataseaza partiturii.
+            e_eticheta = False
+            if marime_maj is not None and len(text) <= 24:
+                for s in spans:
+                    st = s.get("text", "").strip()
+                    if (len(st) >= 2
+                            and float(s.get("size", 0)) >= marime_maj + 1.5):
+                        e_eticheta = True
+                        break
+            randuri.append((fitz.Rect(linie["bbox"]), text, n_maj / n_tot,
+                            e_eticheta))
 
     # Un rand are "vecin" daca alt rand de text e imediat deasupra sau
     # dedesubt (gol vertical mic) -> paragraf. Nu cerem suprapunere
@@ -608,10 +626,15 @@ def analizeaza_text_pagina(page, majoritar, dpi, shape):
     # mari unde nu a recunoscut cuvintele; e suficient ca bucatile sa fie
     # in aceeasi coloana de text (distanta orizontala rezonabila).
     lat_pag = float(page.rect.width)
+    # vecinii se determina doar intre randurile obisnuite
     are_vecin = [False] * len(randuri)
     for i in range(len(randuri)):
+        if randuri[i][3]:
+            continue  # etichetele nu intra in logica de paragraf
         ri = randuri[i][0]
         for j in range(i + 1, len(randuri)):
+            if randuri[j][3]:
+                continue
             rj = randuri[j][0]
             gol_h = max(0.0, max(ri.x0 - rj.x1, rj.x0 - ri.x1))
             if gol_h > 0.25 * lat_pag:
@@ -625,10 +648,15 @@ def analizeaza_text_pagina(page, majoritar, dpi, shape):
             if gol_v < 0.9 * max(ri.height, rj.height):
                 are_vecin[i] = are_vecin[j] = True
 
-    for (r, text, fract_maj), vecin in zip(randuri, are_vecin):
+    for (r, text, fract_maj, e_eticheta), vecin in zip(randuri, are_vecin):
         x0, y0, x1, y1 = rect_px(r, scale)
         toate.append((x0, y0, x1, y1))
-        if vecin:
+        if e_eticheta:
+            # eticheta de partitura: mereu candidata la includere,
+            # indiferent de "vecinii" fantoma din jur
+            izolate.append((max(0, x0 - 2), max(0, y0 - 2),
+                            min(w, x1 + 2), min(h, y1 + 2)))
+        elif vecin:
             # rand de paragraf -> albit in imaginea de decizie (indiferent
             # de format: albirea e doar pentru detectie, nu sterge nimic)
             if len(text) >= 8:
@@ -957,7 +985,9 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
     for p in partituri:
         pagini = p["pagini"]
         pg_txt = f"p{pagini[0]}" if len(pagini) == 1 else f"p{pagini[0]}-{pagini[-1]}"
-        nume = (f"partitura-{p['litera']}-{pg_txt}.png" if p["litera"]
+        # pagina inaintea literei, ca fisierele sa stea in ordinea cartii:
+        #   partitura-p3-A.png, partitura-p3-B.png, ... partitura-p7.png
+        nume = (f"partitura-{pg_txt}-{p['litera']}.png" if p["litera"]
                 else f"partitura-{pg_txt}.png")
 
         cropuri = [det["crop"] for _, det in p["bucati"]]

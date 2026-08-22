@@ -1,7 +1,7 @@
 {
   "partituri": [
     {
-      "fisier": "partitura-A-p3.png",
+      "fisier": "partitura-p3-A.png",
       "pagini": [
         3
       ],
@@ -11,7 +11,7 @@
       ]
     },
     {
-      "fisier": "partitura-B-p3.png",
+      "fisier": "partitura-p3-B.png",
       "pagini": [
         3
       ],
@@ -21,7 +21,7 @@
       ]
     },
     {
-      "fisier": "partitura-C-p3.png",
+      "fisier": "partitura-p3-C.png",
       "pagini": [
         3
       ],
@@ -31,7 +31,7 @@
       ]
     },
     {
-      "fisier": "partitura-D-p3.png",
+      "fisier": "partitura-p3-D.png",
       "pagini": [
         3
       ],
@@ -41,7 +41,7 @@
       ]
     },
     {
-      "fisier": "partitura-E-p3.png",
+      "fisier": "partitura-p3-E.png",
       "pagini": [
         3
       ],
@@ -51,7 +51,7 @@
       ]
     },
     {
-      "fisier": "partitura-F-p3.png",
+      "fisier": "partitura-p3-F.png",
       "pagini": [
         3
       ],
@@ -61,7 +61,7 @@
       ]
     },
     {
-      "fisier": "partitura-G-p3.png",
+      "fisier": "partitura-p3-G.png",
       "pagini": [
         3
       ],
@@ -71,7 +71,7 @@
       ]
     },
     {
-      "fisier": "partitura-H-p3.png",
+      "fisier": "partitura-p3-H.png",
       "pagini": [
         3
       ],
@@ -91,7 +91,7 @@
       ]
     },
     {
-      "fisier": "partitura-A-p8.png",
+      "fisier": "partitura-p8-A.png",
       "pagini": [
         8
       ],
@@ -101,7 +101,7 @@
       ]
     },
     {
-      "fisier": "partitura-B-p8.png",
+      "fisier": "partitura-p8-B.png",
       "pagini": [
         8
       ],
@@ -111,7 +111,7 @@
       ]
     },
     {
-      "fisier": "partitura-C-p8.png",
+      "fisier": "partitura-p8-C.png",
       "pagini": [
         8
       ],
@@ -121,7 +121,7 @@
       ]
     },
     {
-      "fisier": "partitura-D-p8.png",
+      "fisier": "partitura-p8-D.png",
       "pagini": [
         8
       ],
@@ -141,7 +141,7 @@
       ]
     },
     {
-      "fisier": "partitura-A-p10.png",
+      "fisier": "partitura-p10-A.png",
       "pagini": [
         10
       ],
@@ -151,7 +151,7 @@
       ]
     },
     {
-      "fisier": "partitura-B-p10.png",
+      "fisier": "partitura-p10-B.png",
       "pagini": [
         10
       ],
