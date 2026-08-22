@@ -353,6 +353,10 @@ def _injecteaza_in_arbore(root, eticheta, titlu, altele):
         mt.text = titlu
         schimbat = True
     for text in altele:
+        # nu duplicam creditele daca injectarea ruleaza a doua oara
+        existente = {cw.text for cw in root.iter("credit-words")}
+        if text in existente:
+            continue
         cr = ET.Element("credit")
         cr.set("page", "1")
         cw = ET.SubElement(cr, "credit-words")
@@ -458,6 +462,9 @@ def main():
                          "XML-urile deja existente in --scores-dir)")
     ap.add_argument("--scala-omr", type=int, default=2,
                     help="factorul de marire al PNG-ului dat lui Audiveris (default: 2)")
+    ap.add_argument("--doar-lipsa", action="store_true",
+                    help="nu reconverteste partiturile care au deja XML in "
+                         "--scores-dir (util la reluarea cartilor mari)")
     ap.add_argument("--out", default=None,
                     help="fisierul cartii noi (default: <pdf>.md)")
     args = ap.parse_args()
@@ -512,7 +519,15 @@ def main():
         #    tot mai mare, margine alba generoasa, binarizare si, la final,
         #    crop-ul asezat pe o pagina A4 sintetica.
         cale_xml = None
-        if args.audiveris:
+        xml_existent = None
+        for ext in (".mxl", ".xml", ".musicxml"):
+            c = os.path.join(args.scores_dir, baza + ext)
+            if os.path.isfile(c):
+                xml_existent = c
+                break
+        portativ_prelungit = False
+
+        if args.audiveris and not (args.doar_lipsa and xml_existent):
             with tempfile.TemporaryDirectory() as tmp:
                 incercari = [
                     dict(scala=args.scala_omr, margine=40, binarizeaza=False),
@@ -547,20 +562,23 @@ def main():
                     ext = os.path.splitext(produs)[1].lower()
                     cale_xml = os.path.join(args.scores_dir, baza + ext)
                     shutil.copyfile(produs, cale_xml)
+                    portativ_prelungit = bool(conf.get("extinde"))
                 elif stare == "fara_muzica":
                     # Audiveris a rulat OK dar nu a gasit muzica -> probabil
                     # NU e partitura (poza/desen detectat gresit).
                     fara_muzica.add(fname)
                 # daca a crapat ('esec'), ramane partitura cu PNG, fara XML
         else:
-            for ext in (".mxl", ".xml", ".musicxml"):
-                c = os.path.join(args.scores_dir, baza + ext)
-                if os.path.isfile(c):
-                    cale_xml = c
-                    break
+            cale_xml = xml_existent
 
         # 2) injectam cuvintele descriptive in XML, la locul corect
         if cale_xml:
+            if portativ_prelungit:
+                # cinstit fata de cititor: ultima masura nu e din carte
+                altele = altele + ["Nota: ultima masura (goala) a fost "
+                                   "adaugata artificial la conversie - "
+                                   "portativul original era prea scurt "
+                                   "pentru OMR"]
             if injecteaza_cuvinte_xml(cale_xml, eticheta, titlu, altele):
                 detalii = [x for x in (eticheta and f"part-name='{eticheta}'",
                                        titlu and f"titlu='{titlu}'") if x]
