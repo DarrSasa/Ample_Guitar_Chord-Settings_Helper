@@ -141,8 +141,12 @@ Ce face scriptul:
 ### Cu Audiveris (recomandat — scoate direct MusicXML)
 
 ```powershell
-python scripts\extract-scores.py "C:\carti\cartea_searchable.pdf" --audiveris "C:\Program Files\Audiveris\bin\Audiveris.bat"
+python scripts\extract-scores.py "C:\carti\cartea_searchable.pdf" --audiveris "C:\Program Files\Audiveris\Audiveris.exe"
 ```
+
+> Calea corecta la tine e `C:\Program Files\Audiveris\Audiveris.exe` (NU exista
+> un `.bat` — versiunea GUI pornește direct prin `.exe`). Am verificat: folderul
+> tau are doar `Audiveris.exe` + Java-ul ingobat in `runtime\bin\java.exe`.
 
 Acum, langa fiecare `score-pNNN-a.png` apare si `score-pNNN-a.mxl` (MusicXML)
 cu notele + articulatiile.

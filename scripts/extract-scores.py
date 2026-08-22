@@ -43,6 +43,7 @@ NOTE (cinstit):
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 import argparse
@@ -165,15 +166,33 @@ def touches_top(box, shape, tol_frac=0.02):
 def run_audiveris(audiveris_path, png_path, out_dir):
     try:
         subprocess.run(
-            [audiveris_path, "-batch", "-export", "-output", out_dir, png_path],
+            # `--` separa flagurile de fisierele de intrare (ca in documentatia
+            # oficiala Audiveris).
+            [audiveris_path, "-batch", "-export", "-output", out_dir, "--", png_path],
             check=True,
             capture_output=True,
-            timeout=600,
+            timeout=900,
         )
-        return True
     except Exception as e:
         print(f"  ! Audiveris a esuat pe {os.path.basename(png_path)}: {e}")
         return False
+
+    # Audiveris pune rezultatele intr-un subfolder numit dupa fisier (fara
+    # extensie). ex: scores/score-p001-a/score-p001-a.mxl
+    # Mutam .mxl-ul la suprafata (flat) ca package-book.py sa-l gaseasca direct:
+    #   scores/score-p001-a.mxl
+    base = os.path.splitext(os.path.basename(png_path))[0]
+    book_dir = os.path.join(out_dir, base)
+    mxl_dst = os.path.join(out_dir, base + ".mxl")
+    if os.path.isfile(mxl_dst):
+        return True
+    if os.path.isdir(book_dir):
+        for f in os.listdir(book_dir):
+            if f.lower().endswith(".mxl"):
+                shutil.move(os.path.join(book_dir, f), mxl_dst)
+                return True
+    print(f"  ! Audiveris nu a produs .mxl pentru {os.path.basename(png_path)}")
+    return False
 
 
 # ---------------------------------------------------------------------------
