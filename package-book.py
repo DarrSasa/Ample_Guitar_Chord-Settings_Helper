@@ -358,41 +358,83 @@ def main():
             print(f"  {baza}: doar PNG (fara XML"
                   f"{' - da --audiveris pentru conversie' if not args.audiveris else ''})")
 
-    # 3) cartea noua: textul paginilor + partiturile la locul lor
+    # 3) cartea noua: textul paginilor + partiturile EXACT LA LOCUL LOR.
+    #    Folosim pozitiile din manifest (zone_pdf) ca sa:
+    #      - eliminam "textul" citit gresit de OCR de pe portative
+    #        (ex. "D a zw oy WD 1 HE oy") din zona fiecarei partituri;
+    #      - punem marcatorul [SCORE...] in fluxul textului exact acolo
+    #        unde era portativul odinioara.
     print("\nConstruim cartea noua...")
     doc = fitz.open(args.pdf)
-    pagini_text = [pg.get_text("text") for pg in doc]
-    doc.close()
 
-    pe_pagina = {}
+    # zonele partiturilor, pe pagini (1-based)
+    zone_pe_pagina = {}     # pagina -> [(bbox_pt, fname, e_prima_bucata)]
     for fname in pnguri:
-        pg = pagina_din_nume(fname)
-        if pg:
-            pe_pagina.setdefault(pg, []).append(fname)
+        info = manifest.get(fname, {})
+        zone = info.get("zone_pdf", [])
+        if zone:
+            for k, z in enumerate(zone):
+                zone_pe_pagina.setdefault(z["pagina"], []).append(
+                    (z["bbox_pt"], fname, k == 0))
+        else:
+            pg = pagina_din_nume(fname)
+            if pg:
+                zone_pe_pagina.setdefault(pg, []).append((None, fname, True))
+
+    def marcaj_partitura(fname):
+        info = manifest.get(fname, {})
+        cuvinte = [curata_cuvant(c["text"]) for c in info.get("cuvinte", [])]
+        cuvinte = [c for c in cuvinte if cuvant_bun(c)]
+        xml = xml_per_png.get(fname)
+        m = f"[SCORE: {args.imagini}/{fname}"
+        if xml:
+            m += f" | XML: {xml.replace(os.sep, '/')}"
+        if cuvinte:
+            m += f" | CUVINTE: {', '.join(cuvinte)}"
+        return m + "]"
+
+    def in_zona(bx0, by0, bx1, by1, zone, marja=4.0):
+        """Centrul blocului de text cade in zona unei partituri?"""
+        cx, cy = 0.5 * (bx0 + bx1), 0.5 * (by0 + by1)
+        for (z, _, _) in zone:
+            if z and (z[0] - marja <= cx <= z[2] + marja
+                      and z[1] - marja <= cy <= z[3] + marja):
+                return True
+        return False
 
     out_path = args.out or (os.path.splitext(args.pdf)[0] + ".md")
     linii = ["# Cartea (text + partituri)", ""]
-    for idx, text in enumerate(pagini_text, 1):
-        linii.append(f"## Pagina {idx}")
+    for pno, page in enumerate(doc):
+        pagina = pno + 1
+        zone = zone_pe_pagina.get(pagina, [])
+        linii.append(f"## Pagina {pagina}")
         linii.append("")
-        if text.strip():
-            linii.append(text.strip())
-            linii.append("")
-        for fname in pe_pagina.get(idx, []):
-            info = manifest.get(fname, {})
-            cuvinte = [curata_cuvant(c["text"]) for c in info.get("cuvinte", [])]
-            cuvinte = [c for c in cuvinte if cuvant_bun(c)]
-            xml = xml_per_png.get(fname)
-            marcaj = f"[SCORE: {args.imagini}/{fname}"
-            if xml:
-                marcaj += f" | XML: {xml.replace(os.sep, '/')}"
-            if cuvinte:
-                marcaj += f" | CUVINTE: {', '.join(cuvinte)}"
-            marcaj += "]"
-            linii.append(marcaj)
+
+        # elementele paginii, in ordinea de sus in jos:
+        #   blocurile de text din AFARA zonelor cu partituri + marcatorii
+        elemente = []
+        for b in page.get_text("blocks"):
+            bx0, by0, bx1, by1, text = b[0], b[1], b[2], b[3], b[4]
+            if len(b) > 6 and b[6] != 0:
+                continue  # blocurile de imagine nu ne intereseaza
+            if not text.strip():
+                continue
+            if in_zona(bx0, by0, bx1, by1, zone):
+                continue  # gunoi OCR de pe portativ -> inlocuit de marcator
+            elemente.append((by0, "text", text.strip()))
+        for (z, fname, e_prima) in zone:
+            if not e_prima:
+                continue  # continuarea unei partituri: marcata pe prima pagina
+            y = z[1] if z else 10 ** 9
+            elemente.append((y, "score", marcaj_partitura(fname)))
+        elemente.sort(key=lambda e: e[0])
+
+        for _, fel, continut in elemente:
+            linii.append(continut)
             linii.append("")
         linii.append("---")
         linii.append("")
+    doc.close()
 
     with open(out_path, "w", encoding="utf-8") as f:
         f.write("\n".join(linii))

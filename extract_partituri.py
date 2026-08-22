@@ -1036,6 +1036,12 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
             "pagini": pagini,
             "unghi_grade": p["bucati"][0][1]["unghi"],
             "nr_linii": [det["nr_linii"] for _, det in p["bucati"]],
+            # pozitia fiecarei bucati pe pagina, in puncte PDF - folosita
+            # de etapa 3 (package-book.py) ca sa aseze partitura la locul
+            # ei in cartea noua si sa scoata gunoiul OCR din acea zona
+            "zone_pdf": [{"pagina": pg + 1,
+                          "bbox_pt": [round(v / scale, 1) for v in det["bbox"]]}
+                         for pg, det in p["bucati"]],
             "cuvinte": cuvinte_manifest,
         })
         print(f"  {nume}  (pagini: {pagini}, linii: "
