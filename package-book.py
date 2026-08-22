@@ -262,6 +262,36 @@ def injecteaza_cuvinte_xml(cale, eticheta, titlu, altele):
         return True
 
 
+def citeste_xml_text(cale):
+    """Intoarce textul MusicXML dintr-un .xml sau .mxl (dezarhivat)."""
+    try:
+        if cale.lower().endswith(".mxl"):
+            with zipfile.ZipFile(cale, "r") as z:
+                nume = z.namelist()
+                radacina = None
+                if "META-INF/container.xml" in nume:
+                    try:
+                        cont = ET.fromstring(z.read("META-INF/container.xml"))
+                        rf = cont.find(".//rootfile")
+                        if rf is not None:
+                            radacina = rf.get("full-path")
+                    except ET.ParseError:
+                        pass
+                if radacina is None:
+                    xmluri = [n for n in nume
+                              if n.lower().endswith((".xml", ".musicxml"))
+                              and not n.startswith("META-INF")]
+                    radacina = xmluri[0] if xmluri else None
+                if radacina is None:
+                    return None
+                return z.read(radacina).decode("utf-8", "replace")
+        with open(cale, encoding="utf-8", errors="replace") as f:
+            return f.read()
+    except Exception as e:
+        print(f"  (nu pot citi XML-ul {cale}: {e})")
+        return None
+
+
 # ---------------------------------------------------------------------------
 # main
 # ---------------------------------------------------------------------------
@@ -311,6 +341,8 @@ def main():
 
     os.makedirs(args.scores_dir, exist_ok=True)
     xml_per_png = {}
+    fara_muzica = set()   # PNG-uri in care Audiveris NU a gasit muzica
+                          # (probabil poze/desene, nu partituri)
 
     print(f"Partituri gasite: {len(pnguri)}")
     for fname in pnguri:
@@ -330,6 +362,10 @@ def main():
                     ext = os.path.splitext(produs)[1].lower()
                     cale_xml = os.path.join(args.scores_dir, baza + ext)
                     shutil.copyfile(produs, cale_xml)
+                else:
+                    # Audiveris nu a gasit muzica -> probabil NU e partitura
+                    # (o poza/desen detectat gresit). O marcam ca atare.
+                    fara_muzica.add(fname)
         else:
             for ext in (".mxl", ".xml", ".musicxml"):
                 c = os.path.join(args.scores_dir, baza + ext)
@@ -386,17 +422,29 @@ def main():
         cuvinte = [curata_cuvant(c["text"]) for c in info.get("cuvinte", [])]
         cuvinte = [c for c in cuvinte if cuvant_bun(c)]
         xml = xml_per_png.get(fname)
-        m = f"[SCORE: {args.imagini}/{fname}"
+        eticheta = "IMAGINE (Audiveris nu a gasit muzica - probabil nu e partitura)" \
+            if fname in fara_muzica else "SCORE"
+        m = f"[{eticheta}: {args.imagini}/{fname}"
         if xml:
             m += f" | XML: {xml.replace(os.sep, '/')}"
         if cuvinte:
             m += f" | CUVINTE: {', '.join(cuvinte)}"
-        return m + "]"
+        m += "]"
+        # XML-ul e incorporat direct in carte, ca sa poata fi citit dintr-un
+        # singur fisier (text + muzica masina-lizibila, fara fisiere externe)
+        if xml:
+            continut = citeste_xml_text(xml)
+            if continut:
+                m += "\n\n```xml\n" + continut.strip() + "\n```"
+        return m
 
     def in_zona(bx0, by0, bx1, by1, zone, marja=4.0):
-        """Centrul blocului de text cade in zona unei partituri?"""
+        """Centrul blocului de text cade in zona unei partituri REALE?
+        (zonele imaginilor fara muzica nu inghit textul din jur)"""
         cx, cy = 0.5 * (bx0 + bx1), 0.5 * (by0 + by1)
-        for (z, _, _) in zone:
+        for (z, fname, _) in zone:
+            if fname in fara_muzica:
+                continue
             if z and (z[0] - marja <= cx <= z[2] + marja
                       and z[1] - marja <= cy <= z[3] + marja):
                 return True
