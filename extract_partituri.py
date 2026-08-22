@@ -575,11 +575,12 @@ def analizeaza_text_pagina(page, majoritar, dpi, shape):
        PARAGRAFE (au un alt rand de text imediat deasupra sau dedesubt).
        Ele devin "albe" in imaginea de DECIZIE, ca detectia si extinderea
        chenarelor sa nu muste din paragrafe.
-    2. randuri_izolate: dreptunghiuri (in pixeli) ale randurilor SINGURE
-       (un singur rand, nu doua suprapuse/stivuite). Acestea sunt titluri,
-       legende sau etichete (ex. "Vln", "Violin Open Strings") si se
-       INCLUD in imaginea partiturii daca sunt in interiorul ei ori
-       imediat deasupra, sub, la stanga sau la dreapta ei.
+    2. randuri_izolate: dreptunghiuri (in pixeli) + textul randurilor
+       SINGURE (un singur rand, nu doua suprapuse/stivuite). Acestea sunt
+       titluri, legende sau etichete (ex. "Vln", "Violin Open Strings") si
+       se INCLUD in imaginea partiturii daca sunt in interiorul ei ori
+       imediat deasupra, sub, la stanga sau la dreapta ei; textul lor este
+       salvat in manifest.json (pentru conversia in MusicXML la etapa 3).
     """
     masca = np.zeros(shape, dtype=bool)
     izolate = []
@@ -655,7 +656,7 @@ def analizeaza_text_pagina(page, majoritar, dpi, shape):
             # eticheta de partitura: mereu candidata la includere,
             # indiferent de "vecinii" fantoma din jur
             izolate.append((max(0, x0 - 2), max(0, y0 - 2),
-                            min(w, x1 + 2), min(h, y1 + 2)))
+                            min(w, x1 + 2), min(h, y1 + 2), text))
         elif vecin:
             # rand de paragraf -> albit in imaginea de decizie (indiferent
             # de format: albirea e doar pentru detectie, nu sterge nimic)
@@ -664,7 +665,7 @@ def analizeaza_text_pagina(page, majoritar, dpi, shape):
                       max(0, x0 - 2):min(w, x1 + 2)] = True
         else:
             izolate.append((max(0, x0 - 2), max(0, y0 - 2),
-                            min(w, x1 + 2), min(h, y1 + 2)))
+                            min(w, x1 + 2), min(h, y1 + 2), text))
     return masca, izolate, toate
 
 
@@ -685,15 +686,16 @@ def numara_randuri_vizuale(rects):
 
 
 def rects_in_cadru(rects, M):
-    """Transforma dreptunghiurile (px, pagina nerotita) in cadrul rotit."""
+    """Transforma dreptunghiurile (px, pagina nerotita) in cadrul rotit.
+    Fiecare element: (x0, y0, x1, y1, text)."""
     if M is None:
         return list(rects)
     out = []
-    for (x0, y0, x1, y1) in rects:
+    for (x0, y0, x1, y1, text) in rects:
         pts = np.array([[x0, y0], [x1, y0], [x1, y1], [x0, y1]], dtype=np.float64)
         tr = np.hstack([pts, np.ones((4, 1))]) @ M.T
         out.append((float(tr[:, 0].min()), float(tr[:, 1].min()),
-                    float(tr[:, 0].max()), float(tr[:, 1].max())))
+                    float(tr[:, 0].max()), float(tr[:, 1].max()), text))
     return out
 
 
@@ -704,11 +706,15 @@ def include_randuri_izolate(box, randuri, interlinie, w, h, miez=None):
     O singura trecere, fata de chenarul ORIGINAL (fara inlantuire: un rand
     inclus nu trage dupa el alte randuri mai indepartate). Regula pentru
     stanga/dreapta cere ca randul (ex. eticheta "Vln") sa fie la nivelul
-    liniilor portativului (miez = (y_prima_linie, y_ultima_linie))."""
+    liniilor portativului (miez = (y_prima_linie, y_ultima_linie)).
+
+    Intoarce (chenar_nou, cuvinte_incluse); fiecare cuvant inclus e
+    (x0, y0, x1, y1, text) in coordonatele cadrului curent."""
     x0, y0, x1, y1 = box
     nx0, ny0, nx1, ny1 = x0, y0, x1, y1
     miez_y0, miez_y1 = miez if miez else (y0, y1)
-    for (rx0, ry0, rx1, ry1) in randuri:
+    incluse = []
+    for (rx0, ry0, rx1, ry1, text) in randuri:
         ov_h = min(x1, rx1) - max(x0, rx0)
         ov_v = min(y1, ry1) - max(y0, ry0)
         gol_v = max(0.0, max(y0 - ry1, ry0 - y1))
@@ -722,7 +728,8 @@ def include_randuri_izolate(box, randuri, interlinie, w, h, miez=None):
         if in_interior or deasupra_sub or stanga_dreapta:
             nx0 = min(nx0, int(rx0)); ny0 = min(ny0, int(ry0))
             nx1 = max(nx1, int(rx1)); ny1 = max(ny1, int(ry1))
-    return (max(0, nx0), max(0, ny0), min(w, nx1), min(h, ny1))
+            incluse.append((rx0, ry0, rx1, ry1, text))
+    return (max(0, nx0), max(0, ny0), min(w, nx1), min(h, ny1)), incluse
 
 
 def scaneaza_pagina(gray, gray_dec, masca_permisa, dpi, randuri_izolate=()):
@@ -770,11 +777,14 @@ def scaneaza_pagina(gray, gray_dec, masca_permisa, dpi, randuri_izolate=()):
             x0, y0, x1, y1 = rafineaza_chenar(rot_dec, xs0, ys[0], xs1, ys[-1] + 1,
                                               interlinie, miez=(ys[0], ys[-1]))
             # Includem randurile de text SINGURE din jurul partiturii.
-            x0, y0, x1, y1 = include_randuri_izolate((x0, y0, x1, y1),
-                                                     randuri_rot, interlinie, w, h,
-                                                     miez=(ys[0], ys[-1]))
+            (x0, y0, x1, y1), cuvinte = include_randuri_izolate(
+                (x0, y0, x1, y1), randuri_rot, interlinie, w, h,
+                miez=(ys[0], ys[-1]))
             crop = rot[y0:y1, x0:x1].copy()  # crop-ul e deja INDREPTAT
             nr_linii = max(len(g), numara_linii_in_chenar(rot_dec, x0, y0, x1, y1))
+            cuvinte_rel = [(int(cx0 - x0), int(cy0 - y0), int(cx1 - x0),
+                            int(cy1 - y0), text)
+                           for (cx0, cy0, cx1, cy1, text) in cuvinte]
 
             if M_inv is None:
                 bbox = (x0, y0, x1, y1)
@@ -793,6 +803,7 @@ def scaneaza_pagina(gray, gray_dec, masca_permisa, dpi, randuri_izolate=()):
                 "interlinie": interlinie,
                 "lungime": x1 - x0,
                 "crop": crop,
+                "cuvinte": cuvinte_rel,
             })
 
     candidati.sort(key=lambda d: (-d["nr_linii"], -d["lungime"], abs(d["unghi"])))
@@ -868,10 +879,13 @@ def scaneaza_pagina(gray, gray_dec, masca_permisa, dpi, randuri_izolate=()):
                 # fragmentelor (extindem doar orizontal)
                 cx0, cy0, cx1, cy1 = rafineaza_chenar(rot2_dec, cx0, cy0, cx1, cy1,
                                                       interlinie, si_vertical=False)
-                cx0, cy0, cx1, cy1 = include_randuri_izolate(
+                (cx0, cy0, cx1, cy1), cuv2 = include_randuri_izolate(
                     (cx0, cy0, cx1, cy1),
                     rects_in_cadru(randuri_izolate, M2 if unghi != 0 else None),
                     interlinie, w, h)
+                cuv2_rel = [(int(a0 - cx0), int(a1 - cy0), int(a2 - cx0),
+                             int(a3 - cy0), text)
+                            for (a0, a1, a2, a3, text) in cuv2]
                 nou = {
                     "bbox": bb,
                     "unghi": unghi,
@@ -879,6 +893,7 @@ def scaneaza_pagina(gray, gray_dec, masca_permisa, dpi, randuri_izolate=()):
                     "interlinie": interlinie,
                     "lungime": bb[2] - bb[0],
                     "crop": rot2[cy0:cy1, cx0:cx1].copy(),
+                    "cuvinte": cuv2_rel,
                 }
                 finale = [f for k, f in enumerate(finale) if k not in (i, j)] + [nou]
                 unite = True
@@ -991,13 +1006,21 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
                 else f"partitura-{pg_txt}.png")
 
         cropuri = [det["crop"] for _, det in p["bucati"]]
+        cuvinte_manifest = []
         if len(cropuri) == 1:
             imagine = cropuri[0]
+            for (a0, a1, a2, a3, text) in p["bucati"][0][1].get("cuvinte", []):
+                cuvinte_manifest.append({"text": text, "bbox": [a0, a1, a2, a3]})
         else:
             lat = max(c.shape[1] for c in cropuri)
             bucati = []
             gol = np.full((12, lat), 255, dtype=np.uint8)
+            decalaj = 0
             for k, c in enumerate(cropuri):
+                for (a0, a1, a2, a3, text) in p["bucati"][k][1].get("cuvinte", []):
+                    cuvinte_manifest.append(
+                        {"text": text, "bbox": [a0, a1 + decalaj, a2, a3 + decalaj]})
+                decalaj += c.shape[0] + 12
                 if c.shape[1] < lat:
                     pad = np.full((c.shape[0], lat - c.shape[1]), 255, dtype=np.uint8)
                     c = np.hstack([c, pad])
@@ -1013,6 +1036,7 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
             "pagini": pagini,
             "unghi_grade": p["bucati"][0][1]["unghi"],
             "nr_linii": [det["nr_linii"] for _, det in p["bucati"]],
+            "cuvinte": cuvinte_manifest,
         })
         print(f"  {nume}  (pagini: {pagini}, linii: "
               f"{[d['nr_linii'] for _, d in p['bucati']]}, "
