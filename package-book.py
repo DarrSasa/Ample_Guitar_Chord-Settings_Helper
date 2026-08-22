@@ -180,7 +180,11 @@ def clasifica_cuvinte(cuvinte, lat, inalt):
 # ---------------------------------------------------------------------------
 # curatarea PNG-ului pentru OMR (albim cuvintele, marim imaginea)
 # ---------------------------------------------------------------------------
-def pregateste_pentru_omr(png_path, cuvinte, out_path, scala=2):
+def pregateste_pentru_omr(png_path, cuvinte, out_path, scala=2, margine=40,
+                          binarizeaza=False):
+    """Pregateste PNG-ul pentru Audiveris: albeste cuvintele descriptive,
+    mareste imaginea, adauga o margine alba generoasa (OMR-ul are nevoie
+    de spatiu in jurul portativului) si, optional, binarizeaza."""
     if cv2 is None:
         shutil.copyfile(png_path, out_path)
         return
@@ -194,6 +198,11 @@ def pregateste_pentru_omr(png_path, cuvinte, out_path, scala=2):
         img[max(0, y0 - 2):min(h, y1 + 2), max(0, x0 - 2):min(w, x1 + 2)] = 255
     if scala != 1:
         img = cv2.resize(img, (w * scala, h * scala), interpolation=cv2.INTER_CUBIC)
+    if binarizeaza:
+        _, img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    if margine > 0:
+        img = cv2.copyMakeBorder(img, margine, margine, margine, margine,
+                                 cv2.BORDER_CONSTANT, value=255)
     cv2.imwrite(out_path, img)
 
 
@@ -201,18 +210,24 @@ def pregateste_pentru_omr(png_path, cuvinte, out_path, scala=2):
 # Audiveris -> MusicXML
 # ---------------------------------------------------------------------------
 def ruleaza_audiveris(audiveris, png_path, out_dir, arata_eroarea=False):
-    """Ruleaza Audiveris in batch pe un PNG si intoarce calea .mxl/.xml
-    produsa (sau None)."""
+    """Ruleaza Audiveris in batch pe un PNG.
+
+    Intoarce (cale_fisier_sau_None, stare), unde starea e:
+      'ok'          - a produs .mxl/.xml
+      'fara_muzica' - a rulat cu succes dar nu a gasit muzica
+      'esec'        - a crapat (imagine problematica, nu inseamna ca nu
+                      e partitura)
+    """
     try:
         r = subprocess.run(
             [audiveris, "-batch", "-export", "-output", out_dir, "--", png_path],
             capture_output=True, text=True, timeout=600)
     except FileNotFoundError:
         print(f"  ! Nu gasesc Audiveris la: {audiveris}")
-        return None
+        return None, "esec"
     except subprocess.TimeoutExpired:
         print(f"  ! Audiveris a depasit timpul pe {os.path.basename(png_path)}")
-        return None
+        return None, "esec"
     base = os.path.splitext(os.path.basename(png_path))[0]
     gasite = []
     for rad, _, fisiere in os.walk(out_dir):
@@ -220,19 +235,25 @@ def ruleaza_audiveris(audiveris, png_path, out_dir, arata_eroarea=False):
             if f.lower().endswith((".mxl", ".xml", ".musicxml")) and base in f:
                 gasite.append(os.path.join(rad, f))
     if not gasite:
+        stare = "esec" if r.returncode != 0 else "fara_muzica"
         if arata_eroarea:
-            mesaje = ((r.stderr or "") + "\n" + (r.stdout or "")).strip().splitlines()
-            utile = [m for m in mesaje if m.strip()][-4:]
-            if r.returncode != 0:
+            if stare == "esec":
                 print(f"  ! Audiveris esuat pe {base} (cod {r.returncode})")
             else:
                 print(f"  ! Audiveris nu a gasit muzica in {base}")
-            for m in utile:
-                print(f"      {m.strip()[:150]}")
-        return None
+            # afisam mesajele UTILE, nu coada de stack trace ("at org...")
+            mesaje = ((r.stderr or "") + "\n" + (r.stdout or "")).splitlines()
+            utile = [m.strip() for m in mesaje
+                     if m.strip() and not m.strip().startswith("at ")
+                     and any(k in m for k in ("ERROR", "Exception", "Could not",
+                                              "Cannot", "Too ", "No ", "WARN",
+                                              "SEVERE", "Invalid", "Failed"))]
+            for m in utile[-8:]:
+                print(f"      {m[:160]}")
+        return None, stare
     # preferam .mxl
     gasite.sort(key=lambda p: (not p.lower().endswith(".mxl"), p))
-    return gasite[0]
+    return gasite[0], "ok"
 
 
 # ---------------------------------------------------------------------------
@@ -413,31 +434,41 @@ def main():
         baza = os.path.splitext(fname)[0]
 
         # 1) conversia cu Audiveris (pe imaginea curatata de cuvinte).
-        #    Daca esueaza, reincercam cu imaginea marita si mai mult -
-        #    partiturile mici au interlinia sub minimul cerut de OMR.
+        #    Daca esueaza, reincercam cu imagine tot mai mare, margine alba
+        #    generoasa si, la final, binarizata - crop-urile mici au nevoie
+        #    de ajutor ca sa treaca de minimul cerut de OMR.
         cale_xml = None
         if args.audiveris:
             with tempfile.TemporaryDirectory() as tmp:
-                produs = None
-                for incercare, scala in enumerate(
-                        (args.scala_omr, args.scala_omr * 2)):
+                incercari = [
+                    dict(scala=args.scala_omr, margine=40, binarizeaza=False),
+                    dict(scala=args.scala_omr * 2, margine=150, binarizeaza=False),
+                    dict(scala=args.scala_omr * 2, margine=150, binarizeaza=True),
+                ]
+                produs, stare = None, "esec"
+                for k, conf in enumerate(incercari):
                     png_curat = os.path.join(tmp, baza + ".png")
                     pregateste_pentru_omr(os.path.join(args.imagini, fname),
-                                          cuvinte, png_curat, scala)
-                    produs = ruleaza_audiveris(args.audiveris, png_curat, tmp,
-                                               arata_eroarea=(incercare == 1))
+                                          cuvinte, png_curat, **conf)
+                    produs, stare = ruleaza_audiveris(
+                        args.audiveris, png_curat, tmp,
+                        arata_eroarea=(k == len(incercari) - 1))
                     if produs:
-                        if incercare == 1:
-                            print(f"  {baza}: a mers la scara {scala}x")
+                        if k > 0:
+                            print(f"  {baza}: a mers la incercarea {k + 1} "
+                                  f"(scara {conf['scala']}x, margine "
+                                  f"{conf['margine']}px"
+                                  f"{', binarizat' if conf['binarizeaza'] else ''})")
                         break
                 if produs:
                     ext = os.path.splitext(produs)[1].lower()
                     cale_xml = os.path.join(args.scores_dir, baza + ext)
                     shutil.copyfile(produs, cale_xml)
-                else:
-                    # Audiveris nu a gasit muzica -> probabil NU e partitura
-                    # (o poza/desen detectat gresit). O marcam ca atare.
+                elif stare == "fara_muzica":
+                    # Audiveris a rulat OK dar nu a gasit muzica -> probabil
+                    # NU e partitura (poza/desen detectat gresit).
                     fara_muzica.add(fname)
+                # daca a crapat ('esec'), ramane partitura cu PNG, fara XML
         else:
             for ext in (".mxl", ".xml", ".musicxml"):
                 c = os.path.join(args.scores_dir, baza + ext)
