@@ -92,6 +92,55 @@ def curata_cuvant(text):
     return re.sub(r"^[^A-Za-z]+|[^A-Za-z.\d ]+$", "", text).strip()
 
 
+# Abrevieri de instrumente pe care le poate purta o eticheta de partitura
+# (inclusiv variantele citite gresit de OCR: Vln->Vin, Vla->Via, Vl->VI).
+# Cheia = forma cu litere mici, valoarea = forma corectata pentru XML.
+ETICHETE_CUNOSCUTE = {
+    "vln": "Vln", "vin": "Vln", "vl": "Vln", "vi": "Vln", "vn": "Vln",
+    "vla": "Vla", "via": "Vla",
+    "vlc": "Vlc", "vc": "Vlc", "cello": "Cello",
+    "cb": "Cb", "db": "Db", "bass": "Bass",
+    "fl": "Fl", "ob": "Ob", "cl": "Cl", "bn": "Bn", "fg": "Fg",
+    "hn": "Hn", "cor": "Cor", "tpt": "Tpt", "tbn": "Tbn", "tba": "Tba",
+    "timp": "Timp", "perc": "Perc", "hp": "Hp", "pno": "Pno", "org": "Org",
+    "gtr": "Gtr", "git": "Git", "sop": "Sop", "alt": "Alt", "ten": "Ten",
+    "bar": "Bar", "bas": "Bas",
+}
+
+
+def valideaza_eticheta(text):
+    """Verifica daca textul chiar arata a eticheta de instrument (Vln,
+    Vla, Violin I...). Intoarce forma curatata/corectata sau None.
+
+    Regulile taie gunoiul OCR ('oe', 'owe', 'if.', 'Sk'):
+      - <=4 litere: DOAR daca e o abreviere cunoscuta (cu corectie OCR);
+      - >=5 litere: trebuie sa inceapa cu majuscula, sa aiba vocale si
+        sa fie in mare parte litere.
+    """
+    t = curata_cuvant(text)
+    if not t:
+        return None
+    primul = t.split()[0] if " " in t else None
+    # 1) abrevierile cunoscute au prioritate (intai textul intreg, apoi
+    #    primul cuvant: 'Vin ie' -> 'Vin' -> 'Vln')
+    for cand in (t, primul):
+        if not cand:
+            continue
+        jos = re.sub(r"[^a-z]", "", cand.lower())
+        if jos in ETICHETE_CUNOSCUTE:
+            return ETICHETE_CUNOSCUTE[jos]
+    # 2) nume intregi de instrument/parte (ex. "Violin I", "Violoncello")
+    for cand in (t, primul):
+        if not cand:
+            continue
+        litere = sum(1 for c in cand if c.isalpha())
+        if (litere >= 5 and cand[0].isupper()
+                and any(c in "aeiouAEIOU" for c in cand)
+                and litere / len(cand) >= 0.7):
+            return cand
+    return None
+
+
 def clasifica_cuvinte(cuvinte, lat, inalt):
     """Imparte cuvintele dupa pozitia lor in imaginea partiturii:
        - 'stanga'  : eticheta partii (Vln, Vla, Violin I) -> part-name
@@ -100,22 +149,30 @@ def clasifica_cuvinte(cuvinte, lat, inalt):
     """
     eticheta, titlu, altele = None, None, []
     for c in cuvinte:
-        text = curata_cuvant(c["text"])
-        if not cuvant_bun(text):
+        brut = c["text"]
+        text = curata_cuvant(brut)
+        if not text:
             continue
         x0, y0, x1, y1 = c["bbox"]
         centru_y = 0.5 * (y0 + y1)
-        if x1 <= 0.30 * lat and 0.15 * inalt <= centru_y <= 0.85 * inalt:
-            # in stanga, la nivelul portativului
-            if eticheta is None or len(text) > len(eticheta):
-                eticheta = text
-        elif y1 <= 0.35 * inalt:
-            if titlu is None or len(text) > len(titlu):
+        # eticheta: incepe in stanga imaginii, la nivelul portativului
+        if x0 <= 0.30 * lat and 0.15 * inalt <= centru_y <= 0.85 * inalt:
+            valid = valideaza_eticheta(brut)
+            if valid and (eticheta is None or len(valid) > len(eticheta)):
+                eticheta = valid
+                continue
+        if not cuvant_bun(text):
+            continue
+        if y1 <= 0.35 * inalt:
+            # titlu: cerem un text mai consistent, nu gunoi OCR scurt
+            litere = sum(1 for ch in text if ch.isalpha())
+            if (litere >= 5 and any(ch in "aeiouAEIOU" for ch in text)
+                    and (titlu is None or len(text) > len(titlu))):
                 titlu = text
         else:
             # pentru credit-words cerem cuvinte ceva mai lungi, ca sa nu
             # ajunga in XML gunoaie OCR de 2 litere ("ae", "oe", "es")
-            if sum(1 for ch in text if ch.isalpha()) >= 3:
+            if sum(1 for ch in text if ch.isalpha()) >= 4:
                 altele.append(text)
     return eticheta, titlu, altele
 
@@ -143,7 +200,7 @@ def pregateste_pentru_omr(png_path, cuvinte, out_path, scala=2):
 # ---------------------------------------------------------------------------
 # Audiveris -> MusicXML
 # ---------------------------------------------------------------------------
-def ruleaza_audiveris(audiveris, png_path, out_dir):
+def ruleaza_audiveris(audiveris, png_path, out_dir, arata_eroarea=False):
     """Ruleaza Audiveris in batch pe un PNG si intoarce calea .mxl/.xml
     produsa (sau None)."""
     try:
@@ -163,10 +220,15 @@ def ruleaza_audiveris(audiveris, png_path, out_dir):
             if f.lower().endswith((".mxl", ".xml", ".musicxml")) and base in f:
                 gasite.append(os.path.join(rad, f))
     if not gasite:
-        if r.returncode != 0:
-            print(f"  ! Audiveris esuat pe {base} (cod {r.returncode})")
-        else:
-            print(f"  ! Audiveris nu a gasit muzica in {base}")
+        if arata_eroarea:
+            mesaje = ((r.stderr or "") + "\n" + (r.stdout or "")).strip().splitlines()
+            utile = [m for m in mesaje if m.strip()][-4:]
+            if r.returncode != 0:
+                print(f"  ! Audiveris esuat pe {base} (cod {r.returncode})")
+            else:
+                print(f"  ! Audiveris nu a gasit muzica in {base}")
+            for m in utile:
+                print(f"      {m.strip()[:150]}")
         return None
     # preferam .mxl
     gasite.sort(key=lambda p: (not p.lower().endswith(".mxl"), p))
@@ -350,14 +412,24 @@ def main():
         cuvinte = info.get("cuvinte", [])
         baza = os.path.splitext(fname)[0]
 
-        # 1) conversia cu Audiveris (pe imaginea curatata de cuvinte)
+        # 1) conversia cu Audiveris (pe imaginea curatata de cuvinte).
+        #    Daca esueaza, reincercam cu imaginea marita si mai mult -
+        #    partiturile mici au interlinia sub minimul cerut de OMR.
         cale_xml = None
         if args.audiveris:
             with tempfile.TemporaryDirectory() as tmp:
-                png_curat = os.path.join(tmp, baza + ".png")
-                pregateste_pentru_omr(os.path.join(args.imagini, fname),
-                                      cuvinte, png_curat, args.scala_omr)
-                produs = ruleaza_audiveris(args.audiveris, png_curat, tmp)
+                produs = None
+                for incercare, scala in enumerate(
+                        (args.scala_omr, args.scala_omr * 2)):
+                    png_curat = os.path.join(tmp, baza + ".png")
+                    pregateste_pentru_omr(os.path.join(args.imagini, fname),
+                                          cuvinte, png_curat, scala)
+                    produs = ruleaza_audiveris(args.audiveris, png_curat, tmp,
+                                               arata_eroarea=(incercare == 1))
+                    if produs:
+                        if incercare == 1:
+                            print(f"  {baza}: a mers la scara {scala}x")
+                        break
                 if produs:
                     ext = os.path.splitext(produs)[1].lower()
                     cale_xml = os.path.join(args.scores_dir, baza + ext)
