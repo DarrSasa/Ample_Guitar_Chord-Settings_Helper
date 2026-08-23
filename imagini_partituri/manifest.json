@@ -4224,29 +4224,20 @@
           "pagina": 9,
           "bbox_pt": [
             52.9,
-            86.0,
-            336.2,
+            128.5,
+            154.8,
             306.7
           ]
         }
       ],
       "cuvinte": [
         {
-          "text": "Now let’s look at these common chords played with a 4th string root.",
-          "bbox": [
-            0,
-            0,
-            787,
-            35
-          ]
-        },
-        {
           "text": "Example 2e:",
           "bbox": [
             0,
-            578,
+            460,
             159,
-            613
+            495
           ]
         }
       ]
@@ -4266,24 +4257,14 @@
         {
           "pagina": 9,
           "bbox_pt": [
-            52.9,
-            86.0,
-            336.2,
+            150.1,
+            128.5,
+            251.6,
             262.4
           ]
         }
       ],
-      "cuvinte": [
-        {
-          "text": "Now let’s look at these common chords played with a 4th string root.",
-          "bbox": [
-            0,
-            0,
-            787,
-            35
-          ]
-        }
-      ]
+      "cuvinte": []
     },
     {
       "fisier": "diagrama-p9-C.png",
@@ -4300,24 +4281,14 @@
         {
           "pagina": 9,
           "bbox_pt": [
-            52.9,
-            86.0,
+            242.3,
+            128.5,
             344.2,
             262.4
           ]
         }
       ],
-      "cuvinte": [
-        {
-          "text": "Now let’s look at these common chords played with a 4th string root.",
-          "bbox": [
-            0,
-            0,
-            787,
-            35
-          ]
-        }
-      ]
+      "cuvinte": []
     },
     {
       "fisier": "diagrama-p9-D.png",

@@ -212,12 +212,21 @@ Tot ce extrag din cărți intră în `date_extrase/` ca JSON, cu câmpul
 - [x] nume pe tipuri: `tablatura-p5-A.png`, `diagrama-p8-C.png`,
       `partitura-tab-p6-B.png`; cartea .md le marchează [TAB]/[DIAGRAMA]/
       [SCORE+TAB]; la perechi Audiveris primește doar partea de portativ
-- [ ] convertor TAB → MusicXML (cifre din stratul text al PDF-urilor
-      digitale → coardă+tastă+acordaj → note cu <string>/<fret>)
-- [ ] convertor diagramă → `voicinguri.json` + MusicXML <frame>
-      (punctele/x/o/„5fr" citite geometric din grilă)
+- [x] convertor DIAGRAMĂ → `date_extrase/voicinguri.json` (geometric:
+      grila, punctele pline ȘI inelele numerotate, offset din "5fr";
+      voicing per coardă când e diagramă de acord) — v1 funcțional,
+      141/143 citite pe PDF-ul de test; precizia pe scanuri vechi se va
+      rafina pe cărți reale
+- [x] convertor TAB → MusicXML cu `<string>/<fret>` + acordaj standard;
+      cifrele vin din stratul text al PDF-ului sau din Tesseract
+      (opțional, `--tesseract`); acordurile (cifre pe aceeași verticală)
+      devin `<chord/>`; ritmul marcat ca aproximativ
+- [x] perechi: Audiveris pe portativ + digitația TAB salvată in
+      `date_extrase/digitatie/<nume>.json` (unirea completă rămâne)
 - [ ] unirea pereche: ritmul din portativ (Audiveris) + digitația din TAB
       într-un singur MusicXML complet
+- [ ] OCR pe numele acordurilor din cărțile scanate fără strat text
+      (paginile Mickey Baker: "Gma7" etc.) — cu Tesseract
 - [ ] pagina scanată cu sisteme dese (Caravan, pg. 3 din test) încă se
       fragmentează — de calibrat separat
 

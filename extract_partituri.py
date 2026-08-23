@@ -1174,9 +1174,14 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
                     if all(suprapunere_bbox(d["bbox"], g2["bbox"]) < 0.2
                            for g2 in gasite)]
         for d in diagrame:
-            # atasam numele acordului (rand de text singur, ex. "Gma7")
+            # atasam numele acordului (rand de text singur, ex. "Gma7"),
+            # dar NU legendele late care ar largi chenarul peste grilele
+            # vecine (ex. o propozitie deasupra unui rand de 3 grile)
+            lat_grila = d["bbox"][2] - d["bbox"][0]
+            rd_potrivite = [r for r in randuri_izolate
+                            if (r[2] - r[0]) <= 2.5 * lat_grila]
             (x0, y0, x1, y1), cuv = include_randuri_izolate(
-                d["bbox"], randuri_izolate, d["interlinie"], w, h,
+                d["bbox"], rd_potrivite, d["interlinie"], w, h,
                 miez=(d["bbox"][1], d["bbox"][3]))
             if (x0, y0, x1, y1) != d["bbox"]:
                 d["bbox"] = (x0, y0, x1, y1)

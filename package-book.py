@@ -433,6 +433,296 @@ def injecteaza_cuvinte_xml(cale, eticheta, titlu, altele):
         return True
 
 
+# ---------------------------------------------------------------------------
+# convertorul de DIAGRAME de acorduri (geometric, merge si pe scanuri)
+# ---------------------------------------------------------------------------
+def _benzi_centre(bool_vec):
+    """Centrele seriilor continue de True (pozitiile liniilor)."""
+    centre = []
+    activ = False
+    start = 0
+    for k, v in enumerate(bool_vec):
+        if v and not activ:
+            start = k
+        if not v and activ:
+            centre.append((start + k - 1) / 2.0)
+        activ = bool(v)
+    if activ:
+        centre.append((start + len(bool_vec) - 1) / 2.0)
+    return centre
+
+
+def analizeaza_diagrama(png_path, cuvinte=None):
+    """Citeste GEOMETRIC o diagrama de acorduri: corzile (linii verticale),
+    tastele (linii orizontale) si punctele negre din grila.
+
+    Intoarce dict: corzi, taste, offset_taste (din texte gen '5fr'/'7th'),
+    puncte = [[coarda, tasta], ...] (coarda 1 = cea din stanga grilei),
+    voicing = lista per coarda (tasta sau null) daca e diagrama de acord
+    (cel mult un punct pe coarda). Merge si pe scanuri - nu cere OCR."""
+    if cv2 is None:
+        return None
+    img = cv2.imread(png_path, cv2.IMREAD_GRAYSCALE)
+    if img is None:
+        return None
+    binar = (img < 208).astype(np.uint8)
+    n, lab, stats, _ = cv2.connectedComponentsWithStats(binar, 8)
+    best = None
+    for i in range(1, n):
+        x, y, w2, h2, aria = stats[i]
+        if w2 < 25 or h2 < 25:
+            continue
+        sub = (lab[y:y + h2, x:x + w2] == i)
+        col = sub.sum(axis=0) / float(h2)
+        rnd = sub.sum(axis=1) / float(w2)
+        cx = _benzi_centre(col >= 0.5)
+        cy = _benzi_centre(rnd >= 0.5)
+        if len(cx) >= 4 and len(cy) >= 3 and (best is None or aria > best[0]):
+            best = (aria, x, y, cx, cy)
+    if best is None:
+        return None
+    _, gx, gy, corzi_x, taste_y = best
+    corzi_x = [gx + v for v in corzi_x]
+    taste_y = [gy + v for v in taste_y]
+
+    def _serie_uniforma(vals):
+        """Pastreaza cea mai lunga serie de linii cu distante uniforme
+        (daca doua grile vecine au ajuns in acelasi crop, le despartim)."""
+        if len(vals) < 3:
+            return vals
+        d = np.diff(vals)
+        med = float(np.median(d))
+        start = cel_start = 0
+        cel_lung = 1
+        for k, dv in enumerate(d):
+            if dv > 1.8 * med:
+                if k + 1 - start > cel_lung:
+                    cel_start, cel_lung = start, k + 1 - start
+                start = k + 1
+        if len(vals) - start > cel_lung:
+            cel_start, cel_lung = start, len(vals) - start
+        return vals[cel_start:cel_start + cel_lung]
+
+    corzi_x = _serie_uniforma(corzi_x)
+    taste_y = _serie_uniforma(taste_y)
+    if len(corzi_x) < 4 or len(taste_y) < 3:
+        return None
+    dx = float(np.median(np.diff(corzi_x)))
+    dy = float(np.median(np.diff(taste_y)))
+
+    # punctele: (1) deschidere cu disc -> punctele PLINE raman, liniile
+    # dispar; (2) inchidere + deschidere -> si INELELE numerotate (1,2,3)
+    # devin discuri pline si sunt prinse
+    r = max(2, int(0.22 * min(dx, dy)))
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * r + 1, 2 * r + 1))
+    pline = cv2.morphologyEx(binar, cv2.MORPH_OPEN, kernel)
+    inchis = cv2.morphologyEx(binar, cv2.MORPH_CLOSE, kernel)
+    inele = cv2.morphologyEx(inchis, cv2.MORPH_OPEN, kernel)
+    doar_puncte = cv2.bitwise_or(pline, inele)
+    nd, _, statd, centd = cv2.connectedComponentsWithStats(doar_puncte, 8)
+    puncte = set()
+    for j in range(1, nd):
+        aria_d = statd[j][4]
+        pcx, pcy = centd[j]
+        if aria_d < 2.0 * r * r:
+            continue
+        if statd[j][2] > 1.6 * dx or statd[j][3] > 1.6 * dy:
+            continue  # blob prea mare - probabil text/junctiuni, nu punct
+        if not (corzi_x[0] - dx * 0.35 <= pcx <= corzi_x[-1] + dx * 0.35):
+            continue  # in afara corzilor (cifrele de taste din margine)
+        if pcy < taste_y[0] - 0.3 * dy or pcy > taste_y[-1] + 0.3 * dy:
+            continue  # marcaje deasupra/sub grila, nu puncte de tasta
+        coarda = int(np.argmin([abs(pcx - v) for v in corzi_x])) + 1
+        k = int(np.searchsorted(taste_y, pcy))
+        tasta = max(1, min(len(taste_y) - 1, k))
+        puncte.add((coarda, tasta))
+    puncte = sorted(puncte)
+
+    # offset-ul tastelor, din textele atasate ("5fr", "7th", "12")
+    offset = 1
+    for c in (cuvinte or []):
+        t = c["text"].strip().lower().rstrip(".")
+        mm = re.match(r"^(\d{1,2})\s*(?:fr|th|st|nd|rd)?$", t)
+        if mm and 1 <= int(mm.group(1)) <= 24:
+            offset = int(mm.group(1))
+            break
+
+    rezultat = {
+        "corzi": len(corzi_x),
+        "taste": len(taste_y) - 1,
+        "offset_taste": offset,
+        "puncte": [list(p) for p in puncte],
+    }
+    # voicing de ACORD doar daca fiecare coarda are cel mult un punct
+    pe_coarda = {}
+    for (c, t) in puncte:
+        pe_coarda.setdefault(c, []).append(t)
+    if puncte and all(len(v) == 1 for v in pe_coarda.values()):
+        rezultat["voicing"] = [
+            (pe_coarda[c][0] + offset - 1) if c in pe_coarda else None
+            for c in range(1, len(corzi_x) + 1)]
+    return rezultat
+
+
+# ---------------------------------------------------------------------------
+# convertorul de TABLATURI -> MusicXML (coarda + tasta -> nota)
+# ---------------------------------------------------------------------------
+ACORDAJ_STANDARD = [64, 59, 55, 50, 45, 40]   # MIDI: E4 B3 G3 D3 A2 E2
+NOTE_NUME = [("C", 0), ("C", 1), ("D", 0), ("D", 1), ("E", 0), ("F", 0),
+             ("F", 1), ("G", 0), ("G", 1), ("A", 0), ("A", 1), ("B", 0)]
+
+
+def linii_tab_din_crop(img):
+    """Centrele celor 6 linii ale tablaturii (pixeli), din proiectia pe
+    randuri a crop-ului."""
+    h, w = img.shape
+    ink = (img < 208).sum(axis=1)
+    este = ink >= 0.5 * w
+    centre = []
+    y = 0
+    while y < h:
+        if este[y]:
+            y0 = y
+            while y < h and este[y]:
+                y += 1
+            centre.append((y0 + y - 1) / 2.0)
+        else:
+            y += 1
+    return centre
+
+
+def cifre_cu_tesseract(img, tesseract_cmd=None):
+    """Citeste cifrele din imaginea TAB cu pytesseract (optional).
+    Intoarce [(text, cx, cy)] sau None daca OCR-ul nu e disponibil."""
+    try:
+        import pytesseract
+        if tesseract_cmd:
+            pytesseract.pytesseract.tesseract_cmd = tesseract_cmd
+        mare = cv2.resize(img, (img.shape[1] * 2, img.shape[0] * 2),
+                          interpolation=cv2.INTER_CUBIC)
+        date = pytesseract.image_to_data(
+            mare, config="--psm 6 -c tessedit_char_whitelist=0123456789",
+            output_type=pytesseract.Output.DICT)
+    except Exception:
+        return None
+    rezultat = []
+    for k, txt in enumerate(date["text"]):
+        t = txt.strip()
+        if t.isdigit() and 0 <= int(t) <= 24 and int(date["conf"][k]) > 40:
+            cx = (date["left"][k] + date["width"][k] / 2.0) / 2.0
+            cy = (date["top"][k] + date["height"][k] / 2.0) / 2.0
+            rezultat.append((t, cx, cy))
+    return rezultat
+
+
+def converteste_tablatura(doc, info, png_path, tesseract_cmd=None):
+    """TAB -> lista de note {coarda, tasta, pitch_midi, x}. Cifrele vin din
+    stratul text al PDF-ului (cartile digitale) sau, daca lipseste, din
+    pytesseract (daca e instalat). Intoarce (note, sursa) sau (None, motiv)."""
+    if cv2 is None:
+        return None, "lipseste opencv"
+    img = cv2.imread(png_path, cv2.IMREAD_GRAYSCALE)
+    if img is None:
+        return None, "nu pot citi PNG-ul"
+    sub = info.get("sub_zone")
+    if sub and sub.get("tab"):
+        x0, y0, x1, y1 = [int(v) for v in sub["tab"]]
+        img = img[max(0, y0):min(img.shape[0], y1),
+                  max(0, x0):min(img.shape[1], x1)]
+        decalaj_y = y0
+    else:
+        decalaj_y = 0
+    linii = linii_tab_din_crop(img)
+    if len(linii) < 4:
+        return None, "nu gasesc liniile tablaturii"
+
+    cifre = []
+    zona = (info.get("zone_pdf") or [{}])[0]
+    bbox_pt = zona.get("bbox_pt")
+    if bbox_pt and doc is not None:
+        # cartile digitale au cifrele in stratul de text al PDF-ului
+        pag = doc[zona["pagina"] - 1]
+        px_per_pt_x = img.shape[1] / max(1.0, (bbox_pt[2] - bbox_pt[0]))
+        px_per_pt_y = (img.shape[0] + decalaj_y) / max(1.0, (bbox_pt[3] - bbox_pt[1]))
+        for wd in pag.get_text("words"):
+            t = wd[4].strip()
+            if not (t.isdigit() and 0 <= int(t) <= 24):
+                continue
+            cx = ((wd[0] + wd[2]) / 2.0 - bbox_pt[0]) * px_per_pt_x
+            cy = ((wd[1] + wd[3]) / 2.0 - bbox_pt[1]) * px_per_pt_y - decalaj_y
+            if 0 <= cy <= img.shape[0]:
+                cifre.append((t, cx, cy))
+    if not cifre:
+        cifre = cifre_cu_tesseract(img, tesseract_cmd)
+        if cifre is None:
+            return None, ("cifrele nu sunt in stratul text; instaleaza "
+                          "Tesseract + pytesseract pentru OCR")
+    if not cifre:
+        return None, "nicio cifra gasita in zona TAB"
+
+    interl = float(np.median(np.diff(linii))) if len(linii) > 1 else 10.0
+    note = []
+    for (t, cx, cy) in cifre:
+        idx = int(np.argmin([abs(cy - ly) for ly in linii]))
+        if abs(cy - linii[idx]) > 0.75 * interl:
+            continue  # cifra prea departe de orice coarda (alt text)
+        coarda = idx + 1                      # linia de sus = coarda 1 (mi acut)
+        tasta = int(t)
+        if coarda <= len(ACORDAJ_STANDARD):
+            note.append({"coarda": coarda, "tasta": tasta,
+                         "pitch_midi": ACORDAJ_STANDARD[coarda - 1] + tasta,
+                         "x": round(float(cx), 1)})
+    note.sort(key=lambda nn: (nn["x"], nn["coarda"]))
+    return (note, "text-pdf" if bbox_pt else "ocr") if note else (None, "fara note")
+
+
+def tab_spre_musicxml(note, eticheta=None, titlu=None):
+    """Construieste MusicXML din notele de tablatura. Cifrele aflate la
+    aceeasi pozitie X devin ACORD (canta impreuna). Duratele sunt egale
+    (ritmul exact ramane in sarcina portativului-pereche, daca exista)."""
+    grupuri = []
+    for nn in note:
+        if grupuri and abs(nn["x"] - grupuri[-1][0]["x"]) < 12:
+            grupuri[-1].append(nn)
+        else:
+            grupuri.append([nn])
+    linii_xml = ['<?xml version="1.0" encoding="UTF-8"?>',
+                 '<score-partwise version="3.1">']
+    if titlu:
+        linii_xml.append(f"  <movement-title>{titlu}</movement-title>")
+    linii_xml += ['  <identification><encoding><software>'
+                  'extract_partituri/package-book TAB reader</software>'
+                  '</encoding></identification>',
+                  '  <credit page="1"><credit-words>Ritmul este aproximativ: '
+                  'duratele reale se iau din portativul-pereche daca exista.'
+                  '</credit-words></credit>',
+                  '  <part-list><score-part id="P1">'
+                  f"<part-name>{eticheta or 'Guitar (TAB)'}</part-name>"
+                  '</score-part></part-list>',
+                  '  <part id="P1"><measure number="1">',
+                  '    <attributes><divisions>1</divisions>'
+                  '<clef><sign>TAB</sign><line>5</line></clef>'
+                  '<staff-details><staff-lines>6</staff-lines></staff-details>'
+                  '</attributes>']
+    for grup in grupuri:
+        for k, nn in enumerate(grup):
+            midi = nn["pitch_midi"]
+            step, alter = NOTE_NUME[midi % 12]
+            octava = midi // 12 - 1
+            linii_xml.append("    <note>" + ("<chord/>" if k else ""))
+            linii_xml.append(f"      <pitch><step>{step}</step>"
+                             + (f"<alter>{alter}</alter>" if alter else "")
+                             + f"<octave>{octava}</octave></pitch>")
+            linii_xml.append("      <duration>1</duration><type>quarter</type>")
+            linii_xml.append("      <notations><technical>"
+                             f"<string>{nn['coarda']}</string>"
+                             f"<fret>{nn['tasta']}</fret>"
+                             "</technical></notations>")
+            linii_xml.append("    </note>")
+    linii_xml += ["  </measure></part>", "</score-partwise>"]
+    return "\n".join(linii_xml)
+
+
 def citeste_xml_text(cale):
     """Intoarce textul MusicXML dintr-un .xml sau .mxl (dezarhivat)."""
     try:
@@ -484,6 +774,12 @@ def main():
     ap.add_argument("--doar-lipsa", action="store_true",
                     help="nu reconverteste partiturile care au deja XML in "
                          "--scores-dir (util la reluarea cartilor mari)")
+    ap.add_argument("--tesseract", default="",
+                    help="calea catre tesseract.exe (optional; citirea "
+                         "cifrelor TAB din cartile scanate)")
+    ap.add_argument("--date-dir", default="date_extrase",
+                    help="folderul pentru datele extrase: voicinguri.json, "
+                         "digitatie (default: date_extrase)")
     ap.add_argument("--out", default=None,
                     help="fisierul cartii noi (default: <pdf>.md)")
     args = ap.parse_args()
@@ -517,6 +813,9 @@ def main():
     xml_per_png = {}
     fara_muzica = set()   # PNG-uri in care Audiveris NU a gasit muzica
                           # (probabil poze/desene, nu partituri)
+    voicinguri = []       # diagramele de acorduri citite geometric
+    voicing_per_png = {}
+    doc = fitz.open(args.pdf)
 
     print(f"Partituri gasite: {len(pnguri)}")
     for fname in pnguri:
@@ -541,6 +840,40 @@ def main():
             if img0 is not None:
                 inalt, lat = img0.shape
         eticheta, titlu, altele, de_albit = clasifica_cuvinte(cuvinte, lat, inalt)
+
+        # DIAGRAMELE: citire geometrica -> voicinguri.json (fara OMR)
+        if tip == "diagrama":
+            rez = analizeaza_diagrama(os.path.join(args.imagini, fname), cuvinte)
+            if rez is not None:
+                nume_acord = eticheta or titlu
+                rez["acord"] = nume_acord
+                rez["fisier"] = fname
+                rez["sursa"] = os.path.basename(args.pdf) + \
+                    f" pag.{pagina_din_nume(fname)}"
+                voicinguri.append(rez)
+                voicing_per_png[fname] = rez
+                det = (f"acord='{nume_acord}', " if nume_acord else "")
+                print(f"  {baza}: diagrama citita ({det}"
+                      f"{len(rez['puncte'])} puncte"
+                      f"{', voicing' if rez.get('voicing') else ''})")
+            else:
+                print(f"  {baza}: diagrama necitibila geometric")
+            continue
+
+        # TABLATURILE simple: cifrele -> note -> MusicXML (fara OMR)
+        if tip == "tablatura":
+            note, sursa = converteste_tablatura(doc, info,
+                                                os.path.join(args.imagini, fname),
+                                                args.tesseract or None)
+            if note:
+                cale_xml = os.path.join(args.scores_dir, baza + ".xml")
+                with open(cale_xml, "w", encoding="utf-8") as f:
+                    f.write(tab_spre_musicxml(note, eticheta, titlu))
+                xml_per_png[fname] = cale_xml
+                print(f"  {baza}: TAB -> XML ({len(note)} note, sursa: {sursa})")
+            else:
+                print(f"  {baza}: TAB neconvertit ({sursa})")
+            continue
 
         # 1) conversia cu Audiveris. Daca esueaza, reincercam cu imagine
         #    tot mai mare, margine alba generoasa, binarizare si, la final,
@@ -601,6 +934,20 @@ def main():
 
         # 2) injectam cuvintele descriptive in XML, la locul corect
         if cale_xml:
+            if tip == "pereche":
+                # pastram si digitatia din TAB, pentru unirea de mai tarziu
+                note_tab, sursa_tab = converteste_tablatura(
+                    doc, info, os.path.join(args.imagini, fname),
+                    args.tesseract or None)
+                if note_tab:
+                    os.makedirs(os.path.join(args.date_dir, "digitatie"),
+                                exist_ok=True)
+                    with open(os.path.join(args.date_dir, "digitatie",
+                                           baza + ".json"), "w",
+                              encoding="utf-8") as f:
+                        json.dump({"fisier": fname, "note": note_tab,
+                                   "sursa_cifre": sursa_tab}, f,
+                                  ensure_ascii=False, indent=1)
             if portativ_prelungit:
                 # cinstit fata de cititor: ultima masura nu e din carte
                 altele = altele + ["Nota: ultima masura (goala) a fost "
@@ -625,7 +972,23 @@ def main():
     #      - punem marcatorul [SCORE...] in fluxul textului exact acolo
     #        unde era portativul odinioara.
     print("\nConstruim cartea noua...")
-    doc = fitz.open(args.pdf)
+
+    # salvam voicingurile citite din diagrame
+    if voicinguri:
+        os.makedirs(args.date_dir, exist_ok=True)
+        cale_v = os.path.join(args.date_dir, "voicinguri.json")
+        vechi = []
+        if os.path.isfile(cale_v):
+            try:
+                with open(cale_v, encoding="utf-8") as f:
+                    vechi = json.load(f)
+                vechi = [v for v in vechi
+                         if v.get("fisier") not in voicing_per_png]
+            except Exception:
+                vechi = []
+        with open(cale_v, "w", encoding="utf-8") as f:
+            json.dump(vechi + voicinguri, f, ensure_ascii=False, indent=1)
+        print(f"  voicinguri salvate: {len(voicinguri)} -> {cale_v}")
 
     # zonele partiturilor, pe pagini (1-based)
     zone_pe_pagina = {}     # pagina -> [(bbox_pt, fname, e_prima_bucata)]
@@ -657,6 +1020,14 @@ def main():
             m += f" | XML: {xml.replace(os.sep, '/')}"
         if cuvinte:
             m += f" | CUVINTE: {', '.join(cuvinte)}"
+        vc = voicing_per_png.get(fname)
+        if vc:
+            if vc.get("voicing"):
+                m += " | VOICING: " + "-".join(
+                    "x" if v is None else str(v) for v in vc["voicing"])
+            elif vc.get("puncte"):
+                m += " | PUNCTE: " + " ".join(
+                    f"{c}/{t}" for c, t in vc["puncte"])
         m += "]"
         # XML-ul e incorporat direct in carte, ca sa poata fi citit dintr-un
         # singur fisier (text + muzica masina-lizibila, fara fisiere externe)
