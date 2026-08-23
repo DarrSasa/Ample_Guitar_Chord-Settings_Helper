@@ -203,6 +203,24 @@ Tot ce extrag din cărți intră în `date_extrase/` ca JSON, cu câmpul
       = fabrica de cunoștințe pentru §3 ✔ gata
 - [ ] `documente/carti/` — de creat pe măsură ce procesezi cărțile
 
+## 6b. Șantier nou: tablaturi + diagrame de acorduri (în lucru)
+
+- [x] detectorul deosebește acum: portativ (5 linii) / tablatură (6) /
+      pereche portativ+TAB (unite, cu sub-zone) / diagramă de acorduri
+      (grile mici, detector propriu geometric) — testat pe
+      `test_pdf/guitar_tablatures_examples.pdf` (9 pagini, toate tipurile)
+- [x] nume pe tipuri: `tablatura-p5-A.png`, `diagrama-p8-C.png`,
+      `partitura-tab-p6-B.png`; cartea .md le marchează [TAB]/[DIAGRAMA]/
+      [SCORE+TAB]; la perechi Audiveris primește doar partea de portativ
+- [ ] convertor TAB → MusicXML (cifre din stratul text al PDF-urilor
+      digitale → coardă+tastă+acordaj → note cu <string>/<fret>)
+- [ ] convertor diagramă → `voicinguri.json` + MusicXML <frame>
+      (punctele/x/o/„5fr" citite geometric din grilă)
+- [ ] unirea pereche: ritmul din portativ (Audiveris) + digitația din TAB
+      într-un singur MusicXML complet
+- [ ] pagina scanată cu sisteme dese (Caravan, pg. 3 din test) încă se
+      fragmentează — de calibrat separat
+
 ## 7. Întrebări deschise / conflicte de rezolvat cu tine
 
 - [ ] Care VST e ținta principală? (presupun Ample Guitar — confirmă)

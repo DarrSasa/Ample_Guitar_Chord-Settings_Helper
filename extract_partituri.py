@@ -901,7 +901,225 @@ def scaneaza_pagina(gray, gray_dec, masca_permisa, dpi, randuri_izolate=()):
             if unite:
                 break
 
+    # CLASIFICARE: 6 linii paralele = TABLATURA (corzile chitarei),
+    # 5 (sau alt numar) = PORTATIV; 10-12 linii = portativ + TAB lipite
+    # (stil "grand staff" de chitara) -> PERECHE, cu sub-zonele despartite.
+    for f in finale:
+        if f["nr_linii"] == 6:
+            f["tip"] = "tablatura"
+        elif 10 <= f["nr_linii"] <= 12:
+            f["tip"] = "pereche"
+            f["sub_zone"] = desparte_pereche(f["crop"])
+        else:
+            f["tip"] = "portativ"
+
+    # PERECHI portativ + tablatura: in cartile moderne acelasi pasaj e
+    # scris pe portativ si dedesubt pe TAB. Le unim intr-o singura
+    # detectie ("pereche"), pastrand sub-zonele fiecareia (etapa 3 da
+    # portativul la Audiveris si citeste digitatia din TAB).
+    finale.sort(key=lambda d: d["bbox"][1])
+    unite = True
+    while unite:
+        unite = False
+        for i in range(len(finale)):
+            for j in range(len(finale)):
+                if i == j:
+                    continue
+                a, b = finale[i], finale[j]
+                tipuri = {a["tip"], b["tip"]}
+                if tipuri != {"portativ", "tablatura"}:
+                    continue
+                sus, jos = (a, b) if a["bbox"][1] <= b["bbox"][1] else (b, a)
+                gol_v = jos["bbox"][1] - sus["bbox"][3]
+                il = max(a["interlinie"], b["interlinie"])
+                ov_h = (min(a["bbox"][2], b["bbox"][2])
+                        - max(a["bbox"][0], b["bbox"][0]))
+                if not (-il * 2 <= gol_v <= il * 8
+                        and ov_h >= 0.6 * min(a["bbox"][2] - a["bbox"][0],
+                                              b["bbox"][2] - b["bbox"][0])):
+                    continue
+                bb = (min(a["bbox"][0], b["bbox"][0]), min(a["bbox"][1], b["bbox"][1]),
+                      max(a["bbox"][2], b["bbox"][2]), max(a["bbox"][3], b["bbox"][3]))
+                port = a if a["tip"] == "portativ" else b
+                unghi = port["unghi"]
+                if unghi == 0:
+                    rot2 = gray
+                    cx0, cy0, cx1, cy1 = bb
+                else:
+                    M2 = cv2.getRotationMatrix2D(centru, unghi, 1.0)
+                    rot2 = cv2.warpAffine(gray, M2, (w, h), flags=cv2.INTER_LINEAR,
+                                          borderMode=cv2.BORDER_CONSTANT, borderValue=255)
+                    colt = np.array([[bb[0], bb[1]], [bb[2], bb[1]],
+                                     [bb[2], bb[3]], [bb[0], bb[3]]], dtype=np.float64)
+                    tr = (np.hstack([colt, np.ones((4, 1))]) @ M2.T)
+                    cx0 = max(0, int(tr[:, 0].min())); cy0 = max(0, int(tr[:, 1].min()))
+                    cx1 = min(w, int(tr[:, 0].max())); cy1 = min(h, int(tr[:, 1].max()))
+                pad = max(4, int(il))
+                cx0 = max(0, cx0 - 2); cy0 = max(0, cy0 - pad)
+                cx1 = min(w, cx1 + 2); cy1 = min(h, cy1 + pad)
+
+                def _rel(d):
+                    return [max(0, d["bbox"][0] - bb[0] + 2),
+                            max(0, d["bbox"][1] - bb[1] + pad),
+                            d["bbox"][2] - bb[0] + 2,
+                            d["bbox"][3] - bb[1] + pad]
+
+                nou = {
+                    "bbox": bb,
+                    "unghi": unghi,
+                    "nr_linii": max(a["nr_linii"], b["nr_linii"]),
+                    "interlinie": il,
+                    "lungime": bb[2] - bb[0],
+                    "crop": rot2[cy0:cy1, cx0:cx1].copy(),
+                    "cuvinte": a.get("cuvinte", []) + b.get("cuvinte", []),
+                    "tip": "pereche",
+                    "sub_zone": {"portativ": _rel(port),
+                                 "tab": _rel(a if port is b else b)},
+                }
+                finale = [f for k, f in enumerate(finale)
+                          if k not in (i, j)] + [nou]
+                finale.sort(key=lambda d: d["bbox"][1])
+                unite = True
+                break
+            if unite:
+                break
+
     return finale
+
+
+def numar_benzi(bool_vec):
+    """Cate serii continue de True are vectorul (= cate linii distincte)."""
+    n = 0
+    activ = False
+    for v in bool_vec:
+        if v and not activ:
+            n += 1
+        activ = bool(v)
+    return n
+
+
+def desparte_pereche(crop):
+    """Pentru un grup portativ+TAB lipite (10-12 linii): gaseste liniile
+    prin proiectia pe randuri si desparte la golul cel mai mare dintre
+    linii consecutive. Intoarce sub-zonele relative la crop:
+    {'portativ': [x0,y0,x1,y1], 'tab': [...]} (notatia sta de obicei sus)."""
+    h, w = crop.shape
+    ink = (crop < CERNEALA).sum(axis=1)
+    este = ink >= 0.5 * w
+    centre = []
+    y = 0
+    while y < h:
+        if este[y]:
+            y0 = y
+            while y < h and este[y]:
+                y += 1
+            centre.append((y0 + y - 1) // 2)
+        else:
+            y += 1
+    if len(centre) < 4:
+        mij = h // 2
+        return {"portativ": [0, 0, w, mij], "tab": [0, mij, w, h]}
+    d = np.diff(centre)
+    k = int(np.argmax(d))          # golul cel mai mare = granita
+    mij = (centre[k] + centre[k + 1]) // 2
+    return {"portativ": [0, 0, w, mij], "tab": [0, mij, w, h]}
+
+
+def detecteaza_diagrame(gray, masca_permisa, dpi, ocupate):
+    """Gaseste DIAGRAMELE de acorduri: grile mici formate din linii
+    verticale (corzile) si orizontale (tastele), cu puncte pe intersectii.
+    Sunt prea mici pentru detectorul de portative (liniile lor sunt mult
+    sub 1/10 din latimea paginii), asa ca au propriul detector.
+
+    `ocupate` = bbox-urile deja detectate (portative/TAB) - le ocolim.
+    Intoarce detectii cu tip='diagrama'."""
+    h, w = gray.shape
+    binar = ((gray < CERNEALA) & masca_permisa).astype(np.uint8)
+    n, lab, stats, _ = cv2.connectedComponentsWithStats(binar, 8)
+    lim_min = max(20, int(dpi * 0.10))   # grila de macar ~2.5 mm
+    lim_max = int(dpi * 4.0)             # pana la ~5 cm (pattern-uri lungi)
+    dim_min = max(40, int(dpi * 0.25))   # latura mica >= ~6 mm: cuvintele
+                                         # razlete nu devin "diagrame"
+    dets = []
+    for i in range(1, n):
+        x, y, w2, h2, aria = stats[i]
+        if not (lim_min <= w2 <= lim_max and lim_min <= h2 <= lim_max):
+            continue
+        if min(w2, h2) < dim_min:
+            continue
+        if aria < 0.04 * w2 * h2:
+            continue  # prea putina cerneala ca sa fie o grila
+        sub = (lab[y:y + h2, x:x + w2] == i)
+        col = sub.sum(axis=0) / float(h2)
+        rnd = sub.sum(axis=1) / float(w2)
+        nv = numar_benzi(col >= 0.5)    # linii verticale ~ complete (corzi)
+        nh = numar_benzi(rnd >= 0.5)    # linii orizontale ~ complete (taste)
+        # 4-9 corzi (chitara/bas), 3-16 taste (unele carti arata grile
+        # lungi, cu 10+ taste); sub 4 linii verticale = probabil bare de
+        # masura dintr-un sistem portativ+TAB, nu o grila
+        if not (4 <= nv <= 9 and 3 <= nh <= 16):
+            continue
+        # tastele unei grile sunt UNIFORM distantate; un gol mare intre
+        # linii tradeaza un sistem portativ+TAB scurt, nu o diagrama
+        # (prag mai bland la linii, ca scanurile slabe sa nu piarda taste)
+        centre_l = []
+        activ = False
+        for yy, v in enumerate(rnd >= 0.5):
+            if v and not activ:
+                y_start = yy
+            if not v and activ:
+                centre_l.append((y_start + yy - 1) / 2.0)
+            activ = bool(v)
+        if activ:
+            centre_l.append((y_start + len(rnd) - 1) / 2.0)
+        if len(centre_l) >= 3:
+            dif = np.diff(centre_l)
+            if float(dif.max()) > 2.6 * float(np.median(dif)):
+                continue
+        bbox = (x, y, x + w2, y + h2)
+        if any(suprapunere_bbox(bbox, oc) >= 0.2 for oc in ocupate):
+            continue  # face parte dintr-un portativ/TAB deja detectat
+        pas = h2 / max(1, nh - 1)   # distanta dintre taste
+        dets.append({
+            "bbox": bbox,
+            "unghi": 0,
+            "nr_linii": nh,
+            "interlinie": pas,
+            "lungime": w2,
+            "crop": None,   # completat mai jos, dupa unirea grilelor lipite
+            "tip": "diagrama",
+            "corzi": nv,
+        })
+
+    # unele grile au si un chenar dublu sau puncte care ating grila vecina;
+    # unim detectiile care se ating/suprapun
+    schimbat = True
+    while schimbat:
+        schimbat = False
+        for i in range(len(dets)):
+            for j in range(i + 1, len(dets)):
+                if suprapunere_bbox(dets[i]["bbox"], dets[j]["bbox"]) >= 0.5:
+                    a, b = dets[i], dets[j]
+                    bb = (min(a["bbox"][0], b["bbox"][0]), min(a["bbox"][1], b["bbox"][1]),
+                          max(a["bbox"][2], b["bbox"][2]), max(a["bbox"][3], b["bbox"][3]))
+                    a["bbox"] = bb
+                    a["corzi"] = max(a["corzi"], b["corzi"])
+                    a["nr_linii"] = max(a["nr_linii"], b["nr_linii"])
+                    dets.pop(j)
+                    schimbat = True
+                    break
+            if schimbat:
+                break
+
+    for d in dets:
+        x0, y0, x1, y1 = d["bbox"]
+        pad = max(4, int(d["interlinie"] * 0.8))
+        cx0 = max(0, x0 - pad); cy0 = max(0, y0 - pad)
+        cx1 = min(w, x1 + pad); cy1 = min(h, y1 + pad)
+        d["crop"] = gray[cy0:cy1, cx0:cx1].copy()
+        d["bbox"] = (cx0, cy0, cx1, cy1)
+    dets.sort(key=lambda t: (t["bbox"][1], t["bbox"][0]))
+    return dets
 
 
 def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
@@ -933,12 +1151,48 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
         randuri_text.append(toate_rd)
         gray_dec = gray.copy()
         gray_dec[masca_par] = 255
-        gasite = scaneaza_pagina(gray, gray_dec, masca, dpi, randuri_izolate)
+        # diagramele de acorduri (grile mici) se detecteaza INTAI, iar
+        # zonele lor sunt ALBITE in imaginea de decizie la scanarea de
+        # portative - altfel liniile grilelor asezate in coloana ar parea
+        # "portative", iar chenarele portativelor reale s-ar intinde peste
+        # grilele vecine
+        diagrame = detecteaza_diagrame(gray_dec, masca, dpi, [])
+        gray_dec_fara = gray_dec
+        masca_fara_diagrame = masca
+        if diagrame:
+            gray_dec_fara = gray_dec.copy()
+            masca_fara_diagrame = masca.copy()
+            for d in diagrame:
+                x0, y0, x1, y1 = d["bbox"]
+                gray_dec_fara[max(0, y0):min(h, y1), max(0, x0):min(w, x1)] = 255
+                masca_fara_diagrame[max(0, y0):min(h, y1),
+                                    max(0, x0):min(w, x1)] = False
+        gasite = scaneaza_pagina(gray, gray_dec_fara, masca_fara_diagrame, dpi,
+                                 randuri_izolate)
+        # aruncam diagramele care s-au suprapus totusi cu un portativ/TAB
+        diagrame = [d for d in diagrame
+                    if all(suprapunere_bbox(d["bbox"], g2["bbox"]) < 0.2
+                           for g2 in gasite)]
+        for d in diagrame:
+            # atasam numele acordului (rand de text singur, ex. "Gma7")
+            (x0, y0, x1, y1), cuv = include_randuri_izolate(
+                d["bbox"], randuri_izolate, d["interlinie"], w, h,
+                miez=(d["bbox"][1], d["bbox"][3]))
+            if (x0, y0, x1, y1) != d["bbox"]:
+                d["bbox"] = (x0, y0, x1, y1)
+                d["crop"] = gray[y0:y1, x0:x1].copy()
+            d["cuvinte"] = [(int(a0 - x0), int(a1 - y0), int(a2 - x0),
+                             int(a3 - y0), text)
+                            for (a0, a1, a2, a3, text) in cuv]
+        gasite = gasite + diagrame
         gasite.sort(key=lambda p: (p["bbox"][1], p["bbox"][0]))
         detectii.append(gasite)
         if gasite:
-            unghiuri = sorted({p["unghi"] for p in gasite})
-            print(f"  pagina {pno + 1}: {len(gasite)} partitura/i (unghi {unghiuri})")
+            tipuri = {}
+            for p in gasite:
+                tipuri[p["tip"]] = tipuri.get(p["tip"], 0) + 1
+            print(f"  pagina {pno + 1}: " + ", ".join(
+                f"{v} {k}" for k, v in sorted(tipuri.items())))
 
     # 2) Evidenta: pe ce pagini apare si dispare fiecare partitura.
     #    O partitura care se termina la finalul unei pagini si alta care
@@ -952,7 +1206,9 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
             if i == 0 and pno > 0 and partituri:
                 ultima = partituri[-1]
                 pg_ant, det_ant = ultima["bucati"][-1]
-                if pg_ant == pno - 1:
+                acelasi_tip = (det_ant.get("tip") == det.get("tip")
+                               and det.get("tip") != "diagrama")
+                if pg_ant == pno - 1 and acelasi_tip:
                     h_ant = int(doc[pno - 1].rect.height * scale)
                     prag = det_ant["interlinie"] * 6
                     aproape_de_jos = (h_ant - det_ant["bbox"][3]) < prag
@@ -1000,10 +1256,14 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
     for p in partituri:
         pagini = p["pagini"]
         pg_txt = f"p{pagini[0]}" if len(pagini) == 1 else f"p{pagini[0]}-{pagini[-1]}"
+        # prefixul numelui dupa tipul detectiei
+        tip = p["bucati"][0][1].get("tip", "portativ")
+        prefix = {"portativ": "partitura", "tablatura": "tablatura",
+                  "pereche": "partitura-tab", "diagrama": "diagrama"}[tip]
         # pagina inaintea literei, ca fisierele sa stea in ordinea cartii:
         #   partitura-p3-A.png, partitura-p3-B.png, ... partitura-p7.png
-        nume = (f"partitura-{pg_txt}-{p['litera']}.png" if p["litera"]
-                else f"partitura-{pg_txt}.png")
+        nume = (f"{prefix}-{pg_txt}-{p['litera']}.png" if p["litera"]
+                else f"{prefix}-{pg_txt}.png")
 
         cropuri = [det["crop"] for _, det in p["bucati"]]
         cuvinte_manifest = []
@@ -1033,9 +1293,13 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
 
         manifest["partituri"].append({
             "fisier": nume,
+            "tip": tip,
             "pagini": pagini,
             "unghi_grade": p["bucati"][0][1]["unghi"],
             "nr_linii": [det["nr_linii"] for _, det in p["bucati"]],
+            # pentru perechi portativ+TAB: sub-zonele fiecarei parti,
+            # relative la PNG (etapa 3 da portativul la Audiveris)
+            "sub_zone": p["bucati"][0][1].get("sub_zone"),
             # pozitia fiecarei bucati pe pagina, in puncte PDF - folosita
             # de etapa 3 (package-book.py) ca sa aseze partitura la locul
             # ei in cartea noua si sa scoata gunoiul OCR din acea zona
@@ -1045,8 +1309,7 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
             "cuvinte": cuvinte_manifest,
         })
         print(f"  {nume}  (pagini: {pagini}, linii: "
-              f"{[d['nr_linii'] for _, d in p['bucati']]}, "
-              f"unghi: {p['bucati'][0][1]['unghi']} grade)")
+              f"{[d['nr_linii'] for _, d in p['bucati']]})")
 
     manifest["zone_sterse"] = {
         str(pno + 1): [list(map(float, (r.x0, r.y0, r.x1, r.y1))) for r in zone]

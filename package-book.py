@@ -65,14 +65,27 @@ except ImportError:
 # ---------------------------------------------------------------------------
 # numele fisierelor: partitura-p3-A.png / partitura-p7.png / partitura-p22-23-A.png
 # ---------------------------------------------------------------------------
-RE_NUME = re.compile(r"^partitura-p(\d+)(?:-(\d+))?(?:-([A-Z]+))?\.png$", re.I)
+RE_NUME = re.compile(
+    r"^(partitura-tab|partitura|tablatura|diagrama)-p(\d+)(?:-(\d+))?"
+    r"(?:-([A-Z]+))?\.png$", re.I)
 
 
 def pagina_din_nume(fname):
     m = RE_NUME.match(fname)
     if not m:
         return None
-    return int(m.group(1))  # partitura apare prima data pe aceasta pagina
+    return int(m.group(2))  # apare prima data pe aceasta pagina
+
+
+def tip_din_nume(fname, manifest_info=None):
+    """Tipul detectiei: din manifest daca exista, altfel din prefixul
+    numelui: partitura / tablatura / pereche (partitura-tab) / diagrama."""
+    if manifest_info and manifest_info.get("tip"):
+        return manifest_info["tip"]
+    m = RE_NUME.match(fname)
+    pref = (m.group(1).lower() if m else "partitura")
+    return {"partitura": "portativ", "tablatura": "tablatura",
+            "partitura-tab": "pereche", "diagrama": "diagrama"}[pref]
 
 
 # ---------------------------------------------------------------------------
@@ -231,7 +244,8 @@ def prelungeste_portativ(img):
 
 
 def pregateste_pentru_omr(png_path, de_albit, out_path, scala=2, margine=40,
-                          binarizeaza=False, canvas=False, extinde=False):
+                          binarizeaza=False, canvas=False, extinde=False,
+                          decupaj=None):
     """Pregateste PNG-ul pentru Audiveris: albeste DOAR cuvintele validate
     (etichete/titluri reale), mareste imaginea, adauga margine alba
     (OMR-ul are nevoie de spatiu in jurul portativului) si, optional,
@@ -243,6 +257,11 @@ def pregateste_pentru_omr(png_path, de_albit, out_path, scala=2, margine=40,
     if img is None:
         shutil.copyfile(png_path, out_path)
         return
+    if decupaj:
+        # perechi portativ+TAB: la Audiveris merge DOAR partea de portativ
+        dx0, dy0, dx1, dy1 = [int(v) for v in decupaj]
+        img = img[max(0, dy0):min(img.shape[0], dy1),
+                  max(0, dx0):min(img.shape[1], dx1)].copy()
     h, w = img.shape
     for (x0, y0, x1, y1) in de_albit:
         img[max(0, y0 - 2):min(h, y1 + 2), max(0, x0 - 2):min(w, x1 + 2)] = 255
@@ -504,6 +523,14 @@ def main():
         info = manifest.get(fname, {})
         cuvinte = info.get("cuvinte", [])
         baza = os.path.splitext(fname)[0]
+        tip = tip_din_nume(fname, info)
+        # Audiveris citeste doar notatia clasica: portative si perechi
+        # (la perechi ii dam DOAR partea de portativ). Tablaturile simple
+        # si diagramele isi vor primi convertoarele proprii.
+        cu_omr = tip in ("portativ", "pereche")
+        decupaj = None
+        if tip == "pereche" and info.get("sub_zone"):
+            decupaj = info["sub_zone"].get("portativ")
 
         # clasificam cuvintele INAINTE de OMR: doar cele validate
         # (etichete/titluri reale) au voie sa fie albite in imagine
@@ -527,7 +554,7 @@ def main():
                 break
         portativ_prelungit = False
 
-        if args.audiveris and not (args.doar_lipsa and xml_existent):
+        if args.audiveris and cu_omr and not (args.doar_lipsa and xml_existent):
             with tempfile.TemporaryDirectory() as tmp:
                 incercari = [
                     dict(scala=args.scala_omr, margine=40, binarizeaza=False),
@@ -541,7 +568,8 @@ def main():
                 for k, conf in enumerate(incercari):
                     png_curat = os.path.join(tmp, baza + ".png")
                     pregateste_pentru_omr(os.path.join(args.imagini, fname),
-                                          de_albit, png_curat, **conf)
+                                          de_albit, png_curat,
+                                          decupaj=decupaj, **conf)
                     produs, stare = ruleaza_audiveris(
                         args.audiveris, png_curat, tmp,
                         arata_eroarea=(k == len(incercari) - 1))
@@ -618,8 +646,12 @@ def main():
         cuvinte = [curata_cuvant(c["text"]) for c in info.get("cuvinte", [])]
         cuvinte = [c for c in cuvinte if cuvant_bun(c)]
         xml = xml_per_png.get(fname)
-        eticheta = "IMAGINE (Audiveris nu a gasit muzica - probabil nu e partitura)" \
-            if fname in fara_muzica else "SCORE"
+        tip = tip_din_nume(fname, info)
+        if fname in fara_muzica:
+            eticheta = "IMAGINE (Audiveris nu a gasit muzica - probabil nu e partitura)"
+        else:
+            eticheta = {"portativ": "SCORE", "pereche": "SCORE+TAB",
+                        "tablatura": "TAB", "diagrama": "DIAGRAMA"}[tip]
         m = f"[{eticheta}: {args.imagini}/{fname}"
         if xml:
             m += f" | XML: {xml.replace(os.sep, '/')}"
