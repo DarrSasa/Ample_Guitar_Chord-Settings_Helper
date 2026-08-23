@@ -1,0 +1,7935 @@
+[
+ {
+  "corzi": 6,
+  "taste": 8,
+  "offset_taste": 1,
+  "puncte": [],
+  "acord": null,
+  "fisier": "diagrama-p1-A.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.1"
+ },
+ {
+  "corzi": 5,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [],
+  "acord": null,
+  "fisier": "diagrama-p1-B.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.1"
+ },
+ {
+  "corzi": 4,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    2,
+    3
+   ]
+  ],
+  "voicing": [
+   null,
+   3,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p1-C.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.1"
+ },
+ {
+  "corzi": 5,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    2,
+    2
+   ],
+   [
+    3,
+    3
+   ]
+  ],
+  "voicing": [
+   null,
+   2,
+   3,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p1-D.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.1"
+ },
+ {
+  "corzi": 4,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    3,
+    1
+   ]
+  ],
+  "voicing": [
+   null,
+   null,
+   1,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p1-E.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.1"
+ },
+ {
+  "corzi": 4,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ]
+  ],
+  "voicing": [
+   3,
+   null,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p1-F.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.1"
+ },
+ {
+  "corzi": 4,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ]
+  ],
+  "voicing": [
+   3,
+   null,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p1-G.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.1"
+ },
+ {
+  "corzi": 4,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [],
+  "acord": null,
+  "fisier": "diagrama-p1-H.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.1"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    6,
+    1
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-AA.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-AB.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    3
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-AC.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    4,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-AD.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    3,
+    5
+   ]
+  ],
+  "voicing": [
+   5,
+   1,
+   5,
+   null,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-AE.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    4
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-B.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    4
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-C.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    6
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    5,
+    6
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-D.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    4,
+    1
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-E.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    3
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-F.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    3
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-G.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    5,
+    1
+   ]
+  ],
+  "voicing": [
+   3,
+   null,
+   2,
+   null,
+   1,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-H.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    4,
+    1
+   ]
+  ],
+  "voicing": [
+   1,
+   null,
+   1,
+   1,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-I.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    5,
+    1
+   ]
+  ],
+  "voicing": [
+   2,
+   null,
+   3,
+   null,
+   1,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-J.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    5,
+    1
+   ]
+  ],
+  "voicing": [
+   4,
+   1,
+   3,
+   null,
+   1,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-K.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    6,
+    2
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-M.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    6,
+    1
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-N.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    4,
+    3
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-O.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    6,
+    2
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-P.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    5
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-Q.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    3
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-R.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    5,
+    1
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-S.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    4
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-T.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    5
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    5,
+    3
+   ]
+  ],
+  "voicing": [
+   5,
+   null,
+   3,
+   null,
+   3,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-U.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    2,
+    1
+   ]
+  ],
+  "voicing": [
+   2,
+   1,
+   null,
+   null,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-V.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    5
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    6
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-W.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    5,
+    1
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-X.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    5,
+    2
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p4-Y.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.4"
+ },
+ {
+  "corzi": 5,
+  "taste": 7,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    3,
+    7
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p5-A.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.5"
+ },
+ {
+  "corzi": 6,
+  "taste": 7,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    4,
+    1
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p5-B.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.5"
+ },
+ {
+  "corzi": 4,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    4
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p5-C.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.5"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    1,
+    8
+   ],
+   [
+    1,
+    9
+   ],
+   [
+    1,
+    10
+   ],
+   [
+    1,
+    11
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    2,
+    8
+   ],
+   [
+    2,
+    9
+   ],
+   [
+    2,
+    10
+   ],
+   [
+    2,
+    12
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    3,
+    8
+   ],
+   [
+    3,
+    9
+   ],
+   [
+    3,
+    10
+   ],
+   [
+    3,
+    12
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    4,
+    8
+   ],
+   [
+    4,
+    9
+   ],
+   [
+    4,
+    10
+   ],
+   [
+    4,
+    12
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    8
+   ],
+   [
+    5,
+    9
+   ],
+   [
+    5,
+    10
+   ],
+   [
+    5,
+    11
+   ],
+   [
+    5,
+    12
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    6,
+    7
+   ],
+   [
+    6,
+    8
+   ],
+   [
+    6,
+    9
+   ],
+   [
+    6,
+    10
+   ],
+   [
+    6,
+    11
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-A.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 13,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    7
+   ],
+   [
+    1,
+    8
+   ],
+   [
+    1,
+    9
+   ],
+   [
+    1,
+    10
+   ],
+   [
+    1,
+    11
+   ],
+   [
+    1,
+    12
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    2,
+    7
+   ],
+   [
+    2,
+    8
+   ],
+   [
+    2,
+    9
+   ],
+   [
+    2,
+    11
+   ],
+   [
+    2,
+    12
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    7
+   ],
+   [
+    3,
+    8
+   ],
+   [
+    3,
+    9
+   ],
+   [
+    3,
+    10
+   ],
+   [
+    3,
+    11
+   ],
+   [
+    3,
+    12
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    7
+   ],
+   [
+    4,
+    8
+   ],
+   [
+    4,
+    9
+   ],
+   [
+    4,
+    11
+   ],
+   [
+    4,
+    12
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    9
+   ],
+   [
+    5,
+    11
+   ],
+   [
+    5,
+    13
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    7
+   ],
+   [
+    6,
+    9
+   ],
+   [
+    6,
+    10
+   ],
+   [
+    6,
+    11
+   ],
+   [
+    6,
+    12
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-AA.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    3,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "voicing": [
+   null,
+   null,
+   4,
+   5,
+   4,
+   5
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-AB.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 13,
+  "offset_taste": 1,
+  "puncte": [],
+  "acord": null,
+  "fisier": "diagrama-p7-AC.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    6
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    7
+   ]
+  ],
+  "voicing": [
+   6,
+   null,
+   null,
+   6,
+   7,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-AD.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    1,
+    7
+   ],
+   [
+    1,
+    8
+   ],
+   [
+    1,
+    9
+   ],
+   [
+    1,
+    11
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    7
+   ],
+   [
+    2,
+    9
+   ],
+   [
+    2,
+    11
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    3,
+    7
+   ],
+   [
+    3,
+    8
+   ],
+   [
+    3,
+    9
+   ],
+   [
+    3,
+    11
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    4,
+    7
+   ],
+   [
+    4,
+    8
+   ],
+   [
+    4,
+    9
+   ],
+   [
+    4,
+    10
+   ],
+   [
+    4,
+    11
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    8
+   ],
+   [
+    5,
+    9
+   ],
+   [
+    5,
+    10
+   ],
+   [
+    5,
+    11
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    6,
+    7
+   ],
+   [
+    6,
+    8
+   ],
+   [
+    6,
+    9
+   ],
+   [
+    6,
+    10
+   ],
+   [
+    6,
+    11
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-AE.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 13,
+  "offset_taste": 1,
+  "puncte": [],
+  "acord": null,
+  "fisier": "diagrama-p7-AG.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 13,
+  "offset_taste": 1,
+  "puncte": [],
+  "acord": null,
+  "fisier": "diagrama-p7-AH.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 13,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    9
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    6,
+    3
+   ]
+  ],
+  "voicing": [
+   9,
+   null,
+   null,
+   null,
+   7,
+   3
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-AI.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    8
+   ],
+   [
+    3,
+    8
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    5,
+    7
+   ]
+  ],
+  "voicing": [
+   8,
+   null,
+   8,
+   1,
+   7,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-AJ.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    1,
+    7
+   ],
+   [
+    1,
+    8
+   ],
+   [
+    1,
+    9
+   ],
+   [
+    1,
+    10
+   ],
+   [
+    1,
+    11
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    7
+   ],
+   [
+    2,
+    9
+   ],
+   [
+    2,
+    10
+   ],
+   [
+    2,
+    12
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    3,
+    7
+   ],
+   [
+    3,
+    8
+   ],
+   [
+    3,
+    9
+   ],
+   [
+    3,
+    10
+   ],
+   [
+    3,
+    11
+   ],
+   [
+    3,
+    12
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    4,
+    7
+   ],
+   [
+    4,
+    8
+   ],
+   [
+    4,
+    9
+   ],
+   [
+    4,
+    10
+   ],
+   [
+    4,
+    11
+   ],
+   [
+    4,
+    12
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    8
+   ],
+   [
+    5,
+    9
+   ],
+   [
+    5,
+    10
+   ],
+   [
+    5,
+    11
+   ],
+   [
+    5,
+    12
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    6
+   ],
+   [
+    6,
+    7
+   ],
+   [
+    6,
+    8
+   ],
+   [
+    6,
+    10
+   ],
+   [
+    6,
+    11
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-AK.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 13,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    7
+   ],
+   [
+    1,
+    8
+   ],
+   [
+    1,
+    9
+   ],
+   [
+    1,
+    10
+   ],
+   [
+    1,
+    11
+   ],
+   [
+    1,
+    12
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    2,
+    7
+   ],
+   [
+    2,
+    8
+   ],
+   [
+    2,
+    9
+   ],
+   [
+    2,
+    10
+   ],
+   [
+    2,
+    11
+   ],
+   [
+    2,
+    12
+   ],
+   [
+    2,
+    13
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    8
+   ],
+   [
+    3,
+    9
+   ],
+   [
+    3,
+    10
+   ],
+   [
+    3,
+    11
+   ],
+   [
+    3,
+    13
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    7
+   ],
+   [
+    4,
+    8
+   ],
+   [
+    4,
+    9
+   ],
+   [
+    4,
+    10
+   ],
+   [
+    4,
+    11
+   ],
+   [
+    4,
+    13
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    9
+   ],
+   [
+    5,
+    10
+   ],
+   [
+    5,
+    12
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    6
+   ],
+   [
+    6,
+    7
+   ],
+   [
+    6,
+    8
+   ],
+   [
+    6,
+    10
+   ],
+   [
+    6,
+    11
+   ],
+   [
+    6,
+    12
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-AL.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [],
+  "acord": null,
+  "fisier": "diagrama-p7-AM.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    5,
+    3
+   ]
+  ],
+  "voicing": [
+   3,
+   null,
+   null,
+   null,
+   3,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-AN.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [],
+  "acord": null,
+  "fisier": "diagrama-p7-AO.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    5,
+    8
+   ],
+   [
+    6,
+    10
+   ]
+  ],
+  "voicing": [
+   null,
+   null,
+   null,
+   null,
+   8,
+   10
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-AP.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 13,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    7
+   ],
+   [
+    5,
+    5
+   ]
+  ],
+  "voicing": [
+   7,
+   null,
+   null,
+   null,
+   5,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-AQ.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    6
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    3,
+    12
+   ],
+   [
+    4,
+    7
+   ],
+   [
+    5,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-AR.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    3,
+    2
+   ]
+  ],
+  "voicing": [
+   null,
+   null,
+   2,
+   null,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-B.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    1,
+    8
+   ],
+   [
+    1,
+    9
+   ],
+   [
+    1,
+    10
+   ],
+   [
+    1,
+    11
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    2,
+    8
+   ],
+   [
+    2,
+    10
+   ],
+   [
+    2,
+    12
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    3,
+    8
+   ],
+   [
+    3,
+    9
+   ],
+   [
+    3,
+    10
+   ],
+   [
+    3,
+    12
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    7
+   ],
+   [
+    4,
+    8
+   ],
+   [
+    4,
+    10
+   ],
+   [
+    4,
+    12
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    8
+   ],
+   [
+    5,
+    10
+   ],
+   [
+    5,
+    11
+   ],
+   [
+    5,
+    12
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    6
+   ],
+   [
+    6,
+    7
+   ],
+   [
+    6,
+    8
+   ],
+   [
+    6,
+    10
+   ],
+   [
+    6,
+    11
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-C.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    6,
+    7
+   ]
+  ],
+  "voicing": [
+   null,
+   null,
+   null,
+   null,
+   null,
+   7
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-D.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    6
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    2
+   ]
+  ],
+  "voicing": [
+   6,
+   null,
+   null,
+   null,
+   6,
+   2
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-E.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    3,
+    4
+   ],
+   [
+    6,
+    7
+   ]
+  ],
+  "voicing": [
+   null,
+   null,
+   4,
+   null,
+   null,
+   7
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-F.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    3,
+    2
+   ]
+  ],
+  "voicing": [
+   null,
+   null,
+   2,
+   null,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-G.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    2,
+    1
+   ],
+   [
+    3,
+    2
+   ]
+  ],
+  "voicing": [
+   null,
+   1,
+   2,
+   null,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-H.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    6
+   ]
+  ],
+  "voicing": [
+   6,
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-I.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    3,
+    2
+   ]
+  ],
+  "voicing": [
+   null,
+   null,
+   2,
+   null,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-J.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 13,
+  "offset_taste": 1,
+  "puncte": [],
+  "acord": null,
+  "fisier": "diagrama-p7-M.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 13,
+  "offset_taste": 1,
+  "puncte": [],
+  "acord": null,
+  "fisier": "diagrama-p7-N.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    8
+   ]
+  ],
+  "voicing": [
+   8,
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-O.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 13,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    8
+   ]
+  ],
+  "voicing": [
+   8,
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-P.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    2,
+    7
+   ],
+   [
+    3,
+    2
+   ]
+  ],
+  "voicing": [
+   null,
+   7,
+   2,
+   null,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-Q.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    1,
+    7
+   ],
+   [
+    1,
+    8
+   ],
+   [
+    1,
+    10
+   ],
+   [
+    1,
+    12
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    2,
+    8
+   ],
+   [
+    2,
+    9
+   ],
+   [
+    2,
+    11
+   ],
+   [
+    2,
+    12
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    3,
+    8
+   ],
+   [
+    3,
+    9
+   ],
+   [
+    3,
+    10
+   ],
+   [
+    3,
+    12
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    4,
+    7
+   ],
+   [
+    4,
+    9
+   ],
+   [
+    4,
+    10
+   ],
+   [
+    4,
+    12
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    8
+   ],
+   [
+    5,
+    9
+   ],
+   [
+    5,
+    10
+   ],
+   [
+    5,
+    12
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    6,
+    7
+   ],
+   [
+    6,
+    8
+   ],
+   [
+    6,
+    9
+   ],
+   [
+    6,
+    10
+   ],
+   [
+    6,
+    11
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-R.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    5,
+    3
+   ]
+  ],
+  "voicing": [
+   3,
+   null,
+   null,
+   null,
+   3,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-S.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    2,
+    5
+   ],
+   [
+    4,
+    7
+   ]
+  ],
+  "voicing": [
+   null,
+   5,
+   null,
+   7,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-T.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 13,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    7
+   ]
+  ],
+  "voicing": [
+   7,
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-U.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    4,
+    9
+   ]
+  ],
+  "voicing": [
+   null,
+   null,
+   null,
+   9,
+   null,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-X.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    5,
+    3
+   ]
+  ],
+  "voicing": [
+   3,
+   null,
+   null,
+   null,
+   3,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-Y.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 12,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    4
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    5,
+    5
+   ]
+  ],
+  "voicing": [
+   4,
+   null,
+   3,
+   4,
+   5,
+   null
+  ],
+  "acord": null,
+  "fisier": "diagrama-p7-Z.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.7"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-A.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AA.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    6,
+    6
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AB.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AC.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    6
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    6
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AD.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AE.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AF.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AG.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AH.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AI.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    3
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AJ.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    6,
+    6
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AK.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AL.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 4,
+  "taste": 7,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    6
+   ],
+   [
+    1,
+    7
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    2,
+    7
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    3,
+    7
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    6
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AM.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AN.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AO.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AP.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    5
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    6,
+    6
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AQ.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    6,
+    6
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AR.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AS.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AT.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AU.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    6,
+    6
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AV.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AW.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    6,
+    6
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AX.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    3
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AY.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    6
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-AZ.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    6
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-B.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-BA.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-BB.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-BC.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-BD.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 9,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    1,
+    8
+   ],
+   [
+    1,
+    9
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    2,
+    8
+   ],
+   [
+    2,
+    9
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    7
+   ],
+   [
+    3,
+    9
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    8
+   ],
+   [
+    4,
+    9
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    8
+   ],
+   [
+    5,
+    9
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    6,
+    6
+   ],
+   [
+    6,
+    7
+   ],
+   [
+    6,
+    8
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-C.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 9,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    1,
+    7
+   ],
+   [
+    1,
+    8
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    7
+   ],
+   [
+    2,
+    9
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    8
+   ],
+   [
+    3,
+    9
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    4,
+    8
+   ],
+   [
+    4,
+    9
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    8
+   ],
+   [
+    5,
+    9
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    6,
+    6
+   ],
+   [
+    6,
+    7
+   ],
+   [
+    6,
+    8
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-D.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 9,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    1,
+    7
+   ],
+   [
+    1,
+    9
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    7
+   ],
+   [
+    2,
+    9
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    7
+   ],
+   [
+    3,
+    8
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    4,
+    7
+   ],
+   [
+    4,
+    9
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    8
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-E.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 10,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    1,
+    7
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    7
+   ],
+   [
+    2,
+    8
+   ],
+   [
+    2,
+    10
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    3,
+    7
+   ],
+   [
+    3,
+    8
+   ],
+   [
+    3,
+    9
+   ],
+   [
+    3,
+    10
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    4,
+    7
+   ],
+   [
+    4,
+    8
+   ],
+   [
+    4,
+    9
+   ],
+   [
+    4,
+    10
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    5,
+    8
+   ],
+   [
+    5,
+    9
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    6
+   ],
+   [
+    6,
+    7
+   ],
+   [
+    6,
+    8
+   ],
+   [
+    6,
+    9
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-F.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-G.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-H.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-I.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    6,
+    6
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-J.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    6,
+    6
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-K.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 4,
+  "taste": 4,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    4
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-L.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 4,
+  "taste": 2,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-M.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 5,
+  "taste": 2,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    5,
+    1
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-N.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-O.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-P.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    3
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-Q.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-R.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-S.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 3,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    5,
+    3
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-T.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-V.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 6,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    3
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-W.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    4
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-X.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-Y.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 6,
+  "taste": 5,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    1,
+    5
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    4,
+    4
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    6,
+    4
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p8-Z.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.8"
+ },
+ {
+  "corzi": 8,
+  "taste": 7,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    7
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p9-A.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.9"
+ },
+ {
+  "corzi": 8,
+  "taste": 7,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    4,
+    5
+   ],
+   [
+    8,
+    5
+   ]
+  ],
+  "voicing": [
+   null,
+   null,
+   null,
+   5,
+   null,
+   null,
+   null,
+   5
+  ],
+  "acord": null,
+  "fisier": "diagrama-p9-B.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.9"
+ },
+ {
+  "corzi": 8,
+  "taste": 7,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    5,
+    3
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    6,
+    5
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p9-C.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.9"
+ },
+ {
+  "corzi": 8,
+  "taste": 7,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    5,
+    1
+   ],
+   [
+    5,
+    7
+   ]
+  ],
+  "acord": null,
+  "fisier": "diagrama-p9-D.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.9"
+ },
+ {
+  "corzi": 8,
+  "taste": 7,
+  "offset_taste": 18,
+  "puncte": [
+   [
+    3,
+    3
+   ],
+   [
+    8,
+    1
+   ]
+  ],
+  "voicing": [
+   null,
+   null,
+   20,
+   null,
+   null,
+   null,
+   null,
+   18
+  ],
+  "acord": "Example 2f",
+  "fisier": "diagrama-p9-F.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.9"
+ },
+ {
+  "corzi": 8,
+  "taste": 7,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    4,
+    6
+   ],
+   [
+    6,
+    6
+   ],
+   [
+    7,
+    3
+   ],
+   [
+    8,
+    1
+   ]
+  ],
+  "voicing": [
+   null,
+   null,
+   null,
+   6,
+   null,
+   6,
+   3,
+   1
+  ],
+  "acord": null,
+  "fisier": "diagrama-p9-G.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.9"
+ },
+ {
+  "corzi": 8,
+  "taste": 7,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    4,
+    6
+   ],
+   [
+    6,
+    6
+   ],
+   [
+    7,
+    3
+   ],
+   [
+    8,
+    1
+   ]
+  ],
+  "voicing": [
+   null,
+   null,
+   null,
+   6,
+   null,
+   6,
+   3,
+   1
+  ],
+  "acord": null,
+  "fisier": "diagrama-p9-H.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.9"
+ },
+ {
+  "corzi": 8,
+  "taste": 7,
+  "offset_taste": 1,
+  "puncte": [
+   [
+    4,
+    6
+   ],
+   [
+    6,
+    6
+   ],
+   [
+    7,
+    3
+   ],
+   [
+    8,
+    1
+   ]
+  ],
+  "voicing": [
+   null,
+   null,
+   null,
+   6,
+   null,
+   6,
+   3,
+   1
+  ],
+  "acord": null,
+  "fisier": "diagrama-p9-I.png",
+  "sursa": "guitar_tablatures_examples.pdf pag.9"
+ }
+]

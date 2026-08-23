@@ -574,9 +574,13 @@ NOTE_NUME = [("C", 0), ("C", 1), ("D", 0), ("D", 1), ("E", 0), ("F", 0),
 
 def linii_tab_din_crop(img):
     """Centrele celor 6 linii ale tablaturii (pixeli), din proiectia pe
-    randuri a crop-ului."""
+    randuri a crop-ului, plus intinderea orizontala [x0, x1] a TABULUI
+    CENTRAL: daca la marginile crop-ului au intrat bucati TRUNCHIATE din
+    tablaturile vecine, pastram doar segmentul continuu de linii care
+    trece prin centrul imaginii - cifrele vecinilor nu devin note false."""
     h, w = img.shape
-    ink = (img < 208).sum(axis=1)
+    ink2d = img < 208
+    ink = ink2d.sum(axis=1)
     este = ink >= 0.5 * w
     centre = []
     y = 0
@@ -588,7 +592,39 @@ def linii_tab_din_crop(img):
             centre.append((y0 + y - 1) / 2.0)
         else:
             y += 1
-    return centre
+    if not centre:
+        return centre, (0, w)
+
+    # intinderea orizontala: coloanele in care randurile-linie au cerneala
+    randuri_linie = np.zeros(h, bool)
+    for c in centre:
+        randuri_linie[max(0, int(c) - 1):min(h, int(c) + 2)] = True
+    col_are_linie = ink2d[randuri_linie].any(axis=0)
+    # segmentul continuu (cu goluri mici <= 8px ignorate) ce contine centrul
+    mijloc = w // 2
+    x0 = mijloc
+    gol = 0
+    while x0 > 0:
+        if col_are_linie[x0 - 1]:
+            gol = 0
+        else:
+            gol += 1
+            if gol > 8:
+                x0 += gol - 1
+                break
+        x0 -= 1
+    x1 = mijloc
+    gol = 0
+    while x1 < w - 1:
+        if col_are_linie[x1 + 1]:
+            gol = 0
+        else:
+            gol += 1
+            if gol > 8:
+                x1 -= gol - 1
+                break
+        x1 += 1
+    return centre, (max(0, x0), min(w, x1 + 1))
 
 
 def cifre_cu_tesseract(img, tesseract_cmd=None):
@@ -632,7 +668,7 @@ def converteste_tablatura(doc, info, png_path, tesseract_cmd=None):
         decalaj_y = y0
     else:
         decalaj_y = 0
-    linii = linii_tab_din_crop(img)
+    linii, (tab_x0, tab_x1) = linii_tab_din_crop(img)
     if len(linii) < 4:
         return None, "nu gasesc liniile tablaturii"
 
@@ -663,6 +699,8 @@ def converteste_tablatura(doc, info, png_path, tesseract_cmd=None):
     interl = float(np.median(np.diff(linii))) if len(linii) > 1 else 10.0
     note = []
     for (t, cx, cy) in cifre:
+        if not (tab_x0 - interl <= cx <= tab_x1 + interl):
+            continue  # cifra unui TAB vecin, trunchiat la marginea imaginii
         idx = int(np.argmin([abs(cy - ly) for ly in linii]))
         if abs(cy - linii[idx]) > 0.75 * interl:
             continue  # cifra prea departe de orice coarda (alt text)
