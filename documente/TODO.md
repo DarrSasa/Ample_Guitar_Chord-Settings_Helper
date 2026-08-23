@@ -120,6 +120,52 @@ Tot ce extrag din cărți intră în `date_extrase/` ca JSON, cu câmpul
 
 ---
 
+## 3b. Biblioteca pe 12 foldere (planul Gemini, îmbunătățit)
+
+Cărțile convertite în .md se încarcă în **`documente/carti/`**, în cele
+12 foldere (aceleași nume ca folderele tale locale cu PDF-uri, cu `&`
+scris `and`). Ce am păstrat din planul Gemini: taxonomia celor 12
+categorii + trierea cărților — sunt bune. Ce am îmbunătățit:
+
+1. **Legarea de modulele programului** (ca fiecare carte să știe unde
+   „varsă" reguli):
+
+   | Folder | Module | Prioritate citire |
+   |---|---|---|
+   | 01 Chord Theory | M2 | ★★★ (MVP) |
+   | 02 Progressions & Voice Leading | M2 | ★★ |
+   | 03 Complex/Jazz Comping | M2 | ★★ |
+   | 04 Genre Progressions | M1+M2 | ★★★ (MVP) |
+   | 05 Bass Lines | M3 | ★★ |
+   | 06 Arpeggios | M3 | ★★ |
+   | 07 Ostinato/Riffs | M3+M4 | ★ |
+   | 08 Melody/Chord Melody | M3 | ★ |
+   | 09 Rhythm & Groove | M4 | ★★★ (MVP) |
+   | 10 Scales & Modes | M3 | ★★ |
+   | 11 Arrangement/MIDI | M1+M7 | ★★ |
+   | 12 Articulations/FX/Styles | M6+M7 | ★★★ (MVP) |
+
+2. **O carte stă într-un singur folder**; regulile extrase primesc
+   etichete multiple (gen, tip chitară, modul) — evită copiile duble.
+3. **Fiecare regulă poartă etichete obligatorii**: `gen` (rock, jazz,
+   funk...), `chitara` (acustica / electrica / bas / clasica) și
+   `sursa` (carte + pagină). Din ele se nasc scripturile de reguli pe
+   genuri și pe tip de chitară.
+4. Cărțile noi recomandate de Gemini (Ted Greene, Berklee Harmony, Ed
+   Friedland, Mark Levine etc.) — listă bună; le adaugi când le găsești,
+   în folderul indicat.
+5. Folder 12 este și locul unde regulile se mapează DIRECT pe
+   articulațiile/FX-urile **Ample Sound** (vezi §8a).
+
+- [x] cele 12 foldere create în `documente/carti/` ✔
+- [ ] prima carte .md încărcată (începe cu 01 sau 12 — prioritate MVP)
+- [ ] la fiecare carte citită: reguli → `date_extrase/` + actualizare
+      `documente/log_rezolvari.md` + rescriere TODO
+- [ ] mai târziu: restructurarea folderelor dacă practica o cere
+      (decizia după primele ~10 cărți citite)
+
+---
+
 ## 4. TODO pe module (cu prioritate)
 
 ### M1 — Global Config  `[prioritate: MVP]`
@@ -232,8 +278,51 @@ Tot ce extrag din cărți intră în `date_extrase/` ca JSON, cu câmpul
 
 ## 7. Întrebări deschise / conflicte de rezolvat cu tine
 
-- [ ] Care VST e ținta principală? (presupun Ample Guitar — confirmă)
+- [x] Care VST e ținta principală? → **DECIS: exclusiv chitările Ample
+      Sound** (vezi §8a)
 - [ ] Prima piesă țintă pentru MVP: ce gen? (propun folk/rock simplu)
 - [ ] Melodia: generată de program sau dată de tine ca MIDI de intrare?
 - [ ] Ce facem cu regulile contradictorii între cărți (clasic vs electric)?
       — propun: regulile poartă etichetă de stil, nu se amestecă
+
+---
+
+## 8. Decizii și protocoale de lucru (stabilite)
+
+### 8a. Ținta unică: Ample Sound
+Tot ce construim în program (articulații, sunete FX, bass, keyswitch-uri,
+export) vizează **doar chitările Ample Sound** — nu alte plugin-uri.
+Consecințe practice:
+- [ ] hărțile de articulații/keyswitch se fac per instrument Ample
+      (AGM/AGL acustice, AGE/AGF electrice, ABP/ABJ bas etc.)
+- [ ] regulile din cărți se mapează pe ce POATE Ample Sound (ce nu are
+      corespondent — ex. un FX exotic — se notează în log ca nerezolvat)
+
+### 8b. Protocolul lipsurilor (când în cartea .md lipsește o secvență /
+un exemplu XML unde ar trebui să fie)
+Ordinea de rezolvare:
+1. reconstruiesc exemplul din explicațiile cărții, prin logică;
+2. formule matematice bazate pe informația din carte — DOAR dacă sunt
+   convins că rezultatul e corect;
+3. caut explicația exactă pe internet;
+4. alte surse (alte cărți din bibliotecă, MusicXML-uri deja extrase);
+5. dacă nu se rezolvă: **însemnare numerotată** (ex. `NR-0007`) în
+   `documente/log_rezolvari.md` — regula NU intră în program, doar se
+   ține evidența ei cu o posibilă rezolvare viitoare;
+6. orice altă metodă potrivită pe care o consider corectă (documentată).
+7. **Log**: `documente/log_rezolvari.md` ✔ creat — conține acțiunile de
+   rezolvare + contorul total al regulilor din cele 12 foldere:
+   rezolvate (cu metoda) și nerezolvate (cu cauza).
+
+### 8c. Formatul .griff (exportul din program către Ample Sound)
+Ample Sound importă/exportă `.mid` și `.griff`; `.griff` e XML (verificat
+de tine în Notepad++). Plan:
+- [ ] tu creezi în Ample Guitar o secvență-exemplu COMPLETĂ (rețeta în
+      `documente/griff/README.md`) și exporți perechea `.griff` + `.mid`
+      a aceleiași secvențe → le încarci în `documente/griff/`
+- [ ] eu fac ingineria inversă a schemei XML (compar .griff cu .mid și cu
+      ce se aude): ce tag corespunde fiecărei articulații, corzi, taste,
+      FX, strum etc.
+- [ ] scriu specificația `documente/griff/SPEC-griff.md`
+- [ ] construiesc exportul `.griff` din program (opțiune completă și
+      corectă, validată prin re-import în Ample Sound)
