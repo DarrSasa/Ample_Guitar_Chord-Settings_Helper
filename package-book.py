@@ -112,11 +112,11 @@ def _xml_existenta(scores_dir, baza):
 
 def conversie_omr_in_loturi(args, manifest, pnguri, terminate):
     """Conversia OMR 'in loturi': pregateste copia curata standard
-    (configuratia 1) pentru mai multe partituri si le da intr- O SINGURA
-    lansare Audiveris. Fiecare lansare Audiveris plateste pornirea JVM si
-    incarcarea modelelor (30-60s); la sute de partituri asta inseamna ore
-    intregi - de aceea loturile sunt automat, NU prin GPU (Audiveris vine
-    doar cu motorul CPU).
+    (configuratia 1) pentru mai multe partituri si porneste loturi de
+    lansari Audiveris, PANA LA `omr_paralel` SIMULTAN (procese separate,
+    fiecare cu folderul lui de iesire). Fiecare lansare Audiveris plateste
+    pornirea JVM + modelelor (30-60s); loturile amortizeaza pornirea, iar
+    paralelismul umple nucleele CPU-ului (Audiveris nu foloseste GPU).
 
     Lista PNG-urilor se da prin '@fisier' (o cale pe linie) - suportat
     nativ de Audiveris si ferit de limita de lungime a comenzii Windows.
@@ -140,23 +140,31 @@ def conversie_omr_in_loturi(args, manifest, pnguri, terminate):
             continue
         baza = os.path.splitext(fname)[0]
         if _xml_existenta(args.scores_dir, baza):
-            continue    # are deja XML (ex. dintr-o rulare anterioara)
+            continue    # are deja XML (ex. dintr-o rulara anterioara)
         eligibile.append(fname)
     if not eligibile:
         return {}, set()
-    n_loturi = (len(eligibile) + args.omr_lot - 1) // args.omr_lot
-    print(f"OMR in loturi: {len(eligibile)} partituri, loturi de cate "
-          f"{args.omr_lot} -> {n_loturi} lansari Audiveris "
-          f"(in loc de {len(eligibile)}).")
-    conf1 = dict(scala=args.scala_omr, margine=40, binarizeaza=False)
+
+    paralel = args.omr_paralel or max(1, min(4, (os.cpu_count() or 4) - 2))
     xml_din_lot, incercate = {}, set()
-    for idx_lot in range(n_loturi):
-        verifica_oprire()
-        bucata = eligibile[idx_lot * args.omr_lot:(idx_lot + 1) * args.omr_lot]
-        with tempfile.TemporaryDirectory() as tmp:
+    conf1 = dict(scala=args.scala_omr, margine=40, binarizeaza=False)
+    bucati = [eligibile[i:i + args.omr_lot]
+              for i in range(0, len(eligibile), args.omr_lot)]
+    n_loturi = len(bucati)
+    print(f"OMR in loturi: {len(eligibile)} partituri -> {n_loturi} loturi de "
+          f"cate {args.omr_lot}, {paralel} lansari Audiveris in paralel "
+          f"(CPU: {os.cpu_count() or '?'} fire).")
+
+    import time as _time
+    with tempfile.TemporaryDirectory() as radacina:
+        # 1) pregatirea loturilor (rapida, secventiala)
+        loturi = []
+        for idx, bucata in enumerate(bucati):
+            director = os.path.join(radacina, f"lot_{idx:03d}")
+            os.makedirs(director, exist_ok=True)
             pregatite = {}   # baza -> fname
-            list_file = os.path.join(tmp, "lot.txt")
-            with open(list_file, "w", encoding="utf-8") as lf:
+            with open(os.path.join(director, "lot.txt"), "w",
+                      encoding="utf-8") as lf:
                 for fname in bucata:
                     info = manifest.get(fname, {})
                     baza = os.path.splitext(fname)[0]
@@ -164,7 +172,6 @@ def conversie_omr_in_loturi(args, manifest, pnguri, terminate):
                     if (tip_din_nume(fname, info) == "pereche"
                             and info.get("sub_zone")):
                         decupaj = info["sub_zone"].get("portativ")
-                    # albirea cuvintelor validate: identica cu scara individuala
                     lat, inalt = 1000, 200
                     if cv2 is not None:
                         img0 = cv2.imread(os.path.join(args.imagini, fname),
@@ -173,48 +180,97 @@ def conversie_omr_in_loturi(args, manifest, pnguri, terminate):
                             inalt, lat = img0.shape
                     _, _, _, de_albit, _ = clasifica_cuvinte(
                         info.get("cuvinte", []), lat, inalt)
-                    png_curat = os.path.join(tmp, baza + ".png")
+                    png_curat = os.path.join(director, baza + ".png")
                     pregateste_pentru_omr(os.path.join(args.imagini, fname),
                                           de_albit, png_curat,
                                           decupaj=decupaj, **conf1)
                     pregatite[baza] = fname
                     lf.write(png_curat + "\n")
-            try:
-                r = subprocess.run(
-                    [args.audiveris, "-batch", "-export", "-output", tmp,
-                     "--", "@" + list_file],
-                    capture_output=True, text=True,
-                    timeout=min(14400, 300 * len(bucata) + 600))
-            except subprocess.TimeoutExpired:
-                print(f"  lotul {idx_lot + 1}/{n_loturi}: timp depasit - "
-                      f"partiturile lui merg pe rand, cu scara completa "
-                      f"de incercari")
-                continue
-            # adunam produsele dupa numele de baza (preferam .mxl)
-            produse = {}
-            for rad, _, fisiere in os.walk(tmp):
-                for fis in fisiere:
-                    if fis.lower().endswith((".mxl", ".xml", ".musicxml")):
-                        baza_fis = os.path.splitext(fis)[0]
-                        cale_fis = os.path.join(rad, fis)
-                        if (baza_fis not in produse
-                                or cale_fis.lower().endswith(".mxl")):
-                            produse[baza_fis] = cale_fis
-            convertite = 0
-            for baza, fname in pregatite.items():
-                if baza in produse:
-                    ext = os.path.splitext(produse[baza])[1].lower()
-                    cale = os.path.join(args.scores_dir, baza + ext)
-                    shutil.copyfile(produse[baza], cale)
-                    xml_din_lot[fname] = cale
-                    convertite += 1
-                else:
-                    incercate.add(fname)
-            print(f"  lotul {idx_lot + 1}/{n_loturi}: {convertite}/{len(bucata)} "
-                  f"convertite intr-o singura lansare"
-                  + ("" if r.returncode == 0 else f" (cod de iesire {r.returncode})"))
-    return xml_din_lot, incercate
+            loturi.append({"idx": idx, "dir": director, "pregatite": pregatite})
 
+        # memoria pt. fiecare instanta de Java (doar in paralel > 1):
+        # alta baza de heap ar manca RAM degeaba
+        env = os.environ.copy()
+        if paralel > 1 and args.omr_xmx and "JAVA_TOOL_OPTIONS" not in env:
+            env["JAVA_TOOL_OPTIONS"] = f"-Xmx{args.omr_xmx}"
+
+        # 2) rularea: pool de procese Audiveris (max `paralel` simultan)
+        def _recolteaza(lot):
+            """Aduna produsele unui lot terminat si le copiaza in scores_dir."""
+            convertite = 0
+            for baza, fname in lot["pregatite"].items():
+                produs = None
+                for ext in (".mxl", ".xml", ".musicxml"):
+                    c = os.path.join(lot["dir"], baza + ext)
+                    if os.path.isfile(c):
+                        produs = c
+                        break
+                if produs is None:
+                    continue
+                cale = os.path.join(args.scores_dir,
+                                    baza + os.path.splitext(produs)[1].lower())
+                shutil.copyfile(produs, cale)
+                xml_din_lot[fname] = cale
+                convertite += 1
+                incercate.discard(fname)
+            return convertite
+
+        pornite, gata = 0, 0
+        active = []   # [{"lot":..., "p":Popen, "start":t, "timeout":bool}]
+        try:
+            while pornite < n_loturi or active:
+                verifica_oprire()
+                # pornim loturi noi in sloturile libere
+                while pornite < n_loturi and len(active) < paralel:
+                    lot = loturi[pornite]
+                    pornite += 1
+                    log_err = open(os.path.join(lot["dir"], "audiveris.log"),
+                                   "w", encoding="utf-8", errors="replace")
+                    p = subprocess.Popen(
+                        [args.audiveris, "-batch", "-export",
+                         "-output", lot["dir"], "--",
+                         "@" + os.path.join(lot["dir"], "lot.txt")],
+                        stdout=subprocess.DEVNULL, stderr=log_err, env=env)
+                    active.append({"lot": lot, "p": p, "err": log_err,
+                                   "start": _time.time(), "timeout": False})
+                    print(f"  lotul {lot['idx'] + 1}/{n_loturi}: pornit "
+                          f"({len(lot['pregatite'])} partituri)")
+                _time.sleep(1.0)
+                # verificam ce s-a terminat si depasirile de timp
+                for it in list(active):
+                    lot, p = it["lot"], it["p"]
+                    limita = min(14400, 300 * len(lot["pregatite"]) + 600)
+                    if p.poll() is None:
+                        if _time.time() - it["start"] > limita and not it["timeout"]:
+                            it["timeout"] = True
+                            p.terminate()
+                            print(f"  lotul {lot['idx'] + 1}/{n_loturi}: timp "
+                                  f"depasit - terminat; partiturile lui merg "
+                                  f"pe rand, cu scara completa de incercari")
+                        continue
+                    it["err"].close()
+                    active.remove(it)
+                    gata += 1
+                    if it["timeout"]:
+                        continue    # cadere de timp: scara completa individuala
+                    convertite = _recolteaza(lot)
+                    for fname in lot["pregatite"].values():
+                        if fname not in xml_din_lot:
+                            incercate.add(fname)
+                    durata = _time.time() - it["start"]
+                    nota = "" if p.returncode == 0 else \
+                        f" (cod de iesire {p.returncode})"
+                    print(f"  lotul {lot['idx'] + 1}/{n_loturi}: "
+                          f"{convertite}/{len(lot['pregatite'])} convertite "
+                          f"in {durata:.0f}s{nota}")
+        finally:
+            for it in active:
+                try:
+                    it["p"].terminate()
+                    it["err"].close()
+                except Exception:
+                    pass
+    return xml_din_lot, incercate
 
 # ---------------------------------------------------------------------------
 # Oprirea controlata + reluarea de unde a ramas + jurnalul din folderul parental
@@ -1622,6 +1678,13 @@ def main():
                     help="cate partituri intr-o singura lansare Audiveris "
                          "(default: 20; 1 = cate o lansare pe partitura, "
                          "vechiul comportament)")
+    ap.add_argument("--omr-paralel", type=int, default=0,
+                    help="cate lansari Audiveris simultan (default: 0 = auto, "
+                         "in functie de CPU; 1 = pe rand)")
+    ap.add_argument("--omr-xmx", default="3g",
+                    help="limita de memorie (-Xmx) pt. FIECARE instanta "
+                         "Audiveris, cand ruleaza in paralel (default: 3g; "
+                         "ex: 2g, 4g; '' = lasa default-ul Java)")
     ap.add_argument("--doar-lipsa", action="store_true",
                     help="nu reconverteste partiturile care au deja XML in "
                          "--scores-dir (util la reluarea cartilor mari)")

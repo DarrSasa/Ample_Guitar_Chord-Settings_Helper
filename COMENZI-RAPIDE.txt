@@ -74,7 +74,31 @@
    adauga la comanda:  --de-la-inceput
 
 
---- 5. CE APARE IN FOLDER (si cand dispare) -----------------------------------
+--- 5. VITEZA: fire / nuclee CPU (i9-12900H = 20 fire) ------------------------
+
+   Ambele scripturi folosesc automat mai multe nuclee. Poti regla:
+
+   extract_partituri.py (etapa 3 = pagini in paralel):
+     --procese 8        (default: auto, in functie de CPU; 1 = secvential)
+     exemplu:
+       py ...\extract_partituri.py "carte-ocr.pdf" --procese 8
+
+   package-book.py (loturi Audiveris simultane):
+     --omr-paralel 6    cate lansari Audiveris simultan (default: auto)
+     --omr-lot 20       cate partituri intr-o lansare (default: 20)
+     --omr-xmx 3g       memorie max pt. FIECARE instanta (default: 3g;
+                        6 instante x 3g = 18 GB - scade la 2g daca ai
+                        16 GB RAM si vezi ca se blocheaza)
+     exemplu (i9-12900H, recomandat):
+       py ...\package-book.py "carte-ocr.pdf" --omr-paralel 6 --omr-lot 15 ^
+          --audiveris "C:\Program Files\Audiveris\Audiveris.exe"
+
+   NOTA: GPU-ul nu e folosit (Audiveris = doar CPU); paralelismul pe
+   nuclee + loturile sunt accelerarea reala. La laptop, performance-mode
+   + alimentatorul pus = viteza maxima stabila.
+
+
+--- 6. CE APARE IN FOLDER (si cand dispare) -----------------------------------
 
    STOP                       ................ semnalul de oprire (dispare singur)
    stare_extract_partituri\   ................ progresul pasului 1c (dispare la final reusit)
@@ -85,7 +109,7 @@
    Dictionarul de termeni muzicali se incarca singur din repo - nu-l copiazi.
 
 
---- 6. UPLOAD PE GITHUB (ca sa citesc eu cartea) ------------------------------
+--- 7. UPLOAD PE GITHUB (ca sa citesc eu cartea) ------------------------------
 
    https://github.com/DarrSasa/Ample_Guitar_Chord-Settings_Helper/tree/arena/01a03306-ample-guitar-chord-settings-he/documente/carti
    -> intra in folderul tematic potrivit -> Add file -> Upload files

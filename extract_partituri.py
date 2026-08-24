@@ -561,7 +561,84 @@ def etapa2_filtrare_imagini(doc, zone_sterse):
 
 # ===========================================================================
 # ETAPA 3 - detectarea partiturilor (segmente de linie + grupare)
-# ===========================================================================
+# ---------------------------------------------------------------------------
+# worker-ul de pagina: aceeasi functie ruleaza INLINE (secvential) si in
+# procese-worker paralele (--procese N); configuratia intra prin _W
+_W = {}
+
+
+def _init_worker_extract(pdf_cale, dpi, zone_pt, majoritar):
+    """Initializerul procesului-worker: fiecare worker deschide singur PDF-ul
+    (handle-ul de document nu poate fi trimis intre procese)."""
+    _W["doc"] = fitz.open(pdf_cale)
+    _W["dpi"] = dpi
+    _W["zone_pt"] = zone_pt      # {pno: [(x0, y0, x1, y1) in puncte PDF]}
+    _W["majoritar"] = majoritar
+
+
+def lucreaza_pagina(pno):
+    """Detecteaza partiturile paginii `pno` si intoarce (pno, gasite, randuri).
+    Nu scrie nimic pe disc si nu printeaza - salvarile si raportarea raman
+    in procesul parinte (punct de control dupa fiecare pagina)."""
+    doc = _W["doc"]
+    dpi = _W["dpi"]
+    scale = dpi / 72.0
+    page = doc[pno]
+
+    gray = render_gray(page, dpi)
+    h, w = gray.shape
+    masca = np.ones((h, w), dtype=bool)
+    for r in [fitz.Rect(*v) for v in _W["zone_pt"].get(pno, [])]:
+        x0, y0, x1, y1 = rect_px(r, scale)
+        masca[max(0, y0):min(h, y1), max(0, x0):min(w, x1)] = False
+    # imaginea de DECIZIE: paragrafele (randuri de text stivuite) devin
+    # albe, ca sa nu fie confundate cu partiturile si sa nu fie incluse
+    # in chenare; randurile SINGURE raman si se ataseaza partiturilor
+    masca_par, randuri_izolate, toate_rd = analizeaza_text_pagina(
+        page, _W["majoritar"], dpi, gray.shape)
+    gray_dec = gray.copy()
+    gray_dec[masca_par] = 255
+    # diagramele de acorduri (grile mici) se detecteaza INTAI, iar
+    # zonele lor sunt ALBITE in imaginea de decizie la scanarea de
+    # portative - altfel liniile grilelor asezate in coloana ar parea
+    # "portative", iar chenarele portativelor reale s-ar intinde peste
+    # grilele vecine
+    diagrame = detecteaza_diagrame(gray_dec, masca, dpi, [])
+    gray_dec_fara = gray_dec
+    masca_fara_diagrame = masca
+    if diagrame:
+        gray_dec_fara = gray_dec.copy()
+        masca_fara_diagrame = masca.copy()
+        for d in diagrame:
+            x0, y0, x1, y1 = d["bbox"]
+            gray_dec_fara[max(0, y0):min(h, y1), max(0, x0):min(w, x1)] = 255
+            masca_fara_diagrame[max(0, y0):min(h, y1),
+                                max(0, x0):min(w, x1)] = False
+    gasite = scaneaza_pagina(gray, gray_dec_fara, masca_fara_diagrame, dpi,
+                             randuri_izolate)
+    # aruncam diagramele care s-au suprapus totusi cu un portativ/TAB
+    diagrame = [d for d in diagrame
+                if all(suprapunere_bbox(d["bbox"], g2["bbox"]) < 0.2
+                       for g2 in gasite)]
+    for d in diagrame:
+        # atasam numele acordului (rand de text singur, ex. "Gma7"),
+        # dar NU legendele late care ar largi chenarul peste grilele
+        # vecine (ex. o propozitie deasupra unui rand de 3 grile)
+        lat_grila = d["bbox"][2] - d["bbox"][0]
+        rd_potrivite = [r for r in randuri_izolate
+                        if (r[2] - r[0]) <= 2.5 * lat_grila]
+        (x0, y0, x1, y1), cuv = include_randuri_izolate(
+            d["bbox"], rd_potrivite, d["interlinie"], w, h,
+            miez=(d["bbox"][1], d["bbox"][3]))
+        if (x0, y0, x1, y1) != d["bbox"]:
+            d["bbox"] = (x0, y0, x1, y1)
+            d["crop"] = gray[y0:y1, x0:x1].copy()
+        d["cuvinte"] = [(int(a0 - x0), int(a1 - y0), int(a2 - x0),
+                         int(a3 - y0), text)
+                        for (a0, a1, a2, a3, text) in cuv]
+    gasite = gasite + diagrame
+    gasite.sort(key=lambda p: (p["bbox"][1], p["bbox"][0]))
+    return pno, gasite, toate_rd
 def segmente_orizontale(gray, masca_permisa, dpi):
     """Scanarea cu dreptunghiul plat (fereastra 1 x L, L = ~1/10 din
     latimea paginii): fereastra este plimbata DE LA STANGA LA DREAPTA pe
@@ -1321,7 +1398,8 @@ def detecteaza_diagrame(gray, masca_permisa, dpi, ocupate):
     return dets
 
 
-def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None, stare=None):
+def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None, stare=None,
+                     procese=1, pdf_cale=None):
     """Detecteaza partiturile si le exporta ca PNG in `out_dir`.
 
     Identificarea NU se scrie in PDF: ea devine numele fisierului PNG.
@@ -1332,81 +1410,26 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None, stare=None)
     RELUARE: paginile din lista `stare["etapa3_pagini_gata"]` nu se
     recalculeaza - detectiile lor se incarca din cache-ul
     stare_extract_partituri/cache/ (scris la fiecare pagina, atomic).
+
+    PARALEL: cu `procese` > 1, paginile se detecteaza in procese-worker
+    (fiecare worker deschide singur PDF-ul din `pdf_cale`); punctul de
+    control pe disc ramane in procesul parinte, dupa fiecare pagina.
     """
     scale = dpi / 72.0
     os.makedirs(out_dir, exist_ok=True)
     stare = stare or {}
     gata = set(stare.get("etapa3_pagini_gata", []))
 
-    # 1) Detectie pe fiecare pagina, doar in zonele ramase (nesterse).
+    # configuratia worker-ului (folosita si inline, si in paralel)
+    zone_pt = {pno: [[r.x0, r.y0, r.x1, r.y1] for r in zone]
+               for pno, zone in enumerate(zone_sterse) if zone}
+    _W.update(doc=doc, dpi=dpi, zone_pt=zone_pt, majoritar=majoritar)
+
     detectii = [None] * len(doc)
     randuri_text = [None] * len(doc)   # toate randurile de text ale fiecarei pagini (px)
-    for pno, page in enumerate(doc):
-        if pno in gata:
-            d, rd = incarca_detectii_pagina(pno)
-            if d is not None:
-                detectii[pno] = d
-                randuri_text[pno] = rd
-                print(f"  pagina {pno + 1}: reluata din cache (nu se recalculeaza)")
-                continue
-            gata.discard(pno)   # cache-ul lipseste -> recalculam pagina
 
-        verifica_oprire()       # fisier STOP -> oprire controlata, fara pierderi
-
-        gray = render_gray(page, dpi)
-        h, w = gray.shape
-        masca = np.ones((h, w), dtype=bool)
-        for r in zone_sterse[pno]:
-            x0, y0, x1, y1 = rect_px(r, scale)
-            masca[max(0, y0):min(h, y1), max(0, x0):min(w, x1)] = False
-        # imaginea de DECIZIE: paragrafele (randuri de text stivuite) devin
-        # albe, ca sa nu fie confundate cu partiturile si sa nu fie incluse
-        # in chenare; randurile SINGURE raman si se ataseaza partiturilor
-        masca_par, randuri_izolate, toate_rd = analizeaza_text_pagina(
-            page, majoritar, dpi, gray.shape)
-        randuri_text.append(toate_rd)
-        gray_dec = gray.copy()
-        gray_dec[masca_par] = 255
-        # diagramele de acorduri (grile mici) se detecteaza INTAI, iar
-        # zonele lor sunt ALBITE in imaginea de decizie la scanarea de
-        # portative - altfel liniile grilelor asezate in coloana ar parea
-        # "portative", iar chenarele portativelor reale s-ar intinde peste
-        # grilele vecine
-        diagrame = detecteaza_diagrame(gray_dec, masca, dpi, [])
-        gray_dec_fara = gray_dec
-        masca_fara_diagrame = masca
-        if diagrame:
-            gray_dec_fara = gray_dec.copy()
-            masca_fara_diagrame = masca.copy()
-            for d in diagrame:
-                x0, y0, x1, y1 = d["bbox"]
-                gray_dec_fara[max(0, y0):min(h, y1), max(0, x0):min(w, x1)] = 255
-                masca_fara_diagrame[max(0, y0):min(h, y1),
-                                    max(0, x0):min(w, x1)] = False
-        gasite = scaneaza_pagina(gray, gray_dec_fara, masca_fara_diagrame, dpi,
-                                 randuri_izolate)
-        # aruncam diagramele care s-au suprapus totusi cu un portativ/TAB
-        diagrame = [d for d in diagrame
-                    if all(suprapunere_bbox(d["bbox"], g2["bbox"]) < 0.2
-                           for g2 in gasite)]
-        for d in diagrame:
-            # atasam numele acordului (rand de text singur, ex. "Gma7"),
-            # dar NU legendele late care ar largi chenarul peste grilele
-            # vecine (ex. o propozitie deasupra unui rand de 3 grile)
-            lat_grila = d["bbox"][2] - d["bbox"][0]
-            rd_potrivite = [r for r in randuri_izolate
-                            if (r[2] - r[0]) <= 2.5 * lat_grila]
-            (x0, y0, x1, y1), cuv = include_randuri_izolate(
-                d["bbox"], rd_potrivite, d["interlinie"], w, h,
-                miez=(d["bbox"][1], d["bbox"][3]))
-            if (x0, y0, x1, y1) != d["bbox"]:
-                d["bbox"] = (x0, y0, x1, y1)
-                d["crop"] = gray[y0:y1, x0:x1].copy()
-            d["cuvinte"] = [(int(a0 - x0), int(a1 - y0), int(a2 - x0),
-                             int(a3 - y0), text)
-                            for (a0, a1, a2, a3, text) in cuv]
-        gasite = gasite + diagrame
-        gasite.sort(key=lambda p: (p["bbox"][1], p["bbox"][0]))
+    def inregistreaza(pno, gasite, toate_rd):
+        """Punct de control: pagina detectata -> raport + cache + stare."""
         detectii[pno] = gasite
         randuri_text[pno] = toate_rd
         if gasite:
@@ -1415,12 +1438,53 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None, stare=None)
                 tipuri[p["tip"]] = tipuri.get(p["tip"], 0) + 1
             print(f"  pagina {pno + 1}: " + ", ".join(
                 f"{v} {k}" for k, v in sorted(tipuri.items())))
-        # punct de control: pagina detectata se salveaza pe disc (cache +
-        # stare) inainte sa trecem la pagina urmatoare - o pana de curent
-        # sau un STOP pierde cel mult pagina in curs
         salveaza_detectii_pagina(pno, gasite, toate_rd)
         stare.setdefault("etapa3_pagini_gata", []).append(pno)
         salveaza_stare(stare)
+
+    # 1) Detectie pe fiecare pagina, doar in zonele ramase (nesterse).
+    de_lucrat = []
+    for pno in range(len(doc)):
+        if pno in gata:
+            d, rd = incarca_detectii_pagina(pno)
+            if d is not None:
+                detectii[pno] = d
+                randuri_text[pno] = rd
+                print(f"  pagina {pno + 1}: reluata din cache (nu se recalculeaza)")
+                continue
+            gata.discard(pno)   # cache-ul lipseste -> recalculam pagina
+        de_lucrat.append(pno)
+
+    if procese > 1 and len(de_lucrat) > 1 and pdf_cale:
+        from concurrent.futures import ProcessPoolExecutor, as_completed
+        ex = ProcessPoolExecutor(max_workers=procese,
+                                 initializer=_init_worker_extract,
+                                 initargs=(pdf_cale, dpi, zone_pt, majoritar))
+        try:
+            futures = {ex.submit(lucreaza_pagina, pno): pno
+                       for pno in de_lucrat}
+            for fut in as_completed(futures):
+                verifica_oprire()
+                pno = futures[fut]
+                try:
+                    _, gasite, toate_rd = fut.result()
+                except Exception as e:
+                    print(f"  pagina {pno + 1}: eroare in worker ({e}) - "
+                          f"recalculez in procesul principal")
+                    _, gasite, toate_rd = lucreaza_pagina(pno)
+                inregistreaza(pno, gasite, toate_rd)
+        except OpritDeUser:
+            print("  (oprire ceruta: anulez paginile neincepute si astept "
+                  "paginile deja in lucru - max una per worker...)")
+            ex.shutdown(wait=True, cancel_futures=True)
+            raise
+        finally:
+            ex.shutdown(wait=False, cancel_futures=True)
+    else:
+        for pno in de_lucrat:
+            verifica_oprire()       # fisier STOP -> oprire controlata, fara pierderi
+            _, gasite, toate_rd = lucreaza_pagina(pno)
+            inregistreaza(pno, gasite, toate_rd)
 
     # 2) Evidenta: pe ce pagini apare si dispare fiecare partitura.
     #    O partitura care se termina la finalul unei pagini si alta care
@@ -1552,6 +1616,14 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None, stare=None)
 # ===========================================================================
 # main
 # ===========================================================================
+def numar_procese_auto():
+    """Cate procese-worker pornim implicit: nu luam TOATE firele (OS-ul,
+    editorul si celelalte programe au nevoie si ele de CPU), ci un numar
+    decent, intre 1 si 8."""
+    fire = os.cpu_count() or 4
+    return max(1, min(8, fire - 4))
+
+
 def ruleaza(args):
     """O rulare completa (sau continuata, daca exista starea reluarii)."""
     if args.de_la_inceput and os.path.isdir(FOLDER_STARE):
@@ -1605,9 +1677,15 @@ def ruleaza(args):
     else:
         print("\n=== ETAPA 2: sarita (deja terminata in rularea anterioara) ===")
 
-    print("\n=== ETAPA 3: detectare + evidenta + export partituri ===")
+    procese = args.procese or numar_procese_auto()
+    if procese > 1:
+        print(f"\n=== ETAPA 3: detectare + evidenta + export partituri ===")
+        print(f"(etapa 3 ruleaza in {procese} procese paralele - paginile se "
+              f"detecteaza independent; CPU: {os.cpu_count() or '?'} fire)")
+    else:
+        print("\n=== ETAPA 3: detectare + evidenta + export partituri ===")
     nr = etapa3_partituri(doc, args.dpi, zone_sterse, args.out_dir,
-                          majoritar, stare)
+                          majoritar, stare, procese, pdf_partial)
 
     tmp = out_pdf + ".tmp.pdf"
     doc.save(tmp, garbage=3, deflate=True)
@@ -1635,6 +1713,9 @@ def main():
                     help="calea PDF-ului procesat (default: <pdf>-procesat.pdf)")
     ap.add_argument("--dpi", type=int, default=200,
                     help="rezolutia de scanare/export (default: 200)")
+    ap.add_argument("--procese", type=int, default=0,
+                    help="cate procese paralele pt. etapa 3 (default: 0 = "
+                         "auto, in functie de CPU; 1 = secvential, ca inainte)")
     ap.add_argument("--log", default=FISIER_JURNAL,
                     help=f"fisierul de jurnal din folderul parental "
                          f"(default: {FISIER_JURNAL})")
