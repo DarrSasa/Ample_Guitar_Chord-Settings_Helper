@@ -1,0 +1,180 @@
+{
+  "_documentatie": [
+    "Reguli de teorie a acordurilor / voicing-uri, extrase de AI din cartile .md",
+    "din documente/carti/. Fiecare regula poarta sursa exacta (carte + pagina).",
+    "Curent: Bret Willmott - Complete Book of Harmony Theory & Voicing (Mel Bay).",
+    "Stari: 'confirmata' = text clar in carte; 'partial-ocr' = text cu zgomot OCR,",
+    "dar sensul reconstruit cu încredere din context; vezi documente/log_rezolvari.md",
+    "pentru lipsurile nerezolvate (NR-xxxx)."
+  ],
+  "reguli": [
+    {
+      "id": "WIL-001",
+      "categorie": "constructie_voicing",
+      "regula": "Voicing-urile de baza au 4 note si se cânta pe corzile medii 2-3-4-5 (fara corzile 1 si 6); gama rezultata e 'sigura' pentru comping - conflict minim cu linia de bas si cu melodia/solo.",
+      "context": "Cartea lucreaza initial exclusiv pe corzile medii; informatia se transpune apoi pe corzile 1-4 si (mai rar) 3-6.",
+      "aplicare_program": "M2 Chord Engine: generatorul de voicing-uri implicit foloseste corzile 2-5.",
+      "sursa": "Willmott, p.5 (Introduction)",
+      "stare": "confirmata",
+      "etichete": { "gen": ["jazz", "pop"], "chitara": ["orice"], "prioritate": "MVP" }
+    },
+    {
+      "id": "WIL-002",
+      "categorie": "constructie_voicing",
+      "regula": "Constructia initiala = tip 'drop 2': nota de sus a voicing-ului apare mereu pe corda 2; top note-ul (chord tone sau tensiune) e notat si devine referinta pentru voice-leading, fara nevoie de marcarea pozitiei.",
+      "aplicare_program": "M2: sortarea/etichetarea voicing-urilor dupa nota de sus (corda 2); M3: liniile melodice pe corda 2 peste schimbari de acorduri.",
+      "sursa": "Willmott, p.5 (Introduction)",
+      "stare": "confirmata",
+      "etichete": { "gen": ["jazz", "pop"], "chitara": ["orice"], "prioritate": "MVP" }
+    },
+    {
+      "id": "WIL-003",
+      "categorie": "constructie_voicing",
+      "regula": "Fiecare voicing de 4 note contine 4 voicing-uri de 3 note (prin eliminarea cate unei note); reducerea la 3 note e o solutie legitima pentru digitatii grele.",
+      "aplicare_program": "M2: fallback 3-note la digitatii imposibile; M4 (funk) prefera implicit forme de 3-4 note.",
+      "sursa": "Willmott, p.5 si p.17",
+      "stare": "confirmata",
+      "etichete": { "gen": ["jazz", "funk"], "chitara": ["orice"], "prioritate": "MVP" }
+    },
+    {
+      "id": "WIL-004",
+      "categorie": "intervale_interzise",
+      "regula": "Se evita voicing-urile care contin intervalul de b9 (batuta) intre voci; la început se evita si octava (8) - reapar mai tarziu în contexte speciale.",
+      "aplicare_program": "M2: filtru de validare a voicing-urilor generate (respinge b9 între oricare doua voci, în afara cazurilor din WIL-006).",
+      "sursa": "Willmott, p.6 si p.16",
+      "stare": "confirmata",
+      "etichete": { "gen": ["jazz", "pop"], "chitara": ["orice"], "prioritate": "MVP" }
+    },
+    {
+      "id": "WIL-005",
+      "categorie": "intervale_interzise",
+      "regula": "Regula celor 8 semi-tonuri: orice acord cu doua note la distanta de semi-ton va produce, într-una din inversiuni, un b9. Perechile: (R-b9)->dom7(b9); (9-b3)->min7(9); (b9-3)->dom7(b9); (11-b5)->min7b5(11); (#11-5)->maj7(#11), dom7(#11); (5-b13)->dom7(b13); (13-b7)->dom7(13); (7-R)->maj7/maj7b5/maj7#5/min-maj7.",
+      "context": "Inversiunea care produce b9 se evita; celelalte inversiuni ale aceluiasi acord raman folosibile.",
+      "aplicare_program": "M2: la generarea inversiunilor drop 2, se culege si perechea de semi-ton a acordului, iar inversiunea cu b9 intre voci extreme/interioare se marcaza sau se exclude.",
+      "sursa": "Willmott, p.16 (Voicing Considerations)",
+      "stare": "partial-ocr (lista de perechi cu zgomot OCR, structura si perechile reconstruite cu incredere din context)",
+      "etichete": { "gen": ["jazz", "pop"], "chitara": ["orice"], "prioritate": "MVP" }
+    },
+    {
+      "id": "WIL-006",
+      "categorie": "constructie_voicing",
+      "regula": "Se evita si voicing-urile cu latime exterioara de septima (7); tipul drop 2 utilizeaza latimile exterioare: 9, b10, 10, 11, #11 (dupa excluderea octavei si a b9).",
+      "context": "Exista exceptii izolate în carte; acordurile substituent care nu sunt drop 2 pastreaza aceleasi latimi ca sa se voice-lead-uiasca omogen cu drop 2.",
+      "aplicare_program": "M2: filtru de latime intervoce (top note - bass note al formei) la generare.",
+      "sursa": "Willmott, p.6",
+      "stare": "partial-ocr (latimile citite clar; formularea reconstruita din context)",
+      "etichete": { "gen": ["jazz", "pop"], "chitara": ["orice"], "prioritate": "MVP" }
+    },
+    {
+      "id": "WIL-007",
+      "categorie": "substitutie_enarmonica",
+      "regula": "Echivalente enarmonice ale aceluiasi set de note: C6 = A-7 = Fmaj9(fara fundamentală) = D9sus4(fara fund.) = Bbmaj7(b13/#11/9)(fara fund.); Bb9 = D-7b5 = F-6 (acordul substituent poate suna mai 'complet' decat originalul fara fundamentală).",
+      "aplicare_program": "M2: tabel de rescriere enarmonica - generatorul poate oferi acelasi voicing sub mai multe simboluri de acord (variantanta 'culoare').",
+      "sursa": "Willmott, p.6 si p.20 (Tensions)",
+      "stare": "confirmata",
+      "etichete": { "gen": ["jazz"], "chitara": ["orice"], "prioritate": "faza B" }
+    },
+    {
+      "id": "WIL-008",
+      "categorie": "voicing_limits",
+      "regula": "Low Interval Limits (LIL): fiecare chord tone sau tensiune are o limita inferioara de plasare într-un voicing; sub limita, sunetul acordului se deterioreaza si isi pierde functia. LIL se aplica pe corda 5 (A). Ton 'bright' si/sau corzi subtiri tolereaza plasari mai joase; ton 'dark' si corzi groase - nu.",
+      "observatie": "Tabelul numeric concret al limitelor (p.16) NU a supravietuit OCR-ului -> vezi NR-0001 din documente/log_rezolvari.md.",
+      "aplicare_program": "M2: validator de voicing pe corda 5 (limita inferioara per interval), dupa completarea NR-0001.",
+      "sursa": "Willmott, p.16 (Voicing Considerations)",
+      "stare": "partial-ocr (regula clara; tabelul numeric lipsa)",
+      "etichete": { "gen": ["jazz", "pop"], "chitara": ["orice"], "prioritate": "faza B" }
+    },
+    {
+      "id": "WIL-009",
+      "categorie": "voicing_limits",
+      "regula": "Limiterile din carte sunt putin mai joase decat cele stabilite de Berklee College of Music (Arranging Dept.); studentul trebuie sa stie ce chord tone/tensiune e în bas (corda 5) la fiecare voicing si cât de jos poate fi folosit în siguranta.",
+      "sursa": "Willmott, p.17",
+      "stare": "confirmata",
+      "etichete": { "gen": ["jazz"], "chitara": ["orice"], "prioritate": "faza B" }
+    },
+    {
+      "id": "WIL-010",
+      "categorie": "voicing_limits",
+      "regula": "Încalcarea LIL este tolerata pe ritmul armonic slab (weak beat / masura slaba) - concept introdus în capitolul 'Approach Voicings' (de citit la ajungerea lui).",
+      "sursa": "Willmott, p.17",
+      "stare": "confirmata (trimitera interna la capitol)",
+      "etichete": { "gen": ["jazz"], "chitara": ["orice"], "prioritate": "faza B" }
+    },
+    {
+      "id": "WIL-011",
+      "categorie": "digitatie",
+      "regula": "Dificultatea digitației unui voicing depinde de 4 factori: (1) range/registru - formele grele pe tastele late de jos devin mai usoare sus, pe tastere subtiri; (2) digitatia acordurilor dinainte si de dupa - alege digitatia care pregateste acordul următor; (3) tempo - balada permite digitatii pe care tempo rapid nu le permite; (4) abilitatile individuale.",
+      "aplicare_program": "M5 Fret Mapper: functia de cost a tranziției sa tina cont de tempo (M1) si de pregatirea digitației urmatoare; la tempo mare se prefera forme înrudite ca digitație.",
+      "sursa": "Willmott, p.17 (Voicing Considerations)",
+      "stare": "confirmata",
+      "etichete": { "gen": ["jazz", "pop"], "chitara": ["orice"], "prioritate": "MVP" }
+    },
+    {
+      "id": "WIL-012",
+      "categorie": "digitatie",
+      "regula": "Voicing-urile grele devin mai usoare pe corzile 1-4 (sus) sau prin reducerea la 3 note (eliminarea unei note neesentiale).",
+      "sursa": "Willmott, p.17",
+      "stare": "confirmata",
+      "etichete": { "gen": ["jazz", "pop"], "chitara": ["orice"], "prioritate": "MVP" }
+    },
+    {
+      "id": "WIL-013",
+      "categorie": "simbolistica",
+      "regula": "Regula I (b13): tensiunea b13 poate implica sau include cvinta naturala în simbol. Daca b5 sau #5 e notat explicit în simbol, cvinta naturala nu mai e optiune. Pentru b13 fara cvinta naturala se foloseste enarmonicul #5 sau simbolul complicat b13(no5).",
+      "sursa": "Willmott, p.19 (Chord Symbol Notation)",
+      "stare": "confirmata",
+      "etichete": { "gen": ["jazz"], "chitara": ["orice"], "prioritate": "faza B" }
+    },
+    {
+      "id": "WIL-014",
+      "categorie": "simbolistica",
+      "regula": "Regula II (#11): tensiunea #11 poate implica sau include cvinta naturala. Daca b5/#5 e notat explicit, cvinta naturala nu e optiune. Pentru #11 fara cvinta naturala se foloseste enarmonicul b5 sau #11(no5).",
+      "sursa": "Willmott, p.19",
+      "stare": "confirmata",
+      "etichete": { "gen": ["jazz"], "chitara": ["orice"], "prioritate": "faza B" }
+    },
+    {
+      "id": "WIL-015",
+      "categorie": "simbolistica",
+      "regula": "Se prefera spellings enarmonice b5 / #5 în loc de b13 / #11: produc interpretare armonica exacta si pastreaza libertatea melodica (de interpretare a gamei). Ex: C7(b5/#5) sau C7(alt5) în loc de C7(b13/#11).",
+      "sursa": "Willmott, p.19",
+      "stare": "confirmata",
+      "etichete": { "gen": ["jazz"], "chitara": ["orice"], "prioritate": "faza B" }
+    },
+    {
+      "id": "WIL-016",
+      "categorie": "simbolistica",
+      "regula": "ATENTIE la confuzie: C7(alt5) ≠ C7(alt). 'alt' implica ORICE combinatie de b5, #5, b9, #9; 'alt5' e doar b5+#5 împreuna.",
+      "aplicare_program": "M2: parserul de simboluri acordice trebuie sa distinga 'alt' de 'alt5'.",
+      "sursa": "Willmott, p.19 (nota de subsol)",
+      "stare": "confirmata",
+      "etichete": { "gen": ["jazz"], "chitara": ["orice"], "prioritate": "faza B" }
+    },
+    {
+      "id": "WIL-017",
+      "categorie": "simbolistica",
+      "regula": "Tensiunile adaugate la structuri de baza se folosesc ca sugestii de 'culoare' (sunet), nu ca dictare de game sau de plasament vertical în voicing; cand simbolul ar deveni prea complicat, voicing-ul se noteaza pe portativ, nu în simbol.",
+      "sursa": "Willmott, p.18-19",
+      "stare": "confirmata",
+      "etichete": { "gen": ["jazz"], "chitara": ["orice"], "prioritate": "faza B" }
+    },
+    {
+      "id": "WIL-018",
+      "categorie": "voicing_limits",
+      "regula": "Combinația dom7(b13/#11) CU cvinta naturala produce semi-tonuri consecutive (#11 - 5 - b13) - posibilitate melodica, dar valoare armonica limitata/problematica; recomandarea autorului: evita aceasta combinație pe acord dominant.",
+      "sursa": "Willmott, p.18 (Chord Symbol Notation)",
+      "stare": "confirmata",
+      "etichete": { "gen": ["jazz"], "chitara": ["orice"], "prioritate": "faza B" }
+    },
+    {
+      "id": "WIL-019",
+      "categorie": "practica",
+      "regula": "La studierea acordurilor cu tensiuni: înregistreaza o linie de bas cu fundamentalele acordurilor originale si cânta voicing-urile (care adesea nu au fundamentală) peste ea - substituentii enarmonici suna mai clar astfel.",
+      "context": "Regula de exersare din carte; pentru program: la randarea cu sampler, adauga fundamentala în bas la acordurile cu tensiuni lipsite de root.",
+      "aplicare_program": "M3/M7: la randarea voicing-urilor fara fundamentală, optiunea 'adauga bas cu fundamentală originala'.",
+      "sursa": "Willmott, p.20 (Tensions)",
+      "stare": "confirmata",
+      "etichete": { "gen": ["jazz"], "chitara": ["orice"], "prioritate": "faza B" }
+    }
+  ]
+}

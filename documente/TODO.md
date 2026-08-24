@@ -102,6 +102,10 @@ Tot ce extrag din cărți intră în `date_extrase/` ca JSON, cu câmpul
 - [ ] 3.2 Urcă fiecare `carte.md` în `documente/carti/`
 - [ ] 3.3 Eu citesc cartea și scriu/completez JSON-urile din §2, cu sursa
       exactă la fiecare regulă
+      *(ÎNCEPUT: Willmott — prima transă, p.5-20 din 247 → 19 reguli în
+      `date_extrase/reguli_teorie.json` + 1 nerezolvat NR-0001 în
+      `documente/log_rezolvari.md`; continuă cu cap. Tensions → Approach
+      Voicings → restul capitolelor)*
 - [ ] 3.4 La fiecare carte nouă citită: rescriu acest TODO (versiune nouă),
       mut reguli din „presupuneri" în „confirmate de carte"
 - [ ] 3.5 Validare: fiecare regulă nouă trebuie să nu contrazică una veche;
