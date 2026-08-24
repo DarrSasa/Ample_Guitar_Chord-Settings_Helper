@@ -43,6 +43,14 @@ Folosire (din folderul parental, dupa extract_partituri.py):
     python package-book.py "carte.pdf" --imagini imagini_partituri --scores-dir partituri_xml
 
 Oprirea, reluarea si jurnalul (utile la cartile mari):
+    * OMR IN LOTURI (automat, --omr-lot 20): partiturile eligibile se
+      convertesc in loturi - o SINGURA lansare Audiveris pentru mai multe
+      PNG-uri (lista data prin '@fisier', suportat nativ de Audiveris),
+      pentru ca fiecare lansare plateste 30-60s de pornire JVM + modele.
+      Partiturile rateate la lot trec individual prin incercarile 2-4.
+      --omr-lot 1 = vechiul comportament (cate o lansare pe partitura).
+      NOTA: Audiveris nu foloseste GPU (vine doar cu motorul CPU) - asta
+      e calea reala de accelerare.
     * OPRIRE controlata, oricand, din alt PowerShell deschis in ACELASI
       folder (folderul parental), cu comanda:
           New-Item STOP -ItemType File
@@ -88,6 +96,124 @@ except ImportError:
         import fitz
     except ImportError:
         fitz = None
+
+
+# ---------------------------------------------------------------------------
+# OMR in loturi: o singura lansare Audiveris pentru mai multe partituri
+# ---------------------------------------------------------------------------
+def _xml_existenta(scores_dir, baza):
+    """Calea unui MusicXML deja existent pt. `baza`, sau None."""
+    for ext in (".mxl", ".xml", ".musicxml"):
+        c = os.path.join(scores_dir, baza + ext)
+        if os.path.isfile(c):
+            return c
+    return None
+
+
+def conversie_omr_in_loturi(args, manifest, pnguri, terminate):
+    """Conversia OMR 'in loturi': pregateste copia curata standard
+    (configuratia 1) pentru mai multe partituri si le da intr- O SINGURA
+    lansare Audiveris. Fiecare lansare Audiveris plateste pornirea JVM si
+    incarcarea modelelor (30-60s); la sute de partituri asta inseamna ore
+    intregi - de aceea loturile sunt automat, NU prin GPU (Audiveris vine
+    doar cu motorul CPU).
+
+    Lista PNG-urilor se da prin '@fisier' (o cale pe linie) - suportat
+    nativ de Audiveris si ferit de limita de lungime a comenzii Windows.
+
+    Intoarce (xml_din_lot, lot_incercate):
+      xml_din_lot   = {fname: cale_xml} pt. partiturile convertite aici;
+      lot_incercate = partiturile trecute prin incercarea 1 in lot, fara
+                      rezultat - scara individuala va porni de la
+                      incercarea 2, nu de la 1.
+    """
+    if not (os.path.isfile(args.audiveris) or shutil.which(args.audiveris)):
+        print(f"  (loturi OMR: nu gasesc {args.audiveris} - conversia merge pe rand)")
+        return {}, set()
+    os.makedirs(args.scores_dir, exist_ok=True)
+    eligibile = []
+    for fname in pnguri:
+        if fname in terminate:
+            continue
+        info = manifest.get(fname, {})
+        if tip_din_nume(fname, info) not in ("portativ", "pereche"):
+            continue
+        baza = os.path.splitext(fname)[0]
+        if _xml_existenta(args.scores_dir, baza):
+            continue    # are deja XML (ex. dintr-o rulare anterioara)
+        eligibile.append(fname)
+    if not eligibile:
+        return {}, set()
+    n_loturi = (len(eligibile) + args.omr_lot - 1) // args.omr_lot
+    print(f"OMR in loturi: {len(eligibile)} partituri, loturi de cate "
+          f"{args.omr_lot} -> {n_loturi} lansari Audiveris "
+          f"(in loc de {len(eligibile)}).")
+    conf1 = dict(scala=args.scala_omr, margine=40, binarizeaza=False)
+    xml_din_lot, incercate = {}, set()
+    for idx_lot in range(n_loturi):
+        verifica_oprire()
+        bucata = eligibile[idx_lot * args.omr_lot:(idx_lot + 1) * args.omr_lot]
+        with tempfile.TemporaryDirectory() as tmp:
+            pregatite = {}   # baza -> fname
+            list_file = os.path.join(tmp, "lot.txt")
+            with open(list_file, "w", encoding="utf-8") as lf:
+                for fname in bucata:
+                    info = manifest.get(fname, {})
+                    baza = os.path.splitext(fname)[0]
+                    decupaj = None
+                    if (tip_din_nume(fname, info) == "pereche"
+                            and info.get("sub_zone")):
+                        decupaj = info["sub_zone"].get("portativ")
+                    # albirea cuvintelor validate: identica cu scara individuala
+                    lat, inalt = 1000, 200
+                    if cv2 is not None:
+                        img0 = cv2.imread(os.path.join(args.imagini, fname),
+                                          cv2.IMREAD_GRAYSCALE)
+                        if img0 is not None:
+                            inalt, lat = img0.shape
+                    _, _, _, de_albit, _ = clasifica_cuvinte(
+                        info.get("cuvinte", []), lat, inalt)
+                    png_curat = os.path.join(tmp, baza + ".png")
+                    pregateste_pentru_omr(os.path.join(args.imagini, fname),
+                                          de_albit, png_curat,
+                                          decupaj=decupaj, **conf1)
+                    pregatite[baza] = fname
+                    lf.write(png_curat + "\n")
+            try:
+                r = subprocess.run(
+                    [args.audiveris, "-batch", "-export", "-output", tmp,
+                     "--", "@" + list_file],
+                    capture_output=True, text=True,
+                    timeout=min(14400, 300 * len(bucata) + 600))
+            except subprocess.TimeoutExpired:
+                print(f"  lotul {idx_lot + 1}/{n_loturi}: timp depasit - "
+                      f"partiturile lui merg pe rand, cu scara completa "
+                      f"de incercari")
+                continue
+            # adunam produsele dupa numele de baza (preferam .mxl)
+            produse = {}
+            for rad, _, fisiere in os.walk(tmp):
+                for fis in fisiere:
+                    if fis.lower().endswith((".mxl", ".xml", ".musicxml")):
+                        baza_fis = os.path.splitext(fis)[0]
+                        cale_fis = os.path.join(rad, fis)
+                        if (baza_fis not in produse
+                                or cale_fis.lower().endswith(".mxl")):
+                            produse[baza_fis] = cale_fis
+            convertite = 0
+            for baza, fname in pregatite.items():
+                if baza in produse:
+                    ext = os.path.splitext(produse[baza])[1].lower()
+                    cale = os.path.join(args.scores_dir, baza + ext)
+                    shutil.copyfile(produse[baza], cale)
+                    xml_din_lot[fname] = cale
+                    convertite += 1
+                else:
+                    incercate.add(fname)
+            print(f"  lotul {idx_lot + 1}/{n_loturi}: {convertite}/{len(bucata)} "
+                  f"convertite intr-o singura lansare"
+                  + ("" if r.returncode == 0 else f" (cod de iesire {r.returncode})"))
+    return xml_din_lot, incercate
 
 
 # ---------------------------------------------------------------------------
@@ -659,9 +785,16 @@ def injecteaza_cuvinte_xml(cale, eticheta, titlu, altele):
         return False
     if cale.lower().endswith(".mxl"):
         # arhiva zip: gasim fisierul radacina din META-INF/container.xml
-        with zipfile.ZipFile(cale, "r") as z:
-            nume = z.namelist()
-            continut = {n: z.read(n) for n in nume}
+        try:
+            with zipfile.ZipFile(cale, "r") as z:
+                nume = z.namelist()
+                continut = {n: z.read(n) for n in nume}
+        except Exception as e:
+            # .mxl corupt (ex. scris pe jumatate la o pana de curent) -
+            # nu oprim cartea din cauza lui; XML-ul ramane neinjectat
+            print(f"  (nu pot deschide arhiva {os.path.basename(cale)}: {e} - "
+                  f"cuvintele nu se injecteaza in el)")
+            return False
         radacina = None
         if "META-INF/container.xml" in continut:
             try:
@@ -1118,6 +1251,13 @@ def ruleaza(args):
         print(f"RELUARE din {FISIER_STARE}: {len(terminate)} din {len(pnguri)} "
               f"partituri sunt deja procesate - se sar.")
 
+    # OMR in loturi: o singura lansare Audiveris pt. mai multe partituri
+    # (--omr-lot 1 = vechiul comportament, cate o lansare pe partitura)
+    xml_din_lot, lot_incercate = {}, set()
+    if args.audiveris and args.omr_lot > 1:
+        xml_din_lot, lot_incercate = conversie_omr_in_loturi(
+            args, manifest, pnguri, terminate)
+
     os.makedirs(args.scores_dir, exist_ok=True)
     xml_per_png = {}
     fara_muzica = set()   # PNG-uri in care Audiveris NU a gasit muzica
@@ -1243,7 +1383,17 @@ def ruleaza(args):
                 break
         portativ_prelungit = False
 
-        if args.audiveris and cu_omr and not (args.doar_lipsa and xml_existent):
+        if fname in xml_din_lot:
+            # convertit deja in pre-trecerea cu loturi (o singura lansare
+            # Audiveris pt. mai multe partituri)
+            cale_xml = xml_din_lot[fname]
+            print(f"  {baza}: XML din lotul OMR (lansare comuna Audiveris)")
+        elif xml_existent and args.omr_lot > 1:
+            # in modul loturi, un XML existent (ex. din lotul unei rulari
+            # intrerupte) nu se mai reconverteste individual
+            cale_xml = xml_existent
+            print(f"  {baza}: XML existent - sar conversia individuala")
+        elif args.audiveris and cu_omr and not (args.doar_lipsa and xml_existent):
             with tempfile.TemporaryDirectory() as tmp:
                 incercari = [
                     dict(scala=args.scala_omr, margine=40, binarizeaza=False),
@@ -1253,10 +1403,13 @@ def ruleaza(args):
                     dict(scala=args.scala_omr, margine=0, binarizeaza=True,
                          canvas=True, extinde=True),
                 ]
+                # daca partitura a trecut deja prin incercarea 1 in LOT si nu
+                # a produs nimic, scara individuala porneste de la a 2-a
+                de_la = 1 if fname in lot_incercate else 0
                 # atentie: NU numi aceasta variabila "stare" - ar suprascrie
                 # starea de reluare din folderul parental!
                 produs, stare_omr = None, "esec"
-                for k, conf in enumerate(incercari):
+                for k, conf in enumerate(incercari[de_la:], start=de_la):
                     png_curat = os.path.join(tmp, baza + ".png")
                     pregateste_pentru_omr(os.path.join(args.imagini, fname),
                                           de_albit, png_curat,
@@ -1465,6 +1618,10 @@ def main():
                          "XML-urile deja existente in --scores-dir)")
     ap.add_argument("--scala-omr", type=int, default=2,
                     help="factorul de marire al PNG-ului dat lui Audiveris (default: 2)")
+    ap.add_argument("--omr-lot", type=int, default=20,
+                    help="cate partituri intr-o singura lansare Audiveris "
+                         "(default: 20; 1 = cate o lansare pe partitura, "
+                         "vechiul comportament)")
     ap.add_argument("--doar-lipsa", action="store_true",
                     help="nu reconverteste partiturile care au deja XML in "
                          "--scores-dir (util la reluarea cartilor mari)")

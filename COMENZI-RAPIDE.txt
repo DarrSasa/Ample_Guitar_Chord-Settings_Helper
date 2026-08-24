@@ -45,6 +45,12 @@
 
      -> apare: carte-ocr.md  (+ partituri_xml\, date_extrase\voicinguri.json)
 
+     * Viteza: partiturile se convertesc AUTOMAT in loturi (o singura
+       lansare Audiveris la 20 de partituri) - de ~4-10x mai rapid decat
+       pe rand. Poti regla cu --omr-lot 50 (mai multe deodata) sau
+       --omr-lot 1 (pe rand, ca inainte). GPU-ul nu e folosit de Audiveris
+       (vine doar cu motorul CPU) - loturile sunt accelerarea reala.
+
 
 --- 2. OPRIREA (orice script, oricand) -----------------------------------------
 
