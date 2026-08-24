@@ -242,6 +242,15 @@ Ce face:
 FARA `--audiveris` merge si asa (PNG-urile raman cu marcator in carte; poti
 converti mai tarziu reluand comanda cu `--audiveris`).
 
+**Dictionarul de terminologie muzicala** (`dictionar_muzica.json`, langa
+script): cuvintele de langa partituri recunoscute in dictionar (tempo,
+dinamica, tehnici de chitara, acorduri, instrumente...) sunt albite IN
+SIGURANTA doar in copia data lui Audiveris (conversie mai curata) si
+primesc eticheta in carte (`CUVINTE: Allegro [tempo]`). Cuvintele
+necunoscute NU se ating, iar PNG-urile originale raman mereu identice -
+deci poti extinde dictionarul oricand, riscul e zero. Se poate da si
+explicit: `--dictionar "C:\cale\dictionarul_meu.json"`.
+
 **Oprire, reluare, jurnal** — la fel ca la Pasul 6: `New-Item STOP
 -ItemType File` sau Ctrl+C; reluarea = aceeasi comanda (partiturile deja
 convertite se sar); jurnalul: `jurnal_package_book.log`.

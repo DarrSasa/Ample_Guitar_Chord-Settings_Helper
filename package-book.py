@@ -26,7 +26,16 @@ Ce face:
   3. CARTEA NOUA (book.md): textul fiecarei pagini din PDF, iar in locul
      unde erau portativele odinioara apar marcatori:
          [SCORE: imagini_partituri/partitura-p8-B.png | XML: scores/... |
-          CUVINTE: Vln]
+          CUVINTE: Vln [instrument], Allegro [tempo]]
+  4. DICTONARUL de terminologie muzicala (dictionar_muzica.json, langa
+     script): WHITELIST NE-DISTRUCTIVA. Un cuvant recunoscut in dictionar
+     (tempo, dinamica, tehnici de chitara, acorduri, instrumente, notatie,
+     structura...) e sigur TEXT, nu muzica citita gresit de OCR, deci:
+       - poate fi alb in deplina siguranta DOAR in copia pentru OMR
+         (nu si in PNG-urile finale, care raman mereu nemodificate);
+       - primeste eticheta [categorie] in marcatorul din book.md.
+     Cuvintele NECUNOSCUTE nu se ating niciodata - un dictionar incomplet
+     nu poate strica examinarea, cel mult nu o imbunatateste.
 
 Folosire (din folderul parental, dupa extract_partituri.py):
     python package-book.py "carte.pdf"
@@ -179,6 +188,125 @@ def salveaza_stare(stare):
 
 
 # ---------------------------------------------------------------------------
+# dictionarul de terminologie muzicala (whitelist ne-distructiva)
+# ---------------------------------------------------------------------------
+FISIER_DICT_DEFAULT = "dictionar_muzica.json"
+
+# tipare fara dictionar: recunosc SIMBOLURI, nu cuvinte (merg mereu)
+RE_ACORD = re.compile(
+    r"^[A-G][#b]?(?:m|maj|ma|mi|min|dim|aug|sus|add|alt|\+|o|-)?\d{0,2}"
+    r"(?:[#b]\d{0,2})?(?:\([^)]*\))?(?:\s*/\s*[A-G][#b]?)?$", re.I)
+RE_ROMAN = re.compile(
+    r"^[#b]?(?:v?i{1,3}|iv|v|vi{1,3}|ix|x|xi)(?:[#b+°]?\d{0,2})?$", re.I)
+RE_MASURA = re.compile(r"^\d{1,2}\s*/\s*\d{1,2}(?:\s*/\s*\d{1,2})?$")
+RE_POZITIE = re.compile(
+    r"^\d{1,2}\s*(?:fr|th|st|nd|rd|x)\s*(?:pos(?:ition)?|fret?s?)?$", re.I)
+
+_DICTAR = None   # cache: {"seturi": {categorie: set()}, "abrevieri": {...}}
+
+
+def _norm_dict(t):
+    """Normalizare pt. dictionar: litere mici, fara diacritice/punctuatie
+    (pastram # b - / ~ si cifrele - intra in acorduri/tablaturi)."""
+    t = t.lower().replace("–", "-").replace("—", "-")
+    t = re.sub(r"[^a-z0-9#\-/()~ ]", "", t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def incarca_dictionar(cale=None):
+    """Incarca dictionarul (explicit > langa script > in folderul curent).
+    Intoarce numarul total de termeni (0 daca nu exista - atunci merg doar
+    tiparele interne: acorduri, numerale romane, masuri, pozitii)."""
+    global _DICTAR
+    candidati = ([cale] if cale else
+                 [os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                               FISIER_DICT_DEFAULT),
+                  FISIER_DICT_DEFAULT])
+    seturi, abrevieri = {}, {}
+    gasit = None
+    for c in candidati:
+        if c and os.path.isfile(c):
+            gasit = c
+            break
+    if gasit is not None:
+        try:
+            with open(gasit, encoding="utf-8") as f:
+                date = json.load(f)
+            for cheie, val in date.items():
+                if cheie.startswith("_"):
+                    continue
+                if isinstance(val, list):
+                    seturi[cheie] = {_norm_dict(v) for v in val
+                                     if isinstance(v, str) and _norm_dict(v)}
+                elif isinstance(val, dict):
+                    abrevieri.update({_norm_dict(k): v
+                                      for k, v in val.items()})
+        except Exception as e:
+            print(f"(atentie: nu pot citi dictionarul {gasit}: {e} - "
+                  f"merge doar cu tiparele interne)")
+    elif cale:
+        print(f"(atentie: nu gasesc dictionarul {cale} - merge doar cu "
+              f"tiparele interne)")
+    _DICTAR = {"seturi": seturi, "abrevieri": abrevieri}
+    return sum(len(s) for s in seturi.values()) + len(abrevieri)
+
+
+def _levenshtein(a, b):
+    """Distanta Levenshtein (DP pe 2 randuri) - tolereaza greselile OCR."""
+    if a == b:
+        return 0
+    if len(a) < len(b):
+        a, b = b, a
+    precedent = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        curent = [i]
+        for j, cb in enumerate(b, 1):
+            curent.append(min(precedent[j] + 1, curent[j - 1] + 1,
+                              precedent[j - 1] + (ca != cb)))
+        precedent = curent
+    return precedent[-1]
+
+
+def potrivire_dictionar(text):
+    """Intoarce categoria din dictionar pentru `text` (sau None).
+
+    Ordinea: tipare simbolice (acord, numeral roman, masura, pozitie),
+    apoi potrivire exacta in sete, apoi abrevierile de instrumente, apoi
+    potrivire fuzzy (toleranta OCR: 1 litera la cuvinte >=5, 2 la >=9).
+    Un cuvant nerecunoscut intoarce None - si NU i se intampla nimic.
+    """
+    if _DICTAR is None:
+        incarca_dictionar()
+    t = _norm_dict(text)
+    if not t:
+        return None
+    if RE_MASURA.match(t):
+        return "masura"
+    if RE_ACORD.match(t):
+        return "acord"
+    if RE_ROMAN.match(t):
+        return "grad"          # numeral roman: I, IV, V7, bVII...
+    if RE_POZITIE.match(t):
+        return "pozitie"       # 5fr, 7th, 12th position...
+    if t in _DICTAR["abrevieri"]:
+        return "instrument"
+    for categorie, multime in _DICTAR["seturi"].items():
+        if t in multime:
+            return categorie
+    # fuzzy: doar cuvinte simple, suficient de lungi (sa nu aprindem
+    # potriviri absurde pe 2-3 litere)
+    cuvinte = t.replace("-", " ").split()
+    if len(cuvinte) == 1 and len(t) >= 5:
+        prag = 2 if len(t) >= 9 else 1
+        for categorie, multime in _DICTAR["seturi"].items():
+            for termen in multime:
+                if (abs(len(termen) - len(t)) <= prag
+                        and _levenshtein(t, termen) <= prag):
+                    return categorie
+    return None
+
+
+# ---------------------------------------------------------------------------
 # numele fisierelor: partitura-p3-A.png / partitura-p7.png / partitura-p22-23-A.png
 # ---------------------------------------------------------------------------
 RE_NUME = re.compile(
@@ -280,8 +408,14 @@ def clasifica_cuvinte(cuvinte, lat, inalt):
     au voie sa fie albite inainte de OMR. Gunoaiele OCR ("©):", "e)",
     "<->") NU se albesc: ele sunt de fapt chei/note citite gresit -
     albirea lor ar sterge chiar muzica si Audiveris n-ar mai gasi nimic.
+
+    Intoarce si `recunoscute`: [(text, categorie)] pt. cuvintele recunoscute
+    in DICTONARUL de terminologie - un cuvant din dictionar e sigur TEXT
+    (nu notatie citita gresit), deci bbox-ul lui intra si el in `de_albit`
+    (albit doar in copia pt. OMR, niciodata in PNG-ul final).
     """
     eticheta, titlu, altele, de_albit = None, None, [], []
+    recunoscute = []
     for c in cuvinte:
         brut = c["text"]
         text = curata_cuvant(brut)
@@ -296,6 +430,15 @@ def clasifica_cuvinte(cuvinte, lat, inalt):
                 eticheta = valid
                 de_albit.append(c["bbox"])
                 continue
+        # DICTONARUL de terminologie: recunoscut -> sigur text (tempo,
+        # tehnica, acord, dinamica...) -> albim copia pt. OMR si etichetam;
+        # merge si pe gunoiul OCR care ascunde un termen (ex. "A!legro")
+        categorie = potrivire_dictionar(brut)
+        if categorie:
+            recunoscute.append((text, categorie))
+            if c["bbox"] not in de_albit:
+                de_albit.append(c["bbox"])
+            continue
         if not cuvant_bun(text):
             continue
         if y1 <= 0.35 * inalt:
@@ -310,7 +453,7 @@ def clasifica_cuvinte(cuvinte, lat, inalt):
             # ajunga in XML gunoaie OCR de 2 litere ("ae", "oe", "es")
             if sum(1 for ch in text if ch.isalpha()) >= 4:
                 altele.append(text)
-    return eticheta, titlu, altele, de_albit
+    return eticheta, titlu, altele, de_albit, recunoscute
 
 
 # ---------------------------------------------------------------------------
@@ -374,10 +517,14 @@ def pregateste_pentru_omr(png_path, de_albit, out_path, scala=2, margine=40,
         shutil.copyfile(png_path, out_path)
         return
     if decupaj:
-        # perechi portativ+TAB: la Audiveris merge DOAR partea de portativ
+        # perechi portativ+TAB: la Audiveris merge DOAR partea de portativ;
+        # si bbox-urile cuvintelor de albitt trebuie mutate in coordonatele
+        # decupajului (pana acum se aplicau cu offset gresit)
         dx0, dy0, dx1, dy1 = [int(v) for v in decupaj]
         img = img[max(0, dy0):min(img.shape[0], dy1),
                   max(0, dx0):min(img.shape[1], dx1)].copy()
+        de_albit = [(x0 - dx0, y0 - dy0, x1 - dx0, y1 - dy0)
+                    for (x0, y0, x1, y1) in de_albit]
     h, w = img.shape
     for (x0, y0, x1, y1) in de_albit:
         img[max(0, y0 - 2):min(h, y1 + 2), max(0, x0 - 2):min(w, x1 + 2)] = 255
@@ -923,6 +1070,18 @@ def ruleaza(args):
         print("Ruleaza intai etapa 2:  python extract_partituri.py <pdf>")
         sys.exit(1)
 
+    # dictionarul de terminologie: whitelist ne-distructiva (cuvintele
+    # recunoscute se albesc doar in copia pt. OMR si primesc [categorie];
+    # cele necunoscute raman neatrase - un dictionar incomplet nu strica)
+    n_termeni = incarca_dictionar(args.dictionar)
+    if n_termeni:
+        print(f"Dictionar de terminologie muzicala: {n_termeni} termeni "
+              f"(potrivirile se albesc sigur in copia pt. OMR si se "
+              f"eticheteaza in carte; necunoscutul ramane neatins).")
+    else:
+        print("Dictionarul de terminologie lipseste - active doar tiparele "
+              "interne (acorduri, numerale, masuri, pozitii).")
+
     if args.de_la_inceput and os.path.isfile(FISIER_STARE):
         os.remove(FISIER_STARE)
         print(f"Starea de reluare a fost stearsa ({FISIER_STARE}) - pornim de la capat.")
@@ -1028,7 +1187,13 @@ def ruleaza(args):
                               cv2.IMREAD_GRAYSCALE)
             if img0 is not None:
                 inalt, lat = img0.shape
-        eticheta, titlu, altele, de_albit = clasifica_cuvinte(cuvinte, lat, inalt)
+        eticheta, titlu, altele, de_albit, recunoscute = clasifica_cuvinte(
+            cuvinte, lat, inalt)
+        if recunoscute:
+            arat = ", ".join(f"'{tx}' [{cat}]" for tx, cat in recunoscute[:8])
+            if len(recunoscute) > 8:
+                arat += f", +{len(recunoscute) - 8}"
+            print(f"  {baza}: dictionar: {arat}")
 
         # DIAGRAMELE: citire geometrica -> voicinguri.json (fara OMR)
         if tip == "diagrama":
@@ -1189,8 +1354,12 @@ def ruleaza(args):
 
     def marcaj_partitura(fname):
         info = manifest.get(fname, {})
-        cuvinte = [curata_cuvant(c["text"]) for c in info.get("cuvinte", [])]
-        cuvinte = [c for c in cuvinte if cuvant_bun(c)]
+        cuvinte = []
+        for c in info.get("cuvinte", []):
+            cc = curata_cuvant(c["text"])
+            if cuvant_bun(cc):
+                categorie = potrivire_dictionar(c["text"])
+                cuvinte.append(f"{cc} [{categorie}]" if categorie else cc)
         xml = xml_per_png.get(fname)
         tip = tip_din_nume(fname, info)
         if fname in fara_muzica:
@@ -1310,6 +1479,9 @@ def main():
     ap.add_argument("--log", default=FISIER_JURNAL,
                     help=f"fisierul de jurnal din folderul parental "
                          f"(default: {FISIER_JURNAL})")
+    ap.add_argument("--dictionar", default=None,
+                    help="dictionarul de terminologie muzicala (default: "
+                         "dictionar_muzica.json, cautat langa script)")
     ap.add_argument("--de-la-inceput", action="store_true",
                     help="sterge starea de reluare si porneste de la capat")
     args = ap.parse_args()

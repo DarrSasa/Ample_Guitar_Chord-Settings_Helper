@@ -303,6 +303,18 @@ categorii + trierea cărților — sunt bune. Ce am îmbunătățit:
       `date_extrase/digitatie/<nume>.json` (unirea completă rămâne)
 - [ ] unirea pereche: ritmul din portativ (Audiveris) + digitația din TAB
       într-un singur MusicXML complet
+- [x] DICTONAR de terminologie muzicala (`dictionar_muzica.json`, ~980 de
+      termeni + tipare: acorduri, numerale romane, măsuri, poziții;
+      extensibil oricând de tine) — folosit de `package-book.py` ca
+      whitelist NE-DISTRUCTIVĂ: cuvintele recunoscute (tempo, dinamică,
+      tehnici de chitară, armonie, instrumente, notație, structură,
+      editoriale, termeni străini...) sunt albite IN SIGURANȚĂ doar în
+      copia pentru OMR (Audiveris convertește mai curat) și primesc
+      eticheta `[categorie]` în marcatorul din carte (`CUVINTE: Allegro
+      [tempo]`); cuvintele necunoscute NU se ating niciodată, iar
+      PNG-urile finale rămân mereu nemodificate → un dicționar incomplet
+      nu poate strica examinarea, cel mult nu o îmbunătățește. Potrivire
+      fuzzy tolerantă la OCR („A!legro" → tempo).
 - [ ] OCR pe numele acordurilor din cărțile scanate fără strat text
       (paginile Mickey Baker: "Gma7" etc.) — cu Tesseract
 - [ ] pagina scanată cu sisteme dese (Caravan, pg. 3 din test) încă se
