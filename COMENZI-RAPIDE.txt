@@ -1,0 +1,93 @@
+===============================================================================
+ COMENZI-RAPIDE.txt  —  foaia de comenzi pentru procesat cartile
+ (pastreaza fisierul asta in folderul cu carti: C:\MY_PYTHON_PROJECTS\Creare_Carti_Chitari)
+ Repo: C:\MY_PYTHON_PROJECTS\Ample_Guitar-Chord-Settings_Helper
+===============================================================================
+
+--- 0. INSTALARI (o singura data, deja facute daca ai mai rulat) -------------
+
+    pip install pymupdf opencv-python-headless numpy ocrmypdf
+
+    Tesseract OCR ..... https://github.com/UB-Mannheim/tesseract/wiki
+    Ghostscript ....... https://github.com/ArtifexSoftware/ghostpdl-downloads/releases
+    Audiveris ........ https://github.com/Audiveris/audiveris/releases
+                        (calea lui: C:\Program Files\Audiveris\Audiveris.exe)
+
+
+--- 1. FLUXUL NORMAL, PE O CARTE NOUA (in ordine) -----------------------------
+ (deschide PowerShell in folderul cu carti:)
+   cd C:\MY_PYTHON_PROJECTS\Creare_Carti_Chitari
+
+ 1a. VAD CE FEL DE PDF E (are text selectabil sau e scan?):
+
+   py C:\MY_PYTHON_PROJECTS\Ample_Guitar-Chord-Settings_Helper\scripts\check-pdf-text.py "carte.pdf"
+
+     - TOATE paginile au text  -> SARI LA PASUL 2 (nu e nevoie de OCR!)
+     - majoritatea "SCANATA"   -> comanda 1b de jos (varianta --skip-text)
+     - textul exista dar e gunoi OCR vechi -> varianta --redo-ocr
+
+ 1b. OCR (doar daca e nevoie; pune "carte.pdf" numele real):
+
+   py -m ocrmypdf -l eng "carte.pdf" "carte-ocr.pdf"            <- scan simplu
+   py -m ocrmypdf -l eng --skip-text "carte.pdf" "carte-ocr.pdf"  <- mixt (TaggedPDFError)
+   py -m ocrmypdf -l eng --redo-ocr "carte.pdf" "carte-ocr.pdf"   <- refa OCR vechi prost
+                                                                  (FARA --deskew aici!)
+
+ 1c. SCOT PARTITURILE (etapele 1-3; dureaza; vezi OPRIREA mai jos):
+
+   py C:\MY_PYTHON_PROJECTS\Ample_Guitar-Chord-Settings_Helper\extract_partituri.py "carte-ocr.pdf"
+
+     -> apar: imagini_partituri\ (PNG-uri + manifest.json) si carte-ocr-procesat.pdf
+
+ 1d. FAC CARTEA .md FINALA (text + MusicXML incorporat, un singur fisier):
+
+   py C:\MY_PYTHON_PROJECTS\Ample_Guitar-Chord-Settings_Helper\package-book.py "carte-ocr.pdf" --audiveris "C:\Program Files\Audiveris\Audiveris.exe"
+
+     -> apare: carte-ocr.md  (+ partituri_xml\, date_extrase\voicinguri.json)
+
+
+--- 2. OPRIREA (orice script, oricand) -----------------------------------------
+
+   In alt PowerShell, in ACELASI folder cu cartea:
+     cd C:\MY_PYTHON_PROJECTS\Creare_Carti_Chitari
+     New-Item STOP -ItemType File
+
+   Scriptul termina pagina/partitura din curs, isi salveaza progresul,
+   sterge singur fisierul STOP si se inchide singur.
+   Alternativa rapida: Ctrl+C in fereastra scriptului (la fel de sigur).
+
+
+--- 3. CONTINUAREA (dupa oprire, pana de curent, restart PC) ------------------
+
+   Rulezi DIN NOU ACEEASI COMANDA (pasul 1c sau 1d). Atat.
+   Scriptul sare singur peste ce e gata si continua de unde a ramas.
+
+
+--- 4. DE LA CAPAT (rar - doar cand vrei recalculare completa) ---------------
+
+   adauga la comanda:  --de-la-inceput
+
+
+--- 5. CE APARE IN FOLDER (si cand dispare) -----------------------------------
+
+   STOP                       ................ semnalul de oprire (dispare singur)
+   stare_extract_partituri\   ................ progresul pasului 1c (dispare la final reusit)
+   stare_package_book.json    ................ progresul pasului 1d (dispare la final reusit)
+   jurnal_extract_partituri.log / jurnal_package_book.log
+                              ................ rapoartele complete, cu data si ora
+                                  (nu dispar - istoricul tuturor rularilor)
+   Dictionarul de termeni muzicali se incarca singur din repo - nu-l copiazi.
+
+
+--- 6. UPLOAD PE GITHUB (ca sa citesc eu cartea) ------------------------------
+
+   https://github.com/DarrSasa/Ample_Guitar_Chord-Settings_Helper/tree/arena/01a03306-ample-guitar-chord-settings-he/documente/carti
+   -> intra in folderul tematic potrivit -> Add file -> Upload files
+   -> trage CARTE.MD (e de-ajuns; XML-urile sunt deja incorporate in el)
+   -> Commit changes, apoi spune-mi "cartea e pe GitHub".
+
+
+===============================================================================
+ REGULA DE AUR: oprirea = "New-Item STOP -ItemType File"; continuarea = aceeasi
+ comanda rulata din nou. Nimic altceva de tinut minte.
+===============================================================================
