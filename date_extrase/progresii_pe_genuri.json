@@ -1,0 +1,74 @@
+{
+  "_documentatie": "Progresii armonice organizate PE GENURI, pentru generarea viitoare a progresiilor in program dupa gen. Gradele sunt in sistem roman (I=tonica); 'b' = bemol, '#' = diez; sufixul dupa grad = calitatea acordului (7, maj7, m7...). Surse: Open Music Theory (CC BY-SA, viva.pressbooks.pub/openmusictheory) pentru cadrul functional, plus conventii standard de gen verificate (fachords.com, songcage.com).",
+  "genuri": {
+    "blues": {
+      "acorduri_tipice": ["7", "9", "13", "7#9"],
+      "progresii": [
+        {"nume": "12-bar blues", "grade": ["I7","I7","I7","I7","IV7","IV7","I7","I7","V7","IV7","I7","V7"]},
+        {"nume": "Quick change", "grade": ["I7","IV7","I7","I7","IV7","IV7","I7","I7","V7","IV7","I7","V7"]},
+        {"nume": "Jazz blues", "grade": ["I7","IV7","I7","I7","IV7","IV7","I7","VI7","ii7","V7","I7","V7"]}
+      ]
+    },
+    "jazz": {
+      "acorduri_tipice": ["maj7", "m7", "7", "m7b5", "9", "13"],
+      "progresii": [
+        {"nume": "ii-V-I major", "grade": ["ii7","V7","Imaj7"]},
+        {"nume": "ii-V-i minor", "grade": ["ii7b5","V7","im7"]},
+        {"nume": "Turnaround I-vi-ii-V", "grade": ["Imaj7","vi7","ii7","V7"]},
+        {"nume": "Rhythm changes (A)", "grade": ["Imaj7","vi7","ii7","V7","IV7","iv7","Imaj7","V7"]}
+      ]
+    },
+    "rock": {
+      "acorduri_tipice": ["", "5", "7"],
+      "progresii": [
+        {"nume": "I-bVII-IV (Mixolydian)", "grade": ["I","bVII","IV","I"]},
+        {"nume": "Power blues", "grade": ["I","IV","I","V"]},
+        {"nume": "Aeolian rock", "grade": ["i","bVII","bVI","bVII"]}
+      ]
+    },
+    "pop": {
+      "acorduri_tipice": ["", "maj7", "m7", "add9"],
+      "progresii": [
+        {"nume": "Axis I-V-vi-IV", "grade": ["I","V","vi","IV"]},
+        {"nume": "Sensitive vi-IV-I-V", "grade": ["vi","IV","I","V"]},
+        {"nume": "Royal Roads IV-V-iii-vi", "grade": ["IV","V","iii","vi"]}
+      ]
+    },
+    "folk": {
+      "acorduri_tipice": ["", "7", "sus4"],
+      "progresii": [
+        {"nume": "I-IV-V", "grade": ["I","IV","V","I"]},
+        {"nume": "I-V", "grade": ["I","V"]}
+      ]
+    },
+    "funk": {
+      "acorduri_tipice": ["7", "9", "13", "m7"],
+      "progresii": [
+        {"nume": "Vamp I7", "grade": ["I7"]},
+        {"nume": "I7-IV9", "grade": ["I7","IV9"]},
+        {"nume": "Dorian vamp i7", "grade": ["im7","IV7"]}
+      ]
+    },
+    "metal": {
+      "acorduri_tipice": ["5", "m", "b5"],
+      "progresii": [
+        {"nume": "Phrygian i-bII", "grade": ["i","bII","i"]},
+        {"nume": "Chromatic descent", "grade": ["i","bII","biii","iv"]}
+      ]
+    },
+    "clasic": {
+      "acorduri_tipice": ["", "m", "7"],
+      "progresii": [
+        {"nume": "Pachelbel", "grade": ["I","V","vi","iii","IV","I","IV","V"]},
+        {"nume": "Cadenta clasica", "grade": ["I","IV","V","I"]}
+      ]
+    },
+    "flamenco": {
+      "acorduri_tipice": ["", "7", "m"],
+      "progresii": [
+        {"nume": "Cadenta andaluza", "grade": ["i","bVII","bVI","V"]},
+        {"nume": "Phrygian E", "grade": ["i","bII","i"]}
+      ]
+    }
+  }
+}

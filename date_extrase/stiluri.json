@@ -1,0 +1,14 @@
+{
+  "_documentatie": "M1 Global Config: gen -> {swing %, grid, plaja velocity, humanize ms, tip chitara implicit}. Valorile sunt puncte de pornire rezonabile per gen (de rafinat din carti/ureche); folosite de Rhythm Engine (M4) si MIDI Translator (M7).",
+  "genuri": {
+    "blues":    {"swing": 66, "grid": "8",  "plaja_velocity": [70, 110], "humanize_ms": 10, "chitara": "electrica"},
+    "jazz":     {"swing": 66, "grid": "8",  "plaja_velocity": [60, 100], "humanize_ms": 8,  "chitara": "electrica"},
+    "rock":     {"swing": 50, "grid": "8",  "plaja_velocity": [90, 127], "humanize_ms": 4,  "chitara": "electrica"},
+    "pop":      {"swing": 50, "grid": "16", "plaja_velocity": [70, 110], "humanize_ms": 5,  "chitara": "acustica"},
+    "folk":     {"swing": 50, "grid": "8",  "plaja_velocity": [55, 95],  "humanize_ms": 8,  "chitara": "acustica"},
+    "funk":     {"swing": 58, "grid": "16", "plaja_velocity": [60, 120], "humanize_ms": 5,  "chitara": "electrica"},
+    "metal":    {"swing": 50, "grid": "16", "plaja_velocity": [100, 127], "humanize_ms": 2, "chitara": "electrica"},
+    "clasic":   {"swing": 50, "grid": "8",  "plaja_velocity": [45, 100], "humanize_ms": 10, "chitara": "clasica"},
+    "flamenco": {"swing": 50, "grid": "8",  "plaja_velocity": [60, 120], "humanize_ms": 6,  "chitara": "clasica"}
+  }
+}

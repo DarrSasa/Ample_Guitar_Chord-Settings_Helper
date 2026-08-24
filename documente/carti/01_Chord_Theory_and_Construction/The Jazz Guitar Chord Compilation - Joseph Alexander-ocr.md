@@ -41,67 +41,294 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 Table of Contents
 
-Introduction	  to	  the	  Compilation	  ..........................................................................................................................................	  5
+Introduction	
+  to	
+  the	
+  Compilation	
+  ..........................................................................................................................................	
+  5
 
-Guitar	  Chords	  in	  Context	  ....................................................................................................................................	  5
+Guitar	
+  Chords	
+  in	
+  Context	
+  ....................................................................................................................................	
+  5
 
-Chapter	  One:	  Basic	  Theory,	  Chord	  Types	  and	  Construction	  .................................................................................	  7
+Chapter	
+  One:	
+  Basic	
+  Theory,	
+  Chord	
+  Types	
+  and	
+  Construction	
+  .................................................................................	
+  7
 
-Chapter	  Two:	  Basic	  Common	  Chord	  Voicings	  ...........................................................................................................	  15
+Chapter	
+  Two:	
+  Basic	
+  Common	
+  Chord	
+  Voicings	
+  ...........................................................................................................	
+  15
 
-Chapter	  Three:	  Diatonic	  Extensions	  to	  Dominant	  7	  Chords	  ................................................................................	  21
+Chapter	
+  Three:	
+  Diatonic	
+  Extensions	
+  to	
+  Dominant	
+  7	
+  Chords	
+  ................................................................................	
+  21
 
-Chapter	  Four:	  Chromatic	  Alterations	  to	  Dominant	  Chords	  .................................................................................	  26
+Chapter	
+  Four:	
+  Chromatic	
+  Alterations	
+  to	
+  Dominant	
+  Chords	
+  .................................................................................	
+  26
 
-Chapter	  Five:	  Root	  and	  Guide	  Tone	  Voicings	  .............................................................................................................	  31
+Chapter	
+  Five:	
+  Root	
+  and	
+  Guide	
+  Tone	
+  Voicings	
+  .............................................................................................................	
+  31
 
-Chapter	  Six:	  Using	  Rootless	  Guide	  Tone	  Voicings	  ....................................................................................................	  38
+Chapter	
+  Six:	
+  Using	
+  Rootless	
+  Guide	
+  Tone	
+  Voicings	
+  ....................................................................................................	
+  38
 
-Chapter	  Seven:	  Rootless	  Guide	  Tone	  Voicings	  with	  Extensions	  ........................................................................	  42
+Chapter	
+  Seven:	
+  Rootless	
+  Guide	
+  Tone	
+  Voicings	
+  with	
+  Extensions	
+  ........................................................................	
+  42
 
-Chapter	  Eight:	  Applying	  Extended	  Guide	  Tone	  Voicings	  ......................................................................................	  50
+Chapter	
+  Eight:	
+  Applying	
+  Extended	
+  Guide	
+  Tone	
+  Voicings	
+  ......................................................................................	
+  50
 
-Chapter	  Nine:	  Diminished	  7	  Chords	  ...............................................................................................................................	  55
+Chapter	
+  Nine:	
+  Diminished	
+  7	
+  Chords	
+  ...............................................................................................................................	
+  55
 
-Chapter	  Ten:	  Major	  and	  Minor	  6	  Chords	  .....................................................................................................................	  60
+Chapter	
+  Ten:	
+  Major	
+  and	
+  Minor	
+  6	
+  Chords	
+  .....................................................................................................................	
+  60
 
-Chapter	  Eleven:	  Major	  and	  Minor	  6/9	  chords	  ...........................................................................................................	  68
+Chapter	
+  Eleven:	
+  Major	
+  and	
+  Minor	
+  6/9	
+  chords	
+  ...........................................................................................................	
+  68
 
-Chapter	  Twelve:	  Minor/Major7	  Chords	  .......................................................................................................................	  72
+Chapter	
+  Twelve:	
+  Minor/Major7	
+  Chords	
+  .......................................................................................................................	
+  72
 
-Chapter	  Thirteen:	  Major	  7b5	  and	  Major	  7#5	  Chords	  .............................................................................................	  74
+Chapter	
+  Thirteen:	
+  Major	
+  7b5	
+  and	
+  Major	
+  7#5	
+  Chords	
+  .............................................................................................	
+  74
 
-Chapter	  Fourteen:	  Building	  Extended	  Chords	  with	  Diatonic	  Substitutions	  .................................................	  78
+Chapter	
+  Fourteen:	
+  Building	
+  Extended	
+  Chords	
+  with	
+  Diatonic	
+  Substitutions	
+  .................................................	
+  78
 
-Conclusions	  and	  Introduction	  to	  Part	  Two	  .................................................................................................................	  87
+Conclusions	
+  and	
+  Introduction	
+  to	
+  Part	
+  Two	
+  .................................................................................................................	
+  87
 
-Quick	  Chord	  Reference	  Guide	  ...........................................................................................................................................	  89
+Quick	
+  Chord	
+  Reference	
+  Guide	
+  ...........................................................................................................................................	
+  89
 
-Jazz	  Guitar	  Chord	  Mastery	  ...............................................................................................................................	  91
+Jazz	
+  Guitar	
+  Chord	
+  Mastery	
+  ...............................................................................................................................	
+  91
 
-Chapter	  One:	  Voicings	  and	  Inversions	  ..........................................................................................................................	  92
+Chapter	
+  One:	
+  Voicings	
+  and	
+  Inversions	
+  ..........................................................................................................................	
+  92
 
-Chapter	  Two:	  Fm7	  Drop	  2	  Voicings	  ...............................................................................................................................	  96
+Chapter	
+  Two:	
+  Fm7	
+  Drop	
+  2	
+  Voicings	
+  ...............................................................................................................................	
+  96
 
-Chapter	  Three:	  Dominant	  7	  Drop	  2	  Voicings	  ..........................................................................................................	  102
+Chapter	
+  Three:	
+  Dominant	
+  7	
+  Drop	
+  2	
+  Voicings	
+  ..........................................................................................................	
+  102
 
-Chapter	  Four:	  Minor	  7b5	  Drop	  2	  Voicings	  ...............................................................................................................	  108
+Chapter	
+  Four:	
+  Minor	
+  7b5	
+  Drop	
+  2	
+  Voicings	
+  ...............................................................................................................	
+  108
 
-Chapter	  Five:	  Major	  Seventh	  Drop	  2	  Voicings	  ........................................................................................................	  113
+Chapter	
+  Five:	
+  Major	
+  Seventh	
+  Drop	
+  2	
+  Voicings	
+  ........................................................................................................	
+  113
 
-Chapter	  Six:	  Drop	  2	  Chord	  Sequences	  ........................................................................................................................	  118
+Chapter	
+  Six:	
+  Drop	
+  2	
+  Chord	
+  Sequences	
+  ........................................................................................................................	
+  118
 
-Chapter	  Seven:	  Adding	  Natural	  Ninths	  to	  Chords	  .................................................................................................	  123
+Chapter	
+  Seven:	
+  Adding	
+  Natural	
+  Ninths	
+  to	
+  Chords	
+  .................................................................................................	
+  123
 
-Chapter	  Eight:	  Adding	  Other	  Diatonic	  Extensions	  ................................................................................................	  132
+Chapter	
+  Eight:	
+  Adding	
+  Other	
+  Diatonic	
+  Extensions	
+  ................................................................................................	
+  132
 
-Chapter	  Nine:	  Altering	  Dominant	  Chords	  .................................................................................................................	  134
+Chapter	
+  Nine:	
+  Altering	
+  Dominant	
+  Chords	
+  .................................................................................................................	
+  134
 
-Chapter	  Ten:	  Drop	  2	  Chords	  -­‐	  Middle	  Strings	  .........................................................................................................	  139
+Chapter	
+  Ten:	
+  Drop	
+  2	
+  Chords	
+  -­‐	
+  Middle	
+  Strings	
+  .........................................................................................................	
+  139
 
-Chapter	  Eleven:	  Extensions	  and	  Alterations	  ...........................................................................................................	  149
+Chapter	
+  Eleven:	
+  Extensions	
+  and	
+  Alterations	
+  ...........................................................................................................	
+  149
 
-Chapter	  Twelve:	  Drop	  2	  Chords	  -­‐	  Bass	  Strings	  ......................................................................................................	  151
+Chapter	
+  Twelve:	
+  Drop	
+  2	
+  Chords	
+  -­‐	
+  Bass	
+  Strings	
+  ......................................................................................................	
+  151
 
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
@@ -111,39 +338,154 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 ## Pagina 4
 
-Chapter	  Thirteen:	  Drop	  3	  Voicings	  –	  Sixth	  String	  Root	  ......................................................................................	  156
+Chapter	
+  Thirteen:	
+  Drop	
+  3	
+  Voicings	
+  –	
+  Sixth	
+  String	
+  Root	
+  ......................................................................................	
+  156
 
-Chapter	  Fourteen:	  Drop	  3	  Chords	  –Fifth	  String	  Root	  .........................................................................................	  165
+Chapter	
+  Fourteen:	
+  Drop	
+  3	
+  Chords	
+  –Fifth	
+  String	
+  Root	
+  .........................................................................................	
+  165
 
-Chapter	  Fifteen:	  Drop	  2	  and	  2	  Voicings	  –	  Sixth	  String	  ........................................................................................	  169
+Chapter	
+  Fifteen:	
+  Drop	
+  2	
+  and	
+  2	
+  Voicings	
+  –	
+  Sixth	
+  String	
+  ........................................................................................	
+  169
 
-Chapter	  Sixteen:	  Drop	  2	  and	  4	  Voicings	  –	  Fifth	  String	  ........................................................................................	  173
+Chapter	
+  Sixteen:	
+  Drop	
+  2	
+  and	
+  4	
+  Voicings	
+  –	
+  Fifth	
+  String	
+  ........................................................................................	
+  173
 
-Chapter	  Seventeen:	  Converting	  Chord	  Structures	  ...............................................................................................	  177
+Chapter	
+  Seventeen:	
+  Converting	
+  Chord	
+  Structures	
+  ...............................................................................................	
+  177
 
-Chapter	  Eighteen:	  Cyclic	  Exercises	  .............................................................................................................................	  184
+Chapter	
+  Eighteen:	
+  Cyclic	
+  Exercises	
+  .............................................................................................................................	
+  184
 
-Conclusions	  and	  Further	  Study	  ....................................................................................................................................	  185
+Conclusions	
+  and	
+  Further	
+  Study	
+  ....................................................................................................................................	
+  185
 
-Voice	  Leading	  Jazz	  Guitar	  .............................................................................................................................	  186
+Voice	
+  Leading	
+  Jazz	
+  Guitar	
+  .............................................................................................................................	
+  186
 
-Chapter	  One:	  Simple	  Paths	  .............................................................................................................................................	  189
+Chapter	
+  One:	
+  Simple	
+  Paths	
+  .............................................................................................................................................	
+  189
 
-Chapter	  Two:	  Extensions	  and	  Rootless	  Voicings	  ..................................................................................................	  199
+Chapter	
+  Two:	
+  Extensions	
+  and	
+  Rootless	
+  Voicings	
+  ..................................................................................................	
+  199
 
-Chapter	  Three:	  Voicing	  Exercises	  and	  Practice	  Ideas	  .........................................................................................	  210
+Chapter	
+  Three:	
+  Voicing	
+  Exercises	
+  and	
+  Practice	
+  Ideas	
+  .........................................................................................	
+  210
 
-Chapter	  Four:	  Secondary	  Dominants	  .........................................................................................................................	  222
+Chapter	
+  Four:	
+  Secondary	
+  Dominants	
+  .........................................................................................................................	
+  222
 
-Chapter	  Five:	  The	  Tritone	  Substitution	  ....................................................................................................................	  236
+Chapter	
+  Five:	
+  The	
+  Tritone	
+  Substitution	
+  ....................................................................................................................	
+  236
 
-Chapter	  Six:	  Voice	  Leading	  with	  Substitutions	  ......................................................................................................	  246
+Chapter	
+  Six:	
+  Voice	
+  Leading	
+  with	
+  Substitutions	
+  ......................................................................................................	
+  246
 
-Chapter	  Seven:	  More	  Substitution	  Exercises	  ..........................................................................................................	  254
+Chapter	
+  Seven:	
+  More	
+  Substitution	
+  Exercises	
+  ..........................................................................................................	
+  254
 
-Chapter	  Eight:	  Application	  ..............................................................................................................................................	  260
+Chapter	
+  Eight:	
+  Application	
+  ..............................................................................................................................................	
+  260
 
-Conclusions	  and	  Further	  Study	  ....................................................................................................................................	  266
+Conclusions	
+  and	
+  Further	
+  Study	
+  ....................................................................................................................................	
+  266
 
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
@@ -2785,90 +3127,6 @@ For example, we will learn a barre chord ‘7’ shape and if you want to play t
 the root note is C. If you wish to play it as an F7 you will have to move it so that the root note is F. In order to do this you 
 should at least be familiar with the notes on the bottom three strings:
 
-[SCORE: imagini_partituri/partitura-p15-A.png | XML: partituri_xml/partitura-p15-A.mxl | CUVINTE: We are going to learn to play the following chord progression using three different jazz chord voicings., As you can see, this chord progression uses each of the chord types from the previous chapter once.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>We are going to learn to play the following chord progression using three different jazz chord voicings.</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_002\partitura-p15-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_002\partitura-p15-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>392</page-height>
-      <page-width>1243</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>As you can see, this chord progression uses each of the chord types from the previous chapter once.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="290">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>27</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>104</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="249" />
-    
-    <measure number="3" width="249" />
-  </part>
-</score-partwise>
-```
-
 As you can see, this chord progression uses each of the chord types from the previous chapter once.  
  
 Let’s begin by learning voicings of these chords that have their root on the 6th string. The numbers written on the notes are 
@@ -4946,186 +5204,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 </score-partwise>
 ```
 
-[SCORE: imagini_partituri/partitura-p20-F.png | XML: partituri_xml/partitura-p20-F.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p20-F.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p20-F.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>396</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="100" default-y="278" font-family="serif" font-size="13">1)</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="98" default-y="96" font-family="serif" font-size="13">2)</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>107</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="244"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="244"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p20-G.png | XML: partituri_xml/partitura-p20-G.mxl]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp87dnq1v9\partitura-p20-G.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp87dnq1v9\partitura-p20-G.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>388</page-height>
-      <page-width>2398</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="119" default-y="249" font-family="serif" font-size="13">2)</credit-words>
-  </credit>
-  <credit page="1"><credit-words>Nota: ultima masura (goala) a fost adaugata artificial la conversie - portativul original era prea scurt pentru OMR</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>39</left-margin>
-            <right-margin>43</right-margin>
-          </system-margins>
-          <top-system-distance>124</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="244" />
-    
-    <measure number="3" width="244" />
-    
-    <measure number="4" width="243" />
-  </part>
-</score-partwise>
-```
-
 Begin by playing through each progression using chords all with roots on the same string, then combine the 6th and 5th string 
 voicings. Next combine the 4th and 5th string voicings and finally find the closest chord voicings using roots on all three 
 strings.
@@ -5547,90 +5625,6 @@ example, four bars of D7 could be played like this:
  
 Example 4d:
 
-[SCORE: imagini_partituri/partitura-p29-F.png | XML: partituri_xml/partitura-p29-F.mxl | CUVINTE: Example 4d]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Example 4d</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p29-F.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p29-F.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>344</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>102</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="244" />
-    
-    <measure number="3" width="244" />
-  </part>
-</score-partwise>
-```
-
 If a dominant 7 chord is functional (resolving to another chord) then a basic ‘7’ chord can normally be substituted for any 
 dominant chord with a natural extension or chromatic alteration.  
  
@@ -5644,557 +5638,10 @@ Example 4e:
 
 ## Pagina 30
 
-[SCORE: imagini_partituri/partitura-p30-A.png | XML: partituri_xml/partitura-p30-A.mxl | CUVINTE: Example 4f, Example 4g]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Example 4f</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p30-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p30-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>391</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Example 4g</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="61">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>103</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="right">
-        <bar-style>heavy-light</bar-style>
-      </barline>
-    </measure>
-    
-    <measure number="2" width="238">
-      <barline location="left">
-        <bar-style>heavy-light</bar-style>
-        <repeat direction="forward" />
-      </barline>
-    </measure>
-    
-    <measure number="3" width="230" />
-    
-    <measure number="4" width="229" />
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p30-B.png | XML: partituri_xml/partitura-p30-B.mxl | CUVINTE: Example 4g, Example 4h]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Example 4g</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p30-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p30-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>389</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Example 4h</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="53">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>101</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="right">
-        <bar-style>heavy</bar-style>
-      </barline>
-    </measure>
-    
-    <measure number="2" width="246" />
-    
-    <measure number="3" width="230" />
-    
-    <measure number="4" width="229" />
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p30-C.png | XML: partituri_xml/partitura-p30-C.mxl | CUVINTE: Example 4h]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Example 4h</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p30-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p30-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>345</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="61">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>103</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="right">
-        <bar-style>heavy-light</bar-style>
-      </barline>
-    </measure>
-    
-    <measure number="2" width="238">
-      <barline location="left">
-        <bar-style>heavy-light</bar-style>
-        <repeat direction="forward" />
-      </barline>
-    </measure>
-    
-    <measure number="3" width="230" />
-    
-    <measure number="4" width="229" />
-  </part>
-</score-partwise>
-```
-
 Try playing through the following examples beginning from different root notes, and substitute any diatonic or chromatic 
 extensions you like for the dominant chords you have learnt already. 
  
 1)
-
-[SCORE: imagini_partituri/partitura-p30-D.png | XML: partituri_xml/partitura-p30-D.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p30-D.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p30-D.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>396</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="100" default-y="278" font-family="serif" font-size="13">1)</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="98" default-y="96" font-family="serif" font-size="13">2)</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>108</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="244"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="244"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p30-E.png | XML: partituri_xml/partitura-p30-E.mxl]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp9hkalip3\partitura-p30-E.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp9hkalip3\partitura-p30-E.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>434</page-height>
-      <page-width>2398</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="119" default-y="295" font-family="serif" font-size="13">2)</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="120" default-y="117" font-family="serif" font-size="13">3)</credit-words>
-  </credit>
-  <credit page="1"><credit-words>Nota: ultima masura (goala) a fost adaugata artificial la conversie - portativul original era prea scurt pentru OMR</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>39</left-margin>
-            <right-margin>43</right-margin>
-          </system-margins>
-          <top-system-distance>124</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="244" />
-    
-    <measure number="3" width="244" />
-    
-    <measure number="4" width="243" />
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p30-F.png | XML: partituri_xml/partitura-p30-F.mxl]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmph9h5a3_0\partitura-p30-F.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmph9h5a3_0\partitura-p30-F.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>390</page-height>
-      <page-width>2398</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="120" default-y="251" font-family="serif" font-size="13">3)</credit-words>
-  </credit>
-  <credit page="1"><credit-words>Nota: ultima masura (goala) a fost adaugata artificial la conversie - portativul original era prea scurt pentru OMR</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="366">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>39</left-margin>
-            <right-margin>43</right-margin>
-          </system-margins>
-          <top-system-distance>126</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="325" />
-    
-    <measure number="3" width="325" />
-  </part>
-</score-partwise>
-```
 
 We can take the same approach when adding chromatic alterations to major 7, minor 7 and m7b5 chords, the secret is simply to 
 know where the alterations are on the fretboard. 
@@ -6278,98 +5725,6 @@ following chord:
 Try playing through the following progression using just these root and guide tone voicings based on the 6th string. 
  
 You can hear it in example 5b:
-
-[SCORE: imagini_partituri/partitura-p32-F.png | XML: partituri_xml/partitura-p32-F.mxl | CUVINTE: You can hear it in example 5b, Now we will move on to look at root and guide tone voicings with a 5th string root.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>You can hear it in example 5b</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp2l8srdsb\partitura-p32-F.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp2l8srdsb\partitura-p32-F.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>436</page-height>
-      <page-width>2398</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Now we will move on to look at root and guide tone voicings with a 5th string root.</credit-words></credit><credit page="1"><credit-words>Nota: ultima masura (goala) a fost adaugata artificial la conversie - portativul original era prea scurt pentru OMR</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>39</left-margin>
-            <right-margin>41</right-margin>
-          </system-margins>
-          <top-system-distance>126</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-          <clef-octave-change>-1</clef-octave-change>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="244" />
-    
-    <measure number="3" width="244" />
-    
-    <measure number="4" width="243">
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <fermata type="inverted" />
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
 
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
@@ -7605,190 +6960,6 @@ Example 5g:
 </score-partwise>
 ```
 
-[SCORE: imagini_partituri/partitura-p36-C.png | XML: partituri_xml/partitura-p36-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p36-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p36-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>394</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="100" default-y="276" font-family="serif" font-size="13">1)</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="98" default-y="96" font-family="serif" font-size="13">2)</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="235">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>106</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="195"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="195"></measure>
-    <!--=======================================================-->
-    <measure number="4" width="195"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p36-D.png | XML: partituri_xml/partitura-p36-D.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p36-D.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p36-D.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>395</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="98" default-y="277" font-family="serif" font-size="13">2)</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="98" default-y="96" font-family="serif" font-size="13">3)</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>107</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="244"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="244"></measure>
-  </part>
-</score-partwise>
-```
-
 [TAB: imagini_partituri/tablatura-p36-E.png]
 
 ---
@@ -7823,90 +6994,6 @@ we can define almost any chord. In this chapter we will look at how we can conve
 very complex progressions, with just two notes on each chord.  
  
 Consider the following progression:
-
-[SCORE: imagini_partituri/partitura-p38-A.png | XML: partituri_xml/partitura-p38-A.mxl | CUVINTE: Consider the following progression, From what we have learnt so far, we have quite a few approaches we can take when playing this line of chords.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Consider the following progression</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p38-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p38-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>407</page-height>
-      <page-width>1251</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>From what we have learnt so far, we have quite a few approaches we can take when playing this line of chords.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="295">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>114</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="253" />
-    
-    <measure number="3" width="253" />
-  </part>
-</score-partwise>
-```
 
 From what we have learnt so far, we have quite a few approaches we can take when playing this line of chords.  
  
@@ -8872,86 +7959,6 @@ Roman numeral figure: vi denotes minor, VI denotes major, VI7 denotes a 7 chord)
  
 A vi ii V I sequence in the key of G might look like this:
 
-[SCORE: imagini_partituri/partitura-p40-A.png | XML: partituri_xml/partitura-p40-A.mxl | CUVINTE: A vi ii V I sequence in the key of G might look like this]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>A vi ii V I sequence in the key of G might look like this</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p40-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p40-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>346</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="529">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>103</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-  </part>
-</score-partwise>
-```
-
 We have looked at a few ways you could play through this sequence, however if we reduce it to just guide tone voicings we 
 could play it like this 
  
@@ -9574,279 +8581,6 @@ soloing.
  
 1)
 
-[SCORE: imagini_partituri/partitura-p47-E.png | XML: partituri_xml/partitura-p47-E.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p47-E.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p47-E.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>394</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="99" default-y="276" font-family="serif" font-size="13">1)</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="98" default-y="96" font-family="serif" font-size="13">2)</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="235">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>106</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="195"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="195"></measure>
-    <!--=======================================================-->
-    <measure number="4" width="195"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p47-F.png | XML: partituri_xml/partitura-p47-F.mxl | CUVINTE: include the 9th in the 13 chord.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p47-F.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p47-F.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>404</page-height>
-      <page-width>1251</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="98" default-y="284" font-family="serif" font-size="13">2)</credit-words>
-  </credit>
-  <credit page="1"><credit-words>include the 9th in the 13 chord.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="244">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>111</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="203" />
-    
-    <measure number="3" width="202" />
-    
-    <measure number="4" width="203" />
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p47-G.png | XML: partituri_xml/partitura-p47-G.mxl]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmpnl3l5whz\partitura-p47-G.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmpnl3l5whz\partitura-p47-G.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>396</page-height>
-      <page-width>2475</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="119" default-y="254" font-family="serif" font-size="13">3)</credit-words>
-  </credit>
-  <credit page="1"><credit-words>Nota: ultima masura (goala) a fost adaugata artificial la conversie - portativul original era prea scurt pentru OMR</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="241">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>44</left-margin>
-            <right-margin>44</right-margin>
-          </system-margins>
-          <top-system-distance>129</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="200" />
-    
-    <measure number="3" width="200" />
-    
-    <measure number="4" width="200" />
-    
-    <measure number="5" width="200" />
-  </part>
-</score-partwise>
-```
-
 The same extensions apply whether you are using major 7, minor 7 or minor 7b5 guide tones. The following diagrams show all 
 these possibilities with roots on the 6th and 5th strings. They are all shown in the key of C. Root notes are shown by white 
 squares, guide tones are shown by black circles and extensions are shown by white circles.
@@ -9905,90 +8639,6 @@ be useful to look at a few approaches to help you internalise and quickly access
  
 We will begin by looking at a common chord progression that contains all of the basic four chord types.
 
-[SCORE: imagini_partituri/partitura-p50-A.png | XML: partituri_xml/partitura-p50-A.mxl | CUVINTE: We will begin by looking at a common chord progression that contains all of the basic four chord types.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>We will begin by looking at a common chord progression that contains all of the basic four chord types.</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p50-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p50-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>348</page-height>
-      <page-width>1244</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="290">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>27</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>104</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="249" />
-    
-    <measure number="3" width="249" />
-  </part>
-</score-partwise>
-```
-
 Begin by making sure you can play this progression with the chord shapes in chapter two with roots on the 6th, 5th and 4th 
 strings, and that you can easily move between chords on adjacent strings. This process is described in detail in chapter two.  
  
@@ -10001,90 +8651,6 @@ extension on each chord where possible.
 We will begin with ‘9th’ chords and playing the root of the first chord on the 5th string. 
  
 Example 8a:
-
-[SCORE: imagini_partituri/partitura-p50-B.png | XML: partituri_xml/partitura-p50-B.mxl | CUVINTE: Example 8a, These chords could be voiced in the following way]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Example 8a</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p50-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p50-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>388</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>These chords could be voiced in the following way</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>100</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="244" />
-    
-    <measure number="3" width="244" />
-  </part>
-</score-partwise>
-```
 
 [DIAGRAMA: imagini_partituri/diagrama-p50-C.png | CUVINTE: These chords could be voiced in the following way | VOICING: x-x-5-7-x-x-7-x-4]
 
@@ -10258,347 +8824,7 @@ exceptions to both rules.
 The following sets of chord changes are great workhorses for trying out new extension ideas and for developing a range of 
 chord change licks that you can apply to many common jazz progressions.
 
-[SCORE: imagini_partituri/partitura-p54-A.png | XML: partituri_xml/partitura-p54-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p54-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p54-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>304</page-height>
-      <page-width>1213</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>62</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="244"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="244"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p54-B.png | XML: partituri_xml/partitura-p54-B.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p54-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p54-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.8213</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>300</page-height>
-      <page-width>1177</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="275">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>16</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>60</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="235"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="236"></measure>
-  </part>
-</score-partwise>
-```
-
 ---
-
-[SCORE: imagini_partituri/partitura-p54-C.png | XML: partituri_xml/partitura-p54-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p54-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p54-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>304</page-height>
-      <page-width>1213</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>62</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="244"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="244"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p54-D.png | XML: partituri_xml/partitura-p54-D.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p54-D.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p54-D.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>310</page-height>
-      <page-width>1252</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="295">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>64</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="253"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="253"></measure>
-  </part>
-</score-partwise>
-```
 
 Of course, there are many, many jazz progressions you can apply these concepts to. Get yourself a copy of The Real Book and 
 pick a few tunes at random to test yourself. This is the best kind of practice.
@@ -10659,92 +8885,6 @@ To create that classic Hammer-Horror sound, try moving a diminished 7 chord up o
  
 Example 9b:
 
-[SCORE: imagini_partituri/partitura-p56-A.png | XML: partituri_xml/partitura-p56-A.mxl | CUVINTE: Try this with each of the three chord voicings above.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p56-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p56-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.8853</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>352</page-height>
-      <page-width>879</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Try this with each of the three chord voicings above.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="171">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>24</left-margin>
-            <right-margin>14</right-margin>
-          </system-margins>
-          <top-system-distance>92</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="105" default-y="65" />
-      </barline>
-    </measure>
-    
-    <measure number="2" width="130" />
-    
-    <measure number="3" width="137" />
-    
-    <measure number="4" width="141" />
-  </part>
-</score-partwise>
-```
-
 Try this with each of the three chord voicings above. 
  
 While the diminished chord is used as a defined sound in its own right, it is very commonly used as a substitution for other 
@@ -10788,90 +8928,6 @@ This substitution works beautifully every time you encounter a functional domina
 chord is play a dim7 chord on the 3rd of the original dominant chord. 
  
 For example, in the chord progression
-
-[SCORE: imagini_partituri/partitura-p57-A.png | XML: partituri_xml/partitura-p57-A.mxl | CUVINTE: For example, in the chord progression, We can substitute the chord E dim7 for the C7 chord to create a C7b9 sound]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>For example, in the chord progression</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p57-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p57-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>391</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>We can substitute the chord E dim7 for the C7 chord to create a C7b9 sound</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="284">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>103</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="244" />
-    
-    <measure number="3" width="244" />
-  </part>
-</score-partwise>
-```
 
 [DIAGRAMA: imagini_partituri/diagrama-p57-B.png | CUVINTE: Example 9d | PUNCTE: 1/3 3/1 6/6 6/8]
 
@@ -11373,428 +9429,12 @@ One common use of the diminished 7 chord is in bar six of a jazz blues:
  
 Example 9f:
 
-[SCORE: imagini_partituri/partitura-p59-B.png | XML: partituri_xml/partitura-p59-B.mxl | CUVINTE: Example 9f]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Example 9f</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmpkgqficjc\partitura-p59-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmpkgqficjc\partitura-p59-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>397</page-height>
-      <page-width>2481</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Nota: ultima masura (goala) a fost adaugata artificial la conversie - portativul original era prea scurt pentru OMR</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="295">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>40</left-margin>
-            <right-margin>44</right-margin>
-          </system-margins>
-          <top-system-distance>130</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="253" />
-    
-    <measure number="3" width="253" />
-    
-    <measure number="4" width="252" />
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p59-C.png | XML: partituri_xml/partitura-p59-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p59-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p59-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>309</page-height>
-      <page-width>1251</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="295">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>64</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="253"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="253"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p59-D.png | XML: partituri_xml/partitura-p59-D.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p59-D.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p59-D.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>306</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>64</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="244"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="244"></measure>
-  </part>
-</score-partwise>
-```
-
 Using the E Dim 7 chord in bar six has the effect of creating an Eb7b9 chord which adds some tension before resolving back to 
 the Bb root of the progression.  
  
 Try using a diminished substitution for each of the dominant 7 chords in the final two bars of the progression.  
  
 Instead of
-
-[SCORE: imagini_partituri/partitura-p59-E.png | XML: partituri_xml/partitura-p59-E.mxl | CUVINTE: Instead of, Play a dim 7 chord on the 3rd (or b9) of each 7 chord]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Instead of</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p59-E.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p59-E.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>394</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Play a dim 7 chord on the 3rd (or b9) of each 7 chord</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="529">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>106</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p59-F.png | XML: partituri_xml/partitura-p59-F.mxl | CUVINTE: Play a dim 7 chord on the 3rd (or b9) of each 7 chord, Practice this diminished substitution with voicings based off the 6th, 5th and 4th strings.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Play a dim 7 chord on the 3rd (or b9) of each 7 chord</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p59-F.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p59-F.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>394</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Practice this diminished substitution with voicings based off the 6th, 5th and 4th strings.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="529">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>106</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-  </part>
-</score-partwise>
-```
 
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
@@ -11846,254 +9486,10 @@ Example 10b:
 
 ## Pagina 61
 
-[SCORE: imagini_partituri/partitura-p61-A.png | XML: partituri_xml/partitura-p61-A.mxl | CUVINTE: Example 10c, you could certainly play the following.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Example 10c</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p61-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p61-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>395</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>you could certainly play the following.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="529">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>107</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p61-B.png | XML: partituri_xml/partitura-p61-B.mxl | CUVINTE: Example 10d]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Example 10d</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p61-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p61-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>350</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="529">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>107</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-  </part>
-</score-partwise>
-```
-
 Although many older chord charts state major 6, a more modern approach would be to replace the major 6 chord with a major 
 7th.  
  
 Play through the following chord progression beginning from the 6th, 5th and 4th strings
-
-[SCORE: imagini_partituri/partitura-p61-C.png | XML: partituri_xml/partitura-p61-C.mxl | CUVINTE: Play through the following chord progression beginning from the 6th, 5th and 4th strings]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Play through the following chord progression beginning from the 6th, 5th and 4th strings</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p61-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p61-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>353</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>110</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="244" />
-    
-    <measure number="3" width="244" />
-  </part>
-</score-partwise>
-```
 
 Substitutions for the Major 6 Chord
 
@@ -12324,185 +9720,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 ## Pagina 63
 
-[SCORE: imagini_partituri/partitura-p63-A.png | XML: partituri_xml/partitura-p63-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p63-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p63-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>376</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="99" default-y="254" font-family="serif" font-size="13">1)</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="98" default-y="96" font-family="serif" font-size="13">2)</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>88</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="244"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="244"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p63-B.png | XML: partituri_xml/partitura-p63-B.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p63-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p63-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.8213</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>339</page-height>
-      <page-width>1175</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="97" default-y="222" font-family="serif" font-size="13">2)</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="274">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>98</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="235"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="236"></measure>
-  </part>
-</score-partwise>
-```
-
 Minor 6 Chords
 
 Minor 6 chords have the formula 1 b3 5 6. They can be seen as a minor triad (1 b3 5) with an added 6, or as a minor 7 chord 
@@ -12539,90 +9756,6 @@ The following progression is one of the most common in which a minor 6 chord is 
 you will learn more about in chapter twelve.  
  
 Example 10g:
-
-[SCORE: imagini_partituri/partitura-p64-C.png | XML: partituri_xml/partitura-p64-C.mxl | CUVINTE: Example 10g, This sequence can be played]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Example 10g</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p64-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_010\partitura-p64-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>386</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>This sequence can be played</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>98</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="244" />
-    
-    <measure number="3" width="244" />
-  </part>
-</score-partwise>
-```
 
 [DIAGRAMA: imagini_partituri/diagrama-p64-D.png | CUVINTE: This sequence can be played | PUNCTE: 3/4 6/1 6/3 9/1]
 
@@ -13605,90 +10738,6 @@ harmonisation of chord ii.
  
 If you wished, you could play the first four chords of the jazz standard Autumn Leaves in the following way:
 
-[SCORE: imagini_partituri/partitura-p71-A.png | XML: partituri_xml/partitura-p71-A.mxl | CUVINTE: Example 11h]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_011\partitura-p71-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_011\partitura-p71-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>349</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Example 11h</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>60</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="244" />
-    
-    <measure number="3" width="244" />
-  </part>
-</score-partwise>
-```
-
 [DIAGRAMA: imagini_partituri/diagrama-p71-B.png | CUVINTE: Example 11h | PUNCTE: 2/4 3/1 6/1 6/5]
 
 [DIAGRAMA: imagini_partituri/diagrama-p71-C.png | PUNCTE: 3/4 5/1 5/5]
@@ -13739,93 +10788,6 @@ These chords are rarely used anywhere other than as a tonic chord in a progressi
 melodic minor scales. 
  
 We have already looked at one common progression that uses the m(Maj7) chord:
-
-[SCORE: imagini_partituri/partitura-p72-G.png | XML: partituri_xml/partitura-p72-G.mxl | CUVINTE: We have already looked at one common progression that uses the m(Maj7) chord, In the above progression, the tonic note (G) can be heard descending by a semitone as you move through the voicings.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>We have already looked at one common progression that uses the m(Maj7) chord</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp7cutq732\partitura-p72-G.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp7cutq732\partitura-p72-G.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>417</page-height>
-      <page-width>2398</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>In the above progression, the tonic note (G) can be heard descending by a semitone as you move through the voicings.</credit-words></credit><credit page="1"><credit-words>Nota: ultima masura (goala) a fost adaugata artificial la conversie - portativul original era prea scurt pentru OMR</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="285">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>39</left-margin>
-            <right-margin>41</right-margin>
-          </system-margins>
-          <top-system-distance>108</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-          <clef-octave-change>1</clef-octave-change>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="244" />
-    
-    <measure number="3" width="244" />
-    
-    <measure number="4" width="243" />
-  </part>
-</score-partwise>
-```
 
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
@@ -15403,174 +12365,6 @@ Play the progression again over backing track one, but this time substitute EbMa
  
 Example 14j:
 
-[SCORE+TAB: imagini_partituri/partitura-tab-p85-A.png | XML: partituri_xml/partitura-tab-p85-A.mxl | CUVINTE: Example 14j, Repeat the exercise, but this time use the substitution on the F7 chord. To create a ‘9’ sound we play a m7b5 chord on the 3rd., Example 14k, Finally, repeat the process but this time build a BbMaj9th. To create a Maj9 sound we can play a m7 chord on the 3rd.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Example 14j</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_018\partitura-tab-p85-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_018\partitura-tab-p85-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>391</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Finally, repeat the process but this time build a BbMaj9th. To create a Maj9 sound we can play a m7 chord on the 3rd.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Repeat the exercise, but this time use the substitution on the F7 chord. To create a ‘9’ sound we play a m7b5 chord on the 3rd.</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="284">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>102</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="244" />
-    
-    <measure number="3" width="244" />
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p85-B.png | XML: partituri_xml/partitura-p85-B.mxl | CUVINTE: Example 14l]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Example 14l</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_011\partitura-p85-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_011\partitura-p85-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>346</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="284">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>104</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="244" />
-    
-    <measure number="3" width="244" />
-  </part>
-</score-partwise>
-```
-
 As we are playing these substitutions with a strong bassline on the backing track, it is easy to hear how the substitution 
 functions to build a 9th on each chord.  
  
@@ -15578,90 +12372,6 @@ If you have a strong rhythm section or backing track you can normally add in as 
 combining the three substitutions above: 
  
 Example 14m:
-
-[SCORE: imagini_partituri/partitura-p85-C.png | XML: partituri_xml/partitura-p85-C.mxl | CUVINTE: Example 14m, Try this with and without the backing track and notice how the context of the chords changes.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Example 14m</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_011\partitura-p85-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_011\partitura-p85-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>389</page-height>
-      <page-width>1212</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Try this with and without the backing track and notice how the context of the chords changes.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="284">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>101</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="244" />
-    
-    <measure number="3" width="244" />
-  </part>
-</score-partwise>
-```
 
 Try this with and without the backing track and notice how the context of the chords changes.  
  
@@ -18402,118 +15112,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 2) Practicing moving between pairs of chords, for example between the root and first or the first and second inversions of 
 Fm7. Example 2c:
-
-[SCORE: imagini_partituri/partitura-p97-B.png | XML: partituri_xml/partitura-p97-B.mxl | CUVINTE: Try skipping inversions by playing root – second then first to fourth inversions. Example 2d]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_011\partitura-p97-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_011\partitura-p97-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>356</page-height>
-      <page-width>886</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="484" default-y="186" font-family="serif" font-size="14">11</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="642" default-y="186" font-family="serif" font-size="14">11</credit-words>
-  </credit>
-  <credit page="1"><credit-words>Try skipping inversions by playing root – second then first to fourth inversions. Example 2d</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="215">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="125" default-y="84">co</ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="20" default-y="85" />
-      </barline>
-    </measure>
-    
-    <measure number="2" width="158">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="20" default-y="85" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="20" default-y="85" />
-      </barline>
-    </measure>
-    
-    <measure number="3" width="158">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="20" default-y="85" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="20" default-y="85" />
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
 
 [SCORE: imagini_partituri/partitura-p97-C.png | XML: partituri_xml/partitura-p97-C.mxl | CUVINTE: Finally, try simply jamming along with backing track one and playing these voicings whenever you like.]
 
@@ -21632,91 +18230,6 @@ Try joining these chord sequences up into a longer line that ascends the neck.
  
 Example 3i:
 
-[SCORE: imagini_partituri/partitura-p106-A.png | XML: partituri_xml/partitura-p106-A.mxl | CUVINTE: Or descends the neck.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <creator type="composer">Etc. . .</creator>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p106-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p106-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>349</page-height>
-      <page-width>888</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1">
-    <credit-type>composer</credit-type>
-    <credit-words default-x="766" default-y="215" font-family="serif" font-size="14" font-weight="bold">Etc. . .</credit-words>
-  </credit>
-  <credit page="1"><credit-words>Or descends the neck.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="377">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>24</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>88</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="112" default-y="71" />
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
-
 [SCORE+TAB: imagini_partituri/partitura-tab-p106-B.png | XML: partituri_xml/partitura-tab-p106-B.mxl]
 
 ```xml
@@ -22284,90 +18797,6 @@ This time, instead of thinking in terms of closest chord pairs, ascend a voicing
 in pitch where possible. 
  
 Example 3k:
-
-[SCORE: imagini_partituri/partitura-p106-C.png | XML: partituri_xml/partitura-p106-C.mxl | CUVINTE: Finally, reverse this idea so that the melody always descends when possible.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p106-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p106-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.8853</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>353</page-height>
-      <page-width>876</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Finally, reverse this idea so that the melody always descends when possible.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="372">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>14</right-margin>
-          </system-margins>
-          <top-system-distance>92</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="117" default-y="77" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="13" default-y="83" />
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
 
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
@@ -22945,90 +19374,6 @@ Example 3l:
         <type>half</type>
       </note>
     </measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p107-B.png | XML: partituri_xml/partitura-p107-B.mxl | CUVINTE: You can practice all of the above examples over backing track three, a repeating C7 to Fm7 vamp.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>You can practice all of the above examples over backing track three, a repeating C7 to Fm7 vamp.</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p107-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p107-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>353</page-height>
-      <page-width>1241</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="290">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>24</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>109</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="249" />
-    
-    <measure number="3" width="249" />
   </part>
 </score-partwise>
 ```
@@ -24186,172 +20531,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 </score-partwise>
 ```
 
-[SCORE: imagini_partituri/partitura-p111-E.png | XML: partituri_xml/partitura-p111-E.mxl | CUVINTE: These ideas are very effective when descending the neck]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p111-E.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p111-E.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>356</page-height>
-      <page-width>892</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>These ideas are very effective when descending the neck</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="533">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>27</left-margin>
-            <right-margin>14</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="125" default-y="84">l_ _</ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p111-F.png | XML: partituri_xml/partitura-p111-F.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p111-F.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p111-F.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.8853</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>325</page-height>
-      <page-width>866</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="74">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>14</right-margin>
-          </system-margins>
-          <top-system-distance>87</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>1</divisions>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="122" default-y="72"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>light-light</bar-style>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="32"></measure>
-  </part>
-</score-partwise>
-```
-
 One very effective technique is to use voicings that cause the melody note on the first string to ascend with every chord change. 
 By starting at different points on the neck there are at least two different ways to achieve a constantly ascending melody.
 
@@ -25071,90 +21250,6 @@ Example 4i:
     </measure>
     
     <measure number="2" width="316" />
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p112-C.png | XML: partituri_xml/partitura-p112-C.mxl | CUVINTE: You can practice the ii V i chord progression in this chapter with backing track five]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>You can practice the ii V i chord progression in this chapter with backing track five</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p112-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p112-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>348</page-height>
-      <page-width>1246</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="291">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>26</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>104</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="250" />
-    
-    <measure number="3" width="250" />
   </part>
 </score-partwise>
 ```
@@ -27222,198 +23317,10 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 Example 5i:
 
-[SCORE: imagini_partituri/partitura-p117-A.png | XML: partituri_xml/partitura-p117-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p117-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p117-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>324</page-height>
-      <page-width>884</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="272">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>14</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="7" default-y="73"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="19" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="216">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="19" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="19" default-y="85"></ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
-
 Another way to approach this sequence could be to play the first two chords in one ‘position’ and the second two in a higher or 
 lower position. 
  
 Example 5j:
-
-[SCORE: imagini_partituri/partitura-p117-B.png | XML: partituri_xml/partitura-p117-B.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p117-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p117-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>324</page-height>
-      <page-width>888</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="268">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="111" default-y="70"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="212">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="16" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="16" default-y="85"></ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
 
 Finally, try playing each four voicings of each chord in one bar. Try to organise your playing so that the chord change happens 
 between different voicings on each repeat.  
@@ -28153,112 +24060,6 @@ voicing on the top four strings each time.
  
 Example 6a:
 
-[SCORE: imagini_partituri/partitura-p118.png | XML: partituri_xml/partitura-p118.mxl | CUVINTE: Notice that all of the voicings in the previous example have their root located on the second string.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p118.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p118.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>356</page-height>
-      <page-width>890</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Notice that all of the voicings in the previous example have their root located on the second string.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="222">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>24</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="15" default-y="69" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="17" default-y="85" />
-      </barline>
-    </measure>
-    
-    <measure number="2" width="158">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="17" default-y="85" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="17" default-y="85" />
-      </barline>
-    </measure>
-    
-    <measure number="3" width="154">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="17" default-y="85" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="17" default-y="85" />
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
-
 This time, we will play the same harmonised scale but use a different voicing of each chord to keep the root located on the first 
 string. 
  
@@ -28276,112 +24077,6 @@ As we want to keep the root notes of each chord on the top string, we will play 
 Fm7 chord.  
  
 Example 6b:
-
-[SCORE: imagini_partituri/partitura-p119.png | XML: partituri_xml/partitura-p119.mxl | CUVINTE: Now begin from the lowest available drop 2 voicing with its root on the third string.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p119.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p119.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>357</page-height>
-      <page-width>892</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Now begin from the lowest available drop 2 voicing with its root on the third string.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="222">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>25</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="114" default-y="74" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="19" default-y="85" />
-      </barline>
-    </measure>
-    
-    <measure number="2" width="157">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="19" default-y="85" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="19" default-y="85" />
-      </barline>
-    </measure>
-    
-    <measure number="3" width="158">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="19" default-y="85" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="19" default-y="85" />
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
 
 Scale Degree 
 I Maj7 
@@ -28416,90 +24111,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 Example 6c:
 
-[SCORE: imagini_partituri/partitura-p120-A.png | XML: partituri_xml/partitura-p120-A.mxl | CUVINTE: Finally, find the drop 2 chord with the lowest possible root on the fourth string.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p120-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p120-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.8853</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>356</page-height>
-      <page-width>875</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Finally, find the drop 2 chord with the lowest possible root on the fourth string.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="216">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>24</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>97</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="15" default-y="83" />
-      </barline>
-    </measure>
-    
-    <measure number="2" width="153" />
-    
-    <measure number="3" width="154" />
-  </part>
-</score-partwise>
-```
-
 Scale Degree 
 I Maj7 
 iim7 
@@ -28525,91 +24136,6 @@ The lowest possible drop 2 chord you can play in the key of Db Major with a root
 play though the following Db Major scale harmonised to 7ths. Every drop 2 chord now has a root on the fourth string. 
  
 Example 6d:
-
-[SCORE: imagini_partituri/partitura-p120-B.png | XML: partituri_xml/partitura-p120-B.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p120-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p120-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.8853</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>320</page-height>
-      <page-width>868</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="215">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>14</right-margin>
-          </system-margins>
-          <top-system-distance>93</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="122" default-y="82"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="153"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="152"></measure>
-  </part>
-</score-partwise>
-```
 
 These kinds of exercises are extremely useful and frequently used in music. They should be practiced in as many keys as 
 possible, but you can prioritise the keys of C Major, Bb Major, Eb Major and F Major.  
@@ -28657,95 +24183,6 @@ chord.
  
 Example 6e:
 
-[SCORE: imagini_partituri/partitura-p121-A.png | XML: partituri_xml/partitura-p121-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p121-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p121-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>324</page-height>
-      <page-width>888</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="195">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>F</sign>
-          <line>4</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="125" default-y="84"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="165"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="166"></measure>
-  </part>
-</score-partwise>
-```
-
 Repeat this exercise beginning on successively higher voicings of the CMaj7 chord and keep all your voicings played within a 
 span of five frets. As always, try this exercise in common keys. 
  
@@ -28760,91 +24197,6 @@ Using the drop 2 voicings we have already covered, play through the ii V I seque
  
 Example 6f:
 
-[SCORE: imagini_partituri/partitura-p121-B.png | XML: partituri_xml/partitura-p121-B.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p121-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p121-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>324</page-height>
-      <page-width>885</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="194">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="125" default-y="84"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="165"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="165"></measure>
-  </part>
-</score-partwise>
-```
-
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 121
@@ -28857,90 +24209,6 @@ As with the minor ii V i and ii V i bIV chord sequences in earlier chapters, pra
 major ii V I drop 2 voicings on the top four strings. 
  
 You can practice using backing track eight to help you hear your ideas in context:
-
-[SCORE: imagini_partituri/partitura-p122-A.png | XML: partituri_xml/partitura-p122-A.mxl | CUVINTE: You can practice using backing track eight to help you hear your ideas in context]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>You can practice using backing track eight to help you hear your ideas in context</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p122-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p122-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>349</page-height>
-      <page-width>1206</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="281">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>107</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="241" />
-    
-    <measure number="3" width="241" />
-  </part>
-</score-partwise>
-```
 
 Don’t forget that you can play this chord sequence so that the melody on the top string either ascends or descends. Here is one 
 way to achieve this. 
@@ -29041,90 +24309,6 @@ by a tone and play a CMaj9. Try to visualise the new chord as both a CMaj7 with 
 Practice this concept over backing track eight so you can hear how the added 9th affects the sound. 
  
 Backing track eight:
-
-[SCORE: imagini_partituri/partitura-p124-E.png | XML: partituri_xml/partitura-p124-E.mxl | CUVINTE: Backing track eight]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Backing track eight</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p124-E.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p124-E.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>349</page-height>
-      <page-width>1206</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="281">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>107</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="241" />
-    
-    <measure number="3" width="241" />
-  </part>
-</score-partwise>
-```
 
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
@@ -29755,248 +24939,12 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 Example 7e:
 
-[SCORE: imagini_partituri/partitura-p126-A.png | XML: partituri_xml/partitura-p126-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p126-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_000\partitura-p126-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>324</page-height>
-      <page-width>886</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="192">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-          <clef-octave-change>1</clef-octave-change>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="10" type="start" end-length="121" default-y="80"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="165"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="169"></measure>
-  </part>
-</score-partwise>
-```
-
 As you may have noticed, by moving the root of a ‘7’ chord up by a tone, we create a m7b5 chord built on the third of the 
 original chord. All of the G9 chords in the previous example can be seen as Bm7b5 chords. 
  
 Try playing through the ii V I progression again, but this time substitute every G7 chord for a G9 chord. 
  
 Example 7f:
-
-[SCORE: imagini_partituri/partitura-p126-B.png | XML: partituri_xml/partitura-p126-B.mxl | CUVINTE: Of course, it should go without saying that any CMaj7 chord can be substituted for a CMaj9 in this progression.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p126-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p126-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>356</page-height>
-      <page-width>891</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Of course, it should go without saying that any CMaj7 chord can be substituted for a CMaj9 in this progression.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="125">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>27</left-margin>
-            <right-margin>14</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="106" default-y="66" />
-      </barline>
-    </measure>
-    
-    <measure number="2" width="74">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="20" default-y="85" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="20" default-y="85" />
-      </barline>
-    </measure>
-    
-    <measure number="3" width="95">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="20" default-y="85" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="20" default-y="85" />
-      </barline>
-    </measure>
-    
-    <measure number="4" width="68">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="20" default-y="85" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="20" default-y="85" />
-      </barline>
-    </measure>
-    
-    <measure number="5" width="95">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="20" default-y="85" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="20" default-y="85" />
-      </barline>
-    </measure>
-    
-    <measure number="6" width="69">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="20" default-y="85" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="20" default-y="85" />
-      </barline>
-    </measure>
-    
-    <measure number="7" width="95">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="20" default-y="85" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="20" default-y="85" />
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
 
 Of course, it should go without saying that any CMaj7 chord can be substituted for a CMaj9 in this progression.  
  
@@ -30027,202 +24975,12 @@ The four voicings of Dm7 can be turned into m9 chords in the following way.
  
 Example 7i:
 
-[SCORE: imagini_partituri/partitura-p127-C.png | XML: partituri_xml/partitura-p127-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p127-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p127-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>324</page-height>
-      <page-width>890</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="196">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="125" default-y="84"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="166"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="166"></measure>
-  </part>
-</score-partwise>
-```
-
 As you can see, by raising the root of a m7 chord we are creating a Maj7 chord built from the third of the original chord. In the 
 previous examples you can see that a Dm9 can be seen as a rootless FMaj7 chord.  
  
 Once again, return to the major ii V I progression and play Dm9 chords in place of each Dm7. 
  
 Example 7j:
-
-[SCORE: imagini_partituri/partitura-p127-D.png | XML: partituri_xml/partitura-p127-D.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p127-D.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p127-D.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>351</page-height>
-      <page-width>893</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="679" default-y="199" font-family="sans-serif" font-size="20">I</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="404" default-y="188" font-family="sans-serif" font-size="14" font-weight="bold">7</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="725" default-y="188" font-family="sans-serif" font-size="13" font-weight="bold">12</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="566" default-y="188" font-family="serif" font-size="20" font-weight="bold">a</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="120">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>28</right-margin>
-          </system-margins>
-          <top-system-distance>88</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>F</sign>
-          <line>4</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="74"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="98"></measure>
-    <!--=======================================================-->
-    <measure number="4" width="68"></measure>
-    <!--=======================================================-->
-    <measure number="5" width="94"></measure>
-    <!--=======================================================-->
-    <measure number="6" width="68"></measure>
-    <!--=======================================================-->
-    <measure number="7" width="94"></measure>
-  </part>
-</score-partwise>
-```
 
 ---
 
@@ -30634,98 +25392,6 @@ The chord changes are played at half the frequency of the following examples.
  
 Example 7m:
 
-[SCORE: imagini_partituri/partitura-p130-A.png | XML: partituri_xml/partitura-p130-A.mxl | CUVINTE: Make sure you can play this sequence descending the neck and also in other keys.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p130-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p130-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>356</page-height>
-      <page-width>886</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Make sure you can play this sequence descending the neck and also in other keys.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="145">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>26</left-margin>
-            <right-margin>14</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="11" type="start" end-length="123" default-y="82" />
-      </barline>
-    </measure>
-    
-    <measure number="2" width="64" />
-    
-    <measure number="3" width="88" />
-    
-    <measure number="4" width="64" />
-    
-    <measure number="5" width="89" />
-    
-    <measure number="6" width="77" />
-    
-    <measure number="7" width="93" />
-  </part>
-</score-partwise>
-```
-
 [SCORE: imagini_partituri/partitura-p130-B.png | XML: partituri_xml/partitura-p130-B.mxl]
 
 ```xml
@@ -31124,90 +25790,6 @@ Example 7m:
         <type>whole</type>
       </note>
     </measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p130-C.png | XML: partituri_xml/partitura-p130-C.mxl | CUVINTE: Don’t forget that you can play C9 or Fm9 chords in place of the C7 and Fm7 chords too.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p130-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p130-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>357</page-height>
-      <page-width>892</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Don’t forget that you can play C9 or Fm9 chords in place of the C7 and Fm7 chords too.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="151">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>24</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="128" default-y="85" />
-      </barline>
-    </measure>
-    
-    <measure number="2" width="67" />
-    
-    <measure number="3" width="90" />
   </part>
 </score-partwise>
 ```
@@ -32399,117 +26981,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 Example 9d:
 
-[SCORE: imagini_partituri/partitura-p136-A.png | XML: partituri_xml/partitura-p136-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p136-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p136-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>324</page-height>
-      <page-width>886</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="194">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>F</sign>
-          <line>4</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="119" default-y="78"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="165">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3" width="166">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
-
 As you can see in examples 9c and 9d, I have also added chromatic alterations to the A7 voicing. Once you can see any 
 dominant 7 voicing from the perspective of where its intervals lie on the fretboard, it is easy to understand how to add tensions.  
  
@@ -33405,396 +27876,6 @@ of the common key centres. Here are some progressions to get you started.
  
 1)
 
-[SCORE: imagini_partituri/partitura-p137-B.png | XML: partituri_xml/partitura-p137-B.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p137-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p137-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>389</page-height>
-      <page-width>1198</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="96" default-y="96" font-family="serif" font-size="14" font-weight="bold">2)</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="159">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>26</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>102</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="119"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="119"></measure>
-    <!--=======================================================-->
-    <measure number="4" width="119"></measure>
-    <!--=======================================================-->
-    <measure number="5" width="119"></measure>
-    <!--=======================================================-->
-    <measure number="6" width="119"></measure>
-    <!--=======================================================-->
-    <measure number="7" width="119"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p137-C.png | XML: partituri_xml/partitura-p137-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p137-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p137-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>400</page-height>
-      <page-width>1242</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="97" default-y="281" font-family="serif" font-size="14" font-weight="bold">2)</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="97" default-y="96" font-family="serif" font-size="14" font-weight="bold">3)</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="166">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>24</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>108</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="124"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="125"></measure>
-    <!--=======================================================-->
-    <measure number="4" width="124"></measure>
-    <!--=======================================================-->
-    <measure number="5" width="124"></measure>
-    <!--=======================================================-->
-    <measure number="6" width="125"></measure>
-    <!--=======================================================-->
-    <measure number="7" width="124"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p137-D.png | XML: partituri_xml/partitura-p137-D.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p137-D.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p137-D.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>390</page-height>
-      <page-width>1204</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="96" default-y="272" font-family="serif" font-size="14" font-weight="bold">3)</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="96" default-y="96" font-family="serif" font-size="14" font-weight="bold">4)</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="159">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>27</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>102</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="120"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="120"></measure>
-    <!--=======================================================-->
-    <measure number="4" width="120"></measure>
-    <!--=======================================================-->
-    <measure number="5" width="119"></measure>
-    <!--=======================================================-->
-    <measure number="6" width="120"></measure>
-    <!--=======================================================-->
-    <measure number="7" width="120"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p137-E.png | XML: partituri_xml/partitura-p137-E.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p137-E.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p137-E.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>344</page-height>
-      <page-width>1207</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="96" default-y="226" font-family="serif" font-size="13">4)</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="161">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>20</left-margin>
-            <right-margin>19</right-margin>
-          </system-margins>
-          <top-system-distance>102</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="121"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="121"></measure>
-    <!--=======================================================-->
-    <measure number="4" width="121"></measure>
-    <!--=======================================================-->
-    <measure number="5" width="121"></measure>
-    <!--=======================================================-->
-    <measure number="6" width="121"></measure>
-    <!--=======================================================-->
-    <measure number="7" width="121"></measure>
-  </part>
-</score-partwise>
-```
-
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 137
@@ -34299,100 +28380,6 @@ each chord in the following way.
  
 Example 10c:
 
-[SCORE: imagini_partituri/partitura-p140-B.png | XML: partituri_xml/partitura-p140-B.mxl | CUVINTE: Dominant 7 Drop 2 Chords]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p140-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p140-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>358</page-height>
-      <page-width>888</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="718" default-y="188" font-family="serif" font-size="13" font-weight="bold">11</credit-words>
-  </credit>
-  <credit page="1"><credit-words>Dominant 7 Drop 2 Chords</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="215">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="126" default-y="84" />
-      </barline>
-    </measure>
-    
-    <measure number="2" width="158" />
-    
-    <measure number="3" width="158">
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="12" default-y="85" />
-      </barline>
-    </measure>
-    
-    <measure number="4" width="16" />
-  </part>
-</score-partwise>
-```
-
 Dominant 7 Drop 2 Chords 
  
 Dominant 7 drop 2 chords can be voiced in four inversions in the following way: 
@@ -34425,108 +28412,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 You can also practice linking the chords on the top four and middle four strings. 
  
 Example 10f:
-
-[SCORE+TAB: imagini_partituri/partitura-tab-p141-B.png | XML: partituri_xml/partitura-tab-p141-B.mxl | CUVINTE: Try example 10f again but this time descend the neck., Example 10g]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Example 10g</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_013\partitura-tab-p141-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_013\partitura-tab-p141-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>350</page-height>
-      <page-width>888</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Try example 10f again but this time descend the neck.</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="215">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>28</left-margin>
-            <right-margin>14</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" default-y="84" />
-      </barline>
-    </measure>
-    
-    <measure number="2" width="163">
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="14" default-y="85" />
-      </barline>
-    </measure>
-    
-    <measure number="3" width="14" />
-    
-    <measure number="4" width="140">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="14" default-y="85" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="11" default-y="85" />
-      </barline>
-    </measure>
-    
-    <measure number="5" width="14" />
-  </part>
-</score-partwise>
-```
 
 Practice moving from a C7 chord on the middle strings to an Fm7 chord on the top strings:
 
@@ -36519,125 +30404,6 @@ Example 10m:
 </score-partwise>
 ```
 
-[SCORE: imagini_partituri/partitura-p144-B.png | XML: partituri_xml/partitura-p144-B.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p144-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_001\partitura-p144-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>324</page-height>
-      <page-width>888</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="146">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="126" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="65"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="90"></measure>
-    <!--=======================================================-->
-    <measure number="4" width="65">
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="5" width="12"></measure>
-    <!--=======================================================-->
-    <measure number="6" width="77">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="7" width="65">
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="10" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="8" width="16"></measure>
-    <!--=======================================================-->
-    <measure number="9" width="78">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="10" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="10" width="26"></measure>
-  </part>
-</score-partwise>
-```
-
 Of course, with three chords there are many ways you could voice the previous example. You could play one chord on the 
 middle two strings and two on the top four. You could play two chords on the top strings and one on the middle four.  
  
@@ -38480,213 +32246,6 @@ alternating between string groups starting on both the middle and top string gro
 Example 10r:
 
 [SCORE+TAB: imagini_partituri/partitura-tab-p146-A.png]
-
-[SCORE: imagini_partituri/partitura-p146-B.png | XML: partituri_xml/partitura-p146-B.mxl | CUVINTE: Example 10s]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_002\partitura-p146-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_002\partitura-p146-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.2080</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>349</page-height>
-      <page-width>885</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Example 10s</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="68">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>26</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>91</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="115" default-y="75" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="26" default-y="81" />
-      </barline>
-    </measure>
-    
-    <measure number="2" width="301">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="26" default-y="81" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="13" default-y="81" />
-      </barline>
-    </measure>
-    
-    <measure number="3" width="14">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="13" default-y="81" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="23" default-y="81" />
-      </barline>
-    </measure>
-    
-    <measure number="4" width="152">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="23" default-y="81" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="24" default-y="81" />
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p146-C.png | XML: partituri_xml/partitura-p146-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <creator type="composer">Etc...</creator>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_002\partitura-p146-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_002\partitura-p146-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>324</page-height>
-      <page-width>887</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-type>composer</credit-type>
-    <credit-words default-x="742" default-y="186" font-family="serif" font-size="15" font-weight="bold">Etc...</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="372">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="8" default-y="74"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="18" default-y="85"></ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
 
 Bear in mind that you can ascend or descend to the next chord at any point in the progression to give a huge amount of 
 possibilities for navigating this progression on just these two string groups. Let your ears be the judge of how to play through 
@@ -43847,7 +37406,8 @@ Example 13d:
 Jam along with backing track one, a static Fm7 groove
 
 Join the chords up with a walking bass line. 
-	  
+	
+  
 Example 13e:
 
 [SCORE: imagini_partituri/partitura-p158-C.png | XML: partituri_xml/partitura-p158-C.mxl | CUVINTE: Example 13e]
@@ -44522,124 +38082,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 ## Pagina 159
 
 Example 13f:
-
-[SCORE: imagini_partituri/partitura-p159-A.png | XML: partituri_xml/partitura-p159-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_002\partitura-p159-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_002\partitura-p159-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.8853</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>312</page-height>
-      <page-width>625</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="71">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>10</right-margin>
-          </system-margins>
-          <top-system-distance>83</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="104" default-y="54"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="40" default-y="73"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="85">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="40" default-y="73"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="20" default-y="73"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3" width="101">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="20" default-y="73"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="20" default-y="73"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="4" width="101">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="20" default-y="73"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="20" default-y="73"></ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
 
 Next, try taking the four voicings through the cycle of fifths and cycle of fourths sequences in chapter eighteen in order to help 
 you master the fretboard. Playing in all keys with each of the voicings is an important step towards internalising each chord 
@@ -55511,93 +48953,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 To practice playing m(Maj7) chords in context, I would suggest that you use them in place of the tonic in a minor ii V i 
 progression because this is when they most commonly occur in music. You can work with these ideas over backing track ten:
 
-[SCORE: imagini_partituri/partitura-p178-C.png | XML: partituri_xml/partitura-p178-C.mxl]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp8ao4xtvl\partitura-p178-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp8ao4xtvl\partitura-p178-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>352</page-height>
-      <page-width>2467</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Nota: ultima masura (goala) a fost adaugata artificial la conversie - portativul original era prea scurt pentru OMR</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="291">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>40</left-margin>
-            <right-margin>44</right-margin>
-          </system-margins>
-          <top-system-distance>86</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-          <clef-octave-change>-1</clef-octave-change>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="250" />
-    
-    <measure number="3" width="249" />
-    
-    <measure number="4" width="250" />
-  </part>
-</score-partwise>
-```
-
 All you need to do is look back over the minor ii V i exercises from previous chapters and focus on raising the b7 of the tonic 
 Fm7 chord so it becomes a natural 7th to create the m(Maj7) tonality.
 
@@ -56888,429 +50243,7 @@ Memorising the chord sequence in advance away from the guitar can really help be
 These practice techniques are very powerful, and with discipline you will find that your vision, knowledge and above all your 
 ears will improve dramatically.
 
-[SCORE: imagini_partituri/partitura-p184-A.png | XML: partituri_xml/partitura-p184-A.mxl | CUVINTE: Cycle of fourths]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Cycle of fourths</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p184-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p184-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>8.8053</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>361</page-height>
-      <page-width>1274</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="300">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>19</left-margin>
-            <right-margin>22</right-margin>
-          </system-margins>
-          <top-system-distance>114</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="257" />
-    
-    <measure number="3" width="258" />
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p184-B.png | XML: partituri_xml/partitura-p184-B.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p184-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p184-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>301</page-height>
-      <page-width>1194</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="279">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>60</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="239"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="239"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p184-C.png | XML: partituri_xml/partitura-p184-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p184-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p184-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>300</page-height>
-      <page-width>1194</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="279">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>60</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="239"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="239"></measure>
-  </part>
-</score-partwise>
-```
-
 Cycle of fifths
-
-[SCORE: imagini_partituri/partitura-p184-D.png | XML: partituri_xml/partitura-p184-D.mxl | CUVINTE: Cycle of fifths]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Cycle of fifths</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p184-D.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p184-D.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>324</page-height>
-      <page-width>1206</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="280">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>28</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>84</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="239" />
-    
-    <measure number="3" width="240" />
-  </part>
-</score-partwise>
-```
-
-[SCORE+TAB: imagini_partituri/partitura-tab-p184-E.png | XML: partituri_xml/partitura-tab-p184-E.mxl]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_014\partitura-tab-p184-E.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_014\partitura-tab-p184-E.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>306</page-height>
-      <page-width>1233</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Licensed</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="290">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>62</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="248" />
-    
-    <measure number="3" width="249" />
-  </part>
-</score-partwise>
-```
 
 ---
 
@@ -57610,601 +50543,6 @@ common tune called at jazz jams. The chord changes to Bella by Barlight are as f
 </score-partwise>
 ```
 
-[SCORE: imagini_partituri/partitura-p189-B.png | XML: partituri_xml/partitura-p189-B.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p189-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p189-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>289</page-height>
-      <page-width>1195</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="280">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>50</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="239"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="240"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p189-C.png | XML: partituri_xml/partitura-p189-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p189-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p189-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>305</page-height>
-      <page-width>1234</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="290">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>64</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="248"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="249"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p189-D.png | XML: partituri_xml/partitura-p189-D.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p189-D.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p189-D.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>309</page-height>
-      <page-width>1234</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="290">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>68</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="248"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="249"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p189-E.png | XML: partituri_xml/partitura-p189-E.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p189-E.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_003\partitura-p189-E.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>295</page-height>
-      <page-width>1234</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="290">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>53</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="248"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="249"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p189-F.png | XML: partituri_xml/partitura-p189-F.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p189-F.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p189-F.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>306</page-height>
-      <page-width>1234</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="290">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>65</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="248"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="249"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p189-G.png | XML: partituri_xml/partitura-p189-G.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p189-G.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p189-G.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>304</page-height>
-      <page-width>1234</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="290">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>64</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="248"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="249"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p189-H.png | XML: partituri_xml/partitura-p189-H.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p189-H.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p189-H.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>305</page-height>
-      <page-width>1234</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="283">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>22</right-margin>
-          </system-margins>
-          <top-system-distance>64</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="242"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="241"></measure>
-  </part>
-</score-partwise>
-```
-
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 189
@@ -58217,94 +50555,6 @@ To begin our exploration, we will focus on finding a path through the chords of 
 leading and ignoring any possible alterations and extensions.  
  
 The chord sequence of the first four bars is:
-
-[SCORE: imagini_partituri/partitura-p190-A.png | XML: partituri_xml/partitura-p190-A.mxl | CUVINTE: The chord sequence of the first four bars is]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>The chord sequence of the first four bars is</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p190-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p190-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>346</page-height>
-      <page-width>1206</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="298">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>20</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>107</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="236" />
-    
-    <measure number="3" width="236" />
-  </part>
-</score-partwise>
-```
 
 The object of the first exercise is to play through these chord changes while keeping the notes of each chord on the same four 
 strings, and making each note move as little as possible when changing chords.  
@@ -59357,94 +51607,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 ---
 
 ## Pagina 195
-
-[SCORE: imagini_partituri/partitura-p195-A.png | XML: partituri_xml/partitura-p195-A.mxl | CUVINTE: Each chord can be played in the following way]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p195-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p195-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>354</page-height>
-      <page-width>1244</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Each chord can be played in the following way</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="308">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>67</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="244" />
-    
-    <measure number="3" width="245" />
-  </part>
-</score-partwise>
-```
 
 [DIAGRAMA: imagini_partituri/diagrama-p195-B.png | CUVINTE: Each chord can be played in the following way | VOICING: 5-4-x-2-5-x]
 
@@ -62624,94 +54786,6 @@ amount of moving voices.
  
 To refresh your memory, here are the first four bars of Bella by Barlight:
 
-[SCORE: imagini_partituri/partitura-p200-C.png | XML: partituri_xml/partitura-p200-C.mxl | CUVINTE: To refresh your memory, here are the first four bars of Bella by Barlight]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>To refresh your memory, here are the first four bars of Bella by Barlight</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p200-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p200-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>346</page-height>
-      <page-width>1206</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="298">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>20</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>107</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="236" />
-    
-    <measure number="3" width="236" />
-  </part>
-</score-partwise>
-```
-
 Despite the A7 not resolving to a D chord, it is still considered part of a ii V progression and will, therefore, accept some 
 tension. Also, the melody of the original tune at this point contains a b9 note (Bb), so it can be appropriate to reflect that tension 
 in the chord part.  
@@ -63392,94 +55466,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
         <type>half</type>
       </note>
     </measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p202-C.png | XML: partituri_xml/partitura-p202-C.mxl | CUVINTE: We can continue in a similar vein for the next four bars.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>We can continue in a similar vein for the next four bars.</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p202-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p202-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>360</page-height>
-      <page-width>1245</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="308">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>118</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="244" />
-    
-    <measure number="3" width="245" />
   </part>
 </score-partwise>
 ```
@@ -64671,183 +56657,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 Second Eight Bars of Bella by Barlight
 
-[SCORE: imagini_partituri/partitura-p206-A.png | XML: partituri_xml/partitura-p206-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p206-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p206-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>302</page-height>
-      <page-width>1206</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="298">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>63</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="237"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="237"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p206-B.png | XML: partituri_xml/partitura-p206-B.mxl | CUVINTE: Example 2h]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p206-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p206-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>341</page-height>
-      <page-width>1209</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Example 2h</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="298">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>21</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>62</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="237" />
-    
-    <measure number="3" width="237" />
-  </part>
-</score-partwise>
-```
-
 [DIAGRAMA: imagini_partituri/diagrama-p206-C.png | CUVINTE: Example 2h | VOICING: 5-x-6-2-5-x]
 
 [DIAGRAMA: imagini_partituri/diagrama-p206-D.png | PUNCTE: 1/4 3/3 4/4 4/6 5/2 6/4 7/1]
@@ -65362,361 +57171,6 @@ finding new pathways. For now, try to find new routes by adding different extens
  
 The chords to the B section of Bella by Barlight are as follows:
 
-[SCORE: imagini_partituri/partitura-p207-B.png | XML: partituri_xml/partitura-p207-B.mxl | CUVINTE: The chords to the B section of Bella by Barlight are as follows]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>The chords to the B section of Bella by Barlight are as follows</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p207-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p207-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>344</page-height>
-      <page-width>1246</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="308">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>23</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>103</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="245" />
-    
-    <measure number="3" width="245" />
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p207-C.png | XML: partituri_xml/partitura-p207-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p207-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p207-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>301</page-height>
-      <page-width>1241</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="308">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>60</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="245"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="245"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p207-D.png | XML: partituri_xml/partitura-p207-D.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p207-D.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p207-D.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>308</page-height>
-      <page-width>1241</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="308">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>67</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="245"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="245"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p207-E.png | XML: partituri_xml/partitura-p207-E.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p207-E.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p207-E.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>308</page-height>
-      <page-width>1241</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="308">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>67</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="245"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="245"></measure>
-  </part>
-</score-partwise>
-```
-
 Begin by finding the closest possible voicings for these chords while ignoring any chromatic alterations as we did in chapter 
 one. For example instead of G7b13, play a simple G7. One pathway could be played as follows:
 
@@ -66171,111 +57625,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
         <type>whole</type>
       </note>
     </measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p208-B.png | XML: partituri_xml/partitura-p208-B.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p208-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_004\partitura-p208-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.8853</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>315</page-height>
-      <page-width>873</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="390" default-y="222" font-family="sans-serif" font-size="19" font-weight="bold">-v</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="119">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>75</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="115" default-y="64"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="18" default-y="62"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="80">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="18" default-y="62"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3" width="82"></measure>
-    <!--=======================================================-->
-    <measure number="4" width="77"></measure>
-    <!--=======================================================-->
-    <measure number="5" width="89"></measure>
-    <!--=======================================================-->
-    <measure number="6" width="77"></measure>
-    <!--=======================================================-->
-    <measure number="7" width="77"></measure>
   </part>
 </score-partwise>
 ```
@@ -66939,95 +58288,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
         <type>whole</type>
       </note>
     </measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p209-B.png | XML: partituri_xml/partitura-p209-B.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p209-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p209-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.8853</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>322</page-height>
-      <page-width>875</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="117">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>82</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="80"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="82"></measure>
-    <!--=======================================================-->
-    <measure number="4" width="82"></measure>
-    <!--=======================================================-->
-    <measure number="5" width="89"></measure>
-    <!--=======================================================-->
-    <measure number="6" width="77"></measure>
-    <!--=======================================================-->
-    <measure number="7" width="76"></measure>
   </part>
 </score-partwise>
 ```
@@ -71578,146 +62838,6 @@ Example 3j:
 
 [DIAGRAMA: imagini_partituri/diagrama-p217-B.png | VOICING: x-1-1-x-4-5]
 
-[SCORE: imagini_partituri/partitura-p217-C.png | XML: partituri_xml/partitura-p217-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p217-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p217-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>326</page-height>
-      <page-width>890</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="122">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="10" type="start" end-length="108" default-y="66"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="168">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="20" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="20" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3" width="81">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="20" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="20" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="4" width="83">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="20" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="17" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="5" width="80">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="17" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="20" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="6" width="80">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="20" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="20" default-y="85"></ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
-
 The previous example is fairly predictable and follows the harmony down the neck. Try playing the same sequence but this 
 time ascend the neck as shown. 
  
@@ -71744,161 +62864,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 [DIAGRAMA: imagini_partituri/diagrama-p218-A.png | PUNCTE: 2/1 3/1 3/3 6/6]
 
 [DIAGRAMA: imagini_partituri/diagrama-p218-B.png | VOICING: x-1-1-x-x-x]
-
-[SCORE: imagini_partituri/partitura-p218-C.png | XML: partituri_xml/partitura-p218-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p218-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p218-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.8853</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>314</page-height>
-      <page-width>876</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="128">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>14</right-margin>
-          </system-margins>
-          <top-system-distance>85</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="10" type="start" end-length="105" default-y="64"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="11" default-y="75"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="82">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="11" default-y="75"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="11" default-y="75"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3" width="78">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="11" default-y="75"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="12" default-y="75"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="4" width="78">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="12" default-y="75"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="11" default-y="75"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="5" width="83">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="11" default-y="75"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="12" default-y="75"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="6" width="79">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="12" default-y="75"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="12" default-y="75"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="7" width="76">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="12" default-y="75"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="11" default-y="75"></ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
 
 Even with fairly simple chords, arranging the voicings so that they ascend the neck against a descending harmony is a beautiful, 
 musical technique.  
@@ -75233,106 +66198,6 @@ Let’s repeat the exercise but this time we will also add a 9th to each of the 
 that chord iii (Em7) and chord vii (Bm7b5) both harmonise to have b9s, not natural 9ths. 
 Example 4e:
 
-[SCORE: imagini_partituri/partitura-p226-A.png | XML: partituri_xml/partitura-p226-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p226-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p226-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>326</page-height>
-      <page-width>888</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="357">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>23</left-margin>
-            <right-margin>13</right-margin>
-          </system-margins>
-          <top-system-distance>96</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="119" default-y="78"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="15" default-y="86"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="169">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="15" default-y="86"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="15" default-y="86"></ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
-
 [SCORE+TAB: imagini_partituri/partitura-tab-p226-B.png | XML: partituri_xml/partitura-tab-p226-B.mxl]
 
 ```xml
@@ -76769,186 +67634,6 @@ important concepts that are important to understand.
  
 The first concept is that you can add a ii chord to any secondary dominant. For example, take the following progression:
 
-[SCORE: imagini_partituri/partitura-p228-A.png | XML: partituri_xml/partitura-p228-A.mxl | CUVINTE: The first concept is that you can add a ii chord to any secondary dominant. For example, take the following progression, We have seen how to add a secondary dominant to each chord to create the following progression]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>The first concept is that you can add a ii chord to any secondary dominant. For example, take the following progression</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p228-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p228-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>368</page-height>
-      <page-width>1206</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>We have seen how to add a secondary dominant to each chord to create the following progression</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="218">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>21</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>90</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="158" />
-    
-    <measure number="3" width="157" />
-    
-    <measure number="4" width="158" />
-    
-    <measure number="5" width="157" />
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p228-B.png | XML: partituri_xml/partitura-p228-B.mxl | CUVINTE: We have seen how to add a secondary dominant to each chord to create the following progression]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>We have seen how to add a secondary dominant to each chord to create the following progression</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p228-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p228-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>330</page-height>
-      <page-width>1204</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="200">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>24</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>91</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="160" />
-    
-    <measure number="3" width="160" />
-    
-    <measure number="4" width="160" />
-    
-    <measure number="5" width="160" />
-  </part>
-</score-partwise>
-```
-
 We can precede each of the secondary dominant chords with a ii chord to form a ii V I progression into the following diatonic 
 chord. 
  
@@ -78177,117 +68862,6 @@ Looking at the previous example, it is easy to see how far we have come from the
 beginning of this chapter, but once again this is just a starting point for your own in-depth studies. Begin by playing the 
 previous progression with tight voice leading on the top four strings of the guitar as you did earlier. Example 4h:
 
-[SCORE: imagini_partituri/partitura-p229-C.png | XML: partituri_xml/partitura-p229-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p229-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p229-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>331</page-height>
-      <page-width>889</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="190">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>23</left-margin>
-            <right-margin>16</right-margin>
-          </system-margins>
-          <top-system-distance>100</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>F</sign>
-          <line>4</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="119" default-y="78">l</ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="19" default-y="89"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="165">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="19" default-y="89"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="19" default-y="89"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3" width="172">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="19" default-y="89"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="19" default-y="89"></ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
-
 [SCORE+TAB: imagini_partituri/partitura-tab-p229-D.png | XML: partituri_xml/partitura-tab-p229-D.mxl]
 
 ```xml
@@ -78785,95 +69359,6 @@ Musical Application
 Secondary dominants and their associated ii chords can be used almost any time you change chords. For example, take the first 
 four bars of Bella by Barlight.
 
-[SCORE: imagini_partituri/partitura-p230.png | XML: partituri_xml/partitura-p230.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p230.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p230.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>304</page-height>
-      <page-width>1204</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="298">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>65</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="236"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="236"></measure>
-  </part>
-</score-partwise>
-```
-
 The first two bars of Bella’ already form a ii V that looks like it should resolve to Dm7 although there is actually a key change 
 and we move to Cm7. It is possible to use secondary dominant techniques on an existing ii V chord progression, but it is easier 
 to learn by applying to chords that aren’t already a 5th apart. In the above progression, the A7 to Cm7 is a prime candidate. 
@@ -78906,95 +69391,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 [DIAGRAMA: imagini_partituri/diagrama-p231-E.png | PUNCTE: 1/3 2/1 3/7 3/9 5/3]
 
-[SCORE: imagini_partituri/partitura-p231-F.png | XML: partituri_xml/partitura-p231-F.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p231-F.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p231-F.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>298</page-height>
-      <page-width>1201</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="268">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>59</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="320"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="208"></measure>
-  </part>
-</score-partwise>
-```
-
 Play through this sequence with simple root position chords in the following way. Pay careful attention to the rhythm of bar 
 two, as the rhythmic phrasing of the newly introduced chords is important. For added ‘smoothness’ try playing each dominant 
 chord with a 7#5 tension.
@@ -79009,97 +69405,6 @@ Example 4j:
 [DIAGRAMA: imagini_partituri/diagrama-p231-H.png | CUVINTE: Example 4j | PUNCTE: 2/4 3/1 3/6]
 
 [DIAGRAMA: imagini_partituri/diagrama-p231-I.png | VOICING: 4-1-1-x-6-x]
-
-[SCORE: imagini_partituri/partitura-p231-J.png | XML: partituri_xml/partitura-p231-J.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p231-J.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p231-J.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>299</page-height>
-      <page-width>1199</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="216">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>60</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="237"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="155"></measure>
-    <!--=======================================================-->
-    <measure number="4" width="237"></measure>
-  </part>
-</score-partwise>
-```
 
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
@@ -79430,176 +69735,6 @@ Example 4k:
 The middle eight bars of Bella’ are also prime candidates for the secondary dominant treatment, as each chord is held for two 
 bars. The chord sequence is as follows:
 
-[SCORE: imagini_partituri/partitura-p232-K.png | XML: partituri_xml/partitura-p232-K.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p232-K.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p232-K.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>295</page-height>
-      <page-width>1239</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="291">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>53</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="249"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="250"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p232-L.png | XML: partituri_xml/partitura-p232-L.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p232-L.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_005\partitura-p232-L.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>294</page-height>
-      <page-width>1239</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="291">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>53</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="249"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="250"></measure>
-  </part>
-</score-partwise>
-```
-
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 232
@@ -79614,287 +69749,9 @@ we were going to continue to the Em7b5 chord in the following bar.
  
 The resulting progression is:
 
-[SCORE: imagini_partituri/partitura-p233-A.png | XML: partituri_xml/partitura-p233-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p233-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p233-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>290</page-height>
-      <page-width>1204</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="282">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>51</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="241"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="242"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p233-B.png | XML: partituri_xml/partitura-p233-B.mxl | CUVINTE: Play through with simple root position chords before arranging the chords with good voice leading.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p233-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p233-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>336</page-height>
-      <page-width>1247</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Play through with simple root position chords before arranging the chords with good voice leading.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="292">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>23</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>54</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="250" />
-    
-    <measure number="3" width="251" />
-  </part>
-</score-partwise>
-```
-
 Play through with simple root position chords before arranging the chords with good voice leading.  
  
 Example 4l:
-
-[SCORE: imagini_partituri/partitura-p233-C.png | XML: partituri_xml/partitura-p233-C.mxl | CUVINTE: Example 4m]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp84k25nmm\partitura-p233-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp84k25nmm\partitura-p233-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>374</page-height>
-      <page-width>1138</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="179" default-y="140" font-family="sans-serif" font-style="italic" font-size="12" font-weight="bold">3</credit-words>
-  </credit>
-  <credit page="1"><credit-words>Example 4m</credit-words></credit><credit page="1"><credit-words>Nota: ultima masura (goala) a fost adaugata artificial la conversie - portativul original era prea scurt pentru OMR</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="114">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>39</left-margin>
-            <right-margin>29</right-margin>
-          </system-margins>
-          <top-system-distance>100</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="114" default-y="62" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="16" default-y="69" />
-      </barline>
-    </measure>
-    
-    <measure number="2" width="97">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="75" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="75" />
-      </barline>
-    </measure>
-    
-    <measure number="3" width="66">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="75" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="75" />
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
 
 [SCORE: imagini_partituri/partitura-p233-D.png | XML: partituri_xml/partitura-p233-D.mxl]
 
@@ -80812,167 +70669,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 Example 4n:
 
-[SCORE: imagini_partituri/partitura-p234.png | XML: partituri_xml/partitura-p234.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p234.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p234.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.8853</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>322</page-height>
-      <page-width>876</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="658" default-y="155" font-family="sans-serif" font-size="12" font-weight="bold">10</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="725" default-y="155" font-family="sans-serif" font-size="12" font-weight="bold">10</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="119">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>14</right-margin>
-          </system-margins>
-          <top-system-distance>92</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="117" default-y="77"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="13" default-y="83"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="99">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="13" default-y="83"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="13" default-y="83"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3" width="68">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="13" default-y="83"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="13" default-y="83"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="4" width="98">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="13" default-y="83"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="13" default-y="83"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="5" width="71">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="13" default-y="83"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="13" default-y="83"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="6" width="91">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="13" default-y="83"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="13" default-y="83"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="7" width="67">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="13" default-y="83"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="13" default-y="83"></ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
-
 Work very slowly through the above progression to make sure you understand how every extension and alteration is played on 
 each chord. 
  
@@ -81068,99 +70764,6 @@ Let’s take a look at this idea in action.
  
 Consider the following sequence that occurs in the final section of Bella:
 
-[SCORE: imagini_partituri/partitura-p236-A.png | XML: partituri_xml/partitura-p236-A.mxl | CUVINTE: Consider the following sequence that occurs in the final section of Bella, The A7(b9) is a functional dominant chord that resolves to Dm7b5.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Consider the following sequence that occurs in the final section of Bella</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p236-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p236-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>421</page-height>
-      <page-width>1207</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="634" default-y="260" font-family="serif" font-size="18">I</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="150" default-y="260" font-family="serif" font-size="17">ii</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="391" default-y="260" font-family="serif" font-size="16" font-weight="bold">V</credit-words>
-  </credit>
-  <credit page="1"><credit-words>The A7(b9) is a functional dominant chord that resolves to Dm7b5.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="282">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>20</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>134</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="241" />
-    
-    <measure number="3" width="242" />
-  </part>
-</score-partwise>
-```
-
 The A7(b9) is a functional dominant chord that resolves to Dm7b5. 
  
 The tritone substitution rule says that we can play a dominant chord on the b5 of A7.  
@@ -81168,96 +70771,6 @@ The tritone substitution rule says that we can play a dominant chord on the b5 o
 The b5 of A7 (three tones above) is the note Eb. 
  
 So we can play the chord Eb7 in place of the A7b9 chord to create the following chord sequence:
-
-[SCORE: imagini_partituri/partitura-p236-B.png | XML: partituri_xml/partitura-p236-B.mxl | CUVINTE: So we can play the chord Eb7 in place of the A7b9 chord to create the following chord sequence, Notice how the root movement between each chord now falls in semitones. E – Eb – D.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>So we can play the chord Eb7 in place of the A7b9 chord to create the following chord sequence</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p236-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p236-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>413</page-height>
-      <page-width>1205</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="633" default-y="255" font-family="serif" font-size="18">I</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="151" default-y="255" font-family="serif" font-size="17">ii</credit-words>
-  </credit>
-  <credit page="1"><credit-words>Notice how the root movement between each chord now falls in semitones. E – Eb – D.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="281">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>20</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>130</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="241" />
-    
-    <measure number="3" width="241" />
-  </part>
-</score-partwise>
-```
 
 Notice how the root movement between each chord now falls in semitones. E – Eb – D. 
  
@@ -81306,114 +70819,6 @@ Eventually this process will become as quick and unconscious as knowing that 2 +
  
 The final eight bars of Bella by Barlight form a descending sequence of ii V I progressions in three different keys, eventually 
 resolving to the tonic chord of BbMaj7. They can be seen in the following diagram:
-
-[SCORE: imagini_partituri/partitura-p237-A.png | XML: partituri_xml/partitura-p237-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p237-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p237-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>333</page-height>
-      <page-width>1240</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <credit page="1">
-    <credit-words default-x="165" default-y="211" font-family="serif" font-size="16" font-weight="bold">ii</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="289" default-y="211" font-family="serif" font-size="23" font-weight="bold">v</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="539" default-y="211" font-family="serif" font-size="23" font-weight="bold">v</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="789" default-y="211" font-family="serif" font-size="23" font-weight="bold">v</credit-words>
-  </credit>
-  <credit page="1">
-    <credit-words default-x="887" default-y="211" font-family="serif" font-size="16" font-weight="bold">1</credit-words>
-  </credit>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="167">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>91</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="125"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="125"></measure>
-    <!--=======================================================-->
-    <measure number="4" width="125"></measure>
-    <!--=======================================================-->
-    <measure number="5" width="125"></measure>
-    <!--=======================================================-->
-    <measure number="6" width="125"></measure>
-    <!--=======================================================-->
-    <measure number="7" width="125"></measure>
-  </part>
-</score-partwise>
-```
 
 The Dm7b5 functions as both the I chord for the Em7b5 – A7b9 sequence and as the ii chord in the following ii V I 
 progression. The same is true for the Cm7b5 chord. 
@@ -81863,99 +71268,6 @@ As with secondary dominants, we can place ii chords before each new b5 (tritone)
 root of the new V7 chord. For example, the ii chord of Eb7 is Bbm7.  
  
 These substitutions are shown below.
-
-[SCORE: imagini_partituri/partitura-p237-C.png | XML: partituri_xml/partitura-p237-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p237-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p237-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>296</page-height>
-      <page-width>1202</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="161">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>58</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="121"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="121"></measure>
-    <!--=======================================================-->
-    <measure number="4" width="120"></measure>
-    <!--=======================================================-->
-    <measure number="5" width="121"></measure>
-    <!--=======================================================-->
-    <measure number="6" width="121"></measure>
-    <!--=======================================================-->
-    <measure number="7" width="120"></measure>
-  </part>
-</score-partwise>
-```
 
 This sequence can be played with ‘basic’ chord voicings on the guitar in the following way. Notice that I am using ‘9’ chords 
 instead of ‘7’ chords to provide smoother voice leading on each tritone substitutions. 
@@ -83192,98 +72504,6 @@ appropriate when played with the tune’s melody.
 Let’s now return to the earlier progression of secondary dominants and see how it could be played using close voice leading on 
 different strings. Here is that progression once again to refresh your memory.
 
-[SCORE: imagini_partituri/partitura-p240-A.png | XML: partituri_xml/partitura-p240-A.mxl | CUVINTE: Example 5f]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p240-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p240-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>342</page-height>
-      <page-width>1244</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Example 5f</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="167">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>21</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>59</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="125" />
-    
-    <measure number="3" width="125" />
-    
-    <measure number="4" width="125" />
-    
-    <measure number="5" width="125" />
-    
-    <measure number="6" width="125" />
-    
-    <measure number="7" width="125" />
-  </part>
-</score-partwise>
-```
-
 [SCORE: imagini_partituri/partitura-p240-B.png | XML: partituri_xml/partitura-p240-B.mxl | CUVINTE: Example 5f]
 
 ```xml
@@ -83925,161 +73145,6 @@ different strings. Here is that progression once again to refresh your memory.
 
 Example 5g:
 
-[SCORE: imagini_partituri/partitura-p240-C.png | XML: partituri_xml/partitura-p240-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p240-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p240-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>326</page-height>
-      <page-width>890</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="109">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>23</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="130" default-y="83"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="98">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3" width="74">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="4" width="98">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="5" width="72">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="6" width="105">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="7" width="70">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="16" default-y="85"></ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
-
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 240
@@ -84094,94 +73159,6 @@ Tritone substitutions can also be used with secondary dominant chords that have 
 Refresh your memory of the first four bars of Bella by Barlight:
 
 [TAB: imagini_partituri/tablatura-p241-A.png | CUVINTE: Let’s begin by adding a secondary dominant chord and its ii chord to the Cm7 in bar three, just as we did in example 4i]
-
-[SCORE: imagini_partituri/partitura-p241-B.png | XML: partituri_xml/partitura-p241-B.mxl | CUVINTE: Let’s begin by adding a secondary dominant chord and its ii chord to the Cm7 in bar three, just as we did in example 4i, Next, let's replace the secondary dominant chord (G7) for its tritone substitution, Db7.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Let’s begin by adding a secondary dominant chord and its ii chord to the Cm7 in bar three, just as we did in example 4i</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p241-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p241-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>381</page-height>
-      <page-width>1243</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Next, let's replace the secondary dominant chord (G7) for its tritone substitution, Db7.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="278">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>24</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>101</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="330" />
-    
-    <measure number="3" width="215" />
-  </part>
-</score-partwise>
-```
 
 Next, let's replace the secondary dominant chord (G7) for its tritone substitution, Db7. 
  
@@ -84199,187 +73176,10 @@ Example 5h:
 
 [DIAGRAMA: imagini_partituri/diagrama-p241-G.png | PUNCTE: 1/5 2/1 3/1 3/9 5/5]
 
-[SCORE: imagini_partituri/partitura-p241-H.png | XML: partituri_xml/partitura-p241-H.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p241-H.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p241-H.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>304</page-height>
-      <page-width>1241</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="273">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>63</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="349"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="210"></measure>
-  </part>
-</score-partwise>
-```
-
 Next, instead of playing Dm7, we can replace it with the ii chord of the b5 substitution (Abm7). *This will not work well when 
 played with the original melody to the tune. 
  
 Our progression becomes:
-
-[SCORE: imagini_partituri/partitura-p241-I.png | XML: partituri_xml/partitura-p241-I.mxl | CUVINTE: Our progression becomes, This can be played in the following way.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Our progression becomes</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p241-I.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p241-I.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>381</page-height>
-      <page-width>1204</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>This can be played in the following way.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="268">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>24</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>99</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="319" />
-    
-    <measure number="3" width="207" />
-  </part>
-</score-partwise>
-```
 
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
@@ -84625,94 +73425,6 @@ If you want to get really adventurous there’s nothing stopping you from reintr
  
 Example 5j:
 
-[SCORE: imagini_partituri/partitura-p242-B.png | XML: partituri_xml/partitura-p242-B.mxl | CUVINTE: Example 5j]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Example 5j</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p242-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p242-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>8.8053</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>348</page-height>
-      <page-width>1283</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="281">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>30</left-margin>
-            <right-margin>22</right-margin>
-          </system-margins>
-          <top-system-distance>103</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="358" />
-    
-    <measure number="3" width="216" />
-  </part>
-</score-partwise>
-```
-
 [DIAGRAMA: imagini_partituri/diagrama-p242-C.png | PUNCTE: 2/5 3/1 3/3 5/6]
 
 [DIAGRAMA: imagini_partituri/diagrama-p242-D.png | PUNCTE: 1/3 2/1 3/1 3/7]
@@ -84742,95 +73454,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 ---
 
 ## Pagina 243
-
-[SCORE: imagini_partituri/partitura-p243-A.png | XML: partituri_xml/partitura-p243-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p243-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p243-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>297</page-height>
-      <page-width>1197</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="268">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>59</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="319"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="207"></measure>
-  </part>
-</score-partwise>
-```
 
 We will begin by voice leading the above progression on the top four strings of the guitar. Watch out for any alterations I add to 
 the chords to smooth out the path of each voice.  
@@ -86165,411 +74788,6 @@ the chord sequence Cm7 – F7. Make sure you understand each step in the process
 S.D. = Secondary Dominant 
 T.T. = Tritone Substitution
 
-[SCORE: imagini_partituri/partitura-p245-A.png | XML: partituri_xml/partitura-p245-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p245-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_006\partitura-p245-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>293</page-height>
-      <page-width>1220</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="531">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>52</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p245-B.png | XML: partituri_xml/partitura-p245-B.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p245-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p245-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>8.8053</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>325</page-height>
-      <page-width>1261</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="552">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>22</right-margin>
-          </system-margins>
-          <top-system-distance>82</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p245-C.png | XML: partituri_xml/partitura-p245-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p245-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p245-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>321</page-height>
-      <page-width>1220</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="531">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>80</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p245-D.png | XML: partituri_xml/partitura-p245-D.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p245-D.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p245-D.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>323</page-height>
-      <page-width>1220</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="531">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>83</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p245-E.png | XML: partituri_xml/partitura-p245-E.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p245-E.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p245-E.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>322</page-height>
-      <page-width>1220</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="531">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>82</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-  </part>
-</score-partwise>
-```
-
 When you add tensions to the tritone substitution, stick to using 9s, #11s and 13s, although as your skills progress you may 
 wish to experiment more.
 
@@ -86655,168 +74873,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 ---
 
 ## Pagina 247
-
-[SCORE: imagini_partituri/partitura-p247-A.png | XML: partituri_xml/partitura-p247-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p247-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p247-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>295</page-height>
-      <page-width>1241</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="542">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>53</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p247-B.png | XML: partituri_xml/partitura-p247-B.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p247-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p247-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>316</page-height>
-      <page-width>1203</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="523">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>77</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-  </part>
-</score-partwise>
-```
 
 In the above example, C7 is the secondary dominant of F7, but it is also a dominant version of the original Cm7 chord. The C7 
 is played after the Cm7, but it could replace the Cm7 chord for the whole bar although care must be taken to avoid clashes with 
@@ -87328,426 +75384,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 ---
 
 ## Pagina 248
-
-[SCORE: imagini_partituri/partitura-p248-A.png | XML: partituri_xml/partitura-p248-A.mxl | CUVINTE: The first step is to substitute the CMaj7 in bar two for an Em7, as we saw at the beginning of this chapter.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p248-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p248-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>318</page-height>
-      <page-width>1202</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>The first step is to substitute the CMaj7 in bar two for an Em7, as we saw at the beginning of this chapter.</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="281">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>20</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>50</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="240" />
-    
-    <measure number="3" width="241" />
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p248-B.png | XML: partituri_xml/partitura-p248-B.mxl | CUVINTE: The first step is to substitute the CMaj7 in bar two for an Em7, as we saw at the beginning of this chapter., Next, let’s add secondary dominant chords to both the Em7 and the Dm7 chords]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>The first step is to substitute the CMaj7 in bar two for an Em7, as we saw at the beginning of this chapter.</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p248-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p248-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>365</page-height>
-      <page-width>1206</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Next, let’s add secondary dominant chords to both the Em7 and the Dm7 chords</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="281">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>23</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>92</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="240" />
-    
-    <measure number="3" width="241" />
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p248-C.png | XML: partituri_xml/partitura-p248-C.mxl | CUVINTE: Next, let’s add secondary dominant chords to both the Em7 and the Dm7 chords, Now we can change the Dm7 to a D7#9 (although you may wish to view this as the secondary dominant chord of G7).]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Next, let’s add secondary dominant chords to both the Em7 and the Dm7 chords</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p248-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p248-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>374</page-height>
-      <page-width>1204</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Now we can change the Dm7 to a D7#9 (although you may wish to view this as the secondary dominant chord of G7).</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="281">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="240" />
-    
-    <measure number="3" width="241" />
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p248-D.png | XML: partituri_xml/partitura-p248-D.mxl | CUVINTE: Now we can change the Dm7 to a D7#9 (although you may wish to view this as the secondary dominant chord of G7)., Finally, to keep the harmonic rhythm moving every two beats, let’s add the tritone substitution of G7 in the last bar.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Now we can change the Dm7 to a D7#9 (although you may wish to view this as the secondary dominant chord of G7).</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p248-D.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p248-D.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>378</page-height>
-      <page-width>1206</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Finally, to keep the harmonic rhythm moving every two beats, let’s add the tritone substitution of G7 in the last bar.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="281">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>94</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="241" />
-    
-    <measure number="3" width="241" />
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p248-E.png | XML: partituri_xml/partitura-p248-E.mxl | CUVINTE: Finally, to keep the harmonic rhythm moving every two beats, let’s add the tritone substitution of G7 in the last bar.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Finally, to keep the harmonic rhythm moving every two beats, let’s add the tritone substitution of G7 in the last bar.</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p248-E.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p248-E.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>336</page-height>
-      <page-width>1244</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="291">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>23</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="250" />
-    
-    <measure number="3" width="250" />
-  </part>
-</score-partwise>
-```
 
 Although we will continue this process further, this is a good point to stop and play some basic chords for the progression so 
 far.
@@ -88338,127 +75974,6 @@ Example 6a:
 
 Example 6b:
 
-[SCORE: imagini_partituri/partitura-p249-B.png | XML: partituri_xml/partitura-p249-B.mxl | CUVINTE: Now let’s take a look at another couple of substitution ideas that can be added.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p249-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p249-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.8853</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>340</page-height>
-      <page-width>874</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Now let’s take a look at another couple of substitution ideas that can be added.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="163">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>28</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>85</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>F</sign>
-          <line>4</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="114" default-y="74" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="12" default-y="75" />
-      </barline>
-    </measure>
-    
-    <measure number="2" width="137">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="12" default-y="75" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="12" default-y="75" />
-      </barline>
-    </measure>
-    
-    <measure number="3" width="137">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="12" default-y="75" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="12" default-y="75" />
-      </barline>
-    </measure>
-    
-    <measure number="4" width="137">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="12" default-y="75" />
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="12" default-y="75" />
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
-
 Now let’s take a look at another couple of substitution ideas that can be added. 
  
 Play through the next examples with basic ‘root position’ chords before working through the voice leading ideas in each 
@@ -88473,91 +75988,6 @@ the note D, which becomes the 5th of the G7 in the next chord.
 The Ab7#11 will also work well as a ‘no root’ Ab7b9#11 chord although I have not used it here, as I first want to clearly show 
 you the root movement in the following example. As always, experiment to see which extensions suit your ears. Remember that 
 melody is always a consideration when choosing substitutions.
-
-[SCORE: imagini_partituri/partitura-p249-C.png | XML: partituri_xml/partitura-p249-C.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p249-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p249-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>290</page-height>
-      <page-width>1203</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="282">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>51</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="241"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="241"></measure>
-  </part>
-</score-partwise>
-```
 
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
@@ -89066,90 +76496,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
         <accidental>natural</accidental>
       </note>
     </measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p250-B.png | XML: partituri_xml/partitura-p250-B.mxl | CUVINTE: Now I’m going to substitute the Em7 for an E7#9 as discussed earlier, Example 6d]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Now I’m going to substitute the Em7 for an E7#9 as discussed earlier</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p250-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_007\partitura-p250-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>384</page-height>
-      <page-width>1242</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Example 6d</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="291">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>21</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>97</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="249" />
-    
-    <measure number="3" width="250" />
   </part>
 </score-partwise>
 ```
@@ -89788,90 +77134,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 </score-partwise>
 ```
 
-[SCORE: imagini_partituri/partitura-p250-D.png | XML: partituri_xml/partitura-p250-D.mxl | CUVINTE: Next I can replace the B7 chord with its tritone substitution (F7, Example 6e]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>Next I can replace the B7 chord with its tritone substitution (F7</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p250-D.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p250-D.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>374</page-height>
-      <page-width>1206</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Example 6e</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="281">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>92</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="241" />
-    
-    <measure number="3" width="241" />
-  </part>
-</score-partwise>
-```
-
 [SCORE+TAB: imagini_partituri/partitura-tab-p250-E.png | CUVINTE: To create a chromatically descending bass line I can also replace the A7 in bar two with its tritone substitution, Eb7]
 
 Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
@@ -89881,90 +77143,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 ---
 
 ## Pagina 251
-
-[SCORE: imagini_partituri/partitura-p251-A.png | XML: partituri_xml/partitura-p251-A.mxl | CUVINTE: Example 6f]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p251-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p251-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>337</page-height>
-      <page-width>1247</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Example 6f</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="293">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>53</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="250" />
-    
-    <measure number="3" width="250" />
-  </part>
-</score-partwise>
-```
 
 [SCORE: imagini_partituri/partitura-p251-B.png | XML: partituri_xml/partitura-p251-B.mxl | CUVINTE: Example 6f]
 
@@ -90506,90 +77684,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 ```
 
 [TAB: imagini_partituri/tablatura-p251-C.png | CUVINTE: The previous few examples show how you can use step-by-step substitutions to go from something as simple as, to something as interesting as]
-
-[SCORE: imagini_partituri/partitura-p251-D.png | XML: partituri_xml/partitura-p251-D.mxl | CUVINTE: to something as interesting as]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>to something as interesting as</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p251-D.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p251-D.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>337</page-height>
-      <page-width>1247</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="293">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>96</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="250" />
-    
-    <measure number="3" width="250" />
-  </part>
-</score-partwise>
-```
 
 The important thing, however, is to use good voice leading when you play through the changes otherwise the ideas can sound 
 disjointed and awkward. It is normally perfectly acceptable to adjust extensions and alterations on any voicing to smooth the 
@@ -92070,91 +79164,6 @@ of the harmonised scale of C Major:
 
 As before, we will precede each chord with its secondary dominant:
 
-[SCORE: imagini_partituri/partitura-p254-B.png | XML: partituri_xml/partitura-p254-B.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p254-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p254-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.8853</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>314</page-height>
-      <page-width>506</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="189">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>22</left-margin>
-            <right-margin>10</right-margin>
-          </system-margins>
-          <top-system-distance>75</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="104" default-y="54"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="12" default-y="65"></ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
-
 [SCORE+TAB: imagini_partituri/partitura-tab-p254-C.png | XML: partituri_xml/partitura-tab-p254-C.mxl]
 
 ```xml
@@ -93189,117 +80198,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 ## Pagina 256
 
 Example 7b:
-
-[SCORE: imagini_partituri/partitura-p256-A.png | XML: partituri_xml/partitura-p256-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p256-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p256-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>326</page-height>
-      <page-width>891</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="193">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>23</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <clef>
-          <sign>F</sign>
-          <line>4</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="124" default-y="83"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="167">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="15" default-y="81"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3" width="167">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="15" default-y="81"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
 
 [SCORE: imagini_partituri/partitura-p256-B.png | XML: partituri_xml/partitura-p256-B.mxl | CUVINTE: Next, to help smooth the voice leading, play every tritone substitution as a 7b9 chord by replacing the root with a b9.]
 
@@ -95241,102 +82139,6 @@ each change which becomes more difficult as we add more substitutions.
 First play the ii V tritone substitution sequence with root position chords: 
  
 Example 7d:
-
-[SCORE: imagini_partituri/partitura-p257-A.png | XML: partituri_xml/partitura-p257-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p257-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p257-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.8853</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>318</page-height>
-      <page-width>619</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="187">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>17</left-margin>
-            <right-margin>10</right-margin>
-          </system-margins>
-          <top-system-distance>84</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="111" default-y="60"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="15" default-y="75"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="165">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="15" default-y="75"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="15" default-y="70"></ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
 
 [SCORE+TAB: imagini_partituri/partitura-tab-p257-B.png | XML: partituri_xml/partitura-tab-p257-B.mxl]
 
@@ -98541,101 +85343,6 @@ The Things You Are. This song’s harmony is based on the chord changes to All T
  
 The chords in the first eight bars of this tune are:
 
-[SCORE: imagini_partituri/partitura-p260-A.png | XML: partituri_xml/partitura-p260-A.mxl | CUVINTE: The chords in the first eight bars of this tune are]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>The chords in the first eight bars of this tune are</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p260-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p260-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>336</page-height>
-      <page-width>1244</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="206">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>26</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>96</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <key>
-          <fifths>-4</fifths>
-        </key>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="119" />
-    
-    <measure number="3" width="119" />
-    
-    <measure number="4" width="119" />
-    
-    <measure number="5" width="119" />
-    
-    <measure number="6" width="119" />
-    
-    <measure number="7" width="119" />
-  </part>
-</score-partwise>
-```
-
 These few bars are rife with substitution opportunities, but first let’s take a look at a few ways to play this sequence on the 
 guitar. 
  
@@ -99047,100 +85754,6 @@ Example 8a:
 
 Example 8b:
 
-[SCORE: imagini_partituri/partitura-p260-C.png | XML: partituri_xml/partitura-p260-C.mxl | CUVINTE: Now let’s add some extensions and alterations to help the voice leading flow smoothly.  Example 8c]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p260-C.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p260-C.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>344</page-height>
-      <page-width>894</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>Now let’s add some extensions and alterations to help the voice leading flow smoothly.  Example 8c</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="134">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>27</left-margin>
-            <right-margin>15</right-margin>
-          </system-margins>
-          <top-system-distance>87</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <staff-details print-object="yes" />
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="122" default-y="75" />
-      </barline>
-    </measure>
-    
-    <measure number="2" width="77" />
-    
-    <measure number="3" width="77" />
-    
-    <measure number="4" width="159" />
-    
-    <measure number="5" width="77" />
-    
-    <measure number="6" width="88" />
-  </part>
-</score-partwise>
-```
-
 [SCORE+TAB: imagini_partituri/partitura-tab-p260-D.png]
 
 ---
@@ -99149,161 +85762,6 @@ Example 8b:
 
 Example 8d:
 
-[SCORE: imagini_partituri/partitura-p261-A.png | XML: partituri_xml/partitura-p261-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p261-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p261-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>13.5467</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>326</page-height>
-      <page-width>893</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="139">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>23</left-margin>
-            <right-margin>14</right-margin>
-          </system-margins>
-          <top-system-distance>95</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="start" end-length="121" default-y="79"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="1" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="78">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3" width="78">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="4" width="78">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="5" width="82">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="6" width="82">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-    <!--=======================================================-->
-    <measure number="7" width="82">
-      <barline location="left">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="start" end-length="14" default-y="85"></ending>
-      </barline>
-      <barline location="right">
-        <bar-style>regular</bar-style>
-        <ending number="2" type="stop" end-length="14" default-y="85"></ending>
-      </barline>
-    </measure>
-  </part>
-</score-partwise>
-```
-
 Of course, there are many ways to voice these chords and by now you know how to explore these options. Refer back to 
 Chapter Three if you need more ways to practice these progressions. Keep looking for the closest ways to voice these chords 
 and experiment with different tensions on the dominant chords. The above examples barely scratch the surface.  
@@ -99311,103 +85769,6 @@ and experiment with different tensions on the dominant chords. The above example
 Let’s ignore melody for now and look at some possible substitutions that could be used over this chord sequence.  
  
 We will begin by adding secondary dominant chords where there is not already a V7 – I movement:
-
-[SCORE: imagini_partituri/partitura-p261-B.png | XML: partituri_xml/partitura-p261-B.mxl | CUVINTE: We will begin by adding secondary dominant chords where there is not already a V7 – I movement, I have included the Cm7 chord in bar nine to show the use of the secondary dominant G7#5 in bar eight.]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>We will begin by adding secondary dominant chords where there is not already a V7 – I movement</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p261-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p261-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>376</page-height>
-      <page-width>1245</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>I have included the Cm7 chord in bar nine to show the use of the secondary dominant G7#5 in bar eight.</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="210">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>27</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>100</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <key>
-          <fifths>-4</fifths>
-        </key>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="123" />
-    
-    <measure number="3" width="84" />
-    
-    <measure number="4" width="123" />
-    
-    <measure number="5" width="123" />
-    
-    <measure number="6" width="84" />
-    
-    <measure number="7" width="84" />
-    
-    <measure number="8" width="123" />
-  </part>
-</score-partwise>
-```
 
 I have included the Cm7 chord in bar nine to show the use of the secondary dominant G7#5 in bar eight. 
  
@@ -100168,180 +86529,6 @@ Study bar one. We can use a tritone substitution to replace the (dominant) F7#9,
 the chord was a Fm7 as it not a dominant 7 chord. 
  
 With these substitutions we could turn the above sequence into:
-
-[SCORE: imagini_partituri/partitura-p262-A.png | XML: partituri_xml/partitura-p262-A.mxl | CUVINTE: With these substitutions we could turn the above sequence into]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <movement-title>With these substitutions we could turn the above sequence into</movement-title><identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p262-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p262-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>338</page-height>
-      <page-width>1244</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="326">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>20</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>97</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <key>
-          <fifths>-4</fifths>
-        </key>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="239" />
-    
-    <measure number="3" width="239" />
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p262-B.png | XML: partituri_xml/partitura-p262-B.mxl | CUVINTE: These chords can be played as basic root position voicings as follows]
-
-```xml
-<?xml version='1.0' encoding='UTF-8'?>
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes" />
-      <supports type="yes" element="print" attribute="new-page" value="yes" />
-      <supports type="yes" element="accidental" />
-      <supports type="yes" element="beam" />
-      <supports type="yes" element="stem" />
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p262-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_008\partitura-p262-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.4827</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>335</page-height>
-      <page-width>1205</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10" />
-  </defaults>
-  <credit page="1"><credit-words>These chords can be played as basic root position voicings as follows</credit-words></credit><part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  
-  <part id="P1">
-    
-    <measure number="1" width="332">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>20</left-margin>
-            <right-margin>20</right-margin>
-          </system-margins>
-          <top-system-distance>56</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <key>
-          <fifths>-4</fifths>
-        </key>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes" />
-      </attributes>
-    </measure>
-    
-    <measure number="2" width="248" />
-    
-    <measure number="3" width="176" />
-  </part>
-</score-partwise>
-```
 
 [SCORE+TAB: imagini_partituri/partitura-tab-p262-C.png | XML: partituri_xml/partitura-tab-p262-C.mxl | CUVINTE: Example 8f]
 
@@ -101134,182 +87321,6 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 ---
 
 ## Pagina 263
-
-[SCORE: imagini_partituri/partitura-p263-A.png | XML: partituri_xml/partitura-p263-A.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p263-A.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p263-A.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>295</page-height>
-      <page-width>1234</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="329">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>54</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <key>
-          <fifths>-4</fifths>
-        </key>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="223"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="242"></measure>
-  </part>
-</score-partwise>
-```
-
-[SCORE: imagini_partituri/partitura-p263-B.png | XML: partituri_xml/partitura-p263-B.mxl]
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0.3 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="4.0.3">
-  <identification>
-    <encoding>
-      <software>Audiveris 5.11.0</software>
-      <supports type="yes" element="print" attribute="new-system" value="yes"></supports>
-      <supports type="yes" element="print" attribute="new-page" value="yes"></supports>
-      <supports type="yes" element="accidental"></supports>
-      <supports type="yes" element="beam"></supports>
-      <supports type="yes" element="stem"></supports>
-      <software>ProxyMusic 4.0.3</software>
-      <encoding-date>2026-08-25</encoding-date>
-    </encoding>
-    <source>C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p263-B.png</source>
-    <miscellaneous>
-      <miscellaneous-field name="source-file">C:\Users\adudc\AppData\Local\Temp\tmp5wpbf32i\lot_009\partitura-p263-B.png</miscellaneous-field>
-      <miscellaneous-field name="source-sheet-1">1</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-  <defaults>
-    <scaling>
-      <millimeters>9.1440</millimeters>
-      <tenths>40</tenths>
-    </scaling>
-    <page-layout>
-      <page-height>300</page-height>
-      <page-width>1234</page-width>
-      <page-margins type="both">
-        <left-margin>80</left-margin>
-        <right-margin>80</right-margin>
-        <top-margin>80</top-margin>
-        <bottom-margin>80</bottom-margin>
-      </page-margins>
-    </page-layout>
-    <lyric-font font-family="Sans Serif" font-size="10"></lyric-font>
-  </defaults>
-  <part-list>
-    <score-part id="P1">
-      <part-name>Voice</part-name>
-      <part-abbreviation>Voice</part-abbreviation>
-      <score-instrument id="P1-I1">
-        <instrument-name>Voice Oohs</instrument-name>
-      </score-instrument>
-      <midi-instrument id="P1-I1">
-        <midi-channel>1</midi-channel>
-        <midi-program>54</midi-program>
-        <volume>78</volume>
-      </midi-instrument>
-    </score-part>
-  </part-list>
-  <!--= = = = = = = = = = = = = = = = = = = = = = = = = = = = =-->
-  <part id="P1">
-    <!--=======================================================-->
-    <measure number="1" width="334">
-      <print>
-        <system-layout>
-          <system-margins>
-            <left-margin>18</left-margin>
-            <right-margin>21</right-margin>
-          </system-margins>
-          <top-system-distance>59</top-system-distance>
-        </system-layout>
-        <measure-numbering>system</measure-numbering>
-      </print>
-      <attributes>
-        <divisions>0</divisions>
-        <key>
-          <fifths>-4</fifths>
-        </key>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <staff-details print-object="yes"></staff-details>
-      </attributes>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2" width="247"></measure>
-    <!--=======================================================-->
-    <measure number="3" width="227"></measure>
-  </part>
-</score-partwise>
-```
 
 I have ‘borrowed’ two beats of bar seven to approach the D9 with its tritone substitution (Ab) to create a turnaround into the 
 Cm7 in bar 9. 
@@ -104061,51 +90072,190 @@ Licensed to marcaxis@gmail.com, Order FUN160202-5222-27127
 
 Other Books by Fundamental Changes
 
-The	  Complete	  Guide	  to	  Playing	  Blues	  Guitar	  Book	  One:	  Rhythm	  Guitar
+The	
+  Complete	
+  Guide	
+  to	
+  Playing	
+  Blues	
+  Guitar	
+  Book	
+  One:	
+  Rhythm	
+  Guitar
 
-The	  Complete	  Guide	  to	  Playing	  Blues	  Guitar	  Book	  Two:	  Melodic	  Phrasing
+The	
+  Complete	
+  Guide	
+  to	
+  Playing	
+  Blues	
+  Guitar	
+  Book	
+  Two:	
+  Melodic	
+  Phrasing
 
-The	  Complete	  Guide	  to	  Playing	  Blues	  Guitar	  Book	  Three:	  Beyond	  Pentatonics
+The	
+  Complete	
+  Guide	
+  to	
+  Playing	
+  Blues	
+  Guitar	
+  Book	
+  Three:	
+  Beyond	
+  Pentatonics
 
-The	  Complete	  Guide	  to	  Playing	  Blues	  Guitar	  Compilation
+The	
+  Complete	
+  Guide	
+  to	
+  Playing	
+  Blues	
+  Guitar	
+  Compilation
 
-The	  CAGED	  System	  and	  100	  Licks	  for	  Blues	  Guitar
+The	
+  CAGED	
+  System	
+  and	
+  100	
+  Licks	
+  for	
+  Blues	
+  Guitar
 
-Fundamental	  Changes	  in	  Jazz	  Guitar:	  The	  Major	  ii	  V	  I
+Fundamental	
+  Changes	
+  in	
+  Jazz	
+  Guitar:	
+  The	
+  Major	
+  ii	
+  V	
+  I
 
-Minor	  ii	  V	  Mastery	  for	  Jazz	  Guitar
+Minor	
+  ii	
+  V	
+  Mastery	
+  for	
+  Jazz	
+  Guitar
 
-Jazz	  Blues	  Soloing	  for	  Guitar
+Jazz	
+  Blues	
+  Soloing	
+  for	
+  Guitar
 
-Guitar	  Scales	  in	  Context
+Guitar	
+  Scales	
+  in	
+  Context
 
-Guitar	  Chords	  in	  Context
+Guitar	
+  Chords	
+  in	
+  Context
 
-Jazz	  Guitar	  Chord	  Mastery	  (Guitar	  Chords	  in	  Context	  Part	  Two)
+Jazz	
+  Guitar	
+  Chord	
+  Mastery	
+  (Guitar	
+  Chords	
+  in	
+  Context	
+  Part	
+  Two)
 
-Complete	  Technique	  for	  Modern	  Guitar
+Complete	
+  Technique	
+  for	
+  Modern	
+  Guitar
 
-Funk	  Guitar	  Mastery
+Funk	
+  Guitar	
+  Mastery
 
-The	  Complete	  Technique,	  Theory	  and	  Scales	  Compilation	  for	  Guitar
+The	
+  Complete	
+  Technique,	
+  Theory	
+  and	
+  Scales	
+  Compilation	
+  for	
+  Guitar
 
-Sight	  Reading	  Mastery	  for	  Guitar
+Sight	
+  Reading	
+  Mastery	
+  for	
+  Guitar
 
-Rock	  Guitar	  Un-­‐CAGED:	  The	  CAGED	  System	  and	  100	  Licks	  for	  Rock	  Guitar
+Rock	
+  Guitar	
+  Un-­‐CAGED:	
+  The	
+  CAGED	
+  System	
+  and	
+  100	
+  Licks	
+  for	
+  Rock	
+  Guitar
 
-The	  Practical	  Guide	  to	  Modern	  Music	  Theory	  for	  Guitarists
+The	
+  Practical	
+  Guide	
+  to	
+  Modern	
+  Music	
+  Theory	
+  for	
+  Guitarists
 
-Beginner’s	  Guitar	  Lessons:	  The	  Essential	  Guide
+Beginner’s	
+  Guitar	
+  Lessons:	
+  The	
+  Essential	
+  Guide
 
-Chord	  Tone	  Soloing	  for	  Jazz	  Guitar
+Chord	
+  Tone	
+  Soloing	
+  for	
+  Jazz	
+  Guitar
 
-Heavy	  Metal	  Rhythm	  Guitar
+Heavy	
+  Metal	
+  Rhythm	
+  Guitar
 
-Heavy	  Metal	  Lead	  Guitar
+Heavy	
+  Metal	
+  Lead	
+  Guitar
 
-Exotic	  Pentatonic	  Soloing	  for	  Guitar
+Exotic	
+  Pentatonic	
+  Soloing	
+  for	
+  Guitar
 
-Voice	  Leading	  Jazz	  Guitar
+Voice	
+  Leading	
+  Jazz	
+  Guitar
 
 Be Social
 
