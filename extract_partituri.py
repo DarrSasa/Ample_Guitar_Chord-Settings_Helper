@@ -192,6 +192,21 @@ def amprenta(cale):
             "modificat": int(st.st_mtime)}
 
 
+def json_nativ(o):
+    """Conversorul pentru json.dump: scalarii si matricile numpy devin
+    tipuri Python native. Detectia foloseste OpenCV, care intoarce
+    np.int32 (ex. bbox-urile din connectedComponentsWithStats), iar json
+    nu stie sa le scrie - un punct de control nu trebuie sa crape din
+    cauza tipului unui numar, mai ales ca pagina era deja detectata."""
+    if np is not None:
+        if isinstance(o, np.generic):
+            return o.item()
+        if isinstance(o, np.ndarray):
+            return o.tolist()
+    raise TypeError(f"Obiect de tip {type(o).__name__} nu poate fi "
+                    f"scris in JSON")
+
+
 def salveaza_stare(stare):
     """Scrie starea reluarii atomic (tmp + rename): o pana de curent in
     timpul scrierii nu corupe starea de la punctul de control anterior."""
@@ -199,7 +214,7 @@ def salveaza_stare(stare):
     cale = os.path.join(FOLDER_STARE, "stare.json")
     tmp = cale + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(stare, f, ensure_ascii=False)
+        json.dump(stare, f, ensure_ascii=False, default=json_nativ)
     os.replace(tmp, cale)
 
 
@@ -263,7 +278,7 @@ def salveaza_detectii_pagina(pno, gasite, randuri_text):
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump({"detectii": intrari,
                    "randuri_text": [list(r) for r in randuri_text]},
-                  f, ensure_ascii=False)
+                  f, ensure_ascii=False, default=json_nativ)
     os.replace(tmp, cale)
 
 
@@ -1318,7 +1333,10 @@ def detecteaza_diagrame(gray, masca_permisa, dpi, ocupate):
                                          # razlete nu devin "diagrame"
     dets = []
     for i in range(1, n):
-        x, y, w2, h2, aria = stats[i]
+        # stats vine din OpenCV ca np.int32: le facem int Python chiar aici,
+        # la sursa - x/y/w2/h2 intra in bbox si in "lungime", care ajung in
+        # cache-ul etapei 3 si in manifest.json (json nu scrie np.int32)
+        x, y, w2, h2, aria = (int(v) for v in stats[i])
         if not (lim_min <= w2 <= lim_max and lim_min <= h2 <= lim_max):
             continue
         if min(w2, h2) < dim_min:
@@ -1608,7 +1626,7 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None, stare=None,
         for pno, zone in enumerate(zone_sterse) if zone
     }
     with open(os.path.join(out_dir, "manifest.json"), "w", encoding="utf-8") as f:
-        json.dump(manifest, f, ensure_ascii=False, indent=2)
+        json.dump(manifest, f, ensure_ascii=False, indent=2, default=json_nativ)
 
     return len(partituri)
 
