@@ -1243,6 +1243,30 @@ def citeste_xml_text(cale):
         return None
 
 
+def xml_are_muzica(cale):
+    """Are MusicXML-ul macar o nota?
+
+    Audiveris produce uneori un fisier VALID dar GOL (masuri fara nicio
+    nota, ba chiar cu textul paginii pus in movement-title) pentru imagini
+    care nu sunt partituri: blocuri de text, desene, grile de acorduri.
+    Un asemenea fisier nu trebuie sa intre in carte ca partitura - e zgomot
+    pur pentru cititor si pentru aplicatie.
+
+    Daca fisierul nu poate fi citit sau parsat il lasam sa treaca: mai bine
+    o partitura ciudata in carte decat una buna aruncata din greseala."""
+    try:
+        continut = citeste_xml_text(cale)
+        if not continut:
+            return True
+        radacina = ET.fromstring(continut)
+    except ET.ParseError:
+        return True
+    except Exception:
+        return True
+    # MusicXML poate avea sau nu namespace; le acoperim pe amandoua
+    return bool(radacina.findall(".//note") or radacina.findall(".//{*}note"))
+
+
 # ===========================================================================
 # main
 # ===========================================================================
@@ -1355,7 +1379,12 @@ def ruleaza(args):
         if fname in terminate:
             intr = terminate[fname]
             if intr.get("xml"):
-                xml_per_png[fname] = intr["xml"]
+                if xml_are_muzica(intr["xml"]):
+                    xml_per_png[fname] = intr["xml"]
+                else:
+                    # XML gol ramas din rularea anterioara: nu il mai bagam
+                    # in carte, chiar daca starea il avea ca "gata cu XML"
+                    fara_muzica.add(fname)
             if intr.get("fara_muzica"):
                 fara_muzica.add(fname)
             if intr.get("voicing"):
@@ -1498,6 +1527,15 @@ def ruleaza(args):
                 # daca a crapat ('esec'), ramane partitura cu PNG, fara XML
         else:
             cale_xml = xml_existent
+
+        # 1b) Audiveris poate produce un fisier valid dar FARA NICIO NOTA
+        #     (bloc de text / desen detectat ca portativ). Il tratam ca pe
+        #     "fara muzica": cartea pastreaza PNG-ul, nu o partitura goala.
+        if cale_xml and not xml_are_muzica(cale_xml):
+            print(f"  {baza}: XML fara nicio nota (probabil text sau desen, "
+                  f"nu portativ) - ramane doar PNG")
+            cale_xml = None
+            fara_muzica.add(fname)
 
         # 2) injectam cuvintele descriptive in XML, la locul corect
         if cale_xml:
