@@ -100,16 +100,39 @@ Daca ocrmypdf se opreste cu mesajul:
 TaggedPDFError: This PDF is marked as a Tagged PDF. ... does not need OCR.
 ```
 
-**E o veste BUNA**: cartea NU e scanata — are deja text selectabil (a fost
-generata din Word/alt program). Atunci **sari peste OCR complet** si folosesti
-PDF-ul ORIGINAL direct la Pasii 6 si 8 (scripturile noastre citesc textul
-selectabil si gasesc partiturile care sunt imagini). Exemplele muzicale sunt
-aproape mereu imagini, deci detecția partiturilor merge oricum.
+NU e o pana: PDF-ul e marcat "Tagged" (are structura logica). De regula inseamna
+carte nascuta digital (export din Word/InDesign), DAR uneori e o carte scanata
+care a mai trecut printr-un OCR si a primit tagul pe drum. ocrmypdf vrea doar
+sa confirmi ca stii ce faci.
 
+**Pasul 0 — afla in ce categorie e cartea** (are text selectabil sau e scan?):
+
+```powershell
+py C:\MY_PYTHON_PROJECTS\Ample_Guitar_Chord-Settings_Helper\scripts\check-pdf-text.py "cartea.pdf"
 ```
-python scripts\extract-scores.py "cartea.pdf" --audiveris "C:\Program Files\Audiveris\Audiveris.exe"
-python scripts\package-book.py "cartea.pdf" "scores"
-```
+
+Apoi, in functie de rezultat:
+
+- **Toate paginile au text** -> cartea e nascuta digital: **SARI peste OCR
+  complet** si foloseste PDF-ul ORIGINAL direct la Pasul 6 (textul nativ e
+  mai bun decat orice OCR; exemplele muzicale sunt aproape mereu imagini,
+  deci detectia partiturilor merge oricum). `--deskew` nu-si are rostul aici.
+- **Majoritatea paginilor "SCANATA (fara text)"** -> scan cu tag fals (OCR
+  vechi doar pe o parte din pagini). OCR-uieste DOAR paginile fara text:
+  ```powershell
+  py -m ocrmypdf -l eng --skip-text "cartea.pdf" "cartea-ocr.pdf"
+  ```
+- **Paginile au text, dar e gunoi de OCR vechi** (cuvinte trunchiate, litere
+  dezordonate, cautari care nu gasesc nimic) -> refa stratul de text:
+  ```powershell
+  py -m ocrmypdf -l eng --redo-ocr "cartea.pdf" "cartea-ocr.pdf"
+  ```
+  ATENTIE: `--redo-ocr` NU se poate combina cu `--deskew` (ocrmypdf refuza
+  combinatia) - si nici nu trebuie: `extract_partituri.py` scaneaza oricum
+  fiecare pagina la 21 de unghiuri (-10..+10 grade) si exporta partiturile
+  deja indreptate.
+- `--force-ocr` (rasterizeaza TOT si inlocuieste si textul bun) - doar daca
+  chiar vrei asta; pentru cartile cu text nativ NU e recomandat.
 
 ---
 
@@ -138,52 +161,54 @@ python scripts\package-book.py "cartea.pdf" "scores"
 
 ## PASUL 6 — Extragi AUTOMAT partiturile (fara screenshot-uri)
 
-Din folderul proiectului (unde e `scripts\`), rulezi:
+Scriptul actual e `extract_partituri.py` (in radacina proiectului). Ruleaza-l
+din folderul in care ai cartea (folderul "parental") — acolo iti apar si
+rezultatele:
 
 ```powershell
-cd C:\MY_PYTHON_PROJECTS\Ample_Guitar_Chord-Settings_Helper
-python scripts\extract-scores.py "C:\carti\cartea_searchable.pdf"
+cd C:\MY_PYTHON_PROJECTS\Creare_Carti_Chitari
+py C:\MY_PYTHON_PROJECTS\Ample_Guitar_Chord-Settings_Helper\extract_partituri.py "cartea_searchable.pdf"
 ```
 
-Ce face scriptul:
-- randeaza fiecare pagina la 300 DPI;
-- gaseste singur liniile orizontale (= portativele);
-- decupeaza fiecare partitura si o salveaza ca:
+Ce face scriptul (3 etape):
+- **etapa 1**: filtreaza textul suprapus (stratul de OCR ghinionis);
+- **etapa 2**: sterge imaginile color (foto/ilustratii); pastreaza alb-negru;
+- **etapa 3**: gaseste singur partiturile si le exporta in
+  `imagini_partituri\`:
   ```
-  C:\carti\scores\score-p001-a.png   (pagina 1, partitura a)
-  C:\carti\scores\score-p001-b.png   (pagina 1, partitura b)
-  C:\carti\scores\score-p002-a.png   (pagina 2, partitura a)
-  ...
+  imagini_partituri\partitura-p3-A.png    (portativ, incepe pe pag. 3)
+  imagini_partituri\tablatura-p5.png      (tablatura, 6 linii)
+  imagini_partituri\partitura-tab-p6.png  (portativ + TAB lipite)
+  imagini_partituri\diagrama-p8-C.png     (grila de acorduri)
+  imagini_partituri\manifest.json         (evidenta + cuvintele de langa
+                                           partituri + pozitiile in PDF)
   ```
-- scrie `C:\carti\scores\manifest.json` cu lista + legaturile de continuare.
+- salveaza si `cartea_searchable-procesat.pdf` (PDF-ul filtrat).
 
-### Cu Audiveris (recomandat — scoate direct MusicXML)
+**Oprire, reluare, jurnal** (la cartile mari):
+- oprire controlata, oricand: `New-Item STOP -ItemType File` (in alt
+  PowerShell, in acelasi folder) sau Ctrl+C — scriptul termina pagina
+  curenta, isi salveaza progresul si se opreste;
+- reluare dupa oprire / pana de curent / restart: ruleaza DIN NOU aceeasi
+  comanda — continua singur de unde a ramas;
+- tot ce apare in terminal se scrie si in `jurnal_extract_partituri.log`;
+- pornire de la capat: `--de-la-inceput`.
+
+### Daca vrei sa ajustezi calitatea detectiei
 
 ```powershell
-python scripts\extract-scores.py "C:\carti\cartea_searchable.pdf" --audiveris "C:\Program Files\Audiveris\Audiveris.exe"
-```
-
-> Calea corecta la tine e `C:\Program Files\Audiveris\Audiveris.exe` (NU exista
-> un `.bat` — versiunea GUI pornește direct prin `.exe`). Am verificat: folderul
-> tau are doar `Audiveris.exe` + Java-ul ingobat in `runtime\bin\java.exe`.
-
-Acum, langa fiecare `score-pNNN-a.png` apare si `score-pNNN-a.mxl` (MusicXML)
-cu notele + articulatiile.
-
-### Daca vrei sa ajustezi calitatea detecției
-
-```powershell
-# dpi mai mare = mai exact, dar mai lent
-python scripts\extract-scores.py "C:\carti\cartea_searchable.pdf" --dpi 400
+# dpi mai mare = mai exact, dar mai lent (default 200)
+py ...\extract_partituri.py "cartea_searchable.pdf" --dpi 300
 ```
 
 ---
 
 ## PASUL 7 — VERIFICI rezultatul (important!)
 
-Deschide folderul `C:\carti\scores\` si uita-te la cateva PNG-uri:
+Deschide folderul `imagini_partituri\` (langa carte) si uita-te la cateva PNG-uri:
 - Partiturile sunt decupate intregi? (nu taiate)
 - Nu s-au decupat bucati de TEXT in loc de partituri?
+- Diagramele de acorduri sunt complete (grila + numele acordului)?
 
 Daca ceva e gresit (partitura taiata sau text confundat cu partitura), spune-mi
 si ajustez pragurile scriptului. **Nu e nevoie sa refaci nimic manual.**
@@ -192,21 +217,48 @@ si ajustez pragurile scriptului. **Nu e nevoie sa refaci nimic manual.**
 
 ## PASUL 8 — Combini textul + partiturile intr-un singur fisier
 
+Scriptul actual e `package-book.py` (in radacina proiectului), tot din folderul
+cu cartea:
+
 ```powershell
-python scripts\package-book.py "C:\carti\cartea_searchable.pdf" "C:\carti\scores"
+py C:\MY_PYTHON_PROJECTS\Ample_Guitar_Chord-Settings_Helper\package-book.py "cartea_searchable.pdf" --audiveris "C:\Program Files\Audiveris\Audiveris.exe"
 ```
 
-Rezultat: `C:\carti\cartea_searchable.md` — textul pe pagini + marcatori
-`[SCORE: scores/score-p001-a.mxl]` acolo unde sunt partiturile.
+> Calea corecta la tine e `C:\Program Files\Audiveris\Audiveris.exe` (NU exista
+> un `.bat` — versiunea GUI pornește direct prin `.exe`).
+
+Ce face:
+- converteste fiecare PNG in MusicXML prin Audiveris (portativele si perechile
+  portativ+TAB; tablaturile simple au convertor propriu, diagramele sunt citite
+  geometric — fara Audiveris);
+- injecteaza in XML cuvintele de langa partitura ("Vln" -> numele partii,
+  legenda de deasupra -> titlul);
+- construieste **cartea finala**: `cartea_searchable.md` — textul pe pagini +
+  marcatori `[SCORE: imagini_partituri/partitura-p3-A.png | XML: ...]` cu
+  XML-ul incorporat direct in carte (un singur fisier de citit);
+- salveaza si datele extrase: `date_extrase\voicinguri.json` (diagramele) si
+  `date_extrase\digitatie\` (cifrele din TAB).
+
+FARA `--audiveris` merge si asa (PNG-urile raman cu marcator in carte; poti
+converti mai tarziu reluand comanda cu `--audiveris`).
+
+**Oprire, reluare, jurnal** — la fel ca la Pasul 6: `New-Item STOP
+-ItemType File` sau Ctrl+C; reluarea = aceeasi comanda (partiturile deja
+convertite se sar); jurnalul: `jurnal_package_book.log`.
 
 ---
 
 ## PASUL 9 — Uploadezi pe GitHub (unde citesc eu)
 
-1. Intri pe:
-   `https://github.com/DarrSasa/Ample_Guitar_Chord-Settings_Helper/tree/arena/01a00f12-ample-guitar-chord-settings-he/docs/music-theory`
+1. Intri pe folderul potrivit din biblioteca de carti, pe ramura de lucru
+   curenta:
+   `https://github.com/DarrSasa/Ample_Guitar_Chord-Settings_Helper/tree/arena/01a03306-ample-guitar-chord-settings-he/documente/carti`
+   (alege folderul tematic: `01_Chord_Theory_and_Construction`,
+   `09_Guitar_Rhythm_and_Groove` etc. — vezi `documente/carti/README.md`)
 2. **Add file -> Upload files**.
-3. Trage: `cartea_searchable.md` + tot folderul `scores\` (cu `.mxl`-urile).
+3. Trage: `cartea_searchable.md` (XML-urile sunt deja incorporate in el, deci
+   fisierul asta e singurul strict necesar). Daca vrei sa verific si
+   imaginile, mai trage un zip cu `imagini_partituri\`.
 4. **Commit changes** (direct pe ramura `arena/...`).
 5. Imi spui "cartea e pe GitHub" — o citesc integral.
 
@@ -215,29 +267,35 @@ Rezultat: `C:\carti\cartea_searchable.md` — textul pe pagini + marcatori
 ## Rezumat rapid (comenzile in ordine)
 
 ```powershell
-# 1) biblioteci Python
+# 1) biblioteci Python (o singura data)
 pip install pymupdf opencv-python-headless numpy ocrmypdf
 
-# 2) OCR text (schimba 'spa' cu limba cartii: eng / spa / rus)
-ocrmypdf -l spa "C:\carti\cartea.pdf" "C:\carti\cartea_searchable.pdf"
+# 2) OCR text (schimba 'eng' cu limba cartii: eng / spa / rus)
+#    - daca primesti TaggedPDFError: vezi decizia din Pasul 4
+#      (check-pdf-text.py -> sari peste OCR / --skip-text / --redo-ocr)
+py -m ocrmypdf -l eng "cartea.pdf" "cartea-ocr.pdf"
 
-# 3) extragi partiturile (cu MusicXML prin Audiveris)
-python scripts\extract-scores.py "C:\carti\cartea_searchable.pdf" --audiveris "C:\Program Files\Audiveris\bin\Audiveris.bat"
+# 3) extragi partiturile (etapele 1-3; oprire: New-Item STOP -ItemType File;
+#    reluare dupa orice intrerupere: aceeasi comanda)
+py C:\MY_PYTHON_PROJECTS\Ample_Guitar_Chord-Settings_Helper\extract_partituri.py "cartea-ocr.pdf"
 
-# 4) combini totul
-python scripts\package-book.py "C:\carti\cartea_searchable.pdf" "C:\carti\scores"
+# 4) combini totul intr-un singur .md (+ MusicXML prin Audiveris)
+py C:\MY_PYTHON_PROJECTS\Ample_Guitar_Chord-Settings_Helper\package-book.py "cartea-ocr.pdf" --audiveris "C:\Program Files\Audiveris\Audiveris.exe"
 
-# 5) uploadezi in docs/music-theory/ pe GitHub
+# 5) uploadezi cartea.md in documente/carti/<folderul potrivit> pe GitHub
 ```
 
 ## Note cinstit (la ce sa te astepti)
 
 - **OCR pe text tiparit** = foarte bun. Pe tabele/diagrame poate fi dezordonat.
-- **Detectia partiturilor** = euristica; merge bine pe partituri tiparite
-  curate. Verifica vizual rezultatul (Pasul 7).
+- **Detectia partiturilor** = euristica, dar detectorul prinde si partituri
+  strambe (21 de unghiuri) si deosebeste portativ / tablatura / pereche /
+  diagrama de acorduri. Verifica vizual rezultatul (Pasul 7).
 - **Audiveris (OMR)** = bun pe partituri tiparite; pe notatii foarte dense sau
   scrise de mana poate rata detalii. MusicXML e cel mai bogat rezultat.
-- O partitura care **continua pe pagina urmatoare** e marcata in
-  `manifest.json` cu `"continuation_of": "previous-page"`, iar numele sunt
-  `score-p36-a` (pagina 36) si `score-p37-b` (pagina 37) — adica partile unei
-  partituri intinse pe mai multe pagini.
+- O partitura care **continua pe pagina urmatoare** este LIPITA intr-un singur
+  PNG (ex. `partitura-p22-23.png`); litera de la final (`-A`, `-B`) deosebeste
+  partiturile care impart aceleasi pagini.
+- La orice pana de curent sau restart: rulezi din nou ACEEASI comanda si
+  scriptul continua de unde a ramas (detalii in jurnalele
+  `jurnal_extract_partituri.log` / `jurnal_package_book.log`).
