@@ -63,6 +63,9 @@ subfolderul "imagini_partituri"):
     <pdf>-procesat.pdf                        <- PDF-ul filtrat (etapele 1-2)
     imagini_partituri/partitura-A-p22-23.png  (etc.)
     imagini_partituri/manifest.json           <- evidenta partiturilor
+    jurnal_extract_partituri.log              <- jurnalul rularilor (vezi jos)
+    stare_extract_partituri/                  <- starea reluarii (se sterge
+                                                   automat la final reusit)
 
 Dependinte (o singura data):
     pip install pymupdf opencv-python-headless numpy
@@ -70,13 +73,33 @@ Dependinte (o singura data):
 Folosire:
     python extract_partituri.py "carte.pdf"
     python extract_partituri.py "carte.pdf" --dpi 200
+
+Oprirea, reluarea si jurnalul (utile la cartile mari):
+    * OPRIRE controlata, oricand, din alt PowerShell deschis in ACELASI
+      folder (folderul parental), cu comanda:
+          New-Item STOP -ItemType File
+      Scriptul se opreste la pagina urmatoare, dupa ce isi salveaza
+      progresul (fisierul STOP e consumat - nu trebuie sters de tine).
+      Merge si Ctrl+C in fereastra scriptului.
+    * RELUARE dupa oprire, pana de curent sau restart neasteptat al PC-ului:
+      ruleaza DIN NOU aceeasi comanda - scriptul continua singur de unde
+      a ramas. Punctele de control: finalul etapei 1, finalul etapei 2 si,
+      in etapa 3, fiecare pagina in parte. Starea se tine in subfolderul
+      "stare_extract_partituri/" (PDF-ul partial + cache-ul paginilor).
+    * DE LA CAPAT (ignora progresul salvat): adauga  --de-la-inceput
+    * JURNAL: tot ce apare in terminal se scrie treptat (cu flush) si in
+      "jurnal_extract_partituri.log", in folderul parental. Fiecare rulare
+      isi pune un antet cu data si ora, deci jurnalul aduna istoricul
+      complet al rularilor (inclusiv unde s-a oprit si de unde a reluat).
 """
 
 import argparse
 import json
 import os
+import shutil
 import sys
 from collections import Counter
+from datetime import datetime
 
 import numpy as np
 import cv2
@@ -102,6 +125,180 @@ FRACT_LATIME = 0.10 # lungimea minima a liniilor cautate ~ 1/10 din latimea pagi
 PRAG_COLOR = 22     # diferenta max intre canalele R/G/B ca un pixel sa fie "gri"
 FRACT_COLOR = 0.02  # >2% pixeli colorati -> imaginea e "color"
 ACOPERIRE_SCAN = 0.8  # o imagine care acopera >=80% din pagina = scanul paginii
+
+
+# ---------------------------------------------------------------------------
+# Oprirea controlata + reluarea de unde a ramas + jurnalul din folderul parental
+# ---------------------------------------------------------------------------
+FISIER_STOP = "STOP"       # comanda de oprire: creeaza fisierul STOP
+FOLDER_STARE = "stare_extract_partituri"   # starea reluarii (+ cache etapa 3)
+FISIER_JURNAL = "jurnal_extract_partituri.log"
+FISIER_PDF_PARTIAL = "pdf-partial.pdf"     # in FOLDER_STARE: PDF-ul dupa etapele 1-2
+
+
+class OpritDeUser(Exception):
+    """Ridicat cand userul cere oprirea (fisierul STOP)."""
+
+
+class Jurnal:
+    """Dubleaza iesirea: tot ce apare in terminal se scrie treptat si in
+    fisierul de log din folderul parental (cu flush la fiecare rand, ca
+    o pana de curent sa nu piarda ultimele actiuni)."""
+
+    def __init__(self, cale):
+        self._f = open(cale, "a", encoding="utf-8")
+        self._consola = sys.stdout
+        sys.stdout = self
+
+    def write(self, text):
+        self._consola.write(text)
+        self._f.write(text)
+        self._f.flush()
+
+    def flush(self):
+        self._consola.flush()
+        self._f.flush()
+
+    def inchide(self):
+        sys.stdout = self._consola
+        self._f.close()
+
+
+def oprire_ceruta():
+    """True o singura data daca exista fisierul STOP (apoi il stergem, ca
+    reluarea sa nu se opreasca imediat la pornire)."""
+    if not os.path.isfile(FISIER_STOP):
+        return False
+    try:
+        os.remove(FISIER_STOP)
+    except OSError:
+        pass
+    return True
+
+
+def verifica_oprire():
+    """Punct de control al opririi: chemat intre pagini / intre partituri.
+    Daca oprirea e ceruta, ridica OpritDeUser - starea e deja salvata pe
+    disc de ultimul punct de control, deci oprirea nu pierde nimic."""
+    if oprire_ceruta():
+        raise OpritDeUser("gasit fisierul STOP in folder")
+
+
+def amprenta(cale):
+    """Identitatea unui fisier (cale + marime + data modificarilor) - daca
+    PDF-ul se schimba, starea veche de reluare nu mai e valabila."""
+    st = os.stat(cale)
+    return {"cale": os.path.abspath(cale), "octeti": st.st_size,
+            "modificat": int(st.st_mtime)}
+
+
+def salveaza_stare(stare):
+    """Scrie starea reluarii atomic (tmp + rename): o pana de curent in
+    timpul scrierii nu corupe starea de la punctul de control anterior."""
+    os.makedirs(FOLDER_STARE, exist_ok=True)
+    cale = os.path.join(FOLDER_STARE, "stare.json")
+    tmp = cale + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(stare, f, ensure_ascii=False)
+    os.replace(tmp, cale)
+
+
+def incarca_stare(pdf, dpi):
+    """Starea reluarii, daca exista si inca se potriveste cu PDF-ul si cu
+    rezolutia ceruta; altfel None (pornire de la capat)."""
+    cale = os.path.join(FOLDER_STARE, "stare.json")
+    if not os.path.isfile(cale):
+        return None
+    try:
+        with open(cale, encoding="utf-8") as f:
+            stare = json.load(f)
+    except Exception:
+        return None
+    if stare.get("versiune") != 1 or stare.get("dpi") != dpi:
+        return None
+    if stare.get("pdf") != amprenta(pdf):
+        return None
+    return stare
+
+
+def zone_in_json(zone_sterse):
+    """Zonele sterse (puncte PDF) -> dict serializabil {"pagina": [[x0,y0,x1,y1],..]}."""
+    return {str(pno + 1): [[r.x0, r.y0, r.x1, r.y1] for r in zone]
+            for pno, zone in enumerate(zone_sterse) if zone}
+
+
+def zone_din_json(data, n_pagini):
+    """Reconstructia zonelor sterse din starea salvata."""
+    zone = [[] for _ in range(n_pagini)]
+    for k, lst in (data or {}).items():
+        try:
+            pno = int(k) - 1
+        except ValueError:
+            continue
+        if 0 <= pno < n_pagini:
+            zone[pno] = [fitz.Rect(*v) for v in lst]
+    return zone
+
+
+def salveaza_detectii_pagina(pno, gasite, randuri_text):
+    """Cache-ul etapei 3: detectiile unei pagini + crop-urile ca PNG.
+    Scrierea e atomica: intai crop-urile si json-ul .tmp, abia apoi rename -
+    o pana de curent lasa cel mult fisiere orfane, niciodata o pagina
+    marcata "gata" fara datele ei."""
+    cache = os.path.join(FOLDER_STARE, "cache")
+    os.makedirs(cache, exist_ok=True)
+    baza = f"p{pno:04d}"
+    intrari = []
+    for k, d in enumerate(gasite):
+        nume_crop = f"{baza}-{k:02d}.png"
+        cv2.imwrite(os.path.join(cache, nume_crop), d["crop"])
+        intr = {"crop": nume_crop, "cuvinte": d.get("cuvinte", [])}
+        for cheie in ("bbox", "unghi", "nr_linii", "interlinie", "lungime",
+                      "tip", "sub_zone", "corzi"):
+            if cheie in d:
+                intr[cheie] = d[cheie]
+        intrari.append(intr)
+    cale = os.path.join(cache, baza + ".json")
+    tmp = cale + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump({"detectii": intrari,
+                   "randuri_text": [list(r) for r in randuri_text]},
+                  f, ensure_ascii=False)
+    os.replace(tmp, cale)
+
+
+def incarca_detectii_pagina(pno):
+    """Intoarce (gasite, randuri_text) din cache, sau (None, None)."""
+    cache = os.path.join(FOLDER_STARE, "cache")
+    cale = os.path.join(cache, f"p{pno:04d}.json")
+    if not os.path.isfile(cale):
+        return None, None
+    try:
+        with open(cale, encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        return None, None
+    gasite = []
+    for intr in data.get("detectii", []):
+        crop = cv2.imread(os.path.join(cache, intr["crop"]),
+                          cv2.IMREAD_GRAYSCALE)
+        if crop is None:
+            return None, None
+        d = dict(intr)
+        d["crop"] = crop
+        gasite.append(d)
+    return gasite, data.get("randuri_text", [])
+
+
+def salveaza_si_reincarca(doc, cale):
+    """Salveaza PDF-ul de lucru in `cale` (atomic, cu garbage collect) si
+    intoarce documentul redeschis din fisierul proaspat salvat."""
+    os.makedirs(os.path.dirname(cale) or ".", exist_ok=True)
+    tmp = cale + ".tmp.pdf"
+    doc.save(tmp, garbage=3, deflate=True)
+    doc.close()
+    os.replace(tmp, cale)
+    return fitz.open(cale)
 
 
 # ---------------------------------------------------------------------------
@@ -219,6 +416,7 @@ def etapa1_filtrare_text(doc, dpi, zone_sterse):
     total_sterse = 0
 
     for pno, page in enumerate(doc):
+        verifica_oprire()   # fisier STOP -> oprire controlata (etapa se va relua)
         gray = render_gray(page, dpi)  # pagina ORIGINALA, inainte de stersaturi
         d = page.get_text("dict")
 
@@ -321,6 +519,7 @@ def zone_color_din_scan(page, dpi_color=100):
 def etapa2_filtrare_imagini(doc, zone_sterse):
     sterse = pastrate = zone_scan = 0
     for pno, page in enumerate(doc):
+        verifica_oprire()   # fisier STOP -> oprire controlata (etapa se va relua)
         aria_pag = page.rect.width * page.rect.height
         e_scan = False
         for info in page.get_images(full=True):
@@ -1122,21 +1321,38 @@ def detecteaza_diagrame(gray, masca_permisa, dpi, ocupate):
     return dets
 
 
-def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
+def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None, stare=None):
     """Detecteaza partiturile si le exporta ca PNG in `out_dir`.
 
     Identificarea NU se scrie in PDF: ea devine numele fisierului PNG.
     Litera (A, B, ...) se adauga DOAR cand mai multe partituri impart
     aceleasi pagini si trebuie deosebite intre ele:
         partitura-A-p22-23.png, partitura-B-p22-23.png, partitura-p31.png
+
+    RELUARE: paginile din lista `stare["etapa3_pagini_gata"]` nu se
+    recalculeaza - detectiile lor se incarca din cache-ul
+    stare_extract_partituri/cache/ (scris la fiecare pagina, atomic).
     """
     scale = dpi / 72.0
     os.makedirs(out_dir, exist_ok=True)
+    stare = stare or {}
+    gata = set(stare.get("etapa3_pagini_gata", []))
 
     # 1) Detectie pe fiecare pagina, doar in zonele ramase (nesterse).
-    detectii = []
-    randuri_text = []   # toate randurile de text ale fiecarei pagini (px)
+    detectii = [None] * len(doc)
+    randuri_text = [None] * len(doc)   # toate randurile de text ale fiecarei pagini (px)
     for pno, page in enumerate(doc):
+        if pno in gata:
+            d, rd = incarca_detectii_pagina(pno)
+            if d is not None:
+                detectii[pno] = d
+                randuri_text[pno] = rd
+                print(f"  pagina {pno + 1}: reluata din cache (nu se recalculeaza)")
+                continue
+            gata.discard(pno)   # cache-ul lipseste -> recalculam pagina
+
+        verifica_oprire()       # fisier STOP -> oprire controlata, fara pierderi
+
         gray = render_gray(page, dpi)
         h, w = gray.shape
         masca = np.ones((h, w), dtype=bool)
@@ -1191,13 +1407,20 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
                             for (a0, a1, a2, a3, text) in cuv]
         gasite = gasite + diagrame
         gasite.sort(key=lambda p: (p["bbox"][1], p["bbox"][0]))
-        detectii.append(gasite)
+        detectii[pno] = gasite
+        randuri_text[pno] = toate_rd
         if gasite:
             tipuri = {}
             for p in gasite:
                 tipuri[p["tip"]] = tipuri.get(p["tip"], 0) + 1
             print(f"  pagina {pno + 1}: " + ", ".join(
                 f"{v} {k}" for k, v in sorted(tipuri.items())))
+        # punct de control: pagina detectata se salveaza pe disc (cache +
+        # stare) inainte sa trecem la pagina urmatoare - o pana de curent
+        # sau un STOP pierde cel mult pagina in curs
+        salveaza_detectii_pagina(pno, gasite, toate_rd)
+        stare.setdefault("etapa3_pagini_gata", []).append(pno)
+        salveaza_stare(stare)
 
     # 2) Evidenta: pe ce pagini apare si dispare fiecare partitura.
     #    O partitura care se termina la finalul unei pagini si alta care
@@ -1329,6 +1552,77 @@ def etapa3_partituri(doc, dpi, zone_sterse, out_dir, majoritar=None):
 # ===========================================================================
 # main
 # ===========================================================================
+def ruleaza(args):
+    """O rulare completa (sau continuata, daca exista starea reluarii)."""
+    if args.de_la_inceput and os.path.isdir(FOLDER_STARE):
+        shutil.rmtree(FOLDER_STARE, ignore_errors=True)
+        print(f"Starea de reluare a fost stearsa ({FOLDER_STARE}/) - pornim de la capat.")
+    # un STOP ramas de la o rulare anterioara nu trebuie sa ne opreasca acum
+    if os.path.isfile(FISIER_STOP):
+        oprire_ceruta()
+
+    out_pdf = args.out_pdf or (os.path.splitext(args.pdf)[0] + "-procesat.pdf")
+    pdf_partial = os.path.join(FOLDER_STARE, FISIER_PDF_PARTIAL)
+
+    stare = incarca_stare(args.pdf, args.dpi)
+    if stare:
+        n_gata = len(stare.get("etapa3_pagini_gata", []))
+        print(f"RELUARE din {FOLDER_STARE}/: etapele 1-{stare['etapa_terminata']} "
+              f"sunt gata, etapa 3 are {n_gata} pagini deja detectate.")
+        doc = fitz.open(pdf_partial)
+        zone_sterse = zone_din_json(stare.get("zone_sterse"), len(doc))
+        majoritar = stare.get("majoritar")
+    else:
+        stare = {"versiune": 1, "dpi": args.dpi, "pdf": amprenta(args.pdf),
+                 "etapa_terminata": 0, "majoritar": None,
+                 "zone_sterse": {}, "etapa3_pagini_gata": []}
+        doc = fitz.open(args.pdf)
+        zone_sterse = [[] for _ in range(len(doc))]
+        majoritar = None
+
+    print(f"PDF: {args.pdf} ({len(doc)} pagini)")
+
+    if stare["etapa_terminata"] < 1:
+        print("\n=== ETAPA 1: filtrare text (format majoritar, randuri suprapuse) ===")
+        majoritar, _ = etapa1_filtrare_text(doc, args.dpi, zone_sterse)
+        doc = salveaza_si_reincarca(doc, pdf_partial)
+        stare["etapa_terminata"] = 1
+        stare["majoritar"] = majoritar
+        stare["zone_sterse"] = zone_in_json(zone_sterse)
+        salveaza_stare(stare)
+        print("  (punct de control: etapa 1 terminata si salvata)")
+    else:
+        print("\n=== ETAPA 1: sarita (deja terminata in rularea anterioara) ===")
+
+    if stare["etapa_terminata"] < 2:
+        print("\n=== ETAPA 2: filtrare imagini/zone color (alb-negru/gri se pastreaza) ===")
+        etapa2_filtrare_imagini(doc, zone_sterse)
+        doc = salveaza_si_reincarca(doc, pdf_partial)
+        stare["etapa_terminata"] = 2
+        stare["zone_sterse"] = zone_in_json(zone_sterse)
+        salveaza_stare(stare)
+        print("  (punct de control: etapa 2 terminata si salvata)")
+    else:
+        print("\n=== ETAPA 2: sarita (deja terminata in rularea anterioara) ===")
+
+    print("\n=== ETAPA 3: detectare + evidenta + export partituri ===")
+    nr = etapa3_partituri(doc, args.dpi, zone_sterse, args.out_dir,
+                          majoritar, stare)
+
+    tmp = out_pdf + ".tmp.pdf"
+    doc.save(tmp, garbage=3, deflate=True)
+    doc.close()
+    os.replace(tmp, out_pdf)
+
+    shutil.rmtree(FOLDER_STARE, ignore_errors=True)
+    print(f"\nGata. {nr} partitura/i detectate.")
+    print(f"  PDF procesat : {out_pdf}")
+    print(f"  PNG-uri      : {args.out_dir}/")
+    print(f"  Manifest     : {os.path.join(args.out_dir, 'manifest.json')}")
+    print(f"  Jurnal       : {args.log}")
+    print(f"  (starea de reluare din {FOLDER_STARE}/ a fost stearsa - totul e complet)")
+
+
 def main():
     ap = argparse.ArgumentParser(
         description="Filtreaza textul majoritar suprapus si imaginile/zonele "
@@ -1341,32 +1635,37 @@ def main():
                     help="calea PDF-ului procesat (default: <pdf>-procesat.pdf)")
     ap.add_argument("--dpi", type=int, default=200,
                     help="rezolutia de scanare/export (default: 200)")
+    ap.add_argument("--log", default=FISIER_JURNAL,
+                    help=f"fisierul de jurnal din folderul parental "
+                         f"(default: {FISIER_JURNAL})")
+    ap.add_argument("--de-la-inceput", action="store_true",
+                    help="sterge starea de reluare si porneste de la capat")
     args = ap.parse_args()
 
     if not os.path.isfile(args.pdf):
         print(f"Nu gasesc fisierul: {args.pdf}")
         sys.exit(1)
 
-    out_pdf = args.out_pdf or (os.path.splitext(args.pdf)[0] + "-procesat.pdf")
-    doc = fitz.open(args.pdf)
-    zone_sterse = [[] for _ in range(len(doc))]
+    jurnal = Jurnal(args.log)
+    print(f"\n===== {datetime.now():%Y-%m-%d %H:%M:%S} | extract_partituri.py | {args.pdf} =====")
+    print("Oprire controlata: in alt PowerShell, in acest folder ->  New-Item STOP -ItemType File")
+    print("Reluare (dupa oprire / pana de curent / restart): ruleaza DIN NOU aceeasi comanda.")
 
-    print(f"PDF: {args.pdf} ({len(doc)} pagini)")
-    print("\n=== ETAPA 1: filtrare text (format majoritar, randuri suprapuse) ===")
-    majoritar, _ = etapa1_filtrare_text(doc, args.dpi, zone_sterse)
-
-    print("\n=== ETAPA 2: filtrare imagini/zone color (alb-negru/gri se pastreaza) ===")
-    etapa2_filtrare_imagini(doc, zone_sterse)
-
-    print("\n=== ETAPA 3: detectare + evidenta + export partituri ===")
-    nr = etapa3_partituri(doc, args.dpi, zone_sterse, args.out_dir, majoritar)
-
-    doc.save(out_pdf, garbage=3, deflate=True)
-    doc.close()
-    print(f"\nGata. {nr} partitura/i detectate.")
-    print(f"  PDF procesat : {out_pdf}")
-    print(f"  PNG-uri      : {args.out_dir}/")
-    print(f"  Manifest     : {os.path.join(args.out_dir, 'manifest.json')}")
+    try:
+        ruleaza(args)
+    except OpritDeUser:
+        print("\n*** OPRIRE CERUTA (fisierul STOP). ***")
+        print(f"Progresul pana aici e salvat in {FOLDER_STARE}/.")
+        print("Ca sa continui de unde a ramas, ruleaza din nou ACEEASI comanda")
+        print("(fara --de-la-inceput).")
+    except KeyboardInterrupt:
+        print("\n*** Intrerupt (Ctrl+C). ***")
+        print(f"Progresul salvat pana la ultimul punct de control e in {FOLDER_STARE}/.")
+        print("Etapa care era in curs se va relua de la ultimul punct de control")
+        print("la urmatoarea rulare a aceleiasi comande.")
+    finally:
+        print(f"===== {datetime.now():%Y-%m-%d %H:%M:%S} | sfarsitul rularii =====\n")
+        jurnal.inchide()
 
 
 if __name__ == "__main__":

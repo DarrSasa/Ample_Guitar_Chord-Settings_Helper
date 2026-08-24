@@ -118,6 +118,10 @@ Tot ce extrag din cărți intră în `date_extrase/` ca JSON, cu câmpul
 7. `Paul Gilreath - MIDI Orchestration` (M7 — deja început: cap. corzi ✔)
 8. restul (comping, funk, sweep, tremolo, virtuozitate) — rafinamente
 
+> **Încărcată deja**: `Bret Willmott — Complete Book of Harmony Theory &
+> Voicing` în `01_Chord_Theory_and_Construction/` (M2, fundație de
+> armonie/voicing — se citește împreună cu pct. 1, înainte de restul).
+
 ---
 
 ## 3b. Biblioteca pe 12 foldere (planul Gemini, îmbunătățit)
@@ -158,11 +162,34 @@ categorii + trierea cărților — sunt bune. Ce am îmbunătățit:
    articulațiile/FX-urile **Ample Sound** (vezi §8a).
 
 - [x] cele 12 foldere create în `documente/carti/` ✔
-- [ ] prima carte .md încărcată (începe cu 01 sau 12 — prioritate MVP)
+- [x] prima carte .md încărcată: `01_Chord_Theory_and_Construction/Bret
+      Willmott - Complete Book of Harmony Theory & Voicing-ocr.md` ✔
+      (M2 — se citește prima, împreună cu Encyclopedia of Guitar Chords)
 - [ ] la fiecare carte citită: reguli → `date_extrase/` + actualizare
       `documente/log_rezolvari.md` + rescriere TODO
 - [ ] mai târziu: restructurarea folderelor dacă practica o cere
       (decizia după primele ~10 cărți citite)
+
+---
+
+## 3c. A doua trecere: re-examinarea cărților cu reguli lipsă (după prima trecere)
+
+- [ ] după ce TOATE cărțile .md din cele 12 foldere au fost examinate o
+      dată, revin asupra cărților care au reguli NEREZOLVATE în
+      `documente/log_rezolvari.md` (însemnările `NR-xxxx`) și caut
+      regulile lipsă DE DATA ASTA ÎN ÎNTREGIME (context complet:
+      explicație + exemplu muzical + excepții), nu doar fragmentar cum
+      se întâmplă la prima trecere;
+- [ ] regulile găsite complete la a doua trecere se folosesc pentru a
+      completa fișierele cu reguli lipsă din `date_extrase/`
+      (voicing-uri, articulații, pattern-uri etc.) și, prin ele,
+      modulele programului care depind de acele reguli;
+- [ ] după fiecare regulă completată: `documente/log_rezolvari.md` se
+      actualizează (regula mutată din „nerezolvate" la „rezolvate", cu
+      sursa precisă) și contorul general se recalculează;
+- [ ] dacă o regulă nici la a doua trecere nu se găsește în întregime,
+      rămâne la „nerezolvate", cu nota „re-examinată la a doua trecere"
+      (ca să nu se reia la nesfârșit).
 
 ---
 
@@ -245,8 +272,13 @@ categorii + trierea cărților — sunt bune. Ce am îmbunătățit:
 
 - [ ] inventarul programului din repo (src/): ce module de progresii,
       voicing-uri, keyswitch-uri există deja → să nu construim dublu
-- [ ] pipeline-ul cărților (`extract_partituri.py` + `package-book.py`)
-      = fabrica de cunoștințe pentru §3 ✔ gata
+- [x] pipeline-ul cărților (`extract_partituri.py` + `package-book.py`)
+      = fabrica de cunoștințe pentru §3 ✔ gata — acum cu **oprire
+      controlată** (fișier `STOP` sau Ctrl+C), **reluare automată de unde
+      a rămas** după oprire/pană de curent/restart (puncte de control:
+      etapele 1-2 și fiecare pagină la extract, fiecare partitură la
+      package-book) și **jurnal** în folderul parental
+      (`jurnal_extract_partituri.log` / `jurnal_package_book.log`)
 - [ ] `documente/carti/` — de creat pe măsură ce procesezi cărțile
 
 ## 6b. Șantier nou: tablaturi + diagrame de acorduri (în lucru)

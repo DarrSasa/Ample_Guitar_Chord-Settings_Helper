@@ -32,5 +32,6 @@ Reguli:
 - lipsurile se rezolva dupa protocolul din TODO §8b, cu evidenta in
   `documente/log_rezolvari.md`.
 
-Incarcarea se face pe branch-ul `arena/01a02a61-ample-guitar-chord-settings-he`:
-https://github.com/DarrSasa/Ample_Guitar_Chord-Settings_Helper/upload/arena/01a02a61-ample-guitar-chord-settings-he/documente/carti
+Incarcarea se face pe branch-ul curent de lucru
+`arena/01a03306-ample-guitar-chord-settings-he`:
+https://github.com/DarrSasa/Ample_Guitar_Chord-Settings_Helper/upload/arena/01a03306-ample-guitar-chord-settings-he/documente/carti

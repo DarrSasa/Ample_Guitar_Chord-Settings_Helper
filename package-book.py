@@ -33,6 +33,24 @@ Folosire (din folderul parental, dupa extract_partituri.py):
     python package-book.py "carte.pdf" --audiveris "C:\\Program Files\\Audiveris\\Audiveris.exe"
     python package-book.py "carte.pdf" --imagini imagini_partituri --scores-dir partituri_xml
 
+Oprirea, reluarea si jurnalul (utile la cartile mari):
+    * OPRIRE controlata, oricand, din alt PowerShell deschis in ACELASI
+      folder (folderul parental), cu comanda:
+          New-Item STOP -ItemType File
+      Scriptul termina partitura din curs, isi salveaza progresul si se
+      opreste (fisierul STOP e consumat - nu trebuie sters de tine).
+      Merge si Ctrl+C in fereastra scriptului.
+    * RELUARE dupa oprire, pana de curent sau restart neasteptat al PC-ului:
+      ruleaza DIN NOU aceeasi comanda - scriptul sare singur peste
+      partiturile deja convertite si continua cu cele ramase. Punctul de
+      control este partitura: fiecare PNG convertit (sau macar incercat)
+      e consemnat in "stare_package_book.json", scris atomic.
+    * DE LA CAPAT (ignora progresul salvat): adauga  --de-la-inceput
+    * JURNAL: tot ce apare in terminal se scrie treptat (cu flush) si in
+      "jurnal_package_book.log", in folderul parental. Fiecare rulare isi
+      pune un antet cu data si ora, deci jurnalul aduna istoricul complet
+      al rularilor (inclusiv unde s-a oprit si de unde a reluat).
+
 Dependinte:  pip install pymupdf opencv-python-headless numpy
 """
 
@@ -46,6 +64,7 @@ import sys
 import tempfile
 import zipfile
 import xml.etree.ElementTree as ET
+from datetime import datetime
 
 try:
     import numpy as np
@@ -60,6 +79,103 @@ except ImportError:
         import fitz
     except ImportError:
         fitz = None
+
+
+# ---------------------------------------------------------------------------
+# Oprirea controlata + reluarea de unde a ramas + jurnalul din folderul parental
+# ---------------------------------------------------------------------------
+FISIER_STOP = "STOP"                       # comanda de oprire: creeaza fisierul STOP
+FISIER_STARE = "stare_package_book.json"   # starea reluarii (pe partituri)
+FISIER_JURNAL = "jurnal_package_book.log"
+
+
+class OpritDeUser(Exception):
+    """Ridicat cand userul cere oprirea (fisierul STOP)."""
+
+
+class Jurnal:
+    """Dubleaza iesirea: tot ce apare in terminal se scrie treptat si in
+    fisierul de log din folderul parental (cu flush la fiecare rand, ca
+    o pana de curent sa nu piarda ultimele actiuni)."""
+
+    def __init__(self, cale):
+        self._f = open(cale, "a", encoding="utf-8")
+        self._consola = sys.stdout
+        sys.stdout = self
+
+    def write(self, text):
+        self._consola.write(text)
+        self._f.write(text)
+        self._f.flush()
+
+    def flush(self):
+        self._consola.flush()
+        self._f.flush()
+
+    def inchide(self):
+        sys.stdout = self._consola
+        self._f.close()
+
+
+def oprire_ceruta():
+    """True o singura data daca exista fisierul STOP (apoi il stergem, ca
+    reluarea sa nu se opreasca imediat la pornire)."""
+    if not os.path.isfile(FISIER_STOP):
+        return False
+    try:
+        os.remove(FISIER_STOP)
+    except OSError:
+        pass
+    return True
+
+
+def verifica_oprire():
+    """Punct de control al opririi: chemat inainte de fiecare partitura.
+    Daca oprirea e ceruta, ridica OpritDeUser - starea e deja salvata pe
+    disc pentru toate partiturile terminate, deci oprirea nu pierde nimic."""
+    if oprire_ceruta():
+        raise OpritDeUser("gasit fisierul STOP in folder")
+
+
+def amprenta(cale):
+    """Identitatea unui fisier (cale + marime + data modificarilor) - daca
+    PDF-ul se schimba, starea veche de reluare nu mai e valabila."""
+    st = os.stat(cale)
+    return {"cale": os.path.abspath(cale), "octeti": st.st_size,
+            "modificat": int(st.st_mtime)}
+
+
+def incarca_stare(args):
+    """Starea reluarii, daca exista si inca se potriveste cu PDF-ul si cu
+    folderele de intrare/iesire; altfel None (pornire de la capat)."""
+    if not os.path.isfile(FISIER_STARE):
+        return None
+    try:
+        with open(FISIER_STARE, encoding="utf-8") as f:
+            stare = json.load(f)
+    except Exception:
+        return None
+    if stare.get("versiune") != 1:
+        return None
+    if stare.get("pdf") != amprenta(args.pdf):
+        return None
+    if (stare.get("imagini") != os.path.abspath(args.imagini)
+            or stare.get("scores_dir") != os.path.abspath(args.scores_dir)
+            or stare.get("date_dir") != os.path.abspath(args.date_dir)):
+        return None
+    if stare.get("audiveris") != args.audiveris:
+        print("(atentie: --audiveris difera fata de rularea anterioara - "
+              "partiturile ramase se convertesc cu setarea noua)")
+    return stare
+
+
+def salveaza_stare(stare):
+    """Scrie starea reluarii atomic (tmp + rename): o pana de curent in
+    timpul scrierii nu corupe starea de la punctul de control anterior."""
+    tmp = FISIER_STARE + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(stare, f, ensure_ascii=False)
+    os.replace(tmp, FISIER_STARE)
 
 
 # ---------------------------------------------------------------------------
@@ -791,37 +907,11 @@ def citeste_xml_text(cale):
         return None
 
 
-# ---------------------------------------------------------------------------
+# ===========================================================================
 # main
-# ---------------------------------------------------------------------------
-def main():
-    ap = argparse.ArgumentParser(
-        description="ETAPA 3: converteste PNG-urile din imagini_partituri in "
-                    "MusicXML (Audiveris), injecteaza cuvintele descriptive in "
-                    "XML si construieste cartea noua (book.md).")
-    ap.add_argument("pdf", help="PDF-ul cartii (originalul sau cel procesat)")
-    ap.add_argument("--imagini", default="imagini_partituri",
-                    help="folderul cu PNG-uri + manifest.json (default: imagini_partituri)")
-    ap.add_argument("--scores-dir", default="partituri_xml",
-                    help="folderul pentru fisierele MusicXML (default: partituri_xml)")
-    ap.add_argument("--audiveris", default="",
-                    help="calea catre Audiveris (optional; fara el se folosesc "
-                         "XML-urile deja existente in --scores-dir)")
-    ap.add_argument("--scala-omr", type=int, default=2,
-                    help="factorul de marire al PNG-ului dat lui Audiveris (default: 2)")
-    ap.add_argument("--doar-lipsa", action="store_true",
-                    help="nu reconverteste partiturile care au deja XML in "
-                         "--scores-dir (util la reluarea cartilor mari)")
-    ap.add_argument("--tesseract", default="",
-                    help="calea catre tesseract.exe (optional; citirea "
-                         "cifrelor TAB din cartile scanate)")
-    ap.add_argument("--date-dir", default="date_extrase",
-                    help="folderul pentru datele extrase: voicinguri.json, "
-                         "digitatie (default: date_extrase)")
-    ap.add_argument("--out", default=None,
-                    help="fisierul cartii noi (default: <pdf>.md)")
-    args = ap.parse_args()
-
+# ===========================================================================
+def ruleaza(args):
+    """O rulare completa (sau continuata, daca exista starea reluarii)."""
     if fitz is None:
         print("Lipseste PyMuPDF. Ruleaza:  pip install pymupdf")
         sys.exit(1)
@@ -832,6 +922,13 @@ def main():
         print(f"Nu gasesc folderul cu imagini: {args.imagini}")
         print("Ruleaza intai etapa 2:  python extract_partituri.py <pdf>")
         sys.exit(1)
+
+    if args.de_la_inceput and os.path.isfile(FISIER_STARE):
+        os.remove(FISIER_STARE)
+        print(f"Starea de reluare a fost stearsa ({FISIER_STARE}) - pornim de la capat.")
+    # un STOP ramas de la o rulare anterioara nu trebuie sa ne opreasca acum
+    if os.path.isfile(FISIER_STOP):
+        oprire_ceruta()
 
     # manifestul etapei 2 (cuvintele descriptive + paginile)
     manifest = {}
@@ -847,16 +944,70 @@ def main():
         print(f"Niciun PNG de partitura in {args.imagini}/")
         sys.exit(1)
 
+    # starea reluarii: partiturile deja procesate nu se mai ating
+    stare = incarca_stare(args)
+    if stare is None:
+        stare = {"versiune": 1, "pdf": amprenta(args.pdf),
+                 "imagini": os.path.abspath(args.imagini),
+                 "scores_dir": os.path.abspath(args.scores_dir),
+                 "date_dir": os.path.abspath(args.date_dir),
+                 "audiveris": args.audiveris,
+                 "scala_omr": args.scala_omr,
+                 "terminate": {}}
+    terminate = stare["terminate"]
+    if terminate:
+        print(f"RELUARE din {FISIER_STARE}: {len(terminate)} din {len(pnguri)} "
+              f"partituri sunt deja procesate - se sar.")
+
     os.makedirs(args.scores_dir, exist_ok=True)
     xml_per_png = {}
     fara_muzica = set()   # PNG-uri in care Audiveris NU a gasit muzica
                           # (probabil poze/desene, nu partituri)
-    voicinguri = []       # diagramele de acorduri citite geometric
-    voicing_per_png = {}
+    voicing_per_png = {}  # diagramele de acorduri citite geometric
     doc = fitz.open(args.pdf)
+
+    def marcheaza_gata(fname):
+        """Punct de control: partitura e terminata (cu XML sau fara); starea
+        se salveaza atomic pe disc inainte de partitura urmatoare."""
+        terminate[fname] = {"xml": xml_per_png.get(fname),
+                            "fara_muzica": fname in fara_muzica,
+                            "voicing": voicing_per_png.get(fname)}
+        salveaza_stare(stare)
+
+    def salveaza_voicinguri():
+        """voicinguri.json se rescrie incremental, la fiecare diagrama citita
+        (nu doar la final) - o pana de curent nu pierde ce s-a citit."""
+        if not voicing_per_png:
+            return
+        os.makedirs(args.date_dir, exist_ok=True)
+        cale_v = os.path.join(args.date_dir, "voicinguri.json")
+        vechi = []
+        if os.path.isfile(cale_v):
+            try:
+                with open(cale_v, encoding="utf-8") as f:
+                    vechi = json.load(f)
+                vechi = [v for v in vechi
+                         if v.get("fisier") not in voicing_per_png]
+            except Exception:
+                vechi = []
+        nou = [voicing_per_png[f] for f in pnguri if f in voicing_per_png]
+        with open(cale_v, "w", encoding="utf-8") as f:
+            json.dump(vechi + nou, f, ensure_ascii=False, indent=1)
 
     print(f"Partituri gasite: {len(pnguri)}")
     for fname in pnguri:
+        verifica_oprire()   # fisier STOP -> oprire controlata, fara pierderi
+        if fname in terminate:
+            intr = terminate[fname]
+            if intr.get("xml"):
+                xml_per_png[fname] = intr["xml"]
+            if intr.get("fara_muzica"):
+                fara_muzica.add(fname)
+            if intr.get("voicing"):
+                voicing_per_png[fname] = intr["voicing"]
+            print(f"  {os.path.splitext(fname)[0]}: sarit (deja procesat "
+                  f"in rularea anterioara)")
+            continue
         info = manifest.get(fname, {})
         cuvinte = info.get("cuvinte", [])
         baza = os.path.splitext(fname)[0]
@@ -888,14 +1039,15 @@ def main():
                 rez["fisier"] = fname
                 rez["sursa"] = os.path.basename(args.pdf) + \
                     f" pag.{pagina_din_nume(fname)}"
-                voicinguri.append(rez)
                 voicing_per_png[fname] = rez
+                salveaza_voicinguri()
                 det = (f"acord='{nume_acord}', " if nume_acord else "")
                 print(f"  {baza}: diagrama citita ({det}"
                       f"{len(rez['puncte'])} puncte"
                       f"{', voicing' if rez.get('voicing') else ''})")
             else:
                 print(f"  {baza}: diagrama necitibila geometric")
+            marcheaza_gata(fname)
             continue
 
         # TABLATURILE simple: cifrele -> note -> MusicXML (fara OMR)
@@ -911,6 +1063,7 @@ def main():
                 print(f"  {baza}: TAB -> XML ({len(note)} note, sursa: {sursa})")
             else:
                 print(f"  {baza}: TAB neconvertit ({sursa})")
+            marcheaza_gata(fname)
             continue
 
         # 1) conversia cu Audiveris. Daca esueaza, reincercam cu imagine
@@ -935,13 +1088,15 @@ def main():
                     dict(scala=args.scala_omr, margine=0, binarizeaza=True,
                          canvas=True, extinde=True),
                 ]
-                produs, stare = None, "esec"
+                # atentie: NU numi aceasta variabila "stare" - ar suprascrie
+                # starea de reluare din folderul parental!
+                produs, stare_omr = None, "esec"
                 for k, conf in enumerate(incercari):
                     png_curat = os.path.join(tmp, baza + ".png")
                     pregateste_pentru_omr(os.path.join(args.imagini, fname),
                                           de_albit, png_curat,
                                           decupaj=decupaj, **conf)
-                    produs, stare = ruleaza_audiveris(
+                    produs, stare_omr = ruleaza_audiveris(
                         args.audiveris, png_curat, tmp,
                         arata_eroarea=(k == len(incercari) - 1))
                     if produs:
@@ -962,7 +1117,7 @@ def main():
                     cale_xml = os.path.join(args.scores_dir, baza + ext)
                     shutil.copyfile(produs, cale_xml)
                     portativ_prelungit = bool(conf.get("extinde"))
-                elif stare == "fara_muzica":
+                elif stare_omr == "fara_muzica":
                     # Audiveris a rulat OK dar nu a gasit muzica -> probabil
                     # NU e partitura (poza/desen detectat gresit).
                     fara_muzica.add(fname)
@@ -1002,6 +1157,7 @@ def main():
         else:
             print(f"  {baza}: doar PNG (fara XML"
                   f"{' - da --audiveris pentru conversie' if not args.audiveris else ''})")
+        marcheaza_gata(fname)
 
     # 3) cartea noua: textul paginilor + partiturile EXACT LA LOCUL LOR.
     #    Folosim pozitiile din manifest (zone_pdf) ca sa:
@@ -1012,21 +1168,10 @@ def main():
     print("\nConstruim cartea noua...")
 
     # salvam voicingurile citite din diagrame
-    if voicinguri:
-        os.makedirs(args.date_dir, exist_ok=True)
-        cale_v = os.path.join(args.date_dir, "voicinguri.json")
-        vechi = []
-        if os.path.isfile(cale_v):
-            try:
-                with open(cale_v, encoding="utf-8") as f:
-                    vechi = json.load(f)
-                vechi = [v for v in vechi
-                         if v.get("fisier") not in voicing_per_png]
-            except Exception:
-                vechi = []
-        with open(cale_v, "w", encoding="utf-8") as f:
-            json.dump(vechi + voicinguri, f, ensure_ascii=False, indent=1)
-        print(f"  voicinguri salvate: {len(voicinguri)} -> {cale_v}")
+    if voicing_per_png:
+        salveaza_voicinguri()
+        print(f"  voicinguri salvate: {len(voicing_per_png)} -> "
+              f"{os.path.join(args.date_dir, 'voicinguri.json')}")
 
     # zonele partiturilor, pe pagini (1-based)
     zone_pe_pagina = {}     # pagina -> [(bbox_pt, fname, e_prima_bucata)]
@@ -1130,6 +1275,65 @@ def main():
     if not args.audiveris and n_xml == 0:
         print("  (pentru conversia in MusicXML ruleaza cu "
               "--audiveris \"C:\\Program Files\\Audiveris\\Audiveris.exe\")")
+    print(f"  Jurnal       : {args.log}")
+    if os.path.isfile(FISIER_STARE):
+        os.remove(FISIER_STARE)
+        print(f"  (starea de reluare {FISIER_STARE} a fost stearsa - totul e complet)")
+
+
+def main():
+    ap = argparse.ArgumentParser(
+        description="ETAPA 3: converteste PNG-urile din imagini_partituri in "
+                    "MusicXML (Audiveris), injecteaza cuvintele descriptive in "
+                    "XML si construieste cartea noua (book.md).")
+    ap.add_argument("pdf", help="PDF-ul cartii (originalul sau cel procesat)")
+    ap.add_argument("--imagini", default="imagini_partituri",
+                    help="folderul cu PNG-uri + manifest.json (default: imagini_partituri)")
+    ap.add_argument("--scores-dir", default="partituri_xml",
+                    help="folderul pentru fisierele MusicXML (default: partituri_xml)")
+    ap.add_argument("--audiveris", default="",
+                    help="calea catre Audiveris (optional; fara el se folosesc "
+                         "XML-urile deja existente in --scores-dir)")
+    ap.add_argument("--scala-omr", type=int, default=2,
+                    help="factorul de marire al PNG-ului dat lui Audiveris (default: 2)")
+    ap.add_argument("--doar-lipsa", action="store_true",
+                    help="nu reconverteste partiturile care au deja XML in "
+                         "--scores-dir (util la reluarea cartilor mari)")
+    ap.add_argument("--tesseract", default="",
+                    help="calea catre tesseract.exe (optional; citirea "
+                         "cifrelor TAB din cartile scanate)")
+    ap.add_argument("--date-dir", default="date_extrase",
+                    help="folderul pentru datele extrase: voicinguri.json, "
+                         "digitatie (default: date_extrase)")
+    ap.add_argument("--out", default=None,
+                    help="fisierul cartii noi (default: <pdf>.md)")
+    ap.add_argument("--log", default=FISIER_JURNAL,
+                    help=f"fisierul de jurnal din folderul parental "
+                         f"(default: {FISIER_JURNAL})")
+    ap.add_argument("--de-la-inceput", action="store_true",
+                    help="sterge starea de reluare si porneste de la capat")
+    args = ap.parse_args()
+
+    jurnal = Jurnal(args.log)
+    print(f"\n===== {datetime.now():%Y-%m-%d %H:%M:%S} | package-book.py | {args.pdf} =====")
+    print("Oprire controlata: in alt PowerShell, in acest folder ->  New-Item STOP -ItemType File")
+    print("Reluare (dupa oprire / pana de curent / restart): ruleaza DIN NOU aceeasi comanda.")
+
+    try:
+        ruleaza(args)
+    except OpritDeUser:
+        print("\n*** OPRIRE CERUTA (fisierul STOP). ***")
+        print(f"Progresul pana aici e salvat in {FISIER_STARE}.")
+        print("Ca sa continui de unde a ramas, ruleaza din nou ACEEASI comanda")
+        print("(fara --de-la-inceput). Partiturile deja convertite se sar.")
+    except KeyboardInterrupt:
+        print("\n*** Intrerupt (Ctrl+C). ***")
+        print(f"Progresul pana la ultimul punct de control e salvat in {FISIER_STARE}")
+        print("(partitura in curs va fi refacuta la urmatoarea rulare a")
+        print("aceleiasi comande).")
+    finally:
+        print(f"===== {datetime.now():%Y-%m-%d %H:%M:%S} | sfarsitul rularii =====\n")
+        jurnal.inchide()
 
 
 if __name__ == "__main__":
