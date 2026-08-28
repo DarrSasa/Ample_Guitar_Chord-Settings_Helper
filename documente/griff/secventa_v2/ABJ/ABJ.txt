@@ -1,0 +1,52 @@
+Ample Bass J 4.0.1 (ABJ) -> .briff | 25 masuri | tempo 90
+
+MASURA 1: [Articulations] Sustain | keyswitch C0 | imagine masura_01.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 2: [Articulations] Accent | keyswitch C0 | imagine masura_02.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 3: [Articulations] Natural Harmonic | keyswitch C#0 | imagine masura_03.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 4: [Articulations] Palm Mute | keyswitch D0 | imagine masura_04.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 5: [Articulations] Dead Note | keyswitch D0 | imagine masura_05.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 6: [Articulations] Slide In | keyswitch D#0 | imagine masura_06.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 7: [Articulations] Slap | keyswitch G0 | imagine masura_07.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 8: [Articulations] Dead Slap | keyswitch G0 | imagine masura_08.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 9: [Articulations] Pop | keyswitch A0 | imagine masura_09.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 10: [Articulations] Dead Pop | keyswitch A0 | imagine masura_10.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 11: [Articulations] Tap | keyswitch G#0 | imagine masura_11.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 12: [Articulations] Repeat Note | keyswitch F#0 | imagine masura_12.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 13: [Legato] No Legato | imagine masura_13.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 14: [Legato] Legato Slide | imagine masura_14.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 15: [Legato] Legato HP | imagine masura_15.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 16: [Articulation Sound Single] Slide Out | keyswitch D#0 | imagine masura_16.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 17: [FX Sound Group] Scratch 1 | keyswitch F5 | imagine masura_17.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 18: [FX Sound Group] Scratch 2 | keyswitch F#5 | imagine masura_18.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 19: [FX Sound Group] Single String Slap | keyswitch G5 | imagine masura_19.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 20: [FX Sound Group] Left-Hand Slap | keyswitch G#5 | imagine masura_20.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 21: [FX Sound Group] Right-Hand Slap | keyswitch A5 | imagine masura_21.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 22: [FX Sound Group] FX Slide Turn (4) | keyswitch A#5 | imagine masura_22.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 23: [FX Sound Group] FX Slide Turn (3) | keyswitch B5 | imagine masura_23.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 24: [FX Sound Group] FX Slide Down (4) | keyswitch C6 | imagine masura_24.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 25: [FX Sound Group] FX Slide Down (3) | keyswitch C#6 | imagine masura_25.png
+   note: G1(31), A1(33), B1(35), D2(38)

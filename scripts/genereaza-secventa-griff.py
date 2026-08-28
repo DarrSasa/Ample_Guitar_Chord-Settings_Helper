@@ -1,25 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-genereaza-secventa-griff.py
+genereaza-secventa-griff.py  (v.3 — date reale din Riffer)
 
-Construieste SECVENTA-EXEMPLU v.2 pentru descifrarea formatului .griff,
-conform listei CORECTATE (8 instrumente, 22 articulatii, 30 FX) din mesajul
-utilizatorului:
+Reface planul secventei-exemplu folosind denumirile si keyswitch-urile citite
+DIRECT din Riffer de utilizator, pe 4 sectiuni per instrument:
+  1. 'Articulations'                (articulatia notei, cu keyswitch)
+  2. 'To the right of the Articulations' (No Legato / Legato Slide / ...)
+  3. 'Articulation Sound Single'    (sunete de articulatie izolate)
+  4. 'FX Sound Group'               (sunete FX, cu keyswitch)
 
-  1. plan clar pe masuri: nr. masuri, notele exacte, articulatia si FX-ul
-     fiecarui element;
-  2. pentru fiecare masura un fisier vizual Piano Roll (.png): clape
-     verticale in stanga cu numele notei, notele in dreapta, iar sus
-     definitia + cerinta masurii;
-  3. un .txt care descrie prin cuvinte, per masura: ordinea notelor,
-     articulatia, sunetul FX de pe fiecare nota si numarul masurii;
-  4. acoperire completa: toate cele 22 de articulatii si 30 de sunete FX,
-     cu aplicabilitatea pe fiecare din cele 8 chitari Ample.
+Reguli din precizarile utilizatorului:
+  - acustice + electrice -> .griff ; bas -> .briff;
+  - articulatiile incadrate la *corpul chitarei* NU sunt incluse (lista de
+    mai jos contine doar cele 4 sectiuni Riffer).
 
 Iesiri in documente/griff/secventa_v2/:
-  catalog_articulatii_fx.json, plan_secventa.json, masura_NN.png,
-  secventa_exemplu.txt, aplicabilitate_chitari.json
+  catalog_riffer.json               (structura autorizata, 8 instrumente)
+  <CODE>/<CODE>.txt                 (plan pe masuri, cuvinte: sectiune, nume,
+                                     keyswitch, note, nr. masura)
+  <CODE>/masura_NN.png              (piano-roll per masura; keyswitch-ul e
+                                     scris in antet, nu ca clapa)
 """
 
 import json
@@ -29,48 +30,94 @@ from PIL import Image, ImageDraw, ImageFont
 
 OUT = os.path.join("documente", "griff", "secventa_v2")
 
-# ---- catalogul CORECTAT: 22 articulatii, 30 FX, 8 chitari -----------------
-ART = {
-    1: "Sustain", 2: "Palm Mute", 3: "Natural Harmonic", 4: "Pinch Harmonic",
-    5: "Hammer-on/Pull-off", 6: "Legato Slide", 7: "Slide In", 8: "Slide Out",
-    9: "Vibrato", 10: "Staccato", 11: "Dead Note", 12: "Tapping",
-    13: "Slap", 14: "Pop", 15: "Accent", 16: "Grace Note",
-    17: "Finger Roll Strum", 18: "Heavy Palm Mute", 19: "Tremolo Picking",
-    20: "Country Bends", 21: "Microtonal Fretless Slide",
-    22: "Low-End Heavy Slap Mute"}
-FX = {
-    1: "Fret Noise", 2: "Stroke Noise", 3: "Body Hit/Golpe", 4: "Body Tap High",
-    5: "Body Tap Low", 6: "Silent Press", 7: "Silent Release", 8: "Finger Slide FX",
-    9: "String Scratch", 10: "Dead Note Strum", 11: "Rel Release Noise",
-    12: "Pick Scratch", 13: "Natural Feedback", 14: "String Buzz",
-    15: "Toggle Switch Click", 16: "Cable Plug", 17: "Bridge Mute Hit",
-    18: "Electric Slide FX", 19: "Thumb Slap Noise", 20: "Index/Middle Pop Noise",
-    21: "Slap Dead Note", 22: "Bass Body Thump", 23: "Hand Choke",
-    24: "Bass Fret Noise", 25: "Bass Slide FX", 26: "Ukulele Body Tap Scurt",
-    27: "Heavy Metal Pick Scrape", 28: "Telecaster Snap Switch & Twang Noise",
-    29: "Fretless Glissando Noise", 30: "Sub-Bass Slap Hit"}
-
-BASE_ART = [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 15, 16]
-ELEC_EXTRA = [4, 12]
-BASS_EXTRA = [13, 14]
-AC_FX = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-EL_FX = [1, 2, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18]
-BA_FX = [2, 6, 7, 8, 11, 19, 20, 21, 22, 23, 24, 25]
-
-CHITARI = {
-    "AGM":  {"categorie": "acustica",  "fx": AC_FX, "art": BASE_ART},
-    "AGLP": {"categorie": "electrica", "fx": EL_FX, "art": BASE_ART + ELEC_EXTRA},
-    "ABJ":  {"categorie": "bas",       "fx": BA_FX, "art": BASE_ART + BASS_EXTRA},
-    "AEU":  {"categorie": "acustica",  "fx": [1, 2, 6, 7, 8, 10, 11, 26],
-             "art": BASE_ART + [17]},
-    "AME":  {"categorie": "electrica", "fx": EL_FX + [27],
-             "art": BASE_ART + ELEC_EXTRA + [18, 19]},
-    "AGTC": {"categorie": "electrica", "fx": EL_FX + [28],
-             "art": BASE_ART + ELEC_EXTRA + [20]},
-    "ABJF": {"categorie": "bas",       "fx": [2, 6, 7, 8, 11, 23, 25, 29],
-             "art": [1, 3, 5, 6, 7, 8, 9, 10, 11, 15, 16, 21]},
-    "ABMR5":{"categorie": "bas",       "fx": BA_FX + [30],
-             "art": BASE_ART + BASS_EXTRA + [4, 22]},
+# (nume, keyswitch) — keyswitch None daca nu e listat
+CATALOG = {
+    "AGM": {"nume": "Ample Guitar M", "versiune": "4.1.0", "ext": ".griff",
+            "categorie": "acustica",
+            "articulatii": [("Sustain", "C0"), ("Pop", "C0"), ("Natural Harmonic", "C#0"),
+                            ("Palm Mute", "D0"), ("Slide In", "D#0"), ("Slide Guitar", "F0")],
+            "legato": ["No Legato", "Legato Slide", "Legato HP"],
+            "single": [("Slide Out", "D#0")],
+            "fx": [("Scratch", "F5"), ("Slap", "F#5"), ("Muting", "G5"), ("Strum Mute", "G#5"),
+                   ("Downstroke 1", "A5"), ("Upstroke 1", "A#5"), ("Downstroke 2", "B5"),
+                   ("Upstroke 2", "C6"), ("Hit Top (Open)", "F6"), ("Hit Top (Mute)", "F#6"),
+                   ("Hit Rim", "G6")]},
+    "AGLP": {"nume": "Ample Guitar LP", "versiune": "4.1.0", "ext": ".griff",
+             "categorie": "electrica",
+             "articulatii": [("Sustain", "C0"), ("Pop/PH", "C0"), ("Natural Harmonic", "C#0"),
+                             ("Palm Mute", "D0"), ("Slide In", "D#0"), ("Slide Guitar", "F0"),
+                             ("Pinch Harmonic", "B-1")],
+             "legato": ["No Legato", "Legato Slide", "Legato HP"],
+             "single": [("Slide Out", "D#0")],
+             "fx": [("Scratch", "F5"), ("Slap", "F#5"), ("Muting", "G5"), ("Strum Mute", "G#5"),
+                    ("Downstroke 1", "A5"), ("Upstroke 1", "A#5"), ("Downstroke 2", "B5"),
+                    ("Upstroke 2", "C6"), ("Raking", "E6"), ("Pick Scrape", "F6"),
+                    ("FX Slide Turn", "F#6"), ("FX Slide Down", "G6")]},
+    "AGTC": {"nume": "Ample Guitar TC", "versiune": "4.0.1", "ext": ".griff",
+             "categorie": "electrica",
+             "articulatii": [("Sustain", "C0"), ("Pop/PH", "C0"), ("Natural Harmonic", "C#0"),
+                             ("Palm Mute", "D0"), ("Slide In", "D#0"), ("Pinch Harmonic", "B-1")],
+             "legato": ["No Legato", "Legato Slide", "Legato HP"],
+             "single": [("Slide Out", "D#0")],
+             "fx": [("Scratch 1", "F5"), ("Slap", "F#5"), ("Muting", "G5"), ("Strum Mute", "G#5"),
+                    ("Downstroke 1", "A5"), ("Upstroke 1", "A#5"), ("Downstroke 2", "B5"),
+                    ("Upstroke 2", "C6"), ("Pick Scrape", "F6")]},
+    "AME": {"nume": "Ample Metal Eclipse", "versiune": "4.0.1", "ext": ".griff",
+            "categorie": "electrica",
+            "articulatii": [("Sustain", "C0"), ("Mute", "C0"), ("Pop/PH", "C0"),
+                            ("Natural Harmonic", "C#0"), ("Palm Mute", "D0"), ("Slide In", "D#0"),
+                            ("Tap", "F#0"), ("Pinch Harmonic", "G0")],
+            "legato": ["No Legato", "Legato Slide", "Legato HP"],
+            "single": [("Slide Out", "D#0")],
+            "fx": [("Scratch 1", "F5"), ("Slap", "F#5"), ("Muting", "G5"), ("Strum Mute", "G#5"),
+                   ("Downstroke 1", "A5"), ("Upstroke 1", "A#5"), ("Downstroke 2", "B5"),
+                   ("Upstroke 2", "C6"), ("Pick Scrape", "F6"), ("FX Slide Turn", "F#6"),
+                   ("FX Slide Down", "G6")]},
+    "AEU": {"nume": "Ample Ethno Ukulele", "versiune": "3.6.0", "ext": ".griff",
+            "categorie": "acustica",
+            "articulatii": [("Sustain", None), ("Natural Harmonic", None), ("Palm Mute", None),
+                            ("Slide In", None), ("Strum", None)],
+            "legato": ["No Legato", "Legato Slide", "HO/PO", "Slide Out"],
+            "single": [("Slide Out", "D#0")],
+            "fx": [("Scratch", None), ("Slap", None), ("Silent Press", None), ("Silent Stroke", None),
+                   ("Downstroke Noise 1", None), ("Upstroke Noise 1", None),
+                   ("Downstroke Noise 2", None), ("Upstroke Noise 2", None),
+                   ("Hit Top (Open)", None), ("Hit Top (Mute)", None), ("Hit Rim", None)]},
+    "ABJ": {"nume": "Ample Bass J", "versiune": "4.0.1", "ext": ".briff",
+            "categorie": "bas",
+            "articulatii": [("Sustain", "C0"), ("Accent", "C0"), ("Natural Harmonic", "C#0"),
+                            ("Palm Mute", "D0"), ("Dead Note", "D0"), ("Slide In", "D#0"),
+                            ("Slap", "G0"), ("Dead Slap", "G0"), ("Pop", "A0"), ("Dead Pop", "A0"),
+                            ("Tap", "G#0"), ("Repeat Note", "F#0")],
+            "legato": ["No Legato", "Legato Slide", "Legato HP"],
+            "single": [("Slide Out", "D#0")],
+            "fx": [("Scratch 1", "F5"), ("Scratch 2", "F#5"), ("Single String Slap", "G5"),
+                   ("Left-Hand Slap", "G#5"), ("Right-Hand Slap", "A5"),
+                   ("FX Slide Turn (4)", "A#5"), ("FX Slide Turn (3)", "B5"),
+                   ("FX Slide Down (4)", "C6"), ("FX Slide Down (3)", "C#6")]},
+    "ABJF": {"nume": "Ample Bass Jaco Fretless", "versiune": "4.0.1", "ext": ".briff",
+             "categorie": "bas",
+             "articulatii": [("Sustain", "C0"), ("Accent", "C0"), ("Natural Harmonic", "C#0"),
+                             ("Palm Mute", "D0"), ("Dead Note", "D0"), ("Slide In", "D#0"),
+                             ("Slap", "G0"), ("Dead Slap", "G0"), ("Pop", "A0"), ("Dead Pop", "A0"),
+                             ("Artificial Harmonic", "G#0"), ("Repeat Note", "F#0")],
+             "legato": ["No Legato", "Legato Slide", "Legato HP"],
+             "single": [("Slide Out", "D#0"), ("Buzzing", "A4")],
+             "fx": [("Scratch 1", "F5"), ("Scratch 2", "F#5"), ("Single String Slap", "G5"),
+                    ("Left-Hand Slap", "G#5"), ("Right-Hand Slap", "A5"),
+                    ("FX Slide Turn (4)", "A#5"), ("FX Slide Turn (3)", "B5"),
+                    ("FX Slide Down (4)", "C6"), ("FX Slide Down (3)", "C#6")]},
+    "ABMR5": {"nume": "Ample Metal Ray5", "versiune": "3.7.0", "ext": ".briff",
+              "categorie": "bas",
+              "articulatii": [("Sustain", None), ("Natural Harmonic", None), ("Palm Mute", None),
+                              ("Slide In", None), ("Repeat", None)],
+              "legato": ["No Legato", "Legato Slide", "HO/PO", "Slide Out"],
+              "single": [("Slide Out", "D#0")],
+              "fx": [("Slap Left", None), ("Slap Right", None), ("Downstroke Noise", None),
+                     ("Upstroke Noise", None), ("Scratch 1", None), ("Scratch 2", None),
+                     ("Silent Press", None), ("FX Slide 1", None), ("FX Slide 2", None),
+                     ("FX Slide 3", None), ("FX Slide 4", None), ("FX Slide 5", None),
+                     ("FX Slide 6", None), ("Buzz", None)]},
 }
 
 NOTE_NUME = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
@@ -87,133 +134,93 @@ def font(marime, bold=False):
         else ImageFont.load_default()
 
 
-def construieste_plan():
-    """30 de masuri: masura i demonstreaza FX i si, pentru i<=22, Articulatia i."""
+def fraza(categorie):
+    baza = 31 if categorie == "bas" else 55
+    return [{"nota": nume_midi(baza + o), "midi": baza + o, "beat": b, "durata": 1.0}
+            for o, b in ((0, 0.0), (2, 1.0), (4, 2.0), (7, 3.0))]
+
+
+def plan_instrument(info):
+    """Masuri in ordinea sectiunilor: articulatii, legato, single, fx."""
     masuri = []
-    for i in range(1, len(FX) + 1):
-        art = i if i <= len(ART) else None
-        baza = 55 + (i % 5)
-        note = [
-            {"nota": nume_midi(baza), "midi": baza, "beat": 0.0, "durata": 1.0},
-            {"nota": nume_midi(baza + 2), "midi": baza + 2, "beat": 1.0, "durata": 1.0},
-            {"nota": nume_midi(baza + 4), "midi": baza + 4, "beat": 2.0, "durata": 1.0},
-            {"nota": nume_midi(baza + 7), "midi": baza + 7, "beat": 3.0, "durata": 1.0},
-        ]
-        note[0]["fx"] = i
-        masuri.append({
-            "masura": i,
-            "articulatie": {"id": art, "nume": ART.get(art)} if art else None,
-            "fx": {"id": i, "nume": FX[i], "pe_nota": 1},
-            "note": note,
-            "cerinta": (f"Demonstreaza {ART[art]} pe toate notele; " if art else "")
-                       + f"declanseaza {FX[i]} pe prima nota.",
-        })
+    for sect, cheie in (("Articulations", "articulatii"), ("Legato", "legato"),
+                        ("Articulation Sound Single", "single"), ("FX Sound Group", "fx")):
+        for intr in info[cheie]:
+            if sect == "Legato":
+                nume, ks = intr, None
+            else:
+                nume, ks = intr
+            masuri.append({"sectiune": sect, "nume": nume, "ks": ks,
+                           "note": fraza(info["categorie"])})
     return masuri
 
 
-def piano_roll(masura, cale):
+def piano_roll(code, idx, masura, info, cale):
     note = masura["note"]
     midis = [n["midi"] for n in note]
     lo, hi = min(midis) - 2, max(midis) + 2
     randuri = list(range(hi, lo - 1, -1))
-    lat_cheie, sus, jos = 70, 64, 10
-    pas_y, pas_x = 16, 46
-    w = lat_cheie + 4 * pas_x + 30
-    h = sus + len(randuri) * pas_y + jos
+    lat, sus, jos = 70, 64, 10
+    py, px = 16, 46
+    w = lat + 4 * px + 30
+    h = sus + len(randuri) * py + jos
     img = Image.new("RGB", (w, h), "white")
     d = ImageDraw.Draw(img)
-
-    art = masura["articulatie"]
-    titlu = f"Masura {masura['masura']}: {art['nume'] if art else '(fara articulatie)'}"
-    sub = f"FX pe nota 1: {masura['fx']['nume']}"
-    d.text((8, 8), titlu, fill="black", font=font(15, True))
-    d.text((8, 30), sub + " | " + masura["cerinta"][:70], fill="#444", font=font(11))
-
+    ks = f" | KS {masura['ks']}" if masura["ks"] else ""
+    d.text((8, 8), f"{code} m{idx} [{masura['sectiune']}] {masura['nume']}{ks}",
+           fill="black", font=font(14, True))
+    d.text((8, 30), f"{info['nume']} {info['versiune']} -> {info['ext']}",
+           fill="#444", font=font(11))
     for r, m in enumerate(randuri):
-        y = sus + r * pas_y
+        y = sus + r * py
         negru = (m % 12) in (1, 3, 6, 8, 10)
-        d.rectangle([0, y, lat_cheie, y + pas_y], fill="#ddd" if negru else "#fff",
-                    outline="#bbb")
+        d.rectangle([0, y, lat, y + py], fill="#ddd" if negru else "#fff", outline="#bbb")
         d.text((6, y + 2), nume_midi(m), fill="black", font=font(11))
-        d.line([(lat_cheie, y), (w, y)], fill="#eee")
+        d.line([(lat, y), (w, y)], fill="#eee")
     for b in range(5):
-        x = lat_cheie + b * pas_x
+        x = lat + b * px
         d.line([(x, sus), (x, h - jos)], fill="#ccc")
-
     for n in note:
         r = randuri.index(n["midi"])
-        y = sus + r * pas_y + 2
-        x = lat_cheie + int(n["beat"] * pas_x)
-        d.rounded_rectangle([x, y, x + pas_x - 4, y + pas_y - 4], radius=3,
+        y = sus + r * py + 2
+        x = lat + int(n["beat"] * px)
+        d.rounded_rectangle([x, y, x + px - 4, y + py - 4], radius=3,
                             fill="#1a6fd4", outline="#0d4c98")
-        if "fx" in n:
-            d.text((x, y - 12), "FX", fill="#c00", font=font(10, True))
     img.save(cale)
 
 
 def main():
-    os.makedirs(OUT, exist_ok=True)
-    # sterge PNG-urile vechi (la regenerare cu alt numar de masuri)
-    for f in os.listdir(OUT):
-        if f.startswith("masura_") and f.endswith(".png"):
-            os.remove(os.path.join(OUT, f))
+    # curata iesirile vechi (planul anterior folosea denumiri ghicite)
+    import shutil
+    if os.path.isdir(OUT):
+        shutil.rmtree(OUT)
+    os.makedirs(OUT)
 
-    masuri = construieste_plan()
+    with open(os.path.join(OUT, "catalog_riffer.json"), "w", encoding="utf-8") as f:
+        json.dump(CATALOG, f, ensure_ascii=False, indent=1)
 
-    with open(os.path.join(OUT, "catalog_articulatii_fx.json"), "w",
-              encoding="utf-8") as f:
-        json.dump({"articulatii": {str(k): v for k, v in ART.items()},
-                   "fx": {str(k): v for k, v in FX.items()},
-                   "chitari": CHITARI}, f, ensure_ascii=False, indent=1)
-
-    with open(os.path.join(OUT, "plan_secventa.json"), "w", encoding="utf-8") as f:
-        json.dump(masuri, f, ensure_ascii=False, indent=1)
-
-    linii = ["SECVENTA-EXEMPLU .griff v.2 - descriere text (ghidare dubla)",
-             f"Tempo 90 | {len(masuri)} masuri | acopera {len(ART)} articulatii "
-             f"+ {len(FX)} FX | 8 chitari", ""]
-    for m in masuri:
-        art = m["articulatie"]
-        linii.append(f"MASURA {m['masura']}: articulatie="
-                     f"{art['nume'] if art else '-'} | FX={m['fx']['nume']} "
-                     f"(pe nota {m['fx']['pe_nota']}) | imagine=masura_{m['masura']:02d}.png")
-        for k, n in enumerate(m["note"], 1):
-            linii.append(f"   nota {k}: {n['nota']} (MIDI {n['midi']}) beat {n['beat']:.1f} "
-                         f"durata {n['durata']:.1f}"
-                         + (f" + FX {m['fx']['id']} {m['fx']['nume']}" if "fx" in n else "")
-                         + (f" | articulatie {art['nume']}" if art else ""))
-        linii.append("")
-    with open(os.path.join(OUT, "secventa_exemplu.txt"), "w", encoding="utf-8") as f:
-        f.write("\n".join(linii))
-
-    for m in masuri:
-        piano_roll(m, os.path.join(OUT, f"masura_{m['masura']:02d}.png"))
-
-    aplic = {}
-    for nume, info in CHITARI.items():
-        masuri_aplicabile = [m["masura"] for m in masuri
-                             if (m["articulatie"] and m["articulatie"]["id"] in info["art"])
-                             or m["fx"]["id"] in info["fx"]]
-        aplic[nume] = {"categorie": info["categorie"],
-                       "nr_articulatii": len(info["art"]),
-                       "nr_fx": len(info["fx"]),
-                       "masuri_aplicabile": masuri_aplicabile}
-    with open(os.path.join(OUT, "aplicabilitate_chitari.json"), "w",
-              encoding="utf-8") as f:
-        json.dump(aplic, f, ensure_ascii=False, indent=1)
-
-    art_acop = {m["articulatie"]["id"] for m in masuri if m["articulatie"]}
-    fx_acop = {m["fx"]["id"] for m in masuri}
-    print(f"masuri: {len(masuri)} | PNG-uri: {len(masuri)}")
-    print(f"articulatii acoperite: {len(art_acop)}/{len(ART)} | FX acoperite: {len(fx_acop)}/{len(FX)}")
-    assert art_acop == set(ART), "articulatii lipsa"
-    assert fx_acop == set(FX), "FX lipsa"
-    # verificare acoperire pe chitari (uniunea = tot)
-    un_art = set().union(*(c["art"] for c in CHITARI.values()))
-    un_fx = set().union(*(c["fx"] for c in CHITARI.values()))
-    assert un_art == set(ART), "chitari nu acopera toate articulatiile"
-    assert un_fx == set(FX), "chitari nu acopera toate FX"
-    print("acoperire completa: 22/22 articulatii, 30/30 FX, si uniunea celor 8 chitari = tot.")
+    total = 0
+    for code, info in CATALOG.items():
+        ddir = os.path.join(OUT, code)
+        os.makedirs(ddir)
+        masuri = plan_instrument(info)
+        total += len(masuri)
+        linii = [f"{info['nume']} {info['versiune']} ({code}) -> {info['ext']} | "
+                 f"{len(masuri)} masuri | tempo 90", ""]
+        for i, m in enumerate(masuri, 1):
+            piano_roll(code, i, m, info, os.path.join(ddir, f"masura_{i:02d}.png"))
+            linii.append(f"MASURA {i}: [{m['sectiune']}] {m['nume']}"
+                         + (f" | keyswitch {m['ks']}" if m["ks"] else "")
+                         + f" | imagine masura_{i:02d}.png")
+            linii.append("   note: " + ", ".join(
+                f"{n['nota']}({n['midi']})" for n in m["note"]))
+        with open(os.path.join(ddir, f"{code}.txt"), "w", encoding="utf-8") as f:
+            f.write("\n".join(linii))
+        n = {s: len(info[c]) for s, c in (
+            ("art", "articulatii"), ("legato", "legato"),
+            ("single", "single"), ("fx", "fx"))}
+        print(f"{code} ({info['ext']}): {len(masuri)} masuri -> {n}")
+    print(f"TOTAL masuri: {total} | instrumente: {len(CATALOG)}")
 
 
 if __name__ == "__main__":

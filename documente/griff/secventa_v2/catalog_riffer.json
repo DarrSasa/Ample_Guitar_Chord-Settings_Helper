@@ -1,0 +1,764 @@
+{
+ "AGM": {
+  "nume": "Ample Guitar M",
+  "versiune": "4.1.0",
+  "ext": ".griff",
+  "categorie": "acustica",
+  "articulatii": [
+   [
+    "Sustain",
+    "C0"
+   ],
+   [
+    "Pop",
+    "C0"
+   ],
+   [
+    "Natural Harmonic",
+    "C#0"
+   ],
+   [
+    "Palm Mute",
+    "D0"
+   ],
+   [
+    "Slide In",
+    "D#0"
+   ],
+   [
+    "Slide Guitar",
+    "F0"
+   ]
+  ],
+  "legato": [
+   "No Legato",
+   "Legato Slide",
+   "Legato HP"
+  ],
+  "single": [
+   [
+    "Slide Out",
+    "D#0"
+   ]
+  ],
+  "fx": [
+   [
+    "Scratch",
+    "F5"
+   ],
+   [
+    "Slap",
+    "F#5"
+   ],
+   [
+    "Muting",
+    "G5"
+   ],
+   [
+    "Strum Mute",
+    "G#5"
+   ],
+   [
+    "Downstroke 1",
+    "A5"
+   ],
+   [
+    "Upstroke 1",
+    "A#5"
+   ],
+   [
+    "Downstroke 2",
+    "B5"
+   ],
+   [
+    "Upstroke 2",
+    "C6"
+   ],
+   [
+    "Hit Top (Open)",
+    "F6"
+   ],
+   [
+    "Hit Top (Mute)",
+    "F#6"
+   ],
+   [
+    "Hit Rim",
+    "G6"
+   ]
+  ]
+ },
+ "AGLP": {
+  "nume": "Ample Guitar LP",
+  "versiune": "4.1.0",
+  "ext": ".griff",
+  "categorie": "electrica",
+  "articulatii": [
+   [
+    "Sustain",
+    "C0"
+   ],
+   [
+    "Pop/PH",
+    "C0"
+   ],
+   [
+    "Natural Harmonic",
+    "C#0"
+   ],
+   [
+    "Palm Mute",
+    "D0"
+   ],
+   [
+    "Slide In",
+    "D#0"
+   ],
+   [
+    "Slide Guitar",
+    "F0"
+   ],
+   [
+    "Pinch Harmonic",
+    "B-1"
+   ]
+  ],
+  "legato": [
+   "No Legato",
+   "Legato Slide",
+   "Legato HP"
+  ],
+  "single": [
+   [
+    "Slide Out",
+    "D#0"
+   ]
+  ],
+  "fx": [
+   [
+    "Scratch",
+    "F5"
+   ],
+   [
+    "Slap",
+    "F#5"
+   ],
+   [
+    "Muting",
+    "G5"
+   ],
+   [
+    "Strum Mute",
+    "G#5"
+   ],
+   [
+    "Downstroke 1",
+    "A5"
+   ],
+   [
+    "Upstroke 1",
+    "A#5"
+   ],
+   [
+    "Downstroke 2",
+    "B5"
+   ],
+   [
+    "Upstroke 2",
+    "C6"
+   ],
+   [
+    "Raking",
+    "E6"
+   ],
+   [
+    "Pick Scrape",
+    "F6"
+   ],
+   [
+    "FX Slide Turn",
+    "F#6"
+   ],
+   [
+    "FX Slide Down",
+    "G6"
+   ]
+  ]
+ },
+ "AGTC": {
+  "nume": "Ample Guitar TC",
+  "versiune": "4.0.1",
+  "ext": ".griff",
+  "categorie": "electrica",
+  "articulatii": [
+   [
+    "Sustain",
+    "C0"
+   ],
+   [
+    "Pop/PH",
+    "C0"
+   ],
+   [
+    "Natural Harmonic",
+    "C#0"
+   ],
+   [
+    "Palm Mute",
+    "D0"
+   ],
+   [
+    "Slide In",
+    "D#0"
+   ],
+   [
+    "Pinch Harmonic",
+    "B-1"
+   ]
+  ],
+  "legato": [
+   "No Legato",
+   "Legato Slide",
+   "Legato HP"
+  ],
+  "single": [
+   [
+    "Slide Out",
+    "D#0"
+   ]
+  ],
+  "fx": [
+   [
+    "Scratch 1",
+    "F5"
+   ],
+   [
+    "Slap",
+    "F#5"
+   ],
+   [
+    "Muting",
+    "G5"
+   ],
+   [
+    "Strum Mute",
+    "G#5"
+   ],
+   [
+    "Downstroke 1",
+    "A5"
+   ],
+   [
+    "Upstroke 1",
+    "A#5"
+   ],
+   [
+    "Downstroke 2",
+    "B5"
+   ],
+   [
+    "Upstroke 2",
+    "C6"
+   ],
+   [
+    "Pick Scrape",
+    "F6"
+   ]
+  ]
+ },
+ "AME": {
+  "nume": "Ample Metal Eclipse",
+  "versiune": "4.0.1",
+  "ext": ".griff",
+  "categorie": "electrica",
+  "articulatii": [
+   [
+    "Sustain",
+    "C0"
+   ],
+   [
+    "Mute",
+    "C0"
+   ],
+   [
+    "Pop/PH",
+    "C0"
+   ],
+   [
+    "Natural Harmonic",
+    "C#0"
+   ],
+   [
+    "Palm Mute",
+    "D0"
+   ],
+   [
+    "Slide In",
+    "D#0"
+   ],
+   [
+    "Tap",
+    "F#0"
+   ],
+   [
+    "Pinch Harmonic",
+    "G0"
+   ]
+  ],
+  "legato": [
+   "No Legato",
+   "Legato Slide",
+   "Legato HP"
+  ],
+  "single": [
+   [
+    "Slide Out",
+    "D#0"
+   ]
+  ],
+  "fx": [
+   [
+    "Scratch 1",
+    "F5"
+   ],
+   [
+    "Slap",
+    "F#5"
+   ],
+   [
+    "Muting",
+    "G5"
+   ],
+   [
+    "Strum Mute",
+    "G#5"
+   ],
+   [
+    "Downstroke 1",
+    "A5"
+   ],
+   [
+    "Upstroke 1",
+    "A#5"
+   ],
+   [
+    "Downstroke 2",
+    "B5"
+   ],
+   [
+    "Upstroke 2",
+    "C6"
+   ],
+   [
+    "Pick Scrape",
+    "F6"
+   ],
+   [
+    "FX Slide Turn",
+    "F#6"
+   ],
+   [
+    "FX Slide Down",
+    "G6"
+   ]
+  ]
+ },
+ "AEU": {
+  "nume": "Ample Ethno Ukulele",
+  "versiune": "3.6.0",
+  "ext": ".griff",
+  "categorie": "acustica",
+  "articulatii": [
+   [
+    "Sustain",
+    null
+   ],
+   [
+    "Natural Harmonic",
+    null
+   ],
+   [
+    "Palm Mute",
+    null
+   ],
+   [
+    "Slide In",
+    null
+   ],
+   [
+    "Strum",
+    null
+   ]
+  ],
+  "legato": [
+   "No Legato",
+   "Legato Slide",
+   "HO/PO",
+   "Slide Out"
+  ],
+  "single": [
+   [
+    "Slide Out",
+    "D#0"
+   ]
+  ],
+  "fx": [
+   [
+    "Scratch",
+    null
+   ],
+   [
+    "Slap",
+    null
+   ],
+   [
+    "Silent Press",
+    null
+   ],
+   [
+    "Silent Stroke",
+    null
+   ],
+   [
+    "Downstroke Noise 1",
+    null
+   ],
+   [
+    "Upstroke Noise 1",
+    null
+   ],
+   [
+    "Downstroke Noise 2",
+    null
+   ],
+   [
+    "Upstroke Noise 2",
+    null
+   ],
+   [
+    "Hit Top (Open)",
+    null
+   ],
+   [
+    "Hit Top (Mute)",
+    null
+   ],
+   [
+    "Hit Rim",
+    null
+   ]
+  ]
+ },
+ "ABJ": {
+  "nume": "Ample Bass J",
+  "versiune": "4.0.1",
+  "ext": ".briff",
+  "categorie": "bas",
+  "articulatii": [
+   [
+    "Sustain",
+    "C0"
+   ],
+   [
+    "Accent",
+    "C0"
+   ],
+   [
+    "Natural Harmonic",
+    "C#0"
+   ],
+   [
+    "Palm Mute",
+    "D0"
+   ],
+   [
+    "Dead Note",
+    "D0"
+   ],
+   [
+    "Slide In",
+    "D#0"
+   ],
+   [
+    "Slap",
+    "G0"
+   ],
+   [
+    "Dead Slap",
+    "G0"
+   ],
+   [
+    "Pop",
+    "A0"
+   ],
+   [
+    "Dead Pop",
+    "A0"
+   ],
+   [
+    "Tap",
+    "G#0"
+   ],
+   [
+    "Repeat Note",
+    "F#0"
+   ]
+  ],
+  "legato": [
+   "No Legato",
+   "Legato Slide",
+   "Legato HP"
+  ],
+  "single": [
+   [
+    "Slide Out",
+    "D#0"
+   ]
+  ],
+  "fx": [
+   [
+    "Scratch 1",
+    "F5"
+   ],
+   [
+    "Scratch 2",
+    "F#5"
+   ],
+   [
+    "Single String Slap",
+    "G5"
+   ],
+   [
+    "Left-Hand Slap",
+    "G#5"
+   ],
+   [
+    "Right-Hand Slap",
+    "A5"
+   ],
+   [
+    "FX Slide Turn (4)",
+    "A#5"
+   ],
+   [
+    "FX Slide Turn (3)",
+    "B5"
+   ],
+   [
+    "FX Slide Down (4)",
+    "C6"
+   ],
+   [
+    "FX Slide Down (3)",
+    "C#6"
+   ]
+  ]
+ },
+ "ABJF": {
+  "nume": "Ample Bass Jaco Fretless",
+  "versiune": "4.0.1",
+  "ext": ".briff",
+  "categorie": "bas",
+  "articulatii": [
+   [
+    "Sustain",
+    "C0"
+   ],
+   [
+    "Accent",
+    "C0"
+   ],
+   [
+    "Natural Harmonic",
+    "C#0"
+   ],
+   [
+    "Palm Mute",
+    "D0"
+   ],
+   [
+    "Dead Note",
+    "D0"
+   ],
+   [
+    "Slide In",
+    "D#0"
+   ],
+   [
+    "Slap",
+    "G0"
+   ],
+   [
+    "Dead Slap",
+    "G0"
+   ],
+   [
+    "Pop",
+    "A0"
+   ],
+   [
+    "Dead Pop",
+    "A0"
+   ],
+   [
+    "Artificial Harmonic",
+    "G#0"
+   ],
+   [
+    "Repeat Note",
+    "F#0"
+   ]
+  ],
+  "legato": [
+   "No Legato",
+   "Legato Slide",
+   "Legato HP"
+  ],
+  "single": [
+   [
+    "Slide Out",
+    "D#0"
+   ],
+   [
+    "Buzzing",
+    "A4"
+   ]
+  ],
+  "fx": [
+   [
+    "Scratch 1",
+    "F5"
+   ],
+   [
+    "Scratch 2",
+    "F#5"
+   ],
+   [
+    "Single String Slap",
+    "G5"
+   ],
+   [
+    "Left-Hand Slap",
+    "G#5"
+   ],
+   [
+    "Right-Hand Slap",
+    "A5"
+   ],
+   [
+    "FX Slide Turn (4)",
+    "A#5"
+   ],
+   [
+    "FX Slide Turn (3)",
+    "B5"
+   ],
+   [
+    "FX Slide Down (4)",
+    "C6"
+   ],
+   [
+    "FX Slide Down (3)",
+    "C#6"
+   ]
+  ]
+ },
+ "ABMR5": {
+  "nume": "Ample Metal Ray5",
+  "versiune": "3.7.0",
+  "ext": ".briff",
+  "categorie": "bas",
+  "articulatii": [
+   [
+    "Sustain",
+    null
+   ],
+   [
+    "Natural Harmonic",
+    null
+   ],
+   [
+    "Palm Mute",
+    null
+   ],
+   [
+    "Slide In",
+    null
+   ],
+   [
+    "Repeat",
+    null
+   ]
+  ],
+  "legato": [
+   "No Legato",
+   "Legato Slide",
+   "HO/PO",
+   "Slide Out"
+  ],
+  "single": [
+   [
+    "Slide Out",
+    "D#0"
+   ]
+  ],
+  "fx": [
+   [
+    "Slap Left",
+    null
+   ],
+   [
+    "Slap Right",
+    null
+   ],
+   [
+    "Downstroke Noise",
+    null
+   ],
+   [
+    "Upstroke Noise",
+    null
+   ],
+   [
+    "Scratch 1",
+    null
+   ],
+   [
+    "Scratch 2",
+    null
+   ],
+   [
+    "Silent Press",
+    null
+   ],
+   [
+    "FX Slide 1",
+    null
+   ],
+   [
+    "FX Slide 2",
+    null
+   ],
+   [
+    "FX Slide 3",
+    null
+   ],
+   [
+    "FX Slide 4",
+    null
+   ],
+   [
+    "FX Slide 5",
+    null
+   ],
+   [
+    "FX Slide 6",
+    null
+   ],
+   [
+    "Buzz",
+    null
+   ]
+  ]
+ }
+}

@@ -1,45 +1,49 @@
-# Instrucțiuni de export pentru secvența .griff v.2 (8 chitari)
+# Instrucțiuni de export pentru secvența .griff / .briff v.3 (8 chitari)
 
-Scop: fiecare dintre cele **8 chitari** Ample produce o pereche `.griff` + `.mid`
-(și, opțional, un `.wav`) cu ACEEAȘI secvență de **30 de măsuri** din
-`secventa_v2/`, ca să pot lega fiecare tag din `.griff` de articulația / FX‑ul
-lui. Lista corectată acoperă **22 de articulații + 30 de sunete FX**; chitara
-„Ample Guitar Flamenco” NU există și a fost eliminată.
+Planul este generat de `scripts/genereaza-secventa-griff.py` din denumirile și
+keyswitch‑urile citite **direct din Riffer** (vezi `secventa_v2/catalog_riffer.json`).
+Fiecare instrument are propriul folder `secventa_v2/<CODE>/` cu un `.txt`
+(plan pe măsuri) și câte un piano‑roll `.png` per măsură.
+
+## Structura unei măsuri (4 secțiuni Riffer)
+
+1. **Articulations** — articulația notei (cu keyswitch, ex. `Palm Mute (D0)`).
+2. **To the right of the Articulations** — `No Legato / Legato Slide / Legato HP /
+   HO/PO / Slide Out`.
+3. **Articulation Sound Single** — sunete de articulație izolate (ex. `Slide Out (D#0)`).
+4. **FX Sound Group** — sunetele FX (cu keyswitch, ex. `Pick Scrape (F6)`).
+
+Articulațiile încadrate la *corpul chitarei* **NU** sunt incluse — lista conține
+doar cele 4 secțiuni de mai sus.
+
+## Formatul fișierului exportat
+
+- acustice + electrice (AGM, AGLP, AGTC, AME, AEU) → **`.griff`**
+- bas (ABJ, ABJF, ABMR5) → **`.briff`**
 
 ## Ce exportezi, per chitară
 
-1. Deschizi pluginul chitarii respective: **AGM, AGLP, ABJ** (bază) +
-   **AEU, AME, AGTC, ABJF, ABMR5** (completări) — 8 în total.
-2. Introduci / cânti secvența din `secventa_v2/plan_secventa.json`
-   (30 de măsuri, tempo 90), declanșând în plugin **articulația măsurii** și
-   **FX‑ul de pe nota 1**, conform `secventa_exemplu.txt` și piano‑roll‑urilor.
-   - Măsurile pe care chitara NU le are (vezi `aplicabilitate_chitari.json`)
-     le cânti cu note simple, fără articulație/FX (sau le sari și notezi).
-3. Exporti **`.griff` și `.mid` din ACELAȘI plugin, în aceeași sesiune**, prin
-   Drag‑and‑Drop (click‑dreapta → `midi` / `griff`), fără să modifici nimic
-   între cele două exporturi.
-4. Opțional, dar util: un `.wav` scurt randat (vezi specificațiile mai jos).
-5. Îmi spui pentru fiecare export: **instrumentul + versiunea pluginului** și
-   **transpoziția** folosită (bas −12/−24, ukulele +12 etc.).
+1. Deschizi pluginul și parcurgi măsurile din `secventa_v2/<CODE>/<CODE>.txt`:
+   pentru fiecare măsură setezi în Riffer secțiunea + opțiunea indicate (și
+   keyswitch‑ul, dacă e listat), apoi cânti notele notate (tempo 90).
+2. Exporti **`.griff`/`.briff` și `.mid` din același plugin, în aceeași sesiune**
+   (Drag‑and‑Drop / click‑dreapta → `midi` / `griff`), fără modificări între ele.
+3. Opțional, un `.wav` (specificații mai jos).
+4. Îmi spui: **instrumentul + versiunea + extensia** folosită.
 
-## De ce din plugin, NU din DAW (FL Studio)
+## De ce din plugin, nu din DAW (FL Studio)
 
-`.griff` folosește convenția internă de octave a pluginului. În DAW‑ul tău
-notele apar cu **2 octave mai sus** (diferența clasică C3‑vs‑C5). Dacă ai
-exporta `.mid` din FL Studio, toate înălțimile ar fi deplasate cu **+24 de
-semitonuri** față de `.griff`, și potrivirea tag‑cu‑notă ar fi greșită.
-Exportând ambele fișiere din plugin, referențialul de octave rămâne identic.
+`.griff`/`.briff` folosesc convenția de octave a pluginului; în DAW notele apar
+cu 2 octave mai sus (+24 semitonuri). Exportând ambele fișiere din plugin,
+referențialul rămâne identic.
 
-## Specificații `.wav` (dacă îl trimiți)
+## Specificații `.wav` (opțional)
 
-- WAV PCM, 16 sau 24 bit; 44 100 Hz (spune‑mi care);
-- MONO dacă se poate (altfel stereo, dar fără lărgire de stereo);
-- fără reverb/limiter/EQ pe master (semnal dry);
-- același tempo 90 și aceeași sesiune; ~1 s liniște la început, coada finală
-  lăsată să sune; durata așteptată ≈ 80 s (30 măsuri × 4 timpi la tempo 90).
+WAV PCM 16/24 bit, 44 100 Hz, MONO dacă se poate, fără reverb/limiter/EQ pe
+master, același tempo 90; ~1 s liniște la început, coada finală lăsată să sune.
 
-## Ce primesc eu și ce fac
+## Ce fac eu cu ele
 
-Perechile `.griff` + `.mid` (plus `.wav`‑urile) urcate în `documente/griff/`.
-Cu ele scriu `SPEC-griff.md` (schema completă a formatului) și apoi exportul
-complet din program, cu butonul „Auto Art”.
+Perechile urcate în `documente/griff/` → inginerie inversă → `SPEC-griff.md`
+(schema completă: ce tag corespunde fiecărei secțiuni/keyswitch) → apoi exportul
+complet din program cu butonul „Auto Art”.

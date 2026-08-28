@@ -1,0 +1,50 @@
+Ample Metal Ray5 3.7.0 (ABMR5) -> .briff | 24 masuri | tempo 90
+
+MASURA 1: [Articulations] Sustain | imagine masura_01.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 2: [Articulations] Natural Harmonic | imagine masura_02.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 3: [Articulations] Palm Mute | imagine masura_03.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 4: [Articulations] Slide In | imagine masura_04.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 5: [Articulations] Repeat | imagine masura_05.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 6: [Legato] No Legato | imagine masura_06.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 7: [Legato] Legato Slide | imagine masura_07.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 8: [Legato] HO/PO | imagine masura_08.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 9: [Legato] Slide Out | imagine masura_09.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 10: [Articulation Sound Single] Slide Out | keyswitch D#0 | imagine masura_10.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 11: [FX Sound Group] Slap Left | imagine masura_11.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 12: [FX Sound Group] Slap Right | imagine masura_12.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 13: [FX Sound Group] Downstroke Noise | imagine masura_13.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 14: [FX Sound Group] Upstroke Noise | imagine masura_14.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 15: [FX Sound Group] Scratch 1 | imagine masura_15.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 16: [FX Sound Group] Scratch 2 | imagine masura_16.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 17: [FX Sound Group] Silent Press | imagine masura_17.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 18: [FX Sound Group] FX Slide 1 | imagine masura_18.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 19: [FX Sound Group] FX Slide 2 | imagine masura_19.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 20: [FX Sound Group] FX Slide 3 | imagine masura_20.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 21: [FX Sound Group] FX Slide 4 | imagine masura_21.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 22: [FX Sound Group] FX Slide 5 | imagine masura_22.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 23: [FX Sound Group] FX Slide 6 | imagine masura_23.png
+   note: G1(31), A1(33), B1(35), D2(38)
+MASURA 24: [FX Sound Group] Buzz | imagine masura_24.png
+   note: G1(31), A1(33), B1(35), D2(38)

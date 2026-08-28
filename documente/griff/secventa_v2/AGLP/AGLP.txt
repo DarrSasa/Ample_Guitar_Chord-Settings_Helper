@@ -1,0 +1,48 @@
+Ample Guitar LP 4.1.0 (AGLP) -> .griff | 23 masuri | tempo 90
+
+MASURA 1: [Articulations] Sustain | keyswitch C0 | imagine masura_01.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 2: [Articulations] Pop/PH | keyswitch C0 | imagine masura_02.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 3: [Articulations] Natural Harmonic | keyswitch C#0 | imagine masura_03.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 4: [Articulations] Palm Mute | keyswitch D0 | imagine masura_04.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 5: [Articulations] Slide In | keyswitch D#0 | imagine masura_05.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 6: [Articulations] Slide Guitar | keyswitch F0 | imagine masura_06.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 7: [Articulations] Pinch Harmonic | keyswitch B-1 | imagine masura_07.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 8: [Legato] No Legato | imagine masura_08.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 9: [Legato] Legato Slide | imagine masura_09.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 10: [Legato] Legato HP | imagine masura_10.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 11: [Articulation Sound Single] Slide Out | keyswitch D#0 | imagine masura_11.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 12: [FX Sound Group] Scratch | keyswitch F5 | imagine masura_12.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 13: [FX Sound Group] Slap | keyswitch F#5 | imagine masura_13.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 14: [FX Sound Group] Muting | keyswitch G5 | imagine masura_14.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 15: [FX Sound Group] Strum Mute | keyswitch G#5 | imagine masura_15.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 16: [FX Sound Group] Downstroke 1 | keyswitch A5 | imagine masura_16.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 17: [FX Sound Group] Upstroke 1 | keyswitch A#5 | imagine masura_17.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 18: [FX Sound Group] Downstroke 2 | keyswitch B5 | imagine masura_18.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 19: [FX Sound Group] Upstroke 2 | keyswitch C6 | imagine masura_19.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 20: [FX Sound Group] Raking | keyswitch E6 | imagine masura_20.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 21: [FX Sound Group] Pick Scrape | keyswitch F6 | imagine masura_21.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 22: [FX Sound Group] FX Slide Turn | keyswitch F#6 | imagine masura_22.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 23: [FX Sound Group] FX Slide Down | keyswitch G6 | imagine masura_23.png
+   note: G3(55), A3(57), B3(59), D4(62)
