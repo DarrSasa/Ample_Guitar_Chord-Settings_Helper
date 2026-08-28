@@ -189,6 +189,22 @@ def piano_roll(code, idx, masura, info, cale):
     img.save(cale)
 
 
+def lipeste(ddir, n, cale_out):
+    """Uneste masura_01..masura_N intr-o singura imagine, de la stanga la
+    dreapta (in ordinea masurilor). PNG-urile individuale raman pe disc."""
+    imgs = [Image.open(os.path.join(ddir, f"masura_{i:02d}.png"))
+            for i in range(1, n + 1)]
+    w = sum(im.width for im in imgs)
+    h = max(im.height for im in imgs)
+    banda = Image.new("RGB", (w, h), "white")
+    x = 0
+    for im in imgs:
+        banda.paste(im, (x, 0))
+        x += im.width
+    banda.save(cale_out)
+    return banda.size
+
+
 def main():
     # curata iesirile vechi (planul anterior folosea denumiri ghicite)
     import shutil
@@ -216,10 +232,14 @@ def main():
                 f"{n['nota']}({n['midi']})" for n in m["note"]))
         with open(os.path.join(ddir, f"{code}.txt"), "w", encoding="utf-8") as f:
             f.write("\n".join(linii))
+        # banda completa, masura 1..N de la stanga la dreapta (PNG-urile
+        # individuale NU sunt sterse)
+        dim = lipeste(ddir, len(masuri), os.path.join(ddir, f"{code}_complet.png"))
         n = {s: len(info[c]) for s, c in (
             ("art", "articulatii"), ("legato", "legato"),
             ("single", "single"), ("fx", "fx"))}
-        print(f"{code} ({info['ext']}): {len(masuri)} masuri -> {n}")
+        print(f"{code} ({info['ext']}): {len(masuri)} masuri -> {n} | "
+              f"{code}_complet.png {dim[0]}x{dim[1]}")
     print(f"TOTAL masuri: {total} | instrumente: {len(CATALOG)}")
 
 
