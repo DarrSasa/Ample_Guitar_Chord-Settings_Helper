@@ -1,0 +1,194 @@
+SECVENTA-EXEMPLU .griff v.2 - descriere text (ghidare dubla)
+Tempo 90 | 32 masuri | acopera 25 articulatii + 32 FX
+
+MASURA 1: articulatie=Sustain | FX=Fret Noise (pe nota 1) | imagine=masura_01.png
+   nota 1: Ab3 (MIDI 56) beat 0.0 durata 1.0 + FX 1 Fret Noise | articulatie Sustain
+   nota 2: Bb3 (MIDI 58) beat 1.0 durata 1.0 | articulatie Sustain
+   nota 3: C4 (MIDI 60) beat 2.0 durata 1.0 | articulatie Sustain
+   nota 4: Eb4 (MIDI 63) beat 3.0 durata 1.0 | articulatie Sustain
+
+MASURA 2: articulatie=Palm Mute | FX=Stroke Noise (pe nota 1) | imagine=masura_02.png
+   nota 1: A3 (MIDI 57) beat 0.0 durata 1.0 + FX 2 Stroke Noise | articulatie Palm Mute
+   nota 2: B3 (MIDI 59) beat 1.0 durata 1.0 | articulatie Palm Mute
+   nota 3: C#4 (MIDI 61) beat 2.0 durata 1.0 | articulatie Palm Mute
+   nota 4: E4 (MIDI 64) beat 3.0 durata 1.0 | articulatie Palm Mute
+
+MASURA 3: articulatie=Natural Harmonic | FX=Body Hit/Golpe (pe nota 1) | imagine=masura_03.png
+   nota 1: Bb3 (MIDI 58) beat 0.0 durata 1.0 + FX 3 Body Hit/Golpe | articulatie Natural Harmonic
+   nota 2: C4 (MIDI 60) beat 1.0 durata 1.0 | articulatie Natural Harmonic
+   nota 3: D4 (MIDI 62) beat 2.0 durata 1.0 | articulatie Natural Harmonic
+   nota 4: F4 (MIDI 65) beat 3.0 durata 1.0 | articulatie Natural Harmonic
+
+MASURA 4: articulatie=Pinch Harmonic | FX=Body Tap High (pe nota 1) | imagine=masura_04.png
+   nota 1: B3 (MIDI 59) beat 0.0 durata 1.0 + FX 4 Body Tap High | articulatie Pinch Harmonic
+   nota 2: C#4 (MIDI 61) beat 1.0 durata 1.0 | articulatie Pinch Harmonic
+   nota 3: Eb4 (MIDI 63) beat 2.0 durata 1.0 | articulatie Pinch Harmonic
+   nota 4: F#4 (MIDI 66) beat 3.0 durata 1.0 | articulatie Pinch Harmonic
+
+MASURA 5: articulatie=Hammer-on/Pull-off | FX=Body Tap Low (pe nota 1) | imagine=masura_05.png
+   nota 1: G3 (MIDI 55) beat 0.0 durata 1.0 + FX 5 Body Tap Low | articulatie Hammer-on/Pull-off
+   nota 2: A3 (MIDI 57) beat 1.0 durata 1.0 | articulatie Hammer-on/Pull-off
+   nota 3: B3 (MIDI 59) beat 2.0 durata 1.0 | articulatie Hammer-on/Pull-off
+   nota 4: D4 (MIDI 62) beat 3.0 durata 1.0 | articulatie Hammer-on/Pull-off
+
+MASURA 6: articulatie=Legato Slide | FX=Silent Press (pe nota 1) | imagine=masura_06.png
+   nota 1: Ab3 (MIDI 56) beat 0.0 durata 1.0 + FX 6 Silent Press | articulatie Legato Slide
+   nota 2: Bb3 (MIDI 58) beat 1.0 durata 1.0 | articulatie Legato Slide
+   nota 3: C4 (MIDI 60) beat 2.0 durata 1.0 | articulatie Legato Slide
+   nota 4: Eb4 (MIDI 63) beat 3.0 durata 1.0 | articulatie Legato Slide
+
+MASURA 7: articulatie=Slide In | FX=Silent Release (pe nota 1) | imagine=masura_07.png
+   nota 1: A3 (MIDI 57) beat 0.0 durata 1.0 + FX 7 Silent Release | articulatie Slide In
+   nota 2: B3 (MIDI 59) beat 1.0 durata 1.0 | articulatie Slide In
+   nota 3: C#4 (MIDI 61) beat 2.0 durata 1.0 | articulatie Slide In
+   nota 4: E4 (MIDI 64) beat 3.0 durata 1.0 | articulatie Slide In
+
+MASURA 8: articulatie=Slide Out | FX=Finger Slide (pe nota 1) | imagine=masura_08.png
+   nota 1: Bb3 (MIDI 58) beat 0.0 durata 1.0 + FX 8 Finger Slide | articulatie Slide Out
+   nota 2: C4 (MIDI 60) beat 1.0 durata 1.0 | articulatie Slide Out
+   nota 3: D4 (MIDI 62) beat 2.0 durata 1.0 | articulatie Slide Out
+   nota 4: F4 (MIDI 65) beat 3.0 durata 1.0 | articulatie Slide Out
+
+MASURA 9: articulatie=Vibrato | FX=String Scratch (pe nota 1) | imagine=masura_09.png
+   nota 1: B3 (MIDI 59) beat 0.0 durata 1.0 + FX 9 String Scratch | articulatie Vibrato
+   nota 2: C#4 (MIDI 61) beat 1.0 durata 1.0 | articulatie Vibrato
+   nota 3: Eb4 (MIDI 63) beat 2.0 durata 1.0 | articulatie Vibrato
+   nota 4: F#4 (MIDI 66) beat 3.0 durata 1.0 | articulatie Vibrato
+
+MASURA 10: articulatie=Staccato | FX=Dead Note Strum (pe nota 1) | imagine=masura_10.png
+   nota 1: G3 (MIDI 55) beat 0.0 durata 1.0 + FX 10 Dead Note Strum | articulatie Staccato
+   nota 2: A3 (MIDI 57) beat 1.0 durata 1.0 | articulatie Staccato
+   nota 3: B3 (MIDI 59) beat 2.0 durata 1.0 | articulatie Staccato
+   nota 4: D4 (MIDI 62) beat 3.0 durata 1.0 | articulatie Staccato
+
+MASURA 11: articulatie=Dead Note | FX=Rel Release Noise (pe nota 1) | imagine=masura_11.png
+   nota 1: Ab3 (MIDI 56) beat 0.0 durata 1.0 + FX 11 Rel Release Noise | articulatie Dead Note
+   nota 2: Bb3 (MIDI 58) beat 1.0 durata 1.0 | articulatie Dead Note
+   nota 3: C4 (MIDI 60) beat 2.0 durata 1.0 | articulatie Dead Note
+   nota 4: Eb4 (MIDI 63) beat 3.0 durata 1.0 | articulatie Dead Note
+
+MASURA 12: articulatie=Tapping | FX=Pick Scratch (pe nota 1) | imagine=masura_12.png
+   nota 1: A3 (MIDI 57) beat 0.0 durata 1.0 + FX 12 Pick Scratch | articulatie Tapping
+   nota 2: B3 (MIDI 59) beat 1.0 durata 1.0 | articulatie Tapping
+   nota 3: C#4 (MIDI 61) beat 2.0 durata 1.0 | articulatie Tapping
+   nota 4: E4 (MIDI 64) beat 3.0 durata 1.0 | articulatie Tapping
+
+MASURA 13: articulatie=Slap | FX=Natural Feedback (pe nota 1) | imagine=masura_13.png
+   nota 1: Bb3 (MIDI 58) beat 0.0 durata 1.0 + FX 13 Natural Feedback | articulatie Slap
+   nota 2: C4 (MIDI 60) beat 1.0 durata 1.0 | articulatie Slap
+   nota 3: D4 (MIDI 62) beat 2.0 durata 1.0 | articulatie Slap
+   nota 4: F4 (MIDI 65) beat 3.0 durata 1.0 | articulatie Slap
+
+MASURA 14: articulatie=Pop | FX=String Buzz (pe nota 1) | imagine=masura_14.png
+   nota 1: B3 (MIDI 59) beat 0.0 durata 1.0 + FX 14 String Buzz | articulatie Pop
+   nota 2: C#4 (MIDI 61) beat 1.0 durata 1.0 | articulatie Pop
+   nota 3: Eb4 (MIDI 63) beat 2.0 durata 1.0 | articulatie Pop
+   nota 4: F#4 (MIDI 66) beat 3.0 durata 1.0 | articulatie Pop
+
+MASURA 15: articulatie=Accent | FX=Toggle Switch Click (pe nota 1) | imagine=masura_15.png
+   nota 1: G3 (MIDI 55) beat 0.0 durata 1.0 + FX 15 Toggle Switch Click | articulatie Accent
+   nota 2: A3 (MIDI 57) beat 1.0 durata 1.0 | articulatie Accent
+   nota 3: B3 (MIDI 59) beat 2.0 durata 1.0 | articulatie Accent
+   nota 4: D4 (MIDI 62) beat 3.0 durata 1.0 | articulatie Accent
+
+MASURA 16: articulatie=Grace Note | FX=Cable Plug (pe nota 1) | imagine=masura_16.png
+   nota 1: Ab3 (MIDI 56) beat 0.0 durata 1.0 + FX 16 Cable Plug | articulatie Grace Note
+   nota 2: Bb3 (MIDI 58) beat 1.0 durata 1.0 | articulatie Grace Note
+   nota 3: C4 (MIDI 60) beat 2.0 durata 1.0 | articulatie Grace Note
+   nota 4: Eb4 (MIDI 63) beat 3.0 durata 1.0 | articulatie Grace Note
+
+MASURA 17: articulatie=Rasgueado | FX=Bridge Mute Hit (pe nota 1) | imagine=masura_17.png
+   nota 1: A3 (MIDI 57) beat 0.0 durata 1.0 + FX 17 Bridge Mute Hit | articulatie Rasgueado
+   nota 2: B3 (MIDI 59) beat 1.0 durata 1.0 | articulatie Rasgueado
+   nota 3: C#4 (MIDI 61) beat 2.0 durata 1.0 | articulatie Rasgueado
+   nota 4: E4 (MIDI 64) beat 3.0 durata 1.0 | articulatie Rasgueado
+
+MASURA 18: articulatie=Flamenco Tremolo | FX=Electric Slide FX (pe nota 1) | imagine=masura_18.png
+   nota 1: Bb3 (MIDI 58) beat 0.0 durata 1.0 + FX 18 Electric Slide FX | articulatie Flamenco Tremolo
+   nota 2: C4 (MIDI 60) beat 1.0 durata 1.0 | articulatie Flamenco Tremolo
+   nota 3: D4 (MIDI 62) beat 2.0 durata 1.0 | articulatie Flamenco Tremolo
+   nota 4: F4 (MIDI 65) beat 3.0 durata 1.0 | articulatie Flamenco Tremolo
+
+MASURA 19: articulatie=Alzapúa | FX=Thumb Slap Noise (pe nota 1) | imagine=masura_19.png
+   nota 1: B3 (MIDI 59) beat 0.0 durata 1.0 + FX 19 Thumb Slap Noise | articulatie Alzapúa
+   nota 2: C#4 (MIDI 61) beat 1.0 durata 1.0 | articulatie Alzapúa
+   nota 3: Eb4 (MIDI 63) beat 2.0 durata 1.0 | articulatie Alzapúa
+   nota 4: F#4 (MIDI 66) beat 3.0 durata 1.0 | articulatie Alzapúa
+
+MASURA 20: articulatie=Finger Roll Strum | FX=Pop Noise (pe nota 1) | imagine=masura_20.png
+   nota 1: G3 (MIDI 55) beat 0.0 durata 1.0 + FX 20 Pop Noise | articulatie Finger Roll Strum
+   nota 2: A3 (MIDI 57) beat 1.0 durata 1.0 | articulatie Finger Roll Strum
+   nota 3: B3 (MIDI 59) beat 2.0 durata 1.0 | articulatie Finger Roll Strum
+   nota 4: D4 (MIDI 62) beat 3.0 durata 1.0 | articulatie Finger Roll Strum
+
+MASURA 21: articulatie=Heavy Palm Mute | FX=Slap Dead Note (pe nota 1) | imagine=masura_21.png
+   nota 1: Ab3 (MIDI 56) beat 0.0 durata 1.0 + FX 21 Slap Dead Note | articulatie Heavy Palm Mute
+   nota 2: Bb3 (MIDI 58) beat 1.0 durata 1.0 | articulatie Heavy Palm Mute
+   nota 3: C4 (MIDI 60) beat 2.0 durata 1.0 | articulatie Heavy Palm Mute
+   nota 4: Eb4 (MIDI 63) beat 3.0 durata 1.0 | articulatie Heavy Palm Mute
+
+MASURA 22: articulatie=Tremolo Picking | FX=Bass Body Thump (pe nota 1) | imagine=masura_22.png
+   nota 1: A3 (MIDI 57) beat 0.0 durata 1.0 + FX 22 Bass Body Thump | articulatie Tremolo Picking
+   nota 2: B3 (MIDI 59) beat 1.0 durata 1.0 | articulatie Tremolo Picking
+   nota 3: C#4 (MIDI 61) beat 2.0 durata 1.0 | articulatie Tremolo Picking
+   nota 4: E4 (MIDI 64) beat 3.0 durata 1.0 | articulatie Tremolo Picking
+
+MASURA 23: articulatie=Country Bends | FX=Hand Choke (pe nota 1) | imagine=masura_23.png
+   nota 1: Bb3 (MIDI 58) beat 0.0 durata 1.0 + FX 23 Hand Choke | articulatie Country Bends
+   nota 2: C4 (MIDI 60) beat 1.0 durata 1.0 | articulatie Country Bends
+   nota 3: D4 (MIDI 62) beat 2.0 durata 1.0 | articulatie Country Bends
+   nota 4: F4 (MIDI 65) beat 3.0 durata 1.0 | articulatie Country Bends
+
+MASURA 24: articulatie=Microtonal Fretless Slide | FX=Bass Fret Noise (pe nota 1) | imagine=masura_24.png
+   nota 1: B3 (MIDI 59) beat 0.0 durata 1.0 + FX 24 Bass Fret Noise | articulatie Microtonal Fretless Slide
+   nota 2: C#4 (MIDI 61) beat 1.0 durata 1.0 | articulatie Microtonal Fretless Slide
+   nota 3: Eb4 (MIDI 63) beat 2.0 durata 1.0 | articulatie Microtonal Fretless Slide
+   nota 4: F#4 (MIDI 66) beat 3.0 durata 1.0 | articulatie Microtonal Fretless Slide
+
+MASURA 25: articulatie=Low-End Heavy Slap Mute | FX=Bass Slide FX (pe nota 1) | imagine=masura_25.png
+   nota 1: G3 (MIDI 55) beat 0.0 durata 1.0 + FX 25 Bass Slide FX | articulatie Low-End Heavy Slap Mute
+   nota 2: A3 (MIDI 57) beat 1.0 durata 1.0 | articulatie Low-End Heavy Slap Mute
+   nota 3: B3 (MIDI 59) beat 2.0 durata 1.0 | articulatie Low-End Heavy Slap Mute
+   nota 4: D4 (MIDI 62) beat 3.0 durata 1.0 | articulatie Low-End Heavy Slap Mute
+
+MASURA 26: articulatie=- | FX=Golpe Tap fatadă (pe nota 1) | imagine=masura_26.png
+   nota 1: Ab3 (MIDI 56) beat 0.0 durata 1.0 + FX 26 Golpe Tap fatadă
+   nota 2: Bb3 (MIDI 58) beat 1.0 durata 1.0
+   nota 3: C4 (MIDI 60) beat 2.0 durata 1.0
+   nota 4: Eb4 (MIDI 63) beat 3.0 durata 1.0
+
+MASURA 27: articulatie=- | FX=Zgomot mecanic Rasgueado (pe nota 1) | imagine=masura_27.png
+   nota 1: A3 (MIDI 57) beat 0.0 durata 1.0 + FX 27 Zgomot mecanic Rasgueado
+   nota 2: B3 (MIDI 59) beat 1.0 durata 1.0
+   nota 3: C#4 (MIDI 61) beat 2.0 durata 1.0
+   nota 4: E4 (MIDI 64) beat 3.0 durata 1.0
+
+MASURA 28: articulatie=- | FX=Ukulele Body Tap scurt (pe nota 1) | imagine=masura_28.png
+   nota 1: Bb3 (MIDI 58) beat 0.0 durata 1.0 + FX 28 Ukulele Body Tap scurt
+   nota 2: C4 (MIDI 60) beat 1.0 durata 1.0
+   nota 3: D4 (MIDI 62) beat 2.0 durata 1.0
+   nota 4: F4 (MIDI 65) beat 3.0 durata 1.0
+
+MASURA 29: articulatie=- | FX=Heavy Metal Pick Scrape lung (pe nota 1) | imagine=masura_29.png
+   nota 1: B3 (MIDI 59) beat 0.0 durata 1.0 + FX 29 Heavy Metal Pick Scrape lung
+   nota 2: C#4 (MIDI 61) beat 1.0 durata 1.0
+   nota 3: Eb4 (MIDI 63) beat 2.0 durata 1.0
+   nota 4: F#4 (MIDI 66) beat 3.0 durata 1.0
+
+MASURA 30: articulatie=- | FX=Telecaster Snap Switch & Twang (pe nota 1) | imagine=masura_30.png
+   nota 1: G3 (MIDI 55) beat 0.0 durata 1.0 + FX 30 Telecaster Snap Switch & Twang
+   nota 2: A3 (MIDI 57) beat 1.0 durata 1.0
+   nota 3: B3 (MIDI 59) beat 2.0 durata 1.0
+   nota 4: D4 (MIDI 62) beat 3.0 durata 1.0
+
+MASURA 31: articulatie=- | FX=Fretless Glissando Noise (pe nota 1) | imagine=masura_31.png
+   nota 1: Ab3 (MIDI 56) beat 0.0 durata 1.0 + FX 31 Fretless Glissando Noise
+   nota 2: Bb3 (MIDI 58) beat 1.0 durata 1.0
+   nota 3: C4 (MIDI 60) beat 2.0 durata 1.0
+   nota 4: Eb4 (MIDI 63) beat 3.0 durata 1.0
+
+MASURA 32: articulatie=- | FX=Sub-Bass Slap Hit (pe nota 1) | imagine=masura_32.png
+   nota 1: A3 (MIDI 57) beat 0.0 durata 1.0 + FX 32 Sub-Bass Slap Hit
+   nota 2: B3 (MIDI 59) beat 1.0 durata 1.0
+   nota 3: C#4 (MIDI 61) beat 2.0 durata 1.0
+   nota 4: E4 (MIDI 64) beat 3.0 durata 1.0
