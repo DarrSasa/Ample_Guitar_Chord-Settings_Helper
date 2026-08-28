@@ -1,0 +1,55 @@
+X:1
+T:Ample Metal Ray5 3.7.0 - secventa .griff (ABMR5)
+C:format export .briff | tempo 90
+M:4/4
+L:1/4
+Q:1/4=90
+K:C
+% m1 [Articulations] Sustain
+G,, A,, B,, D, |
+% m2 [Articulations] Natural Harmonic
+G,, A,, B,, D, |
+% m3 [Articulations] Palm Mute
+G,, A,, B,, D, |
+% m4 [Articulations] Slide In
+G,, A,, B,, D, |
+% m5 [Articulations] Repeat
+G,, A,, B,, D, |
+% m6 [Legato] No Legato
+G,, A,, B,, D, |
+% m7 [Legato] Legato Slide
+G,, A,, B,, D, |
+% m8 [Legato] HO/PO
+G,, A,, B,, D, |
+% m9 [Legato] Slide Out
+G,, A,, B,, D, |
+% m10 [Articulation Sound Single] Slide Out KS D#0
+G,, A,, B,, D, |
+% m11 [FX Sound Group] Slap Left
+G,, A,, B,, D, |
+% m12 [FX Sound Group] Slap Right
+G,, A,, B,, D, |
+% m13 [FX Sound Group] Downstroke Noise
+G,, A,, B,, D, |
+% m14 [FX Sound Group] Upstroke Noise
+G,, A,, B,, D, |
+% m15 [FX Sound Group] Scratch 1
+G,, A,, B,, D, |
+% m16 [FX Sound Group] Scratch 2
+G,, A,, B,, D, |
+% m17 [FX Sound Group] Silent Press
+G,, A,, B,, D, |
+% m18 [FX Sound Group] FX Slide 1
+G,, A,, B,, D, |
+% m19 [FX Sound Group] FX Slide 2
+G,, A,, B,, D, |
+% m20 [FX Sound Group] FX Slide 3
+G,, A,, B,, D, |
+% m21 [FX Sound Group] FX Slide 4
+G,, A,, B,, D, |
+% m22 [FX Sound Group] FX Slide 5
+G,, A,, B,, D, |
+% m23 [FX Sound Group] FX Slide 6
+G,, A,, B,, D, |
+% m24 [FX Sound Group] Buzz
+G,, A,, B,, D, |]

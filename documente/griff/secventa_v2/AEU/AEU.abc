@@ -1,0 +1,49 @@
+X:1
+T:Ample Ethno Ukulele 3.6.0 - secventa .griff (AEU)
+C:format export .griff | tempo 90
+M:4/4
+L:1/4
+Q:1/4=90
+K:C
+% m1 [Articulations] Sustain
+G A B d |
+% m2 [Articulations] Natural Harmonic
+G A B d |
+% m3 [Articulations] Palm Mute
+G A B d |
+% m4 [Articulations] Slide In
+G A B d |
+% m5 [Articulations] Strum
+G A B d |
+% m6 [Legato] No Legato
+G A B d |
+% m7 [Legato] Legato Slide
+G A B d |
+% m8 [Legato] HO/PO
+G A B d |
+% m9 [Legato] Slide Out
+G A B d |
+% m10 [Articulation Sound Single] Slide Out KS D#0
+G A B d |
+% m11 [FX Sound Group] Scratch
+G A B d |
+% m12 [FX Sound Group] Slap
+G A B d |
+% m13 [FX Sound Group] Silent Press
+G A B d |
+% m14 [FX Sound Group] Silent Stroke
+G A B d |
+% m15 [FX Sound Group] Downstroke Noise 1
+G A B d |
+% m16 [FX Sound Group] Upstroke Noise 1
+G A B d |
+% m17 [FX Sound Group] Downstroke Noise 2
+G A B d |
+% m18 [FX Sound Group] Upstroke Noise 2
+G A B d |
+% m19 [FX Sound Group] Hit Top (Open)
+G A B d |
+% m20 [FX Sound Group] Hit Top (Mute)
+G A B d |
+% m21 [FX Sound Group] Hit Rim
+G A B d |]

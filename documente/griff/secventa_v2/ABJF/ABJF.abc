@@ -1,0 +1,59 @@
+X:1
+T:Ample Bass Jaco Fretless 4.0.1 - secventa .griff (ABJF)
+C:format export .briff | tempo 90
+M:4/4
+L:1/4
+Q:1/4=90
+K:C
+% m1 [Articulations] Sustain KS C0
+G,, A,, B,, D, |
+% m2 [Articulations] Accent KS C0
+G,, A,, B,, D, |
+% m3 [Articulations] Natural Harmonic KS C#0
+G,, A,, B,, D, |
+% m4 [Articulations] Palm Mute KS D0
+G,, A,, B,, D, |
+% m5 [Articulations] Dead Note KS D0
+G,, A,, B,, D, |
+% m6 [Articulations] Slide In KS D#0
+G,, A,, B,, D, |
+% m7 [Articulations] Slap KS G0
+G,, A,, B,, D, |
+% m8 [Articulations] Dead Slap KS G0
+G,, A,, B,, D, |
+% m9 [Articulations] Pop KS A0
+G,, A,, B,, D, |
+% m10 [Articulations] Dead Pop KS A0
+G,, A,, B,, D, |
+% m11 [Articulations] Artificial Harmonic KS G#0
+G,, A,, B,, D, |
+% m12 [Articulations] Repeat Note KS F#0
+G,, A,, B,, D, |
+% m13 [Legato] No Legato
+G,, A,, B,, D, |
+% m14 [Legato] Legato Slide
+G,, A,, B,, D, |
+% m15 [Legato] Legato HP
+G,, A,, B,, D, |
+% m16 [Articulation Sound Single] Slide Out KS D#0
+G,, A,, B,, D, |
+% m17 [Articulation Sound Single] Buzzing KS A4
+G,, A,, B,, D, |
+% m18 [FX Sound Group] Scratch 1 KS F5
+G,, A,, B,, D, |
+% m19 [FX Sound Group] Scratch 2 KS F#5
+G,, A,, B,, D, |
+% m20 [FX Sound Group] Single String Slap KS G5
+G,, A,, B,, D, |
+% m21 [FX Sound Group] Left-Hand Slap KS G#5
+G,, A,, B,, D, |
+% m22 [FX Sound Group] Right-Hand Slap KS A5
+G,, A,, B,, D, |
+% m23 [FX Sound Group] FX Slide Turn (4) KS A#5
+G,, A,, B,, D, |
+% m24 [FX Sound Group] FX Slide Turn (3) KS B5
+G,, A,, B,, D, |
+% m25 [FX Sound Group] FX Slide Down (4) KS C6
+G,, A,, B,, D, |
+% m26 [FX Sound Group] FX Slide Down (3) KS C#6
+G,, A,, B,, D, |]

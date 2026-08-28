@@ -140,6 +140,33 @@ def fraza(categorie):
             for o, b in ((0, 0.0), (2, 1.0), (4, 2.0), (7, 3.0))]
 
 
+LITERE = ["C", "^C", "D", "^D", "E", "F", "^F", "G", "^G", "A", "^A", "B"]
+
+
+def midi_to_abc(m):
+    """MIDI -> nota ABC (c = Do central; , = octava jos, ' = octava sus)."""
+    pc = m % 12
+    oct_ = m // 12 - 1
+    lit = LITERE[pc]
+    if oct_ >= 4:
+        return lit.lower() + "'" * (oct_ - 4)
+    return lit + "," * (3 - oct_)
+
+
+def scrie_abc(code, info, masuri, cale):
+    linii = ["X:1",
+             f"T:{info['nume']} {info['versiune']} - secventa .griff ({code})",
+             f"C:format export {info['ext']} | tempo 90",
+             "M:4/4", "L:1/4", "Q:1/4=90", "K:C"]
+    for i, m in enumerate(masuri, 1):
+        ks = f" KS {m['ks']}" if m["ks"] else ""
+        linii.append(f"% m{i} [{m['sectiune']}] {m['nume']}{ks}")
+        linii.append(" ".join(midi_to_abc(n["midi"]) for n in m["note"]) + " |")
+    linii[-1] = linii[-1][:-1] + "|]"
+    with open(cale, "w", encoding="utf-8") as f:
+        f.write("\n".join(linii) + "\n")
+
+
 def plan_instrument(info):
     """Masuri in ordinea sectiunilor: articulatii, legato, single, fx."""
     masuri = []
@@ -235,6 +262,7 @@ def main():
         # banda completa, masura 1..N de la stanga la dreapta (PNG-urile
         # individuale NU sunt sterse)
         dim = lipeste(ddir, len(masuri), os.path.join(ddir, f"{code}_complet.png"))
+        scrie_abc(code, info, masuri, os.path.join(ddir, f"{code}.abc"))
         n = {s: len(info[c]) for s, c in (
             ("art", "articulatii"), ("legato", "legato"),
             ("single", "single"), ("fx", "fx"))}

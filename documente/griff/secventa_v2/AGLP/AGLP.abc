@@ -1,0 +1,53 @@
+X:1
+T:Ample Guitar LP 4.1.0 - secventa .griff (AGLP)
+C:format export .griff | tempo 90
+M:4/4
+L:1/4
+Q:1/4=90
+K:C
+% m1 [Articulations] Sustain KS C0
+G A B d |
+% m2 [Articulations] Pop/PH KS C0
+G A B d |
+% m3 [Articulations] Natural Harmonic KS C#0
+G A B d |
+% m4 [Articulations] Palm Mute KS D0
+G A B d |
+% m5 [Articulations] Slide In KS D#0
+G A B d |
+% m6 [Articulations] Slide Guitar KS F0
+G A B d |
+% m7 [Articulations] Pinch Harmonic KS B-1
+G A B d |
+% m8 [Legato] No Legato
+G A B d |
+% m9 [Legato] Legato Slide
+G A B d |
+% m10 [Legato] Legato HP
+G A B d |
+% m11 [Articulation Sound Single] Slide Out KS D#0
+G A B d |
+% m12 [FX Sound Group] Scratch KS F5
+G A B d |
+% m13 [FX Sound Group] Slap KS F#5
+G A B d |
+% m14 [FX Sound Group] Muting KS G5
+G A B d |
+% m15 [FX Sound Group] Strum Mute KS G#5
+G A B d |
+% m16 [FX Sound Group] Downstroke 1 KS A5
+G A B d |
+% m17 [FX Sound Group] Upstroke 1 KS A#5
+G A B d |
+% m18 [FX Sound Group] Downstroke 2 KS B5
+G A B d |
+% m19 [FX Sound Group] Upstroke 2 KS C6
+G A B d |
+% m20 [FX Sound Group] Raking KS E6
+G A B d |
+% m21 [FX Sound Group] Pick Scrape KS F6
+G A B d |
+% m22 [FX Sound Group] FX Slide Turn KS F#6
+G A B d |
+% m23 [FX Sound Group] FX Slide Down KS G6
+G A B d |]
