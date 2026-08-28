@@ -1,15 +1,17 @@
-# Instrucțiuni de export pentru secvența .griff v.2 (9 chitari)
+# Instrucțiuni de export pentru secvența .griff v.2 (8 chitari)
 
-Scop: fiecare chitară Ample produce o pereche `.griff` + `.mid` (și, opțional,
-un `.wav`) cu ACEEAȘI secvență de 32 de măsuri din `secventa_v2/`, ca să pot
-lega fiecare tag din `.griff` de articulația / FX‑ul lui.
+Scop: fiecare dintre cele **8 chitari** Ample produce o pereche `.griff` + `.mid`
+(și, opțional, un `.wav`) cu ACEEAȘI secvență de **30 de măsuri** din
+`secventa_v2/`, ca să pot lega fiecare tag din `.griff` de articulația / FX‑ul
+lui. Lista corectată acoperă **22 de articulații + 30 de sunete FX**; chitara
+„Ample Guitar Flamenco” NU există și a fost eliminată.
 
 ## Ce exportezi, per chitară
 
-1. Deschizi pluginul chitarii respective (AGM, AGLP, ABJ, AGPF, AGU, AME,
-   AGTC, ABFL, AMB).
+1. Deschizi pluginul chitarii respective: **AGM, AGLP, ABJ** (bază) +
+   **AEU, AME, AGTC, ABJF, ABMR5** (completări) — 8 în total.
 2. Introduci / cânti secvența din `secventa_v2/plan_secventa.json`
-   (32 de măsuri, tempo 90), declanșând în plugin **articulația măsurii** și
+   (30 de măsuri, tempo 90), declanșând în plugin **articulația măsurii** și
    **FX‑ul de pe nota 1**, conform `secventa_exemplu.txt` și piano‑roll‑urilor.
    - Măsurile pe care chitara NU le are (vezi `aplicabilitate_chitari.json`)
      le cânti cu note simple, fără articulație/FX (sau le sari și notezi).
@@ -34,7 +36,7 @@ Exportând ambele fișiere din plugin, referențialul de octave rămâne identic
 - MONO dacă se poate (altfel stereo, dar fără lărgire de stereo);
 - fără reverb/limiter/EQ pe master (semnal dry);
 - același tempo 90 și aceeași sesiune; ~1 s liniște la început, coada finală
-  lăsată să sune; durata așteptată ≈ 85–86 s.
+  lăsată să sune; durata așteptată ≈ 80 s (30 măsuri × 4 timpi la tempo 90).
 
 ## Ce primesc eu și ce fac
 

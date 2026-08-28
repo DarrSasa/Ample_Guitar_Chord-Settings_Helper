@@ -287,7 +287,7 @@
   },
   "fx": {
    "id": 8,
-   "nume": "Finger Slide",
+   "nume": "Finger Slide FX",
    "pe_nota": 1
   },
   "note": [
@@ -317,7 +317,7 @@
     "durata": 1.0
    }
   ],
-  "cerinta": "Demonstreaza Slide Out pe toate notele; declanseaza Finger Slide pe prima nota."
+  "cerinta": "Demonstreaza Slide Out pe toate notele; declanseaza Finger Slide FX pe prima nota."
  },
  {
   "masura": 9,
@@ -643,7 +643,7 @@
   "masura": 17,
   "articulatie": {
    "id": 17,
-   "nume": "Rasgueado"
+   "nume": "Finger Roll Strum"
   },
   "fx": {
    "id": 17,
@@ -677,13 +677,13 @@
     "durata": 1.0
    }
   ],
-  "cerinta": "Demonstreaza Rasgueado pe toate notele; declanseaza Bridge Mute Hit pe prima nota."
+  "cerinta": "Demonstreaza Finger Roll Strum pe toate notele; declanseaza Bridge Mute Hit pe prima nota."
  },
  {
   "masura": 18,
   "articulatie": {
    "id": 18,
-   "nume": "Flamenco Tremolo"
+   "nume": "Heavy Palm Mute"
   },
   "fx": {
    "id": 18,
@@ -717,13 +717,13 @@
     "durata": 1.0
    }
   ],
-  "cerinta": "Demonstreaza Flamenco Tremolo pe toate notele; declanseaza Electric Slide FX pe prima nota."
+  "cerinta": "Demonstreaza Heavy Palm Mute pe toate notele; declanseaza Electric Slide FX pe prima nota."
  },
  {
   "masura": 19,
   "articulatie": {
    "id": 19,
-   "nume": "Alzapúa"
+   "nume": "Tremolo Picking"
   },
   "fx": {
    "id": 19,
@@ -757,17 +757,17 @@
     "durata": 1.0
    }
   ],
-  "cerinta": "Demonstreaza Alzapúa pe toate notele; declanseaza Thumb Slap Noise pe prima nota."
+  "cerinta": "Demonstreaza Tremolo Picking pe toate notele; declanseaza Thumb Slap Noise pe prima nota."
  },
  {
   "masura": 20,
   "articulatie": {
    "id": 20,
-   "nume": "Finger Roll Strum"
+   "nume": "Country Bends"
   },
   "fx": {
    "id": 20,
-   "nume": "Pop Noise",
+   "nume": "Index/Middle Pop Noise",
    "pe_nota": 1
   },
   "note": [
@@ -797,13 +797,13 @@
     "durata": 1.0
    }
   ],
-  "cerinta": "Demonstreaza Finger Roll Strum pe toate notele; declanseaza Pop Noise pe prima nota."
+  "cerinta": "Demonstreaza Country Bends pe toate notele; declanseaza Index/Middle Pop Noise pe prima nota."
  },
  {
   "masura": 21,
   "articulatie": {
    "id": 21,
-   "nume": "Heavy Palm Mute"
+   "nume": "Microtonal Fretless Slide"
   },
   "fx": {
    "id": 21,
@@ -837,13 +837,13 @@
     "durata": 1.0
    }
   ],
-  "cerinta": "Demonstreaza Heavy Palm Mute pe toate notele; declanseaza Slap Dead Note pe prima nota."
+  "cerinta": "Demonstreaza Microtonal Fretless Slide pe toate notele; declanseaza Slap Dead Note pe prima nota."
  },
  {
   "masura": 22,
   "articulatie": {
    "id": 22,
-   "nume": "Tremolo Picking"
+   "nume": "Low-End Heavy Slap Mute"
   },
   "fx": {
    "id": 22,
@@ -877,14 +877,11 @@
     "durata": 1.0
    }
   ],
-  "cerinta": "Demonstreaza Tremolo Picking pe toate notele; declanseaza Bass Body Thump pe prima nota."
+  "cerinta": "Demonstreaza Low-End Heavy Slap Mute pe toate notele; declanseaza Bass Body Thump pe prima nota."
  },
  {
   "masura": 23,
-  "articulatie": {
-   "id": 23,
-   "nume": "Country Bends"
-  },
+  "articulatie": null,
   "fx": {
    "id": 23,
    "nume": "Hand Choke",
@@ -917,14 +914,11 @@
     "durata": 1.0
    }
   ],
-  "cerinta": "Demonstreaza Country Bends pe toate notele; declanseaza Hand Choke pe prima nota."
+  "cerinta": "declanseaza Hand Choke pe prima nota."
  },
  {
   "masura": 24,
-  "articulatie": {
-   "id": 24,
-   "nume": "Microtonal Fretless Slide"
-  },
+  "articulatie": null,
   "fx": {
    "id": 24,
    "nume": "Bass Fret Noise",
@@ -957,14 +951,11 @@
     "durata": 1.0
    }
   ],
-  "cerinta": "Demonstreaza Microtonal Fretless Slide pe toate notele; declanseaza Bass Fret Noise pe prima nota."
+  "cerinta": "declanseaza Bass Fret Noise pe prima nota."
  },
  {
   "masura": 25,
-  "articulatie": {
-   "id": 25,
-   "nume": "Low-End Heavy Slap Mute"
-  },
+  "articulatie": null,
   "fx": {
    "id": 25,
    "nume": "Bass Slide FX",
@@ -997,14 +988,14 @@
     "durata": 1.0
    }
   ],
-  "cerinta": "Demonstreaza Low-End Heavy Slap Mute pe toate notele; declanseaza Bass Slide FX pe prima nota."
+  "cerinta": "declanseaza Bass Slide FX pe prima nota."
  },
  {
   "masura": 26,
   "articulatie": null,
   "fx": {
    "id": 26,
-   "nume": "Golpe Tap fatadă",
+   "nume": "Ukulele Body Tap Scurt",
    "pe_nota": 1
   },
   "note": [
@@ -1034,14 +1025,14 @@
     "durata": 1.0
    }
   ],
-  "cerinta": "declanseaza Golpe Tap fatadă pe prima nota."
+  "cerinta": "declanseaza Ukulele Body Tap Scurt pe prima nota."
  },
  {
   "masura": 27,
   "articulatie": null,
   "fx": {
    "id": 27,
-   "nume": "Zgomot mecanic Rasgueado",
+   "nume": "Heavy Metal Pick Scrape",
    "pe_nota": 1
   },
   "note": [
@@ -1071,14 +1062,14 @@
     "durata": 1.0
    }
   ],
-  "cerinta": "declanseaza Zgomot mecanic Rasgueado pe prima nota."
+  "cerinta": "declanseaza Heavy Metal Pick Scrape pe prima nota."
  },
  {
   "masura": 28,
   "articulatie": null,
   "fx": {
    "id": 28,
-   "nume": "Ukulele Body Tap scurt",
+   "nume": "Telecaster Snap Switch & Twang Noise",
    "pe_nota": 1
   },
   "note": [
@@ -1108,14 +1099,14 @@
     "durata": 1.0
    }
   ],
-  "cerinta": "declanseaza Ukulele Body Tap scurt pe prima nota."
+  "cerinta": "declanseaza Telecaster Snap Switch & Twang Noise pe prima nota."
  },
  {
   "masura": 29,
   "articulatie": null,
   "fx": {
    "id": 29,
-   "nume": "Heavy Metal Pick Scrape lung",
+   "nume": "Fretless Glissando Noise",
    "pe_nota": 1
   },
   "note": [
@@ -1145,14 +1136,14 @@
     "durata": 1.0
    }
   ],
-  "cerinta": "declanseaza Heavy Metal Pick Scrape lung pe prima nota."
+  "cerinta": "declanseaza Fretless Glissando Noise pe prima nota."
  },
  {
   "masura": 30,
   "articulatie": null,
   "fx": {
    "id": 30,
-   "nume": "Telecaster Snap Switch & Twang",
+   "nume": "Sub-Bass Slap Hit",
    "pe_nota": 1
   },
   "note": [
@@ -1178,80 +1169,6 @@
    {
     "nota": "D4",
     "midi": 62,
-    "beat": 3.0,
-    "durata": 1.0
-   }
-  ],
-  "cerinta": "declanseaza Telecaster Snap Switch & Twang pe prima nota."
- },
- {
-  "masura": 31,
-  "articulatie": null,
-  "fx": {
-   "id": 31,
-   "nume": "Fretless Glissando Noise",
-   "pe_nota": 1
-  },
-  "note": [
-   {
-    "nota": "Ab3",
-    "midi": 56,
-    "beat": 0.0,
-    "durata": 1.0,
-    "fx": 31
-   },
-   {
-    "nota": "Bb3",
-    "midi": 58,
-    "beat": 1.0,
-    "durata": 1.0
-   },
-   {
-    "nota": "C4",
-    "midi": 60,
-    "beat": 2.0,
-    "durata": 1.0
-   },
-   {
-    "nota": "Eb4",
-    "midi": 63,
-    "beat": 3.0,
-    "durata": 1.0
-   }
-  ],
-  "cerinta": "declanseaza Fretless Glissando Noise pe prima nota."
- },
- {
-  "masura": 32,
-  "articulatie": null,
-  "fx": {
-   "id": 32,
-   "nume": "Sub-Bass Slap Hit",
-   "pe_nota": 1
-  },
-  "note": [
-   {
-    "nota": "A3",
-    "midi": 57,
-    "beat": 0.0,
-    "durata": 1.0,
-    "fx": 32
-   },
-   {
-    "nota": "B3",
-    "midi": 59,
-    "beat": 1.0,
-    "durata": 1.0
-   },
-   {
-    "nota": "C#4",
-    "midi": 61,
-    "beat": 2.0,
-    "durata": 1.0
-   },
-   {
-    "nota": "E4",
-    "midi": 64,
     "beat": 3.0,
     "durata": 1.0
    }
