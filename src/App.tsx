@@ -5,6 +5,7 @@ import RubberBandOverlay, { type RubberBandRect } from "./components/RubberBandO
 import { type NudgeMode } from "./components/NudgeToggle";
 import TransportButtons from "./components/TransportButtons";
 import AutoVelButton from "./components/AutoVelButton";
+import ExportFormatButton, { type ExportFormat } from "./components/ExportFormatButton";
 import { SamplerEngine } from "./sampler/SamplerEngine";
 import { discoverLibraries, makeSampleFetcher } from "./sampler/scanLibraries";
 import type { GuitarLibraryInfo, LibraryVariant } from "./sampler/types";
@@ -1606,6 +1607,10 @@ export default function App() {
     return "DS";
   });
   const [autoVelOpen, setAutoVelOpen] = useState(false);
+
+  // Formatul ales pentru exportul Drag & Drop (midi/griff/briff/uriff).
+  // Serializarea efectiva se leaga in onExport dupa SPEC-griff.md.
+  const [exportFormat, setExportFormat] = useState<ExportFormat>("griff");
   const autoVelActiveRef = useRef(autoVelActive);
   const autoVelStrategyRef = useRef(autoVelStrategy);
 
@@ -4814,6 +4819,17 @@ export default function App() {
             onSelect={(id) => {
               setAutoVelStrategy(id);
               setAutoVelActive(true);
+            }}
+          />
+
+          {/* Export Drag & Drop: click-dreapta = meniu midi/griff/briff/uriff;
+              click-stanga / drag = exporta in formatul ales. */}
+          <ExportFormatButton
+            format={exportFormat}
+            onFormatChange={setExportFormat}
+            onExport={(f) => {
+              // TODO etapa urmatoare: serializeaza secventa in f si exporta
+              console.info("[export] format ales:", f);
             }}
           />
 

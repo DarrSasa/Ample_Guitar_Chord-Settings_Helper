@@ -67,3 +67,21 @@ La build, continutul acestui folder ajunge in:
 ```
 
 In programul instalat, in folderul de instalare, sub `resources\app\dist\guitar samples`.
+
+
+## Structura pe articulatii (conventie noua)
+
+In interiorul unui folder de librarie (ex. `AGM - 4.1.0 (Pick)/`) fiecare
+**articulatie / categorie de sunet** sta in subfolderul ei, numit ca in plugin:
+
+```
+AGM - 4.1.0 (Pick)/
+  ├── Sustain/          <- fostul "Ample Guitar M" (redenumit)
+  ├── Palm Mute/
+  ├── Natural Harmonic/
+  ├── ... (cate un folder per articulatie / FX inregistrat)
+```
+
+Motivul: vrei sa inregistrezi TOATE articulatiile si FX-urile de la o chitara,
+ca sa auzi in program ce trimiti apoi in plugin. Folderul de mostre `Sustain`
+existent a fost redenumit din `Ample Guitar M` in `Sustain`.
