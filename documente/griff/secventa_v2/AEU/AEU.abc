@@ -23,27 +23,35 @@ G A B d |
 G A B d |
 % m9 [Legato] Slide Out
 G A B d |
-% m10 [Articulation Sound Single] Slide Out KS D#0
+% m10 [More To the right of the Articulations] No Bend
 G A B d |
-% m11 [FX Sound Group] Scratch
+% m11 [More To the right of the Articulations] Bend
 G A B d |
-% m12 [FX Sound Group] Slap
+% m12 [More To the right of the Articulations] Bend/Release
 G A B d |
-% m13 [FX Sound Group] Silent Press
+% m13 [More To the right of the Articulations] Release
 G A B d |
-% m14 [FX Sound Group] Silent Stroke
+% m14 [Articulation Sound Single] Slide Out KS D#0
 G A B d |
-% m15 [FX Sound Group] Downstroke Noise 1
+% m15 [FX Sound Group] Scratch
 G A B d |
-% m16 [FX Sound Group] Upstroke Noise 1
+% m16 [FX Sound Group] Slap
 G A B d |
-% m17 [FX Sound Group] Downstroke Noise 2
+% m17 [FX Sound Group] Silent Press
 G A B d |
-% m18 [FX Sound Group] Upstroke Noise 2
+% m18 [FX Sound Group] Silent Stroke
 G A B d |
-% m19 [FX Sound Group] Hit Top (Open)
+% m19 [FX Sound Group] Downstroke Noise 1
 G A B d |
-% m20 [FX Sound Group] Hit Top (Mute)
+% m20 [FX Sound Group] Upstroke Noise 1
 G A B d |
-% m21 [FX Sound Group] Hit Rim
+% m21 [FX Sound Group] Downstroke Noise 2
+G A B d |
+% m22 [FX Sound Group] Upstroke Noise 2
+G A B d |
+% m23 [FX Sound Group] Hit Top (Open)
+G A B d |
+% m24 [FX Sound Group] Hit Top (Mute)
+G A B d |
+% m25 [FX Sound Group] Hit Rim
 G A B d |]

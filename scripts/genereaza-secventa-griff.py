@@ -78,6 +78,7 @@ CATALOG = {
             "articulatii": [("Sustain", None), ("Natural Harmonic", None), ("Palm Mute", None),
                             ("Slide In", None), ("Strum", None)],
             "legato": ["No Legato", "Legato Slide", "HO/PO", "Slide Out"],
+            "bend": ["No Bend", "Bend", "Bend/Release", "Release"],
             "single": [("Slide Out", "D#0")],
             "fx": [("Scratch", None), ("Slap", None), ("Silent Press", None), ("Silent Stroke", None),
                    ("Downstroke Noise 1", None), ("Upstroke Noise 1", None),
@@ -112,6 +113,7 @@ CATALOG = {
               "articulatii": [("Sustain", None), ("Natural Harmonic", None), ("Palm Mute", None),
                               ("Slide In", None), ("Repeat", None)],
               "legato": ["No Legato", "Legato Slide", "HO/PO", "Slide Out"],
+              "bend": ["No Bend", "Bend", "Bend/Release", "Release"],
               "single": [("Slide Out", "D#0")],
               "fx": [("Slap Left", None), ("Slap Right", None), ("Downstroke Noise", None),
                      ("Upstroke Noise", None), ("Scratch 1", None), ("Scratch 2", None),
@@ -168,15 +170,15 @@ def scrie_abc(code, info, masuri, cale):
 
 
 def plan_instrument(info):
-    """Masuri in ordinea sectiunilor: articulatii, legato, single, fx."""
+    """Masuri in ordinea sectiunilor: articulatii, legato, [bend], single, fx."""
+    sectiuni = [("Articulations", "articulatii"), ("Legato", "legato")]
+    if "bend" in info:   # doar AEU si ABMR5 au al 5-lea meniu (More To the right)
+        sectiuni.append(("More To the right of the Articulations", "bend"))
+    sectiuni += [("Articulation Sound Single", "single"), ("FX Sound Group", "fx")]
     masuri = []
-    for sect, cheie in (("Articulations", "articulatii"), ("Legato", "legato"),
-                        ("Articulation Sound Single", "single"), ("FX Sound Group", "fx")):
+    for sect, cheie in sectiuni:
         for intr in info[cheie]:
-            if sect == "Legato":
-                nume, ks = intr, None
-            else:
-                nume, ks = intr
+            nume, ks = intr if isinstance(intr, tuple) else (intr, None)
             masuri.append({"sectiune": sect, "nume": nume, "ks": ks,
                            "note": fraza(info["categorie"])})
     return masuri

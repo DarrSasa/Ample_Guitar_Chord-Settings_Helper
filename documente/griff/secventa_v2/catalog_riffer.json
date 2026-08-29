@@ -396,6 +396,12 @@
    "HO/PO",
    "Slide Out"
   ],
+  "bend": [
+   "No Bend",
+   "Bend",
+   "Bend/Release",
+   "Release"
+  ],
   "single": [
    [
     "Slide Out",
@@ -695,6 +701,12 @@
    "Legato Slide",
    "HO/PO",
    "Slide Out"
+  ],
+  "bend": [
+   "No Bend",
+   "Bend",
+   "Bend/Release",
+   "Release"
   ],
   "single": [
    [

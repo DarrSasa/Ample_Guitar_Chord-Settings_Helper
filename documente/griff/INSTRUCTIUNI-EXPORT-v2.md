@@ -13,8 +13,11 @@ Fiecare instrument are propriul folder `secventa_v2/<CODE>/` cu un `.txt`
 3. **Articulation Sound Single** — sunete de articulație izolate (ex. `Slide Out (D#0)`).
 4. **FX Sound Group** — sunetele FX (cu keyswitch, ex. `Pick Scrape (F6)`).
 
+La **AEU** și **ABMR5** mai există un al 5‑lea meniu, **More To the right of the
+Articulations** (`No Bend / Bend / Bend/Release / Release`), inclus în planul lor.
+
 Articulațiile încadrate la *corpul chitarei* **NU** sunt incluse — lista conține
-doar cele 4 secțiuni de mai sus.
+doar secțiunile Riffer de mai sus.
 
 ## Formatul fișierului exportat
 

@@ -23,33 +23,41 @@ G,, A,, B,, D, |
 G,, A,, B,, D, |
 % m9 [Legato] Slide Out
 G,, A,, B,, D, |
-% m10 [Articulation Sound Single] Slide Out KS D#0
+% m10 [More To the right of the Articulations] No Bend
 G,, A,, B,, D, |
-% m11 [FX Sound Group] Slap Left
+% m11 [More To the right of the Articulations] Bend
 G,, A,, B,, D, |
-% m12 [FX Sound Group] Slap Right
+% m12 [More To the right of the Articulations] Bend/Release
 G,, A,, B,, D, |
-% m13 [FX Sound Group] Downstroke Noise
+% m13 [More To the right of the Articulations] Release
 G,, A,, B,, D, |
-% m14 [FX Sound Group] Upstroke Noise
+% m14 [Articulation Sound Single] Slide Out KS D#0
 G,, A,, B,, D, |
-% m15 [FX Sound Group] Scratch 1
+% m15 [FX Sound Group] Slap Left
 G,, A,, B,, D, |
-% m16 [FX Sound Group] Scratch 2
+% m16 [FX Sound Group] Slap Right
 G,, A,, B,, D, |
-% m17 [FX Sound Group] Silent Press
+% m17 [FX Sound Group] Downstroke Noise
 G,, A,, B,, D, |
-% m18 [FX Sound Group] FX Slide 1
+% m18 [FX Sound Group] Upstroke Noise
 G,, A,, B,, D, |
-% m19 [FX Sound Group] FX Slide 2
+% m19 [FX Sound Group] Scratch 1
 G,, A,, B,, D, |
-% m20 [FX Sound Group] FX Slide 3
+% m20 [FX Sound Group] Scratch 2
 G,, A,, B,, D, |
-% m21 [FX Sound Group] FX Slide 4
+% m21 [FX Sound Group] Silent Press
 G,, A,, B,, D, |
-% m22 [FX Sound Group] FX Slide 5
+% m22 [FX Sound Group] FX Slide 1
 G,, A,, B,, D, |
-% m23 [FX Sound Group] FX Slide 6
+% m23 [FX Sound Group] FX Slide 2
 G,, A,, B,, D, |
-% m24 [FX Sound Group] Buzz
+% m24 [FX Sound Group] FX Slide 3
+G,, A,, B,, D, |
+% m25 [FX Sound Group] FX Slide 4
+G,, A,, B,, D, |
+% m26 [FX Sound Group] FX Slide 5
+G,, A,, B,, D, |
+% m27 [FX Sound Group] FX Slide 6
+G,, A,, B,, D, |
+% m28 [FX Sound Group] Buzz
 G,, A,, B,, D, |]

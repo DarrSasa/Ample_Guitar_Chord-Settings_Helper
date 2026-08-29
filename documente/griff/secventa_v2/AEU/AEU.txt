@@ -1,4 +1,4 @@
-Ample Ethno Ukulele 3.6.0 (AEU) -> .griff | 21 masuri | tempo 90
+Ample Ethno Ukulele 3.6.0 (AEU) -> .griff | 25 masuri | tempo 90
 
 MASURA 1: [Articulations] Sustain | imagine masura_01.png
    note: G3(55), A3(57), B3(59), D4(62)
@@ -18,27 +18,35 @@ MASURA 8: [Legato] HO/PO | imagine masura_08.png
    note: G3(55), A3(57), B3(59), D4(62)
 MASURA 9: [Legato] Slide Out | imagine masura_09.png
    note: G3(55), A3(57), B3(59), D4(62)
-MASURA 10: [Articulation Sound Single] Slide Out | keyswitch D#0 | imagine masura_10.png
+MASURA 10: [More To the right of the Articulations] No Bend | imagine masura_10.png
    note: G3(55), A3(57), B3(59), D4(62)
-MASURA 11: [FX Sound Group] Scratch | imagine masura_11.png
+MASURA 11: [More To the right of the Articulations] Bend | imagine masura_11.png
    note: G3(55), A3(57), B3(59), D4(62)
-MASURA 12: [FX Sound Group] Slap | imagine masura_12.png
+MASURA 12: [More To the right of the Articulations] Bend/Release | imagine masura_12.png
    note: G3(55), A3(57), B3(59), D4(62)
-MASURA 13: [FX Sound Group] Silent Press | imagine masura_13.png
+MASURA 13: [More To the right of the Articulations] Release | imagine masura_13.png
    note: G3(55), A3(57), B3(59), D4(62)
-MASURA 14: [FX Sound Group] Silent Stroke | imagine masura_14.png
+MASURA 14: [Articulation Sound Single] Slide Out | keyswitch D#0 | imagine masura_14.png
    note: G3(55), A3(57), B3(59), D4(62)
-MASURA 15: [FX Sound Group] Downstroke Noise 1 | imagine masura_15.png
+MASURA 15: [FX Sound Group] Scratch | imagine masura_15.png
    note: G3(55), A3(57), B3(59), D4(62)
-MASURA 16: [FX Sound Group] Upstroke Noise 1 | imagine masura_16.png
+MASURA 16: [FX Sound Group] Slap | imagine masura_16.png
    note: G3(55), A3(57), B3(59), D4(62)
-MASURA 17: [FX Sound Group] Downstroke Noise 2 | imagine masura_17.png
+MASURA 17: [FX Sound Group] Silent Press | imagine masura_17.png
    note: G3(55), A3(57), B3(59), D4(62)
-MASURA 18: [FX Sound Group] Upstroke Noise 2 | imagine masura_18.png
+MASURA 18: [FX Sound Group] Silent Stroke | imagine masura_18.png
    note: G3(55), A3(57), B3(59), D4(62)
-MASURA 19: [FX Sound Group] Hit Top (Open) | imagine masura_19.png
+MASURA 19: [FX Sound Group] Downstroke Noise 1 | imagine masura_19.png
    note: G3(55), A3(57), B3(59), D4(62)
-MASURA 20: [FX Sound Group] Hit Top (Mute) | imagine masura_20.png
+MASURA 20: [FX Sound Group] Upstroke Noise 1 | imagine masura_20.png
    note: G3(55), A3(57), B3(59), D4(62)
-MASURA 21: [FX Sound Group] Hit Rim | imagine masura_21.png
+MASURA 21: [FX Sound Group] Downstroke Noise 2 | imagine masura_21.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 22: [FX Sound Group] Upstroke Noise 2 | imagine masura_22.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 23: [FX Sound Group] Hit Top (Open) | imagine masura_23.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 24: [FX Sound Group] Hit Top (Mute) | imagine masura_24.png
+   note: G3(55), A3(57), B3(59), D4(62)
+MASURA 25: [FX Sound Group] Hit Rim | imagine masura_25.png
    note: G3(55), A3(57), B3(59), D4(62)
