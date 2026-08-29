@@ -5,7 +5,12 @@ import RubberBandOverlay, { type RubberBandRect } from "./components/RubberBandO
 import { type NudgeMode } from "./components/NudgeToggle";
 import TransportButtons from "./components/TransportButtons";
 import AutoVelButton from "./components/AutoVelButton";
-import ExportFormatButton, { type ExportFormat } from "./components/ExportFormatButton";
+import ExportFormatButton from "./components/ExportFormatButton";
+import {
+  allowedFormats,
+  defaultFormatFor,
+  type ExportFormat,
+} from "./utils/ampleExtensions";
 import { SamplerEngine } from "./sampler/SamplerEngine";
 import { discoverLibraries, makeSampleFetcher } from "./sampler/scanLibraries";
 import type { GuitarLibraryInfo, LibraryVariant } from "./sampler/types";
@@ -1664,6 +1669,19 @@ export default function App() {
 
   // Alegerile disponibile in meniul de chitara (librarie x varianta).
   const libraryChoices = useMemo(() => buildLibraryChoices(guitarLibraries), [guitarLibraries]);
+
+  // Instrumentul selectat -> formatele de export active (midi + extensia Riffer
+  // a familiei). Meniul Drag&Drop dezactiveaza (gri) formatele altor familii.
+  const selectedInstrumentName =
+    libraryChoices.find((c) => c.id === selectedLibraryId)?.folderName ?? null;
+  const enabledExportFormats = allowedFormats(selectedInstrumentName);
+
+  // La schimbarea instrumentului, daca formatul curent nu e valid pt. familia
+  // lui, trecem automat pe extensia Riffer a noii familii.
+  useEffect(() => {
+    if (!enabledExportFormats.includes(exportFormat))
+      setExportFormat(defaultFormatFor(selectedInstrumentName));
+  }, [enabledExportFormats, exportFormat, selectedInstrumentName]);
 
   // Ref-ul pentru libraria selectata ramane la zi (folosit in bucle de
   // playback unde playChordSound e capturat o singura data).
@@ -4827,6 +4845,7 @@ export default function App() {
           <ExportFormatButton
             format={exportFormat}
             onFormatChange={setExportFormat}
+            enabledFormats={enabledExportFormats}
             onExport={(f) => {
               // TODO etapa urmatoare: serializeaza secventa in f si exporta
               console.info("[export] format ales:", f);

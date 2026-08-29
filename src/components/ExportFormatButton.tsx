@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-
-// Formatele de export ale programului. midi = doar note; griff/briff/uriff =
-// formatele Ample (acustice/electrice, bas, ukulele). Meniul va creste pe
-// viitor (articulatii etc.) - deocamdata alegem formatul la click-dreapta.
-export type ExportFormat = "midi" | "griff" | "briff" | "uriff";
-const FORMATS: ExportFormat[] = ["midi", "griff", "briff", "uriff"];
+import { EXPORT_FORMATS, type ExportFormat } from "../utils/ampleExtensions";
 
 interface Props {
   format: ExportFormat;
   onFormatChange: (f: ExportFormat) => void;
+  // formatele ACTIVE pt. instrumentul selectat; celelalte apar gri, dezactivate.
+  // daca lipseste, toate sunt active.
+  enabledFormats?: ExportFormat[];
   // declansat la click-stanga / drag-start; serializarea efectiva (.griff etc.)
   // se leaga aici in etapa urmatoare, dupa SPEC-griff.md
   onExport?: (f: ExportFormat) => void;
@@ -17,8 +15,11 @@ interface Props {
 export default function ExportFormatButton({
   format,
   onFormatChange,
+  enabledFormats,
   onExport,
 }: Props) {
+  const isEnabled = (f: ExportFormat) =>
+    !enabledFormats || enabledFormats.includes(f);
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const rootRef = useRef<HTMLDivElement>(null);
@@ -65,21 +66,26 @@ export default function ExportFormatButton({
           className="fixed z-50 min-w-[110px] rounded border border-black bg-white py-1 text-xs shadow-lg"
           style={{ left: pos.x, top: pos.y }}
         >
-          {FORMATS.map((f) => (
-            <button
-              key={f}
-              type="button"
-              onClick={() => {
-                onFormatChange(f);
-                setOpen(false);
-              }}
-              className={`block w-full px-3 py-1 text-left hover:bg-[#FCBF8D] ${
-                f === format ? "font-bold" : ""
-              }`}
-            >
-              {f}
-            </button>
-          ))}
+          {EXPORT_FORMATS.map((f) => {
+            const activ = isEnabled(f);
+            return (
+              <button
+                key={f}
+                type="button"
+                disabled={!activ}
+                onClick={() => {
+                  if (!activ) return;
+                  onFormatChange(f);
+                  setOpen(false);
+                }}
+                className={`block w-full px-3 py-1 text-left ${
+                  activ ? "hover:bg-[#FCBF8D]" : "cursor-not-allowed bg-gray-300 text-gray-500"
+                } ${f === format ? "font-bold" : ""}`}
+              >
+                {f}
+              </button>
+            );
+          })}
         </div>
       )}
     </div>
