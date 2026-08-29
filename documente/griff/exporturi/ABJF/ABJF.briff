@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Riff Author="" Category="Rock" Measures="27" Time-Signature="4/4"
+      Quantize="1/4" Tempo="90" Type="Riff" Rating="0" numStr="5" Ver="2.1"
+      PPQBase="480" loopMode="false" loopStart="0" loopEnd="0" Key="C"
+      ccName-0="Bend" ccVisibility-0="1" ccName-1="1.Mod" ccVisibility-1="1"
+      ccName-3="64.Hold" ccVisibility-3="1" ccName-4="7.Volume" ccVisibility-4="1">
+  <String ID="4">
+    <Note Velocity="105" Off-Velocity="0" Begin="0" End="480" Articulation="Sus"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="127" Off-Velocity="0" Begin="1920" End="2400" Articulation="Acc"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="4800" End="5280" Articulation="NH"
+          Fret="12" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="5760" End="6240" Articulation="PM"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="58" Off-Velocity="0" Begin="7680" End="8160" Articulation="DN"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="9600" End="10080" Articulation="SI"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="11520" End="12000" Articulation="Slap"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="58" Off-Velocity="0" Begin="13440" End="13920" Articulation="SXT"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="15360" End="15840" Articulation="Pop"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="58" Off-Velocity="0" Begin="17280" End="17760" Articulation="PopX"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="19200" End="19680" Articulation="AH"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="21120" End="21600" Articulation="STA"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="23040" End="23520" Articulation="Sus"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="24960" End="26900" Articulation="Sus"
+          Fret="3" NoteID="43" Legato="Legato Slide" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="26880" End="28820" Articulation="Sus"
+          Fret="3" NoteID="43" Legato="Hammer-On/Pull-Off" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="28800" End="29280" Articulation="Sus"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="30720" End="31200" Articulation="Sus"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="32640" End="33120" Articulation="Sus"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="34560" End="35040" Articulation="Sus"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="36480" End="36960" Articulation="Sus"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="38400" End="38880" Articulation="Sus"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="40320" End="40800" Articulation="Sus"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="42240" End="42720" Articulation="Sus"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="44160" End="44640" Articulation="Sus"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="46080" End="46560" Articulation="Sus"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="48000" End="48480" Articulation="Sus"
+          Fret="3" NoteID="43" Legato="No Legato" Muted="False"/>
+  </String>
+  <String ID="3">
+    <Note Velocity="95" Off-Velocity="0" Begin="480" End="960" Articulation="Sus"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="960" End="1440" Articulation="Sus"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="127" Off-Velocity="0" Begin="2400" End="2880" Articulation="Acc"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="127" Off-Velocity="0" Begin="2880" End="3360" Articulation="Acc"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="105" Off-Velocity="0" Begin="3840" End="4320" Articulation="NH"
+          Fret="8" NoteID="43" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="4320" End="4800" Articulation="NH"
+          Fret="10" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="6240" End="6720" Articulation="PM"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="6720" End="7200" Articulation="PM"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="58" Off-Velocity="0" Begin="8160" End="8640" Articulation="DN"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="58" Off-Velocity="0" Begin="8640" End="9120" Articulation="DN"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="10080" End="10560" Articulation="SI"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="10560" End="11040" Articulation="SI"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="12000" End="12480" Articulation="Slap"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="12480" End="12960" Articulation="Slap"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="58" Off-Velocity="0" Begin="13920" End="14400" Articulation="SXT"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="58" Off-Velocity="0" Begin="14400" End="14880" Articulation="SXT"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="15840" End="16320" Articulation="Pop"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="16320" End="16800" Articulation="Pop"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="58" Off-Velocity="0" Begin="17760" End="18240" Articulation="PopX"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="58" Off-Velocity="0" Begin="18240" End="18720" Articulation="PopX"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="19680" End="20160" Articulation="AH"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="20160" End="20640" Articulation="AH"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="21600" End="22080" Articulation="STA"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="22080" End="22560" Articulation="STA"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="23520" End="24000" Articulation="Sus"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="24000" End="24480" Articulation="Sus"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="25440" End="25940" Articulation="Sus"
+          Fret="0" NoteID="45" Legato="Legato Slide" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="25920" End="27380" Articulation="Sus"
+          Fret="2" NoteID="47" Legato="Legato Slide" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="27360" End="27860" Articulation="Sus"
+          Fret="0" NoteID="45" Legato="Hammer-On/Pull-Off" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="27840" End="29300" Articulation="Sus"
+          Fret="2" NoteID="47" Legato="Hammer-On/Pull-Off" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="29280" End="29760" Articulation="Sus"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="29760" End="30240" Articulation="Sus"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="31200" End="31680" Articulation="Sus"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="31680" End="32160" Articulation="Sus"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="33120" End="33600" Articulation="Sus"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="33600" End="34080" Articulation="Sus"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="35040" End="35520" Articulation="Sus"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="35520" End="36000" Articulation="Sus"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="36960" End="37440" Articulation="Sus"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="37440" End="37920" Articulation="Sus"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="38880" End="39360" Articulation="Sus"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="39360" End="39840" Articulation="Sus"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="40800" End="41280" Articulation="Sus"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="41280" End="41760" Articulation="Sus"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="42720" End="43200" Articulation="Sus"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="43200" End="43680" Articulation="Sus"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="44640" End="45120" Articulation="Sus"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="45120" End="45600" Articulation="Sus"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="46560" End="47040" Articulation="Sus"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="47040" End="47520" Articulation="Sus"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="48480" End="48960" Articulation="Sus"
+          Fret="0" NoteID="45" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="48960" End="49440" Articulation="Sus"
+          Fret="2" NoteID="47" Legato="No Legato" Muted="False"/>
+  </String>
+  <String ID="2">
+    <Note Velocity="95" Off-Velocity="0" Begin="1440" End="1920" Articulation="Sus"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="127" Off-Velocity="0" Begin="3360" End="3840" Articulation="Acc"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="5280" End="5760" Articulation="NH"
+          Fret="15" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="7200" End="7680" Articulation="PM"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="58" Off-Velocity="0" Begin="9120" End="9600" Articulation="DN"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="11040" End="11520" Articulation="SI"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="12960" End="13440" Articulation="Slap"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="58" Off-Velocity="0" Begin="14880" End="15360" Articulation="SXT"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="16800" End="17280" Articulation="Pop"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="58" Off-Velocity="0" Begin="18720" End="19200" Articulation="PopX"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="20640" End="21120" Articulation="AH"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="22560" End="23040" Articulation="STA"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="24480" End="24960" Articulation="Sus"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="26400" End="28340" Articulation="Sus"
+          Fret="0" NoteID="50" Legato="Legato Slide" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="28320" End="30260" Articulation="Sus"
+          Fret="0" NoteID="50" Legato="Hammer-On/Pull-Off" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="30240" End="30720" Articulation="Sus"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="32160" End="32640" Articulation="Sus"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="34080" End="34560" Articulation="Sus"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="36000" End="36480" Articulation="Sus"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="37920" End="38400" Articulation="Sus"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="39840" End="40320" Articulation="Sus"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="41760" End="42240" Articulation="Sus"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="43680" End="44160" Articulation="Sus"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="45600" End="46080" Articulation="Sus"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="47520" End="48000" Articulation="Sus"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+    <Note Velocity="95" Off-Velocity="0" Begin="49440" End="49920" Articulation="Sus"
+          Fret="0" NoteID="50" Legato="No Legato" Muted="False"/>
+  </String>
+  <Note FX="1" Velocity="70" Begin="32640" End="33120" Articulation="Scratch 1"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="33120" End="33600" Articulation="Scratch 1"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="33600" End="34080" Articulation="Scratch 1"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="34080" End="34560" Articulation="Scratch 1"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="34560" End="35040" Articulation="Scratch 2"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="35040" End="35520" Articulation="Scratch 2"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="35520" End="36000" Articulation="Scratch 2"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="36000" End="36480" Articulation="Scratch 2"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="36480" End="36960" Articulation="String Slap"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="36960" End="37440" Articulation="String Slap"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="37440" End="37920" Articulation="String Slap"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="37920" End="38400" Articulation="Slap Left"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="38400" End="38880" Articulation="Slap Left"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="38880" End="39360" Articulation="Slap Left"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="39360" End="39840" Articulation="Slap Left"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="39840" End="40320" Articulation="Slap Left"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="40320" End="40800" Articulation="Slap Right"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="40800" End="41280" Articulation="Slap Right"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="41280" End="41760" Articulation="Slap Right"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="41760" End="42240" Articulation="Slap Right"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="42240" End="42720" Articulation="FX Slide 1"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="42720" End="43200" Articulation="FX Slide 1"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="43200" End="43680" Articulation="FX Slide 1"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="43680" End="44160" Articulation="FX Slide 1"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="44160" End="44640" Articulation="FX Slide 2"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="44640" End="45120" Articulation="FX Slide 2"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="45120" End="45600" Articulation="FX Slide 2"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="45600" End="46080" Articulation="FX Slide 2"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="46080" End="46560" Articulation="FX Slide 3"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="46560" End="47040" Articulation="FX Slide 3"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="47040" End="47520" Articulation="FX Slide 3"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="47520" End="48000" Articulation="FX Slide 3"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="48000" End="48480" Articulation="FX Slide 4"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="48480" End="48960" Articulation="FX Slide 4"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="48960" End="49440" Articulation="FX Slide 4"
+        Muted="False"/>
+  <Note FX="1" Velocity="70" Begin="49440" End="49920" Articulation="FX Slide 4"
+        Muted="False"/>
+  <Note Leg="1" Velocity="70" Begin="28800" End="29280" LegType="SO"
+        Muted="False"/>
+  <Note Leg="1" Velocity="70" Begin="29280" End="29760" LegType="SO"
+        Muted="False"/>
+  <Note Leg="1" Velocity="70" Begin="29760" End="30240" LegType="SO"
+        Muted="False"/>
+  <Note Leg="1" Velocity="70" Begin="30240" End="30720" LegType="SO"
+        Muted="False"/>
+  <Note Leg="1" Velocity="70" Begin="30720" End="31200" LegType="BZ"
+        Muted="False"/>
+  <Note Leg="1" Velocity="70" Begin="31200" End="31680" LegType="BZ"
+        Muted="False"/>
+  <Note Leg="1" Velocity="70" Begin="31680" End="32160" LegType="BZ"
+        Muted="False"/>
+  <Note Leg="1" Velocity="70" Begin="32160" End="32640" LegType="BZ"
+        Muted="False"/>
+  <cc-7.Volume>
+    <p tick="0" value="100.0" curveType="stair"/>
+  </cc-7.Volume>
+  <cc-10.Pan>
+    <p tick="0" value="64.0" curveType="stair"/>
+  </cc-10.Pan>
+  <cc-64.Hold>
+    <p tick="0" value="0.0" curveType="stair"/>
+  </cc-64.Hold>
+  <cc-91.ExtEff1Depth>
+    <p tick="0" value="48.0" curveType="stair"/>
+  </cc-91.ExtEff1Depth>
+  <cc-121.ResetCtrl>
+    <p tick="0" value="0.0" curveType="stair"/>
+  </cc-121.ResetCtrl>
+</Riff>
