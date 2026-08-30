@@ -85,3 +85,16 @@ AGM - 4.1.0 (Pick)/
 Motivul: vrei sa inregistrezi TOATE articulatiile si FX-urile de la o chitara,
 ca sa auzi in program ce trimiti apoi in plugin. Folderul de mostre `Sustain`
 existent a fost redenumit din `Ample Guitar M` in `Sustain`.
+
+## Structura FLAT (AGM - 4.1.0 (Pick)) — nou
+
+Folderul AGM a trecut la o structura **fara subfoldere**: toate WAV-urile stau
+impreuna, numite `<Articulatie>_<Nota>_<Velocity>.wav` (ex. `Sustain_E3_60.wav`,
+`Palm Mute_D5_91.wav`, `Scratch_F7_121.wav`). Motivul: incarcare rapida si
+utilizare simpla. Lista completa a mostrelor: vezi
+`documente/griff/secventa_v2/AGM/Samples_List_AGM - 4.1.0-Pick.txt` si manifestul
+`samples_AGM.json` (18 articulatii, 475 mostre).
+
+Parsarea flat e implementata in `src/utils/parseFlatSamples.ts`
+(`parseFlatSampleName` / `buildFlatIndex`); integrarea in motorul sampler
+urmeaza ca etapa urmatoare.

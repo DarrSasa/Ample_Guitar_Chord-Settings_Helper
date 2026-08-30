@@ -374,3 +374,32 @@ de tine în Notepad++). Plan:
 - [ ] scriu specificația `documente/griff/SPEC-griff.md`
 - [ ] construiesc exportul `.griff` din program (opțiune completă și
       corectă, validată prin re-import în Ample Sound)
+
+---
+
+## Keyswitch-uri AGM 4.1.0 (din manualul oficial) — pt. viitoarele exporturi Art&Fx
+
+IMPORTANT: notele-keyswitch de mai jos sunt cele din manualul Ample. In piano
+roll-ul din FL Studio ele trebuiesc **transpuse cu +2 octave** ca sa declanseze
+articulatia/FX-ul corect. De retinut cand vom genera:
+  - `Art&Fx (No Midi)` = .mid doar cu aceste keyswitch-uri;
+  - `Midi` cu butonul Art&Fx activ = note + aceste keyswitch-uri.
+
+**Articulations (AGM 4.1.0):** Sustain(C0), Pop(C0), Natural Harmonic(C#0),
+Palm Mute(D0), Slide In(D#0), Slide Guitar(F#0).
+**Legato („To the right of the Articulations”):** No Legato, Legato Slide(E0),
+Hammer-On/Pull-Off(F0). Verificat in manual (2.2.6/2.2.7): legato se aplica ca
+TRANZITIE intre doua note suprapuse dupa keyswitch (E0 slide / F0 HO-PO), sau
+global prin Auto Legato Mode (2.11). Nu e o articulatie independenta.
+**FX Sound Group (AGM 4.1.0):** Scratch(F5), Slap(F#5), Muting(G5),
+Strum Mute(G#5), Downstroke 1(A5), Upstroke 1(A#5), Downstroke 2(B5),
+Upstroke 2(C6), Hit Top Open(F6), Hit Top Mute(F#6), Hit Rim(G6).
+**Articulation Sound Single:** Slide Out(D#0).
+
+## Structura flat a mostrelor AGM (vezi Samples_List_AGM - 4.1.0-Pick.txt)
+
+Folderul `AGM - 4.1.0 (Pick)/` e acum FARA subfoldere: toate WAV-urile stau
+impreuna, numite `<Articulatie>_<Nota>_<Velocity>.wav` (ex. `Sustain_E3_60.wav`,
+`Palm Mute_D5_91.wav`, `Scratch_F7_121.wav`). Sustain are 8 straturi de velocity
+(15..121); articulatiile scurte 4 (30/60/91/121); FX 2 (64/121); Pop doar 127.
+De implementat in sampler: parsarea flat dupa acest sablon (urmeaza).

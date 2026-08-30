@@ -6,11 +6,7 @@ import { type NudgeMode } from "./components/NudgeToggle";
 import TransportButtons from "./components/TransportButtons";
 import AutoVelButton from "./components/AutoVelButton";
 import ExportFormatButton from "./components/ExportFormatButton";
-import {
-  allowedFormats,
-  defaultFormatFor,
-  type ExportFormat,
-} from "./utils/ampleExtensions";
+import { extForOption, type ExportOption } from "./utils/ampleExtensions";
 import { SamplerEngine } from "./sampler/SamplerEngine";
 import { discoverLibraries, makeSampleFetcher } from "./sampler/scanLibraries";
 import type { GuitarLibraryInfo, LibraryVariant } from "./sampler/types";
@@ -1613,9 +1609,10 @@ export default function App() {
   });
   const [autoVelOpen, setAutoVelOpen] = useState(false);
 
-  // Formatul ales pentru exportul Drag & Drop (midi/griff/briff/uriff).
-  // Serializarea efectiva se leaga in onExport dupa SPEC-griff.md.
-  const [exportFormat, setExportFormat] = useState<ExportFormat>("griff");
+  // Optiunea aleasa pentru exportul Drag & Drop (Midi / Midi (No Art&Fx) /
+  // Art&Fx (No Midi) / Griff / Griff (No Art&Fx)). Serializarea efectiva se
+  // leaga in onExport dupa SPEC-griff.md.
+  const [exportOption, setExportOption] = useState<ExportOption>("griff");
   const autoVelActiveRef = useRef(autoVelActive);
   const autoVelStrategyRef = useRef(autoVelStrategy);
 
@@ -1674,14 +1671,6 @@ export default function App() {
   // a familiei). Meniul Drag&Drop dezactiveaza (gri) formatele altor familii.
   const selectedInstrumentName =
     libraryChoices.find((c) => c.id === selectedLibraryId)?.folderName ?? null;
-  const enabledExportFormats = allowedFormats(selectedInstrumentName);
-
-  // La schimbarea instrumentului, daca formatul curent nu e valid pt. familia
-  // lui, trecem automat pe extensia Riffer a noii familii.
-  useEffect(() => {
-    if (!enabledExportFormats.includes(exportFormat))
-      setExportFormat(defaultFormatFor(selectedInstrumentName));
-  }, [enabledExportFormats, exportFormat, selectedInstrumentName]);
 
   // Ref-ul pentru libraria selectata ramane la zi (folosit in bucle de
   // playback unde playChordSound e capturat o singura data).
@@ -4843,12 +4832,15 @@ export default function App() {
           {/* Export Drag & Drop: click-dreapta = meniu midi/griff/briff/uriff;
               click-stanga / drag = exporta in formatul ales. */}
           <ExportFormatButton
-            format={exportFormat}
-            onFormatChange={setExportFormat}
-            enabledFormats={enabledExportFormats}
-            onExport={(f) => {
-              // TODO etapa urmatoare: serializeaza secventa in f si exporta
-              console.info("[export] format ales:", f);
+            option={exportOption}
+            onOptionChange={setExportOption}
+            onExport={(o) => {
+              // TODO etapa urmatoare: serializeaza secventa in optiunea o si
+              // exporta cu extensia extForOption(o, instrument).
+              console.info(
+                "[export] optiune:", o,
+                "| extensie:", extForOption(o, selectedInstrumentName)
+              );
             }}
           />
 

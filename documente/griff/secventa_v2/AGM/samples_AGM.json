@@ -1,0 +1,148 @@
+{
+ "instrument": "Ample Guitar M",
+ "versiune": "4.1.0",
+ "nr_mostre": 475,
+ "articulatii": {
+  "Downstroke Noise 1": {
+   "note": 1,
+   "velocities": [
+    64,
+    121
+   ]
+  },
+  "Downstroke Noise 2": {
+   "note": 1,
+   "velocities": [
+    64,
+    121
+   ]
+  },
+  "Hit Rim": {
+   "note": 1,
+   "velocities": [
+    64,
+    121
+   ]
+  },
+  "Hit Top (Mute)": {
+   "note": 1,
+   "velocities": [
+    64,
+    121
+   ]
+  },
+  "Hit Top (Open)": {
+   "note": 1,
+   "velocities": [
+    64,
+    121
+   ]
+  },
+  "Muting": {
+   "note": 1,
+   "velocities": [
+    64,
+    121
+   ]
+  },
+  "Natural Harmonic": {
+   "note": 5,
+   "velocities": [
+    30,
+    60,
+    91,
+    121
+   ]
+  },
+  "Palm Mute": {
+   "note": 5,
+   "velocities": [
+    30,
+    60,
+    91,
+    121
+   ]
+  },
+  "Pop": {
+   "note": 5,
+   "velocities": [
+    127
+   ]
+  },
+  "Scratch": {
+   "note": 1,
+   "velocities": [
+    64,
+    121
+   ]
+  },
+  "Slap": {
+   "note": 1,
+   "velocities": [
+    64,
+    121
+   ]
+  },
+  "Slide Guitar": {
+   "note": 4,
+   "velocities": [
+    30,
+    60,
+    91,
+    121
+   ]
+  },
+  "Slide In": {
+   "note": 4,
+   "velocities": [
+    30,
+    60,
+    91,
+    121
+   ]
+  },
+  "Slide Out": {
+   "note": 4,
+   "velocities": [
+    30,
+    60,
+    91,
+    121
+   ]
+  },
+  "Strum Mute": {
+   "note": 1,
+   "velocities": [
+    64,
+    121
+   ]
+  },
+  "Sustain": {
+   "note": 45,
+   "velocities": [
+    15,
+    30,
+    45,
+    60,
+    76,
+    91,
+    106,
+    121
+   ]
+  },
+  "Upstroke Noise 1": {
+   "note": 1,
+   "velocities": [
+    64,
+    121
+   ]
+  },
+  "Upstroke Noise 2": {
+   "note": 1,
+   "velocities": [
+    64,
+    121
+   ]
+  }
+ }
+}

@@ -44,3 +44,44 @@ export function allowedFormats(name?: string | null): ExportFormat[] {
 export function defaultFormatFor(name?: string | null): ExportFormat {
   return FAMILY_EXT[familyFromName(name)];
 }
+
+// ---------------------------------------------------------------------------
+// Optiunile butonului Drag & Drop (meniu dropdown cu bifat o singura optiune).
+//
+// Semantica (stabilita de utilizator):
+//  - Midi               = note + Art&Fx DOAR daca butonul viitor Art&Fx e activ,
+//                         altfel doar note.
+//  - Midi (No Art&Fx)   = doar note, indiferent de butonul Art&Fx.
+//  - Art&Fx (No Midi)   = .mid doar cu keyswitch-urile de Art&Fx (cand butonul
+//                         Art&Fx e activ). DEZACTIVAT deocamdata (gri).
+//  - Griff              = .griff cu Art&Fx setate in Riffer daca butonul e activ,
+//                         altfel fara.
+//  - Griff (No Art&Fx)  = .griff doar cu notele sustain (indiferent de buton).
+//  - Briff / Uriff      = lasate pe viitor.
+export type ExportOption =
+  | "midi"
+  | "midi_noart"
+  | "art_nomidi"
+  | "griff"
+  | "griff_noart";
+
+export interface ExportOptionDef {
+  id: ExportOption;
+  label: string;
+  enabledNow: boolean; // false => afisat gri, nu poate fi ales inca
+}
+
+export const EXPORT_OPTIONS: ExportOptionDef[] = [
+  { id: "midi", label: "Midi", enabledNow: true },
+  { id: "midi_noart", label: "Midi (No Art&Fx)", enabledNow: true },
+  { id: "art_nomidi", label: "Art&Fx (No Midi)", enabledNow: false },
+  { id: "griff", label: "Griff", enabledNow: true },
+  { id: "griff_noart", label: "Griff (No Art&Fx)", enabledNow: true },
+];
+
+// Extensia de fisier rezultata din optiune + familia instrumentului selectat.
+export function extForOption(opt: ExportOption, name?: string | null): string {
+  return opt === "griff" || opt === "griff_noart"
+    ? FAMILY_EXT[familyFromName(name)]
+    : "mid";
+}
