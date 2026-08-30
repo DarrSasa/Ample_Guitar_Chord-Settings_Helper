@@ -26,6 +26,13 @@ coarda 4 liber), deci alegerea corzilor contează — se caută alocarea fezabil
 
 Complexitate neglijabilă (≤ 7 note × 6 corzi).
 
+### Reducerea la voce de chitară (maxVoices)
+
+Înainte de alocarea pe corzi, acordul „pianistic” e redus la max. `maxVoices`
+(implicit 4) renunțând, în ordine, la: (1) octăvile dublate, (2) quinta justă,
+(3) nota cea mai înaltă — regula standard de voicing (păstrăm rădăcina, terța,
+septima/extensia). Astfel un acord de 5 voci devine 4, ca în pluginul Ample.
+
 ## Unde e activ
 
 - **Settings ▸ Sound Sources ▸ Guitar Samples**: checkbox „Real Guitar String

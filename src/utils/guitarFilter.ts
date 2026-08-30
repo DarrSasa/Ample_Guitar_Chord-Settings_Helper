@@ -19,21 +19,40 @@ export interface StringFilterConfig {
   maxFret: number;
   maxSpan: number;
   allowDuplicates: boolean; // 12 corzi: cursurile dubleaza fiecare nota
+  maxVoices: number; // cate voci maxime pastram intr-un acord (voicing de chitara)
   label: string;
 }
 
 export const SIX_STRING: StringFilterConfig = {
   strings: [40, 45, 50, 55, 59, 64], // E2 A2 D3 G3 B3 E4
-  maxFret: 22, maxSpan: 6, allowDuplicates: false, label: "6 corzi",
+  maxFret: 22, maxSpan: 6, allowDuplicates: false, maxVoices: 4, label: "6 corzi",
 };
 export const TWELVE_STRING: StringFilterConfig = {
   strings: [40, 45, 50, 55, 59, 64], // 6 cursuri (fiecare dublat)
-  maxFret: 22, maxSpan: 7, allowDuplicates: true, label: "12 corzi (6 cursuri)",
+  maxFret: 22, maxSpan: 7, allowDuplicates: true, maxVoices: 4, label: "12 corzi (6 cursuri)",
 };
 export const BASS_FOUR: StringFilterConfig = {
   strings: [28, 33, 38, 43], // E1 A1 D2 G2
-  maxFret: 22, maxSpan: 6, allowDuplicates: false, label: "bas 4 corzi",
+  maxFret: 22, maxSpan: 6, allowDuplicates: false, maxVoices: 4, label: "bas 4 corzi",
 };
+
+// Reduce un acord "pianistic" la o voce de chitara (max `maxVoices`), renuntand
+// intai la octavile dublate, apoi la quinta justa, apoi la nota cea mai inalta.
+// (Regula standard de voicing: pastram radacina, terta si septima/extensia.)
+function reduceVoicing(notes: number[], maxVoices: number): number[] {
+  const arr = [...notes];
+  while (arr.length > maxVoices) {
+    const pcCount = new Map<number, number>();
+    for (const n of arr) pcCount.set(n % 12, (pcCount.get(n % 12) ?? 0) + 1);
+    const dup = arr.filter((n) => (pcCount.get(n % 12) ?? 0) > 1).sort((a, b) => b - a);
+    if (dup.length) { arr.splice(arr.indexOf(dup[0]), 1); continue; }
+    const bass = Math.min(...arr);
+    const fifths = arr.filter((n) => (n - bass) % 12 === 7).sort((a, b) => b - a);
+    if (fifths.length) { arr.splice(arr.indexOf(fifths[0]), 1); continue; }
+    arr.splice(arr.indexOf(Math.max(...arr)), 1);
+  }
+  return arr.sort((a, b) => a - b);
+}
 
 // Filtrul SPECIFIC instrumentului selectat — se aplica automat la schimbarea
 // chitarei. Extensibil: adauga aici alte modele (ex. 7 corzi, bariton...).
@@ -48,9 +67,11 @@ export function filterChordToGuitar(
   notes: number[],
   cfg: StringFilterConfig = SIX_STRING
 ): number[] {
+  // 0) reduce acordul la o voce de chitara (max `maxVoices`) inainte de alocare.
+  const reduced = reduceVoicing(notes, cfg.maxVoices);
   const cap = cfg.allowDuplicates ? 2 : 1;
   const counts = new Map<number, number>();
-  for (const n of notes) counts.set(n, (counts.get(n) ?? 0) + 1);
+  for (const n of reduced) counts.set(n, (counts.get(n) ?? 0) + 1);
   const distinct = Array.from(counts.keys()).sort((a, b) => a - b);
 
   const used = new Array(cfg.strings.length).fill(false);
@@ -81,7 +102,7 @@ export function filterChordToGuitar(
   const kept = new Set(best);
   const emitted = new Map<number, number>();
   const out: number[] = [];
-  for (const n of notes) {
+  for (const n of reduced) {
     if (!kept.has(n)) continue;
     const already = emitted.get(n) ?? 0;
     const limit = Math.min(counts.get(n) ?? 1, cap);
