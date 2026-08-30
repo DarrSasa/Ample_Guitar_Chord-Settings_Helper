@@ -13,7 +13,7 @@ import {
   type ExportOption,
 } from "./utils/ampleExtensions";
 import { createGriffFile, type GriffChord } from "./utils/griffWriter";
-import { filterChordToGuitar } from "./utils/guitarFilter";
+import { filterChordToGuitar, filterConfigForInstrument } from "./utils/guitarFilter";
 import { SamplerEngine } from "./sampler/SamplerEngine";
 import { discoverLibraries, makeSampleFetcher } from "./sampler/scanLibraries";
 import type { GuitarLibraryInfo, LibraryVariant } from "./sampler/types";
@@ -1180,6 +1180,7 @@ function SettingsPanel(props: {
   stringFilter: boolean;
   onStringFilterChange: (v: boolean) => void;
   selectedLibraryName: string | null;
+  filterLabel: string;
   prefsMode: PrefsMode;
   onPrefsModeChange: (m: PrefsMode) => void;
   onClose: () => void;
@@ -1195,6 +1196,7 @@ function SettingsPanel(props: {
     stringFilter,
     onStringFilterChange,
     selectedLibraryName,
+    filterLabel,
     prefsMode,
     onPrefsModeChange,
     onClose,
@@ -1411,7 +1413,7 @@ function SettingsPanel(props: {
           <span className="font-semibold">Real Guitar String Filter</span>
           <span className="text-[10px] text-neutral-400">
             {selectedLibraryName ? `(${selectedLibraryName}) ` : ""}
-            elimină notele care nu pot fi cântate pe corzile reale ale chitarei
+            [{filterLabel}] elimină notele care nu pot fi cântate pe corzile reale
           </span>
         </label>
       </div>
@@ -1650,18 +1652,15 @@ export default function App() {
   // leaga in onExport dupa SPEC-griff.md.
   const [exportOption, setExportOption] = useState<ExportOption>("griff");
 
-  // Real Guitar String Filter: elimina din acorduri notele care nu pot fi
-  // cantate pe corzile fizice ale chitarei (redare/export realist, nu pianistic).
-  const [stringFilter, setStringFilter] = useState<boolean>(() => {
-    try { return localStorage.getItem("realStringFilter") === "1"; } catch { return false; }
+  // Real Guitar String Filter, per LIBRARIE: fiecare chitara isi memoreaza
+  // propriul on/off, iar TIPUL filtrului (6/12 corzi, bas) e dedus automat din
+  // chitara selectata (filterConfigForInstrument).
+  const [stringFilterByLib, setStringFilterByLib] = useState<Record<string, boolean>>(() => {
+    try { return JSON.parse(localStorage.getItem("realStringFilterByLib") ?? "{}"); } catch { return {}; }
   });
   useEffect(() => {
-    try { localStorage.setItem("realStringFilter", stringFilter ? "1" : "0"); } catch { /* ignore */ }
-  }, [stringFilter]);
-
-  // Notele unui acord pt. export, cu filtrul de corzi reale aplicat la nevoie.
-  const notesForExport = (label: string) =>
-    stringFilter ? filterChordToGuitar(chordNotes(label)) : chordNotes(label);
+    try { localStorage.setItem("realStringFilterByLib", JSON.stringify(stringFilterByLib)); } catch { /* ignore */ }
+  }, [stringFilterByLib]);
   const autoVelActiveRef = useRef(autoVelActive);
   const autoVelStrategyRef = useRef(autoVelStrategy);
 
@@ -1720,6 +1719,16 @@ export default function App() {
   // a familiei). Meniul Drag&Drop dezactiveaza (gri) formatele altor familii.
   const selectedInstrumentName =
     libraryChoices.find((c) => c.id === selectedLibraryId)?.folderName ?? null;
+
+  // Filtrul activ pt. chitara curenta (on/off memorat per librarie) + tipul lui.
+  const activeStringFilter = !!stringFilterByLib[selectedLibraryId ?? ""];
+  const stringFilterCfg = filterConfigForInstrument(selectedInstrumentName);
+
+  // Notele unui acord pt. export/redare, cu filtrul de corzi reale aplicat.
+  const notesForExport = (label: string) =>
+    activeStringFilter
+      ? filterChordToGuitar(chordNotes(label), stringFilterCfg)
+      : chordNotes(label);
 
   // Ref-ul pentru libraria selectata ramane la zi (folosit in bucle de
   // playback unde playChordSound e capturat o singura data).
@@ -6054,9 +6063,12 @@ export default function App() {
           soundSource={soundSource}
           onSoundSourceChange={setSoundSource}
           guitarLibrariesCount={guitarLibraries.length}
-          stringFilter={stringFilter}
-          onStringFilterChange={setStringFilter}
+          stringFilter={activeStringFilter}
+          onStringFilterChange={(v) =>
+            setStringFilterByLib((prev) => ({ ...prev, [selectedLibraryId ?? ""]: v }))
+          }
           selectedLibraryName={selectedInstrumentName}
+          filterLabel={stringFilterCfg.label}
           prefsMode={prefsMode}
           onPrefsModeChange={setPrefsMode}
           onClose={() => setSettingsOpen(false)}

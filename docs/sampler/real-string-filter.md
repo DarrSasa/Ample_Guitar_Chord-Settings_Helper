@@ -35,3 +35,30 @@ Complexitate neglijabilă (≤ 7 note × 6 corzi).
 - **Redare** în program (`playChordSound` folosește notele filtrate).
 
 Acordaj standard folosit: `E2 A2 D3 G3 B3 E4` = MIDI `[40,45,50,55,59,64]`.
+
+## Structură dinamică per chitară (v2)
+
+Filtrul e **dependent de chitara selectată**: `filterConfigForInstrument()` alege
+automat configurația după numele instrumentului — extensibil pentru modele
+viitoare:
+- `SIX_STRING` (6 corzi) — AGM etc.;
+- `TWELVE_STRING` (12 corzi / 6 cursuri, `allowDuplicates=true`: fiecare curs
+  dublează nota, deci aceeași înălțime poate apărea de 2 ori) — ex. *Ample Guitar
+  Twelve 4.0.1*;
+- `BASS_FOUR` (bas 4 corzi).
+
+On/off e memorat **per librărie** (`localStorage realStringFilterByLib`), astfel că
+la selectarea unei chitare se aplică automat filtrul ei specific.
+
+## Activ și în „Chords for Progressions”
+
+Filtrul se aplică la previzualizarea/ascultarea acordurilor din tabel și la
+drag&drop către Builder (ambele trec prin `notesForExport` → `playChordSound`).
+
+## Normalizare de volum (Builder)
+
+În `SamplerEngine.playChord`, amplitudinea fiecărei note e scalată cu
+`1/sqrt(N)` (N = nr. de voci), astfel încât energia totală — și deci volumul
+perceput — să depindă doar de bara de velocity, nu de numărul de note (cu sau
+fără Auto Vel). Exportul MIDI păstrează velocity-urile brute (pluginul Ample
+normează la redare).

@@ -243,9 +243,19 @@ export class SamplerEngine {
     // 2) Un SINGUR timp de start comun pentru toate notele.
     const when = this.scheduleStart(opts.when);
 
-    // 3) Porneste-le pe toate sincron.
+    // 3) Porneste-le pe toate sincron, cu NORMALIZARE de volum: un acord cu
+    //    multe voci nu trebuie sa sune disproportionat de tare fata de unul cu
+    //    putine voci. Scalăm amplitudinea fiecarei note cu 1/sqrt(N) astfel
+    //    incat energia totala sa ramana ~constanta => aceeasi inaltime a barei
+    //    de velocity = acelasi nivel de volum, indiferent de numarul de voci
+    //    (similar cu redarea in pluginul de chitara).
+    const norm = 1 / Math.sqrt(Math.max(1, resolved.length));
     resolved.forEach((r) => {
-      this.startSample(r.relPath, r.sampleMidi, r.midi, r.velocity, { ...opts, when });
+      this.startSample(r.relPath, r.sampleMidi, r.midi, r.velocity, {
+        ...opts,
+        when,
+        gain: (opts.gain ?? 1) * norm,
+      });
     });
   }
 
