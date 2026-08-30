@@ -19,6 +19,19 @@ Format T‑vK: `{ "nume": [ { "positions": ["x","3","2","0","1","0"], "fingering
   `positions` **și** `midi` precalculat. E un subset curat, suficient pt.
   voicing‑uri reale + inversiuni, fără a băga 14 MB în git.
 - `documente/baze/chords-db/guitar.json` (existent): 828 acorduri cu `midi`.
+- `documente/baze/chords-db/{ukulele,piano,instruments}.json` (adăugate):
+  chords‑db e **multi‑instrument** — guitar 828/3283 poziții, ukulele 552/2114,
+  piano 528; `instruments.json` dă metadata (strings / fretsOnChord / keys).
+  Ukulele = util pt. AEU; piano = referință pt. aranjamente/voicing.
+
+## all‑guitar‑chords.com (inventar)
+
+Finder interactiv cu **>2.700 acorduri**, fiecare cu **mai multe variații pe
+grif** (open chords marcate), **audio samples**, buton info cu „steps & notes”,
+mod stângaci/vertical. Tipuri: Major/Minor/7/5/dim/dim7/aug/sus2/sus4/maj7/m7/
+7sus4 + listă „Advanced” completă. E site (fără dump JSON bulk) — îl folosim ca
+**referință vizuală/audio** și pt. variațiile pe poziții; datele structurate le
+luăm din chords‑db / T‑vK / szaza.
 
 ## Cum se folosesc (pe viitor, după designul tău)
 
