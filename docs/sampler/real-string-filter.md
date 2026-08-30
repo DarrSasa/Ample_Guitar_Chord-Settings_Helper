@@ -47,8 +47,19 @@ viitoare:
   Twelve 4.0.1*;
 - `BASS_FOUR` (bas 4 corzi).
 
-On/off e memorat **per librărie** (`localStorage realStringFilterByLib`), astfel că
-la selectarea unei chitare se aplică automat filtrul ei specific.
+Filtrul e **implicit ON** când e selectată o librărie (se aplică automat la
+selectarea chitarei, inclusiv la export), iar alegerea on/off e memorată
+**per librărie** (`localStorage realStringFilterByLib`).
+
+## Corecții de redare (v3)
+
+- **Volum**: normalizarea folosește `sqrt(4/N)` față de un acord de referință de
+  4 voci — acordurile de 2 corzi sunt *ridicate*, cele mari coborate, astfel încât
+  aceeași velocity = același nivel indiferent de nr. de voci. Aplicată în
+  `SamplerEngine.playChord` și în ambele căi soundfont din `playChordSound`.
+- **Latență prima redare**: `warmAudioForPlayback()` (apelat la pornirea
+  playback-ului) încarcă din timp instrumentul/mostrele, ca prima audiție să nu
+  aștepte decodarea (a doua redare era oricum din cache).
 
 ## Activ și în „Chords for Progressions”
 

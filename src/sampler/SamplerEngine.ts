@@ -216,6 +216,22 @@ export class SamplerEngine {
     this.startSample(res.relPath, res.sampleMidi, midi, velocity, opts);
   }
 
+  // Incarca din timp (fara sa cante) mostrelor pt. un set de note, astfel incat
+  // prima redare a unei progresii sa NU astepte decodarea fisierelor (fara
+  // intarziere/strum la prima auditie; a doua redare e oricum din cache).
+  async preloadNotes(
+    groups: SingleNoteGroup[],
+    midis: number[],
+    velocity = 100
+  ): Promise<void> {
+    const rels = new Set<string>();
+    for (const m of midis) {
+      const r = this.resolveSample(groups, m, velocity);
+      if (r) rels.add(r.relPath);
+    }
+    await Promise.all(Array.from(rels).map((p) => this.load(p)));
+  }
+
   // Reda un acord complet (note + velocity per nota). Toate notele se incarca
   // INAINTE de a porni, apoi pornesc la ACELASI timp — garantat simultan,
   // fara efect de "strum" la prima redare.
@@ -243,13 +259,13 @@ export class SamplerEngine {
     // 2) Un SINGUR timp de start comun pentru toate notele.
     const when = this.scheduleStart(opts.when);
 
-    // 3) Porneste-le pe toate sincron, cu NORMALIZARE de volum: un acord cu
-    //    multe voci nu trebuie sa sune disproportionat de tare fata de unul cu
-    //    putine voci. Scalăm amplitudinea fiecarei note cu 1/sqrt(N) astfel
-    //    incat energia totala sa ramana ~constanta => aceeasi inaltime a barei
-    //    de velocity = acelasi nivel de volum, indiferent de numarul de voci
-    //    (similar cu redarea in pluginul de chitara).
-    const norm = 1 / Math.sqrt(Math.max(1, resolved.length));
+    // 3) Porneste-le pe toate sincron, cu NORMALIZARE de volum: aceeasi inaltime
+    //    a barei de velocity trebuie sa sune la acelasi nivel indiferent de
+    //    numarul de voci. Scalăm amplitudinea cu sqrt(REF/N) fata de un acord de
+    //    referinta de REF voci: acordurile mici (2 corzi) sunt RIDICATE, cele
+    //    mari coborate, ca energia totala sa fie ~constanta (ca in plugin).
+    const REF_VOICES = 4;
+    const norm = Math.sqrt(REF_VOICES / Math.max(1, resolved.length));
     resolved.forEach((r) => {
       this.startSample(r.relPath, r.sampleMidi, r.midi, r.velocity, {
         ...opts,

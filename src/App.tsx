@@ -1720,8 +1720,12 @@ export default function App() {
   const selectedInstrumentName =
     libraryChoices.find((c) => c.id === selectedLibraryId)?.folderName ?? null;
 
-  // Filtrul activ pt. chitara curenta (on/off memorat per librarie) + tipul lui.
-  const activeStringFilter = !!stringFilterByLib[selectedLibraryId ?? ""];
+  // Filtrul activ pt. chitara curenta: implicit ON cand e selectata o librarie
+  // (se aplica automat la selectarea chitarei, conform cerintei), iar alegerea
+  // utilizatorului (on/off) e memorata per librarie.
+  const activeStringFilter = selectedLibraryId
+    ? (stringFilterByLib[selectedLibraryId] ?? true)
+    : false;
   const stringFilterCfg = filterConfigForInstrument(selectedInstrumentName);
 
   // Notele unui acord pt. export/redare, cu filtrul de corzi reale aplicat.
@@ -2864,6 +2868,11 @@ export default function App() {
         })
       : defaultVelocities(notes);
 
+    // Normalizare de volum: aceeasi velocity = acelasi nivel indiferent de nr.
+    // de voci (acordurile de 2 corzi sunt ridicate, cele mari coborate), fata de
+    // un acord de referinta de 4 voci.
+    const velNorm = Math.sqrt(4 / Math.max(1, notes.length));
+
     // Sursa activa = guitar-samples -> redam prin motorul sampler; daca nu
     // reuseste (fara librarii / fara Electron), cadem pe soundfont.
     if (soundSourceRef.current === "guitar-samples") {
@@ -2881,7 +2890,7 @@ export default function App() {
         src.playbackRate.value = 2 ** ((note - sampleRootMidiRef.current) / 12);
 
         const gain = ctx.createGain();
-        gain.gain.setValueAtTime(Math.max(0.01, volume * 0.6), now);
+        gain.gain.setValueAtTime(Math.max(0.01, volume * 0.6 * velNorm), now);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + durationMs / 1000);
 
         src.connect(gain);
@@ -2900,7 +2909,7 @@ export default function App() {
         const gainFactor = Math.pow(vel / 100, 2);
         instrumentRef.current.play(note, now, {
           duration: durationMs / 1000,
-          gain: Math.max(0.01, volume * 0.7 * gainFactor),
+          gain: Math.max(0.01, volume * 0.7 * gainFactor * velNorm),
         });
       });
       return;
@@ -2908,6 +2917,33 @@ export default function App() {
 
     // Avoid chip-tone fallback in production builds.
     console.debug("[Sampler] No WAV sample and no soundfont available for", guitarPreset.name);
+  };
+
+  // Incarca din timp instrumentul/mostrele folosite la redare, astfel incat
+  // PRIMA auditie a unei progresii sa nu astepte decodarea fisierelor (fara
+  // intarziere/acorduri "mai tarziu" la prima redare; a doua e oricum din cache).
+  const warmAudioForPlayback = async () => {
+    const ctx = ensureAudio();
+    if (ctx.state === "suspended") await ctx.resume();
+    if (soundSourceRef.current === "guitar-samples") {
+      const libs = guitarLibrariesRef.current;
+      const selId = selectedLibraryIdRef.current;
+      let lib: GuitarLibraryInfo | null = null;
+      if (selId) {
+        const r = resolveLibraryChoice(libs, selId);
+        if (r) lib = r.lib;
+      }
+      lib = lib ?? libs.find((l) => l.hasSingleNotes && l.singleNotes.length > 0) ?? null;
+      const engine = getSamplerEngine();
+      if (lib && engine) {
+        const midis = new Set<number>();
+        for (const c of builderRef.current)
+          for (const n of notesForExport(c.label)) midis.add(n);
+        await engine.preloadNotes(lib.singleNotes, Array.from(midis));
+      }
+    } else {
+      await loadInstrument(guitarPreset);
+    }
   };
 
   const recordSnapshot = (nextTopCode: number, nextGuideCode: number | null, label?: string) => {
@@ -3621,7 +3657,7 @@ export default function App() {
     return { items, insertIndex };
   };
 
-  const togglePlay = () => {
+  const togglePlay = async () => {
     if (isPlaying) {
       if (rafRef.current !== null) {
         window.cancelAnimationFrame(rafRef.current);
@@ -3633,6 +3669,10 @@ export default function App() {
       return;
     }
     if (builderRef.current.length === 0) return;
+
+    // Warm-up inainte de a porni timeline-ul: prima redare nu mai astepta
+    // incarcarea instrumentului/mostrelor.
+    await warmAudioForPlayback();
 
     const beatMs = 60000 / bpm;
     // Model DAW: fiecare acord are pozitie ABSOLUTA pe timeline
