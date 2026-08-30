@@ -14,6 +14,7 @@ import {
 } from "./utils/ampleExtensions";
 import { createGriffFile, type GriffChord } from "./utils/griffWriter";
 import { filterChordToGuitar, filterConfigForInstrument } from "./utils/guitarFilter";
+import { shapeMidiForChord } from "./utils/guitarShapes";
 import { SamplerEngine } from "./sampler/SamplerEngine";
 import { discoverLibraries, makeSampleFetcher } from "./sampler/scanLibraries";
 import type { GuitarLibraryInfo, LibraryVariant } from "./sampler/types";
@@ -1728,11 +1729,15 @@ export default function App() {
     : false;
   const stringFilterCfg = filterConfigForInstrument(selectedInstrumentName);
 
-  // Notele unui acord pt. export/redare, cu filtrul de corzi reale aplicat.
-  const notesForExport = (label: string) =>
-    activeStringFilter
-      ? filterChordToGuitar(chordNotes(label), stringFilterCfg)
-      : chordNotes(label);
+  // Notele unui acord pt. export/redare: cu filtrul ON, folosim intai o FORMA
+  // REALA de chitara din baza de date (chords-db); daca acordul nu e in baza,
+  // cadem pe filtrul generic de corzi.
+  const notesForExport = (label: string) => {
+    if (!activeStringFilter) return chordNotes(label);
+    const shape = shapeMidiForChord(parseLabel(label));
+    if (shape) return shape;
+    return filterChordToGuitar(chordNotes(label), stringFilterCfg);
+  };
 
   // Ref-ul pentru libraria selectata ramane la zi (folosit in bucle de
   // playback unde playChordSound e capturat o singura data).
