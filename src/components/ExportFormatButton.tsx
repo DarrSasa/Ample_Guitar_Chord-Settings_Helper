@@ -7,9 +7,11 @@ import {
 interface Props {
   option: ExportOption;
   onOptionChange: (o: ExportOption) => void;
-  // declansat la click-stanga / drag-start pe butonul principal; serializarea
-  // efectiva (.mid / .griff / .briff / .uriff, cu sau fara Art&Fx) se leaga aici.
-  onExport?: (o: ExportOption) => void;
+  // handler-ul REAL de drag (cel al butonului vechi, care scrie fisierul temp
+  // si porneste drag-ul nativ OS prin desktopBridge.midiDrag). Fara el, un
+  // simplu setData() in dataTransfer NU produce un fisier care cade in DAW.
+  onDragStart?: (e: React.DragEvent<HTMLButtonElement>) => void;
+  onClick?: () => void;
 }
 
 // Butonul Drag & Drop de export. In dreapta lui o sectiune cu un triunghi cu
@@ -17,7 +19,12 @@ interface Props {
 // (Midi / Midi (No Art&Fx) / Art&Fx (No Midi) / Griff / Griff (No Art&Fx)),
 // din care utilizatorul bifeaza una inainte de drag & drop. Optiunile inca
 // neimplementate (Art&Fx (No Midi)) apar gri, dezactivate.
-export default function ExportFormatButton({ option, onOptionChange, onExport }: Props) {
+export default function ExportFormatButton({
+  option,
+  onOptionChange,
+  onDragStart,
+  onClick,
+}: Props) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -45,12 +52,8 @@ export default function ExportFormatButton({ option, onOptionChange, onExport }:
         type="button"
         draggable
         title="Drag & Drop: exporta in optiunea aleasa din meniul din dreapta."
-        onDragStart={(e) => {
-          e.dataTransfer.setData("text/plain", option);
-          e.dataTransfer.setData("application/x-ample-export", option);
-          onExport?.(option);
-        }}
-        onClick={() => onExport?.(option)}
+        onDragStart={onDragStart}
+        onClick={onClick}
         className="h-8 rounded-l-sm border border-black bg-[#BFD7EA] px-3 text-xs font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]"
       >
         D&D: {current?.label ?? option}

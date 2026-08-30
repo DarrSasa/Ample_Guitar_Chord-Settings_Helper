@@ -3884,6 +3884,11 @@ export default function App() {
       return;
     }
 
+    // Extensia intenționată conform opțiunii din drop-down; serializerul
+    // .griff/.briff/.uriff e încă în lucru (SPEC-griff), deci exportul efectiv
+    // rămâne MIDI (.mid) până atunci — drop-ul în DAW funcționează oricum.
+    const intendedExt = extForOption(exportOption, selectedInstrumentName);
+    console.info("[export] opțiune:", exportOption, "| ext. intenționată:", intendedExt);
     const fileName = "ample-chord-progression.mid";
     const bridge = (window as any).desktopBridge;
 
@@ -4834,12 +4839,18 @@ export default function App() {
           <ExportFormatButton
             option={exportOption}
             onOptionChange={setExportOption}
-            onExport={(o) => {
-              // TODO etapa urmatoare: serializeaza secventa in optiunea o si
-              // exporta cu extensia extForOption(o, instrument).
-              console.info(
-                "[export] optiune:", o,
-                "| extensie:", extForOption(o, selectedInstrumentName)
+            // Butonul nou foloseste ACELASI handler de drag ca butonul vechi:
+            // scrie fisierul temp si porneste drag-ul nativ OS prin
+            // desktopBridge.midiDrag (altfel drop-ul in DAW nu functioneaza).
+            onDragStart={(e) => dragMidiToDaw(e)}
+            onClick={() => {
+              if (builderRef.current.length === 0) {
+                alert("Chord Progression Builder is empty. Add chords first.");
+                return;
+              }
+              alert(
+                "Optiune aleasa: " + exportOption +
+                ".\nDrag this button into your DAW (or File Explorer) to drop the file."
               );
             }}
           />
