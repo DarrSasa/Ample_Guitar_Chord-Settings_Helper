@@ -13,6 +13,7 @@ import {
   type ExportOption,
 } from "./utils/ampleExtensions";
 import { createGriffFile, type GriffChord } from "./utils/griffWriter";
+import { filterChordToGuitar } from "./utils/guitarFilter";
 import { SamplerEngine } from "./sampler/SamplerEngine";
 import { discoverLibraries, makeSampleFetcher } from "./sampler/scanLibraries";
 import type { GuitarLibraryInfo, LibraryVariant } from "./sampler/types";
@@ -605,7 +606,8 @@ const DEFAULT_CHORD_BEATS = 4;
 function createMidiFile(
   chords: BuilderChord[],
   bpm: number,
-  velForChord?: (chord: BuilderChord, index: number, sorted: BuilderChord[]) => number[]
+  velForChord?: (chord: BuilderChord, index: number, sorted: BuilderChord[]) => number[],
+  getNotes?: (label: string) => number[]
 ) {
   const ppq = 480;
   const beatTicks = ppq;
@@ -627,7 +629,7 @@ function createMidiFile(
     const startTicks = Math.max(0, Math.round(beatTicks * (chord.startBeat ?? 0)));
     const gapTicks = Math.max(0, startTicks - cursorTicks);
 
-    const notes = chordNotes(chord.label);
+    const notes = getNotes ? getNotes(chord.label) : chordNotes(chord.label);
     // Velocity per nota (Auto Vel) — daca nu e dat, folosim 86 (default).
     const velocities = velForChord ? velForChord(chord, chordIndex, sorted) : notes.map(() => 86);
     notes.forEach((note, i) => {
@@ -1175,6 +1177,9 @@ function SettingsPanel(props: {
   soundSource: "soundfonts" | "guitar-samples";
   onSoundSourceChange: (src: "soundfonts" | "guitar-samples") => void;
   guitarLibrariesCount: number;
+  stringFilter: boolean;
+  onStringFilterChange: (v: boolean) => void;
+  selectedLibraryName: string | null;
   prefsMode: PrefsMode;
   onPrefsModeChange: (m: PrefsMode) => void;
   onClose: () => void;
@@ -1187,6 +1192,9 @@ function SettingsPanel(props: {
     soundSource,
     onSoundSourceChange,
     guitarLibrariesCount,
+    stringFilter,
+    onStringFilterChange,
+    selectedLibraryName,
     prefsMode,
     onPrefsModeChange,
     onClose,
@@ -1384,6 +1392,28 @@ function SettingsPanel(props: {
             {guitarLibrariesCount} librărie{guitarLibrariesCount === 1 ? "" : "i"} detectată{guitarLibrariesCount === 1 ? "" : "e"} în „guitar samples”.
           </div>
         )}
+
+        {/* Real Guitar String Filter — activ/dezactivat, langa chitara aleasa */}
+        <label
+          className={`mt-2 flex cursor-pointer items-center gap-2 rounded-sm border px-3 py-2 text-sm ${
+            stringFilter
+              ? "border-orange-400 bg-neutral-800 text-orange-200"
+              : "border-neutral-600 bg-neutral-900 text-neutral-200 hover:bg-neutral-800"
+          } ${guitarLibrariesCount === 0 ? "opacity-50" : ""}`}
+        >
+          <input
+            type="checkbox"
+            checked={stringFilter}
+            disabled={guitarLibrariesCount === 0}
+            onChange={(e) => onStringFilterChange(e.target.checked)}
+            className="accent-orange-400"
+          />
+          <span className="font-semibold">Real Guitar String Filter</span>
+          <span className="text-[10px] text-neutral-400">
+            {selectedLibraryName ? `(${selectedLibraryName}) ` : ""}
+            elimină notele care nu pot fi cântate pe corzile reale ale chitarei
+          </span>
+        </label>
       </div>
 
       <div className="mt-auto text-xs text-neutral-500">
@@ -1619,6 +1649,19 @@ export default function App() {
   // Art&Fx (No Midi) / Griff / Griff (No Art&Fx)). Serializarea efectiva se
   // leaga in onExport dupa SPEC-griff.md.
   const [exportOption, setExportOption] = useState<ExportOption>("griff");
+
+  // Real Guitar String Filter: elimina din acorduri notele care nu pot fi
+  // cantate pe corzile fizice ale chitarei (redare/export realist, nu pianistic).
+  const [stringFilter, setStringFilter] = useState<boolean>(() => {
+    try { return localStorage.getItem("realStringFilter") === "1"; } catch { return false; }
+  });
+  useEffect(() => {
+    try { localStorage.setItem("realStringFilter", stringFilter ? "1" : "0"); } catch { /* ignore */ }
+  }, [stringFilter]);
+
+  // Notele unui acord pt. export, cu filtrul de corzi reale aplicat la nevoie.
+  const notesForExport = (label: string) =>
+    stringFilter ? filterChordToGuitar(chordNotes(label)) : chordNotes(label);
   const autoVelActiveRef = useRef(autoVelActive);
   const autoVelStrategyRef = useRef(autoVelStrategy);
 
@@ -2798,7 +2841,8 @@ export default function App() {
       await ctx.resume();
     }
     const now = ctx.currentTime;
-    const notes = chordNotes(label);
+    // Respecta Real Guitar String Filter si la redare (nu doar la export).
+    const notes = notesForExport(label);
 
     // Auto Vel: calculam velocity-ul fiecarei note conform strategiei active.
     // Cand e dezactivat, toate notele au velocity default 100.
@@ -3725,16 +3769,21 @@ export default function App() {
     // Exportam velocity PER NOTA (Auto Vel), ca in FL Studio notele sa aiba
     // nivele diferite de velocity (pentru reglari ulterioare). Cand Auto Vel
     // e dezactivat, toate notele au 86 (default-ul existent).
-    return createMidiFile(builderRef.current, bpm, (chord, index, sorted) => {
-      const notes = chordNotes(chord.label);
-      if (!autoVelActiveRef.current) return notes.map(() => 86);
-      return applyAutoVel(notes, autoVelStrategyRef.current, {
-        chordIndex: index,
-        startBeat: chord.startBeat ?? 0,
-        totalChords: sorted.length,
-        beatsPerBar: BEATS_PER_BAR,
-      });
-    });
+    return createMidiFile(
+      builderRef.current,
+      bpm,
+      (chord, index, sorted) => {
+        const notes = notesForExport(chord.label);
+        if (!autoVelActiveRef.current) return notes.map(() => 86);
+        return applyAutoVel(notes, autoVelStrategyRef.current, {
+          chordIndex: index,
+          startBeat: chord.startBeat ?? 0,
+          totalChords: sorted.length,
+          beatsPerBar: BEATS_PER_BAR,
+        });
+      },
+      (label) => notesForExport(label)
+    );
   };
 
   // Bytes .griff/.briff/.uriff pentru aceeasi progresie (serializer Riffer).
@@ -3742,7 +3791,7 @@ export default function App() {
     if (builderRef.current.length === 0) return null;
     const sorted = sortBuilderByStart(builderRef.current);
     const chords: GriffChord[] = sorted.map((chord, index) => {
-      const notes = chordNotes(chord.label);
+      const notes = notesForExport(chord.label);
       const vels = autoVelActiveRef.current
         ? applyAutoVel(notes, autoVelStrategyRef.current, {
             chordIndex: index,
@@ -6005,6 +6054,9 @@ export default function App() {
           soundSource={soundSource}
           onSoundSourceChange={setSoundSource}
           guitarLibrariesCount={guitarLibraries.length}
+          stringFilter={stringFilter}
+          onStringFilterChange={setStringFilter}
+          selectedLibraryName={selectedInstrumentName}
           prefsMode={prefsMode}
           onPrefsModeChange={setPrefsMode}
           onClose={() => setSettingsOpen(false)}
