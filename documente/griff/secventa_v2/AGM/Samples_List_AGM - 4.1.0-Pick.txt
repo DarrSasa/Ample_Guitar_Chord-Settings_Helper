@@ -1,0 +1,475 @@
+Downstroke Noise 1_A7_64.wav
+Downstroke Noise 1_A7_121.wav
+Downstroke Noise 2_B7_64.wav
+Downstroke Noise 2_B7_121.wav
+Hit Rim_G8_64.wav
+Hit Rim_G8_121.wav
+Hit Top (Mute)_F#8_64.wav
+Hit Top (Mute)_F#8_121.wav
+Hit Top (Open)_F8_64.wav
+Hit Top (Open)_F8_121.wav
+Muting_G7_64.wav
+Muting_G7_121.wav
+Natural Harmonic_C4_30.wav
+Natural Harmonic_C4_60.wav
+Natural Harmonic_C4_91.wav
+Natural Harmonic_C4_121.wav
+Natural Harmonic_C6_30.wav
+Natural Harmonic_C6_60.wav
+Natural Harmonic_C6_91.wav
+Natural Harmonic_C6_121.wav
+Natural Harmonic_E3_30.wav
+Natural Harmonic_E3_60.wav
+Natural Harmonic_E3_91.wav
+Natural Harmonic_E3_121.wav
+Natural Harmonic_E5_30.wav
+Natural Harmonic_E5_60.wav
+Natural Harmonic_E5_91.wav
+Natural Harmonic_E5_121.wav
+Natural Harmonic_G#4_30.wav
+Natural Harmonic_G#4_60.wav
+Natural Harmonic_G#4_91.wav
+Natural Harmonic_G#4_121.wav
+Palm Mute_C#6_30.wav
+Palm Mute_C#6_60.wav
+Palm Mute_C#6_91.wav
+Palm Mute_C#6_121.wav
+Palm Mute_C7_30.wav
+Palm Mute_C7_60.wav
+Palm Mute_C7_91.wav
+Palm Mute_C7_121.wav
+Palm Mute_D#4_30.wav
+Palm Mute_D#4_60.wav
+Palm Mute_D#4_91.wav
+Palm Mute_D#4_121.wav
+Palm Mute_D5_30.wav
+Palm Mute_D5_60.wav
+Palm Mute_D5_91.wav
+Palm Mute_D5_121.wav
+Palm Mute_E3_30.wav
+Palm Mute_E3_60.wav
+Palm Mute_E3_91.wav
+Palm Mute_E3_121.wav
+Pop_C#6_127.wav
+Pop_C7_127.wav
+Pop_D#4_127.wav
+Pop_D5_127.wav
+Pop_E3_127.wav
+Scratch_F7_64.wav
+Scratch_F7_121.wav
+Slap_F#7_64.wav
+Slap_F#7_121.wav
+Slide Guitar_D#6_30.wav
+Slide Guitar_D#6_60.wav
+Slide Guitar_D#6_91.wav
+Slide Guitar_D#6_121.wav
+Slide Guitar_E5_30.wav
+Slide Guitar_E5_60.wav
+Slide Guitar_E5_91.wav
+Slide Guitar_E5_121.wav
+Slide Guitar_F#3_30.wav
+Slide Guitar_F#3_60.wav
+Slide Guitar_F#3_91.wav
+Slide Guitar_F#3_121.wav
+Slide Guitar_F4_30.wav
+Slide Guitar_F4_60.wav
+Slide Guitar_F4_91.wav
+Slide Guitar_F4_121.wav
+Slide In_D#6_30.wav
+Slide In_D#6_60.wav
+Slide In_D#6_91.wav
+Slide In_D#6_121.wav
+Slide In_E5_30.wav
+Slide In_E5_60.wav
+Slide In_E5_91.wav
+Slide In_E5_121.wav
+Slide In_F#3_30.wav
+Slide In_F#3_60.wav
+Slide In_F#3_91.wav
+Slide In_F#3_121.wav
+Slide In_F4_30.wav
+Slide In_F4_60.wav
+Slide In_F4_91.wav
+Slide In_F4_121.wav
+Slide Out_D#6_30.wav
+Slide Out_D#6_60.wav
+Slide Out_D#6_91.wav
+Slide Out_D#6_121.wav
+Slide Out_E5_30.wav
+Slide Out_E5_60.wav
+Slide Out_E5_91.wav
+Slide Out_E5_121.wav
+Slide Out_F#3_30.wav
+Slide Out_F#3_60.wav
+Slide Out_F#3_91.wav
+Slide Out_F#3_121.wav
+Slide Out_F4_30.wav
+Slide Out_F4_60.wav
+Slide Out_F4_91.wav
+Slide Out_F4_121.wav
+Strum Mute_G#7_64.wav
+Strum Mute_G#7_121.wav
+Sustain_A#3_15.wav
+Sustain_A#3_30.wav
+Sustain_A#3_45.wav
+Sustain_A#3_60.wav
+Sustain_A#3_76.wav
+Sustain_A#3_91.wav
+Sustain_A#3_106.wav
+Sustain_A#3_121.wav
+Sustain_A#4_15.wav
+Sustain_A#4_30.wav
+Sustain_A#4_45.wav
+Sustain_A#4_60.wav
+Sustain_A#4_76.wav
+Sustain_A#4_91.wav
+Sustain_A#4_106.wav
+Sustain_A#4_121.wav
+Sustain_A#5_15.wav
+Sustain_A#5_30.wav
+Sustain_A#5_45.wav
+Sustain_A#5_60.wav
+Sustain_A#5_76.wav
+Sustain_A#5_91.wav
+Sustain_A#5_106.wav
+Sustain_A#5_121.wav
+Sustain_A#6_15.wav
+Sustain_A#6_30.wav
+Sustain_A#6_45.wav
+Sustain_A#6_60.wav
+Sustain_A#6_76.wav
+Sustain_A#6_91.wav
+Sustain_A#6_106.wav
+Sustain_A#6_121.wav
+Sustain_A3_15.wav
+Sustain_A3_30.wav
+Sustain_A3_45.wav
+Sustain_A3_60.wav
+Sustain_A3_76.wav
+Sustain_A3_91.wav
+Sustain_A3_106.wav
+Sustain_A3_121.wav
+Sustain_A4_15.wav
+Sustain_A4_30.wav
+Sustain_A4_45.wav
+Sustain_A4_60.wav
+Sustain_A4_76.wav
+Sustain_A4_91.wav
+Sustain_A4_106.wav
+Sustain_A4_121.wav
+Sustain_A5_15.wav
+Sustain_A5_30.wav
+Sustain_A5_45.wav
+Sustain_A5_60.wav
+Sustain_A5_76.wav
+Sustain_A5_91.wav
+Sustain_A5_106.wav
+Sustain_A5_121.wav
+Sustain_A6_15.wav
+Sustain_A6_30.wav
+Sustain_A6_45.wav
+Sustain_A6_60.wav
+Sustain_A6_76.wav
+Sustain_A6_91.wav
+Sustain_A6_106.wav
+Sustain_A6_121.wav
+Sustain_B3_15.wav
+Sustain_B3_30.wav
+Sustain_B3_45.wav
+Sustain_B3_60.wav
+Sustain_B3_76.wav
+Sustain_B3_91.wav
+Sustain_B3_106.wav
+Sustain_B3_121.wav
+Sustain_B4_15.wav
+Sustain_B4_30.wav
+Sustain_B4_45.wav
+Sustain_B4_60.wav
+Sustain_B4_76.wav
+Sustain_B4_91.wav
+Sustain_B4_106.wav
+Sustain_B4_121.wav
+Sustain_B5_15.wav
+Sustain_B5_30.wav
+Sustain_B5_45.wav
+Sustain_B5_60.wav
+Sustain_B5_76.wav
+Sustain_B5_91.wav
+Sustain_B5_106.wav
+Sustain_B5_121.wav
+Sustain_B6_15.wav
+Sustain_B6_30.wav
+Sustain_B6_45.wav
+Sustain_B6_60.wav
+Sustain_B6_76.wav
+Sustain_B6_91.wav
+Sustain_B6_106.wav
+Sustain_B6_121.wav
+Sustain_C#4_15.wav
+Sustain_C#4_30.wav
+Sustain_C#4_45.wav
+Sustain_C#4_60.wav
+Sustain_C#4_76.wav
+Sustain_C#4_91.wav
+Sustain_C#4_106.wav
+Sustain_C#4_121.wav
+Sustain_C#5_15.wav
+Sustain_C#5_30.wav
+Sustain_C#5_45.wav
+Sustain_C#5_60.wav
+Sustain_C#5_76.wav
+Sustain_C#5_91.wav
+Sustain_C#5_106.wav
+Sustain_C#5_121.wav
+Sustain_C#6_15.wav
+Sustain_C#6_30.wav
+Sustain_C#6_45.wav
+Sustain_C#6_60.wav
+Sustain_C#6_76.wav
+Sustain_C#6_91.wav
+Sustain_C#6_106.wav
+Sustain_C#6_121.wav
+Sustain_C4_15.wav
+Sustain_C4_30.wav
+Sustain_C4_45.wav
+Sustain_C4_60.wav
+Sustain_C4_76.wav
+Sustain_C4_91.wav
+Sustain_C4_106.wav
+Sustain_C4_121.wav
+Sustain_C5_15.wav
+Sustain_C5_30.wav
+Sustain_C5_45.wav
+Sustain_C5_60.wav
+Sustain_C5_76.wav
+Sustain_C5_91.wav
+Sustain_C5_106.wav
+Sustain_C5_121.wav
+Sustain_C6_15.wav
+Sustain_C6_30.wav
+Sustain_C6_45.wav
+Sustain_C6_60.wav
+Sustain_C6_76.wav
+Sustain_C6_91.wav
+Sustain_C6_106.wav
+Sustain_C6_121.wav
+Sustain_C7_15.wav
+Sustain_C7_30.wav
+Sustain_C7_45.wav
+Sustain_C7_60.wav
+Sustain_C7_76.wav
+Sustain_C7_91.wav
+Sustain_C7_106.wav
+Sustain_C7_121.wav
+Sustain_D#4_15.wav
+Sustain_D#4_30.wav
+Sustain_D#4_45.wav
+Sustain_D#4_60.wav
+Sustain_D#4_76.wav
+Sustain_D#4_91.wav
+Sustain_D#4_106.wav
+Sustain_D#4_121.wav
+Sustain_D#5_15.wav
+Sustain_D#5_30.wav
+Sustain_D#5_45.wav
+Sustain_D#5_60.wav
+Sustain_D#5_76.wav
+Sustain_D#5_91.wav
+Sustain_D#5_106.wav
+Sustain_D#5_121.wav
+Sustain_D#6_15.wav
+Sustain_D#6_30.wav
+Sustain_D#6_45.wav
+Sustain_D#6_60.wav
+Sustain_D#6_76.wav
+Sustain_D#6_91.wav
+Sustain_D#6_106.wav
+Sustain_D#6_121.wav
+Sustain_D4_15.wav
+Sustain_D4_30.wav
+Sustain_D4_45.wav
+Sustain_D4_60.wav
+Sustain_D4_76.wav
+Sustain_D4_91.wav
+Sustain_D4_106.wav
+Sustain_D4_121.wav
+Sustain_D5_15.wav
+Sustain_D5_30.wav
+Sustain_D5_45.wav
+Sustain_D5_60.wav
+Sustain_D5_76.wav
+Sustain_D5_91.wav
+Sustain_D5_106.wav
+Sustain_D5_121.wav
+Sustain_D6_15.wav
+Sustain_D6_30.wav
+Sustain_D6_45.wav
+Sustain_D6_60.wav
+Sustain_D6_76.wav
+Sustain_D6_91.wav
+Sustain_D6_106.wav
+Sustain_D6_121.wav
+Sustain_E3_15.wav
+Sustain_E3_30.wav
+Sustain_E3_45.wav
+Sustain_E3_60.wav
+Sustain_E3_76.wav
+Sustain_E3_91.wav
+Sustain_E3_106.wav
+Sustain_E3_121.wav
+Sustain_E4_15.wav
+Sustain_E4_30.wav
+Sustain_E4_45.wav
+Sustain_E4_60.wav
+Sustain_E4_76.wav
+Sustain_E4_91.wav
+Sustain_E4_106.wav
+Sustain_E4_121.wav
+Sustain_E5_15.wav
+Sustain_E5_30.wav
+Sustain_E5_45.wav
+Sustain_E5_60.wav
+Sustain_E5_76.wav
+Sustain_E5_91.wav
+Sustain_E5_106.wav
+Sustain_E5_121.wav
+Sustain_E6_15.wav
+Sustain_E6_30.wav
+Sustain_E6_45.wav
+Sustain_E6_60.wav
+Sustain_E6_76.wav
+Sustain_E6_91.wav
+Sustain_E6_106.wav
+Sustain_E6_121.wav
+Sustain_F#3_15.wav
+Sustain_F#3_30.wav
+Sustain_F#3_45.wav
+Sustain_F#3_60.wav
+Sustain_F#3_76.wav
+Sustain_F#3_91.wav
+Sustain_F#3_106.wav
+Sustain_F#3_121.wav
+Sustain_F#4_15.wav
+Sustain_F#4_30.wav
+Sustain_F#4_45.wav
+Sustain_F#4_60.wav
+Sustain_F#4_76.wav
+Sustain_F#4_91.wav
+Sustain_F#4_106.wav
+Sustain_F#4_121.wav
+Sustain_F#5_15.wav
+Sustain_F#5_30.wav
+Sustain_F#5_45.wav
+Sustain_F#5_60.wav
+Sustain_F#5_76.wav
+Sustain_F#5_91.wav
+Sustain_F#5_106.wav
+Sustain_F#5_121.wav
+Sustain_F#6_15.wav
+Sustain_F#6_30.wav
+Sustain_F#6_45.wav
+Sustain_F#6_60.wav
+Sustain_F#6_76.wav
+Sustain_F#6_91.wav
+Sustain_F#6_106.wav
+Sustain_F#6_121.wav
+Sustain_F3_15.wav
+Sustain_F3_30.wav
+Sustain_F3_45.wav
+Sustain_F3_60.wav
+Sustain_F3_76.wav
+Sustain_F3_91.wav
+Sustain_F3_106.wav
+Sustain_F3_121.wav
+Sustain_F4_15.wav
+Sustain_F4_30.wav
+Sustain_F4_45.wav
+Sustain_F4_60.wav
+Sustain_F4_76.wav
+Sustain_F4_91.wav
+Sustain_F4_106.wav
+Sustain_F4_121.wav
+Sustain_F5_15.wav
+Sustain_F5_30.wav
+Sustain_F5_45.wav
+Sustain_F5_60.wav
+Sustain_F5_76.wav
+Sustain_F5_91.wav
+Sustain_F5_106.wav
+Sustain_F5_121.wav
+Sustain_F6_15.wav
+Sustain_F6_30.wav
+Sustain_F6_45.wav
+Sustain_F6_60.wav
+Sustain_F6_76.wav
+Sustain_F6_91.wav
+Sustain_F6_106.wav
+Sustain_F6_121.wav
+Sustain_G#3_15.wav
+Sustain_G#3_30.wav
+Sustain_G#3_45.wav
+Sustain_G#3_60.wav
+Sustain_G#3_76.wav
+Sustain_G#3_91.wav
+Sustain_G#3_106.wav
+Sustain_G#3_121.wav
+Sustain_G#4_15.wav
+Sustain_G#4_30.wav
+Sustain_G#4_45.wav
+Sustain_G#4_60.wav
+Sustain_G#4_76.wav
+Sustain_G#4_91.wav
+Sustain_G#4_106.wav
+Sustain_G#4_121.wav
+Sustain_G#5_15.wav
+Sustain_G#5_30.wav
+Sustain_G#5_45.wav
+Sustain_G#5_60.wav
+Sustain_G#5_76.wav
+Sustain_G#5_91.wav
+Sustain_G#5_106.wav
+Sustain_G#5_121.wav
+Sustain_G#6_15.wav
+Sustain_G#6_30.wav
+Sustain_G#6_45.wav
+Sustain_G#6_60.wav
+Sustain_G#6_76.wav
+Sustain_G#6_91.wav
+Sustain_G#6_106.wav
+Sustain_G#6_121.wav
+Sustain_G3_15.wav
+Sustain_G3_30.wav
+Sustain_G3_45.wav
+Sustain_G3_60.wav
+Sustain_G3_76.wav
+Sustain_G3_91.wav
+Sustain_G3_106.wav
+Sustain_G3_121.wav
+Sustain_G4_15.wav
+Sustain_G4_30.wav
+Sustain_G4_45.wav
+Sustain_G4_60.wav
+Sustain_G4_76.wav
+Sustain_G4_91.wav
+Sustain_G4_106.wav
+Sustain_G4_121.wav
+Sustain_G5_15.wav
+Sustain_G5_30.wav
+Sustain_G5_45.wav
+Sustain_G5_60.wav
+Sustain_G5_76.wav
+Sustain_G5_91.wav
+Sustain_G5_106.wav
+Sustain_G5_121.wav
+Sustain_G6_15.wav
+Sustain_G6_30.wav
+Sustain_G6_45.wav
+Sustain_G6_60.wav
+Sustain_G6_76.wav
+Sustain_G6_91.wav
+Sustain_G6_106.wav
+Sustain_G6_121.wav
+Upstroke Noise 1_A#7_64.wav
+Upstroke Noise 1_A#7_121.wav
+Upstroke Noise 2_C8_64.wav
+Upstroke Noise 2_C8_121.wav
