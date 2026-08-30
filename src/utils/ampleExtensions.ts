@@ -67,16 +67,17 @@ export type ExportOption =
 
 export interface ExportOptionDef {
   id: ExportOption;
-  label: string;
+  code: string; // prescurtarea afisata in badge-ul albastru / meniu
+  name: string; // denumirea completa din meniu
   enabledNow: boolean; // false => afisat gri, nu poate fi ales inca
 }
 
 export const EXPORT_OPTIONS: ExportOptionDef[] = [
-  { id: "midi", label: "Midi", enabledNow: true },
-  { id: "midi_noart", label: "Midi (No Art&Fx)", enabledNow: true },
-  { id: "art_nomidi", label: "Art&Fx (No Midi)", enabledNow: false },
-  { id: "griff", label: "Griff", enabledNow: true },
-  { id: "griff_noart", label: "Griff (No Art&Fx)", enabledNow: true },
+  { id: "midi", code: "MIDI", name: "Midi", enabledNow: true },
+  { id: "midi_noart", code: "MNAF", name: "Midi (No Art&Fx)", enabledNow: true },
+  { id: "art_nomidi", code: "AFNM", name: "Art&Fx (No Midi)", enabledNow: false },
+  { id: "griff", code: "GRIFF", name: "Griff", enabledNow: true },
+  { id: "griff_noart", code: "GNAF", name: "Griff (No Art&Fx)", enabledNow: true },
 ];
 
 // Extensia de fisier rezultata din optiune + familia instrumentului selectat.
