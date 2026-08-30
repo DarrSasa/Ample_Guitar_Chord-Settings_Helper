@@ -86,3 +86,19 @@ export function extForOption(opt: ExportOption, name?: string | null): string {
     ? FAMILY_EXT[familyFromName(name)]
     : "mid";
 }
+
+// Codul de instrument Ample (pt. atributul Inst din .griff) dedus din numele
+// librariei/instrumentului selectat; default pe familie.
+export function instCodeFromName(name?: string | null): string {
+  const m = (name ?? "").toUpperCase().match(
+    /\b(AGM|AGLP|AGTC|AME|AEU|ABJF|ABMR5|ABJ)\b/);
+  if (m) return m[1];
+  const f = familyFromName(name);
+  return f === "bas" ? "ABJ" : f === "ukulele" ? "AEU" : "AGM";
+}
+
+// Tipul de acordaj (nr./coarde) pt. serializerul .griff, dupa familie.
+export function stringsForFamily(name?: string | null): "guitar" | "bass" | "ukulele" {
+  const f = familyFromName(name);
+  return f === "bas" ? "bass" : f === "ukulele" ? "ukulele" : "guitar";
+}

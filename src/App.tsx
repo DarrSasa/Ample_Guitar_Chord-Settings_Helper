@@ -6,7 +6,13 @@ import { type NudgeMode } from "./components/NudgeToggle";
 import TransportButtons from "./components/TransportButtons";
 import AutoVelButton from "./components/AutoVelButton";
 import ExportFormatButton from "./components/ExportFormatButton";
-import { extForOption, type ExportOption } from "./utils/ampleExtensions";
+import {
+  extForOption,
+  instCodeFromName,
+  stringsForFamily,
+  type ExportOption,
+} from "./utils/ampleExtensions";
+import { createGriffFile, type GriffChord } from "./utils/griffWriter";
 import { SamplerEngine } from "./sampler/SamplerEngine";
 import { discoverLibraries, makeSampleFetcher } from "./sampler/scanLibraries";
 import type { GuitarLibraryInfo, LibraryVariant } from "./sampler/types";
@@ -3731,6 +3737,33 @@ export default function App() {
     });
   };
 
+  // Bytes .griff/.briff/.uriff pentru aceeasi progresie (serializer Riffer).
+  const getCurrentGriffBytes = () => {
+    if (builderRef.current.length === 0) return null;
+    const sorted = sortBuilderByStart(builderRef.current);
+    const chords: GriffChord[] = sorted.map((chord, index) => {
+      const notes = chordNotes(chord.label);
+      const vels = autoVelActiveRef.current
+        ? applyAutoVel(notes, autoVelStrategyRef.current, {
+            chordIndex: index,
+            startBeat: chord.startBeat ?? 0,
+            totalChords: sorted.length,
+            beatsPerBar: BEATS_PER_BAR,
+          })
+        : notes.map(() => 86);
+      return {
+        startBeats: chord.startBeat ?? 0,
+        beats: chord.beats > 0 ? chord.beats : DEFAULT_CHORD_BEATS,
+        notes: notes.map((m, i) => ({ midi: m, velocity: vels[i] ?? 86 })),
+      };
+    });
+    return createGriffFile(chords, {
+      bpm,
+      inst: instCodeFromName(selectedInstrumentName),
+      strings: stringsForFamily(selectedInstrumentName),
+    });
+  };
+
   // (totalBuilderBeats was here previously - removed after TimeBar
   // switched to receiving `rulerWidthPx` directly from the shared
   // rulerContentWidth memo below.)
@@ -3877,19 +3910,19 @@ export default function App() {
   };
 
   const dragMidiToDaw = (event: React.DragEvent<HTMLButtonElement>) => {
-    const bytes = getCurrentMidiBytes();
+    // Optiunile Griff/GNAF produc un fisier Riffer (.griff/.briff/.uriff dupa
+    // familie); celelalte raman MIDI (.mid).
+    const isGriff = exportOption === "griff" || exportOption === "griff_noart";
+    const bytes = isGriff ? getCurrentGriffBytes() : getCurrentMidiBytes();
     if (!bytes || bytes.length === 0) {
       event.preventDefault();
       alert("Chord Progression Builder is empty. Add chords first.");
       return;
     }
 
-    // Extensia intenționată conform opțiunii din drop-down; serializerul
-    // .griff/.briff/.uriff e încă în lucru (SPEC-griff), deci exportul efectiv
-    // rămâne MIDI (.mid) până atunci — drop-ul în DAW funcționează oricum.
-    const intendedExt = extForOption(exportOption, selectedInstrumentName);
-    console.info("[export] opțiune:", exportOption, "| ext. intenționată:", intendedExt);
-    const fileName = "ample-chord-progression.mid";
+    const fileName =
+      "ample-chord-progression." +
+      extForOption(exportOption, selectedInstrumentName);
     const bridge = (window as any).desktopBridge;
 
     // Electron desktop path: hand a real temp file to the OS so it drops
