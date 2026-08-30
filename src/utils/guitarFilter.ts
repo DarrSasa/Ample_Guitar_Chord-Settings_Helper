@@ -54,6 +54,23 @@ function reduceVoicing(notes: number[], maxVoices: number): number[] {
   return arr.sort((a, b) => a - b);
 }
 
+// Regula de voicing pe 6 corzi: extensiile (9, 4/11, 6/13) nu stau in aceeasi
+// octava cu basul (ar ciocni cu radacina), ci SUNT RIDICATE o octava, deasupra
+// radacinii. Astfel un "G sus4 7" nu pastreaza C3 jos (nota gri in plugin) ci
+// il urca spre C4, ca in voicing-urile reale de chitara.
+function voiceExtensions(notes: number[]): number[] {
+  if (notes.length === 0) return notes;
+  const bass = Math.min(...notes);
+  return notes
+    .map((n) => {
+      if (n === bass) return n;
+      const iv = (n - bass) % 12;
+      if ((iv === 2 || iv === 5 || iv === 9) && n < bass + 12) return n + 12;
+      return n;
+    })
+    .sort((a, b) => a - b);
+}
+
 // Filtrul SPECIFIC instrumentului selectat — se aplica automat la schimbarea
 // chitarei. Extensibil: adauga aici alte modele (ex. 7 corzi, bariton...).
 export function filterConfigForInstrument(name?: string | null): StringFilterConfig {
@@ -68,7 +85,7 @@ export function filterChordToGuitar(
   cfg: StringFilterConfig = SIX_STRING
 ): number[] {
   // 0) reduce acordul la o voce de chitara (max `maxVoices`) inainte de alocare.
-  const reduced = reduceVoicing(notes, cfg.maxVoices);
+  const reduced = voiceExtensions(reduceVoicing(notes, cfg.maxVoices));
   const cap = cfg.allowDuplicates ? 2 : 1;
   const counts = new Map<number, number>();
   for (const n of reduced) counts.set(n, (counts.get(n) ?? 0) + 1);

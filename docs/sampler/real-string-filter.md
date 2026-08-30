@@ -33,6 +33,14 @@ Complexitate neglijabilă (≤ 7 note × 6 corzi).
 (3) nota cea mai înaltă — regula standard de voicing (păstrăm rădăcina, terța,
 septima/extensia). Astfel un acord de 5 voci devine 4, ca în pluginul Ample.
 
+### Voicingul extensiilor (9 / 4‑11 / 6‑13)
+
+Extensiile aflate în aceeași octavă cu basul sunt **ridicate o octavă**, deasupra
+rădăcinii — pe chitară 4th/11th stă deasupra rădăcinii, nu jos lângă ea (altfel
+ciocnește și e marcată „gri”/necântabilă). Ex. `G sus4 7` = G2,C3,D3,F3 →
+G2,D3,F3,**C4** (C3 dispare). Regula e conformă teoriei de voicing pe 6 corzi
+(sus4 = 1‑4‑5, 11th = extensie peste octavă, shell = root‑3rd‑7th‑11th).
+
 ## Unde e activ
 
 - **Settings ▸ Sound Sources ▸ Guitar Samples**: checkbox „Real Guitar String
