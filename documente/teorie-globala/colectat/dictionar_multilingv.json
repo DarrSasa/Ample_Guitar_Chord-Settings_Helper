@@ -16,6 +16,8 @@
     {"en":"Alzapúa","es":"Alzapúa","tara":"ES","sursa":"cunostinte"},
     {"en":"Golpe","es":"Golpe","tara":"ES/VE","sursa":"cunostinte"},
     {"en":"Dead note","es":"Nota muerta","de":"Dead Note","fr":"Note morte","sursa":"cunostinte"},
-    {"en":"Staccato","es":"Staccato","de":"Staccato","fr":"Staccato","ru":"Стаккато","sursa":"cunostinte"}
+    {"en":"Staccato","es":"Staccato","de":"Staccato","fr":"Staccato","ru":"Стаккато","sursa":"cunostinte"},
+    {"en":"Rasgueado","de":"Rasgueado","es":"Rasgueado","fr":"Rasgueado","it":"Rasgueado","ja":"ラスゲアード","pl":"Rasgueado","ru":"Гитарный бой","uk":"Расгеадо","sursa":"langlinks"},
+    {"en":"Harmonic","ar":"توافق","ca":"Harmònic","de":"Harmonische","eo":"Harmono","es":"Armónico","et":"Osahelid","eu":"Harmoniko","fa":"هارمونیک","sursa":"langlinks"}
   ]
 }
