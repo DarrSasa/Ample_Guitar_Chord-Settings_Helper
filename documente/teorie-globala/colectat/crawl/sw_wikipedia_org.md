@@ -1,0 +1,2 @@
+* [Guitar physics](http://www.bsharp.org/physics/guitar)[Ilihifadhiwa](http://web.archive.org/20101209191707/http://www.bsharp.org/physics/guitar)9 Desemba 2010 kwenye[Wayback Machine](https://sw.wikipedia.org/wiki/Wayback_Machine "Wayback Machine").
+* [International Guitar Research Archive](http://library.csun.edu/igra/)[Ilihifadhiwa](http://web.archive.org/20110719135326/http://library.csun.edu/igra/)19 Julai 2011 kwenye[Wayback Machine](https://sw.wikipedia.org/wiki/Wayback_Machine "Wayback Machine").

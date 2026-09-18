@@ -1,0 +1,9 @@
+* [Free Online Guitar Lessons](http://www.theguitarmuse.com)[பரணிடப்பட்டது](https://web.archive.org/web/20070731125717/http://www.theguitarmuse.com/)2007-07-31 at the[வந்தவழி இயந்திரம்](https://ta.wikipedia.org/wiki/%E0%AE%B5%E0%AE%A8%E0%AF%8D%E0%AE%A4%E0%AE%B5%E0%AE%B4%E0%AE%BF_%E0%AE%87%E0%AE%AF%E0%AE%A8%E0%AF%8D%E0%AE%A4%E0%AE%BF%E0%AE%B0%E0%AE%AE%E0%AF%8D "வந்தவழி இயந்திரம்")
+* [Video Guitar Lessons](http://videoguitarlessons.guitarvoice.com)[பரணிடப்பட்டது](https://web.archive.org/web/20180328124407/http://videoguitarlessons.guitarvoice.com/)2018-03-28 at the[வந்தவழி இயந்திரம்](https://ta.wikipedia.org/wiki/%E0%AE%B5%E0%AE%A8%E0%AF%8D%E0%AE%A4%E0%AE%B5%E0%AE%B4%E0%AE%BF_%E0%AE%87%E0%AE%AF%E0%AE%A8%E0%AF%8D%E0%AE%A4%E0%AE%BF%E0%AE%B0%E0%AE%AE%E0%AF%8D "வந்தவழி இயந்திரம்")
+* [Guitar Chords](http://www.guitar.m106.com/guitar-chords-generator.html)[பரணிடப்பட்டது](https://web.archive.org/web/20061021100911/http://www.guitar.m106.com/guitar-chords-generator.html)2006-10-21 at the[வந்தவழி இயந்திரம்](https://ta.wikipedia.org/wiki/%E0%AE%B5%E0%AE%A8%E0%AF%8D%E0%AE%A4%E0%AE%B5%E0%AE%B4%E0%AE%BF_%E0%AE%87%E0%AE%AF%E0%AE%A8%E0%AF%8D%E0%AE%A4%E0%AE%BF%E0%AE%B0%E0%AE%AE%E0%AF%8D "வந்தவழி இயந்திரம்")
+* [Guitar Center](http://www.guitar.m106.com)
+* [The Guitar Wiki](http://wikiguitar.net)[பரணிடப்பட்டது](https://web.archive.org/web/20211027203858/http://www.wikiguitar.net/)2021-10-27 at the[வந்தவழி இயந்திரம்](https://ta.wikipedia.org/wiki/%E0%AE%B5%E0%AE%A8%E0%AF%8D%E0%AE%A4%E0%AE%B5%E0%AE%B4%E0%AE%BF_%E0%AE%87%E0%AE%AF%E0%AE%A8%E0%AF%8D%E0%AE%A4%E0%AE%BF%E0%AE%B0%E0%AE%AE%E0%AF%8D "வந்தவழி இயந்திரம்")
+* [Visual Guitar](http://www.visualguitar.com)Guitar scales, modes, and apreggio viewer program and fretboard theory
+  *[பா]: இவ்வார்ப்புருவைப் பார்க்க
+  *[உ]: இவ்வார்ப்புரு குறித்து உரையாடுக
+  *[தொ]: இவ்வார்ப்புருவைத் தொகுக்க

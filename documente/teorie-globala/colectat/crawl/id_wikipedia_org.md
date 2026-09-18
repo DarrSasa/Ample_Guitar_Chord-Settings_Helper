@@ -1,0 +1,1 @@
+* [Punctuating your Lead Guitar with String Vibratos](http://www.fretjam.com/string-vibrato.html)[Diarsipkan](https://web.archive.org/web/20080307153625/http://www.fretjam.com/string-vibrato.html)2008-03-07 di[Wayback Machine](https://id.wikipedia.org/wiki/Wayback_Machine "Wayback Machine").
