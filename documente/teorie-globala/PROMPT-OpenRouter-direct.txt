@@ -1,0 +1,23 @@
+You are a music-theory data engineer. Return ONE single valid JSON document
+(no markdown, no commentary, no tools) that follows this exact schema:
+
+{"sursa":{"url":"openrouter","tara":"global","limba":"multi","licenta":"model-knowledge"},
+ "acorduri":[{"nume":"Cmaj7","radacina":"C","tip":"maj7","intervale":[0,4,7,11],
+   "note":["C","E","G","B"],"frets":["x","3","2","0","0","0"]}...],
+ "game":[{"nume":"Dorian","intervale":[0,2,3,5,7,9,10]}...],
+ "acordaje":[{"nume":"standard","corzi_midi":[40,45,50,55,59,64]}...],
+ "ritmuri":[{"nume":"folk-strum","gen":"folk","masura":"4/4",
+   "pasi":[{"t":0,"dir":"D","accent":1}]}...],
+ "articulatii_fx":[{"nume_original":"","nume_en":"Palm Mute","descriere_scurta":"",
+   "simbol":"P.M.","keyswitch_ample":"D0","tip":"articulatie","tara":"","limba":"","url":""}...]}
+
+PRIORITY #1 — ARTICULATIONS & FX: list EVERY guitar/bass articulation and FX sound
+you know (Sustain, Palm Mute, Natural/Pinch Harmonic, Hammer-on, Pull-off,
+Legato Slide, Slide In/Out, Vibrato, Staccato, Dead Note, Tapping, Bend,
+Rasgueado, Alzapúa, Flamenco Tremolo, Slap, Pop, plus Ample Sound FX: Fret Noise,
+Stroke/Scratch, Body Hit/Golpe, String Scratch, Pick Scratch, Feedback, Slide FX,
+etc.). For each include keyswitch_ample when known (Sustain=C0, PalmMute=D0,
+SlideIn=D#0, LegatoSlide=E0, HO/PO=F0, SlideGuitar=F#0; bass Slap/Pop).
+Include multilingual names (nume_original) from as many countries/languages as
+possible, plus regional tunings and techniques. Also include the core chord
+formulas, scales/modes, and tunings as above. Output ONLY the JSON.

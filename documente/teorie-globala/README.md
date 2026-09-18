@@ -38,3 +38,19 @@ python3 launch.py exec --provider openrouter ^
 ```
 
 Promptul corect e în `PROMPT-DeepAstra-colectare.txt`.
+
+## VARIANTĂ FĂRĂ CODEX (recomandată dacă nu ai Codex instalat)
+
+`launch.py` cere Codex CLI; dacă nu‑l ai, folosește `colectare_openrouter.py`
+(doar Python standard, fără codex). El trimite `PROMPT-OpenRouter-direct.txt`
+către OpenRouter și salvează JSON‑ul în `colectat\`:
+
+```
+cd /d C:\MY_PYTHON_PROJECTS\Ample_Guitar_Chord-Settings_Helper\documente\teorie-globala
+py colectare_openrouter.py ^
+  --key-file "C:\MY_PYTHON_PROJECTS\Ample_Guitar_Chord-Settings_Helper_Details\Web_Guitar_Theory\DeepAstra_openrouter_key.txt" ^
+  --prompt-file "PROMPT-OpenRouter-direct.txt" ^
+  --out-dir "C:\MY_PYTHON_PROJECTS\Ample_Guitar_Chord-Settings_Helper_Details\Web_Guitar_Theory\colectat"
+```
+
+Afișează progresul în consolă și tokenii consumați. Cheia NU e scrisă nicăieri.
