@@ -87,17 +87,28 @@ def main():
             "started_at": time.time()}
     if a.status_file:
         Path(a.status_file).write_text(json.dumps(base, indent=2))
-    print("Pornesc codex exec (tastatura libera)... status in", a.status_file)
-    proc = subprocess.run(build_cmd(a), input=prompt, text=True, env=env, shell=True,
-                          capture_output=True, timeout=a.timeout)
+    cmd = build_cmd(a)
+    print("[launch_win] codex gasit la:", CODEX)
+    print("[launch_win] pornesc codex exec (output live mai jos)...")
+    proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT, text=True, env=env, shell=True)
+    proc.stdin.write(prompt)
+    proc.stdin.close()
+    out = []
+    try:
+        for line in proc.stdout:
+            print(line, end="")
+            out.append(line)
+        proc.wait(timeout=a.timeout)
+    except subprocess.TimeoutExpired:
+        proc.kill()
+        print("[launch_win] TIMEOUT dupa", a.timeout, "s")
     rez = dict(base, state="completed" if proc.returncode == 0 else "failed",
                exit_code=proc.returncode)
     if a.status_file:
         Path(a.status_file).write_text(json.dumps(rez, indent=2))
-    # afiseaza ultimele linii din output ca sa VEZI ce a facut
-    out = (proc.stdout or "") + (proc.stderr or "")
-    print("---- ultimele 40 linii din codex ----")
-    print("\n".join(out.splitlines()[-40:]))
+    print("[launch_win] exit_code:", proc.returncode,
+          "| status:", rez["state"], "(vezi", a.status_file, ")")
     return proc.returncode
 
 
