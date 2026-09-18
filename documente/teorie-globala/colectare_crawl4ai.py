@@ -15,7 +15,7 @@ Citeste sursele din colectat/surse-accesibile.json (categoriile html_parsabil si
 de_testat) si scrie rezultatele in colectat/crawl/ (<site>.md + <site>.json) si
 colectat/crawl/manifest_crawl.json. Nu foloseste cheia API.
 """
-import asyncio, json, os, re
+import asyncio, json, os, re, urllib.request
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -27,6 +27,35 @@ QUERY = "guitar chord theory intervals scales tunings techniques articulations"
 
 def safe(name):
     return re.sub(r"[^A-Za-z0-9_-]+", "_", name).strip("_") or "site"
+
+
+# --- DESCOPERIRE AUTOMATA A SITE-URILOR DIN TOATE LIMBILE -------------------
+# Un singur call MediaWiki langlinks intoarce articolul respectiv in ~300 limbi.
+# Astfel "gasirea site-urilor din toate limbile" e automata, nu manuala.
+SEED_ARTICLES = ["Guitar", "Chord", "Music_theory", "Guitar_technique",
+                 "Strum", "Palm_mute", "Harmonic", "Vibrato", "Tapping", "Rasgueado"]
+
+
+def descopera_wikipedia_multilingv():
+    urls = []
+    for art in SEED_ARTICLES:
+        api = ("https://en.wikipedia.org/w/api.php?action=query&prop=langlinks"
+               f"&titles={art}&format=json&lllimit=500")
+        try:
+            with urllib.request.urlopen(api, timeout=30) as r:
+                data = json.loads(r.read().decode("utf-8"))
+            pages = data.get("query", {}).get("pages", {})
+            for p in pages.values():
+                for ll in p.get("langlinks", []):
+                    lang = ll.get("lang"); title = ll.get("*")
+                    if lang and title:
+                        t = title.replace(" ", "_")
+                        urls.append(f"https://{lang}.wikipedia.org/wiki/{t}")
+        except Exception as e:
+            print("WARN langlinks", art, str(e)[:80])
+    # de-dup
+    return sorted(set(urls))
+
 
 
 async def crawl_one(crawler, url, cfg):
@@ -45,6 +74,14 @@ async def crawl_one(crawler, url, cfg):
 
 
 async def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--wikipedia", action="store_true",
+                    help="descopera si crawleaza paginile din toate limbile prin langlinks")
+    ap.add_argument("--max", type=int, default=60,
+                    help="numarul maxim de pagini Wikipedia de crawluit (default 60)")
+    a = ap.parse_args()
+
     from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig
     from crawl4ai.content_filter_strategy import BM25ContentFilter
     from crawl4ai.markdown_generation_strategy import DefaultMarkdownGenerator
@@ -56,6 +93,10 @@ async def main():
         for s in surse.get(cat, []):
             if s.get("url"):
                 urls.append(s["url"])
+    if a.wikipedia:
+        wiki = descopera_wikipedia_multilingv()[: a.max]
+        print("Descoperite", len(wiki), "pagini Wikipedia multilingve.")
+        urls += wiki
     print("Voi crawl-ui", len(urls), "surse...")
 
     cfg = CrawlerRunConfig(
