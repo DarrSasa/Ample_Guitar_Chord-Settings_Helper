@@ -32,8 +32,26 @@ def safe(name):
 # --- DESCOPERIRE AUTOMATA A SITE-URILOR DIN TOATE LIMBILE -------------------
 # Un singur call MediaWiki langlinks intoarce articolul respectiv in ~300 limbi.
 # Astfel "gasirea site-urilor din toate limbile" e automata, nu manuala.
-SEED_ARTICLES = ["Guitar", "Chord", "Music_theory", "Guitar_technique",
-                 "Strum", "Palm_mute", "Harmonic", "Vibrato", "Tapping", "Rasgueado"]
+SEED_ARTICLES = [
+    # instrument & teorie de baza
+    "Guitar", "Chord", "Music_theory", "Guitar_technique", "Interval_(music)",
+    "Triad_(music)", "Extended_chord", "Altered_chord", "Secondary_dominant",
+    "Voice_leading", "Circle_of_fifths", "Cadence", "Tritone_substitution",
+    "Slash_chord", "Voicing_(music)", "Inversion_(music)", "Time_signature",
+    "Key_signature", "Transposition_(music)", "Modulation_(music)",
+    "Dynamics_(music)", "Articulation_(music)", "Tablature", "Lead_sheet",
+    "Guitar_tuning", "Arpeggio", "Mode_(music)",
+    # forme & sisteme de acorduri
+    "Capo", "CAGED_system", "Barre_chord", "Power_chord", "Drop_D",
+    "Pentatonic_scale", "Blues_scale",
+    # tehnici
+    "Strum", "Palm_mute", "Harmonic", "Vibrato", "Tapping", "Rasgueado",
+    "Alzapúa", "Golpe", "Picado", "Hammer-on", "Pull-off", "Slide_guitar",
+    "Bend_(music)", "Fingerstyle", "Travis_picking", "Sweep_picking",
+    "Double_stop", "Walking_bass", "Ostinato", "Shuffle",
+    "Swing_(jazz_performance_style)", "Nashville_number_system",
+    "Roman_numeral_analysis", "Comping",
+]
 
 
 def descopera_wikipedia_multilingv():
@@ -117,7 +135,7 @@ async def main():
     async with AsyncWebCrawler(config=BrowserConfig(headless=True)) as crawler:
         for url in urls:
             rez = await crawl_one(crawler, url, cfg)
-            tag = safe(url.split("//")[-1].split("/")[0])
+            tag = safe(url.split("//")[-1])
             if rez.get("ok"):
                 (OUT / (tag + ".md")).write_text(rez.get("md", ""), encoding="utf-8")
                 (OUT / (tag + ".json")).write_text(json.dumps(
