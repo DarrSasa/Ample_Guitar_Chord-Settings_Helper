@@ -1,0 +1,22 @@
+{
+  "_sursa": "oolimo.com/en/guitar-chords/analyze (colectat cu Crawl4AI)",
+  "calitati_triada": {
+    "major": [0,4,7], "m": [0,3,7], "sus2": [0,2,7], "sus4": [0,5,7],
+    "dim": [0,3,6], "aug": [0,4,8]
+  },
+  "extensii_adaugate": {
+    "6": [9], "7": [10], "maj7": [11],
+    "9": [10,14], "maj9": [11,14], "11": [10,17], "13": [10,21], "maj13": [11,21],
+    "b6": [8], "b9": [10,13], "#9": [10,15], "#11": [10,18], "b13": [10,20],
+    "add9": [14], "add11": [17]
+  },
+  "reguli": [
+    "Fara litera = triada majora (3 majora + 5 justa).",
+    "'m' = 3 minor; 'dim' = 3m+b5; 'aug' = 3M+#5; 'sus2'=2; 'sus4'=4.",
+    "'6' adauga 6 majora FARA 7; '7' adauga 7 minor; 'maj7' adauga 7 major.",
+    "'9' = 7 minor + 9; 'maj9' = maj7 + 9; '11' = 7m + 11 (doar cu 3m); '13' = 7m + 13.",
+    "'addX' adauga tensiunea X FARA 7; 'omit/noX' scoate o nota.",
+    "Tensiuni alterate: b9,#9,#11,b13 pe acorduri V7; #11 pe maj7 lydian.",
+    "Slash: root/bass (ex. G/B, C/E) = alta nota la bas."
+  ]
+}

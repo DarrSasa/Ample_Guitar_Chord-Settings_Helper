@@ -17,7 +17,7 @@
   "html_parsabil": [
     {"url": "https://jguitar.com", "tara": "global", "limba": "en", "categorie": "acorduri/game/acordaje (calc)", "metoda": "HTML+calc dinamic", "accesibil_cu_cod": true},
     {"url": "https://www.all-guitar-chords.com", "tara": "global", "limba": "multi", "categorie": "acorduri+variatii+audio", "metoda": "HTML", "accesibil_cu_cod": true},
-    {"url": "https://openmusictheory.com", "tara": "global", "limba": "en", "categorie": "teorie (CC)", "metoda": "HTML/markdown", "accesibil_cu_cod": true},
+    {"url": "https://viva.pressbooks.pub/openmusictheory", "tara": "global", "limba": "en", "categorie": "teorie (CC)", "metoda": "HTML/markdown", "accesibil_cu_cod": true, "nota": "openmusictheory.com a expirat la crawl; folositi oglinda pressbooks"},
     {"url": "https://abcnotation.com", "tara": "global", "limba": "en", "categorie": "notatie text", "metoda": "HTML", "accesibil_cu_cod": true}
   ],
   "de_testat": [
