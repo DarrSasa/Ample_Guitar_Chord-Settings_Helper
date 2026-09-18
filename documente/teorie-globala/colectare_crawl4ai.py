@@ -38,11 +38,16 @@ SEED_ARTICLES = ["Guitar", "Chord", "Music_theory", "Guitar_technique",
 
 def descopera_wikipedia_multilingv():
     urls = []
+    # Wikipedia cere un User-Agent identificabil; cel implicit Python e blocat (403).
+    headers = {"User-Agent":
+               "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+               "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"}
     for art in SEED_ARTICLES:
         api = ("https://en.wikipedia.org/w/api.php?action=query&prop=langlinks"
                f"&titles={art}&format=json&lllimit=500")
         try:
-            with urllib.request.urlopen(api, timeout=30) as r:
+            req = urllib.request.Request(api, headers=headers)
+            with urllib.request.urlopen(req, timeout=30) as r:
                 data = json.loads(r.read().decode("utf-8"))
             pages = data.get("query", {}).get("pages", {})
             for p in pages.values():
