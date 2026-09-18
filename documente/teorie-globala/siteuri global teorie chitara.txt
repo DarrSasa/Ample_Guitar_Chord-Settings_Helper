@@ -1440,3 +1440,19 @@ country,language,ccTLD,search_query,known_resources
 ```
 
 pe care să-l folosești apoi într-un script de descoperire/verificare a site-urilor.
+---
+## PRIORITATE MAXIMĂ pt. DeepAstra (secțiune adăugată de agent)
+
+Colectează CU PRIORITATE teorie despre ARTICULAȚII și SUNETE FX de chitară
+(și bas), din orice limbă/țară. Pentru fiecare tehnică stochează:
+nume_original, nume_en, descriere_scurta (1 rând), simbol/notație,
+keyswitch_ample (dacă există: ex. Sustain=C0, PalmMute=D0, SlideIn=D#0,
+LegatoSlide=E0, HO/PO=F0, SlideGuitar=F#0, Slap/Pop pt. bas), tara, limba, url.
+
+Surse recomandate (prioritare):
+- Manualele oficiale Ample Sound (secțiunile Articulations & FX per model).
+- jguitar.com, all-guitar-chords.com, oolimo.com, chordpic.com.
+- Wikipedia (orice limbă): Hammer-on, Pull-off, Slide, Vibrato, Palm mute,
+  Harmonics, Tapping, Rasgueado, Alzapúa, Slap, Bend, Tremolo picking, etc.
+
+Salvează în schema-teorie.json la cheile "tehnici" și "articulatii_fx".

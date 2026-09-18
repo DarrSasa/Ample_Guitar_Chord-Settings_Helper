@@ -1,3 +1,12 @@
+*** PRIORITY #1 ***: Collect, FIRST and most thoroughly, theory about guitar
+ARTICULATIONS and FX SOUNDS (any language): for each technique store
+nume_original, nume_en, descriere_scurta, simbol, keyswitch_ample (e.g.
+Sustain=C0, PalmMute=D0, SlideIn=D#0, LegatoSlide=E0, HO/PO=F0, SlideGuitar=F#0,
+bas: Slap/Pop), tara, limba, url. Use the "articulatii_fx" key in the schema.
+Sources first: Ample Sound official manuals, jguitar.com, all-guitar-chords.com,
+oolimo.com, Wikipedia (any language). See "siteuri global teorie chitara.txt".
+*** END PRIORITY ***
+
 TASK: Build a multilingual guitar-theory dataset (JSON) for a chord-progression app.
 
 WORK DIR: this folder (Web_Guitar_Theory). Read "siteuri global teorie chitara.txt"

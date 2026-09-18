@@ -22,5 +22,10 @@
     { "nume": "folk-strum", "gen": "folk", "masura": "4/4",
       "pasi": [ { "t": 0, "dir": "D", "accent": 1 }, { "t": 2, "dir": "D" }, { "t": 2.5, "dir": "U" } ] }
   ],
-  "tehnici": [ { "nume": "hammer-on", "descriere_scurta": "", "keyswitch_ample": "" } ]
+  "tehnici": [ { "nume": "hammer-on", "descriere_scurta": "", "keyswitch_ample": "" } ],
+  "articulatii_fx": [
+    { "nume_original": "", "nume_en": "Palm Mute", "descriere_scurta": "",
+      "simbol": "P.M.", "keyswitch_ample": "D0", "tip": "articulatie|fx",
+      "tara": "", "limba": "", "url": "" }
+  ]
 }
