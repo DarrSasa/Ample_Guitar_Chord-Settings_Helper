@@ -1,0 +1,1442 @@
+Eu:
+Caută pe internet orice site în orice limbă, nu doar engleză, site-uri care conțin teorie despre chitară,  
+de unde ulterior se poate extrage\copia teoria aceasta în formă de cod, ca mai târziu să poată fi implementată într-un program 
+desktop
+și dă-mi o listă în funcție de țară cu aceste situri,Vreau o listă cât mai largă fără să omiți nici o tara.
+
+Qwen3.8-Max:
+Salut. Pot să-ți dau o listă foarte extinsă, dar trebuie să încep cu câteva precizări importante:
+
+1. **Nu pot accesa internetul în timp real în acest mediu**, deci nu pot verifica live fiecare URL sau garanția că un site este 
+activ/actualizat chiar acum. Lista de mai jos este bazată pe cunoștințe generale și trebuie verificată înainte de scrapare/copiere.
+2. **„Fără să omiți nicio țară” este foarte greu de garantat**, pentru că multe țări nu au site-uri dedicate exclusiv teoriei 
+chitarei. Ca să nu omit țări, am inclus:
+   - site-uri globale/multilingve care acoperă aproape orice țară;
+   - site-uri locale/regionale unde există probabilitate mare de conținut;
+   - interogări de căutare pe domenii naționale, ca să găsești site-uri locale.
+3. **Pentru implementarea într-un program desktop**, cel mai sigur este să extragi **concepte/fapte muzicale**: intervale, game, 
+acorduri, progresii, moduri, ritmică, armonie. Nu copia texte întregi, imagini, tabulaturi sau lecții protejate de drepturi de 
+autor. Folosește conținut cu licență deschisă, public domain sau rescrie explicațiile în cuvinte proprii.
+
+---
+
+## 1. Surse globale foarte bune pentru extragere în cod
+
+Acestea sunt mai valoroase decât site-urile obișnuite de lecții, pentru că pot fi folosite mai ușor într-un program desktop, prin 
+API, date structurate, formate deschise sau licențe permisive.
+
+| Sursă | URL | De ce este utilă |
+|---|---:|---|
+| Wikipedia | `https://www.wikipedia.org` | Teorie muzicală în sute de limbi. Poți folosi API-ul MediaWiki. |
+| Wikibooks | `https://www.wikibooks.org` | Cărți wiki despre chitară/teorie. Verifică licența fiecărei pagini. |
+| Wikidata | `https://www.wikidata.org` | Date structurate despre concepte muzicale. Foarte bun pentru intervale, acorduri, game, 
+etc. |
+| MediaWiki API | `https://www.mediawiki.org/wiki/API:Main_page` | Pentru extragere automată din Wikipedia/Wikibooks. |
+| IMSLP | `https://imslp.org` | Partituri și texte muzicale vechi, public domain. Atenție la diferențele de copyright între țări. |
+| Internet Archive | `https://archive.org` | Cărți vechi de teorie muzicală, manuale, tratate. Bun pentru public domain. |
+| MusicBrainz | `https://musicbrainz.org` | Metadata muzicală, artiști, înregistrări, lucrări. Nu e exact teorie de chitară, dar 
+poate fi util pentru baze de date. |
+| Open Music Theory | `https://openmusictheory.com` | Teorie muzicală deschisă. Verifică licența și condițiile. |
+| MusicXML | `https://www.musicxml.com` | Format standard pentru partituri. Util pentru reprezentarea notelor, intervalelor, 
+acordurilor. |
+| MIDI | `https://www.midi.org` | Format pentru note, canale, evenimente. Util pentru redare și exerciții. |
+| ChordPro | `https://chordpro.org` | Format text pentru acorduri și versuri. Bun pentru chitară. |
+| ABC Notation | `https://abcnotation.com` | Notație muzicală text. Util pentru melodii, game, exemple. |
+| MEI | `https://music-encoding.org` | Music Encoding Initiative, format academic pentru notație muzicală. |
+| Humdrum | `https://www.humdrum.org` | Format pentru analiză muzicală și date muzicale structurate. |
+| GitHub | `https://github.com` | Biblioteci open-source de teorie muzicală. |
+
+### Biblioteci GitHub utile pentru implementare
+
+Nu sunt „site-uri de teorie” în sens clasic, dar sunt foarte utile pentru programul desktop:
+
+- `https://github.com/tonaljs/tonal` — bibliotecă JavaScript/TypeScript pentru intervale, acorduri, game.
+- `https://github.com/cuthbertLab/music21` — bibliotecă Python pentru analiză muzicală.
+- `https://github.com/bspaans/python-mingus` — teorie muzicală și MIDI în Python.
+- `https://github.com/paulrosen/abcjs` — redare și reprezentare ABC notation în browser.
+- `https://github.com/0xfe/vexflow` — randare de notație muzicală în JavaScript.
+
+---
+
+## 2. Listă extinsă pe țări/regiuni
+
+Mai jos ai o listă structurată pe țări și regiuni. Pentru țările mici sau fără site-uri dedicate, am trecut resurse globale plus 
+interogări de căutare locale.
+
+Notație: `site:.ro`, `site:.de`, `site:.jp` etc. sunt operatori de căutare. De exemplu:
+
+```text
+site:.ro "teorie chitară"
+site:.de "Gitarre" "Musiktheorie"
+site:.fr "théorie" "guitare"
+```
+
+---
+
+# America de Nord
+
+## Statele Unite ale Americii
+
+Limbi principale: engleză.
+
+Site-uri și resurse:
+
+- `https://www.musictheory.net`
+- `https://www.teoria.com`
+- `https://openmusictheory.com`
+- `https://www.hooktheory.com`
+- `https://www.fretboardlogic.com`
+- `https://www.guitarlessons.com`
+- `https://www.truefire.com`
+- `https://www.jamplay.com`
+- `https://www.guitarworld.com`
+- `https://www.premierguitar.com`
+- Wikipedia EN: `https://en.wikipedia.org/wiki/Music_theory`
+- Wikibooks EN: `https://en.wikibooks.org/wiki/Guitar`
+
+Interogări utile:
+
+```text
+site:.us "guitar theory"
+site:.edu "guitar theory"
+site:.edu "music theory guitar"
+"guitar theory" "lessons" USA
+```
+
+Observații: SUA au cele mai multe resurse, dar multe sunt comerciale. Nu copia texte sau lecții întregi fără permisiune.
+
+---
+
+## Canada
+
+Limbi: engleză, franceză.
+
+Resurse:
+
+- Resurse globale în engleză și franceză.
+- Wikipedia EN/FR.
+- Căutări locale:
+
+```text
+site:.ca "guitar theory"
+site:.ca "théorie guitare"
+site:.ca "music theory guitar"
+site:.qc.ca "guitare"
+```
+
+Observații: Pentru Québec, folosește termeni în franceză.
+
+---
+
+## Mexic
+
+Limbi: spaniolă.
+
+Resurse:
+
+- `https://www.teoria.com`
+- `https://es.wikipedia.org/wiki/Teor%C3%ADa_de_la_m%C3%BAsica`
+- Resurse spaniole regionale.
+
+Interogări:
+
+```text
+site:.mx "teoría de la guitarra"
+site:.mx "teoría musical guitarra"
+site:.mx "clases de guitarra teoría"
+"guitarra" "teoría" México
+```
+
+---
+
+# America Centrală
+
+## Guatemala, Belize, Honduras, El Salvador, Nicaragua, Costa Rica, Panama
+
+Limbi: spaniolă, engleză în Belize.
+
+Resurse:
+
+- `https://www.teoria.com`
+- `https://www.lacuerda.net` — mare bază de date de acorduri/tabs în spaniolă; folosește cu atenție la drepturile de autor.
+- Wikipedia spaniolă.
+
+Interogări:
+
+```text
+site:.gt "teoría guitarra"
+site:.bz "guitar theory"
+site:.hn "teoría guitarra"
+site:.sv "teoría guitarra"
+site:.ni "teoría guitarra"
+site:.cr "teoría guitarra"
+site:.pa "teoría guitarra"
+```
+
+---
+
+# Caraibe
+
+## Țări/teritorii caraibe
+
+Inclusiv: Cuba, Jamaica, Haiti, Republica Dominicană, Bahamas, Barbados, Trinidad și Tobago, Antigua și Barbuda, Dominica, Grenada, 
+Saint Kitts și Nevis, Saint Lucia, Saint Vincent și Grenadine.
+
+Limbi: spaniolă, engleză, franceză, creolă.
+
+Resurse:
+
+- Wikipedia în engleză/spaniolă/franceză.
+- Resurse globale.
+- Căutări locale:
+
+```text
+site:.cu "teoría guitarra"
+site:.jm "guitar theory"
+site:.ht "théorie guitare"
+site:.do "teoría guitarra"
+site:.bs "guitar theory"
+site:.bb "guitar theory"
+site:.tt "guitar theory"
+site:.ag "guitar theory"
+site:.dm "guitar theory"
+site:.gd "guitar theory"
+site:.kn "guitar theory"
+site:.lc "guitar theory"
+site:.vc "guitar theory"
+```
+
+---
+
+# America de Sud
+
+## Columbia, Venezuela, Ecuador, Peru, Bolivia, Chile, Argentina, Paraguay, Uruguay, Guyana, Suriname
+
+Limbi: spaniolă, engleză în Guyana, neerlandeză în Suriname.
+
+Resurse:
+
+- `https://www.teoria.com`
+- `https://www.lacuerda.net`
+- Wikipedia spaniolă.
+- Wikipedia engleză pentru Guyana.
+- Wikipedia neerlandeză pentru Suriname.
+
+Interogări:
+
+```text
+site:.co "teoría guitarra"
+site:.ve "teoría guitarra"
+site:.ec "teoría guitarra"
+site:.pe "teoría guitarra"
+site:.bo "teoría guitarra"
+site:.cl "teoría guitarra"
+site:.ar "teoría guitarra"
+site:.py "teoría guitarra"
+site:.uy "teoría guitarra"
+site:.gy "guitar theory"
+site:.sr "gitaar theorie"
+```
+
+---
+
+## Brazilia
+
+Limbi: portugheză.
+
+Site-uri:
+
+- `https://www.cifraclub.com.br`
+- Wikipedia PT: `https://pt.wikipedia.org/wiki/Teoria_musical`
+
+Interogări:
+
+```text
+site:.br "teoria musical guitarra"
+site:.br "teoria guitarra"
+site:.br "harmonia guitarra"
+site:.br "campo harmônico guitarra"
+```
+
+Observații: CifraClub este foarte mare și conține lecții, acorduri, cifrado. Verifică termenii înainte de copiere.
+
+---
+
+# Europa de Vest
+
+## Regatul Unit
+
+Limbi: engleză.
+
+Site-uri:
+
+- `https://www.justinguitar.com`
+- `https://www.lightnote.co`
+- `https://www.guitarmasterclass.net`
+- Wikipedia EN.
+
+Interogări:
+
+```text
+site:.uk "guitar theory"
+site:.co.uk "guitar theory"
+site:.uk "music theory guitar"
+```
+
+---
+
+## Irlanda
+
+Limbi: engleză, irlandeză.
+
+Resurse:
+
+- Resurse globale în engleză.
+- Căutări locale:
+
+```text
+site:.ie "guitar theory"
+site:.ie "music theory guitar"
+```
+
+---
+
+## Germania
+
+Limbi: germană.
+
+Site-uri:
+
+- `https://www.bonedo.de` — are tutoriale, teorie, chitară, muzică generală.
+- Wikipedia DE: `https://de.wikipedia.org/wiki/Musiktheorie`
+
+Interogări:
+
+```text
+site:.de "Gitarre Musiktheorie"
+site:.de "Gitarre Theorie"
+site:.de "Harmonielehre Gitarre"
+```
+
+---
+
+## Austria
+
+Limbi: germană.
+
+Resurse:
+
+- Resurse germane.
+- Wikipedia DE.
+- Căutări locale:
+
+```text
+site:.at "Gitarre Musiktheorie"
+site:.at "Gitarre Theorie"
+```
+
+---
+
+## Elveția
+
+Limbi: germană, franceză, italiană, romanșă.
+
+Resurse:
+
+- Resurse germane, franceze, italiene.
+- Wikipedia DE/FR/IT.
+- Căutări locale:
+
+```text
+site:.ch "Gitarre Musiktheorie"
+site:.ch "théorie guitare"
+site:.ch "teoria chitarra"
+```
+
+---
+
+## Franța
+
+Limbi: franceză.
+
+Site-uri:
+
+- `https://www.myguitare.com`
+- Wikipedia FR: `https://fr.wikipedia.org/wiki/Th%C3%A9orie_de_la_musique`
+
+Interogări:
+
+```text
+site:.fr "théorie guitare"
+site:.fr "théorie musicale guitare"
+site:.fr "gammes guitare"
+site:.fr "harmonie guitare"
+```
+
+---
+
+## Belgia
+
+Limbi: neerlandeză, franceză, germană.
+
+Site-uri:
+
+- `https://www.jazzguitar.be` — forum și resurse, în special jazz guitar.
+- Wikipedia NL/FR/DE.
+
+Interogări:
+
+```text
+site:.be "guitar theory"
+site:.be "gitaar theorie"
+site:.be "théorie guitare"
+```
+
+---
+
+## Țările de Jos
+
+Limbi: neerlandeză.
+
+Resurse:
+
+- Wikipedia NL: `https://nl.wikipedia.org/wiki/Muziektheorie`
+- Căutări locale:
+
+```text
+site:.nl "gitaar theorie"
+site:.nl "muziektheorie gitaar"
+site:.nl "akkoorden gitaar theorie"
+```
+
+---
+
+## Luxemburg
+
+Limbi: luxemburgheză, franceză, germană.
+
+Resurse:
+
+- Resurse franceze și germane.
+- Căutări locale:
+
+```text
+site:.lu "théorie guitare"
+site:.lu "Gitarre Theorie"
+```
+
+---
+
+## Microstate europene vestice
+
+Andorra, Monaco, Liechtenstein, San Marino, Vatican.
+
+Limbi: catalană, franceză, germană, italiană.
+
+Resurse:
+
+- Wikipedia în limbile corespunzătoare.
+- Resurse franceze, italiene, germane, spaniole.
+
+Interogări:
+
+```text
+site:.ad "teoria guitarra"
+site:.mc "théorie guitare"
+site:.li "Gitarre Theorie"
+site:.sm "teoria chitarra"
+site:.va "teoria musica"
+```
+
+---
+
+# Europa de Sud
+
+## Spania
+
+Limbi: spaniolă, catalană, bască, galiciană.
+
+Site-uri:
+
+- `https://www.teoria.com` — are versiune în spaniolă și engleză.
+- `https://www.lacuerda.net` — resursă mare în spaniolă, dar atenție la taburi/acorduri protejate.
+- Wikipedia ES: `https://es.wikipedia.org/wiki/Teor%C3%ADa_de_la_m%C3%BAsica`
+
+Interogări:
+
+```text
+site:.es "teoría de la guitarra"
+site:.es "teoría musical guitarra"
+site:.es "armonía guitarra"
+site:.cat "teoria guitarra"
+site:.eus "gitarra teoria"
+site:.gal "teoría guitarra"
+```
+
+---
+
+## Portugalia
+
+Limbi: portugheză.
+
+Resurse:
+
+- Wikipedia PT.
+- Resurse braziliene în portugheză, de exemplu CifraClub.
+- Căutări locale:
+
+```text
+site:.pt "teoria guitarra"
+site:.pt "teoria musical guitarra"
+site:.pt "harmonia guitarra"
+```
+
+---
+
+## Italia
+
+Limbi: italiană.
+
+Resurse:
+
+- Wikipedia IT: `https://it.wikipedia.org/wiki/Teoria_musicale`
+- Căutări locale:
+
+```text
+site:.it "teoria chitarra"
+site:.it "teoria musicale chitarra"
+site:.it "armonia chitarra"
+site:.it "scale chitarra teoria"
+```
+
+---
+
+## Malta și Cipru
+
+Limbi: malteză/engleză; greacă/turcă/engleză.
+
+Resurse:
+
+- Wikipedia EN/EL/TR/IT.
+- Căutări locale:
+
+```text
+site:.mt "guitar theory"
+site:.cy "guitar theory"
+site:.cy "θεωρία κιθάρας"
+```
+
+---
+
+## Grecia
+
+Limbi: greacă.
+
+Resurse:
+
+- Wikipedia EL.
+- Căutări locale:
+
+```text
+site:.gr "θεωρία κιθάρας"
+site:.gr "θεωρία μουσικής κιθάρα"
+site:.gr "αρμονία κιθάρα"
+```
+
+---
+
+# Europa Centrală și de Est
+
+## Polonia
+
+Limbi: poloneză.
+
+Resurse:
+
+- Wikipedia PL: `https://pl.wikipedia.org/wiki/Teoria_muzyki`
+- Căutări locale:
+
+```text
+site:.pl "teoria gitary"
+site:.pl "teoria muzyki gitara"
+site:.pl "harmonia gitara"
+```
+
+---
+
+## Cehia
+
+Limbi: cehă.
+
+Resurse:
+
+- Wikipedia CS.
+- Căutări locale:
+
+```text
+site:.cz "teorie kytary"
+site:.cz "hudební teorie kytara"
+```
+
+---
+
+## Slovacia
+
+Limbi: slovacă.
+
+Resurse:
+
+- Wikipedia SK.
+- Căutări locale:
+
+```text
+site:.sk "teória gitary"
+site:.sk "hudobná teória gitara"
+```
+
+---
+
+## Ungaria
+
+Limbi: maghiară.
+
+Resurse:
+
+- Wikipedia HU.
+- Căutări locale:
+
+```text
+site:.hu "gitár elmélet"
+site:.hu "zeneelmélet gitár"
+```
+
+---
+
+## România și Republica Moldova
+
+Limbi: română, rusă în Moldova.
+
+Resurse:
+
+- Wikipedia RO: `https://ro.wikipedia.org/wiki/Teoria_muzicii`
+- Wikipedia RO pentru chitară: caută „Chitară”, „Acord”, „Gamă”, „Interval”.
+- Wikibooks RO: `https://ro.wikibooks.org`
+- Căutări locale:
+
+```text
+site:.ro "teorie chitară"
+site:.ro "teorie muzicală chitară"
+site:.ro "game chitară teorie"
+site:.ro "acorduri chitară teorie"
+site:.md "teorie chitară"
+site:.md "teoria muzicii chitară"
+```
+
+Exemple de termeni românești utili pentru program:
+
+- interval
+- gamă majoră
+- gamă minoră
+- acord major
+- acord minor
+- acord de septimă
+- trepte armonice
+- moduri grecești
+- progresii de acorduri
+- cadențe
+
+---
+
+## Bulgaria
+
+Limbi: bulgară.
+
+Resurse:
+
+- Wikipedia BG.
+- Căutări locale:
+
+```text
+site:.bg "теория на китарата"
+site:.bg "музикална теория китара"
+```
+
+---
+
+## Ucraina, Belarus, Rusia
+
+Limbi: ucraineană, belarusă, rusă.
+
+Resurse:
+
+- Wikipedia UK/RU/BE.
+- Căutări locale:
+
+```text
+site:.ua "теорія гітари"
+site:.by "теория гитары"
+site:.ru "теория гитары"
+site:.ru "теория музыки гитара"
+```
+
+Observații: Pentru Rusia și Belarus, rusă este adesea limba cu cele mai multe resurse.
+
+---
+
+## Țările baltice
+
+Estonia, Letonia, Lituania.
+
+Limbi: estonă, letonă, lituaniană.
+
+Resurse:
+
+- Wikipedia ET/LV/LT.
+- Căutări locale:
+
+```text
+site:.ee "kitarri teooria"
+site:.lv "ģitāras teorija"
+site:.lt "gitaros teorija"
+```
+
+---
+
+## Țările nordice
+
+Danemarca, Norvegia, Suedia, Finlanda, Islanda.
+
+Limbi: daneză, norvegiană, suedeză, finlandeză, islandeză.
+
+Resurse:
+
+- Wikipedia DA/NO/SV/FI/IS.
+- Căutări locale:
+
+```text
+site:.dk "guitar teori"
+site:.no "gitar teori"
+site:.se "gitarr teori"
+site:.fi "kitara teoria"
+site:.is "gítar kenningar"
+```
+
+---
+
+## Balcanii de Vest
+
+Slovenia, Croația, Bosnia și Herțegovina, Serbia, Muntenegru, Macedonia de Nord, Albania, Kosovo.
+
+Limbi: slovenă, croată, bosniacă, sârbă, muntenegreană, macedoneană, albaneză.
+
+Resurse:
+
+- Wikipedia în limbile locale.
+- Căutări locale:
+
+```text
+site:.si "teorija kitare"
+site:.hr "teorija gitare"
+site:.ba "teorija gitare"
+site:.rs "теорија гитаре"
+site:.me "teorija gitare"
+site:.mk "теорија на гитара"
+site:.al "teori kitare"
+site:.xk "teori kitare"
+```
+
+---
+
+## Turcia
+
+Limbi: turcă.
+
+Resurse:
+
+- Wikipedia TR.
+- Căutări locale:
+
+```text
+site:.tr "gitar teorisi"
+site:.tr "müzik teorisi gitar"
+site:.tr "gitar akor teorisi"
+```
+
+---
+
+# Caucaz și Asia Centrală
+
+## Georgia, Armenia, Azerbaijan
+
+Limbi: georgiană, armeană, azeră, rusă.
+
+Resurse:
+
+- Wikipedia KA/HY/AZ/RU.
+- Căutări locale:
+
+```text
+site:.ge "გიტარის თეორია"
+site:.am "կիթառի տեսություն"
+site:.az "gitara nəzəriyyəsi"
+```
+
+---
+
+## Kazahstan, Kârgâzstan, Tadjikistan, Turkmenistan, Uzbekistan
+
+Limbi: kazahă, kârgâză, tadjică, turkmenă, uzbecă, rusă.
+
+Resurse:
+
+- Wikipedia în limbile locale și rusă.
+- Căutări locale:
+
+```text
+site:.kz "гитара теориясы"
+site:.kg "гитара теориясы"
+site:.tj "назарияи гитара"
+site:.tm "gitara teoriýasy"
+site:.uz "gitara nazariyasi"
+```
+
+---
+
+# Orientul Mijlociu
+
+## Israel și Palestina
+
+Limbi: ebraică, arabă.
+
+Resurse:
+
+- Wikipedia HE/AR.
+- Căutări locale:
+
+```text
+site:.il "תאוריה מוזיקלית גיטרה"
+site:.ps "نظرية الموسيقى جيتار"
+```
+
+---
+
+## Iordania, Liban, Siria, Irak
+
+Limbi: arabă.
+
+Resurse:
+
+- Wikipedia AR.
+- Căutări locale:
+
+```text
+site:.jo "نظرية الجيتار"
+site:.lb "نظرية الجيتار"
+site:.sy "نظرية الجيتار"
+site:.iq "نظرية الجيتار"
+```
+
+---
+
+## Peninsula Arabică
+
+Arabia Saudită, Emiratele Arabe Unite, Qatar, Kuwait, Bahrain, Oman, Yemen.
+
+Limbi: arabă.
+
+Resurse:
+
+- Wikipedia AR.
+- Căutări locale:
+
+```text
+site:.sa "نظرية الجيتار"
+site:.ae "نظرية الجيتار"
+site:.qa "نظرية الجيتار"
+site:.kw "نظرية الجيتار"
+site:.bh "نظرية الجيتار"
+site:.om "نظرية الجيتار"
+site:.ye "نظرية الجيتار"
+```
+
+---
+
+## Iran
+
+Limbi: persană.
+
+Resurse:
+
+- Wikipedia FA.
+- Căutări lokale:
+
+```text
+site:.ir "تئوری موسیقی گیتار"
+site:.ir "تئوری گیتار"
+```
+
+---
+
+# Africa
+
+## Africa de Nord
+
+Maroc, Algeria, Tunisia, Libia, Egipt, Sudan, Sudanul de Sud.
+
+Limbi: arabă, franceză, engleză.
+
+Resurse:
+
+- Wikipedia AR/FR/EN.
+- Căutări locale:
+
+```text
+site:.ma "théorie guitare"
+site:.dz "théorie guitare"
+site:.tn "théorie guitare"
+site:.ly "نظرية الجيتار"
+site:.eg "نظرية الجيتار"
+site:.sd "نظرية الجيتار"
+site:.ss "guitar theory"
+```
+
+---
+
+## Africa francofonă
+
+Inclusiv: Senegal, Coasta de Fildeș, Mali, Burkina Faso, Niger, Ciad, Camerun, Gabon, Republica Congo, Republica Democrată Congo, 
+Rwanda, Burundi, Togo, Benin, Republica Centrafricană, Guineea Ecuatorială, Djibouti, Madagascar, Comore, Seychelles, Mauritius.
+
+Limbi: franceză, limbi locale.
+
+Resurse:
+
+- Wikipedia FR.
+- Resurse globale.
+- Căutări locale:
+
+```text
+site:.sn "théorie guitare"
+site:.ci "théorie guitare"
+site:.ml "théorie guitare"
+site:.bf "théorie guitare"
+site:.ne "théorie guitare"
+site:.td "théorie guitare"
+site:.cm "théorie guitare"
+site:.ga "théorie guitare"
+site:.cg "théorie guitare"
+site:.cd "théorie guitare"
+site:.rw "théorie guitare"
+site:.bi "théorie guitare"
+site:.tg "théorie guitare"
+site:.bj "théorie guitare"
+site:.cf "théorie guitare"
+site:.gq "théorie guitare"
+site:.dj "théorie guitare"
+site:.mg "théorie guitare"
+site:.km "théorie guitare"
+site:.sc "théorie guitare"
+site:.mu "théorie guitare"
+```
+
+---
+
+## Africa anglofonă
+
+Inclusiv: Nigeria, Ghana, Africa de Sud, Zambia, Zimbabwe, Malawi, Namibia, Botswana, Eswatini, Lesotho, Gambia, Sierra Leone, 
+Liberia, Eritreea, Etiopia, Somalia, Kenya, Tanzania, Uganda.
+
+Limbi: engleză, limbi locale.
+
+Resurse:
+
+- Wikipedia EN.
+- Resurse globale.
+- Căutări locale:
+
+```text
+site:.ng "guitar theory"
+site:.gh "guitar theory"
+site:.za "guitar theory"
+site:.zm "guitar theory"
+site:.zw "guitar theory"
+site:.mw "guitar theory"
+site:.na "guitar theory"
+site:.bw "guitar theory"
+site:.sz "guitar theory"
+site:.ls "guitar theory"
+site:.gm "guitar theory"
+site:.sl "guitar theory"
+site:.lr "guitar theory"
+site:.er "music theory guitar"
+site:.et "guitar theory"
+site:.so "guitar theory"
+site:.ke "guitar theory"
+site:.tz "guitar theory"
+site:.ug "guitar theory"
+```
+
+---
+
+## Africa lusofonă
+
+Angola, Mozambique, Capul Verde, São Tomé și Príncipe, Guineea-Bissau.
+
+Limbi: portugheză.
+
+Resurse:
+
+- Wikipedia PT.
+- Resurse braziliene, de exemplu CifraClub.
+- Căutări locale:
+
+```text
+site:.ao "teoria guitarra"
+site:.mz "teoria guitarra"
+site:.cv "teoria guitarra"
+site:.st "teoria guitarra"
+site:.gw "teoria guitarra"
+```
+
+---
+
+# Asia de Sud
+
+## India, Pakistan, Bangladesh, Sri Lanka, Nepal, Bhutan, Afganistan, Maldive
+
+Limbi: hindi, urdu, bengali, singhaleză, tamilă, nepaleză, dzongkha, paștună, divehi.
+
+Resurse:
+
+- Wikipedia EN/HI/UR/BN/SI/NE.
+- Resurse globale.
+- Căutări locale:
+
+```text
+site:.in "guitar theory"
+site:.in "गिटार संगीत सिद्धांत"
+site:.pk "guitar theory"
+site:.bd "guitar theory"
+site:.lk "guitar theory"
+site:.np "guitar theory"
+site:.bt "guitar theory"
+site:.af "guitar theory"
+site:.mv "guitar theory"
+```
+
+---
+
+# Asia de Est
+
+## China
+
+Limbi: chineză.
+
+Resurse:
+
+- Wikipedia ZH.
+- Platforme locale: Zhihu, Bilibili, site-uri de muzică/chitară. Verifică drepturile de autor.
+
+Interogări:
+
+```text
+site:.cn "吉他 乐理"
+site:.cn "吉他 理论"
+site:.cn "和声 吉他"
+```
+
+---
+
+## Japonia
+
+Limbi: japoneză.
+
+Site-uri:
+
+- `https://guitar-hakase.com` — conținut japonez despre teorie aplicată pe chitară.
+- Wikipedia JA.
+
+Interogări:
+
+```text
+site:.jp "ギター 楽典"
+site:.jp "ギター 理論"
+site:.jp "コード理論 ギター"
+```
+
+---
+
+## Coreea de Sud și Coreea de Nord
+
+Limbi: coreeană.
+
+Resurse:
+
+- Wikipedia KO.
+- Căutări locale:
+
+```text
+site:.kr "기타 음악 이론"
+site:.kr "기타 코드 이론"
+site:.kp "음악 이론"
+```
+
+Observație: Pentru Coreea de Nord, accesul la site-uri publice este extrem de limitat; resursele externe în limba coreeană sunt mai 
+realiste.
+
+---
+
+## Mongolia
+
+Limbi: mongolă.
+
+Resurse:
+
+- Wikipedia MN.
+- Căutări locale:
+
+```text
+site:.mn "гитар онол"
+site:.mn "хөгжмийн онол гитар"
+```
+
+---
+
+# Asia de Sud-Est
+
+## Indonezia, Malaysia, Singapore, Thailanda, Vietnam, Cambodgia, Laos, Myanmar, Filipine, Brunei, Timorul de Est
+
+Limbi: indoneziană, malaieză, engleză, thailandeză, vietnameză, khmeră, lao, birmană, filipineză.
+
+Resurse:
+
+- Wikipedia în limbile locale.
+- Resurse globale în engleză.
+
+Interogări:
+
+```text
+site:.id "teori gitar"
+site:.my "teori gitar"
+site:.sg "guitar theory"
+site:.th "ทฤษฎีกีตาร์"
+site:.vn "lý thuyết guitar"
+site:.kh "ទ្រឹស្តីហ្គីតា"
+site:.la "ທິດສະດີກີຕ້າ"
+site:.mm "ဂီတာ သီအိုရီ"
+site:.ph "guitar theory"
+site:.bn "teori gitar"
+site:.tl "teoria guitarra"
+```
+
+---
+
+# Oceania
+
+## Australia
+
+Limbi: engleză.
+
+Resurse:
+
+- Resurse globale.
+- Căutări locale:
+
+```text
+site:.au "guitar theory"
+site:.edu.au "guitar theory"
+```
+
+---
+
+## Noua Zeelandă
+
+Limbi: engleză, maori.
+
+Resurse:
+
+- Resurse globale.
+- Căutări locale:
+
+```text
+site:.nz "guitar theory"
+```
+
+---
+
+## Pacificul de Sud
+
+Papua Noua Guinee, Fiji, Insulele Solomon, Vanuatu, Samoa, Tonga, Kiribati, Micronezia, Palau, Insulele Marshall, Nauru, Tuvalu.
+
+Limbi: engleză, franceză, limbi locale.
+
+Resurse:
+
+- Wikipedia EN/FR.
+- Resurse globale.
+
+Interogări:
+
+```text
+site:.pg "guitar theory"
+site:.fj "guitar theory"
+site:.sb "guitar theory"
+site:.vu "guitar theory"
+site:.ws "guitar theory"
+site:.to "guitar theory"
+site:.ki "guitar theory"
+site:.fm "guitar theory"
+site:.pw "guitar theory"
+site:.mh "guitar theory"
+site:.nr "guitar theory"
+site:.tv "guitar theory"
+```
+
+---
+
+## 3. Interogări foarte utile pentru orice limbă
+
+Dacă vrei să găsești site-uri locale de teorie de chitară, folosește combinații de termeni în limba locală.
+
+### Română
+
+```text
+"teorie chitară"
+"teorie muzicală chitară"
+"game pentru chitară"
+"acorduri chitară teorie"
+"intervale muzicale chitară"
+"armonie chitară"
+"progresii de acorduri chitară"
+```
+
+### Engleză
+
+```text
+"guitar theory"
+"music theory for guitar"
+"guitar scales and modes"
+"guitar harmony"
+"chord theory guitar"
+"fretboard theory"
+```
+
+### Spaniolă
+
+```text
+"teoría de la guitarra"
+"teoría musical guitarra"
+"armonía guitarra"
+"escalas guitarra"
+"acordes guitarra teoría"
+```
+
+### Franceză
+
+```text
+"théorie guitare"
+"théorie musicale guitare"
+"gammes guitare"
+"harmonie guitare"
+"accords guitare théorie"
+```
+
+### Germană
+
+```text
+"Gitarre Theorie"
+"Musiktheorie Gitarre"
+"Harmonielehre Gitarre"
+"Tonleitern Gitarre"
+"Akkorde Gitarre Theorie"
+```
+
+### Italiană
+
+```text
+"teoria chitarra"
+"teoria musicale chitarra"
+"armonia chitarra"
+"scale chitarra"
+"accordi chitarra teoria"
+```
+
+### Portugheză
+
+```text
+"teoria guitarra"
+"teoria musical guitarra"
+"harmonia guitarra"
+"escalas guitarra"
+"acordes guitarra teoria"
+```
+
+### Rusă
+
+```text
+"теория гитары"
+"теория музыки гитара"
+"гармония гитара"
+"гаммы гитара"
+"аккорды гитара теория"
+```
+
+### Japoneză
+
+```text
+"ギター 楽典"
+"ギター 理論"
+"コード理論 ギター"
+"スケール ギター"
+```
+
+### Chineză
+
+```text
+"吉他 乐理"
+"吉他 理论"
+"和声 吉他"
+"音阶 吉他"
+```
+
+### Coreeană
+
+```text
+"기타 음악 이론"
+"기타 코드 이론"
+"기타 스케일"
+```
+
+### Arabică
+
+```text
+"نظرية الجيتار"
+"نظرية الموسيقى جيتار"
+"سلم موسيقي جيتار"
+"أكوردات جيتار"
+```
+
+---
+
+## 4. Cum să extragi teoria în cod fără probleme legale
+
+Pentru un program desktop, cel mai bine este să transformi teoria în **date structurate**, nu să copiezi texte.
+
+Exemplu de structură JSON pentru un program de chitară:
+
+```json
+{
+  "intervals": [
+    { "name": "Unison", "semitones": 0 },
+    { "name": "Minor second", "semitones": 1 },
+    { "name": "Major second", "semitones": 2 },
+    { "name": "Minor third", "semitones": 3 },
+    { "name": "Major third", "semitones": 4 },
+    { "name": "Perfect fourth", "semitones": 5 },
+    { "name": "Tritone", "semitones": 6 },
+    { "name": "Perfect fifth", "semitones": 7 },
+    { "name": "Minor sixth", "semitones": 8 },
+    { "name": "Major sixth", "semitones": 9 },
+    { "name": "Minor seventh", "semitones": 10 },
+    { "name": "Major seventh", "semitones": 11 },
+    { "name": "Octave", "semitones": 12 }
+  ],
+  "chords": [
+    {
+      "name": "Major",
+      "symbol": "",
+      "formula": [0, 4, 7]
+    },
+    {
+      "name": "Minor",
+      "symbol": "m",
+      "formula": [0, 3, 7]
+    },
+    {
+      "name": "Dominant 7",
+      "symbol": "7",
+      "formula": [0, 4, 7, 10]
+    },
+    {
+      "name": "Major 7",
+      "symbol": "maj7",
+      "formula": [0, 4, 7, 11]
+    },
+    {
+      "name": "Minor 7",
+      "symbol": "m7",
+      "formula": [0, 3, 7, 10]
+    }
+  ],
+  "scales": [
+    {
+      "name": "Major",
+      "intervals": [0, 2, 4, 5, 7, 9, 11]
+    },
+    {
+      "name": "Natural minor",
+      "intervals": [0, 2, 3, 5, 7, 8, 10]
+    },
+    {
+      "name": "Harmonic minor",
+      "intervals": [0, 2, 3, 5, 7, 8, 11]
+    },
+    {
+      "name": "Melodic minor ascending",
+      "intervals": [0, 2, 3, 5, 7, 9, 11]
+    },
+    {
+      "name": "Major pentatonic",
+      "intervals": [0, 2, 4, 7, 9]
+    },
+    {
+      "name": "Minor pentatonic",
+      "intervals": [0, 3, 5, 7, 10]
+    },
+    {
+      "name": "Blues",
+      "intervals": [0, 3, 5, 6, 7, 10]
+    }
+  ]
+}
+```
+
+Acest tip de date poate fi implementat ușor într-un program desktop în C#, Java, Python, Electron, C++, Rust etc.
+
+---
+
+## 5. Recomandări practice pentru scraping
+
+Dacă totuși vrei să colectezi automat date de pe site-uri:
+
+1. Verifică `robots.txt` al fiecărui site.
+2. Verifică termenii și condițiile site-ului.
+3. Folosește API-uri oficiale acolo unde există:
+   - Wikipedia API
+   - Wikidata SPARQL
+   - MusicBrainz API
+4. Nu descărca masiv taburi de melodii protejate.
+5. Nu copia texte întregi din lecții.
+6. Extrage doar fapte muzicale: numărul de semitonuri, formule de acorduri, structuri de game.
+7. Rescrie explicațiile în cuvintele tale sau folosește surse CC0/CC-BY/CC-BY-SA/public domain.
+8. Menționează sursa dacă licența cere atribuire.
+
+---
+
+## 6. Concluzie practică
+
+Pentru programul tău desktop, cea mai bună combinație este:
+
+1. **Wikidata + Wikipedia** pentru concepte și date structurate.
+2. **MusicXML / MIDI / ChordPro / ABC** pentru reprezentare muzicală.
+3. **GitHub libraries** ca `tonal`, `music21`, `mingus`, `abcjs`, `vexflow`.
+4. **Site-uri locale de teorie** doar ca sursă de inspirație pentru structura lecțiilor, nu pentru copiere textuală.
+5. **Interogări pe domenii naționale** pentru descoperirea de resurse suplimentare în fiecare țară.
+
+Dacă vrei, pot să-ți generez în continuare un **CSV cu toate țările**, cu coloane de tipul:
+
+```csv
+country,language,ccTLD,search_query,known_resources
+```
+
+pe care să-l folosești apoi într-un script de descoperire/verificare a site-urilor.
