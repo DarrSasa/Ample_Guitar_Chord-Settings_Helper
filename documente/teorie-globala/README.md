@@ -54,3 +54,23 @@ py colectare_openrouter.py ^
 ```
 
 Afișează progresul în consolă și tokenii consumați. Cheia NU e scrisă nicăieri.
+
+## Colectare AVANSATĂ cu Crawl4AI (recomandat)
+
+Crawl4AI (open-source, Apache-2.0) randează JavaScript și scoate Markdown curat +
+JSON structurat — intră pe site-uri pe care curl/requests nu le poate citi,
+în orice limbă. Verificat util pentru situația noastră.
+
+Instalare (la tine, o singură dată):
+```
+cd C:\MY_PYTHON_PROJECTS\Ample_Guitar_Chord-Settings_Helper\documente\teorie-globala
+pip install -r requirements-crawl4ai.txt
+playwright install chromium
+```
+Rulare:
+```
+py colectare_crawl4ai.py
+```
+Citește `colectat/surse-accesibile.json` (html_parsabil + de_testat) și scrie în
+`colectat/crawl/` câte un `<site>.md` + `<site>.json` + `manifest_crawl.json`.
+Nu folosește cheia API.
