@@ -15,7 +15,7 @@ Citeste sursele din colectat/surse-accesibile.json (categoriile html_parsabil si
 de_testat) si scrie rezultatele in colectat/crawl/ (<site>.md + <site>.json) si
 colectat/crawl/manifest_crawl.json. Nu foloseste cheia API.
 """
-import asyncio, json, os, re, time, urllib.parse, urllib.request
+import asyncio, hashlib, json, os, re, time, urllib.parse, urllib.request
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -138,6 +138,9 @@ async def main():
         for url in urls:
             rez = await crawl_one(crawler, url, cfg)
             tag = safe(url.split("//")[-1])
+            # Windows: calea totala < 260 caractere; scurtam numele lungi
+            if len(tag) > 120:
+                tag = tag[:110] + "_" + hashlib.md5(url.encode()).hexdigest()[:8]
             if rez.get("ok"):
                 (OUT / (tag + ".md")).write_text(rez.get("md", ""), encoding="utf-8")
                 (OUT / (tag + ".json")).write_text(json.dumps(
