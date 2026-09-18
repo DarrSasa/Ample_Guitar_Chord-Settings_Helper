@@ -112,3 +112,38 @@ export function degreeNotes(rootPc: number, scaleIv: number[], degree: number, b
   const iv = scaleIv[((degree - 1) % 7 + 7) % 7];
   return baseMidi + ((rootPc + iv) % 12);
 }
+
+// ---- ARTICULAȚII & FX (nume multilingve reale, din Wikipedia langlinks +
+//      manuale Ample). keyswitch_ample = tasta de declanșare în plugin.
+export interface ArticulatieFx {
+  en: string; ro?: string; es?: string; de?: string; fr?: string; ja?: string;
+  ru?: string; uk?: string;
+  keyswitch_ample?: string; tip: "articulatie" | "fx";
+}
+export const ARTICULATIONS_FX: ArticulatieFx[] = [
+  { en: "Sustain", ro: "Sustinut", es: "Sostenido", de: "Halten", keyswitch_ample: "C0", tip: "articulatie" },
+  { en: "Palm Mute", ro: "Palm Mute", es: "Palm mute", de: "Palm Muting", fr: "Palm mute", ja: "ミュート (ギター)", uk: "Глушіння долонею", keyswitch_ample: "D0", tip: "articulatie" },
+  { en: "Hammer-on", ro: "Hammer-on", de: "Hammer-on", fr: "Hammer-on", ja: "ハンマリング・オン", keyswitch_ample: "F0", tip: "articulatie" },
+  { en: "Pull-off", ro: "Pull-off", de: "Pull-off", ja: "プリング・オフ", keyswitch_ample: "F0", tip: "articulatie" },
+  { en: "Vibrato", ro: "Vibrato", de: "Vibrato", fr: "Vibrato", keyswitch_ample: "", tip: "articulatie" },
+  { en: "Natural Harmonic", ro: "Armonice naturale", es: "Armónicos", keyswitch_ample: "C#0", tip: "articulatie" },
+  { en: "Pinch Harmonic", ro: "Armonică artificială", keyswitch_ample: "C0", tip: "articulatie" },
+  { en: "Legato Slide", ro: "Slide legato", keyswitch_ample: "E0", tip: "articulatie" },
+  { en: "Slide In", ro: "Slide intrare", keyswitch_ample: "D#0", tip: "articulatie" },
+  { en: "Slide Out", ro: "Slide ieșire", keyswitch_ample: "D#0", tip: "articulatie" },
+  { en: "Staccato", ro: "Staccato", keyswitch_ample: "", tip: "articulatie" },
+  { en: "Dead Note", ro: "Notă moartă", keyswitch_ample: "D0", tip: "articulatie" },
+  { en: "Tapping", ro: "Tapping", keyswitch_ample: "", tip: "articulatie" },
+  { en: "Bend", ro: "Bend", keyswitch_ample: "", tip: "articulatie" },
+  { en: "Rasgueado", ro: "Rasgueado", es: "Rasgueado", tip: "articulatie" },
+  { en: "Alzapúa", ro: "Alzapúa", es: "Alzapúa", tip: "articulatie" },
+  { en: "Slap", ro: "Slap", ja: "スラップ", keyswitch_ample: "G0", tip: "articulatie" },
+  { en: "Pop", ro: "Pop", keyswitch_ample: "A0", tip: "articulatie" },
+  { en: "Fret Noise", ro: "Zgomot de fret", keyswitch_ample: "F5", tip: "fx" },
+  { en: "String Scratch", ro: "Scratch coardă", keyswitch_ample: "F5", tip: "fx" },
+  { en: "Body Hit / Golpe", ro: "Lovitură corp", es: "Golpe", keyswitch_ample: "F6", tip: "fx" },
+  { en: "Pick Scratch", ro: "Scratch pană", keyswitch_ample: "F6", tip: "fx" },
+  { en: "Natural Feedback", ro: "Feedback", keyswitch_ample: "F#5", tip: "fx" },
+  { en: "String Buzz", ro: "Bâzâit coardă", keyswitch_ample: "F#5", tip: "fx" },
+  { en: "Slide FX", ro: "Slide FX", keyswitch_ample: "F#6", tip: "fx" },
+];

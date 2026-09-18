@@ -1,0 +1,37 @@
+{
+  "_metode": ["MediaWiki langlinks (traduceri reale)", "GitHub raw JSON (chords-db/T-vK/szaza/tonal)", "HTML parsabil (jguitar/all-guitar-chords/openmusictheory)", "Wikidata SPARQL", "sitemap/CC mirrors"],
+  "articulatii_fx": [
+    {"en":"Palm Mute","de":"Palm Muting","es":"Palm mute","fr":"Palm mute","it":"Palm mute","ja":"ミュート (ギター)","ru":"Palm muting","uk":"Глушіння долонею","pl":"Palm muting","da":"Palm muting","keyswitch_ample":"D0","tip":"articulatie","sursa":"wikipedia langlinks"},
+    {"en":"Vibrato","ar":"فيبراتو","eo":"Vibrado (muziko)","et":"Vibraato","fa":"ویبراتو","he":"ויברטו","hu":"Vibrato","id":"Vibrato","keyswitch_ample":"","tip":"articulatie","sursa":"wikipedia langlinks"},
+    {"en":"Hammer-on","cs":"Příklep (hudba)","be-tarask":"Хамэр","ja":"ハンマリング・オン","pl":"Hammering","de":"Hammer-on","fr":"Hammer-on","keyswitch_ample":"F0","tip":"articulatie","sursa":"wikipedia langlinks"},
+    {"en":"Pull-off","ja":"プリング・オフ","keyswitch_ample":"F0","tip":"articulatie","sursa":"wikipedia"},
+    {"en":"Natural Harmonic","es":"Armónico natural","keyswitch_ample":"C#0","tip":"articulatie"},
+    {"en":"Pinch Harmonic","keyswitch_ample":"C0","tip":"articulatie"},
+    {"en":"Legato Slide","keyswitch_ample":"E0","tip":"articulatie"},
+    {"en":"Slide In","keyswitch_ample":"D#0","tip":"articulatie"},
+    {"en":"Slide Out","keyswitch_ample":"D#0","tip":"articulatie"},
+    {"en":"Staccato","tip":"articulatie"},
+    {"en":"Dead Note","tip":"articulatie"},
+    {"en":"Tapping","tip":"articulatie"},
+    {"en":"Bend","tip":"articulatie"},
+    {"en":"Rasgueado","es":"Rasgueado","tara":"ES","tip":"articulatie"},
+    {"en":"Alzapúa","es":"Alzapúa","tara":"ES","tip":"articulatie"},
+    {"en":"Slap","ja":"スラップ","keyswitch_ample":"G0","tip":"articulatie"},
+    {"en":"Pop","keyswitch_ample":"A0","tip":"articulatie"},
+    {"en":"Fret Noise","keyswitch_ample":"F5","tip":"fx"},
+    {"en":"String Scratch","keyswitch_ample":"F5","tip":"fx"},
+    {"en":"Body Hit / Golpe","es":"Golpe","keyswitch_ample":"F6","tip":"fx"},
+    {"en":"Pick Scratch","keyswitch_ample":"F6","tip":"fx"},
+    {"en":"Natural Feedback","keyswitch_ample":"F#5","tip":"fx"},
+    {"en":"String Buzz","keyswitch_ample":"F#5","tip":"fx"},
+    {"en":"Slide FX","keyswitch_ample":"F#6","tip":"fx"}
+  ],
+  "formule_extra": {
+    "m11":[0,3,7,10,14,17],"m13":[0,3,7,10,14,21],"maj9":[0,4,7,11,14],
+    "7#9":[0,4,7,10,15],"7b9":[0,4,7,10,13],"add11":[0,4,7,17],"sus2sus4":[0,2,5,7]
+  },
+  "game_extra": {
+    "MelodicMinor":[0,2,3,5,7,9,11],"LydianDominant":[0,2,4,6,7,9,10],"Altered":[0,1,3,4,6,8,10],
+    "BebopDominant":[0,2,4,5,7,9,10,11],"HungarianMinor":[0,2,3,6,7,8,11],"PhrygianDominant":[0,1,4,5,7,8,10]
+  }
+}
