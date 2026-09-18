@@ -15,7 +15,7 @@ Citeste sursele din colectat/surse-accesibile.json (categoriile html_parsabil si
 de_testat) si scrie rezultatele in colectat/crawl/ (<site>.md + <site>.json) si
 colectat/crawl/manifest_crawl.json. Nu foloseste cheia API.
 """
-import asyncio, json, os, re, urllib.request
+import asyncio, json, os, re, time, urllib.parse, urllib.request
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -56,27 +56,29 @@ SEED_ARTICLES = [
 
 def descopera_wikipedia_multilingv():
     urls = []
-    # Wikipedia cere un User-Agent identificabil; cel implicit Python e blocat (403).
     headers = {"User-Agent":
                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"}
-    for art in SEED_ARTICLES:
+    # Grupam titlurile cate 40 intr-o SINGURA cerere (MediaWiki accepta <=50),
+    # ca sa nu luam 429 Too Many Requests; encodam URL (Alzapúa etc.).
+    for i in range(0, len(SEED_ARTICLES), 40):
+        batch = SEED_ARTICLES[i:i + 40]
+        titles = urllib.parse.quote("|".join(batch))
         api = ("https://en.wikipedia.org/w/api.php?action=query&prop=langlinks"
-               f"&titles={art}&format=json&lllimit=500")
+               f"&titles={titles}&format=json&lllimit=500")
         try:
             req = urllib.request.Request(api, headers=headers)
-            with urllib.request.urlopen(req, timeout=30) as r:
+            with urllib.request.urlopen(req, timeout=60) as r:
                 data = json.loads(r.read().decode("utf-8"))
-            pages = data.get("query", {}).get("pages", {})
-            for p in pages.values():
+            for p in data.get("query", {}).get("pages", {}).values():
                 for ll in p.get("langlinks", []):
                     lang = ll.get("lang"); title = ll.get("*")
                     if lang and title:
-                        t = title.replace(" ", "_")
+                        t = urllib.parse.quote(title.replace(" ", "_"))
                         urls.append(f"https://{lang}.wikipedia.org/wiki/{t}")
         except Exception as e:
-            print("WARN langlinks", art, str(e)[:80])
-    # de-dup
+            print("WARN langlinks batch", i, str(e)[:80])
+        time.sleep(1.5)
     return sorted(set(urls))
 
 
