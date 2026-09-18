@@ -79,7 +79,8 @@ async def main():
     ap.add_argument("--wikipedia", action="store_true",
                     help="descopera si crawleaza paginile din toate limbile prin langlinks")
     ap.add_argument("--max", type=int, default=60,
-                    help="numarul maxim de pagini Wikipedia de crawluit (default 60)")
+                    help="numarul maxim de pagini Wikipedia de crawluit "
+                         "(default 60; 0 = fara limita, tot ce e descoperit)")
     a = ap.parse_args()
 
     from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig
@@ -94,8 +95,10 @@ async def main():
             if s.get("url"):
                 urls.append(s["url"])
     if a.wikipedia:
-        wiki = descopera_wikipedia_multilingv()[: a.max]
-        print("Descoperite", len(wiki), "pagini Wikipedia multilingve.")
+        wiki = descopera_wikipedia_multilingv()
+        if a.max > 0:
+            wiki = wiki[: a.max]
+        print("Descoperite", len(wiki), "pagini Wikipedia multilingve (max:", a.max, ").")
         urls += wiki
     print("Voi crawl-ui", len(urls), "surse...")
 
