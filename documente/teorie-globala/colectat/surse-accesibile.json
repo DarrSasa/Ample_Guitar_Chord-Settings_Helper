@@ -1,0 +1,35 @@
+{
+  "_nota": "Examinare facuta de agent cu unelte de cod (fetch/API). 'accesibil_cu_cod'=true inseamna ca am putut intra si extrage date programatic. Colectarea teoriei a inceput din aceste surse.",
+  "api_json": [
+    {"url": "https://www.wikipedia.org / w/api.php", "tara": "global", "limba": "300+", "categorie": "teorie/tehnici (langlinks)", "metoda": "MediaWiki API (query/parse/langlinks)", "accesibil_cu_cod": true},
+    {"url": "https://www.wikidata.org", "tara": "global", "limba": "multi", "categorie": "date structurate (intervale/acorduri)", "metoda": "SPARQL/JSON API", "accesibil_cu_cod": true},
+    {"url": "https://musicbrainz.org", "tara": "global", "limba": "en", "categorie": "metadata", "metoda": "JSON API", "accesibil_cu_cod": true},
+    {"url": "https://imslp.org", "tara": "global", "limba": "multi", "categorie": "partituri public-domain", "metoda": "HTML", "accesibil_cu_cod": true},
+    {"url": "https://archive.org", "tara": "US", "limba": "multi", "categorie": "carti vechi teorie", "metoda": "HTML/API", "accesibil_cu_cod": true}
+  ],
+  "github_date": [
+    {"url": "https://github.com/tombatossals/chords-db", "tara": "global", "limba": "en", "categorie": "acorduri (guitar/ukulele/piano)", "metoda": "JSON in repo", "accesibil_cu_cod": true},
+    {"url": "https://github.com/T-vK/chord-collection", "tara": "global", "limba": "en", "categorie": "acorduri+inversiuni", "metoda": "JSON in repo", "accesibil_cu_cod": true},
+    {"url": "https://github.com/szaza/guitar-chords-db-json", "tara": "global", "limba": "en", "categorie": "acorduri filtrate", "metoda": "JSON pe foldere", "accesibil_cu_cod": true},
+    {"url": "https://github.com/tonaljs/tonal", "tara": "global", "limba": "en", "categorie": "intervale/game/acorduri", "metoda": "lib TS/JSON", "accesibil_cu_cod": true},
+    {"url": "https://github.com/cuthbertLab/music21", "tara": "US", "limba": "en", "categorie": "analiza/teorie", "metoda": "lib Python", "accesibil_cu_cod": true}
+  ],
+  "html_parsabil": [
+    {"url": "https://jguitar.com", "tara": "global", "limba": "en", "categorie": "acorduri/game/acordaje (calc)", "metoda": "HTML+calc dinamic", "accesibil_cu_cod": true},
+    {"url": "https://www.all-guitar-chords.com", "tara": "global", "limba": "multi", "categorie": "acorduri+variatii+audio", "metoda": "HTML", "accesibil_cu_cod": true},
+    {"url": "https://openmusictheory.com", "tara": "global", "limba": "en", "categorie": "teorie (CC)", "metoda": "HTML/markdown", "accesibil_cu_cod": true},
+    {"url": "https://abcnotation.com", "tara": "global", "limba": "en", "categorie": "notatie text", "metoda": "HTML", "accesibil_cu_cod": true}
+  ],
+  "de_testat": [
+    {"url": "https://www.oolimo.com", "tara": "DE", "limba": "de/en", "categorie": "acorduri", "metoda": "HTML (de verificat anti-bot)", "accesibil_cu_cod": "de testat"},
+    {"url": "https://chordpic.com", "tara": "global", "limba": "en", "categorie": "acorduri", "metoda": "HTML", "accesibil_cu_cod": "de testat"}
+  ],
+  "siteuri_locale_din_lista_ta": [
+    {"tara": "RO", "cautare": "site:.ro \"teorie chitara\""},
+    {"tara": "DE", "cautare": "site:.de \"Gitarre\" \"Musiktheorie\""},
+    {"tara": "FR", "cautare": "site:.fr \"théorie\" \"guitare\""},
+    {"tara": "ES", "cautare": "site:.es \"teoría\" \"guitarra\""},
+    {"tara": "JP", "cautare": "site:.jp ギター 理論"},
+    {"tara": "BR", "cautare": "site:.br \"teoria\" \"violão\""}
+  ]
+}
