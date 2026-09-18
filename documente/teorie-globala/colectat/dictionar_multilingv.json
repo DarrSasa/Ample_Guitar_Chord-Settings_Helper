@@ -1,0 +1,21 @@
+{
+  "_metoda": "MediaWiki langlinks (traduceri reale) + cunostinte pt. restul; cheile = limba ISO",
+  "intrari": [
+    {"en":"Palm Mute","de":"Palm Muting","es":"Palm mute","fr":"Palm mute","it":"Palm mute","ja":"ミュート (ギター)","ru":"Palm muting","uk":"Глушіння долонею","pl":"Palm muting","da":"Palm muting","fi":"Palm mute","sursa":"langlinks"},
+    {"en":"Vibrato","ar":"فيبراتو","eo":"Vibrado (muziko)","et":"Vibraato","fa":"ویبراتو","he":"ויברטו","hu":"Vibrato","id":"Vibrato","de":"Vibrato","fr":"Vibrato","sursa":"langlinks"},
+    {"en":"Hammer-on","cs":"Příklep (hudba)","be-tarask":"Хамэр","ja":"ハンマリング・オン","pl":"Hammering","de":"Hammer-on","fr":"Hammer-on","es":"Hammer-on","sursa":"langlinks"},
+    {"en":"Tapping","be":"Тэпінг","chr":"ᎦᏲᎲ","cs":"Tapping","de":"Tapping","es":"Tapping","fr":"Tapping","gl":"Tapping","ca":"Tapping","da":"Tapping","sursa":"langlinks"},
+    {"en":"Fingerstyle guitar","da":"Fingerpicking","de":"Fingerstyle","eo":"Fingroplukado","es":"Fingerpicking","fa":"فینگراستایل","fi":"Näppäily (kitara)","fr":"Guitare fingerstyle","he":"פינגר סטייל","hy":"Ֆինգերսթայլ","id":"Gitar fingerstyle","sursa":"langlinks"},
+    {"en":"Pull-off","ja":"プリング・オフ","de":"Pull-off","fr":"Pull-off","sursa":"cunostinte"},
+    {"en":"Natural harmonic","es":"Armónico natural","de":"Flageolett","fr":"Harmonique","ja":"ハーモニクス","sursa":"cunostinte"},
+    {"en":"Slide","es":"Slide","de":"Slide","ja":"スライド","sursa":"cunostinte"},
+    {"en":"Strum","es":"Rasgueo","de":"Anschlag","fr":"Gratté","it":"Pennata","sursa":"cunostinte"},
+    {"en":"Bend","es":"Bend","de":"Bending","ja":"チョーキング","sursa":"cunostinte"},
+    {"en":"Slap","ja":"スラップ","de":"Slapping","fr":"Slap","sursa":"cunostinte"},
+    {"en":"Rasgueado","es":"Rasgueado","en-alt":"Rasgueado","tara":"ES","sursa":"cunostinte"},
+    {"en":"Alzapúa","es":"Alzapúa","tara":"ES","sursa":"cunostinte"},
+    {"en":"Golpe","es":"Golpe","tara":"ES/VE","sursa":"cunostinte"},
+    {"en":"Dead note","es":"Nota muerta","de":"Dead Note","fr":"Note morte","sursa":"cunostinte"},
+    {"en":"Staccato","es":"Staccato","de":"Staccato","fr":"Staccato","ru":"Стаккато","sursa":"cunostinte"}
+  ]
+}
