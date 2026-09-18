@@ -1,0 +1,34 @@
+TASK: Build a multilingual guitar-theory dataset (JSON) for a chord-progression app.
+
+WORK DIR: this folder (Web_Guitar_Theory). Read "siteuri global teorie chitara.txt"
+for the list of source sites (many countries/languages). You may add well-known
+public sources (e.g. jguitar.com, all-guitar-chords.com, oolimo.com, wikipedia
+music-theory pages in any language).
+
+GOAL: extract FACTUAL music-theory data about guitar — NOT copyrighted prose:
+  1. chord formulas: for each chord type, the semitone intervals from the root
+     (e.g. maj7=[0,4,7,11]), plus root note names and, when available, one or
+     more guitar fret shapes (frets per string, "x"=muted) and fingerings;
+  2. scales/modes: name + semitone intervals (e.g. Dorian=[0,2,3,5,7,9,10]);
+  3. tunings: name + string MIDI notes or note names (standard, drop D, DADGAD,
+     open G, regional tunings from each country's tradition);
+  4. rhythm/strum patterns: name, genre, time signature, list of {t,dir,accent};
+  5. techniques (hammer-on, slide, rasgueado, alzapua, etc.) with a one-line
+     description and, if known, the Ample Sound keyswitch.
+
+RULES:
+- Output ONLY JSON files that validate against "schema-teorie.json" (same folder).
+- One file per source, named "teorie_<tara>_<limba>_<site>.json"; every file must
+  include the "sursa" block {url, tara, limba, licenta, colectat_la}.
+- Normalize note names to English letters (C C# D ... B); keep the original
+  language name in a "_nume_original" field when useful.
+- Intervals are integers (semitones from root). Frets are 6-element arrays of
+  strings ("x" or a number).
+- Do NOT copy article text; store only structured facts (names, intervals,
+  notes, frets). Respect each site's license; record it in "sursa.licenta".
+- NEVER write the API key into any output file.
+- After collecting, write "manifest.json": { "fisier": [..], "total_acorduri": n,
+  "total_game": n, "total_surse": n } and verify every file with a JSON parse.
+
+SUCCESS CHECK: all *.json parse; manifest totals > 0; each acord has "intervale".
+Write a short "run-status.json" summary at the end.

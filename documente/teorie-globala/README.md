@@ -1,0 +1,40 @@
+# Teorie globală de chitară (colectată cu DeepAstra) — punct de încărcare
+
+Aici încarci fișierele produse de **DeepAstra** (rulează local prin Codex CLI cu
+OpenRouter/DeepSeek), ca eu să le pot interpreta când le urci pe GitHub.
+
+## Adresa de încărcare (upload)
+
+```
+https://github.com/DarrSasa/Ample_Guitar_Chord-Settings_Helper/upload/arena/01a034f1-ample-guitar-chord-settings-he/documente/teorie-globala
+```
+
+Încarcă aici:
+- `siteuri global teorie chitara.txt` (lista ta de adrese din diferite țări);
+- fișierele `.json` colectate (din folderul local `…_Details\Web_Guitar_Theory\colectat\`).
+
+## ⚠️ Securitate
+
+- **NU încărca niciodată** `DeepAstra_openrouter_key.txt` (cheia API) pe GitHub.
+  Cheia stă DOAR local și se pasează prin `--key-file` / `OPENROUTER_API_KEY`.
+- Fișierele colectate conțin doar **fapte muzicale** (intervale, note, taste),
+  nu text cu drepturi de autor copiat verbatim.
+
+## Schema așteptată
+
+Vezi `schema-teorie.json`. Fiecare fișier colectat respectă schema și are un
+bloc `sursa` (url/țară/limbă/licență). La încărcare, eu le unesc în
+`src/music/theory.ts` / bazele existente.
+
+## Cum rulezi colectarea (local, prin Codex/DeepAstra)
+
+```
+python3 launch.py doctor --provider openrouter --key-file "C:\...\DeepAstra_openrouter_key.txt"
+python3 launch.py exec --provider openrouter ^
+  --cwd "C:\MY_PYTHON_PROJECTS\Ample_Guitar_Chord-Settings_Helper_Details\Web_Guitar_Theory" ^
+  --key-file "C:\...\DeepAstra_openrouter_key.txt" ^
+  --prompt-file "PROMPT-DeepAstra-colectare.txt" ^
+  --status-file "run-status.json" --timeout 900
+```
+
+Promptul corect e în `PROMPT-DeepAstra-colectare.txt`.

@@ -1,0 +1,26 @@
+{
+  "_schema": "teorie-chitara v1 — fiecare fisier colectat respecta aceasta forma",
+  "sursa": { "url": "", "tara": "", "limba": "", "licenta": "", "colectat_la": "" },
+  "acorduri": [
+    {
+      "nume": "Cmaj7",
+      "radacina": "C",
+      "tip": "maj7",
+      "intervale": [0, 4, 7, 11],
+      "note": ["C", "E", "G", "B"],
+      "frets": ["x", "3", "2", "0", "0", "0"],
+      "degete": [0, 3, 2, 0, 0, 0]
+    }
+  ],
+  "game": [
+    { "nume": "Dorian", "intervale": [0, 2, 3, 5, 7, 9, 10], "note": [] }
+  ],
+  "acordaje": [
+    { "nume": "standard", "corzi_midi": [40, 45, 50, 55, 59, 64], "note": ["E","A","D","G","B","E"] }
+  ],
+  "ritmuri": [
+    { "nume": "folk-strum", "gen": "folk", "masura": "4/4",
+      "pasi": [ { "t": 0, "dir": "D", "accent": 1 }, { "t": 2, "dir": "D" }, { "t": 2.5, "dir": "U" } ] }
+  ],
+  "tehnici": [ { "nume": "hammer-on", "descriere_scurta": "", "keyswitch_ample": "" } ]
+}
