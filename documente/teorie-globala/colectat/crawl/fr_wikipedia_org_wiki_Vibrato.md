@@ -1,0 +1,15 @@
+Le**vibrato**(repris du même substantif[italien](https://fr.wikipedia.org/wiki/Italien "Italien"), dérivé de l'adjectif _vibrato_ , «vibré») est une modulation périodique du son d'une[note de musique](https://fr.wikipedia.org/wiki/Note_de_musique "Note de musique"). La nature de cette modulation (purement de[hauteur](https://fr.wikipedia.org/wiki/Hauteur_\(musique\) "Hauteur \(musique\)")ou non) dépend de la nature de l'instrument et de la technique qu'utilise le[musicien](https://fr.wikipedia.org/wiki/Musicien "Musicien").
+Le vibrato manuel, avec modulation de hauteur sans modulation d'intensité, se pratique sur le luth, la guitare classique et d'autres instruments à cordes pincées en levant et abaissant légèrement la corde avec les doigts.
+## Guitare
+| [Exemple de vibrato léger sur guitare électrique.](https://fr.wikipedia.org/wiki/Fichier:Guitare_vibrato.ogg "Fichier:Guitare vibrato.ogg") Le vibrato peut désigner plusieurs choses dans l'univers de la[guitare](https://fr.wikipedia.org/wiki/Guitare "Guitare"): l'effet de vibré, noté par des vaguelettes sur les[tablatures](https://fr.wikipedia.org/wiki/Tablature "Tablature"), ou un accessoire permettant de réaliser cet effet – sur les guitares électriques. Il s'agit d'une tige métallique enfoncée ou vissée au niveau du[chevalet](https://fr.wikipedia.org/wiki/Chevalet_\(musique\) "Chevalet \(musique\)"), qui permet de modifier la tension des cordes et ainsi la fréquence des notes jouées. Son appellation anglophone est _whammy bar_. Il peut également désigner un effet audio.
+### Vibrato manuel à la guitare
+Un vibrato joué sur guitare électrique, au ralenti. Le vibrato peut s'apparenter à la technique du[bend](https://fr.wikipedia.org/wiki/Bend "Bend")mais il ne faut pas les confondre pour autant. Le _vibrato_ fait varier rapidement la hauteur du son plusieurs fois par seconde. Le _bend_ consiste à _courber_ la note, la rendant plus aigüe, et à la tenir à cette hauteur. Tige de vibrato sur une guitare électrique ([Fender Stratocaster](https://fr.wikipedia.org/wiki/Fender_Stratocaster "Fender Stratocaster")).  | Voir aussi[Glossaire théorique et technique de la musique occidentale](https://fr.wikipedia.org/wiki/Glossaire_th%C3%A9orique_et_technique_de_la_musique_occidentale "Glossaire théorique et technique de la musique occidentale")
+* [![icône décorative](https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/E-Guitare-horiz.png/60px-E-Guitare-horiz.png?utm_source=fr.wikipedia.org&utm_campaign=parser&utm_content=thumbnail)](https://fr.wikipedia.org/wiki/Portail:Guitare "Portail de la guitare")[Portail de la guitare](https://fr.wikipedia.org/wiki/Portail:Guitare "Portail:Guitare")
+* [Technique de jeu instrumental](https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Technique_de_jeu_instrumental "Catégorie:Technique de jeu instrumental")
+  *[(en)]: Langue : anglais
+  *[p.]: page
+  *[2e]: deuxième
+  *[éd.]: édition
+  *[1re]: première
+  *[v]: Voir ce modèle.
+  *[m]: Modifier ce modèle. Merci de prévisualiser avant de sauvegarder.

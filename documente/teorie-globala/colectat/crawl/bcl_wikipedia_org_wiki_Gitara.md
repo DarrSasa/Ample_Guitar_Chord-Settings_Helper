@@ -1,0 +1,1 @@
+* [↑](https://bcl.wikipedia.org/wiki/Gitara#cite_ref-smogyipremier_1-0 "Lukso paitaas")Somogyi, Ervin (January 7, 2011).["Tracking The Steel-String Guitar's Evolution, Pt. 1"](https://www.premierguitar.com/articles/Tracking_The_Steel_String_Guitars_Evolution_Pt_1)._premierguitar.com_. Premier Guitar Magazine. RetrievedFebruary 27,2021.

@@ -1,0 +1,6 @@
+**Interval** je u[glazbenoj teoriji](https://hr.wikipedia.org/wiki/Teorija_glazbe "Teorija glazbe")razlika u visini između bilo koja dva[tona](https://hr.wikipedia.org/wiki/Ton "Ton")[dijatonske ljestvice](https://hr.wikipedia.org/wiki/Dijatonska_ljestvica?action=edit&redlink=1 "Dijatonska ljestvica \(stranica ne postoji\)"). Prvi je u povijesti interval teorijski odredio[Pitagora](https://hr.wikipedia.org/wiki/Pitagora "Pitagora"), podijelivši žicu monokorda u raznim omjerima (2:1, 3:2, 4:3, 5:4).[kako?]
+[Konsonanca i disonanca](https://hr.wikipedia.org/wiki/Konsonanca_i_disonanca?action=edit&redlink=1 "Konsonanca i disonanca \(stranica ne postoji\)")su relativni pojmovi u današnjoj glazbi. Generalno, disonantni intervali su oni koji izazivaju napetost (nelagodu) kod slušača i traže «rješenje». Nasuprot njima konsonantni ne traže rješenje. Kako su se mijenjala stilska razdoblja, tako se i mijenjao odnos spram intervala. Dok je neki interval u nekom razdoblju smatran za disonancu, u sljedećem bi se već smatrao konsonancom. Danas se uzimaju pravila[klasične harmonije](https://hr.wikipedia.org/wiki/Harmonija_\(glazba\) "Harmonija \(glazba\)")da bi se odredilo koji su intervali konsonantni, a koji disonantni.
+Interval (glazbena teorija)
+  *[v]: Vidi ovaj predložak
+  *[r]: Raspravi ovaj predložak
+  *[u]: Uredi ovaj predložak

@@ -1,0 +1,20 @@
+واژه guitar در[زبان انگلیسی](https://fa.wikipedia.org/wiki/%D8%B2%D8%A8%D8%A7%D9%86_%D8%A7%D9%86%DA%AF%D9%84%DB%8C%D8%B3%DB%8C "زبان انگلیسی")، gitarre در[زبان آلمانی](https://fa.wikipedia.org/wiki/%D8%B2%D8%A8%D8%A7%D9%86_%D8%A2%D9%84%D9%85%D8%A7%D9%86%DB%8C "زبان آلمانی")و guietare در[زبان فرانسوی](https://fa.wikipedia.org/wiki/%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%B1%D8%A7%D9%86%D8%B3%D9%88%DB%8C "زبان فرانسوی")، همگی برگرفته از واژه guitarra در[زبان اسپانیایی](https://fa.wikipedia.org/wiki/%D8%B2%D8%A8%D8%A7%D9%86_%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%DB%8C%D8%A7%DB%8C%DB%8C "زبان اسپانیایی")هستند که آن خود از واژه قیثاره در زبان[عربی اندلسی](https://fa.wikipedia.org/wiki/%D8%B9%D8%B1%D8%A8%DB%8C_%D8%A7%D9%86%D8%AF%D9%84%D8%B3%DB%8C "عربی اندلسی")برگرفته شده‌است. این واژه نیز خود مشتق شده از واژه[لاتین](https://fa.wikipedia.org/wiki/%D8%B2%D8%A8%D8%A7%D9%86_%D9%84%D8%A7%D8%AA%DB%8C%D9%86 "زبان لاتین")cithara است که نسبت آن به واژه κιθάρα kithara در[یونانی باستان](https://fa.wikipedia.org/wiki/%DB%8C%D9%88%D9%86%D8%A7%D9%86%DB%8C_%D8%A8%D8%A7%D8%B3%D8%AA%D8%A7%D9%86 "یونانی باستان")می‌رسد. این واژه یونانی هم شاید از واژه پارسی سیهْتار ([سه‌تار](https://fa.wikipedia.org/wiki/%D8%B3%D9%87%E2%80%8C%D8%AA%D8%A7%D8%B1 "سه‌تار")) آمده‌است.[[۱]](https://fa.wikipedia.org/wiki/%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1#cite_note-1)
+* [Alto guitar](https://fa.wikipedia.org/wiki/Six-string_alto_guitar?action=edit&redlink=1 "Six-string alto guitar \(صفحه وجود ندارد\)")
+* [Baritone guitar](https://fa.wikipedia.org/wiki/Baritone_guitar?action=edit&redlink=1 "Baritone guitar \(صفحه وجود ندارد\)")
+* [Multi-neck guitar](https://fa.wikipedia.org/wiki/Multi-neck_guitar?action=edit&redlink=1 "Multi-neck guitar \(صفحه وجود ندارد\)")
+* [Harp guitar](https://fa.wikipedia.org/wiki/Harp_guitar?action=edit&redlink=1 "Harp guitar \(صفحه وجود ندارد\)")
+* [Pikasso guitar](https://fa.wikipedia.org/wiki/Pikasso_guitar?action=edit&redlink=1 "Pikasso guitar \(صفحه وجود ندارد\)")
+* [Requinto guitar](https://fa.wikipedia.org/wiki/Requinto?action=edit&redlink=1#Requinto_guitar "Requinto \(صفحه وجود ندارد\)")
+* [Warr Guitars](https://fa.wikipedia.org/wiki/Warr_Guitars?action=edit&redlink=1 "Warr Guitars \(صفحه وجود ندارد\)")
+* [Vintage guitar](https://fa.wikipedia.org/wiki/Vintage_guitar?action=edit&redlink=1 "Vintage guitar \(صفحه وجود ندارد\)")
+* [Jazz guitar](https://fa.wikipedia.org/wiki/Jazz_guitar?action=edit&redlink=1 "Jazz guitar \(صفحه وجود ندارد\)")
+* [Guitar chord](https://fa.wikipedia.org/wiki/Guitar_chord?action=edit&redlink=1 "Guitar chord \(صفحه وجود ندارد\)")
+* [Guitar harmonics](https://fa.wikipedia.org/wiki/Guitar_harmonics?action=edit&redlink=1 "Guitar harmonics \(صفحه وجود ندارد\)")
+* [Prepared guitar](https://fa.wikipedia.org/wiki/Prepared_guitar?action=edit&redlink=1 "Prepared guitar \(صفحه وجود ندارد\)")
+* [Electric Guitar Design](https://fa.wikipedia.org/wiki/Electric_Guitar_Design?action=edit&redlink=1 "Electric Guitar Design \(صفحه وجود ندارد\)")
+* [History of the classical guitar](https://fa.wikipedia.org/wiki/History_of_the_classical_guitar?action=edit&redlink=1 "History of the classical guitar \(صفحه وجود ندارد\)")
+* [List of extended-range guitar players](https://fa.wikipedia.org/wiki/List_of_extended-range_guitar_players?action=edit&redlink=1 "List of extended-range guitar players \(صفحه وجود ندارد\)")
+* [Air guitar](https://fa.wikipedia.org/wiki/Air_guitar?action=edit&redlink=1 "Air guitar \(صفحه وجود ندارد\)")
+  *[ن]: مشاهدهٔ این الگو
+  *[ب]: بحث پیرامون این الگو
+  *[و]: ویرایش کردن این الگو

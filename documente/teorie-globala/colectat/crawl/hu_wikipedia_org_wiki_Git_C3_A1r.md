@@ -1,0 +1,1 @@
+* [_Guitar Freak_](https://www.guitarfreak.tk/)[Archiválva](https://web.archive.org/web/20090712125719/http://www.guitarfreak.tk/)2009. július 12-idátummal a[Wayback Machine](https://hu.wikipedia.org/wiki/Internet_Archive "Internet Archive")-ben- Gitáros hírek, leckék, ajánlók

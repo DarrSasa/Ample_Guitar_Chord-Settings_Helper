@@ -1,0 +1,1 @@
+* [↑](https://et.wikipedia.org/wiki/Ostinaato#cite_ref-2 "Siirdu üles")Rawlins, Robert (2005)._Jazzology: The Encyclopedia of Jazz Theory for All Musicians_ , lk.132-133.[ISBN 0-634-08678-2](https://et.wikipedia.org/wiki/Special:BookSources/0634086782).

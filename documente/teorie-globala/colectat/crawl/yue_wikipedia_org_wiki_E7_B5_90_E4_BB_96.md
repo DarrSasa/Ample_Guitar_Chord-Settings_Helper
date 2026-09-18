@@ -1,0 +1,1 @@
+* [↑](https://zh-yue.wikipedia.org/wiki/%E7%B5%90%E4%BB%96#cite_ref-5 "跳到")Werner, Bradford C. (2020).[_Classical Guitar Method_](https://www.thisisclassicalguitar.com/wp-content/uploads/2021/03/Classical-Guitar-Method-Vol1-2020.pdf)(PDF)(加拿大英文).第1卷. pp.11, 38. 喺2024年10月30號搵到.

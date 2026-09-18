@@ -1,0 +1,1 @@
+* Wieland Harms:_The Unplugged Guitar Book. 20 der schönsten Songs für Akustikgitarre._ Gerig Music,[ISBN 3-87252-249-3](https://de.wikipedia.org/wiki/Special:BookSources/3872522493), S. 112 (_Notations-Symbole_).

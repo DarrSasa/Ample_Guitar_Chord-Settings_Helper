@@ -1,0 +1,2 @@
+* Levine, Mark (1995).[_Jazz theory book_](https://archive.org/details/jazztheorybook0000levi)(134ª edición). Sher Music.
+* Levine, Mark (1995).[_Jazz Theory Book_](https://archive.org/details/jazztheorybook00levi)(en inglés)(1ª edición). Sher Music. pp.[522](https://archive.org/details/jazztheorybook00levi/page/n539).[ISBN](https://es.wikipedia.org/wiki/ISBN "ISBN")[978-1883217044](https://es.wikipedia.org/wiki/Especial:FuentesDeLibros/978-1883217044 "Especial:FuentesDeLibros/978-1883217044").

@@ -1,0 +1,1 @@
+* [Vibrating Strings, Musical Intervals and the Curves of Lissajous](https://gerdbreitenbach.de/lissajous/lissajous.html)Simulation zur graphischen Darstellung von musikalischen Intervallen, Schwebungen, schwingender Saiten (englisch)

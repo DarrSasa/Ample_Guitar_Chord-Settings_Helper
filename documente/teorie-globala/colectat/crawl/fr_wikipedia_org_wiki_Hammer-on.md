@@ -1,0 +1,36 @@
+Hammer-on réalisé sur une guitare électrique
+Puisque l'usage de cette technique implique de ne pas réattaquer la corde jouée, il est généralement plus aisé de la jouer avec un effet type[distortion](https://fr.wikipedia.org/wiki/Distorsion_\(musique\) "Distorsion \(musique\)")ou[overdrive](https://fr.wikipedia.org/wiki/Overdrive_\(effet\) "Overdrive \(effet\)")qui rend audible des notes jouées à un volume plus faible.
+La technique opposée est le _[pull-off](https://fr.wikipedia.org/wiki/Pull-off "Pull-off")_ , qui permet de jouer de manière liée des notes descendantes.
+* [↑](https://fr.wikipedia.org/wiki/Hammer-on#cite_ref-1 "Revenir plus haut")JonChappelet DanielIchbiah,La guitare pour les nuls, First Ed,2005([ISBN](https://fr.wikipedia.org/wiki/International_Standard_Book_Number "International Standard Book Number")[978-2-7540-0124-3](https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Ouvrages_de_r%C3%A9f%C3%A9rence/978-2-7540-0124-3 "Spécial:Ouvrages de référence/978-2-7540-0124-3")et[2-7540-0124-7](https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Ouvrages_de_r%C3%A9f%C3%A9rence/2-7540-0124-7 "Spécial:Ouvrages de référence/2-7540-0124-7"),[OCLC](https://fr.wikipedia.org/wiki/Online_Computer_Library_Center "Online Computer Library Center")[1040080501](https://worldcat.org/fr/title/1040080501),[lire en ligne](https://www.worldcat.org/oclc/1040080501)[[archive](https://archive.wikiwix.com/cache/?url=https%3A%2F%2Fwww.worldcat.org%2Foclc%2F1040080501 "archive sur Wikiwix")])
+* [↑](https://fr.wikipedia.org/wiki/Hammer-on#cite_ref-2 "Revenir plus haut")Arobas Music, «[Guide utilisateur Guitar Pro 8](https://static.guitar-pro.com/gp8/manual/Guitar-Pro-8-guide-utilisateur.pdf)[[archive](https://archive.wikiwix.com/cache/?url=https%3A%2F%2Fstatic.guitar-pro.com%2Fgp8%2Fmanual%2FGuitar-Pro-8-guide-utilisateur.pdf "archive sur Wikiwix")]»[PDF], sur[Guitar Pro](https://fr.wikipedia.org/wiki/Guitar_Pro "Guitar Pro")(consulté le25 avril 2023)
+[Guitares](https://fr.wikipedia.org/wiki/Guitare "Guitare")
+* [Caisse de résonance](https://fr.wikipedia.org/wiki/Caisse_de_r%C3%A9sonance "Caisse de résonance")
+* [Micro](https://fr.wikipedia.org/wiki/Micro_\(guitare\) "Micro \(guitare\)")
+* [Ampli de guitare](https://fr.wikipedia.org/wiki/Amplificateur_pour_guitare_%C3%A9lectrique "Amplificateur pour guitare électrique")
+* [Guitare électro-acoustique](https://fr.wikipedia.org/wiki/Guitare_%C3%A9lectro-acoustique "Guitare électro-acoustique")
+* [Guitare semi-acoustique](https://fr.wikipedia.org/wiki/Guitare_semi-acoustique "Guitare semi-acoustique")
+* [Guitare à résonateur](https://fr.wikipedia.org/wiki/Instrument_%C3%A0_r%C3%A9sonateur "Instrument à résonateur")
+| [Type de guitare](https://fr.wikipedia.org/wiki/Guitares_par_type "Guitares par type")
+* [Guitare à douze cordes](https://fr.wikipedia.org/wiki/Guitare_%C3%A0_douze_cordes "Guitare à douze cordes")
+* [Guitare baryton](https://fr.wikipedia.org/wiki/Guitare_baryton "Guitare baryton")
+* [Guitare baroque](https://fr.wikipedia.org/wiki/Guitare_baroque "Guitare baroque")
+* [Guitare basse](https://fr.wikipedia.org/wiki/Guitare_basse "Guitare basse")
+* [Guitare classique](https://fr.wikipedia.org/wiki/Guitare_classique "Guitare classique")
+* [Guitare flamenca](https://fr.wikipedia.org/wiki/Guitare_flamenca "Guitare flamenca")
+* [Guitare folk](https://fr.wikipedia.org/wiki/Guitare_folk "Guitare folk")
+* [Guitare hawaïenne](https://fr.wikipedia.org/wiki/Guitare_hawa%C3%AFenne "Guitare hawaïenne")
+* [Guitare ténor](https://fr.wikipedia.org/wiki/Guitare_t%C3%A9nor "Guitare ténor")
+* [Warr Guitar](https://fr.wikipedia.org/wiki/Warr_Guitar "Warr Guitar")
+* [Guitare à double manche](https://fr.wikipedia.org/wiki/Guitare_%C3%A0_double_manche "Guitare à double manche")
+* [Guitare fretless](https://fr.wikipedia.org/wiki/Guitare_fretless "Guitare fretless")
+* [Guitare préparée](https://fr.wikipedia.org/wiki/Guitare_pr%C3%A9par%C3%A9e "Guitare préparée")
+ | [Technique de jeu](https://fr.wikipedia.org/wiki/Techniques_de_jeu_pour_guitare "Techniques de jeu pour guitare")
+* [Guitar hero](https://fr.wikipedia.org/wiki/Guitar_hero "Guitar hero")
+* [Accords de guitare](https://fr.wikipedia.org/wiki/Liste_des_accords_de_guitare "Liste des accords de guitare")
+* [Corde de guitare](https://fr.wikipedia.org/wiki/Corde_de_guitare "Corde de guitare")
+* [![icône décorative](https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/E-Guitare-horiz.png/60px-E-Guitare-horiz.png?utm_source=fr.wikipedia.org&utm_campaign=parser&utm_content=thumbnail)](https://fr.wikipedia.org/wiki/Portail:Guitare "Portail de la guitare")[Portail de la guitare](https://fr.wikipedia.org/wiki/Portail:Guitare "Portail:Guitare")
+* [Technique de jeu instrumental](https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Technique_de_jeu_instrumental "Catégorie:Technique de jeu instrumental")
+* [Wikipédia:ébauche guitare](https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Wikip%C3%A9dia:%C3%A9bauche_guitare "Catégorie:Wikipédia:ébauche guitare")
+  *[[PDF]]: Document au format Portable Document Format (PDF) d'Adobe
+  *[v]: Voir ce modèle.
+  *[m]: Modifier ce modèle. Merci de prévisualiser avant de sauvegarder.

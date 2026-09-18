@@ -1,0 +1,1 @@
+* [↑](https://es.wikipedia.org/wiki/Intervalo_%28m%C3%BAsica%29#cite_ref-10 "Volver arriba")Helmholtz, Hermann von (1885).[_On the Sensations of Tone as a Physiological Basis for the Theory of Music_](https://books.google.es/books?id=GwE6AAAAIAAJ). Longmans, Green. pp.172;178; 182-183.

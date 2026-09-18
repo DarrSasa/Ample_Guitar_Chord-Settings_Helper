@@ -1,0 +1,6 @@
+[interval ratio](https://www.wikidata.org/wiki/Special:EntityPage/Q6057278 "d:Special:EntityPage/Q6057278")(en)[![Traducir](https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Noun_Project_label_icon_1116097_cc_mirror.svg/20px-Noun_Project_label_icon_1116097_cc_mirror.svg.png?utm_source=gl.wikipedia.org&utm_campaign=parser&utm_content=thumbnail)](https://www.wikidata.org/wiki/Q6057278?uselang=gl "Traducir")  
+[magnitude física](https://gl.wikipedia.org/wiki/Magnitude_f%C3%ADsica "Magnitude física")  
+[musical parameter](https://www.wikidata.org/wiki/Special:EntityPage/Q1639408 "d:Special:EntityPage/Q1639408")(en)[![Traducir](https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Noun_Project_label_icon_1116097_cc_mirror.svg/20px-Noun_Project_label_icon_1116097_cc_mirror.svg.png?utm_source=gl.wikipedia.org&utm_campaign=parser&utm_content=thumbnail)](https://www.wikidata.org/wiki/Q1639408?uselang=gl "Traducir")[![Editar o valor en Wikidata](https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Arbcom_ru_editing.svg/20px-Arbcom_ru_editing.svg.png?utm_source=gl.wikipedia.org&utm_campaign=parser&utm_content=thumbnail)](https://www.wikidata.org/wiki/Q189962?uselang=gl#P279 "Editar o valor en Wikidata")
+  *[v]: Ver o modelo
+  *[c]: Conversa do modelo
+  *[e]: Editar o modelo

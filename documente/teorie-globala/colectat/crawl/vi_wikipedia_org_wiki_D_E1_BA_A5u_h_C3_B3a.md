@@ -1,0 +1,1 @@
+* [↑](https://vi.wikipedia.org/wiki/D%E1%BA%A5u_h%C3%B3a#cite_ref-Schonbrun_4-0 "Bước lên")Schonbrun, Marc (2005)._The Everything Music Theory Book_ , tr. 68.[ISBN 1-59337-652-9](https://vi.wikipedia.org/wiki/Special:BookSources/1593376529).

@@ -1,0 +1,1 @@
+* [Saltar a:1](https://es.wikipedia.org/wiki/Armadura_%28m%C3%BAsica%29#cite_ref-Pilhofer_6-0)[2](https://es.wikipedia.org/wiki/Armadura_%28m%C3%BAsica%29#cite_ref-Pilhofer_6-1)Pilhofer, Michael.[_Music Theory For Dummies_](https://books.google.es/books?id=FJ-LBgAAQBAJ&pg=PA98). John Wiley & Sons, 2015, p. 98.

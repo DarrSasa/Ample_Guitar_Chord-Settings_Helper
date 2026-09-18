@@ -1,0 +1,2 @@
+| Quel articul chì l'è scrivüü in[Lumbard](https://lmo.wikipedia.org/wiki/Lumbard "Lumbard"), cun l'urtugrafia[insübrica ünificada](https://lmo.wikipedia.org/wiki/Urtugrafia_ins%C3%BCbrica_%C3%BCnificada "Urtugrafia insübrica ünificada").
+* [International Guitar Research Archive](http://library.csun.edu/igra/)[Arqiviad](https://lmo.wikipedia.org/wiki/Internet_Archive "Internet Archive")qé:[](https://web.archive.org/web/20110719135326/http://library.csun.edu/igra/)

@@ -1,0 +1,2 @@
+| intervalli nimetus Intervalli pöördeks nimetatakse intervalli[helide](https://et.wikipedia.org/wiki/Muusikaline_heli "Muusikaline heli")ümberasetust üksteise suhtes. [Altereerimine](https://et.wikipedia.org/wiki/Altereerimine "Altereerimine")muudab iga intervalli kas suurendatuks või vähendatuks. Kahekordne[alteratsioon](https://et.wikipedia.org/wiki/Alteratsioon_\(muusika\) "Alteratsioon \(muusika\)")muudab iga intervalli kas kahekordselt suurendatuks või kahekordselt vähendatuks.
+## Intervalli tähistus

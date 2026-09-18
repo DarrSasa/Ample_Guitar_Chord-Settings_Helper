@@ -1,0 +1,1 @@
+* [↑](https://tr.wikipedia.org/wiki/Ostinato#cite_ref-1 "Yukarı git")Bufe, Chaz (1994)._An Understandable Guide to Music Theory: The Most Useful Aspects of Theory for Rock, Jazz, and Blues Musicians_ , p.59.[ISBN 9781884365003](https://tr.wikipedia.org/wiki/Special:BookSources/9781884365003).

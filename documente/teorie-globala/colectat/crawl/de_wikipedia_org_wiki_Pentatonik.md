@@ -1,0 +1,3 @@
+![](https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/20px-Commons-logo.svg.png?utm_source=de.wikipedia.org&utm_campaign=parser&utm_content=thumbnail)
+**[Commons : Scales on guitar](https://commons.wikimedia.org/wiki/Category:Scales_on_guitar?uselang=de)**– Sammlung von Bildern
+* [↑](https://de.wikipedia.org/wiki/Pentatonik#cite_ref-12 "Hochspringen")Bernd Kofler:_Perfect Guitar – The Pentatonic Workbook._[Books on Demand](https://de.wikipedia.org/wiki/Books_on_Demand "Books on Demand"), 2002,[ISBN 3-8311-3111-2](https://de.wikipedia.org/wiki/Special:BookSources/3831131112).

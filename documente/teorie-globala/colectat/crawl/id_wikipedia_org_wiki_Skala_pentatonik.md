@@ -1,0 +1,14 @@
+Skala pentatonik atau tangga nada pentatonik adalah suatu skala dalam muzik dengan lima nor per oktaf. Skala pentatonik biasanya digunakan sebagai dasar dalam memainkan jenis muzik blues. Ada dua skala pentatonik yang paling sering digunakan yaitu skala pentatonik "Major" dan skala pentatonik "Minor". Pola interval pada skala pentatonik "Major" adalah M2-M2-m3-M2-m3, sementara skala pentatonik "Minor" adalah m3-M2-M2-m3-M2.
+**Skala pentatonik** atau**tangga nada pentatonik** adalah suatu[skala](https://id.wikipedia.org/wiki/Skala_\(musik\) "Skala \(musik\)")dalam muzik dengan lima[not](https://id.wikipedia.org/wiki/Not "Not")per[oktaf](https://id.wikipedia.org/wiki/Oktaf "Oktaf"). Skala pentatonik biasanya digunakan sebagai dasar dalam memainkan jenis muzik blues . Ada dua skala pentatonik yang paling sering digunakan iaitu skala pentatonik "Major dan skala pentatonik "Minor" . Pola interval pada skala pentatonik "Major" adalah M2-M2-m3-M2-m3, sementara pada skala pentatonik "Minor" adalah m3-M2-M2-m3-M2.
+* [_Pentatonicism from the Eighteenth Century to Debussy_](http://www.urpress.com/store/viewItem.asp?idProduct=10903)by Jeremy Day-O'Connell (University of Rochester Press 2007) – the first comprehensive account of the increasing use of the pentatonic scale in 19th century Western art music, including a catalogue of over 400 musical examples.
+* Jeff Burns,_Pentatonic Scales for the Jazz-Rock Keyboardist_(1997).
+* [Pentatonic Scales for Guitar- A brief introduction](http://robsilverguitars.blogspot.co.uk/2012/06/pentatonic-scales-for-guitar-brief.html)
+* [Guitar Lessons of the Pentatonic & Blues Scale](http://www.blueslessons.net/index.php?option=com_content&task=view&id=133&Itemid=84)
+* [Alternative uses for the pentatonic scale](http://www.jazzguitar.be/jazz_guitar_lesson_pentatonic_scale.html)
+* [Printable pentatonic scale shapes for guitar](http://www.guitaristhelp.net/Scales_pentatonic.gif)[Diarsipkan](https://web.archive.org/web/20090327140559/http://www.guitaristhelp.net/Scales_pentatonic.gif)2009-03-27 di[Wayback Machine](https://id.wikipedia.org/wiki/Wayback_Machine "Wayback Machine").
+* [Pentatonic Minor - Learning The Five Scale Positions for guitar](http://www.theorylessons.com/pentpos.html)[Diarsipkan](https://web.archive.org/web/20100214164732/http://www.theorylessons.com/pentpos.html)2010-02-14 di[Wayback Machine](https://id.wikipedia.org/wiki/Wayback_Machine "Wayback Machine").
+* [Detailed Examination of pentatonic scales in Southern Appalachian folksongs](https://home.earthlink.net/~llywarch/scl01.html.htm)
+* [Discussing theory and use of pentatonic scale on guitar](http://www.pentatonicbluesscale.com/)[Diarsipkan](https://web.archive.org/web/20100701170657/http://www.pentatonicbluesscale.com/)2010-07-01 di[Wayback Machine](https://id.wikipedia.org/wiki/Wayback_Machine "Wayback Machine").
+  *[l]: Lihat templat ini
+  *[b]: Diskusikan templat ini
+  *[s]: Sunting templat ini

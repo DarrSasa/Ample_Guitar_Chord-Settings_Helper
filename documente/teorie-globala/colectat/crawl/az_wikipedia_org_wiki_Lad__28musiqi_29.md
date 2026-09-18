@@ -1,0 +1,1 @@
+**Lad**([rus.](https://az.wikipedia.org/wiki/Rus_dili "Rus dili")lad,[ing.](https://az.wikipedia.org/wiki/%C4%B0ngilis_dili "İngilis dili")mode) – müxtəlif yüksəklikdə yerləşən səslərin bir birinə tərəf meyil edərək, eyni zamanda bir sabit səs _**tonika**_ ətrafında birləşməsi; o cümlədən, həmin səsdən qurulan interval və ya akkord (adətən tonika üçsəslisi) ətrafında cəmlənməsi.

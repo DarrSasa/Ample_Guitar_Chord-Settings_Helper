@@ -1,0 +1,3 @@
+
+  *[EN]: inglese
+  *[DE]: tedesco

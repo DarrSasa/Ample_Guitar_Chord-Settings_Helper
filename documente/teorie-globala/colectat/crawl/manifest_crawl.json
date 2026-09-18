@@ -49,7 +49,7 @@
   "chars": 1
  },
  {
-  "url": "https://am.wikipedia.org/wiki/ጊታር",
+  "url": "https://am.wikipedia.org/wiki/%E1%8C%8A%E1%89%B3%E1%88%AD",
   "ok": true,
   "title": "ውክፔዲያ - ጊታር",
   "lang": "",
@@ -63,56 +63,98 @@
   "chars": 1
  },
  {
-  "url": "https://ang.wikipedia.org/wiki/Gytārre",
+  "url": "https://ang.wikipedia.org/wiki/Gyt%C4%81rre",
   "ok": true,
   "title": "Gytārre - Wikipǣdia, sēo frēo wīsdōmbōc",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ar.wikipedia.org/wiki/توافق",
+  "url": "https://ar.wikipedia.org/wiki/%D8%AA%D9%88%D8%A7%D9%81%D9%82",
   "ok": true,
   "title": "توافق - ويكيبيديا",
   "lang": "",
   "chars": 295
  },
  {
-  "url": "https://ar.wikipedia.org/wiki/فيبراتو",
+  "url": "https://ar.wikipedia.org/wiki/%D8%AC%D9%8A%D8%AA%D8%A7%D8%B1_%D9%85%D9%86%D8%B2%D9%84%D9%82",
+  "ok": true,
+  "title": "جيتار منزلق - ويكيبيديا",
+  "lang": "",
+  "chars": 1540
+ },
+ {
+  "url": "https://ar.wikipedia.org/wiki/%D8%AF%D9%84%D9%8A%D9%84_%D9%85%D9%82%D8%A7%D9%85",
+  "ok": true,
+  "title": "دليل مقام - ويكيبيديا",
+  "lang": "",
+  "chars": 71
+ },
+ {
+  "url": "https://ar.wikipedia.org/wiki/%D8%B3%D9%84%D9%85_%D8%AE%D9%85%D8%A7%D8%B3%D9%8A_%28%D9%85%D9%88%D8%B3%D9%8A%D9%82%D9%89%29",
+  "ok": true,
+  "title": "سلم خماسي (موسيقى) - ويكيبيديا",
+  "lang": "",
+  "chars": 786
+ },
+ {
+  "url": "https://ar.wikipedia.org/wiki/%D9%81%D9%8A%D8%A8%D8%B1%D8%A7%D8%AA%D9%88",
   "ok": true,
   "title": "فيبراتو - ويكيبيديا",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ar.wikipedia.org/wiki/قيثارة",
+  "url": "https://ar.wikipedia.org/wiki/%D9%82%D9%8A%D8%AB%D8%A7%D8%B1%D8%A9",
   "ok": true,
   "title": "قيثارة - ويكيبيديا",
   "lang": "",
   "chars": 501
  },
  {
-  "url": "https://ar.wikipedia.org/wiki/نظرية_الموسيقى",
+  "url": "https://ar.wikipedia.org/wiki/%D9%85%D8%B3%D8%A7%D9%81%D8%A9_%28%D9%85%D9%88%D8%B3%D9%8A%D9%82%D9%89%29",
+  "ok": true,
+  "title": "مسافة (موسيقى) - ويكيبيديا",
+  "lang": "",
+  "chars": 85
+ },
+ {
+  "url": "https://ar.wikipedia.org/wiki/%D9%85%D9%82%D9%8A%D8%A7%D8%B3_%D8%A7%D9%84%D8%A5%D9%8A%D9%82%D8%A7%D8%B9",
+  "ok": true,
+  "title": "مقياس الإيقاع - ويكيبيديا",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ar.wikipedia.org/wiki/%D9%86%D8%B8%D8%B1%D9%8A%D8%A9_%D8%A7%D9%84%D9%85%D9%88%D8%B3%D9%8A%D9%82%D9%89",
   "ok": true,
   "title": "نظرية الموسيقى - ويكيبيديا",
   "lang": "",
   "chars": 548
  },
  {
-  "url": "https://ary.wikipedia.org/wiki/ݣيطار",
+  "url": "https://ar.wikipedia.org/wiki/%D9%88%D8%B6%D8%B9_%D9%85%D9%88%D8%B3%D9%8A%D9%82%D9%8A",
+  "ok": true,
+  "title": "وضع موسيقي - ويكيبيديا",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ary.wikipedia.org/wiki/%DD%A3%D9%8A%D8%B7%D8%A7%D8%B1",
   "ok": true,
   "title": "ݣيطار - ويكيپيديا",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://arz.wikipedia.org/wiki/جيتار",
+  "url": "https://arz.wikipedia.org/wiki/%D8%AC%D9%8A%D8%AA%D8%A7%D8%B1",
   "ok": true,
   "title": "جيتار - ويكيبيديا",
   "lang": "",
   "chars": 71
  },
  {
-  "url": "https://as.wikipedia.org/wiki/গীটাৰ",
+  "url": "https://as.wikipedia.org/wiki/%E0%A6%97%E0%A7%80%E0%A6%9F%E0%A6%BE%E0%A7%B0",
   "ok": true,
   "title": "গীটাৰ - অসমীয়া ৱিকিপিডিয়া",
   "lang": "",
@@ -126,7 +168,14 @@
   "chars": 1
  },
  {
-  "url": "https://ast.wikipedia.org/wiki/Teoría_musical",
+  "url": "https://ast.wikipedia.org/wiki/Manera_musical",
+  "ok": true,
+  "title": "Manera musical - Wikipedia",
+  "lang": "",
+  "chars": 119
+ },
+ {
+  "url": "https://ast.wikipedia.org/wiki/Teor%C3%ADa_musical",
   "ok": true,
   "title": "Teoría musical - Wikipedia",
   "lang": "",
@@ -140,21 +189,28 @@
   "chars": 1
  },
  {
-  "url": "https://az.wikipedia.org/wiki/Musiqi_nəzəriyyəsi",
+  "url": "https://az.wikipedia.org/wiki/Lad_%28musiqi%29",
+  "ok": true,
+  "title": "Lad (musiqi) — Vikipediya",
+  "lang": "",
+  "chars": 382
+ },
+ {
+  "url": "https://az.wikipedia.org/wiki/Musiqi_n%C9%99z%C9%99riyy%C9%99si",
   "ok": true,
   "title": "Musiqi nəzəriyyəsi — Vikipediya",
   "lang": "",
   "chars": 72
  },
  {
-  "url": "https://azb.wikipedia.org/wiki/گیتار",
+  "url": "https://azb.wikipedia.org/wiki/%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1",
   "ok": true,
   "title": "گیتار - ویکی‌پدیا",
   "lang": "",
   "chars": 968
  },
  {
-  "url": "https://ba.wikipedia.org/wiki/Гитара",
+  "url": "https://ba.wikipedia.org/wiki/%D0%93%D0%B8%D1%82%D0%B0%D1%80%D0%B0",
   "ok": true,
   "title": "Гитара — Википедия",
   "lang": "",
@@ -182,37 +238,37 @@
   "chars": 338
  },
  {
-  "url": "https://be-tarask.wikipedia.org/wiki/Глушэньне_далоньню",
-  "ok": true,
-  "title": "Глушэньне далоньню — Вікіпэдыя",
-  "lang": "",
-  "chars": 1
- },
- {
-  "url": "https://be-tarask.wikipedia.org/wiki/Гітара",
+  "url": "https://be-tarask.wikipedia.org/wiki/%D0%93%D1%96%D1%82%D0%B0%D1%80%D0%B0",
   "ok": true,
   "title": "Гітара — Вікіпэдыя",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://be-tarask.wikipedia.org/wiki/Тэпінг",
+  "url": "https://be-tarask.wikipedia.org/wiki/%D0%A5%D0%B0%D0%BC%D1%8D%D1%80",
   "ok": true,
-  "title": "Тэпінг — Вікіпэдыя",
+  "title": "Хамэр — Вікіпэдыя",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://be.wikipedia.org/wiki/Гітара",
+  "url": "https://be.wikipedia.org/wiki/%D0%93%D1%96%D1%82%D0%B0%D1%80%D0%B0",
   "ok": true,
   "title": "Гітара — Вікіпедыя",
   "lang": "",
   "chars": 250
  },
  {
-  "url": "https://be.wikipedia.org/wiki/Тэпінг",
+  "url": "https://be.wikipedia.org/wiki/%D0%9B%D0%B0%D0%B4_%28%D0%BC%D1%83%D0%B7%D1%8B%D0%BA%D0%B0%29",
   "ok": true,
-  "title": "Тэпінг — Вікіпедыя",
+  "title": "Лад (музыка) — Вікіпедыя",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://be.wikipedia.org/wiki/%D0%9F%D0%B0%D0%BC%D0%B5%D1%80_%28%D0%BC%D1%83%D0%B7%D1%8B%D0%BA%D0%B0%29",
+  "ok": true,
+  "title": "Памер (музыка) — Вікіпедыя",
   "lang": "",
   "chars": 93
  },
@@ -224,21 +280,56 @@
   "chars": 1
  },
  {
-  "url": "https://bg.wikipedia.org/wiki/Китара",
+  "url": "https://bew.wikipedia.org/wiki/Lat_%28gending%29",
+  "ok": true,
+  "title": "Lat (gending) - Wikipédi",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://bg.wikipedia.org/wiki/%D0%90%D1%80%D0%BC%D0%B0%D1%82%D1%83%D1%80%D0%B0_%28%D0%BC%D1%83%D0%B7%D0%B8%D0%BA%D0%B0%29",
+  "ok": true,
+  "title": "Арматура (музика) – Уикипедия",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://bg.wikipedia.org/wiki/%D0%9A%D0%B8%D1%82%D0%B0%D1%80%D0%B0",
   "ok": true,
   "title": "Китара – Уикипедия",
   "lang": "",
   "chars": 76
  },
  {
-  "url": "https://bg.wikipedia.org/wiki/Теория_на_музиката",
+  "url": "https://bg.wikipedia.org/wiki/%D0%9B%D0%B0%D0%B4",
+  "ok": true,
+  "title": "Лад – Уикипедия",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://bg.wikipedia.org/wiki/%D0%9C%D1%83%D0%B7%D0%B8%D0%BA%D0%B0%D0%BB%D0%B5%D0%BD_%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B2%D0%B0%D0%BB",
+  "ok": true,
+  "title": "Музикален интервал – Уикипедия",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://bg.wikipedia.org/wiki/%D0%A1%D0%BB%D0%B0%D0%B9%D0%B4_%D0%BA%D0%B8%D1%82%D0%B0%D1%80%D0%B0",
+  "ok": true,
+  "title": "Слайд китара – Уикипедия",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://bg.wikipedia.org/wiki/%D0%A2%D0%B5%D0%BE%D1%80%D0%B8%D1%8F_%D0%BD%D0%B0_%D0%BC%D1%83%D0%B7%D0%B8%D0%BA%D0%B0%D1%82%D0%B0",
   "ok": true,
   "title": "Теория на музиката – Уикипедия",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://bh.wikipedia.org/wiki/गिटार",
+  "url": "https://bh.wikipedia.org/wiki/%E0%A4%97%E0%A4%BF%E0%A4%9F%E0%A4%BE%E0%A4%B0",
   "ok": true,
   "title": "गिटार - विकिपीडिया",
   "lang": "",
@@ -252,21 +343,21 @@
   "chars": 1
  },
  {
-  "url": "https://bn.wikipedia.org/wiki/গিটার",
+  "url": "https://bn.wikipedia.org/wiki/%E0%A6%97%E0%A6%BF%E0%A6%9F%E0%A6%BE%E0%A6%B0",
   "ok": true,
   "title": "গিটার - উইকিপিডিয়া",
   "lang": "",
   "chars": 66
  },
  {
-  "url": "https://bn.wikipedia.org/wiki/সঙ্গীত_তত্ত্ব",
+  "url": "https://bn.wikipedia.org/wiki/%E0%A6%B8%E0%A6%99%E0%A7%8D%E0%A6%97%E0%A7%80%E0%A6%A4_%E0%A6%A4%E0%A6%A4%E0%A7%8D%E0%A6%A4%E0%A7%8D%E0%A6%AC",
   "ok": true,
   "title": "সঙ্গীত তত্ত্ব - উইকিপিডিয়া",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://bo.wikipedia.org/wiki/རྒྱུད་དྲུག",
+  "url": "https://bo.wikipedia.org/wiki/%E0%BD%A2%E0%BE%92%E0%BE%B1%E0%BD%B4%E0%BD%91%E0%BC%8B%E0%BD%91%E0%BE%B2%E0%BD%B4%E0%BD%82",
   "ok": true,
   "title": "རྒྱུད་དྲུག - Wikipedia",
   "lang": "",
@@ -280,11 +371,39 @@
   "chars": 1177
  },
  {
+  "url": "https://br.wikipedia.org/wiki/Reizhiad_pentatonek",
+  "ok": true,
+  "title": "Reizhiad pentatonek - Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
   "url": "https://bs.wikipedia.org/wiki/Gitara",
   "ok": true,
   "title": "Gitara - Wikipedia",
   "lang": "",
   "chars": 122
+ },
+ {
+  "url": "https://ca.wikipedia.org/wiki/Armadura_%28m%C3%BAsica%29",
+  "ok": true,
+  "title": "Armadura (música) - Viquipèdia, l'enciclopèdia lliure",
+  "lang": "",
+  "chars": 80
+ },
+ {
+  "url": "https://ca.wikipedia.org/wiki/Dobles_cordes",
+  "ok": true,
+  "title": "Dobles cordes - Viquipèdia, l'enciclopèdia lliure",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ca.wikipedia.org/wiki/Escala_pentat%C3%B2nica",
+  "ok": true,
+  "title": "Escala pentatònica - Viquipèdia, l'enciclopèdia lliure",
+  "lang": "",
+  "chars": 161
  },
  {
   "url": "https://ca.wikipedia.org/wiki/Guitarra",
@@ -294,21 +413,42 @@
   "chars": 317
  },
  {
-  "url": "https://ca.wikipedia.org/wiki/Harmònic",
+  "url": "https://ca.wikipedia.org/wiki/Harm%C3%B2nic",
   "ok": true,
   "title": "Harmònic - Viquipèdia, l'enciclopèdia lliure",
   "lang": "",
   "chars": 11
  },
  {
-  "url": "https://ca.wikipedia.org/wiki/Tapping",
+  "url": "https://ca.wikipedia.org/wiki/Interval_musical",
   "ok": true,
-  "title": "Tapping - Viquipèdia, l'enciclopèdia lliure",
+  "title": "Interval musical - Viquipèdia, l'enciclopèdia lliure",
   "lang": "",
-  "chars": 201
+  "chars": 8612
  },
  {
-  "url": "https://ca.wikipedia.org/wiki/Teoria_de_la_música",
+  "url": "https://ca.wikipedia.org/wiki/Mode_%28m%C3%BAsica%29",
+  "ok": true,
+  "title": "Mode (música) - Viquipèdia, l'enciclopèdia lliure",
+  "lang": "",
+  "chars": 1063
+ },
+ {
+  "url": "https://ca.wikipedia.org/wiki/Ostinato",
+  "ok": true,
+  "title": "Ostinato - Viquipèdia, l'enciclopèdia lliure",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ca.wikipedia.org/wiki/Slide_%28guitarra%29",
+  "ok": true,
+  "title": "Slide (guitarra) - Viquipèdia, l'enciclopèdia lliure",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ca.wikipedia.org/wiki/Teoria_de_la_m%C3%BAsica",
   "ok": true,
   "title": "Teoria de la música - Viquipèdia, l'enciclopèdia lliure",
   "lang": "",
@@ -322,28 +462,28 @@
   "chars": 80
  },
  {
-  "url": "https://chr.wikipedia.org/wiki/ᎦᏆᏲᎯᎲ",
-  "ok": true,
-  "title": "ᎦᏆᏲᎯᎲ - Wikipedia",
-  "lang": "",
-  "chars": 1
- },
- {
-  "url": "https://chr.wikipedia.org/wiki/ᏗᎧᏃᎩᏍᏗ",
+  "url": "https://chr.wikipedia.org/wiki/%E1%8F%97%E1%8E%A7%E1%8F%83%E1%8E%A9%E1%8F%8D%E1%8F%97",
   "ok": true,
   "title": "ᏗᎧᏃᎩᏍᏗ - Wikipedia",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ckb.wikipedia.org/wiki/تیۆریی_مۆسیقا",
+  "url": "https://ckb.wikipedia.org/wiki/%D8%A8%DB%95%DB%8C%D9%86_%28%D9%85%DB%86%D8%B3%DB%8C%D9%82%D8%A7%29",
+  "ok": true,
+  "title": "بەین (مۆسیقا) - ویکیپیدیا، ئینسایکڵۆپیدیای ئازاد",
+  "lang": "",
+  "chars": 87
+ },
+ {
+  "url": "https://ckb.wikipedia.org/wiki/%D8%AA%DB%8C%DB%86%D8%B1%DB%8C%DB%8C_%D9%85%DB%86%D8%B3%DB%8C%D9%82%D8%A7",
   "ok": true,
   "title": "تیۆریی مۆسیقا - ویکیپیدیا، ئینسایکڵۆپیدیای ئازاد",
   "lang": "",
   "chars": 87
  },
  {
-  "url": "https://ckb.wikipedia.org/wiki/گیتار",
+  "url": "https://ckb.wikipedia.org/wiki/%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1",
   "ok": true,
   "title": "گیتار - ویکیپیدیا، ئینسایکڵۆپیدیای ئازاد",
   "lang": "",
@@ -357,11 +497,25 @@
   "chars": 1
  },
  {
-  "url": "https://cs.wikipedia.org/wiki/Hudební_teorie",
+  "url": "https://cs.wikipedia.org/wiki/Hudebn%C3%AD_teorie",
   "ok": true,
   "title": "Hudební teorie – Wikipedie",
   "lang": "",
   "chars": 1441
+ },
+ {
+  "url": "https://cs.wikipedia.org/wiki/Interval_%28hudba%29",
+  "ok": true,
+  "title": "Interval (hudba) – Wikipedie",
+  "lang": "",
+  "chars": 1253
+ },
+ {
+  "url": "https://cs.wikipedia.org/wiki/Kr%C3%A1%C4%8Dej%C3%ADc%C3%AD_bas",
+  "ok": true,
+  "title": "Kráčející bas – Wikipedie",
+  "lang": "",
+  "chars": 1
  },
  {
   "url": "https://cs.wikipedia.org/wiki/Kytara",
@@ -371,9 +525,51 @@
   "chars": 1266
  },
  {
-  "url": "https://cs.wikipedia.org/wiki/Tapping",
+  "url": "https://cs.wikipedia.org/wiki/Modus_%28hudba%29",
   "ok": true,
-  "title": "Tapping – Wikipedie",
+  "title": "Modus (hudba) – Wikipedie",
+  "lang": "",
+  "chars": 84
+ },
+ {
+  "url": "https://cs.wikipedia.org/wiki/Ostinato",
+  "ok": true,
+  "title": "Ostinato – Wikipedie",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://cs.wikipedia.org/wiki/P%C5%99%C3%ADklep_%28hudba%29",
+  "ok": true,
+  "title": "Příklep (hudba) – Wikipedie",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://cs.wikipedia.org/wiki/P%C5%99edznamen%C3%A1n%C3%AD",
+  "ok": true,
+  "title": "Předznamenání – Wikipedie",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://cs.wikipedia.org/wiki/Pentatonika",
+  "ok": true,
+  "title": "Pentatonika – Wikipedie",
+  "lang": "",
+  "chars": 279
+ },
+ {
+  "url": "https://cs.wikipedia.org/wiki/Slide_guitar",
+  "ok": true,
+  "title": "Slide guitar – Wikipedie",
+  "lang": "",
+  "chars": 13
+ },
+ {
+  "url": "https://cs.wikipedia.org/wiki/Taktov%C3%A9_p%C5%99edznamen%C3%A1n%C3%AD",
+  "ok": true,
+  "title": "Taktové předznamenání – Wikipedie",
   "lang": "",
   "chars": 1
  },
@@ -392,18 +588,32 @@
   "chars": 1
  },
  {
-  "url": "https://cv.wikipedia.org/wiki/Гитара",
+  "url": "https://cv.wikipedia.org/wiki/%D0%93%D0%B8%D1%82%D0%B0%D1%80%D0%B0",
   "ok": true,
   "title": "Гитара — Википеди",
   "lang": "",
   "chars": 109
  },
  {
-  "url": "https://cy.wikipedia.org/wiki/Gitâr",
+  "url": "https://cy.wikipedia.org/wiki/Arwydd_amser",
+  "ok": true,
+  "title": "Arwydd amser - Wicipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://cy.wikipedia.org/wiki/Git%C3%A2r",
   "ok": true,
   "title": "Gitâr - Wicipedia",
   "lang": "",
   "chars": 774
+ },
+ {
+  "url": "https://da.wikipedia.org/wiki/Fortegn_%28musik%29",
+  "ok": true,
+  "title": "Fortegn (musik) - Wikipedia, den frie encyklopædi",
+  "lang": "",
+  "chars": 1
  },
  {
   "url": "https://da.wikipedia.org/wiki/Guitar",
@@ -413,11 +623,11 @@
   "chars": 9731
  },
  {
-  "url": "https://da.wikipedia.org/wiki/Guitarteknik",
+  "url": "https://da.wikipedia.org/wiki/Hammer-on",
   "ok": true,
-  "title": "Guitarteknik - Wikipedia, den frie encyklopædi",
+  "title": "Hammer-on - Wikipedia, den frie encyklopædi",
   "lang": "",
-  "chars": 757
+  "chars": 1
  },
  {
   "url": "https://da.wikipedia.org/wiki/Musikteori",
@@ -427,18 +637,46 @@
   "chars": 1
  },
  {
-  "url": "https://da.wikipedia.org/wiki/Palm_muting",
+  "url": "https://da.wikipedia.org/wiki/Ostinat",
   "ok": true,
-  "title": "Palm muting - Wikipedia, den frie encyklopædi",
+  "title": "Ostinat - Wikipedia, den frie encyklopædi",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://da.wikipedia.org/wiki/Tapping",
+  "url": "https://da.wikipedia.org/wiki/Pentaton",
   "ok": true,
-  "title": "Tapping - Wikipedia, den frie encyklopædi",
+  "title": "Pentaton - Wikipedia, den frie encyklopædi",
   "lang": "",
   "chars": 1
+ },
+ {
+  "url": "https://da.wikipedia.org/wiki/Pull-off",
+  "ok": true,
+  "title": "Pull-off - Wikipedia, den frie encyklopædi",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://da.wikipedia.org/wiki/Slide",
+  "ok": true,
+  "title": "Slide - Wikipedia, den frie encyklopædi",
+  "lang": "",
+  "chars": 1256
+ },
+ {
+  "url": "https://da.wikipedia.org/wiki/Sweep-picking",
+  "ok": true,
+  "title": "Sweep-picking - Wikipedia, den frie encyklopædi",
+  "lang": "",
+  "chars": 76
+ },
+ {
+  "url": "https://da.wikipedia.org/wiki/Toneinterval",
+  "ok": true,
+  "title": "Toneinterval - Wikipedia, den frie encyklopædi",
+  "lang": "",
+  "chars": 90
  },
  {
   "url": "https://da.wikipedia.org/wiki/Vibrato",
@@ -448,11 +686,18 @@
   "chars": 36
  },
  {
-  "url": "https://de.wikipedia.org/wiki/Chord_(Begriffsklärung)",
+  "url": "https://de.wikipedia.org/wiki/Chord_%28Begriffskl%C3%A4rung%29",
   "ok": true,
   "title": "Chord (Begriffsklärung) – Wikipedia",
   "lang": "",
   "chars": 261
+ },
+ {
+  "url": "https://de.wikipedia.org/wiki/Doppelgriff",
+  "ok": true,
+  "title": "Doppelgriff – Wikipedia",
+  "lang": "",
+  "chars": 1
  },
  {
   "url": "https://de.wikipedia.org/wiki/Gitarre",
@@ -462,9 +707,30 @@
   "chars": 2211
  },
  {
+  "url": "https://de.wikipedia.org/wiki/Hammer-on",
+  "ok": true,
+  "title": "Hammer-on – Wikipedia",
+  "lang": "",
+  "chars": 214
+ },
+ {
   "url": "https://de.wikipedia.org/wiki/Harmonische",
   "ok": true,
   "title": "Harmonische – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://de.wikipedia.org/wiki/Intervall_%28Musik%29",
+  "ok": true,
+  "title": "Intervall (Musik) – Wikipedia",
+  "lang": "",
+  "chars": 235
+ },
+ {
+  "url": "https://de.wikipedia.org/wiki/Modale_Tonleitern",
+  "ok": true,
+  "title": "Modale Tonleitern – Wikipedia",
   "lang": "",
   "chars": 1
  },
@@ -476,23 +742,51 @@
   "chars": 464
  },
  {
-  "url": "https://de.wikipedia.org/wiki/Palm_Muting",
+  "url": "https://de.wikipedia.org/wiki/Ostinato",
   "ok": true,
-  "title": "Palm Muting – Wikipedia",
+  "title": "Ostinato – Wikipedia",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://de.wikipedia.org/wiki/Rasgueado",
+  "url": "https://de.wikipedia.org/wiki/Pentatonik",
   "ok": true,
-  "title": "Rasgueado – Wikipedia",
+  "title": "Pentatonik – Wikipedia",
   "lang": "",
-  "chars": 665
+  "chars": 606
  },
  {
-  "url": "https://de.wikipedia.org/wiki/Tapping",
+  "url": "https://de.wikipedia.org/wiki/Picado",
   "ok": true,
-  "title": "Tapping – Wikipedia",
+  "title": "Picado – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://de.wikipedia.org/wiki/Slide-Gitarre",
+  "ok": true,
+  "title": "Slide-Gitarre – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://de.wikipedia.org/wiki/Stufentheorie_%28Harmonik%29",
+  "ok": true,
+  "title": "Stufentheorie (Harmonik) – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://de.wikipedia.org/wiki/Sweep_Picking",
+  "ok": true,
+  "title": "Sweep Picking – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://de.wikipedia.org/wiki/Taktangabe",
+  "ok": true,
+  "title": "Taktangabe – Wikipedia",
   "lang": "",
   "chars": 1
  },
@@ -504,6 +798,20 @@
   "chars": 1
  },
  {
+  "url": "https://de.wikipedia.org/wiki/Vorzeichen_%28Musik%29",
+  "ok": true,
+  "title": "Vorzeichen (Musik) – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://de.wikipedia.org/wiki/Walking_Bass",
+  "ok": true,
+  "title": "Walking Bass – Wikipedia",
+  "lang": "",
+  "chars": 1087
+ },
+ {
   "url": "https://diq.wikipedia.org/wiki/Gitar",
   "ok": true,
   "title": "Gitar - Wikipedia",
@@ -511,11 +819,53 @@
   "chars": 1
  },
  {
-  "url": "https://el.wikipedia.org/wiki/Κιθάρα",
+  "url": "https://el.wikipedia.org/wiki/%CE%94%CE%B9%CE%AC%CF%83%CF%84%CE%B7%CE%BC%CE%B1_%28%CE%BC%CE%BF%CF%85%CF%83%CE%B9%CE%BA%CE%AE%29",
+  "ok": true,
+  "title": "Διάστημα (μουσική) - Βικιπαίδεια",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://el.wikipedia.org/wiki/%CE%9A%CE%B9%CE%B8%CE%AC%CF%81%CE%B1",
   "ok": true,
   "title": "Κιθάρα - Βικιπαίδεια",
   "lang": "",
   "chars": 3264
+ },
+ {
+  "url": "https://el.wikipedia.org/wiki/%CE%A0%CE%B5%CE%BD%CF%84%CE%B1%CF%84%CE%BF%CE%BD%CE%B9%CE%BA%CE%AE_%CE%BA%CE%BB%CE%AF%CE%BC%CE%B1%CE%BA%CE%B1",
+  "ok": true,
+  "title": "Πεντατονική κλίμακα - Βικιπαίδεια",
+  "lang": "",
+  "chars": 1961
+ },
+ {
+  "url": "https://el.wikipedia.org/wiki/%CE%A4%CF%81%CF%8C%CF%80%CE%BF%CF%82_%28%CE%BC%CE%BF%CF%85%CF%83%CE%B9%CE%BA%CE%AE%29",
+  "ok": true,
+  "title": "Τρόπος (μουσική) - Βικιπαίδεια",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://eo.wikipedia.org/wiki/%C5%9Ctupoteorio",
+  "ok": true,
+  "title": "Ŝtupoteorio - Vikipedio",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://eo.wikipedia.org/wiki/Anta%C5%ADsigno_%28muziko%29",
+  "ok": true,
+  "title": "Antaŭsigno (muziko) - Vikipedio",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://eo.wikipedia.org/wiki/Duobla_kordo",
+  "ok": true,
+  "title": "Duobla kordo - Vikipedio",
+  "lang": "",
+  "chars": 1
  },
  {
   "url": "https://eo.wikipedia.org/wiki/Gitaro",
@@ -525,9 +875,37 @@
   "chars": 2320
  },
  {
+  "url": "https://eo.wikipedia.org/wiki/Glitogitaro",
+  "ok": true,
+  "title": "Glitogitaro - Vikipedio",
+  "lang": "",
+  "chars": 1
+ },
+ {
   "url": "https://eo.wikipedia.org/wiki/Harmono",
   "ok": true,
   "title": "Harmono - Vikipedio",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://eo.wikipedia.org/wiki/Intervalo_%28muziko%29",
+  "ok": true,
+  "title": "Intervalo (muziko) - Vikipedio",
+  "lang": "",
+  "chars": 192
+ },
+ {
+  "url": "https://eo.wikipedia.org/wiki/Kvintona_gamo",
+  "ok": true,
+  "title": "Kvintona gamo - Vikipedio",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://eo.wikipedia.org/wiki/Modalo_%28muziko%29",
+  "ok": true,
+  "title": "Modalo (muziko) - Vikipedio",
   "lang": "",
   "chars": 1
  },
@@ -539,16 +917,86 @@
   "chars": 1
  },
  {
-  "url": "https://eo.wikipedia.org/wiki/Vibrado_(muziko)",
+  "url": "https://eo.wikipedia.org/wiki/Ostinato",
+  "ok": true,
+  "title": "Ostinato - Vikipedio",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://eo.wikipedia.org/wiki/Promenbaso",
+  "ok": true,
+  "title": "Promenbaso - Vikipedio",
+  "lang": "",
+  "chars": 1072
+ },
+ {
+  "url": "https://eo.wikipedia.org/wiki/Taktindiko",
+  "ok": true,
+  "title": "Taktindiko - Vikipedio",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://eo.wikipedia.org/wiki/Vibrado_%28muziko%29",
   "ok": true,
   "title": "Vibrado (muziko) - Vikipedio",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://es.wikipedia.org/wiki/Armónico",
+  "url": "https://es.wikipedia.org/wiki/An%C3%A1lisis_por_n%C3%BAmeros_romanos",
+  "ok": true,
+  "title": "Análisis por números romanos - Wikipedia, la enciclopedia libre",
+  "lang": "",
+  "chars": 1607
+ },
+ {
+  "url": "https://es.wikipedia.org/wiki/Arm%C3%B3nico",
   "ok": true,
   "title": "Armónico - Wikipedia, la enciclopedia libre",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://es.wikipedia.org/wiki/Armadura_%28m%C3%BAsica%29",
+  "ok": true,
+  "title": "Armadura (música) - Wikipedia, la enciclopedia libre",
+  "lang": "",
+  "chars": 312
+ },
+ {
+  "url": "https://es.wikipedia.org/wiki/Barrido_%28guitarra%29",
+  "ok": true,
+  "title": "Barrido (guitarra) - Wikipedia, la enciclopedia libre",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://es.wikipedia.org/wiki/Comp%C3%A1s_%28m%C3%BAsica%29",
+  "ok": true,
+  "title": "Compás (música) - Wikipedia, la enciclopedia libre",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://es.wikipedia.org/wiki/Dobles_cuerdas",
+  "ok": true,
+  "title": "Dobles cuerdas - Wikipedia, la enciclopedia libre",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://es.wikipedia.org/wiki/Escala_pentat%C3%B3nica",
+  "ok": true,
+  "title": "Escala pentatónica - Wikipedia, la enciclopedia libre",
+  "lang": "",
+  "chars": 1205
+ },
+ {
+  "url": "https://es.wikipedia.org/wiki/Golpe_%28desambiguaci%C3%B3n%29",
+  "ok": true,
+  "title": "Golpe (desambiguación) - Wikipedia, la enciclopedia libre",
   "lang": "",
   "chars": 1
  },
@@ -560,35 +1008,56 @@
   "chars": 2070
  },
  {
-  "url": "https://es.wikipedia.org/wiki/Palm_mute",
+  "url": "https://es.wikipedia.org/wiki/Hammer-on",
   "ok": true,
-  "title": "Palm mute - Wikipedia, la enciclopedia libre",
+  "title": "Hammer-on - Wikipedia, la enciclopedia libre",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://es.wikipedia.org/wiki/Rasgueado",
+  "url": "https://es.wikipedia.org/wiki/Intervalo_%28m%C3%BAsica%29",
   "ok": true,
-  "title": "Rasgueo - Wikipedia, la enciclopedia libre",
+  "title": "Intervalo (música) - Wikipedia, la enciclopedia libre",
   "lang": "",
-  "chars": 239
+  "chars": 287
  },
  {
-  "url": "https://es.wikipedia.org/wiki/Rasgueo",
+  "url": "https://es.wikipedia.org/wiki/Modo_musical",
   "ok": true,
-  "title": "Rasgueo - Wikipedia, la enciclopedia libre",
+  "title": "Modo musical - Wikipedia, la enciclopedia libre",
   "lang": "",
-  "chars": 239
+  "chars": 119
  },
  {
-  "url": "https://es.wikipedia.org/wiki/Tapping",
+  "url": "https://es.wikipedia.org/wiki/Ostinato",
   "ok": true,
-  "title": "Tapping - Wikipedia, la enciclopedia libre",
+  "title": "Ostinato - Wikipedia, la enciclopedia libre",
+  "lang": "",
+  "chars": 1263
+ },
+ {
+  "url": "https://es.wikipedia.org/wiki/Picado",
+  "ok": true,
+  "title": "Picado - Wikipedia, la enciclopedia libre",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://es.wikipedia.org/wiki/Teoría_musical",
+  "url": "https://es.wikipedia.org/wiki/Pull-off",
+  "ok": true,
+  "title": "Pull-off - Wikipedia, la enciclopedia libre",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://es.wikipedia.org/wiki/Slide_%28guitarra%29",
+  "ok": true,
+  "title": "Slide (guitarra) - Wikipedia, la enciclopedia libre",
+  "lang": "",
+  "chars": 76
+ },
+ {
+  "url": "https://es.wikipedia.org/wiki/Teor%C3%ADa_musical",
   "ok": true,
   "title": "Teoría musical - Wikipedia, la enciclopedia libre",
   "lang": "",
@@ -600,6 +1069,27 @@
   "title": "Vibrato - Wikipedia, la enciclopedia libre",
   "lang": "",
   "chars": 168
+ },
+ {
+  "url": "https://es.wikipedia.org/wiki/Walking_bass",
+  "ok": true,
+  "title": "Walking bass - Wikipedia, la enciclopedia libre",
+  "lang": "",
+  "chars": 239
+ },
+ {
+  "url": "https://et.wikipedia.org/wiki/Helilaad",
+  "ok": true,
+  "title": "Helilaad – Vikipeedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://et.wikipedia.org/wiki/Intervall_%28muusika%29",
+  "ok": true,
+  "title": "Intervall (muusika) – Vikipeedia",
+  "lang": "",
+  "chars": 512
  },
  {
   "url": "https://et.wikipedia.org/wiki/Kitarr",
@@ -623,11 +1113,53 @@
   "chars": 1
  },
  {
+  "url": "https://et.wikipedia.org/wiki/Ostinaato",
+  "ok": true,
+  "title": "Ostinaato – Vikipeedia",
+  "lang": "",
+  "chars": 254
+ },
+ {
+  "url": "https://et.wikipedia.org/wiki/Pentatoonika",
+  "ok": true,
+  "title": "Pentatoonika – Vikipeedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://et.wikipedia.org/wiki/Taktim%C3%B5%C3%B5t",
+  "ok": true,
+  "title": "Taktimõõt – Vikipeedia",
+  "lang": "",
+  "chars": 55
+ },
+ {
+  "url": "https://et.wikipedia.org/wiki/V%C3%B5tmem%C3%A4rk",
+  "ok": true,
+  "title": "Võtmemärk – Vikipeedia",
+  "lang": "",
+  "chars": 55
+ },
+ {
   "url": "https://et.wikipedia.org/wiki/Vibraato",
   "ok": true,
   "title": "Vibraato – Vikipeedia",
   "lang": "",
   "chars": 1
+ },
+ {
+  "url": "https://eu.wikipedia.org/wiki/Bitarte_%28musika%29",
+  "ok": true,
+  "title": "Bitarte (musika) - Wikipedia, entziklopedia askea.",
+  "lang": "",
+  "chars": 92
+ },
+ {
+  "url": "https://eu.wikipedia.org/wiki/Gako-armadura",
+  "ok": true,
+  "title": "Gako-armadura - Wikipedia, entziklopedia askea.",
+  "lang": "",
+  "chars": 92
  },
  {
   "url": "https://eu.wikipedia.org/wiki/Gitarra",
@@ -644,6 +1176,20 @@
   "chars": 1108
  },
  {
+  "url": "https://eu.wikipedia.org/wiki/Konpas_%28musika%29",
+  "ok": true,
+  "title": "Konpas (musika) - Wikipedia, entziklopedia askea.",
+  "lang": "",
+  "chars": 92
+ },
+ {
+  "url": "https://eu.wikipedia.org/wiki/Modu_%28musika%29",
+  "ok": true,
+  "title": "Modu (musika) - Wikipedia, entziklopedia askea.",
+  "lang": "",
+  "chars": 92
+ },
+ {
   "url": "https://eu.wikipedia.org/wiki/Teoria_musikal",
   "ok": true,
   "title": "Teoria musikal - Wikipedia, entziklopedia askea.",
@@ -658,44 +1204,107 @@
   "chars": 1
  },
  {
-  "url": "https://fa.wikipedia.org/wiki/تئوری_موسیقی",
+  "url": "https://fa.wikipedia.org/wiki/%D8%A7%D9%88%D8%B3%D8%AA%DB%8C%D9%86%D8%A7%D8%AA%D9%88",
+  "ok": true,
+  "title": "اوستیناتو - ویکی‌پدیا، دانشنامهٔ آزاد",
+  "lang": "",
+  "chars": 225
+ },
+ {
+  "url": "https://fa.wikipedia.org/wiki/%D8%AA%D8%A6%D9%88%D8%B1%DB%8C_%D9%85%D9%88%D8%B3%DB%8C%D9%82%DB%8C",
   "ok": true,
   "title": "تئوری موسیقی - ویکی‌پدیا، دانشنامهٔ آزاد",
   "lang": "",
   "chars": 6326
  },
  {
-  "url": "https://fa.wikipedia.org/wiki/هارمونیک",
+  "url": "https://fa.wikipedia.org/wiki/%D8%B3%D8%B1%DA%A9%D9%84%DB%8C%D8%AF",
+  "ok": true,
+  "title": "سرکلید - ویکی‌پدیا، دانشنامهٔ آزاد",
+  "lang": "",
+  "chars": 198
+ },
+ {
+  "url": "https://fa.wikipedia.org/wiki/%D9%81%D8%A7%D8%B5%D9%84%D9%87_%28%D9%85%D9%88%D8%B3%DB%8C%D9%82%DB%8C%29",
+  "ok": true,
+  "title": "فاصله (موسیقی) - ویکی‌پدیا، دانشنامهٔ آزاد",
+  "lang": "",
+  "chars": 198
+ },
+ {
+  "url": "https://fa.wikipedia.org/wiki/%D9%85%D8%AF_%28%D9%85%D9%88%D8%B3%DB%8C%D9%82%DB%8C%29",
+  "ok": true,
+  "title": "مد (موسیقی) - ویکی‌پدیا، دانشنامهٔ آزاد",
+  "lang": "",
+  "chars": 198
+ },
+ {
+  "url": "https://fa.wikipedia.org/wiki/%D9%85%DB%8C%D8%B2%D8%A7%D9%86%E2%80%8C%D9%86%D9%85%D8%A7",
+  "ok": true,
+  "title": "میزان‌نما - ویکی‌پدیا، دانشنامهٔ آزاد",
+  "lang": "",
+  "chars": 198
+ },
+ {
+  "url": "https://fa.wikipedia.org/wiki/%D9%87%D8%A7%D8%B1%D9%85%D9%88%D9%86%DB%8C%DA%A9",
   "ok": true,
   "title": "هارمونیک - ویکی‌پدیا، دانشنامهٔ آزاد",
   "lang": "",
   "chars": 304
  },
  {
-  "url": "https://fa.wikipedia.org/wiki/ویبراتو",
+  "url": "https://fa.wikipedia.org/wiki/%D9%88%DB%8C%D8%A8%D8%B1%D8%A7%D8%AA%D9%88",
   "ok": true,
   "title": "ویبراتو - ویکی‌پدیا، دانشنامهٔ آزاد",
   "lang": "",
   "chars": 84
  },
  {
-  "url": "https://fa.wikipedia.org/wiki/گیتار",
+  "url": "https://fa.wikipedia.org/wiki/%DA%AF%D8%A7%D9%85_%D9%BE%D9%86%D8%AA%D8%A7%D8%AA%D9%88%D9%86%DB%8C%DA%A9",
+  "ok": true,
+  "title": "گام پنتاتونیک - ویکی‌پدیا، دانشنامهٔ آزاد",
+  "lang": "",
+  "chars": 479
+ },
+ {
+  "url": "https://fa.wikipedia.org/wiki/%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1",
   "ok": true,
   "title": "گیتار - ویکی‌پدیا، دانشنامهٔ آزاد",
   "lang": "",
   "chars": 3534
  },
  {
-  "url": "https://fi.wikipedia.org/wiki/Huiluääni",
+  "url": "https://fi.wikipedia.org/wiki/Hammer-on",
+  "ok": true,
+  "title": "Hammer-on – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://fi.wikipedia.org/wiki/Huilu%C3%A4%C3%A4ni",
   "ok": true,
   "title": "Huiluääni – Wikipedia",
   "lang": "",
   "chars": 1
  },
  {
+  "url": "https://fi.wikipedia.org/wiki/Intervalli",
+  "ok": true,
+  "title": "Intervalli – Wikipedia",
+  "lang": "",
+  "chars": 1677
+ },
+ {
   "url": "https://fi.wikipedia.org/wiki/Kitara",
   "ok": true,
   "title": "Kitara – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://fi.wikipedia.org/wiki/Modaalisuus",
+  "ok": true,
+  "title": "Modaalisuus – Wikipedia",
   "lang": "",
   "chars": 1
  },
@@ -707,11 +1316,46 @@
   "chars": 227
  },
  {
-  "url": "https://fi.wikipedia.org/wiki/Palm_mute",
+  "url": "https://fi.wikipedia.org/wiki/Ostinato",
   "ok": true,
-  "title": "Palm mute – Wikipedia",
+  "title": "Ostinato – Wikipedia",
   "lang": "",
   "chars": 1
+ },
+ {
+  "url": "https://fi.wikipedia.org/wiki/Pentatoninen_asteikko",
+  "ok": true,
+  "title": "Pentatoninen asteikko – Wikipedia",
+  "lang": "",
+  "chars": 349
+ },
+ {
+  "url": "https://fi.wikipedia.org/wiki/Pull-off",
+  "ok": true,
+  "title": "Pull-off – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://fi.wikipedia.org/wiki/S%C3%A4vellaji%23Etumerkint%C3%A4",
+  "ok": true,
+  "title": "Sävellaji – Wikipedia",
+  "lang": "",
+  "chars": 237
+ },
+ {
+  "url": "https://fi.wikipedia.org/wiki/Slide-kitara",
+  "ok": true,
+  "title": "Slide-kitara – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://fi.wikipedia.org/wiki/Tahtilaji",
+  "ok": true,
+  "title": "Tahtilaji – Wikipedia",
+  "lang": "",
+  "chars": 70
  },
  {
   "url": "https://fi.wikipedia.org/wiki/Vibrato",
@@ -735,11 +1379,25 @@
   "chars": 1
  },
  {
-  "url": "https://fr.wikipedia.org/wiki/Battement_(instruments_à_cordes_pincées)",
+  "url": "https://fr.wikipedia.org/wiki/Armure_%28musique%29",
   "ok": true,
-  "title": "Battement (instruments à cordes pincées) — Wikipédia",
+  "title": "Armure (musique) — Wikipédia",
   "lang": "",
-  "chars": 1282
+  "chars": 228
+ },
+ {
+  "url": "https://fr.wikipedia.org/wiki/Double_corde",
+  "ok": true,
+  "title": "Double corde — Wikipédia",
+  "lang": "",
+  "chars": 984
+ },
+ {
+  "url": "https://fr.wikipedia.org/wiki/Gamme_pentatonique",
+  "ok": true,
+  "title": "Gamme pentatonique — Wikipédia",
+  "lang": "",
+  "chars": 1628
  },
  {
   "url": "https://fr.wikipedia.org/wiki/Guitare",
@@ -749,35 +1407,63 @@
   "chars": 40174
  },
  {
-  "url": "https://fr.wikipedia.org/wiki/Harmonique_(musique)",
+  "url": "https://fr.wikipedia.org/wiki/Guitare_slide",
+  "ok": true,
+  "title": "Guitare slide — Wikipédia",
+  "lang": "",
+  "chars": 3235
+ },
+ {
+  "url": "https://fr.wikipedia.org/wiki/Hammer-on",
+  "ok": true,
+  "title": "Hammer-on — Wikipédia",
+  "lang": "",
+  "chars": 5150
+ },
+ {
+  "url": "https://fr.wikipedia.org/wiki/Harmonique_%28musique%29",
   "ok": true,
   "title": "Harmonique (musique) — Wikipédia",
   "lang": "",
-  "chars": 2284
+  "chars": 2286
  },
  {
-  "url": "https://fr.wikipedia.org/wiki/Palm_mute",
+  "url": "https://fr.wikipedia.org/wiki/Intervalle_%28musique%29",
   "ok": true,
-  "title": "Palm mute — Wikipédia",
+  "title": "Intervalle (musique) — Wikipédia",
   "lang": "",
-  "chars": 6832
+  "chars": 400
  },
  {
-  "url": "https://fr.wikipedia.org/wiki/Rasgueado",
+  "url": "https://fr.wikipedia.org/wiki/Mode_%28musique%29",
   "ok": true,
-  "title": "Rasgueado — Wikipédia",
+  "title": "Mode (musique) — Wikipédia",
   "lang": "",
-  "chars": 3081
+  "chars": 1016
  },
  {
-  "url": "https://fr.wikipedia.org/wiki/Tapping",
+  "url": "https://fr.wikipedia.org/wiki/Ostinato",
   "ok": true,
-  "title": "Tapping — Wikipédia",
+  "title": "Ostinato — Wikipédia",
   "lang": "",
-  "chars": 16318
+  "chars": 246
  },
  {
-  "url": "https://fr.wikipedia.org/wiki/Théorie_de_la_musique",
+  "url": "https://fr.wikipedia.org/wiki/Pull-off",
+  "ok": true,
+  "title": "Pull-off — Wikipédia",
+  "lang": "",
+  "chars": 3791
+ },
+ {
+  "url": "https://fr.wikipedia.org/wiki/Sweeping",
+  "ok": true,
+  "title": "Sweeping — Wikipédia",
+  "lang": "",
+  "chars": 1945
+ },
+ {
+  "url": "https://fr.wikipedia.org/wiki/Th%C3%A9orie_de_la_musique",
   "ok": true,
   "title": "Théorie de la musique — Wikipédia",
   "lang": "",
@@ -798,6 +1484,13 @@
   "chars": 253
  },
  {
+  "url": "https://frr.wikipedia.org/wiki/Interval_%28Musiik%29",
+  "ok": true,
+  "title": "Interval (Musiik) – Wikipedia",
+  "lang": "",
+  "chars": 502
+ },
+ {
   "url": "https://fur.wikipedia.org/wiki/Ghitare",
   "ok": true,
   "title": "Ghitare - Vichipedie",
@@ -812,23 +1505,58 @@
   "chars": 1
  },
  {
-  "url": "https://ga.wikipedia.org/wiki/Armónach",
+  "url": "https://fy.wikipedia.org/wiki/Ynterval",
+  "ok": true,
+  "title": "Ynterval - Wikipedy",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ga.wikipedia.org/wiki/Arm%C3%B3nach",
   "ok": true,
   "title": "Armónach - Vicipéid",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ga.wikipedia.org/wiki/Giotár",
+  "url": "https://ga.wikipedia.org/wiki/Giot%C3%A1r",
   "ok": true,
   "title": "Giotár - Vicipéid",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://gd.wikipedia.org/wiki/Giotàr",
+  "url": "https://ga.wikipedia.org/wiki/Sc%C3%A1la_peinteat%C3%B3nach",
+  "ok": true,
+  "title": "Scála peinteatónach - Vicipéid",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://gd.wikipedia.org/wiki/Giot%C3%A0r",
   "ok": true,
   "title": "Giotàr - Uicipeid",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://gl.wikipedia.org/wiki/Armadura_%28m%C3%BAsica%29",
+  "ok": true,
+  "title": "Armadura (música) - Wikipedia, a enciclopedia libre",
+  "lang": "",
+  "chars": 500
+ },
+ {
+  "url": "https://gl.wikipedia.org/wiki/Escala_pentat%C3%B3nica",
+  "ok": true,
+  "title": "Escala pentatónica - Wikipedia, a enciclopedia libre",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://gl.wikipedia.org/wiki/Golpe",
+  "ok": true,
+  "title": "Golpe - Wikipedia, a enciclopedia libre",
   "lang": "",
   "chars": 1
  },
@@ -840,18 +1568,46 @@
   "chars": 5250
  },
  {
-  "url": "https://gl.wikipedia.org/wiki/Harmónico",
+  "url": "https://gl.wikipedia.org/wiki/Harm%C3%B3nico",
   "ok": true,
   "title": "Harmónico - Wikipedia, a enciclopedia libre",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://gl.wikipedia.org/wiki/Tapping",
+  "url": "https://gl.wikipedia.org/wiki/Intervalo",
   "ok": true,
-  "title": "Tapping - Wikipedia, a enciclopedia libre",
+  "title": "Intervalo - Wikipedia, a enciclopedia libre",
   "lang": "",
-  "chars": 88
+  "chars": 1298
+ },
+ {
+  "url": "https://gl.wikipedia.org/wiki/Modo_musical",
+  "ok": true,
+  "title": "Modo musical - Wikipedia, a enciclopedia libre",
+  "lang": "",
+  "chars": 119
+ },
+ {
+  "url": "https://gl.wikipedia.org/wiki/Ostinato",
+  "ok": true,
+  "title": "Ostinato - Wikipedia, a enciclopedia libre",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://gl.wikipedia.org/wiki/Picado",
+  "ok": true,
+  "title": "Picado - Wikipedia, a enciclopedia libre",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://gl.wikipedia.org/wiki/Sweep-picking",
+  "ok": true,
+  "title": "Sweep-picking - Wikipedia, a enciclopedia libre",
+  "lang": "",
+  "chars": 1
  },
  {
   "url": "https://gn.wikipedia.org/wiki/Mbaraka",
@@ -896,42 +1652,84 @@
   "chars": 1
  },
  {
-  "url": "https://he.wikipedia.org/wiki/גיטרה",
+  "url": "https://he.wikipedia.org/wiki/%D7%90%D7%95%D7%A1%D7%98%D7%99%D7%A0%D7%98%D7%95",
+  "ok": true,
+  "title": "אוסטינטו – ויקיפדיה",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://he.wikipedia.org/wiki/%D7%91%D7%A1_%D7%9E%D7%94%D7%9C%D7%9A",
+  "ok": true,
+  "title": "בס מהלך – ויקיפדיה",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://he.wikipedia.org/wiki/%D7%92%D7%99%D7%98%D7%A8%D7%94",
   "ok": true,
   "title": "גיטרה – ויקיפדיה",
   "lang": "",
   "chars": 552
  },
  {
-  "url": "https://he.wikipedia.org/wiki/ויברטו",
+  "url": "https://he.wikipedia.org/wiki/%D7%92%D7%99%D7%98%D7%A8%D7%AA_%D7%A1%D7%9C%D7%99%D7%99%D7%93",
+  "ok": true,
+  "title": "גיטרת סלייד – ויקיפדיה",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://he.wikipedia.org/wiki/%D7%95%D7%99%D7%91%D7%A8%D7%98%D7%95",
   "ok": true,
   "title": "ויברטו – ויקיפדיה",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://he.wikipedia.org/wiki/פריטה_על_גיטרה",
+  "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%95%D7%93%D7%95%D7%A1_%28%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94%29",
   "ok": true,
-  "title": "פריטה על גיטרה – ויקיפדיה",
+  "title": "מודוס (מוזיקה) – ויקיפדיה",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://he.wikipedia.org/wiki/תורת_המוזיקה",
+  "url": "https://he.wikipedia.org/wiki/%D7%9E%D7%A8%D7%95%D7%95%D7%97_%28%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94%29",
+  "ok": true,
+  "title": "מרווח (מוזיקה) – ויקיפדיה",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://he.wikipedia.org/wiki/%D7%A1%D7%95%D7%95%D7%99%D7%A4%D7%99%D7%A0%D7%92",
+  "ok": true,
+  "title": "סוויפינג – ויקיפדיה",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://he.wikipedia.org/wiki/%D7%A1%D7%95%D7%9C%D7%9D_%D7%A4%D7%A0%D7%98%D7%98%D7%95%D7%A0%D7%99",
+  "ok": true,
+  "title": "סולם פנטטוני – ויקיפדיה",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://he.wikipedia.org/wiki/%D7%AA%D7%95%D7%A8%D7%AA_%D7%94%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94",
   "ok": true,
   "title": "תורת המוזיקה – ויקיפדיה",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://hi.wikipedia.org/wiki/गिटार",
+  "url": "https://hi.wikipedia.org/wiki/%E0%A4%97%E0%A4%BF%E0%A4%9F%E0%A4%BE%E0%A4%B0",
   "ok": true,
   "title": "गिटार - विकिपीडिया",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://hi.wikipedia.org/wiki/संगीत_सिद्धांत",
+  "url": "https://hi.wikipedia.org/wiki/%E0%A4%B8%E0%A4%82%E0%A4%97%E0%A5%80%E0%A4%A4_%E0%A4%B8%E0%A4%BF%E0%A4%A6%E0%A5%8D%E0%A4%A7%E0%A4%BE%E0%A4%82%E0%A4%A4",
   "ok": true,
   "title": "संगीत सिद्धांत - विकिपीडिया",
   "lang": "",
@@ -952,18 +1750,18 @@
   "chars": 90
  },
  {
-  "url": "https://hr.wikipedia.org/wiki/Pregib_(akustika)",
+  "url": "https://hr.wikipedia.org/wiki/Interval_%28glazbena_teorija%29",
+  "ok": true,
+  "title": "Interval (glazbena teorija) – Wikipedija",
+  "lang": "",
+  "chars": 1343
+ },
+ {
+  "url": "https://hr.wikipedia.org/wiki/Pregib_%28akustika%29",
   "ok": true,
   "title": "Pregib (akustika) – Wikipedija",
   "lang": "",
   "chars": 1
- },
- {
-  "url": "https://hr.wikipedia.org/wiki/Tapping",
-  "ok": true,
-  "title": "Tapping – Wikipedija",
-  "lang": "",
-  "chars": 482
  },
  {
   "url": "https://hr.wikipedia.org/wiki/Teorija_glazbe",
@@ -994,11 +1792,46 @@
   "chars": 262
  },
  {
-  "url": "https://hu.wikipedia.org/wiki/Gitár",
+  "url": "https://hu.wikipedia.org/wiki/%C3%9Ctemmutat%C3%B3",
+  "ok": true,
+  "title": "Ütemmutató – Wikipédia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://hu.wikipedia.org/wiki/Git%C3%A1r",
   "ok": true,
   "title": "Gitár – Wikipédia",
   "lang": "",
   "chars": 278
+ },
+ {
+  "url": "https://hu.wikipedia.org/wiki/Hangk%C3%B6z",
+  "ok": true,
+  "title": "Hangköz – Wikipédia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://hu.wikipedia.org/wiki/Mod%C3%A1lis_hangsor",
+  "ok": true,
+  "title": "Modális hangsor – Wikipédia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://hu.wikipedia.org/wiki/Ostinato",
+  "ok": true,
+  "title": "Ostinato – Wikipédia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://hu.wikipedia.org/wiki/Pentat%C3%B3nia",
+  "ok": true,
+  "title": "Pentatónia – Wikipédia",
+  "lang": "",
+  "chars": 2998
  },
  {
   "url": "https://hu.wikipedia.org/wiki/Vibrato",
@@ -1008,21 +1841,42 @@
   "chars": 1
  },
  {
-  "url": "https://hu.wikipedia.org/wiki/Zeneelmélet",
+  "url": "https://hu.wikipedia.org/wiki/Zeneelm%C3%A9let",
   "ok": true,
   "title": "Zeneelmélet – Wikipédia",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://hy.wikipedia.org/wiki/Կիթառ",
+  "url": "https://hy.wikipedia.org/wiki/%D4%BB%D5%B6%D5%BF%D5%A5%D6%80%D5%BE%D5%A1%D5%AC_%28%D5%B1%D5%A1%D5%B5%D5%B6%D5%A1%D5%A3%D5%AB%D5%BF%D5%B8%D6%82%D5%A9%D5%B5%D5%B8%D6%82%D5%B6%29",
+  "ok": true,
+  "title": "Ինտերվալ (ձայնագիտություն) - Վիքիպեդիա",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://hy.wikipedia.org/wiki/%D4%BC%D5%A1%D5%A4",
+  "ok": true,
+  "title": "Լադ - Վիքիպեդիա",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://hy.wikipedia.org/wiki/%D4%BF%D5%AB%D5%A9%D5%A1%D5%BC",
   "ok": true,
   "title": "Կիթառ - Վիքիպեդիա",
   "lang": "",
   "chars": 1183
  },
  {
-  "url": "https://hyw.wikipedia.org/wiki/Կիթառ",
+  "url": "https://hy.wikipedia.org/wiki/%D5%8A%D5%A5%D5%B6%D5%BF%D5%A1%D5%BF%D5%B8%D5%B6%D5%AB%D5%AF%D5%A1",
+  "ok": true,
+  "title": "Պենտատոնիկա - Վիքիպեդիա",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://hyw.wikipedia.org/wiki/%D4%BF%D5%AB%D5%A9%D5%A1%D5%BC",
   "ok": true,
   "title": "Կիթառ — Ուիքիփետիա",
   "lang": "",
@@ -1057,11 +1911,32 @@
   "chars": 1
  },
  {
-  "url": "https://id.wikipedia.org/wiki/Menggenjreng",
+  "url": "https://id.wikipedia.org/wiki/Interval_%28musik%29",
   "ok": true,
-  "title": "Menggenjreng - Wikipedia bahasa Indonesia, ensiklopedia bebas",
+  "title": "Interval (musik) - Wikipedia bahasa Indonesia, ensiklopedia bebas",
   "lang": "",
-  "chars": 358
+  "chars": 885
+ },
+ {
+  "url": "https://id.wikipedia.org/wiki/Skala_pentatonik",
+  "ok": true,
+  "title": "Skala pentatonik - Wikipedia bahasa Indonesia, ensiklopedia bebas",
+  "lang": "",
+  "chars": 2942
+ },
+ {
+  "url": "https://id.wikipedia.org/wiki/Tanda_birama",
+  "ok": true,
+  "title": "Tanda birama - Wikipedia bahasa Indonesia, ensiklopedia bebas",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://id.wikipedia.org/wiki/Tanda_kunci",
+  "ok": true,
+  "title": "Tanda kunci - Wikipedia bahasa Indonesia, ensiklopedia bebas",
+  "lang": "",
+  "chars": 952
  },
  {
   "url": "https://id.wikipedia.org/wiki/Teori_musik",
@@ -1085,18 +1960,11 @@
   "chars": 1
  },
  {
-  "url": "https://ig.wikipedia.org/wiki/Égwu_ahiri",
+  "url": "https://ig.wikipedia.org/wiki/%C3%89gwu_ahiri",
   "ok": true,
   "title": "Égwu ahiri - Wikipedia, Njikotá édémédé nke onyobulạ",
   "lang": "",
   "chars": 826
- },
- {
-  "url": "https://ig.wikipedia.org/wiki/Ịkụpụ_ihe",
-  "ok": true,
-  "title": "Ịkụpụ ihe - Wikipedia, Njikotá édémédé nke onyobulạ",
-  "lang": "",
-  "chars": 5123
  },
  {
   "url": "https://ilo.wikipedia.org/wiki/Gitara",
@@ -1113,21 +1981,35 @@
   "chars": 1
  },
  {
-  "url": "https://is.wikipedia.org/wiki/Gítar",
+  "url": "https://is.wikipedia.org/wiki/G%C3%ADtar",
   "ok": true,
   "title": "Gítar - Wikipedia, frjálsa alfræðiritið",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://is.wikipedia.org/wiki/Tónfræði",
+  "url": "https://is.wikipedia.org/wiki/T%C3%B3nbil",
+  "ok": true,
+  "title": "Tónbil - Wikipedia, frjálsa alfræðiritið",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://is.wikipedia.org/wiki/T%C3%B3nfr%C3%A6%C3%B0i",
   "ok": true,
   "title": "Tónfræði - Wikipedia, frjálsa alfræðiritið",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://it.wikipedia.org/wiki/Armonica_(fisica)",
+  "url": "https://it.wikipedia.org/wiki/Armatura_%28musica%29",
+  "ok": true,
+  "title": "Armatura (musica) - Wikipedia",
+  "lang": "",
+  "chars": 18
+ },
+ {
+  "url": "https://it.wikipedia.org/wiki/Armonica_%28fisica%29",
   "ok": true,
   "title": "Armonica (fisica) - Wikipedia",
   "lang": "",
@@ -1148,25 +2030,74 @@
   "chars": 253
  },
  {
-  "url": "https://it.wikipedia.org/wiki/Palm_mute",
+  "url": "https://it.wikipedia.org/wiki/Doppia_corda",
   "ok": true,
-  "title": "Palm mute - Wikipedia",
-  "lang": "",
-  "chars": 18
- },
- {
-  "url": "https://it.wikipedia.org/wiki/Rasgueado",
-  "ok": true,
-  "title": "Rasgueado - Wikipedia",
+  "title": "Doppia corda - Wikipedia",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://it.wikipedia.org/wiki/Tapping",
+  "url": "https://it.wikipedia.org/wiki/Golpe_%28disambigua%29",
   "ok": true,
-  "title": "Tapping - Wikipedia",
+  "title": "Golpe (disambigua) - Wikipedia",
   "lang": "",
-  "chars": 3185
+  "chars": 1
+ },
+ {
+  "url": "https://it.wikipedia.org/wiki/Hammer-on",
+  "ok": true,
+  "title": "Hammer-on - Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://it.wikipedia.org/wiki/Intervallo_%28musica%29",
+  "ok": true,
+  "title": "Intervallo (musica) - Wikipedia",
+  "lang": "",
+  "chars": 7078
+ },
+ {
+  "url": "https://it.wikipedia.org/wiki/Modo_%28musica%29",
+  "ok": true,
+  "title": "Modo (musica) - Wikipedia",
+  "lang": "",
+  "chars": 11879
+ },
+ {
+  "url": "https://it.wikipedia.org/wiki/Ostinato",
+  "ok": true,
+  "title": "Ostinato - Wikipedia",
+  "lang": "",
+  "chars": 35
+ },
+ {
+  "url": "https://it.wikipedia.org/wiki/Pull-off",
+  "ok": true,
+  "title": "Pull-off - Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://it.wikipedia.org/wiki/Scala_pentatonica",
+  "ok": true,
+  "title": "Scala pentatonica - Wikipedia",
+  "lang": "",
+  "chars": 13120
+ },
+ {
+  "url": "https://it.wikipedia.org/wiki/Slide_guitar",
+  "ok": true,
+  "title": "Slide guitar - Wikipedia",
+  "lang": "",
+  "chars": 1194
+ },
+ {
+  "url": "https://it.wikipedia.org/wiki/Sweep-picking",
+  "ok": true,
+  "title": "Sweep-picking - Wikipedia",
+  "lang": "",
+  "chars": 1
  },
  {
   "url": "https://it.wikipedia.org/wiki/Teoria_musicale",
@@ -1183,49 +2114,112 @@
   "chars": 70
  },
  {
-  "url": "https://ja.wikipedia.org/wiki/ギター",
+  "url": "https://it.wikipedia.org/wiki/Walking_bass",
+  "ok": true,
+  "title": "Walking bass - Wikipedia",
+  "lang": "",
+  "chars": 547
+ },
+ {
+  "url": "https://ja.wikipedia.org/wiki/%E3%82%AA%E3%82%B9%E3%83%86%E3%82%A3%E3%83%8A%E3%83%BC%E3%83%88",
+  "ok": true,
+  "title": "オスティナート - Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ja.wikipedia.org/wiki/%E3%82%AE%E3%82%BF%E3%83%BC",
   "ok": true,
   "title": "ギター - Wikipedia",
   "lang": "",
   "chars": 1181
  },
  {
-  "url": "https://ja.wikipedia.org/wiki/タッピング奏法",
+  "url": "https://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%A6%E3%82%A3%E3%83%BC%E3%83%97%E5%A5%8F%E6%B3%95",
   "ok": true,
-  "title": "タッピング奏法 - Wikipedia",
+  "title": "スウィープ奏法 - Wikipedia",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ja.wikipedia.org/wiki/ビブラート",
+  "url": "https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%89%E3%82%AE%E3%82%BF%E3%83%BC",
+  "ok": true,
+  "title": "スライドギター - Wikipedia",
+  "lang": "",
+  "chars": 1032
+ },
+ {
+  "url": "https://ja.wikipedia.org/wiki/%E3%83%8F%E3%83%B3%E3%83%9E%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%BB%E3%82%AA%E3%83%B3",
+  "ok": true,
+  "title": "ハンマリング・オン - Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ja.wikipedia.org/wiki/%E3%83%93%E3%83%96%E3%83%A9%E3%83%BC%E3%83%88",
   "ok": true,
   "title": "ビブラート - Wikipedia",
   "lang": "",
   "chars": 204
  },
  {
-  "url": "https://ja.wikipedia.org/wiki/ミュート_(ギター)",
+  "url": "https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%BB%E3%82%AA%E3%83%95",
   "ok": true,
-  "title": "ミュート (ギター) - Wikipedia",
+  "title": "プリング・オフ - Wikipedia",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ja.wikipedia.org/wiki/ラスゲアード",
+  "url": "https://ja.wikipedia.org/wiki/%E3%83%AD%E3%83%BC%E3%83%9E%E6%95%B0%E5%AD%97%E3%81%AB%E3%82%88%E3%82%8B%E5%92%8C%E5%A3%B0%E5%88%86%E6%9E%90",
   "ok": true,
-  "title": "ラスゲアード - Wikipedia",
+  "title": "ローマ数字による和声分析 - Wikipedia",
+  "lang": "",
+  "chars": 303
+ },
+ {
+  "url": "https://ja.wikipedia.org/wiki/%E4%BA%94%E9%9F%B3%E9%9F%B3%E9%9A%8E",
+  "ok": true,
+  "title": "五音音階 - Wikipedia",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ja.wikipedia.org/wiki/音楽理論",
+  "url": "https://ja.wikipedia.org/wiki/%E6%97%8B%E6%B3%95",
+  "ok": true,
+  "title": "旋法 - Wikipedia",
+  "lang": "",
+  "chars": 162
+ },
+ {
+  "url": "https://ja.wikipedia.org/wiki/%E8%AA%BF%E5%8F%B7",
+  "ok": true,
+  "title": "調号 - Wikipedia",
+  "lang": "",
+  "chars": 96
+ },
+ {
+  "url": "https://ja.wikipedia.org/wiki/%E9%87%8D%E9%9F%B3%E5%A5%8F%E6%B3%95",
+  "ok": true,
+  "title": "重音奏法 - Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ja.wikipedia.org/wiki/%E9%9F%B3%E6%A5%BD%E7%90%86%E8%AB%96",
   "ok": true,
   "title": "音楽理論 - Wikipedia",
   "lang": "",
   "chars": 224
  },
  {
-  "url": "https://ja.wikipedia.org/wiki/高調波",
+  "url": "https://ja.wikipedia.org/wiki/%E9%9F%B3%E7%A8%8B",
+  "ok": true,
+  "title": "音程 - Wikipedia",
+  "lang": "",
+  "chars": 401
+ },
+ {
+  "url": "https://ja.wikipedia.org/wiki/%E9%AB%98%E8%AA%BF%E6%B3%A2",
   "ok": true,
   "title": "高調波 - Wikipedia",
   "lang": "",
@@ -1246,18 +2240,39 @@
   "chars": 1
  },
  {
-  "url": "https://ka.wikipedia.org/wiki/გიტარა",
+  "url": "https://jv.wikipedia.org/wiki/P%C3%A9ntatonis",
+  "ok": true,
+  "title": "Péntatonis - Wikipédia",
+  "lang": "",
+  "chars": 529
+ },
+ {
+  "url": "https://ka.wikipedia.org/wiki/%E1%83%92%E1%83%98%E1%83%A2%E1%83%90%E1%83%A0%E1%83%90",
   "ok": true,
   "title": "გიტარა - ვიკიპედია",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ka.wikipedia.org/wiki/მუსიკის_თეორია",
+  "url": "https://ka.wikipedia.org/wiki/%E1%83%98%E1%83%9C%E1%83%A2%E1%83%94%E1%83%A0%E1%83%95%E1%83%90%E1%83%9A%E1%83%98_%28%E1%83%9B%E1%83%A3%E1%83%A1%E1%83%98%E1%83%99%E1%83%90%29",
+  "ok": true,
+  "title": "ინტერვალი (მუსიკა) - ვიკიპედია",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ka.wikipedia.org/wiki/%E1%83%9B%E1%83%A3%E1%83%A1%E1%83%98%E1%83%99%E1%83%98%E1%83%A1_%E1%83%97%E1%83%94%E1%83%9D%E1%83%A0%E1%83%98%E1%83%90",
   "ok": true,
   "title": "მუსიკის თეორია - ვიკიპედია",
   "lang": "",
   "chars": 2095
+ },
+ {
+  "url": "https://ka.wikipedia.org/wiki/%E1%83%9E%E1%83%94%E1%83%9C%E1%83%A2%E1%83%90%E1%83%A2%E1%83%9D%E1%83%9C%E1%83%98%E1%83%99%E1%83%90",
+  "ok": true,
+  "title": "პენტატონიკა - ვიკიპედია",
+  "lang": "",
+  "chars": 1
  },
  {
   "url": "https://kaa.wikipedia.org/wiki/Gitara",
@@ -1281,93 +2296,170 @@
   "chars": 1
  },
  {
-  "url": "https://kk.wikipedia.org/wiki/Гитара",
+  "url": "https://kk.wikipedia.org/wiki/%D0%93%D0%B8%D1%82%D0%B0%D1%80%D0%B0",
   "ok": true,
   "title": "Гитара — Уикипедия",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://kn.wikipedia.org/wiki/ಗಿಟಾರ್",
+  "url": "https://kk.wikipedia.org/wiki/%D0%9B%D0%B0%D0%B4",
+  "ok": true,
+  "title": "Лад — Уикипедия",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://kk.wikipedia.org/wiki/%D0%9F%D0%B5%D0%BD%D1%82%D0%B0%D1%82%D0%BE%D0%BD%D0%B8%D0%BA%D0%B0",
+  "ok": true,
+  "title": "Пентатоника — Уикипедия",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://kn.wikipedia.org/wiki/%E0%B2%97%E0%B2%BF%E0%B2%9F%E0%B2%BE%E0%B2%B0%E0%B3%8D",
   "ok": true,
   "title": "ಗಿಟಾರ್ - ವಿಕಿಪೀಡಿಯ",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ko.wikipedia.org/wiki/고조파",
+  "url": "https://ko.wikipedia.org/wiki/%EA%B3%A0%EC%A1%B0%ED%8C%8C",
   "ok": true,
   "title": "고조파 - 위키백과, 우리 모두의 백과사전",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ko.wikipedia.org/wiki/기타",
+  "url": "https://ko.wikipedia.org/wiki/%EA%B8%B0%ED%83%80",
   "ok": true,
   "title": "기타 - 위키백과, 우리 모두의 백과사전",
   "lang": "",
   "chars": 160
  },
  {
-  "url": "https://ko.wikipedia.org/wiki/비브라토",
+  "url": "https://ko.wikipedia.org/wiki/%EB%B0%95%EC%9E%90%ED%91%9C",
+  "ok": true,
+  "title": "박자표 - 위키백과, 우리 모두의 백과사전",
+  "lang": "",
+  "chars": 56
+ },
+ {
+  "url": "https://ko.wikipedia.org/wiki/%EB%B9%84%EB%B8%8C%EB%9D%BC%ED%86%A0",
   "ok": true,
   "title": "비브라토 - 위키백과, 우리 모두의 백과사전",
   "lang": "",
   "chars": 200
  },
  {
-  "url": "https://ko.wikipedia.org/wiki/스트러밍",
+  "url": "https://ko.wikipedia.org/wiki/%EC%84%A0%EB%B2%95_%28%EC%9D%8C%EC%95%85%29",
   "ok": true,
-  "title": "스트러밍 - 위키백과, 우리 모두의 백과사전",
+  "title": "선법 (음악) - 위키백과, 우리 모두의 백과사전",
   "lang": "",
-  "chars": 258
+  "chars": 376
  },
  {
-  "url": "https://ko.wikipedia.org/wiki/음악_이론",
+  "url": "https://ko.wikipedia.org/wiki/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C_%EA%B8%B0%ED%83%80",
+  "ok": true,
+  "title": "슬라이드 기타 - 위키백과, 우리 모두의 백과사전",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ko.wikipedia.org/wiki/%EC%98%A4%EC%8A%A4%ED%8B%B0%EB%82%98%ED%86%A0",
+  "ok": true,
+  "title": "오스티나토 - 위키백과, 우리 모두의 백과사전",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ko.wikipedia.org/wiki/%EC%98%A4%EC%9D%8C%EC%9D%8C%EA%B3%84",
+  "ok": true,
+  "title": "오음음계 - 위키백과, 우리 모두의 백과사전",
+  "lang": "",
+  "chars": 80
+ },
+ {
+  "url": "https://ko.wikipedia.org/wiki/%EC%9D%8C%EC%95%85_%EC%9D%B4%EB%A1%A0",
   "ok": true,
   "title": "음악 이론 - 위키백과, 우리 모두의 백과사전",
   "lang": "",
   "chars": 278
  },
  {
-  "url": "https://ko.wikipedia.org/wiki/태핑",
+  "url": "https://ko.wikipedia.org/wiki/%EC%9D%8C%EC%A0%95",
   "ok": true,
-  "title": "태핑 - 위키백과, 우리 모두의 백과사전",
+  "title": "음정 - 위키백과, 우리 모두의 백과사전",
   "lang": "",
-  "chars": 213
+  "chars": 628
  },
  {
-  "url": "https://ks.wikipedia.org/wiki/گِٹار",
+  "url": "https://ko.wikipedia.org/wiki/%EC%A1%B0%ED%91%9C_%28%EC%9D%8C%EC%95%85%29",
+  "ok": true,
+  "title": "조표 (음악) - 위키백과, 우리 모두의 백과사전",
+  "lang": "",
+  "chars": 2469
+ },
+ {
+  "url": "https://ks.wikipedia.org/wiki/%DA%AF%D9%90%D9%B9%D8%A7%D8%B1",
   "ok": true,
   "title": "گِٹار - وِکیٖپیٖڈیا",
   "lang": "",
   "chars": 85
  },
  {
-  "url": "https://ku.wikipedia.org/wiki/Gîtar",
+  "url": "https://ku.wikipedia.org/wiki/Armat%C3%BBra_%28muz%C3%AEk%29",
+  "ok": true,
+  "title": "Armatûra (muzîk) - Wîkîpediya",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ku.wikipedia.org/wiki/G%C3%AEtar",
   "ok": true,
   "title": "Gîtar - Wîkîpediya",
   "lang": "",
   "chars": 204
  },
  {
-  "url": "https://kv.wikipedia.org/wiki/Гитара",
+  "url": "https://ku.wikipedia.org/wiki/Gama_Pentaton%C3%AEk",
+  "ok": true,
+  "title": "Gama Pentatonîk - Wîkîpediya",
+  "lang": "",
+  "chars": 352
+ },
+ {
+  "url": "https://kv.wikipedia.org/wiki/%D0%93%D0%B8%D1%82%D0%B0%D1%80%D0%B0",
   "ok": true,
   "title": "Гитара — Wikipedia",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ky.wikipedia.org/wiki/Вибрато",
+  "url": "https://ky.wikipedia.org/wiki/%D0%92%D0%B8%D0%B1%D1%80%D0%B0%D1%82%D0%BE",
   "ok": true,
   "title": "Вибрато - Википедия",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ky.wikipedia.org/wiki/Гитара",
+  "url": "https://ky.wikipedia.org/wiki/%D0%93%D0%B8%D1%82%D0%B0%D1%80%D0%B0",
   "ok": true,
   "title": "Гитара - Википедия",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ky.wikipedia.org/wiki/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B2%D0%B0%D0%BB",
+  "ok": true,
+  "title": "Интервал - Википедия",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ky.wikipedia.org/wiki/%D0%9F%D0%B5%D0%BD%D1%82%D0%B0%D1%82%D0%BE%D0%BD%D0%B8%D0%BA%D0%B0",
+  "ok": true,
+  "title": "Пентатоника - Википедия",
   "lang": "",
   "chars": 1
  },
@@ -1377,6 +2469,20 @@
   "title": "Cithara Hispanica - Vicipaedia",
   "lang": "",
   "chars": 1202
+ },
+ {
+  "url": "https://la.wikipedia.org/wiki/Intervallum_%28musica%29",
+  "ok": true,
+  "title": "Intervallum (musica) - Vicipaedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://la.wikipedia.org/wiki/Modus_%28musica%29",
+  "ok": true,
+  "title": "Modus (musica) - Vicipaedia",
+  "lang": "",
+  "chars": 1
  },
  {
   "url": "https://la.wikipedia.org/wiki/Theoria_musicae",
@@ -1407,6 +2513,13 @@
   "chars": 1
  },
  {
+  "url": "https://li.wikipedia.org/wiki/Pentatoniek",
+  "ok": true,
+  "title": "Pentatoniek - Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
   "url": "https://lij.wikipedia.org/wiki/Chitara",
   "ok": true,
   "title": "Chitara - Wikipedia",
@@ -1421,7 +2534,7 @@
   "chars": 469
  },
  {
-  "url": "https://ln.wikipedia.org/wiki/Likombí",
+  "url": "https://ln.wikipedia.org/wiki/Likomb%C3%AD",
   "ok": true,
   "title": "Likombí — Wikipedia",
   "lang": "",
@@ -1435,14 +2548,35 @@
   "chars": 75
  },
  {
-  "url": "https://lv.wikipedia.org/wiki/Ģitāra",
+  "url": "https://lt.wikipedia.org/wiki/Intervalas_%28muzika%29",
+  "ok": true,
+  "title": "Intervalas (muzika) – Vikipedija",
+  "lang": "",
+  "chars": 75
+ },
+ {
+  "url": "https://lv.wikipedia.org/wiki/%C4%A2it%C4%81ra",
   "ok": true,
   "title": "Ģitāra — Vikipēdija",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://lzh.wikipedia.org/wiki/吉他",
+  "url": "https://lv.wikipedia.org/wiki/Interv%C4%81ls_%28m%C5%ABzika%29",
+  "ok": true,
+  "title": "Intervāls (mūzika) — Vikipēdija",
+  "lang": "",
+  "chars": 82
+ },
+ {
+  "url": "https://lv.wikipedia.org/wiki/Ska%C5%86k%C4%81rta",
+  "ok": true,
+  "title": "Skaņkārta — Vikipēdija",
+  "lang": "",
+  "chars": 82
+ },
+ {
+  "url": "https://lzh.wikipedia.org/wiki/%E5%90%89%E4%BB%96",
   "ok": true,
   "title": "吉他 - 維基大典",
   "lang": "",
@@ -1456,7 +2590,7 @@
   "chars": 1
  },
  {
-  "url": "https://mai.wikipedia.org/wiki/गितार",
+  "url": "https://mai.wikipedia.org/wiki/%E0%A4%97%E0%A4%BF%E0%A4%A4%E0%A4%BE%E0%A4%B0",
   "ok": true,
   "title": "गितार - विकिपिडिया",
   "lang": "",
@@ -1470,42 +2604,49 @@
   "chars": 1
  },
  {
-  "url": "https://mk.wikipedia.org/wiki/Вибрато",
+  "url": "https://mk.wikipedia.org/wiki/%D0%92%D0%B8%D0%B1%D1%80%D0%B0%D1%82%D0%BE",
   "ok": true,
   "title": "Вибрато — Википедија",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://mk.wikipedia.org/wiki/Гитара",
+  "url": "https://mk.wikipedia.org/wiki/%D0%93%D0%B8%D1%82%D0%B0%D1%80%D0%B0",
   "ok": true,
   "title": "Гитара — Википедија",
   "lang": "",
   "chars": 1306
  },
  {
-  "url": "https://mk.wikipedia.org/wiki/Теорија_на_музиката",
+  "url": "https://mk.wikipedia.org/wiki/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B2%D0%B0%D0%BB_%28%D0%BC%D1%83%D0%B7%D0%B8%D0%BA%D0%B0%29",
+  "ok": true,
+  "title": "Интервал (музика) — Википедија",
+  "lang": "",
+  "chars": 68
+ },
+ {
+  "url": "https://mk.wikipedia.org/wiki/%D0%A2%D0%B5%D0%BE%D1%80%D0%B8%D1%98%D0%B0_%D0%BD%D0%B0_%D0%BC%D1%83%D0%B7%D0%B8%D0%BA%D0%B0%D1%82%D0%B0",
   "ok": true,
   "title": "Теорија на музиката — Википедија",
   "lang": "",
   "chars": 2799
  },
  {
-  "url": "https://ml.wikipedia.org/wiki/ഗിറ്റാർ",
+  "url": "https://ml.wikipedia.org/wiki/%E0%B4%97%E0%B4%BF%E0%B4%B1%E0%B5%8D%E0%B4%B1%E0%B4%BE%E0%B5%BC",
   "ok": true,
   "title": "ഗിറ്റാർ - വിക്കിപീഡിയ",
   "lang": "",
   "chars": 2509
  },
  {
-  "url": "https://mn.wikipedia.org/wiki/Гитар",
+  "url": "https://mn.wikipedia.org/wiki/%D0%93%D0%B8%D1%82%D0%B0%D1%80",
   "ok": true,
   "title": "Гитар — Википедиа нэвтэрхий толь",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://mr.wikipedia.org/wiki/गिटार",
+  "url": "https://mr.wikipedia.org/wiki/%E0%A4%97%E0%A4%BF%E0%A4%9F%E0%A4%BE%E0%A4%B0",
   "ok": true,
   "title": "गिटार - विकिपीडिया",
   "lang": "",
@@ -1519,6 +2660,13 @@
   "chars": 1255
  },
  {
+  "url": "https://ms.wikipedia.org/wiki/Tanda_masa",
+  "ok": true,
+  "title": "Tanda masa - Wikipedia Bahasa Melayu, ensiklopedia bebas",
+  "lang": "",
+  "chars": 1
+ },
+ {
   "url": "https://ms.wikipedia.org/wiki/Vibrato",
   "ok": true,
   "title": "Vibrato - Wikipedia Bahasa Melayu, ensiklopedia bebas",
@@ -1526,14 +2674,14 @@
   "chars": 83
  },
  {
-  "url": "https://my.wikipedia.org/wiki/ဂီတာ",
+  "url": "https://my.wikipedia.org/wiki/%E1%80%82%E1%80%AE%E1%80%90%E1%80%AC",
   "ok": true,
   "title": "ဂီတာ - ဝီကီပီးဒီးယား",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://mzn.wikipedia.org/wiki/گیتار",
+  "url": "https://mzn.wikipedia.org/wiki/%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1",
   "ok": true,
   "title": "گیتار - ویکی‌پدیا",
   "lang": "",
@@ -1547,7 +2695,7 @@
   "chars": 1
  },
  {
-  "url": "https://nan.wikipedia.org/wiki/Gì-tah",
+  "url": "https://nan.wikipedia.org/wiki/G%C3%AC-tah",
   "ok": true,
   "title": "Gì-tah – Wikipedia",
   "lang": "",
@@ -1561,6 +2709,20 @@
   "chars": 24200
  },
  {
+  "url": "https://nb.wikipedia.org/wiki/Intervall_%28musikk%29",
+  "ok": true,
+  "title": "Intervall (musikk) – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://nb.wikipedia.org/wiki/Modal_skala",
+  "ok": true,
+  "title": "Modal skala – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
   "url": "https://nb.wikipedia.org/wiki/Musikkteori",
   "ok": true,
   "title": "Musikkteori – Wikipedia",
@@ -1568,11 +2730,25 @@
   "chars": 1
  },
  {
-  "url": "https://nb.wikipedia.org/wiki/Tapping",
+  "url": "https://nb.wikipedia.org/wiki/Ostinato",
   "ok": true,
-  "title": "Tapping – Wikipedia",
+  "title": "Ostinato – Wikipedia",
   "lang": "",
   "chars": 1
+ },
+ {
+  "url": "https://nb.wikipedia.org/wiki/Slidegitar",
+  "ok": true,
+  "title": "Slidegitar – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://nb.wikipedia.org/wiki/Taktartsangivelse",
+  "ok": true,
+  "title": "Taktartsangivelse – Wikipedia",
+  "lang": "",
+  "chars": 82
  },
  {
   "url": "https://nb.wikipedia.org/wiki/Vibrato",
@@ -1596,14 +2772,14 @@
   "chars": 1498
  },
  {
-  "url": "https://ne.wikipedia.org/wiki/गितार",
+  "url": "https://ne.wikipedia.org/wiki/%E0%A4%97%E0%A4%BF%E0%A4%A4%E0%A4%BE%E0%A4%B0",
   "ok": true,
   "title": "गितार - विकिपिडिया",
   "lang": "",
   "chars": 106
  },
  {
-  "url": "https://new.wikipedia.org/wiki/गितार",
+  "url": "https://new.wikipedia.org/wiki/%E0%A4%97%E0%A4%BF%E0%A4%A4%E0%A4%BE%E0%A4%B0",
   "ok": true,
   "title": "गितार - Wikipedia",
   "lang": "",
@@ -1624,6 +2800,34 @@
   "chars": 1
  },
  {
+  "url": "https://nl.wikipedia.org/wiki/Interval_%28muziek%29",
+  "ok": true,
+  "title": "Interval (muziek) - Wikipedia",
+  "lang": "",
+  "chars": 5934
+ },
+ {
+  "url": "https://nl.wikipedia.org/wiki/Lopende_bas",
+  "ok": true,
+  "title": "Lopende bas - Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://nl.wikipedia.org/wiki/Maatsoort",
+  "ok": true,
+  "title": "Maatsoort - Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://nl.wikipedia.org/wiki/Modaliteit_%28muziek%29",
+  "ok": true,
+  "title": "Modaliteit (muziek) - Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
   "url": "https://nl.wikipedia.org/wiki/Muziektheorie",
   "ok": true,
   "title": "Muziektheorie - Wikipedia",
@@ -1631,9 +2835,23 @@
   "chars": 1
  },
  {
-  "url": "https://nl.wikipedia.org/wiki/Two-hand_tapping",
+  "url": "https://nl.wikipedia.org/wiki/Ostinato",
   "ok": true,
-  "title": "Two-hand tapping - Wikipedia",
+  "title": "Ostinato - Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://nl.wikipedia.org/wiki/Slidegitaar",
+  "ok": true,
+  "title": "Slidegitaar - Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://nl.wikipedia.org/wiki/Sweep_picking",
+  "ok": true,
+  "title": "Sweep picking - Wikipedia",
   "lang": "",
   "chars": 1
  },
@@ -1645,6 +2863,13 @@
   "chars": 1
  },
  {
+  "url": "https://nl.wikipedia.org/wiki/Voortekening",
+  "ok": true,
+  "title": "Voortekening - Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
   "url": "https://nn.wikipedia.org/wiki/Gitar",
   "ok": true,
   "title": "Gitar – Wikipedia",
@@ -1652,9 +2877,16 @@
   "chars": 1
  },
  {
-  "url": "https://nn.wikipedia.org/wiki/Harmonisk_bølgje",
+  "url": "https://nn.wikipedia.org/wiki/Harmonisk_b%C3%B8lgje",
   "ok": true,
   "title": "Harmonisk bølgje – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://nn.wikipedia.org/wiki/Modus_i_musikk",
+  "ok": true,
+  "title": "Modus i musikk – Wikipedia",
   "lang": "",
   "chars": 1
  },
@@ -1664,6 +2896,20 @@
   "title": "Musikkteori – Wikipedia",
   "lang": "",
   "chars": 1
+ },
+ {
+  "url": "https://nn.wikipedia.org/wiki/Ostinato",
+  "ok": true,
+  "title": "Ostinato – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://nn.wikipedia.org/wiki/Slidegitar",
+  "ok": true,
+  "title": "Slidegitar – Wikipedia",
+  "lang": "",
+  "chars": 788
  },
  {
   "url": "https://nn.wikipedia.org/wiki/Vibrato",
@@ -1680,7 +2926,7 @@
   "chars": 1
  },
  {
-  "url": "https://oc.wikipedia.org/wiki/Armonica_(musica)",
+  "url": "https://oc.wikipedia.org/wiki/Armonica_%28musica%29",
   "ok": true,
   "title": "Armonica (musica) — Wikipèdia",
   "lang": "",
@@ -1694,6 +2940,27 @@
   "chars": 1
  },
  {
+  "url": "https://oc.wikipedia.org/wiki/Interval_%28musica%29",
+  "ok": true,
+  "title": "Interval (musica) — Wikipèdia",
+  "lang": "",
+  "chars": 1322
+ },
+ {
+  "url": "https://oc.wikipedia.org/wiki/M%C3%B2de_%28solfegi%29",
+  "ok": true,
+  "title": "Mòde (solfegi) — Wikipèdia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://oc.wikipedia.org/wiki/Mesura_%28solfegi%29",
+  "ok": true,
+  "title": "Mesura (solfegi) — Wikipèdia",
+  "lang": "",
+  "chars": 1
+ },
+ {
   "url": "https://oc.wikipedia.org/wiki/Vibrato",
   "ok": true,
   "title": "Vibrato — Wikipèdia",
@@ -1701,14 +2968,14 @@
   "chars": 1
  },
  {
-  "url": "https://os.wikipedia.org/wiki/Гитарæ",
+  "url": "https://os.wikipedia.org/wiki/%D0%93%D0%B8%D1%82%D0%B0%D1%80%C3%A6",
   "ok": true,
   "title": "Гитарæ — Википеди",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://pa.wikipedia.org/wiki/ਗਿਟਾਰ",
+  "url": "https://pa.wikipedia.org/wiki/%E0%A8%97%E0%A8%BF%E0%A8%9F%E0%A8%BE%E0%A8%B0",
   "ok": true,
   "title": "ਗਿਟਾਰ - ਵਿਕੀਪੀਡੀਆ, ਇਕ ਅਜ਼ਾਦ ਵਿਸ਼ਵਗਿਆਨਕੋਸ਼",
   "lang": "",
@@ -1729,32 +2996,46 @@
   "chars": 82
  },
  {
-  "url": "https://pl.wikipedia.org/wiki/Harmonika_(muzyka)",
+  "url": "https://pl.wikipedia.org/wiki/Hammering",
+  "ok": true,
+  "title": "Hammering – Wikipedia, wolna encyklopedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://pl.wikipedia.org/wiki/Harmonika_%28muzyka%29",
   "ok": true,
   "title": "Harmonika (muzyka) – Wikipedia, wolna encyklopedia",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://pl.wikipedia.org/wiki/Palm_muting",
+  "url": "https://pl.wikipedia.org/wiki/Interwa%C5%82",
   "ok": true,
-  "title": "Palm muting – Wikipedia, wolna encyklopedia",
+  "title": "Interwał – Wikipedia, wolna encyklopedia",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://pl.wikipedia.org/wiki/Rasgueado",
+  "url": "https://pl.wikipedia.org/wiki/Ostinato",
   "ok": true,
-  "title": "Rasgueado – Wikipedia, wolna encyklopedia",
+  "title": "Ostinato – Wikipedia, wolna encyklopedia",
   "lang": "",
-  "chars": 48
+  "chars": 1
  },
  {
-  "url": "https://pl.wikipedia.org/wiki/Tapping",
+  "url": "https://pl.wikipedia.org/wiki/Slide_%28technika_gry%29",
   "ok": true,
-  "title": "Tapping – Wikipedia, wolna encyklopedia",
+  "title": "Slide (technika gry) – Wikipedia, wolna encyklopedia",
   "lang": "",
-  "chars": 136
+  "chars": 279
+ },
+ {
+  "url": "https://pl.wikipedia.org/wiki/Sweeping",
+  "ok": true,
+  "title": "Sweeping – Wikipedia, wolna encyklopedia",
+  "lang": "",
+  "chars": 1
  },
  {
   "url": "https://pl.wikipedia.org/wiki/Teoria_muzyki",
@@ -1764,9 +3045,23 @@
   "chars": 643
  },
  {
+  "url": "https://pl.wikipedia.org/wiki/Tryb_%28muzyka%29",
+  "ok": true,
+  "title": "Tryb (muzyka) – Wikipedia, wolna encyklopedia",
+  "lang": "",
+  "chars": 48
+ },
+ {
   "url": "https://pl.wikipedia.org/wiki/Vibrato",
   "ok": true,
   "title": "Vibrato – Wikipedia, wolna encyklopedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://pl.wikipedia.org/wiki/Znaki_przykluczowe",
+  "ok": true,
+  "title": "Znaki przykluczowe – Wikipedia, wolna encyklopedia",
   "lang": "",
   "chars": 1
  },
@@ -1778,16 +3073,30 @@
   "chars": 1
  },
  {
-  "url": "https://pnb.wikipedia.org/wiki/گٹار",
+  "url": "https://pnb.wikipedia.org/wiki/%DA%AF%D9%B9%D8%A7%D8%B1",
   "ok": true,
   "title": "گٹار - وکیپیڈیا",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ps.wikipedia.org/wiki/ګټار",
+  "url": "https://ps.wikipedia.org/wiki/%DA%AB%D9%BC%D8%A7%D8%B1",
   "ok": true,
   "title": "ګټار - ويکيپېډيا",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://pt.wikipedia.org/wiki/Armadura_%28m%C3%BAsica%29",
+  "ok": true,
+  "title": "Armadura (música) – Wikipédia, a enciclopédia livre",
+  "lang": "",
+  "chars": 99
+ },
+ {
+  "url": "https://pt.wikipedia.org/wiki/Golpe_%28desambigua%C3%A7%C3%A3o%29",
+  "ok": true,
+  "title": "Golpe (desambiguação) – Wikipédia, a enciclopédia livre",
   "lang": "",
   "chars": 1
  },
@@ -1799,16 +3108,51 @@
   "chars": 503
  },
  {
-  "url": "https://pt.wikipedia.org/wiki/Harmônica",
+  "url": "https://pt.wikipedia.org/wiki/Harm%C3%B4nica",
   "ok": true,
   "title": "Harmônica – Wikipédia, a enciclopédia livre",
   "lang": "",
   "chars": 162
  },
  {
-  "url": "https://pt.wikipedia.org/wiki/Tapping",
+  "url": "https://pt.wikipedia.org/wiki/Intervalo_%28m%C3%BAsica%29",
   "ok": true,
-  "title": "Tapping – Wikipédia, a enciclopédia livre",
+  "title": "Intervalo (música) – Wikipédia, a enciclopédia livre",
+  "lang": "",
+  "chars": 99
+ },
+ {
+  "url": "https://pt.wikipedia.org/wiki/Modo_musical",
+  "ok": true,
+  "title": "Modo musical – Wikipédia, a enciclopédia livre",
+  "lang": "",
+  "chars": 99
+ },
+ {
+  "url": "https://pt.wikipedia.org/wiki/Ostinato",
+  "ok": true,
+  "title": "Ostinato – Wikipédia, a enciclopédia livre",
+  "lang": "",
+  "chars": 512
+ },
+ {
+  "url": "https://pt.wikipedia.org/wiki/Slide_guitar",
+  "ok": true,
+  "title": "Slide guitar – Wikipédia, a enciclopédia livre",
+  "lang": "",
+  "chars": 3749
+ },
+ {
+  "url": "https://pt.wikipedia.org/wiki/Sweep-picking",
+  "ok": true,
+  "title": "Sweep-picking – Wikipédia, a enciclopédia livre",
+  "lang": "",
+  "chars": 37
+ },
+ {
+  "url": "https://pt.wikipedia.org/wiki/Tempo_%28m%C3%BAsica%29",
+  "ok": true,
+  "title": "Tempo (música) – Wikipédia, a enciclopédia livre",
   "lang": "",
   "chars": 135
  },
@@ -1827,6 +3171,13 @@
   "chars": 1517
  },
  {
+  "url": "https://pt.wikipedia.org/wiki/Walking_bass",
+  "ok": true,
+  "title": "Linha do baixo – Wikipédia, a enciclopédia livre",
+  "lang": "",
+  "chars": 1
+ },
+ {
   "url": "https://qu.wikipedia.org/wiki/Tintawku",
   "ok": true,
   "title": "Tintawku - Wikipidiya",
@@ -1841,112 +3192,203 @@
   "chars": 488
  },
  {
-  "url": "https://ro.wikipedia.org/wiki/Chitară",
+  "url": "https://ro.wikipedia.org/wiki/Chitar%C4%83",
   "ok": true,
   "title": "Chitară - Wikipedia",
   "lang": "",
   "chars": 201
  },
  {
-  "url": "https://ro.wikipedia.org/wiki/Teoria_muzicală",
+  "url": "https://ro.wikipedia.org/wiki/Interval_%28muzic%C4%83%29",
+  "ok": true,
+  "title": "Interval (muzică) - Wikipedia",
+  "lang": "",
+  "chars": 2433
+ },
+ {
+  "url": "https://ro.wikipedia.org/wiki/Metru_%28muzic%C4%83%29",
+  "ok": true,
+  "title": "Metru (muzică) - Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ro.wikipedia.org/wiki/Mod_%28muzic%C4%83%29",
+  "ok": true,
+  "title": "Mod (muzică) - Wikipedia",
+  "lang": "",
+  "chars": 94
+ },
+ {
+  "url": "https://ro.wikipedia.org/wiki/Ostinato",
+  "ok": true,
+  "title": "Ostinato - Wikipedia",
+  "lang": "",
+  "chars": 3062
+ },
+ {
+  "url": "https://ro.wikipedia.org/wiki/Teoria_muzical%C4%83",
   "ok": true,
   "title": "Teoria muzicală - Wikipedia",
   "lang": "",
   "chars": 2192
  },
  {
-  "url": "https://rsk.wikipedia.org/wiki/Аликвотни_тони",
+  "url": "https://rsk.wikipedia.org/wiki/%D0%90%D0%BB%D0%B8%D0%BA%D0%B2%D0%BE%D1%82%D0%BD%D0%B8_%D1%82%D0%BE%D0%BD%D0%B8",
   "ok": true,
   "title": "Аликвотни тони — Википедия",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://rsk.wikipedia.org/wiki/Вибрато",
+  "url": "https://rsk.wikipedia.org/wiki/%D0%92%D0%B8%D0%B1%D1%80%D0%B0%D1%82%D0%BE",
   "ok": true,
   "title": "Вибрато — Википедия",
   "lang": "",
   "chars": 240
  },
  {
-  "url": "https://rsk.wikipedia.org/wiki/Теория_музики",
+  "url": "https://rsk.wikipedia.org/wiki/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B2%D0%B0%D0%BB_%28%D0%BC%D1%83%D0%B7%D0%B8%D0%BA%D0%B0%29",
+  "ok": true,
+  "title": "Интервал (музика) — Википедия",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://rsk.wikipedia.org/wiki/%D0%A2%D0%B5%D0%BE%D1%80%D0%B8%D1%8F_%D0%BC%D1%83%D0%B7%D0%B8%D0%BA%D0%B8",
   "ok": true,
   "title": "Теория музики — Википедия",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://rsk.wikipedia.org/wiki/Ґитара",
+  "url": "https://rsk.wikipedia.org/wiki/%D2%90%D0%B8%D1%82%D0%B0%D1%80%D0%B0",
   "ok": true,
   "title": "Ґитара — Википедия",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ru.wikipedia.org/wiki/Palm_muting",
+  "url": "https://ru.wikipedia.org/wiki/%D0%91%D0%BB%D1%83%D0%B6%D0%B4%D0%B0%D1%8E%D1%89%D0%B8%D0%B9_%D0%B1%D0%B0%D1%81",
   "ok": true,
-  "title": "Palm muting — Википедия",
+  "title": "Блуждающий бас — Википедия",
   "lang": "",
-  "chars": 435
+  "chars": 1
  },
  {
-  "url": "https://ru.wikipedia.org/wiki/Вибрато",
+  "url": "https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%B1%D1%80%D0%B0%D1%82%D0%BE",
   "ok": true,
   "title": "Вибрато — Википедия",
   "lang": "",
   "chars": 17
  },
  {
-  "url": "https://ru.wikipedia.org/wiki/Гармоника_(музыка)",
+  "url": "https://ru.wikipedia.org/wiki/%D0%93%D0%B0%D1%80%D0%BC%D0%BE%D0%BD%D0%B8%D0%BA%D0%B0_%28%D0%BC%D1%83%D0%B7%D1%8B%D0%BA%D0%B0%29",
   "ok": true,
   "title": "Гармоника (музыка) — Википедия",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ru.wikipedia.org/wiki/Гитара",
+  "url": "https://ru.wikipedia.org/wiki/%D0%93%D0%B8%D1%82%D0%B0%D1%80%D0%B0",
   "ok": true,
   "title": "Гитара — Википедия",
   "lang": "",
   "chars": 294
  },
  {
-  "url": "https://ru.wikipedia.org/wiki/Гитарный_бой",
+  "url": "https://ru.wikipedia.org/wiki/%D0%94%D0%B2%D0%BE%D0%B9%D0%BD%D1%8B%D0%B5_%D0%BD%D0%BE%D1%82%D1%8B",
   "ok": true,
-  "title": "Гитарный бой — Википедия",
+  "title": "Двойные ноты — Википедия",
+  "lang": "",
+  "chars": 17
+ },
+ {
+  "url": "https://ru.wikipedia.org/wiki/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B2%D0%B0%D0%BB_%28%D0%BC%D1%83%D0%B7%D1%8B%D0%BA%D0%B0%29",
+  "ok": true,
+  "title": "Интервал (музыка) — Википедия",
+  "lang": "",
+  "chars": 44
+ },
+ {
+  "url": "https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D1%8E%D1%87%D0%B5%D0%B2%D1%8B%D0%B5_%D0%B7%D0%BD%D0%B0%D0%BA%D0%B8",
+  "ok": true,
+  "title": "Ключевые знаки — Википедия",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ru.wikipedia.org/wiki/Теория_музыки",
+  "url": "https://ru.wikipedia.org/wiki/%D0%9B%D0%B0%D0%B4_%28%D0%BC%D1%83%D0%B7%D1%8B%D0%BA%D0%B0%29",
+  "ok": true,
+  "title": "Лад (музыка) — Википедия",
+  "lang": "",
+  "chars": 1253
+ },
+ {
+  "url": "https://ru.wikipedia.org/wiki/%D0%9E%D1%81%D1%82%D0%B8%D0%BD%D0%B0%D1%82%D0%BE",
+  "ok": true,
+  "title": "Остинато — Википедия",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ru.wikipedia.org/wiki/%D0%A0%D0%B0%D0%B7%D0%BC%D0%B5%D1%80_%28%D0%BC%D1%83%D0%B7%D1%8B%D0%BA%D0%B0%29",
+  "ok": true,
+  "title": "Размер (музыка) — Википедия",
+  "lang": "",
+  "chars": 44
+ },
+ {
+  "url": "https://ru.wikipedia.org/wiki/%D0%A0%D0%B8%D0%BC%D1%81%D0%BA%D0%B0%D1%8F_%D0%BD%D0%BE%D1%82%D0%B0%D1%86%D0%B8%D1%8F",
+  "ok": true,
+  "title": "Римская нотация — Википедия",
+  "lang": "",
+  "chars": 2115
+ },
+ {
+  "url": "https://ru.wikipedia.org/wiki/%D0%A1%D0%B2%D0%B8%D0%BF",
+  "ok": true,
+  "title": "Свип — Википедия",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://ru.wikipedia.org/wiki/%D0%A1%D0%BB%D0%B0%D0%B9%D0%B4-%D0%B3%D0%B8%D1%82%D0%B0%D1%80%D0%B0",
+  "ok": true,
+  "title": "Слайд-гитара — Википедия",
+  "lang": "",
+  "chars": 743
+ },
+ {
+  "url": "https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D0%BE%D1%80%D0%B8%D1%8F_%D0%BC%D1%83%D0%B7%D1%8B%D0%BA%D0%B8",
   "ok": true,
   "title": "Теория музыки — Википедия",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ru.wikipedia.org/wiki/Тэппинг",
+  "url": "https://ru.wikipedia.org/wiki/Hammer-on",
   "ok": true,
-  "title": "Тэппинг — Википедия",
+  "title": "Hammer-on — Википедия",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://rue.wikipedia.org/wiki/Ґітара",
+  "url": "https://rue.wikipedia.org/wiki/%D2%90%D1%96%D1%82%D0%B0%D1%80%D0%B0",
   "ok": true,
   "title": "Ґітара — Вікіпедія",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://rup.wikipedia.org/wiki/Chitarâ",
+  "url": "https://rup.wikipedia.org/wiki/Chitar%C3%A2",
   "ok": true,
   "title": "Chitarâ - Wp/rup - Wikimedia Incubator",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://sa.wikipedia.org/wiki/गिटार्_(वाद्यम्)",
+  "url": "https://sa.wikipedia.org/wiki/%E0%A4%97%E0%A4%BF%E0%A4%9F%E0%A4%BE%E0%A4%B0%E0%A5%8D_%28%E0%A4%B5%E0%A4%BE%E0%A4%A6%E0%A5%8D%E0%A4%AF%E0%A4%AE%E0%A5%8D%29",
   "ok": true,
   "title": "गिटार् (वाद्यम्) - विकिपीडिया",
   "lang": "",
@@ -1967,7 +3409,7 @@
   "chars": 1
  },
  {
-  "url": "https://scn.wikipedia.org/wiki/Tiurìa_musicali",
+  "url": "https://scn.wikipedia.org/wiki/Tiur%C3%ACa_musicali",
   "ok": true,
   "title": "Tiurìa musicali - Wikipedia",
   "lang": "",
@@ -1988,21 +3430,21 @@
   "chars": 112
  },
  {
-  "url": "https://sd.wikipedia.org/wiki/گٽار",
+  "url": "https://sd.wikipedia.org/wiki/%DA%AF%D9%BD%D8%A7%D8%B1",
   "ok": true,
   "title": "گٽار - وڪيپيڊيا",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://se.wikipedia.org/wiki/Gitárra",
+  "url": "https://se.wikipedia.org/wiki/Git%C3%A1rra",
   "ok": true,
   "title": "Gitárra – Wikipedia, friddja diehtosátnegirji",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://sgs.wikipedia.org/wiki/Gėtara",
+  "url": "https://sgs.wikipedia.org/wiki/G%C4%97tara",
   "ok": true,
   "title": "Gėtara - Wikipedia",
   "lang": "",
@@ -2023,6 +3465,27 @@
   "chars": 20
  },
  {
+  "url": "https://sh.wikipedia.org/wiki/Interval_%28muzika%29",
+  "ok": true,
+  "title": "Interval (muzika) – Wikipedija / Википедија",
+  "lang": "",
+  "chars": 374
+ },
+ {
+  "url": "https://sh.wikipedia.org/wiki/Predznaci_uz_klju%C4%8D",
+  "ok": true,
+  "title": "Predznaci uz ključ – Wikipedija / Википедија",
+  "lang": "",
+  "chars": 81
+ },
+ {
+  "url": "https://sh.wikipedia.org/wiki/Promena_taktova",
+  "ok": true,
+  "title": "Promena taktova – Wikipedija / Википедија",
+  "lang": "",
+  "chars": 81
+ },
+ {
   "url": "https://sh.wikipedia.org/wiki/Teorija_muzike",
   "ok": true,
   "title": "Teorija muzike – Wikipedija / Википедија",
@@ -2030,11 +3493,18 @@
   "chars": 81
  },
  {
-  "url": "https://si.wikipedia.org/wiki/ගිටාරය",
+  "url": "https://si.wikipedia.org/wiki/%E0%B6%9C%E0%B7%92%E0%B6%A7%E0%B7%8F%E0%B6%BB%E0%B6%BA",
   "ok": true,
   "title": "ගිටාරය - විකිපීඩියා",
   "lang": "",
   "chars": 3197
+ },
+ {
+  "url": "https://simple.wikipedia.org/wiki/Double_stopping",
+  "ok": true,
+  "title": "Double stopping - Simple English Wikipedia, the free encyclopedia",
+  "lang": "",
+  "chars": 152
  },
  {
   "url": "https://simple.wikipedia.org/wiki/Guitar",
@@ -2051,11 +3521,46 @@
   "chars": 1
  },
  {
+  "url": "https://simple.wikipedia.org/wiki/Interval_%28music%29",
+  "ok": true,
+  "title": "Interval (music) - Simple English Wikipedia, the free encyclopedia",
+  "lang": "",
+  "chars": 1148
+ },
+ {
+  "url": "https://simple.wikipedia.org/wiki/Key_signature",
+  "ok": true,
+  "title": "Key signature - Simple English Wikipedia, the free encyclopedia",
+  "lang": "",
+  "chars": 2293
+ },
+ {
   "url": "https://simple.wikipedia.org/wiki/Music_theory",
   "ok": true,
   "title": "Music theory - Simple English Wikipedia, the free encyclopedia",
   "lang": "",
   "chars": 1608
+ },
+ {
+  "url": "https://simple.wikipedia.org/wiki/Musical_mode",
+  "ok": true,
+  "title": "Musical mode - Simple English Wikipedia, the free encyclopedia",
+  "lang": "",
+  "chars": 2531
+ },
+ {
+  "url": "https://simple.wikipedia.org/wiki/Ostinato",
+  "ok": true,
+  "title": "Ostinato - Simple English Wikipedia, the free encyclopedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://simple.wikipedia.org/wiki/Time_signature",
+  "ok": true,
+  "title": "Time signature - Simple English Wikipedia, the free encyclopedia",
+  "lang": "",
+  "chars": 1098
  },
  {
   "url": "https://simple.wikipedia.org/wiki/Vibrato",
@@ -2065,6 +3570,13 @@
   "chars": 152
  },
  {
+  "url": "https://sk.wikipedia.org/wiki/Bottleneck",
+  "ok": true,
+  "title": "Bottleneck - Wikipédia",
+  "lang": "",
+  "chars": 1
+ },
+ {
   "url": "https://sk.wikipedia.org/wiki/Gitara",
   "ok": true,
   "title": "Gitara - Wikipédia",
@@ -2072,9 +3584,23 @@
   "chars": 1
  },
  {
-  "url": "https://sk.wikipedia.org/wiki/Hudobná_teória",
+  "url": "https://sk.wikipedia.org/wiki/Hudobn%C3%A1_te%C3%B3ria",
   "ok": true,
   "title": "Hudobná teória - Wikipédia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://sk.wikipedia.org/wiki/Interval_%28hudba%29",
+  "ok": true,
+  "title": "Interval (hudba) - Wikipédia",
+  "lang": "",
+  "chars": 1680
+ },
+ {
+  "url": "https://sk.wikipedia.org/wiki/Predznamenanie",
+  "ok": true,
+  "title": "Predznamenanie - Wikipédia",
   "lang": "",
   "chars": 1
  },
@@ -2086,11 +3612,25 @@
   "chars": 1
  },
  {
-  "url": "https://sl.wikipedia.org/wiki/Flažolet",
+  "url": "https://sl.wikipedia.org/wiki/Bottleneck",
+  "ok": true,
+  "title": "Bottleneck - Wikipedija, prosta enciklopedija",
+  "lang": "",
+  "chars": 58
+ },
+ {
+  "url": "https://sl.wikipedia.org/wiki/Fla%C5%BEolet",
   "ok": true,
   "title": "Flažolet - Wikipedija, prosta enciklopedija",
   "lang": "",
   "chars": 1
+ },
+ {
+  "url": "https://sl.wikipedia.org/wiki/Interval_%28glasba%29",
+  "ok": true,
+  "title": "Interval (glasba) - Wikipedija, prosta enciklopedija",
+  "lang": "",
+  "chars": 1777
  },
  {
   "url": "https://sl.wikipedia.org/wiki/Kitara",
@@ -2114,32 +3654,60 @@
   "chars": 1403
  },
  {
-  "url": "https://sr.wikipedia.org/wiki/Аликвотни_тонови",
+  "url": "https://sr.wikipedia.org/wiki/%D0%90%D0%BB%D0%B8%D0%BA%D0%B2%D0%BE%D1%82%D0%BD%D0%B8_%D1%82%D0%BE%D0%BD%D0%BE%D0%B2%D0%B8",
   "ok": true,
   "title": "Аликвотни тонови — Википедија",
   "lang": "",
   "chars": 81
  },
  {
-  "url": "https://sr.wikipedia.org/wiki/Вибрато",
+  "url": "https://sr.wikipedia.org/wiki/%D0%92%D0%B8%D0%B1%D1%80%D0%B0%D1%82%D0%BE",
   "ok": true,
   "title": "Вибрато — Википедија",
   "lang": "",
   "chars": 81
  },
  {
-  "url": "https://sr.wikipedia.org/wiki/Гитара",
+  "url": "https://sr.wikipedia.org/wiki/%D0%93%D0%B8%D1%82%D0%B0%D1%80%D0%B0",
   "ok": true,
   "title": "Гитара — Википедија",
   "lang": "",
   "chars": 3818
  },
  {
-  "url": "https://sr.wikipedia.org/wiki/Теорија_музике",
+  "url": "https://sr.wikipedia.org/wiki/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B2%D0%B0%D0%BB_%28%D0%BC%D1%83%D0%B7%D0%B8%D0%BA%D0%B0%29",
+  "ok": true,
+  "title": "Интервал (музика) — Википедија",
+  "lang": "",
+  "chars": 1887
+ },
+ {
+  "url": "https://sr.wikipedia.org/wiki/%D0%9F%D1%80%D0%B5%D0%B4%D0%B7%D0%BD%D0%B0%D1%86%D0%B8_%D1%83%D0%B7_%D0%BA%D1%99%D1%83%D1%87",
+  "ok": true,
+  "title": "Предзнаци уз кључ — Википедија",
+  "lang": "",
+  "chars": 81
+ },
+ {
+  "url": "https://sr.wikipedia.org/wiki/%D0%9F%D1%80%D0%BE%D0%BC%D0%B5%D0%BD%D0%B0_%D1%82%D0%B0%D0%BA%D1%82%D0%BE%D0%B2%D0%B0",
+  "ok": true,
+  "title": "Промена тактова — Википедија",
+  "lang": "",
+  "chars": 81
+ },
+ {
+  "url": "https://sr.wikipedia.org/wiki/%D0%A2%D0%B5%D0%BE%D1%80%D0%B8%D1%98%D0%B0_%D0%BC%D1%83%D0%B7%D0%B8%D0%BA%D0%B5",
   "ok": true,
   "title": "Теорија музике — Википедија",
   "lang": "",
   "chars": 5622
+ },
+ {
+  "url": "https://sr.wikipedia.org/wiki/Mod_%28muzika%29",
+  "ok": true,
+  "title": "Mod (muzika) — Википедија",
+  "lang": "",
+  "chars": 2641
  },
  {
   "url": "https://su.wikipedia.org/wiki/Gitar",
@@ -2149,9 +3717,16 @@
   "chars": 4172
  },
  {
-  "url": "https://sv.wikipedia.org/wiki/Finger_tapping",
+  "url": "https://su.wikipedia.org/wiki/Mode_%28musik%29",
   "ok": true,
-  "title": "Finger tapping – Wikipedia",
+  "title": "Mode (musik) - Wikipédia Sunda, énsiklopédi bébas",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://sv.wikipedia.org/wiki/F%C3%B6rtecken",
+  "ok": true,
+  "title": "Förtecken – Wikipedia",
   "lang": "",
   "chars": 1
  },
@@ -2163,9 +3738,23 @@
   "chars": 1184
  },
  {
-  "url": "https://sv.wikipedia.org/wiki/Harmonisk_våg",
+  "url": "https://sv.wikipedia.org/wiki/Harmonisk_v%C3%A5g",
   "ok": true,
   "title": "Harmonisk våg – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://sv.wikipedia.org/wiki/Intervall_%28musik%29",
+  "ok": true,
+  "title": "Intervall (musik) – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://sv.wikipedia.org/wiki/Modus_%28musik%29",
+  "ok": true,
+  "title": "Modus (musik) – Wikipedia",
   "lang": "",
   "chars": 1
  },
@@ -2177,9 +3766,37 @@
   "chars": 1
  },
  {
-  "url": "https://sv.wikipedia.org/wiki/Palm_mute",
+  "url": "https://sv.wikipedia.org/wiki/Ostinato",
   "ok": true,
-  "title": "Palm mute – Wikipedia",
+  "title": "Ostinato – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://sv.wikipedia.org/wiki/Slidegitarr",
+  "ok": true,
+  "title": "Slidegitarr – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://sv.wikipedia.org/wiki/Steganalys",
+  "ok": true,
+  "title": "Steganalys – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://sv.wikipedia.org/wiki/Sweeping",
+  "ok": true,
+  "title": "Sweeping – Wikipedia",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://sv.wikipedia.org/wiki/Taktartsangivelse",
+  "ok": true,
+  "title": "Taktartsangivelse – Wikipedia",
   "lang": "",
   "chars": 1
  },
@@ -2205,58 +3822,100 @@
   "chars": 1
  },
  {
-  "url": "https://ta.wikipedia.org/wiki/கித்தார்",
+  "url": "https://ta.wikipedia.org/wiki/%E0%AE%95%E0%AE%BF%E0%AE%A4%E0%AF%8D%E0%AE%A4%E0%AE%BE%E0%AE%B0%E0%AF%8D",
   "ok": true,
   "title": "கித்தார் - தமிழ் விக்கிப்பீடியா",
   "lang": "",
   "chars": 1844
  },
  {
-  "url": "https://te.wikipedia.org/wiki/గిటారు",
+  "url": "https://te.wikipedia.org/wiki/%E0%B0%85%E0%B0%82%E0%B0%A4%E0%B0%B0%E0%B0%82_%28%E0%B0%B8%E0%B0%82%E0%B0%97%E0%B1%80%E0%B0%A4%E0%B0%82%29",
+  "ok": true,
+  "title": "అంతరం (సంగీతం) - వికీపీడియా",
+  "lang": "",
+  "chars": 758
+ },
+ {
+  "url": "https://te.wikipedia.org/wiki/%E0%B0%97%E0%B0%BF%E0%B0%9F%E0%B0%BE%E0%B0%B0%E0%B1%81",
   "ok": true,
   "title": "గిటారు - వికీపీడియా",
   "lang": "",
   "chars": 227
  },
  {
-  "url": "https://te.wikipedia.org/wiki/సంగీత_సిద్ధాంతం",
+  "url": "https://te.wikipedia.org/wiki/%E0%B0%AE%E0%B1%8B%E0%B0%A1%E0%B1%8D_%28%E0%B0%B8%E0%B0%82%E0%B0%97%E0%B1%80%E0%B0%A4%E0%B0%82%29",
+  "ok": true,
+  "title": "మోడ్ (సంగీతం) - వికీపీడియా",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://te.wikipedia.org/wiki/%E0%B0%B8%E0%B0%82%E0%B0%97%E0%B1%80%E0%B0%A4_%E0%B0%B8%E0%B0%BF%E0%B0%A6%E0%B1%8D%E0%B0%A7%E0%B0%BE%E0%B0%82%E0%B0%A4%E0%B0%82",
   "ok": true,
   "title": "సంగీత సిద్ధాంతం - వికీపీడియా",
   "lang": "",
   "chars": 86
  },
  {
-  "url": "https://tg.wikipedia.org/wiki/Гитор",
+  "url": "https://tg.wikipedia.org/wiki/%D0%93%D0%B8%D1%82%D0%BE%D1%80",
   "ok": true,
   "title": "Гитор — Википедия",
   "lang": "",
   "chars": 540
  },
  {
-  "url": "https://th.wikipedia.org/wiki/กีตาร์",
+  "url": "https://th.wikipedia.org/wiki/%E0%B8%81%E0%B8%B5%E0%B8%95%E0%B8%B2%E0%B8%A3%E0%B9%8C",
   "ok": true,
   "title": "กีตาร์ - วิกิพีเดีย",
   "lang": "",
   "chars": 2093
  },
  {
-  "url": "https://th.wikipedia.org/wiki/คอร์ด",
+  "url": "https://th.wikipedia.org/wiki/%E0%B8%82%E0%B8%B1%E0%B9%89%E0%B8%99%E0%B8%84%E0%B8%B9%E0%B9%88%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87",
+  "ok": true,
+  "title": "ขั้นคู่เสียง - วิกิพีเดีย",
+  "lang": "",
+  "chars": 69
+ },
+ {
+  "url": "https://th.wikipedia.org/wiki/%E0%B8%84%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%94",
   "ok": true,
   "title": "คอร์ด - วิกิพีเดีย",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://th.wikipedia.org/wiki/ทฤษฎีดนตรี",
+  "url": "https://th.wikipedia.org/wiki/%E0%B8%97%E0%B8%A4%E0%B8%A9%E0%B8%8E%E0%B8%B5%E0%B8%94%E0%B8%99%E0%B8%95%E0%B8%A3%E0%B8%B5",
   "ok": true,
   "title": "ทฤษฎีดนตรี - วิกิพีเดีย",
   "lang": "",
   "chars": 69
  },
  {
-  "url": "https://th.wikipedia.org/wiki/ฮาร์มอนิก",
+  "url": "https://th.wikipedia.org/wiki/%E0%B8%AE%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%A1%E0%B8%AD%E0%B8%99%E0%B8%B4%E0%B8%81",
   "ok": true,
   "title": "ฮาร์มอนิก - วิกิพีเดีย",
+  "lang": "",
+  "chars": 69
+ },
+ {
+  "url": "https://th.wikipedia.org/wiki/%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%AB%E0%B8%A1%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B3%E0%B8%AB%E0%B8%99%E0%B8%94%E0%B8%88%E0%B8%B1%E0%B8%87%E0%B8%AB%E0%B8%A7%E0%B8%B0",
+  "ok": true,
+  "title": "เครื่องหมายกำหนดจังหวะ - วิกิพีเดีย",
+  "lang": "",
+  "chars": 69
+ },
+ {
+  "url": "https://th.wikipedia.org/wiki/%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%AB%E0%B8%A1%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B8%E0%B8%8D%E0%B9%81%E0%B8%88%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87",
+  "ok": true,
+  "title": "เครื่องหมายกุญแจเสียง - วิกิพีเดีย",
+  "lang": "",
+  "chars": 69
+ },
+ {
+  "url": "https://th.wikipedia.org/wiki/%E0%B9%82%E0%B8%AB%E0%B8%A1%E0%B8%94_%28%E0%B8%94%E0%B8%99%E0%B8%95%E0%B8%A3%E0%B8%B5%29",
+  "ok": true,
+  "title": "โหมด (ดนตรี) - วิกิพีเดีย",
   "lang": "",
   "chars": 69
  },
@@ -2282,6 +3941,13 @@
   "chars": 1
  },
  {
+  "url": "https://tr.wikipedia.org/wiki/%C3%96l%C3%A7%C3%BC_i%C5%9Fareti",
+  "ok": true,
+  "title": "Ölçü işareti - Vikipedi",
+  "lang": "",
+  "chars": 1
+ },
+ {
   "url": "https://tr.wikipedia.org/wiki/Gitar",
   "ok": true,
   "title": "Gitar - Vikipedi",
@@ -2289,77 +3955,140 @@
   "chars": 1741
  },
  {
-  "url": "https://tr.wikipedia.org/wiki/Müzik_teorisi",
+  "url": "https://tr.wikipedia.org/wiki/Hammer-on",
+  "ok": true,
+  "title": "Hammer-on - Vikipedi",
+  "lang": "",
+  "chars": 406
+ },
+ {
+  "url": "https://tr.wikipedia.org/wiki/M%C3%BCzik_teorisi",
   "ok": true,
   "title": "Müzik teorisi - Vikipedi",
   "lang": "",
   "chars": 355
  },
  {
-  "url": "https://tyv.wikipedia.org/wiki/Гитара",
+  "url": "https://tr.wikipedia.org/wiki/Mod_%28m%C3%BCzik%29",
+  "ok": true,
+  "title": "Mod (müzik) - Vikipedi",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://tr.wikipedia.org/wiki/Ostinato",
+  "ok": true,
+  "title": "Ostinato - Vikipedi",
+  "lang": "",
+  "chars": 294
+ },
+ {
+  "url": "https://tr.wikipedia.org/wiki/Slide_gitar",
+  "ok": true,
+  "title": "Slide gitar - Vikipedi",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://tyv.wikipedia.org/wiki/%D0%93%D0%B8%D1%82%D0%B0%D1%80%D0%B0",
   "ok": true,
   "title": "Гитара — Википедия",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://uk.wikipedia.org/wiki/Вібрато",
+  "url": "https://uk.wikipedia.org/wiki/%D0%91%D0%BB%D1%83%D0%BA%D0%B0%D1%8E%D1%87%D0%B8%D0%B9_%D0%B1%D0%B0%D1%81",
+  "ok": true,
+  "title": "Блукаючий бас — Вікіпедія",
+  "lang": "",
+  "chars": 92
+ },
+ {
+  "url": "https://uk.wikipedia.org/wiki/%D0%92%D1%96%D0%B1%D1%80%D0%B0%D1%82%D0%BE",
   "ok": true,
   "title": "Вібрато — Вікіпедія",
   "lang": "",
   "chars": 92
  },
  {
-  "url": "https://uk.wikipedia.org/wiki/Гармоніки",
+  "url": "https://uk.wikipedia.org/wiki/%D0%93%D0%B0%D1%80%D0%BC%D0%BE%D0%BD%D1%96%D0%BA%D0%B8",
   "ok": true,
   "title": "Гармоніки — Вікіпедія",
   "lang": "",
   "chars": 92
  },
  {
-  "url": "https://uk.wikipedia.org/wiki/Глушіння_долонею",
-  "ok": true,
-  "title": "Глушіння долонею — Вікіпедія",
-  "lang": "",
-  "chars": 599
- },
- {
-  "url": "https://uk.wikipedia.org/wiki/Гітара",
+  "url": "https://uk.wikipedia.org/wiki/%D0%93%D1%96%D1%82%D0%B0%D1%80%D0%B0",
   "ok": true,
   "title": "Гітара — Вікіпедія",
   "lang": "",
   "chars": 543
  },
  {
-  "url": "https://uk.wikipedia.org/wiki/Расгеадо",
+  "url": "https://uk.wikipedia.org/wiki/%D0%9A%D0%BB%D1%8E%D1%87%D0%BE%D0%B2%D1%96_%D0%B7%D0%BD%D0%B0%D0%BA%D0%B8",
   "ok": true,
-  "title": "Расгеадо — Вікіпедія",
+  "title": "Ключові знаки — Вікіпедія",
   "lang": "",
   "chars": 92
  },
  {
-  "url": "https://uk.wikipedia.org/wiki/Теорія_музики",
+  "url": "https://uk.wikipedia.org/wiki/%D0%9B%D0%B0%D0%B4_%28%D0%BC%D1%83%D0%B7%D0%B8%D0%BA%D0%B0%29",
+  "ok": true,
+  "title": "Лад (музика) — Вікіпедія",
+  "lang": "",
+  "chars": 92
+ },
+ {
+  "url": "https://uk.wikipedia.org/wiki/%D0%9C%D1%83%D0%B7%D0%B8%D1%87%D0%BD%D0%B8%D0%B9_%D1%96%D0%BD%D1%82%D0%B5%D1%80%D0%B2%D0%B0%D0%BB",
+  "ok": true,
+  "title": "Музичний інтервал — Вікіпедія",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://uk.wikipedia.org/wiki/%D0%9E%D1%81%D1%82%D0%B8%D0%BD%D0%B0%D1%82%D0%BE",
+  "ok": true,
+  "title": "Остинато — Вікіпедія",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://uk.wikipedia.org/wiki/%D0%A1%D0%BB%D0%B0%D0%B9%D0%B4-%D0%B3%D1%96%D1%82%D0%B0%D1%80%D0%B0",
+  "ok": true,
+  "title": "Слайд-гітара — Вікіпедія",
+  "lang": "",
+  "chars": 781
+ },
+ {
+  "url": "https://uk.wikipedia.org/wiki/%D0%A2%D0%B0%D0%BA%D1%82%D0%BE%D0%B2%D0%B8%D0%B9_%D1%80%D0%BE%D0%B7%D0%BC%D1%96%D1%80",
+  "ok": true,
+  "title": "Тактовий розмір — Вікіпедія",
+  "lang": "",
+  "chars": 92
+ },
+ {
+  "url": "https://uk.wikipedia.org/wiki/%D0%A2%D0%B5%D0%BE%D1%80%D1%96%D1%8F_%D0%BC%D1%83%D0%B7%D0%B8%D0%BA%D0%B8",
   "ok": true,
   "title": "Теорія музики — Вікіпедія",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://uk.wikipedia.org/wiki/Тепінг",
+  "url": "https://uk.wikipedia.org/wiki/Hammer-on",
   "ok": true,
-  "title": "Тепінг — Вікіпедія",
+  "title": "Hammer-on — Вікіпедія",
   "lang": "",
   "chars": 92
  },
  {
-  "url": "https://ur.wikipedia.org/wiki/نظریہ_موسیقی",
+  "url": "https://ur.wikipedia.org/wiki/%D9%86%D8%B8%D8%B1%DB%8C%DB%81_%D9%85%D9%88%D8%B3%DB%8C%D9%82%DB%8C",
   "ok": true,
   "title": "نظریہ موسیقی - آزاد دائرۃ المعارف، ویکیپیڈیا",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://ur.wikipedia.org/wiki/گٹار",
+  "url": "https://ur.wikipedia.org/wiki/%DA%AF%D9%B9%D8%A7%D8%B1",
   "ok": true,
   "title": "گٹار - آزاد دائرۃ المعارف، ویکیپیڈیا",
   "lang": "",
@@ -2373,9 +4102,37 @@
   "chars": 1
  },
  {
+  "url": "https://uz.wikipedia.org/wiki/Interval_%28musiqa%29",
+  "ok": true,
+  "title": "Interval (musiqa) - Vikipediya",
+  "lang": "",
+  "chars": 1316
+ },
+ {
+  "url": "https://uz.wikipedia.org/wiki/Lad",
+  "ok": true,
+  "title": "Lad - Vikipediya",
+  "lang": "",
+  "chars": 96
+ },
+ {
   "url": "https://uz.wikipedia.org/wiki/Musiqa_nazariyasi",
   "ok": true,
   "title": "Musiqa nazariyasi - Vikipediya",
+  "lang": "",
+  "chars": 96
+ },
+ {
+  "url": "https://uz.wikipedia.org/wiki/O%CA%BBlchov",
+  "ok": true,
+  "title": "Oʻlchov - Vikipediya",
+  "lang": "",
+  "chars": 96
+ },
+ {
+  "url": "https://uz.wikipedia.org/wiki/Ostinato",
+  "ok": true,
+  "title": "Ostinato - Vikipediya",
   "lang": "",
   "chars": 96
  },
@@ -2387,7 +4144,14 @@
   "chars": 53
  },
  {
-  "url": "https://vec.wikipedia.org/wiki/Vibrà",
+  "url": "https://vec.wikipedia.org/wiki/Ostinato",
+  "ok": true,
+  "title": "Ostinato - Wikipèdia Vèneta, ła ensiclopedia łìbara",
+  "lang": "",
+  "chars": 119
+ },
+ {
+  "url": "https://vec.wikipedia.org/wiki/Vibr%C3%A0",
   "ok": true,
   "title": "Vibrà - Wikipèdia Vèneta, ła ensiclopedia łìbara",
   "lang": "",
@@ -2401,6 +4165,20 @@
   "chars": 1
  },
  {
+  "url": "https://vi.wikipedia.org/wiki/%C4%90i%E1%BB%87u_th%E1%BB%A9c",
+  "ok": true,
+  "title": "Điệu thức – Wikipedia tiếng Việt",
+  "lang": "",
+  "chars": 592
+ },
+ {
+  "url": "https://vi.wikipedia.org/wiki/D%E1%BA%A5u_h%C3%B3a",
+  "ok": true,
+  "title": "Dấu hóa – Wikipedia tiếng Việt",
+  "lang": "",
+  "chars": 242
+ },
+ {
   "url": "https://vi.wikipedia.org/wiki/Guitar",
   "ok": true,
   "title": "Guitar – Wikipedia tiếng Việt",
@@ -2408,14 +4186,35 @@
   "chars": 25472
  },
  {
-  "url": "https://vi.wikipedia.org/wiki/Lý_thuyết_âm_nhạc",
+  "url": "https://vi.wikipedia.org/wiki/L%C3%BD_thuy%E1%BA%BFt_%C3%A2m_nh%E1%BA%A1c",
   "ok": true,
   "title": "Lý thuyết âm nhạc – Wikipedia tiếng Việt",
   "lang": "",
   "chars": 79
  },
  {
-  "url": "https://wa.wikipedia.org/wiki/Guitåre",
+  "url": "https://vi.wikipedia.org/wiki/Ostinato",
+  "ok": true,
+  "title": "Ostinato – Wikipedia tiếng Việt",
+  "lang": "",
+  "chars": 371
+ },
+ {
+  "url": "https://vi.wikipedia.org/wiki/Qu%C3%A3ng",
+  "ok": true,
+  "title": "Quãng – Wikipedia tiếng Việt",
+  "lang": "",
+  "chars": 1303
+ },
+ {
+  "url": "https://vi.wikipedia.org/wiki/S%E1%BB%91_ch%E1%BB%89_nh%E1%BB%8Bp",
+  "ok": true,
+  "title": "Số chỉ nhịp – Wikipedia tiếng Việt",
+  "lang": "",
+  "chars": 79
+ },
+ {
+  "url": "https://wa.wikipedia.org/wiki/Guit%C3%A5re",
   "ok": true,
   "title": "Guitåre — Wikipedia",
   "lang": "",
@@ -2429,79 +4228,177 @@
   "chars": 1958
  },
  {
-  "url": "https://wuu.wikipedia.org/wiki/吉他",
+  "url": "https://wuu.wikipedia.org/wiki/%E5%90%89%E4%BB%96",
   "ok": true,
   "title": "吉他 - 吴语维基百科",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://xmf.wikipedia.org/wiki/გიტარა",
+  "url": "https://wuu.wikipedia.org/wiki/%E8%B0%83%E5%BC%8F",
+  "ok": true,
+  "title": "调式 - 吴语维基百科",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://wuu.wikipedia.org/wiki/%E9%9F%B3%E7%A8%8B",
+  "ok": true,
+  "title": "音程 - 吴语维基百科",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://xmf.wikipedia.org/wiki/%E1%83%92%E1%83%98%E1%83%A2%E1%83%90%E1%83%A0%E1%83%90",
   "ok": true,
   "title": "გიტარა — ვიკიპედია",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://yi.wikipedia.org/wiki/גיטאר",
+  "url": "https://yi.wikipedia.org/wiki/%D7%92%D7%99%D7%98%D7%90%D7%A8",
   "ok": true,
   "title": "גיטאר – װיקיפּעדיע",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://yue.wikipedia.org/wiki/樂理",
+  "url": "https://yue.wikipedia.org/wiki/%E6%8B%8D%E5%AD%90%E8%A8%98%E8%99%9F",
+  "ok": true,
+  "title": "拍子記號 - 維基百科，自由嘅百科全書",
+  "lang": "",
+  "chars": 42
+ },
+ {
+  "url": "https://yue.wikipedia.org/wiki/%E6%A8%82%E7%90%86",
   "ok": true,
   "title": "樂理 - 維基百科，自由嘅百科全書",
   "lang": "",
   "chars": 4595
  },
  {
-  "url": "https://yue.wikipedia.org/wiki/結他",
+  "url": "https://yue.wikipedia.org/wiki/%E7%B5%90%E4%BB%96",
   "ok": true,
   "title": "結他 - 維基百科，自由嘅百科全書",
   "lang": "",
   "chars": 278
  },
  {
-  "url": "https://yue.wikipedia.org/wiki/震音",
+  "url": "https://yue.wikipedia.org/wiki/%E8%AA%BF%E5%BC%8F",
+  "ok": true,
+  "title": "調式 - 維基百科，自由嘅百科全書",
+  "lang": "",
+  "chars": 293
+ },
+ {
+  "url": "https://yue.wikipedia.org/wiki/%E8%AA%BF%E8%99%9F",
+  "ok": true,
+  "title": "調號 - 維基百科，自由嘅百科全書",
+  "lang": "",
+  "chars": 167
+ },
+ {
+  "url": "https://yue.wikipedia.org/wiki/%E9%9C%87%E9%9F%B3",
   "ok": true,
   "title": "震音 - 維基百科，自由嘅百科全書",
   "lang": "",
   "chars": 1
  },
  {
-  "url": "https://zh.wikipedia.org/wiki/吉他",
+  "url": "https://yue.wikipedia.org/wiki/%E9%9F%B3%E7%A8%8B",
+  "ok": true,
+  "title": "音程 - 維基百科，自由嘅百科全書",
+  "lang": "",
+  "chars": 441
+ },
+ {
+  "url": "https://zh.wikipedia.org/wiki/%E5%8B%BE%E5%BC%A6",
+  "ok": true,
+  "title": "勾弦 - 维基百科，自由的百科全书",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://zh.wikipedia.org/wiki/%E5%90%89%E4%BB%96",
   "ok": true,
   "title": "吉他 - 维基百科，自由的百科全书",
   "lang": "",
   "chars": 236
  },
  {
-  "url": "https://zh.wikipedia.org/wiki/樂理",
+  "url": "https://zh.wikipedia.org/wiki/%E5%9B%BA%E5%AE%9A%E9%9F%B3%E5%9E%8B",
+  "ok": true,
+  "title": "固定音型 - 维基百科，自由的百科全书",
+  "lang": "",
+  "chars": 43
+ },
+ {
+  "url": "https://zh.wikipedia.org/wiki/%E6%8B%8D%E8%99%9F",
+  "ok": true,
+  "title": "拍號 - 维基百科，自由的百科全书",
+  "lang": "",
+  "chars": 4228
+ },
+ {
+  "url": "https://zh.wikipedia.org/wiki/%E6%8E%83%E5%BC%A6",
+  "ok": true,
+  "title": "掃弦 - 维基百科，自由的百科全书",
+  "lang": "",
+  "chars": 43
+ },
+ {
+  "url": "https://zh.wikipedia.org/wiki/%E6%90%A5%E5%BC%A6",
+  "ok": true,
+  "title": "搥弦 - 维基百科，自由的百科全书",
+  "lang": "",
+  "chars": 1
+ },
+ {
+  "url": "https://zh.wikipedia.org/wiki/%E6%A8%82%E7%90%86",
   "ok": true,
   "title": "樂理 - 维基百科，自由的百科全书",
   "lang": "",
   "chars": 1201
  },
  {
-  "url": "https://zh.wikipedia.org/wiki/谐波",
+  "url": "https://zh.wikipedia.org/wiki/%E6%BB%91%E9%9F%B3%E7%AE%A1%E5%90%89%E4%BB%96",
+  "ok": true,
+  "title": "滑音管吉他 - 维基百科，自由的百科全书",
+  "lang": "",
+  "chars": 4828
+ },
+ {
+  "url": "https://zh.wikipedia.org/wiki/%E8%B0%83%E5%8F%B7",
+  "ok": true,
+  "title": "调号 - 维基百科，自由的百科全书",
+  "lang": "",
+  "chars": 43
+ },
+ {
+  "url": "https://zh.wikipedia.org/wiki/%E8%B0%83%E5%BC%8F",
+  "ok": true,
+  "title": "调式 - 维基百科，自由的百科全书",
+  "lang": "",
+  "chars": 43
+ },
+ {
+  "url": "https://zh.wikipedia.org/wiki/%E8%B0%90%E6%B3%A2",
   "ok": true,
   "title": "谐波 - 维基百科，自由的百科全书",
   "lang": "",
   "chars": 43
  },
  {
-  "url": "https://zh.wikipedia.org/wiki/颤吟",
+  "url": "https://zh.wikipedia.org/wiki/%E9%9F%B3%E7%A8%8B",
   "ok": true,
-  "title": "颤吟 - 维基百科，自由的百科全书",
+  "title": "音程 - 维基百科，自由的百科全书",
   "lang": "",
   "chars": 43
  },
  {
-  "url": "https://zh.wikipedia.org/wiki/點弦",
+  "url": "https://zh.wikipedia.org/wiki/%E9%A2%A4%E5%90%9F",
   "ok": true,
-  "title": "點弦 - 维基百科，自由的百科全书",
+  "title": "颤吟 - 维基百科，自由的百科全书",
   "lang": "",
   "chars": 43
  },
