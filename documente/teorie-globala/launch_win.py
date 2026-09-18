@@ -53,7 +53,7 @@ def build_cmd(a):
     }
     cmd = [CODEX, "exec", "--ephemeral", "--skip-git-repo-check", "--json",
            "--ignore-user-config", "-C", str(Path(a.cwd).resolve()),
-           "-s", "workspace-write", "-m", model]
+           "-s", "danger-full-access", "-m", model]
     for k, v in opt.items():
         cmd += ["-c", k + "=" + json.dumps(v)]
     cmd += ["-"]
