@@ -1,0 +1,5 @@
+# Cheia API nu trebuie NICIODATA pe GitHub
+DeepAstra_openrouter_key.txt
+# Rezultatele colectate se urca manual (dupa verificare), nu automat
+colectat/
+run-status.json

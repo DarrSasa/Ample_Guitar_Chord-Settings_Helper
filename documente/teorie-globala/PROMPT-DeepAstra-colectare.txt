@@ -24,8 +24,7 @@ NAVIGATION (do this for real):
    "colectat/surse-esuate.json" and FALL BACK to your own knowledge for that
    topic (still mark the url as sursa).
 5. Save one JSON per source named "teorie_<tara>_<limba>_<site>.json" validating
-   against "../schema-teorie.json" (same repo folder), plus the "articulatii_fx"
-   key. Normalize note names to C..B; intervals are integers; frets are 6-elem
+   against "schema-teorie.json" (in THIS folder), plus the "articulatii_fx" key. Normalize note names to C..B; intervals are integers; frets are 6-elem
    arrays ("x" or number).
 6. At the end write "colectat/manifest.json" {fisier:[...], total_acorduri,
    total_game, total_ritmuri, total_articulatii_fx, total_surse} and verify every
