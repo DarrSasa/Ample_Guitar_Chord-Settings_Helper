@@ -1,0 +1,3 @@
+* [Перейти обратно:1](https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D0%BD%D0%B4%D0%BE%D0%BB%D0%B8%D0%BD%D0%B0#cite_ref-atlas_79-0)[2](https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D0%BD%D0%B4%D0%BE%D0%BB%D0%B8%D0%BD%D0%B0#cite_ref-atlas_79-1)[3](https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D0%BD%D0%B4%D0%BE%D0%BB%D0%B8%D0%BD%D0%B0#cite_ref-atlas_79-2)[Mandolins](http://www.atlasofpluckedinstruments.com/mandolins.htm#mandriola)[Архивная копия](https://web.archive.org/web/20210506071506/http://www.atlasofpluckedinstruments.com/mandolins.htm#mandriola)от 6 мая 2021 на[Wayback Machine](https://ru.wikipedia.org/wiki/Wayback_Machine "Wayback Machine")// Atlas of Plucked Instruments
+  *[М.]: Москва
+  *[Л.]: Ленинград

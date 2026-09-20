@@ -1,0 +1,2 @@
+Aquest petit instrument va ser molt popular durant la primera meitat del[seglexx](https://ca.wikipedia.org/wiki/Segle_XX "Segle XX")i és un element fonamental en els conjunts de música tradicional hawaiana. L'_ukulele_ també ha estat incorporat en conjunts d'altres gèneres musicals, que van de la cançó popular al _[jazz](https://ca.wikipedia.org/wiki/Jazz "Jazz")_ , sovint perquè aporta un toc humorístic o exòtic.
+* [Instruments tradicionals](https://ca.wikipedia.org/wiki/Categoria:Instruments_tradicionals "Categoria:Instruments tradicionals")

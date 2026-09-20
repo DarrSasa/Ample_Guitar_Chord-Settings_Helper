@@ -1,0 +1,4 @@
+Šis mūzikas instruments bija pazīstams jau senajiem ēģiptiešiem, palestīniešiem, ģermāņiem un citām tautām.[[2]](https://lv.wikipedia.org/wiki/Arfa#cite_note-is-2)Mūsdienās arfai ir 43—49[stīgas](https://lv.wikipedia.org/wiki/St%C4%ABga "Stīga"). Tās ir uzvilktas uz vertikāla trijstūra rāmja, kuram ir[rezonators](https://lv.wikipedia.org/wiki/Rezonators?action=edit&redlink=1 "Rezonators \(vēl nav uzrakstīts\)").[[1]](https://lv.wikipedia.org/wiki/Arfa#cite_note-pe-1)Rezonators sastāv no septiņiem pedāļiem arfas pamatnē, kas ļauj iegūt jebkura[mažora](https://lv.wikipedia.org/wiki/Ma%C5%BEors "Mažors")vai[minora](https://lv.wikipedia.org/wiki/Minors "Minors")tonalitāti.[[2]](https://lv.wikipedia.org/wiki/Arfa#cite_note-is-2)Skaņojums — diatonisks.[[1]](https://lv.wikipedia.org/wiki/Arfa#cite_note-pe-1)
+  *[s]: Skatīt šo veidni
+  *[d]: Diskusija par šo veidni
+  *[l]: Labot šo veidni

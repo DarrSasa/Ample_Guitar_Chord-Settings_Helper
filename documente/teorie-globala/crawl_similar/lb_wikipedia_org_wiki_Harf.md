@@ -1,0 +1,1 @@
+Vun deene verschiddenen Harfenzorten ass d'Concertsharf déi gréisst. Mat enger Héicht vun 1,80 m an engem Gewiicht vun ongeféiert 50 Kilo ass dat Instrument ee vun de gréissten an engem[Orchester](https://lb.wikipedia.org/wiki/Orchester?action=edit&redlink=1 "Orchester \(Säit gëtt et net\)").

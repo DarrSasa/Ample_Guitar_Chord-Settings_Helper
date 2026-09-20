@@ -1,0 +1,1 @@
+* [↑](https://es.wikipedia.org/wiki/Pizzicato#cite_ref-Karjalainen_7-0 "Volver arriba")Karjalainen, Matti.["Audibility of Inharmonicity in String Instrument Sounds, and Implications to Digital Sound Systems"](https://web.archive.org/web/20120209132302/http://www.acoustics.hut.fi/~hjarvela/publications/icmc99.pdf), 1999.

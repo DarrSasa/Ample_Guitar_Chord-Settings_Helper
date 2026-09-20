@@ -1,0 +1,1 @@
+* [Pages using infobox instrument with unknown parameters](https://pa.wikipedia.org/w/index.php?title=%E0%A8%B8%E0%A8%BC%E0%A9%8D%E0%A8%B0%E0%A9%87%E0%A8%A3%E0%A9%80:Pages_using_infobox_instrument_with_unknown_parameters&action=edit&redlink=1 "ਸ਼੍ਰੇਣੀ:Pages using infobox instrument with unknown parameters \(ਸਫ਼ਾ ਮੌਜੂਦ ਨਹੀਂ ਹੈ\)")

@@ -1,0 +1,1 @@
+* [↑](https://az.wikipedia.org/wiki/Yansin#cite_ref-2 "Yuxarı get")Though older Chinese stringed instruments, including the yangqin, used silk strings, resulting in their categorisation as a silk () instrument.

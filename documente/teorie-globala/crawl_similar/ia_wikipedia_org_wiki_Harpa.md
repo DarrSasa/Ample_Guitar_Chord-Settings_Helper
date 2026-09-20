@@ -1,0 +1,2 @@
+| subclasse de:[plucked string instrument](https://www.wikidata.org/wiki/Q230262 "d:Q230262")[*],[composite chordophone](https://www.wikidata.org/wiki/Q19588495 "d:Q19588495")[*],[artefacto](https://ia.wikipedia.org/wiki/Artefacto_\(archeologia\) "Artefacto \(archeologia\)"),[artificial physical object](https://www.wikidata.org/wiki/Q8205328 "d:Q8205328")[*],[musical instrument](https://www.wikidata.org/wiki/Q34379 "d:Q34379")[*]
+  *[[*]]: Article is not yet available in this wiki.

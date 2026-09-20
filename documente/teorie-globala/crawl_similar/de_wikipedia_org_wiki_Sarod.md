@@ -1,0 +1,1 @@
+Wie bei allen indischen Instrumenten ohne fixierte Tonhöhen ist die Stimmung relativ, wobei der Referenzton _(Sa)_ meist dem _C_ oder _Cis_ der westlichen Stimmung entspricht. Eine verbreitete Saitenanordnung und Stimmung für ein 25-saitiges Instrument geht auf[Ali Akbar Khan](https://de.wikipedia.org/wiki/Ali_Akbar_Khan "Ali Akbar Khan")zurück:

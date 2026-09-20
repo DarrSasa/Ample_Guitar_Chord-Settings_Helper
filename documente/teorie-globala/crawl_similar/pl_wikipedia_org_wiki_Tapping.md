@@ -1,0 +1,7 @@
+* [tremolo (tremolando)](https://pl.wikipedia.org/wiki/Tremolo "Tremolo")
+* [pick slide](https://pl.wikipedia.org/wiki/Pick_slide "Pick slide")
+* [rasgueado](https://pl.wikipedia.org/wiki/Rasgueado "Rasgueado")
+* [slide](https://pl.wikipedia.org/wiki/Slide_\(technika_gry\) "Slide \(technika gry\)")
+* [vibrato](https://pl.wikipedia.org/wiki/Vibrato "Vibrato")
+[Encyklopedie internetowe](https://pl.wikipedia.org/wiki/Encyklopedia_internetowa "Encyklopedia internetowa")(string instrument technique):
+  *[ang.]: Treść w języku angielskim (English)

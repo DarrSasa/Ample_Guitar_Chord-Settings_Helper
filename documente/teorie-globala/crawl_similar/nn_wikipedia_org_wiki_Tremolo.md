@@ -1,0 +1,3 @@
+**Tremolo** er i[musikk](https://nn.wikipedia.org/wiki/Musikk "Musikk")ein særs rask repetisjon av ein tone, med visse unntak byte mellom to tonar. På ein fiolin er tremolo ein vanleg spelestil for å gjere tonen kjenslemessig og på[mandolinen](https://nn.wikipedia.org/wiki/Mandolin "Mandolin")er tremolo den vanlegaste spelestilen.
+Fysisk er tremolo ein[amplitudemodulering](https://nn.wikipedia.org/wiki/Amplitudemodulering?action=edit&redlink=1 "Amplitudemodulering \(sida finst ikkje\)")av ein tone, til skilnad frå[vibrato](https://nn.wikipedia.org/wiki/Vibrato "Vibrato")som er[frekvensmodulering](https://nn.wikipedia.org/wiki/Frekvensmodulering?action=edit&redlink=1 "Frekvensmodulering \(sida finst ikkje\)")av tonen.
+Tremolo

@@ -1,0 +1,2 @@
+Ramharpan med pelare förekom i östra medelhavsområdet under antiken, och förefaller härifrån ha spridits över stora delar av gamla välden. Till anglosaxarna kom den på 700-talet e.Kr. i form av en triangulär ramharpa med starkt böjt förträ. Brittiska öarna kom att bli ett centrum för harpan, och den irländska harpan blev under senmedeltiden ett populärt instrument även på kontinenten.[[1]](https://sv.wikipedia.org/wiki/Harpa#cite_note-ReferenceA-1)
+| Övriga instrument  | Sporadiskt förekommande instrument

@@ -1,0 +1,5 @@
+* [MusicBrainz instrument](https://musicbrainz.org/instrument/f6b51493-c7bd-41be-901b-245380ec96ce)
+* [Чланци са MusicBrainz instrument идентификаторима](https://sr.wikipedia.org/wiki/%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%98%D0%B0:%D0%A7%D0%BB%D0%B0%D0%BD%D1%86%D0%B8_%D1%81%D0%B0_MusicBrainz_instrument_%D0%B8%D0%B4%D0%B5%D0%BD%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%D0%BE%D1%80%D0%B8%D0%BC%D0%B0 "Категорија:Чланци са MusicBrainz instrument идентификаторима")
+  *[п]: Погледајте шаблон
+  *[р]: Разговарајте о шаблону
+  *[у]: Уредите шаблон

@@ -1,0 +1,2 @@
+Mandolin variations differ primarily in the number of strings and include four-string models (tuned in fifths) such as the Brescian and eight (or twelve) strings Cremonese; six-string types (tuned in fourths) such as the Milanese, Lombard, Venetian, Neapulitan and Sicilian; six-course instruments of 12 strings (two strings per course) such as the Genoese.
+* [Plucked string instruments](https://simple.wikipedia.org/wiki/Category:Plucked_string_instruments "Category:Plucked string instruments")

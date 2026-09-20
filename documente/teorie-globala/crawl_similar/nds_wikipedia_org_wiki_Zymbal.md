@@ -1,0 +1,1 @@
+* Jesse A. Johnston:[_The Cimbál (Cimbalom) and Folk Music in Moravian Slovakia and Valachia._](https://deepblue.lib.umich.edu/handle/2027.42/87955)In:_Journal of the American Musical Instrument Society,_ Bd. 36, 2010, S. 78–117

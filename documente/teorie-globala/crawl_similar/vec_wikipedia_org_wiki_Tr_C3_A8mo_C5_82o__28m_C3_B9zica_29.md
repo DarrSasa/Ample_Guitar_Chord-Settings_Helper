@@ -1,0 +1,3 @@
+
+  *[EN]: ingleze
+  *[DE]: todesco

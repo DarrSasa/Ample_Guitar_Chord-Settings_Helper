@@ -1,0 +1,1 @@
+| plucked string necked bowl lute[![Edit this on Wikidata](https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png?utm_source=cy.wikipedia.org&utm_campaign=parser&utm_content=thumbnail)](https://www.wikidata.org/wiki/Q180733?uselang=cy#P279 "Edit this on Wikidata")

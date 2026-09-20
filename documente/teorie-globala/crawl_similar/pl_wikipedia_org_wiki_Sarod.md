@@ -1,0 +1,1 @@
+**Sarod** –[strunowy instrument muzyczny](https://pl.wikipedia.org/wiki/Chordofony "Chordofony"), używany głównie w północnoindyjskiej muzyce klasycznej. Jest najpopularniejszym poza[sitarem](https://pl.wikipedia.org/wiki/Sitar "Sitar")instrumentem w tzw. stylu hindustańskim.

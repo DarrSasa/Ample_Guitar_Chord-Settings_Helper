@@ -1,0 +1,1 @@
+* [↑](https://nn.wikipedia.org/wiki/Pizzicato#cite_ref-1 "Hopp opp")[«Pizzicato on String Instruments»](https://www.justviolin.org/pizzicato-on-string-instruments.html)._JustViolin.org_(på engelsk). Henta2024-03-13.

@@ -1,0 +1,1 @@
+* [↑](https://ko.wikipedia.org/wiki/%EC%8A%A4%ED%8A%B8%EB%9F%AC%EB%B0%8D#cite_ref-4 "이동")[“Guitar fret hand technique tricks for every player • Fretello Learn Guitar”](https://fretello.app/good-fret-hand-technique/)(미국 영어).《fretello.app》. 2018년 6월 22일에 확인함.

@@ -1,0 +1,2 @@
+
+  *[hərf.]: hərfi tərcümədə

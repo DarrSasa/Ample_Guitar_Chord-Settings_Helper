@@ -1,0 +1,3 @@
+**Rasgueado** – jedna z podstawowych technik gry na[gitarze](https://pl.wikipedia.org/wiki/Gitara "Gitara")[flamenco](https://pl.wikipedia.org/wiki/Flamenco "Flamenco"). Polega na szybkim powtarzaniu[akordu](https://pl.wikipedia.org/wiki/Akord "Akord")kolejnymi palcami prawej ręki. W odróżnieniu od technik typowych dla gitary klasycznej, struny uderzane są zewnętrzną stroną palców (paznokci). Rasgueado jest grane w sposób zdecydowany, kolejne akordy są od siebie wyraźnie odseparowane, co nadaje technice nieco perkusyjne brzmienie[[1]](https://pl.wikipedia.org/wiki/Rasgueado#cite_note-gmo-1).
+Rasgueado
+  *[ang.]: Treść w języku angielskim (English)

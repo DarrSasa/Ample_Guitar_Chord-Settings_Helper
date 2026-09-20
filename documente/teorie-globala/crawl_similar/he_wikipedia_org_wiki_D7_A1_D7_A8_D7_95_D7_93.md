@@ -1,0 +1,1 @@
+* [↑](https://he.wikipedia.org/wiki/%D7%A1%D7%A8%D7%95%D7%93#cite_ref-1 "לקפוץ מעלה")["sarod · Grinnell College Musical Instrument Collection"](https://omeka1.grinnell.edu/MusicalInstruments/items/show/19)._omeka1.grinnell.edu_.(הקישור אינו פעיל)

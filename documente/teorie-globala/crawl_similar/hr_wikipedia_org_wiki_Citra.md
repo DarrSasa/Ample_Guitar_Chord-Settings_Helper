@@ -1,0 +1,1 @@
+**Citra** je žičani instrument u obliku pravokutne plitke kutije, na kojoj je po dužini razapeto 30-45 žica. Žice se trzaju prstima i čeličnom trzalicom na palcu. Zvuk je tih a sam instrument nema većih izvođačkih mogućnosti.

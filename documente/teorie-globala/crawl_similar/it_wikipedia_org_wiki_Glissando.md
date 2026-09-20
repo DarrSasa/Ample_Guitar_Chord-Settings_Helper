@@ -1,0 +1,8 @@
+La[chitarra elettrica](https://it.wikipedia.org/wiki/Chitarra_elettrica "Chitarra elettrica"), strumento il cui suono amplificato supera un limite dello strumento acustico, ha inserito stabilmente tra le sue tecniche esecutive due effetti di glissato che si ottengono o premendo la corda e spingendola verticalmente con il polpastrello (in[inglese](https://it.wikipedia.org/wiki/Lingua_inglese "Lingua inglese") _[bending](https://it.wikipedia.org/wiki/Bending "Bending")_), ottenendo in tal modo un glissando ascendente, o agendo pesantemente sulla leva del vibrato in dotazione allo strumento. Il _bend_ può raggiungere la distanza di[tono](https://it.wikipedia.org/wiki/Tono_\(musica\) "Tono \(musica\)"), che nell'[intavolatura](https://it.wikipedia.org/wiki/Intavolatura "Intavolatura")è segnato con _full_ , o distanze diverse, misurate nell'intavolatura attraverso frazioni di tono (1/2 sta per[semitono](https://it.wikipedia.org/wiki/Semitono "Semitono")e così via)._Release_ è invece l'effetto di glissando ottenuto dal rilascio della corda precedentemente tirata. Infine, il _pre-bend_ è il tiraggio della corda senza glissando ascendente; normalmente al _pre-bend_ segue il _release_.
+«In certain situations, it is not possible to slur cleanly on the trombone: if the slide is moving in the same direction as the slur, than you will hear a "swooping" sound called a glissando or portamento.»
+  *[FR]: francese
+  *[EN]: inglese
+  *[PDF]: documento in formato PDF
+  *[url originale]: http://www.lyricbrass.com/spang/slurtrombone.pdf
+  *[[1950]]: Data di edizione originale
+  *[[1891]]: Data di edizione originale

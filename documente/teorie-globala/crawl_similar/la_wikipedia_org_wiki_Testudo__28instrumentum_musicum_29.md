@@ -1,0 +1,1 @@
+* Spring, Matthew._The Lute in Britain. A History of the Instrument and its Music._ Oxford University Press, Oxford 2006.[ISBN 0-19-518838-1](https://la.wikipedia.org/wiki/Special:BookSources/0195188381)–[capitulum vi._The Lute in Consort._](http://www.oup.co.uk/pdf/0-19-816620-6.pdf)

@@ -1,0 +1,1 @@
+* [↑](https://ko.wikipedia.org/wiki/%EC%82%AC%EB%A1%9C%EB%93%9C#cite_ref-1 "이동")[“sarod · Grinnell College Musical Instrument Collection”](https://omeka1.grinnell.edu/MusicalInstruments/items/show/19).《omeka1.grinnell.edu》. 2019년 10월 13일에 확인함.

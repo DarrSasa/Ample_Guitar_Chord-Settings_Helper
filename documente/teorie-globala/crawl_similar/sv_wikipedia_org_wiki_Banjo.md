@@ -1,0 +1,1 @@
+Ett annat instrument med ett trumskinn över resonanskroppen är[banjolelen](https://sv.wikipedia.org/wiki/Banjolele "Banjolele")(mellanting mellan[ukulele](https://sv.wikipedia.org/wiki/Ukulele "Ukulele")och banjo[[1]](https://sv.wikipedia.org/wiki/Banjo#cite_note-1)). Denna har dock en kortare hals.

@@ -1,0 +1,3 @@
+
+  *[EN]: ingleise
+  *[JA]: giaponeise

@@ -1,0 +1,2 @@
+Indian musical instrument[সাঁচ:SHORTDESC:Indian musical instrument](https://as.wikipedia.org/wiki/%E0%A6%B8%E0%A6%BE%E0%A6%81%E0%A6%9A:SHORTDESC:Indian_musical_instrument?action=edit&redlink=1 "সাঁচ:SHORTDESC:Indian musical instrument \(পৃষ্ঠা নাই\)")
+* [↑](https://as.wikipedia.org/wiki/%E0%A6%B8%E0%A7%B0%E0%A7%8B%E0%A6%A6#cite_ref-1 "যাওক")["sarod · Grinnell College Musical Instrument Collection"](https://omeka1.grinnell.edu/MusicalInstruments/items/show/19).omeka1.grinnell.edu.<https://omeka1.grinnell.edu/MusicalInstruments/items/show/19>।আহৰণ কৰা হৈছে: 2019-10-13.

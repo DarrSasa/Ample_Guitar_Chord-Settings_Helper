@@ -1,0 +1,5 @@
+* [↑](https://hi.wikipedia.org/wiki/%E0%A4%9C%E0%A4%BC%E0%A4%BF%E0%A4%A5%E0%A4%B0#cite_ref-ref26mogoj_1-0 "ऊपर जाएँ")[The Tribal Living Book](http://books.google.com/books?id=lKvWAAAAMAAJ), David Levinson, David Sherwood, Johnson Books, 1984,[ISBN 9780933472846](https://hi.wikipedia.org/wiki/Special:BookSources/9780933472846),_... A zither is a musical instrument with a string or strings running along the entire length of a sounding board which acts as a resonator. Zithers can be very simple or quite elaborate ..._
+* [इस तक ऊपर जाएँ:1](https://hi.wikipedia.org/wiki/%E0%A4%9C%E0%A4%BC%E0%A4%BF%E0%A4%A5%E0%A4%B0#cite_ref-ref13lapaz_2-0)[2](https://hi.wikipedia.org/wiki/%E0%A4%9C%E0%A4%BC%E0%A4%BF%E0%A4%A5%E0%A4%B0#cite_ref-ref13lapaz_2-1)[Sruti, Issues 136-147](http://books.google.com/books?id=qCkqAQAAIAAJ), P.N. Sundaresan, 1996,_... Zithers are instruments wherein there is a fingerboard with strings, fretted or fretless, and, most important, the resonator being fixed below it. The vichitra veena is a fretless zither played by Hindustani musicians ..._
+  *[v]: View this template
+  *[t]: Discuss this template
+  *[e]: Edit this template

@@ -1,0 +1,1 @@
+* [↑](https://gl.wikipedia.org/wiki/Shamisen#cite_ref-1 "Saltar a")["The Stringed Instrument Database"](https://web.archive.org/web/20140114031320/http://stringedinstrumentdatabase.110mb.com/). Arquivado dende[o orixinal](http://stringedinstrumentdatabase.110mb.com/)o 14 de xaneiro de 2014. Consultado o 01 de agosto de 2012.

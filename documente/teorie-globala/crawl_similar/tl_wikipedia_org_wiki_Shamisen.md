@@ -1,0 +1,1 @@
+* [↑](https://tl.wikipedia.org/wiki/Shamisen#cite_ref-1 "Umakyat")["The Stringed Instrument Database"](https://web.archive.org/web/20140114031320/http://stringedinstrumentdatabase.110mb.com/). Inarkibo mula sa[orihinal](http://stringedinstrumentdatabase.110mb.com/)noong 2014-01-14. Nakuha noong2014-05-31.

@@ -1,0 +1,2 @@
+La[contrabassa](https://oc.wikipedia.org/wiki/Contrabassa "Contrabassa"), instrument tanhent de la grana familha deus instruments de còrdas hregadas, que's jòga hèra sovent (e mei que mei au[jazz](https://oc.wikipedia.org/wiki/Jazz "Jazz")) en pizzicato.
+* [Tecnica deus instruments de còrdas hregadas](https://oc.wikipedia.org/wiki/Categoria:Tecnica_deus_instruments_de_c%C3%B2rdas_hregadas "Categoria:Tecnica deus instruments de còrdas hregadas")

@@ -1,0 +1,1 @@
+* Bonanni, Filippo:_Antique Musical Instruments and their Players_ , Dover Publications reprint of the 1723 work,_Gabinetto armonico_ with supplementary explanatory material. New York: Dover Publications, 1964.

@@ -1,0 +1,1 @@
+| Quel articul chì l'è scrivüü in[Lumbard](https://lmo.wikipedia.org/wiki/Lumbard "Lumbard"), cun l'urtugrafia[insübrica ünificada](https://lmo.wikipedia.org/wiki/Urtugrafia_ins%C3%BCbrica_%C3%BCnificada "Urtugrafia insübrica ünificada").

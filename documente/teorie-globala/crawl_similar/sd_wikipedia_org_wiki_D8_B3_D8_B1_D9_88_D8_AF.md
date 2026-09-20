@@ -1,0 +1,1 @@
+* [↑](https://sd.wikipedia.org/wiki/%D8%B3%D8%B1%D9%88%D8%AF#cite_ref-1 "ٽپو ڏيو")["sarod · Grinnell College Musical Instrument Collection"](https://omeka1.grinnell.edu/MusicalInstruments/items/show/19)._omeka1.grinnell.edu_.2019-10-13تي حاصل ڪيل.

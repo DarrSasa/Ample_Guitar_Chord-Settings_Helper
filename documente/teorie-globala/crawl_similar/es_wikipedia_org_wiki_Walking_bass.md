@@ -1,0 +1,1 @@
+* Goldsby, John (2002),_The Jazz Bass Book - Technique and Tradition_ ,[ISBN](https://es.wikipedia.org/wiki/ISBN "ISBN")[0879307161](https://es.wikipedia.org/wiki/Especial:FuentesDeLibros/0879307161 "Especial:FuentesDeLibros/0879307161").

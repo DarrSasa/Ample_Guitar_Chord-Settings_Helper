@@ -1,0 +1,7 @@
+| string
+* Gura, Philip F. and James F. Bollman (1999)._America's Instrument: The Banjo in the Nineteenth Century_. The University of North Carolina Press.[ISBN](https://simple.wikipedia.org/wiki/ISBN_\(identifier\) "ISBN \(identifier\)")[0-8078-2484-4](https://simple.wikipedia.org/wiki/Special:BookSources/0-8078-2484-4 "Special:BookSources/0-8078-2484-4"). The definitive history of the banjo, focusing on the instrument's development in the 1800s.
+* Scruggs, Earl. "Earl Scruggs and the 5-String Banjo". Hal Leonard Corporation.[ISBN](https://simple.wikipedia.org/wiki/ISBN_\(identifier\) "ISBN \(identifier\)")[0-634-06042-2](https://simple.wikipedia.org/wiki/Special:BookSources/0-634-06042-2 "Special:BookSources/0-634-06042-2"). Instruction in Scruggs or 3 finger style 5 string banjo.
+* Seeger, Mike (2005). "Old-Time Banjo Styles". Homespun Tapes. Seeger teaches several old-time picking techniques - clawhammer, two-finger, three-finger, up-picking and others.
+* Gibson produced a separate instrument called a "bass banjo" from 1930 to 1933. This was a 4-string instrument, played as an upright bass, with a stand substituting for a spike. It was tuned EADG, the same as Gibson's mando-bass.
+* [Folk instruments](https://simple.wikipedia.org/wiki/Category:Folk_instruments "Category:Folk instruments")
+* [Plucked string instruments](https://simple.wikipedia.org/wiki/Category:Plucked_string_instruments "Category:Plucked string instruments")

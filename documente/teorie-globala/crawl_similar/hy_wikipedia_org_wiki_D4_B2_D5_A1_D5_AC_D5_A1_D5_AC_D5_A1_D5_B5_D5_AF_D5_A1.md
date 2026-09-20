@@ -1,0 +1,2 @@
+* [↑](https://hy.wikipedia.org/wiki/%D4%B2%D5%A1%D5%AC%D5%A1%D5%AC%D5%A1%D5%B5%D5%AF%D5%A1#cite_ref-_7fffcb91867fa107_1-0 "Jump up") _ConsortiumM._[Revision of the Hornbostel-Sachs Classification of Musical Instruments by the MIMO Consortium](http://mimo-international.com/documents/Hornbostel%20Sachs.pdf)
+* [↑](https://hy.wikipedia.org/wiki/%D4%B2%D5%A1%D5%AC%D5%A1%D5%AC%D5%A1%D5%B5%D5%AF%D5%A1#cite_ref-4 "Jump up")[KYRGYZ INSTRUMENTS](http://www.kyrgyzmusic.com/)

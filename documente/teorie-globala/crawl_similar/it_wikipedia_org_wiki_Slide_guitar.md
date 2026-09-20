@@ -1,0 +1,2 @@
+Slide guitar
+  *[EN]: inglese

@@ -1,0 +1,5 @@
+Le jeu en**double corde** ou**double-corde**[[1]](https://fr.wikipedia.org/wiki/Double_corde#cite_note-dictionary-of-contemporary-music-1)(_double stop_ en anglais) est une technique qui désigne l'acte d'exécuter simultanément deux[notes](https://fr.wikipedia.org/wiki/Note_de_musique "Note de musique")sur un[instrument à cordes](https://fr.wikipedia.org/wiki/Instrument_%C3%A0_cordes "Instrument à cordes")(par exemple un[violon](https://fr.wikipedia.org/wiki/Violon "Violon")ou une[guitare](https://fr.wikipedia.org/wiki/Guitare "Guitare")).
+Un**triple-corde**(_triple stop_[[1]](https://fr.wikipedia.org/wiki/Double_corde#cite_note-dictionary-of-contemporary-music-1)) désigne la même technique appliquée sur trois cordes; un**quadruple-corde**(_quadruple stop_[[1]](https://fr.wikipedia.org/wiki/Double_corde#cite_note-dictionary-of-contemporary-music-1)) l'étant sur quatre cordes (soit toutes les cordes, lorsque joué sur un violon).
+* [Technique de jeu instrumental](https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Technique_de_jeu_instrumental "Catégorie:Technique de jeu instrumental")
+  *[(en)]: Langue : anglais
+  *[p.]: pages

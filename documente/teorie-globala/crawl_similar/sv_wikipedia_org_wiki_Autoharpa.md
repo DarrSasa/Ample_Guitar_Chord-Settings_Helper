@@ -1,0 +1,1 @@
+En vidareutveckling av autoharpan är det elektroniska[omnichordet](https://sv.wikipedia.org/wiki/Omnichord "Omnichord"), introducerat 1981 av Suzuki Musical Instrument Corporation. Även ett omnichord har olika knappar för att generera de olika ackorden, och den cittraliknande utformningen är snarlik.

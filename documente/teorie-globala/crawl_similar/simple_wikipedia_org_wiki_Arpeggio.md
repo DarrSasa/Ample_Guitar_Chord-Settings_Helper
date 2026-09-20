@@ -1,0 +1,1 @@
+A[synthesised](https://simple.wikipedia.org/wiki/Synthesiser "Synthesiser")[flute](https://simple.wikipedia.org/wiki/Flute "Flute")and[harp](https://simple.wikipedia.org/wiki/Harp "Harp")playing arpeggios. Later some strings join in.
