@@ -1,5 +1,5 @@
 {
- "instrument": "Harpă",
+ "instrument": "Harp",
  "tara": "global",
  "sugestie": "harpa",
  "referinta_ample_art": [
@@ -34,12 +34,12 @@
   {
    "term": "Glissando",
    "similar": "≈ Slide FX",
-   "context": "arp/melodie"
+   "context": "arp/melody"
   },
   {
    "term": "Pizzicato",
    "similar": "≈ Sustain",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Arpegii",

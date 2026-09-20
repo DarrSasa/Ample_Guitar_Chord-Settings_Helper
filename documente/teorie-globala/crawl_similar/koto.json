@@ -34,17 +34,17 @@
   {
    "term": "Vibrato (press)",
    "similar": "≈ Vibrato",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Glissando",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Tremolo",
    "similar": "≈ Vibrato/Tremolo",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [

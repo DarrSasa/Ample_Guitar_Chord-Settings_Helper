@@ -1,5 +1,5 @@
 {
- "instrument": "Tres cubano",
+ "instrument": "Cuban tres",
  "tara": "CU",
  "sugestie": "tres",
  "referinta_ample_art": [
@@ -39,7 +39,7 @@
   {
    "term": "Slide",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [

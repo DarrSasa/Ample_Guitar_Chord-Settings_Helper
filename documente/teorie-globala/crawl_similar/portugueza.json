@@ -1,5 +1,5 @@
 {
- "instrument": "Guitarra portuguesa",
+ "instrument": "Portuguese guitar",
  "tara": "PT",
  "sugestie": "portugueza",
  "referinta_ample_art": [
@@ -34,12 +34,12 @@
   {
    "term": "Trinado",
    "similar": "≈ Vibrato/Tremolo",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Glissando",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Arpejo",
@@ -51,7 +51,7 @@
   {
    "term": "Rezonanță oțel",
    "similar": "≈ Strum",
-   "context": "progresii"
+   "context": "progressions"
   }
  ]
 }

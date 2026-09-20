@@ -34,29 +34,29 @@
   {
    "term": "Sukui (slide)",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Vibrato",
    "similar": "≈ Vibrato",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Hajiki (pull-off)",
    "similar": "≈ Pull-off",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Uchi (strike)",
    "similar": "≈ Dead Note/strum",
-   "context": "ritm"
+   "context": "rhythm"
   }
  ],
  "fx": [
   {
    "term": "Bachi love",
    "similar": "≈ Pick Scratch",
-   "context": "ritm"
+   "context": "rhythm"
   }
  ]
 }

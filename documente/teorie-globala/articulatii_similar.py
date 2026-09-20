@@ -28,6 +28,19 @@ AMPLE_ART = ["Sustain", "Palm Mute", "Hammer-on", "Pull-off", "Legato Slide",
 AMPLE_FX = ["Fret Noise", "String Scratch", "Body Hit/Golpe", "Pick Scratch",
             "Feedback", "String Buzz", "Slide FX"]
 
+# INTERFATA IN ENGLEZA: traduceri pt. numele de instrumente si contexte
+INS_EN = {"Chitara flamenco": "Flamenco guitar", "Chitara 12 corzi": "12-string guitar",
+          "Harpă": "Harp", "Guitarra portuguesa": "Portuguese guitar",
+          "Tres cubano": "Cuban tres", "Saz/Baglama": "Saz/Baglama",
+          "Steel guitar (dobro)": "Steel guitar (dobro)", "Bass (electric)": "Bass (electric)"}
+CTX_EN = {"progresii/ritm": "progressions/rhythm", "ritm": "rhythm", "melodie": "melody",
+          "melodie/arp": "melody/arp", "arp": "arp", "bass": "bass", "ostinato": "ostinato",
+          "progresii": "progressions", "ambient": "ambient", "accent": "accent",
+          "sustain/drone": "sustain/drone", "arp/melodie": "arp/melody",
+          "melodie/progresii": "melody/progressions"}
+def en_ins(n): return INS_EN.get(n, n)
+def en_ctx(c): return CTX_EN.get(c, c)
+
 # instrument, tara, articulatii(term,≈,context), fx(term,≈,context), sugestie_scurta
 INSTRUMENTE = [
  {"ins": "Chitara flamenco", "tara": "ES",
@@ -177,23 +190,23 @@ def main():
     all_rules = []
     for e in INSTRUMENTE:
         rules = {
-            "instrument": e["ins"], "tara": e["tara"], "sugestie": e["sug"],
+            "instrument": en_ins(e["ins"]), "tara": e["tara"], "sugestie": e["sug"],
             "referinta_ample_art": AMPLE_ART, "referinta_ample_fx": AMPLE_FX,
-            "articulatii": [{"term": a[0], "similar": a[1], "context": a[2]} for a in e["art"]],
-            "fx": [{"term": f[0], "similar": f[1], "context": f[2]} for f in e["fx"]],
+            "articulatii": [{"term": a[0], "similar": a[1], "context": en_ctx(a[2])} for a in e["art"]],
+            "fx": [{"term": f[0], "similar": f[1], "context": en_ctx(f[2])} for f in e["fx"]],
         }
-        # reguli pt. sugestii: <sugestie>_<term_scurt>
+        # reguli pt. sugestii: <sugestie>_<term_scurt>  (interfata in engleza)
         for a in e["art"]:
             all_rules.append({"sugestie": f"{e['sug']}_{a[0].split()[0].lower()}",
-                              "instrument": e["ins"], "tip": "articulatie",
-                              "≈": a[1], "context": a[2]})
+                              "instrument": en_ins(e["ins"]), "tip": "articulation",
+                              "≈": a[1], "context": en_ctx(a[2])})
         for f in e["fx"]:
             all_rules.append({"sugestie": f"{e['sug']}_{f[0].split()[0].lower()}",
-                              "instrument": e["ins"], "tip": "fx",
-                              "≈": f[1], "context": f[2]})
+                              "instrument": en_ins(e["ins"]), "tip": "fx",
+                              "≈": f[1], "context": en_ctx(f[2])})
         (OUT / f"{e['sug']}.json").write_text(json.dumps(rules, ensure_ascii=False, indent=1),
                                               encoding="utf-8")
-        manifest.append({"instrument": e["ins"], "tara": e["tara"], "sugestie": e["sug"],
+        manifest.append({"instrument": en_ins(e["ins"]), "tara": e["tara"], "sugestie": e["sug"],
                          "nr_art": len(e["art"]), "nr_fx": len(e["fx"])})
     (OUT / "reguli_similar.json").write_text(json.dumps(all_rules, ensure_ascii=False, indent=1),
                                              encoding="utf-8")

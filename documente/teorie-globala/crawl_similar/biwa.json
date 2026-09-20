@@ -34,24 +34,24 @@
   {
    "term": "Tremolo",
    "similar": "≈ Tremolo",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Slide",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Strum percutant",
    "similar": "≈ Strum/Dead Note",
-   "context": "ritm"
+   "context": "rhythm"
   }
  ],
  "fx": [
   {
    "term": "Lovitură plectru",
    "similar": "≈ Body Hit",
-   "context": "ritm"
+   "context": "rhythm"
   }
  ]
 }

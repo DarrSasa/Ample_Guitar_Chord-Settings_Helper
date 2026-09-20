@@ -34,19 +34,19 @@
   {
    "term": "Tremolo",
    "similar": "≈ Tremolo",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Slide",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [
   {
    "term": "Rezonanță metal (banjo-like)",
    "similar": "≈ banjo",
-   "context": "progresii"
+   "context": "progressions"
   }
  ]
 }

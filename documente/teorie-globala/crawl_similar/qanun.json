@@ -34,24 +34,24 @@
   {
    "term": "Tremolo 3 degete",
    "similar": "≈ Tremolo",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Glissando",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Mandals (microton)",
    "similar": "≈ Bend",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [
   {
    "term": "Click mandals",
    "similar": "≈ (switch)",
-   "context": "melodie"
+   "context": "melody"
   }
  ]
 }

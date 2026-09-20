@@ -1,73 +1,73 @@
 [
  {
   "sugestie": "flamenco_rasgueado",
-  "instrument": "Chitara flamenco",
-  "tip": "articulatie",
+  "instrument": "Flamenco guitar",
+  "tip": "articulation",
   "≈": "≈ Rasgueado",
-  "context": "progresii/ritm"
+  "context": "progressions/rhythm"
  },
  {
   "sugestie": "flamenco_alzapúa",
-  "instrument": "Chitara flamenco",
-  "tip": "articulatie",
+  "instrument": "Flamenco guitar",
+  "tip": "articulation",
   "≈": "≈ Alzapúa",
-  "context": "progresii/ritm"
+  "context": "progressions/rhythm"
  },
  {
   "sugestie": "flamenco_picado",
-  "instrument": "Chitara flamenco",
-  "tip": "articulatie",
+  "instrument": "Flamenco guitar",
+  "tip": "articulation",
   "≈": "≈ alternate picking",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "flamenco_golpe",
-  "instrument": "Chitara flamenco",
-  "tip": "articulatie",
+  "instrument": "Flamenco guitar",
+  "tip": "articulation",
   "≈": "≈ Golpe/Body Hit",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "flamenco_tremolo",
-  "instrument": "Chitara flamenco",
-  "tip": "articulatie",
+  "instrument": "Flamenco guitar",
+  "tip": "articulation",
   "≈": "≈ Tremolo",
-  "context": "melodie/arp"
+  "context": "melody/arp"
  },
  {
   "sugestie": "flamenco_zgomot",
-  "instrument": "Chitara flamenco",
+  "instrument": "Flamenco guitar",
   "tip": "fx",
   "≈": "≈ Body Hit",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "oud_pizzicato",
   "instrument": "Oud",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Sustain",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "oud_tremolo",
   "instrument": "Oud",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato/Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "oud_glissando",
   "instrument": "Oud",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "oud_ornament",
   "instrument": "Oud",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Hammer-on/Pull-off",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "oud_rezonanță",
@@ -79,30 +79,30 @@
  {
   "sugestie": "sitar_meend",
   "instrument": "Sitar",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Bend / Legato Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "sitar_gamak",
   "instrument": "Sitar",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "sitar_krintan",
   "instrument": "Sitar",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Pull-off",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "sitar_zamzama",
   "instrument": "Sitar",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "sitar_javari",
@@ -121,160 +121,160 @@
  {
   "sugestie": "banjo_rolls",
   "instrument": "Banjo",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ arpeggio/Travis",
   "context": "ostinato/progresii"
  },
  {
   "sugestie": "banjo_hammer-on",
   "instrument": "Banjo",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Hammer-on",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "banjo_pull-off",
   "instrument": "Banjo",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Pull-off",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "banjo_slide",
   "instrument": "Banjo",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "banjo_rezonanță",
   "instrument": "Banjo",
   "tip": "fx",
   "≈": "≈ Staccato",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "mandolin_tremolo",
   "instrument": "Mandolin",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato/Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "mandolin_pizzicato",
   "instrument": "Mandolin",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Sustain",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "mandolin_slide",
   "instrument": "Mandolin",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "mandolin_attack",
   "instrument": "Mandolin",
   "tip": "fx",
   "≈": "≈ Strum",
-  "context": "progresii"
+  "context": "progressions"
  },
  {
   "sugestie": "bouzouki_tremolo",
   "instrument": "Bouzouki",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato/Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "bouzouki_slide",
   "instrument": "Bouzouki",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "bouzouki_hammer-on",
   "instrument": "Bouzouki",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Hammer-on",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "bouzouki_zgomot",
   "instrument": "Bouzouki",
   "tip": "fx",
   "≈": "≈ Pick Scratch",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "charango_rasgueo",
   "instrument": "Charango",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Rasgueado",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "charango_tremolo",
   "instrument": "Charango",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "charango_slide",
   "instrument": "Charango",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "charango_brightness",
   "instrument": "Charango",
   "tip": "fx",
   "≈": "≈ Strum",
-  "context": "progresii"
+  "context": "progressions"
  },
  {
   "sugestie": "cavaquinho_rasgado",
   "instrument": "Cavaquinho",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Rasgueado",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "cavaquinho_pizzicato",
   "instrument": "Cavaquinho",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Sustain",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "cavaquinho_percuție",
   "instrument": "Cavaquinho",
   "tip": "fx",
   "≈": "≈ Body Hit",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "tres_arpegio",
-  "instrument": "Tres cubano",
-  "tip": "articulatie",
+  "instrument": "Cuban tres",
+  "tip": "articulation",
   "≈": "≈ arpeggio",
   "context": "ostinato"
  },
  {
   "sugestie": "tres_slide",
-  "instrument": "Tres cubano",
-  "tip": "articulatie",
+  "instrument": "Cuban tres",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "tres_zgomot",
-  "instrument": "Tres cubano",
+  "instrument": "Cuban tres",
   "tip": "fx",
   "≈": "≈ Strum",
   "context": "ostinato"
@@ -282,14 +282,14 @@
  {
   "sugestie": "kora_ornamente",
   "instrument": "Kora",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Hammer-on/Pull-off",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "kora_arpegii",
   "instrument": "Kora",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ arpeggio",
   "context": "ostinato"
  },
@@ -303,79 +303,79 @@
  {
   "sugestie": "balalaika_tremolo",
   "instrument": "Balalaika",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato/Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "balalaika_pizzicato",
   "instrument": "Balalaika",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Sustain",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "balalaika_vibrato",
   "instrument": "Balalaika",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "balalaika_bătaie",
   "instrument": "Balalaika",
   "tip": "fx",
   "≈": "≈ Body Hit",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "saz_tremolo",
   "instrument": "Saz/Baglama",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato/Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "saz_slide",
   "instrument": "Saz/Baglama",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "saz_mordent",
   "instrument": "Saz/Baglama",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Hammer-on/Pull-off",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "saz_zgomot",
   "instrument": "Saz/Baglama",
   "tip": "fx",
   "≈": "≈ Pick Scratch",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "erhu_vibrato",
   "instrument": "Erhu",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "erhu_slide",
   "instrument": "Erhu",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "erhu_glissando",
   "instrument": "Erhu",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "erhu_rezonanță",
@@ -387,28 +387,28 @@
  {
   "sugestie": "pipa_lun",
   "instrument": "Pipa",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "pipa_yin",
   "instrument": "Pipa",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "pipa_sao",
   "instrument": "Pipa",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Strum/Rasgueado",
-  "context": "progresii"
+  "context": "progressions"
  },
  {
   "sugestie": "pipa_lun指",
   "instrument": "Pipa",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ arpeggio",
   "context": "arp"
  },
@@ -417,28 +417,28 @@
   "instrument": "Pipa",
   "tip": "fx",
   "≈": "≈ String Scratch",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "koto_vibrato",
   "instrument": "Koto",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "koto_glissando",
   "instrument": "Koto",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "koto_tremolo",
   "instrument": "Koto",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato/Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "koto_slide",
@@ -450,23 +450,23 @@
  {
   "sugestie": "guzheng_vibrato",
   "instrument": "Guzheng",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "guzheng_slide",
   "instrument": "Guzheng",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "guzheng_tremolo",
   "instrument": "Guzheng",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato/Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "guzheng_glissando",
@@ -477,106 +477,106 @@
  },
  {
   "sugestie": "portugueza_trinado",
-  "instrument": "Guitarra portuguesa",
-  "tip": "articulatie",
+  "instrument": "Portuguese guitar",
+  "tip": "articulation",
   "≈": "≈ Vibrato/Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "portugueza_glissando",
-  "instrument": "Guitarra portuguesa",
-  "tip": "articulatie",
+  "instrument": "Portuguese guitar",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "portugueza_arpejo",
-  "instrument": "Guitarra portuguesa",
-  "tip": "articulatie",
+  "instrument": "Portuguese guitar",
+  "tip": "articulation",
   "≈": "≈ arpeggio",
   "context": "arp"
  },
  {
   "sugestie": "portugueza_rezonanță",
-  "instrument": "Guitarra portuguesa",
+  "instrument": "Portuguese guitar",
   "tip": "fx",
   "≈": "≈ Strum",
-  "context": "progresii"
+  "context": "progressions"
  },
  {
   "sugestie": "steel_slide",
   "instrument": "Steel guitar (dobro)",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "steel_vibrato",
   "instrument": "Steel guitar (dobro)",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "steel_hammer-on",
   "instrument": "Steel guitar (dobro)",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Hammer-on",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "steel_bar",
   "instrument": "Steel guitar (dobro)",
   "tip": "fx",
   "≈": "≈ Slide FX",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "12corzi_strum",
-  "instrument": "Chitara 12 corzi",
-  "tip": "articulatie",
+  "instrument": "12-string guitar",
+  "tip": "articulation",
   "≈": "≈ Strum",
-  "context": "progresii"
+  "context": "progressions"
  },
  {
   "sugestie": "12corzi_arpeggio",
-  "instrument": "Chitara 12 corzi",
-  "tip": "articulatie",
+  "instrument": "12-string guitar",
+  "tip": "articulation",
   "≈": "≈ arpeggio",
   "context": "arp"
  },
  {
   "sugestie": "12corzi_chorus",
-  "instrument": "Chitara 12 corzi",
+  "instrument": "12-string guitar",
   "tip": "fx",
   "≈": "≈ (cor dublat)",
-  "context": "progresii"
+  "context": "progressions"
  },
  {
   "sugestie": "bass_slap",
   "instrument": "Bass (electric)",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slap",
   "context": "bass"
  },
  {
   "sugestie": "bass_pop",
   "instrument": "Bass (electric)",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Pop",
   "context": "bass"
  },
  {
   "sugestie": "bass_hammer-on",
   "instrument": "Bass (electric)",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Hammer-on",
   "context": "bass"
  },
  {
   "sugestie": "bass_slide",
   "instrument": "Bass (electric)",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
   "context": "bass"
  },
@@ -597,23 +597,23 @@
  {
   "sugestie": "tar_vibrato",
   "instrument": "Tar",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "tar_glissando",
   "instrument": "Tar",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "tar_tremolo",
   "instrument": "Tar",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "tar_rezonanță",
@@ -625,114 +625,114 @@
  {
   "sugestie": "setar_vibrato",
   "instrument": "Setar",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "setar_slide",
   "instrument": "Setar",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "setar_tremolo",
   "instrument": "Setar",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "setar_zgomot",
   "instrument": "Setar",
   "tip": "fx",
   "≈": "≈ Fret Noise",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "shamisen_sukui",
   "instrument": "Shamisen",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "shamisen_vibrato",
   "instrument": "Shamisen",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "shamisen_hajiki",
   "instrument": "Shamisen",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Pull-off",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "shamisen_uchi",
   "instrument": "Shamisen",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Dead Note/strum",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "shamisen_bachi",
   "instrument": "Shamisen",
   "tip": "fx",
   "≈": "≈ Pick Scratch",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "biwa_tremolo",
   "instrument": "Biwa",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "biwa_slide",
   "instrument": "Biwa",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "biwa_strum",
   "instrument": "Biwa",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Strum/Dead Note",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "biwa_lovitură",
   "instrument": "Biwa",
   "tip": "fx",
   "≈": "≈ Body Hit",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "rubab_tremolo",
   "instrument": "Rubab",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "rubab_slide",
   "instrument": "Rubab",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "rubab_hammer-on",
   "instrument": "Rubab",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Hammer-on",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "rubab_rezonanță",
@@ -744,44 +744,44 @@
  {
   "sugestie": "qanun_tremolo",
   "instrument": "Qanun",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "qanun_glissando",
   "instrument": "Qanun",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "qanun_mandals",
   "instrument": "Qanun",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Bend",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "qanun_click",
   "instrument": "Qanun",
   "tip": "fx",
   "≈": "≈ (switch)",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "santur_tremolo",
   "instrument": "Santur",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "santur_glissando",
   "instrument": "Santur",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "santur_rezonanță",
@@ -793,23 +793,23 @@
  {
   "sugestie": "gayageum_nonghyeon",
   "instrument": "Gayageum",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "gayageum_chwihyeon",
   "instrument": "Gayageum",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "gayageum_tremolo",
   "instrument": "Gayageum",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "gayageum_rezonanță",
@@ -821,23 +821,23 @@
  {
   "sugestie": "veena_gamaka",
   "instrument": "Veena",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato/Bend",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "veena_slide",
   "instrument": "Veena",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "veena_pull-off",
   "instrument": "Veena",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Pull-off",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "veena_rezonanță",
@@ -849,16 +849,16 @@
  {
   "sugestie": "sarangi_vibrato",
   "instrument": "Sarangi",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato/Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "sarangi_glissando",
   "instrument": "Sarangi",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "sarangi_rezonanță",
@@ -870,42 +870,42 @@
  {
   "sugestie": "cumbus_tremolo",
   "instrument": "Cümbüş",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "cumbus_slide",
   "instrument": "Cümbüş",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "cumbus_rezonanță",
   "instrument": "Cümbüş",
   "tip": "fx",
   "≈": "≈ banjo",
-  "context": "progresii"
+  "context": "progressions"
  },
  {
   "sugestie": "lute_pizzicato",
   "instrument": "Lute/Renaissance",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Sustain",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "lute_ornamente",
   "instrument": "Lute/Renaissance",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Hammer-on/Pull-off",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "lute_arpeggio",
   "instrument": "Lute/Renaissance",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ arpeggio",
   "context": "arp"
  },
@@ -919,76 +919,76 @@
  {
   "sugestie": "vihuela_rasgueado",
   "instrument": "Vihuela",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Rasgueado",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "vihuela_arpegio",
   "instrument": "Vihuela",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ arpeggio",
   "context": "arp"
  },
  {
   "sugestie": "vihuela_slide",
   "instrument": "Vihuela",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Slide",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "vihuela_percuție",
   "instrument": "Vihuela",
   "tip": "fx",
   "≈": "≈ Body Hit",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "timple_rasgueado",
   "instrument": "Timple",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Rasgueado",
-  "context": "ritm"
+  "context": "rhythm"
  },
  {
   "sugestie": "timple_tremolo",
   "instrument": "Timple",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "timple_brightness",
   "instrument": "Timple",
   "tip": "fx",
   "≈": "≈ Strum",
-  "context": "progresii"
+  "context": "progressions"
  },
  {
   "sugestie": "harpa_glissando",
-  "instrument": "Harpă",
-  "tip": "articulatie",
+  "instrument": "Harp",
+  "tip": "articulation",
   "≈": "≈ Slide FX",
-  "context": "arp/melodie"
+  "context": "arp/melody"
  },
  {
   "sugestie": "harpa_pizzicato",
-  "instrument": "Harpă",
-  "tip": "articulatie",
+  "instrument": "Harp",
+  "tip": "articulation",
   "≈": "≈ Sustain",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "harpa_arpegii",
-  "instrument": "Harpă",
-  "tip": "articulatie",
+  "instrument": "Harp",
+  "tip": "articulation",
   "≈": "≈ arpeggio",
   "context": "arp"
  },
  {
   "sugestie": "harpa_rezonanție",
-  "instrument": "Harpă",
+  "instrument": "Harp",
   "tip": "fx",
   "≈": "≈ chorus",
   "context": "ambient"
@@ -996,22 +996,22 @@
  {
   "sugestie": "mandola_tremolo",
   "instrument": "Mandola / octave mandolin",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Vibrato/Tremolo",
-  "context": "melodie"
+  "context": "melody"
  },
  {
   "sugestie": "mandola_strum",
   "instrument": "Mandola / octave mandolin",
-  "tip": "articulatie",
+  "tip": "articulation",
   "≈": "≈ Strum",
-  "context": "progresii"
+  "context": "progressions"
  },
  {
   "sugestie": "mandola_attack",
   "instrument": "Mandola / octave mandolin",
   "tip": "fx",
   "≈": "≈ Strum",
-  "context": "progresii"
+  "context": "progressions"
  }
 ]

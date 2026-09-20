@@ -34,19 +34,19 @@
   {
    "term": "Tremolo",
    "similar": "≈ Vibrato/Tremolo",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Strum",
    "similar": "≈ Strum",
-   "context": "progresii"
+   "context": "progressions"
   }
  ],
  "fx": [
   {
    "term": "Attack corzi duble",
    "similar": "≈ Strum",
-   "context": "progresii"
+   "context": "progressions"
   }
  ]
 }

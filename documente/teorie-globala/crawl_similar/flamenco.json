@@ -1,5 +1,5 @@
 {
- "instrument": "Chitara flamenco",
+ "instrument": "Flamenco guitar",
  "tara": "ES",
  "sugestie": "flamenco",
  "referinta_ample_art": [
@@ -34,34 +34,34 @@
   {
    "term": "Rasgueado",
    "similar": "≈ Rasgueado",
-   "context": "progresii/ritm"
+   "context": "progressions/rhythm"
   },
   {
    "term": "Alzapúa",
    "similar": "≈ Alzapúa",
-   "context": "progresii/ritm"
+   "context": "progressions/rhythm"
   },
   {
    "term": "Picado",
    "similar": "≈ alternate picking",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Golpe",
    "similar": "≈ Golpe/Body Hit",
-   "context": "ritm"
+   "context": "rhythm"
   },
   {
    "term": "Tremolo (5 note)",
    "similar": "≈ Tremolo",
-   "context": "melodie/arp"
+   "context": "melody/arp"
   }
  ],
  "fx": [
   {
    "term": "Zgomot cutie golpe",
    "similar": "≈ Body Hit",
-   "context": "ritm"
+   "context": "rhythm"
   }
  ]
 }

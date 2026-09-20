@@ -34,24 +34,24 @@
   {
    "term": "Slide bar",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Vibrato bar",
    "similar": "≈ Vibrato",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Hammer-on",
    "similar": "≈ Hammer-on",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [
   {
    "term": "Bar slide noise",
    "similar": "≈ Slide FX",
-   "context": "melodie"
+   "context": "melody"
   }
  ]
 }

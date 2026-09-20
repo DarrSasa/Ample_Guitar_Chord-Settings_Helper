@@ -34,17 +34,17 @@
   {
    "term": "Lun (slide)",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Yin (vibrato)",
    "similar": "≈ Vibrato",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Sao (strum)",
    "similar": "≈ Strum/Rasgueado",
-   "context": "progresii"
+   "context": "progressions"
   },
   {
    "term": "Lun指 arpegii",
@@ -56,7 +56,7 @@
   {
    "term": "Zgomot corzi",
    "similar": "≈ String Scratch",
-   "context": "ritm"
+   "context": "rhythm"
   }
  ]
 }

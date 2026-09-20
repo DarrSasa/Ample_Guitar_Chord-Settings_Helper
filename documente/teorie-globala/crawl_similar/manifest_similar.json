@@ -1,6 +1,6 @@
 [
  {
-  "instrument": "Chitara flamenco",
+  "instrument": "Flamenco guitar",
   "tara": "ES",
   "sugestie": "flamenco",
   "nr_art": 5,
@@ -56,7 +56,7 @@
   "nr_fx": 1
  },
  {
-  "instrument": "Tres cubano",
+  "instrument": "Cuban tres",
   "tara": "CU",
   "sugestie": "tres",
   "nr_art": 2,
@@ -112,7 +112,7 @@
   "nr_fx": 1
  },
  {
-  "instrument": "Guitarra portuguesa",
+  "instrument": "Portuguese guitar",
   "tara": "PT",
   "sugestie": "portugueza",
   "nr_art": 3,
@@ -126,7 +126,7 @@
   "nr_fx": 1
  },
  {
-  "instrument": "Chitara 12 corzi",
+  "instrument": "12-string guitar",
   "tara": "global",
   "sugestie": "12corzi",
   "nr_art": 2,
@@ -238,7 +238,7 @@
   "nr_fx": 1
  },
  {
-  "instrument": "Harpă",
+  "instrument": "Harp",
   "tara": "global",
   "sugestie": "harpa",
   "nr_art": 3,

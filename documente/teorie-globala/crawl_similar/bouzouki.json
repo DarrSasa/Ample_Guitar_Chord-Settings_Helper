@@ -34,24 +34,24 @@
   {
    "term": "Tremolo",
    "similar": "≈ Vibrato/Tremolo",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Slide",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Hammer-on",
    "similar": "≈ Hammer-on",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [
   {
    "term": "Zgomot plectru",
    "similar": "≈ Pick Scratch",
-   "context": "ritm"
+   "context": "rhythm"
   }
  ]
 }

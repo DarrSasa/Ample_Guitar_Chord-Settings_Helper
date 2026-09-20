@@ -1,5 +1,5 @@
 {
- "instrument": "Chitara 12 corzi",
+ "instrument": "12-string guitar",
  "tara": "global",
  "sugestie": "12corzi",
  "referinta_ample_art": [
@@ -34,7 +34,7 @@
   {
    "term": "Strum corzi dublate",
    "similar": "≈ Strum",
-   "context": "progresii"
+   "context": "progressions"
   },
   {
    "term": "Arpeggio",
@@ -46,7 +46,7 @@
   {
    "term": "Chorus natural",
    "similar": "≈ (cor dublat)",
-   "context": "progresii"
+   "context": "progressions"
   }
  ]
 }

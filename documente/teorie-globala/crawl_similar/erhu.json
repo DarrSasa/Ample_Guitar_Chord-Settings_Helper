@@ -34,17 +34,17 @@
   {
    "term": "Vibrato",
    "similar": "≈ Vibrato",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Slide",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Glissando",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [

@@ -34,7 +34,7 @@
   {
    "term": "Rasgueado",
    "similar": "≈ Rasgueado",
-   "context": "ritm"
+   "context": "rhythm"
   },
   {
    "term": "Arpegio",
@@ -44,14 +44,14 @@
   {
    "term": "Slide",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [
   {
    "term": "Percuție cutie",
    "similar": "≈ Body Hit",
-   "context": "ritm"
+   "context": "rhythm"
   }
  ]
 }

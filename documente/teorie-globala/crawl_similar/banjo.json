@@ -39,24 +39,24 @@
   {
    "term": "Hammer-on",
    "similar": "≈ Hammer-on",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Pull-off",
    "similar": "≈ Pull-off",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Slide",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [
   {
    "term": "Rezonanță scurtă",
    "similar": "≈ Staccato",
-   "context": "ritm"
+   "context": "rhythm"
   }
  ]
 }

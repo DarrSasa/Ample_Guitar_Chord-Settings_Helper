@@ -34,22 +34,22 @@
   {
    "term": "Meend",
    "similar": "≈ Bend / Legato Slide",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Gamak",
    "similar": "≈ Vibrato",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Krintan",
    "similar": "≈ Pull-off",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Zamzama",
    "similar": "≈ tremolo",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [

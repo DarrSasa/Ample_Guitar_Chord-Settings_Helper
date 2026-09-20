@@ -34,22 +34,22 @@
   {
    "term": "Pizzicato",
    "similar": "≈ Sustain",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Tremolo risha",
    "similar": "≈ Vibrato/Tremolo",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Glissando",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Ornament (mordent)",
    "similar": "≈ Hammer-on/Pull-off",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [

@@ -1,45 +1,40 @@
-// Sugestii de articulatii/FX pentru progresii (acorduri complexe) sau un singur
-// acord experimental, provenite de la instrumente cu corzi din toata lumea
-// (crawl_similar). Fiecare sugestie poarta numele instrumentului, un echivalent
-// Ample ('≈') si contextul in care apare (progresii/melodie/bass/arp/ostinato).
+// Similar-instrument articulation/FX suggestions for progressions (complex
+// chords) or a single experimental chord. Sourced from crawl_similar (world
+// string instruments). Interface in English.
 
-import { SUGESTII_SIMILARE, type SugestieSimilara } from "./similarData";
+import { SIMILAR_SUGGESTIONS, type SimilarSuggestion } from "./similarData";
 
-// Toate sugestiile, ordonate dupa instrument.
-export function toateSugestiile(): SugestieSimilara[] {
-  return [...SUGESTII_SIMILARE];
+// All suggestions, ordered by instrument.
+export function allSuggestions(): SimilarSuggestion[] {
+  return [...SIMILAR_SUGGESTIONS];
 }
 
-// Sugestiile unui anumit instrument (ex. "Sitar", "Chitara flamenco").
-export function sugestiiInstrument(instrument: string): SugestieSimilara[] {
-  return SUGESTII_SIMILARE.filter((s) =>
+// Suggestions for a given instrument (e.g. "Sitar", "Flamenco guitar").
+export function suggestionsForInstrument(instrument: string): SimilarSuggestion[] {
+  return SIMILAR_SUGGESTIONS.filter((s) =>
     s.instrument.toLowerCase().includes(instrument.toLowerCase()));
 }
 
-// Sugestiile potrivite pentru un context: "progresii" | "melodie" | "bass" |
-// "arp" | "ostinato" | "ritm".
-export function sugestiiContext(context: string): SugestieSimilara[] {
-  return SUGESTII_SIMILARE.filter((s) => s.context.includes(context));
+// Suggestions for a context: "progressions" | "melody" | "bass" | "arp" |
+// "ostinato" | "rhythm".
+export function suggestionsForContext(context: string): SimilarSuggestion[] {
+  return SIMILAR_SUGGESTIONS.filter((s) => s.context.includes(context));
 }
 
-// Sugestii pentru un echivalent Ample dat (ex. "Rasgueado", "Slide", "Vibrato").
-export function sugestiiApropiate(ampleTerm: string): SugestieSimilara[] {
+// Suggestions whose Ample equivalent matches a term (e.g. "Rasgueado", "Slide").
+export function similarTo(ampleTerm: string): SimilarSuggestion[] {
   const q = ampleTerm.toLowerCase();
-  return SUGESTII_SIMILARE.filter((s) => s.similar.toLowerCase().includes(q));
+  return SIMILAR_SUGGESTIONS.filter((s) => s.similar.toLowerCase().includes(q));
 }
 
-// Nume scurt si clar pt. o sugestie (instrument + termen), folosit in UI.
-export function numeSugestie(s: SugestieSimilara): string {
-  return s.sugestie;
+// Short, clear display name for a suggestion (instrument + term).
+export function suggestionName(s: SimilarSuggestion): string {
+  return s.suggestion;
 }
 
-// Pentru un strat al unei progresii (melodie/arp/bass/ostinato), intoarce
-// sugestiile ce pot fi aplicate ca "condimente" (articulatie/FX similara).
-export function condimentePentruStrat(strat: "melodie" | "arp" | "bass" | "ostinato" | "progresii"):
-  SugestieSimilara[] {
-  const map: Record<string, string> = {
-    melodie: "melodie", arp: "arp", bass: "bass",
-    ostinato: "ostinato", progresii: "progresii",
-  };
-  return sugestiiContext(map[strat]);
+// "Seasonings" (similar articulation/FX) applicable to a progression layer.
+export function seasoningsForLayer(
+  layer: "melody" | "arp" | "bass" | "ostinato" | "progressions"
+): SimilarSuggestion[] {
+  return suggestionsForContext(layer);
 }

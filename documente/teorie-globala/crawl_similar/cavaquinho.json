@@ -34,19 +34,19 @@
   {
    "term": "Rasgado",
    "similar": "≈ Rasgueado",
-   "context": "ritm"
+   "context": "rhythm"
   },
   {
    "term": "Pizzicato",
    "similar": "≈ Sustain",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [
   {
    "term": "Percuție cutie",
    "similar": "≈ Body Hit",
-   "context": "ritm"
+   "context": "rhythm"
   }
  ]
 }

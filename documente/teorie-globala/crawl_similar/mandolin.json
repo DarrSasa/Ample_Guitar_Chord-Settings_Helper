@@ -34,24 +34,24 @@
   {
    "term": "Tremolo",
    "similar": "≈ Vibrato/Tremolo",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Pizzicato",
    "similar": "≈ Sustain",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Slide",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [
   {
    "term": "Attack dublu-corzi",
    "similar": "≈ Strum",
-   "context": "progresii"
+   "context": "progressions"
   }
  ]
 }

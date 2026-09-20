@@ -34,24 +34,24 @@
   {
    "term": "Tremolo",
    "similar": "≈ Vibrato/Tremolo",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Pizzicato",
    "similar": "≈ Sustain",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Vibrato",
    "similar": "≈ Vibrato",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [
   {
    "term": "Bătaie cutie",
    "similar": "≈ Body Hit",
-   "context": "ritm"
+   "context": "rhythm"
   }
  ]
 }

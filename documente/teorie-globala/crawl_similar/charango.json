@@ -34,24 +34,24 @@
   {
    "term": "Rasgueo",
    "similar": "≈ Rasgueado",
-   "context": "ritm"
+   "context": "rhythm"
   },
   {
    "term": "Tremolo",
    "similar": "≈ Vibrato",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Slide",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [
   {
    "term": "Brightness corzi",
    "similar": "≈ Strum",
-   "context": "progresii"
+   "context": "progressions"
   }
  ]
 }

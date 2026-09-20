@@ -34,24 +34,24 @@
   {
    "term": "Vibrato larg",
    "similar": "≈ Vibrato",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Slide",
    "similar": "≈ Slide",
-   "context": "melodie"
+   "context": "melody"
   },
   {
    "term": "Tremolo",
    "similar": "≈ Tremolo",
-   "context": "melodie"
+   "context": "melody"
   }
  ],
  "fx": [
   {
    "term": "Zgomot degete",
    "similar": "≈ Fret Noise",
-   "context": "melodie"
+   "context": "melody"
   }
  ]
 }
