@@ -6,7 +6,7 @@
     {"url":"https://www.atlasofpluckedinstruments.com/","tara":"global","limba":"en","categorie":"atlas instrumente cu corzi"},
     {"url":"https://www.ethnomusicology.org","tara":"global","limba":"en","categorie":"etnomuzicologie"},
     {"url":"https://en.wikipedia.org/wiki/List_of_string_instruments","tara":"global","limba":"en","categorie":"lista instrumente"},
-    {"url":"https://www.britannica.com/art/plucked-string-instrument","tara":"global","limba":"en","categorie":"encyclopedie"},
-    {"url":"https://www.oud.eclipse.co.uk","tara":"UK","limba":"en","categorie":"oud"}
+    {"url":"https://www.britannica.com/art/plucked-string-instrument","tara":"global","limba":"en","categorie":"encyclopedie","nota":"anti-bot, valoare mica"},
+    {"url":"https://www.maqamworld.com","tara":"AR/ME","limba":"en","categorie":"teorie oud/maqam (inlocuieste oud.eclipse, cazut)"}
   ]
 }
