@@ -1,0 +1,57 @@
+{
+ "instrument": "Steel guitar (dobro)",
+ "tara": "US",
+ "sugestie": "steel",
+ "referinta_ample_art": [
+  "Sustain",
+  "Palm Mute",
+  "Hammer-on",
+  "Pull-off",
+  "Legato Slide",
+  "Slide In/Out",
+  "Vibrato",
+  "Bend",
+  "Natural Harmonic",
+  "Tapping",
+  "Staccato",
+  "Dead Note",
+  "Rasgueado",
+  "Alzapúa",
+  "Golpe",
+  "Slap",
+  "Pop"
+ ],
+ "referinta_ample_fx": [
+  "Fret Noise",
+  "String Scratch",
+  "Body Hit/Golpe",
+  "Pick Scratch",
+  "Feedback",
+  "String Buzz",
+  "Slide FX"
+ ],
+ "articulatii": [
+  {
+   "term": "Slide bar",
+   "similar": "≈ Slide",
+   "context": "melodie"
+  },
+  {
+   "term": "Vibrato bar",
+   "similar": "≈ Vibrato",
+   "context": "melodie"
+  },
+  {
+   "term": "Hammer-on",
+   "similar": "≈ Hammer-on",
+   "context": "melodie"
+  }
+ ],
+ "fx": [
+  {
+   "term": "Bar slide noise",
+   "similar": "≈ Slide FX",
+   "context": "melodie"
+  }
+ ]
+}

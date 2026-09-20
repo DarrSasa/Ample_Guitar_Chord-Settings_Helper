@@ -1,0 +1,67 @@
+{
+ "instrument": "Chitara flamenco",
+ "tara": "ES",
+ "sugestie": "flamenco",
+ "referinta_ample_art": [
+  "Sustain",
+  "Palm Mute",
+  "Hammer-on",
+  "Pull-off",
+  "Legato Slide",
+  "Slide In/Out",
+  "Vibrato",
+  "Bend",
+  "Natural Harmonic",
+  "Tapping",
+  "Staccato",
+  "Dead Note",
+  "Rasgueado",
+  "Alzapúa",
+  "Golpe",
+  "Slap",
+  "Pop"
+ ],
+ "referinta_ample_fx": [
+  "Fret Noise",
+  "String Scratch",
+  "Body Hit/Golpe",
+  "Pick Scratch",
+  "Feedback",
+  "String Buzz",
+  "Slide FX"
+ ],
+ "articulatii": [
+  {
+   "term": "Rasgueado",
+   "similar": "≈ Rasgueado",
+   "context": "progresii/ritm"
+  },
+  {
+   "term": "Alzapúa",
+   "similar": "≈ Alzapúa",
+   "context": "progresii/ritm"
+  },
+  {
+   "term": "Picado",
+   "similar": "≈ alternate picking",
+   "context": "melodie"
+  },
+  {
+   "term": "Golpe",
+   "similar": "≈ Golpe/Body Hit",
+   "context": "ritm"
+  },
+  {
+   "term": "Tremolo (5 note)",
+   "similar": "≈ Tremolo",
+   "context": "melodie/arp"
+  }
+ ],
+ "fx": [
+  {
+   "term": "Zgomot cutie golpe",
+   "similar": "≈ Body Hit",
+   "context": "ritm"
+  }
+ ]
+}

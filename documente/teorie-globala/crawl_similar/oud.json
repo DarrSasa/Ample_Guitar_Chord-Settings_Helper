@@ -1,0 +1,62 @@
+{
+ "instrument": "Oud",
+ "tara": "TR/AR",
+ "sugestie": "oud",
+ "referinta_ample_art": [
+  "Sustain",
+  "Palm Mute",
+  "Hammer-on",
+  "Pull-off",
+  "Legato Slide",
+  "Slide In/Out",
+  "Vibrato",
+  "Bend",
+  "Natural Harmonic",
+  "Tapping",
+  "Staccato",
+  "Dead Note",
+  "Rasgueado",
+  "Alzapúa",
+  "Golpe",
+  "Slap",
+  "Pop"
+ ],
+ "referinta_ample_fx": [
+  "Fret Noise",
+  "String Scratch",
+  "Body Hit/Golpe",
+  "Pick Scratch",
+  "Feedback",
+  "String Buzz",
+  "Slide FX"
+ ],
+ "articulatii": [
+  {
+   "term": "Pizzicato",
+   "similar": "≈ Sustain",
+   "context": "melodie"
+  },
+  {
+   "term": "Tremolo risha",
+   "similar": "≈ Vibrato/Tremolo",
+   "context": "melodie"
+  },
+  {
+   "term": "Glissando",
+   "similar": "≈ Slide",
+   "context": "melodie"
+  },
+  {
+   "term": "Ornament (mordent)",
+   "similar": "≈ Hammer-on/Pull-off",
+   "context": "melodie"
+  }
+ ],
+ "fx": [
+  {
+   "term": "Rezonanță cavitate",
+   "similar": "≈ Body Hit",
+   "context": "accent"
+  }
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "instrument": "Pipa",
+ "tara": "CN",
+ "sugestie": "pipa",
+ "referinta_ample_art": [
+  "Sustain",
+  "Palm Mute",
+  "Hammer-on",
+  "Pull-off",
+  "Legato Slide",
+  "Slide In/Out",
+  "Vibrato",
+  "Bend",
+  "Natural Harmonic",
+  "Tapping",
+  "Staccato",
+  "Dead Note",
+  "Rasgueado",
+  "Alzapúa",
+  "Golpe",
+  "Slap",
+  "Pop"
+ ],
+ "referinta_ample_fx": [
+  "Fret Noise",
+  "String Scratch",
+  "Body Hit/Golpe",
+  "Pick Scratch",
+  "Feedback",
+  "String Buzz",
+  "Slide FX"
+ ],
+ "articulatii": [
+  {
+   "term": "Lun (slide)",
+   "similar": "≈ Slide",
+   "context": "melodie"
+  },
+  {
+   "term": "Yin (vibrato)",
+   "similar": "≈ Vibrato",
+   "context": "melodie"
+  },
+  {
+   "term": "Sao (strum)",
+   "similar": "≈ Strum/Rasgueado",
+   "context": "progresii"
+  },
+  {
+   "term": "Lun指 arpegii",
+   "similar": "≈ arpeggio",
+   "context": "arp"
+  }
+ ],
+ "fx": [
+  {
+   "term": "Zgomot corzi",
+   "similar": "≈ String Scratch",
+   "context": "ritm"
+  }
+ ]
+}

@@ -1,0 +1,57 @@
+{
+ "instrument": "Guitarra portuguesa",
+ "tara": "PT",
+ "sugestie": "portugueza",
+ "referinta_ample_art": [
+  "Sustain",
+  "Palm Mute",
+  "Hammer-on",
+  "Pull-off",
+  "Legato Slide",
+  "Slide In/Out",
+  "Vibrato",
+  "Bend",
+  "Natural Harmonic",
+  "Tapping",
+  "Staccato",
+  "Dead Note",
+  "Rasgueado",
+  "Alzapúa",
+  "Golpe",
+  "Slap",
+  "Pop"
+ ],
+ "referinta_ample_fx": [
+  "Fret Noise",
+  "String Scratch",
+  "Body Hit/Golpe",
+  "Pick Scratch",
+  "Feedback",
+  "String Buzz",
+  "Slide FX"
+ ],
+ "articulatii": [
+  {
+   "term": "Trinado",
+   "similar": "≈ Vibrato/Tremolo",
+   "context": "melodie"
+  },
+  {
+   "term": "Glissando",
+   "similar": "≈ Slide",
+   "context": "melodie"
+  },
+  {
+   "term": "Arpejo",
+   "similar": "≈ arpeggio",
+   "context": "arp"
+  }
+ ],
+ "fx": [
+  {
+   "term": "Rezonanță oțel",
+   "similar": "≈ Strum",
+   "context": "progresii"
+  }
+ ]
+}

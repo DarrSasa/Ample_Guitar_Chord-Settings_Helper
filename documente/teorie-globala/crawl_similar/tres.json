@@ -1,0 +1,52 @@
+{
+ "instrument": "Tres cubano",
+ "tara": "CU",
+ "sugestie": "tres",
+ "referinta_ample_art": [
+  "Sustain",
+  "Palm Mute",
+  "Hammer-on",
+  "Pull-off",
+  "Legato Slide",
+  "Slide In/Out",
+  "Vibrato",
+  "Bend",
+  "Natural Harmonic",
+  "Tapping",
+  "Staccato",
+  "Dead Note",
+  "Rasgueado",
+  "Alzapúa",
+  "Golpe",
+  "Slap",
+  "Pop"
+ ],
+ "referinta_ample_fx": [
+  "Fret Noise",
+  "String Scratch",
+  "Body Hit/Golpe",
+  "Pick Scratch",
+  "Feedback",
+  "String Buzz",
+  "Slide FX"
+ ],
+ "articulatii": [
+  {
+   "term": "Arpegio octavat",
+   "similar": "≈ arpeggio",
+   "context": "ostinato"
+  },
+  {
+   "term": "Slide",
+   "similar": "≈ Slide",
+   "context": "melodie"
+  }
+ ],
+ "fx": [
+  {
+   "term": "Zgomot corzi dublate",
+   "similar": "≈ Strum",
+   "context": "ostinato"
+  }
+ ]
+}

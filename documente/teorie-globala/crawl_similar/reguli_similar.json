@@ -1,0 +1,597 @@
+[
+ {
+  "sugestie": "flamenco_rasgueado",
+  "instrument": "Chitara flamenco",
+  "tip": "articulatie",
+  "≈": "≈ Rasgueado",
+  "context": "progresii/ritm"
+ },
+ {
+  "sugestie": "flamenco_alzapúa",
+  "instrument": "Chitara flamenco",
+  "tip": "articulatie",
+  "≈": "≈ Alzapúa",
+  "context": "progresii/ritm"
+ },
+ {
+  "sugestie": "flamenco_picado",
+  "instrument": "Chitara flamenco",
+  "tip": "articulatie",
+  "≈": "≈ alternate picking",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "flamenco_golpe",
+  "instrument": "Chitara flamenco",
+  "tip": "articulatie",
+  "≈": "≈ Golpe/Body Hit",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "flamenco_tremolo",
+  "instrument": "Chitara flamenco",
+  "tip": "articulatie",
+  "≈": "≈ Tremolo",
+  "context": "melodie/arp"
+ },
+ {
+  "sugestie": "flamenco_zgomot",
+  "instrument": "Chitara flamenco",
+  "tip": "fx",
+  "≈": "≈ Body Hit",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "oud_pizzicato",
+  "instrument": "Oud",
+  "tip": "articulatie",
+  "≈": "≈ Sustain",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "oud_tremolo",
+  "instrument": "Oud",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato/Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "oud_glissando",
+  "instrument": "Oud",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "oud_ornament",
+  "instrument": "Oud",
+  "tip": "articulatie",
+  "≈": "≈ Hammer-on/Pull-off",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "oud_rezonanță",
+  "instrument": "Oud",
+  "tip": "fx",
+  "≈": "≈ Body Hit",
+  "context": "accent"
+ },
+ {
+  "sugestie": "sitar_meend",
+  "instrument": "Sitar",
+  "tip": "articulatie",
+  "≈": "≈ Bend / Legato Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "sitar_gamak",
+  "instrument": "Sitar",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "sitar_krintan",
+  "instrument": "Sitar",
+  "tip": "articulatie",
+  "≈": "≈ Pull-off",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "sitar_zamzama",
+  "instrument": "Sitar",
+  "tip": "articulatie",
+  "≈": "≈ tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "sitar_javari",
+  "instrument": "Sitar",
+  "tip": "fx",
+  "≈": "≈ String Buzz",
+  "context": "sustain/drone"
+ },
+ {
+  "sugestie": "sitar_chikari",
+  "instrument": "Sitar",
+  "tip": "fx",
+  "≈": "≈ Strum accent",
+  "context": "ostinato"
+ },
+ {
+  "sugestie": "banjo_rolls",
+  "instrument": "Banjo",
+  "tip": "articulatie",
+  "≈": "≈ arpeggio/Travis",
+  "context": "ostinato/progresii"
+ },
+ {
+  "sugestie": "banjo_hammer-on",
+  "instrument": "Banjo",
+  "tip": "articulatie",
+  "≈": "≈ Hammer-on",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "banjo_pull-off",
+  "instrument": "Banjo",
+  "tip": "articulatie",
+  "≈": "≈ Pull-off",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "banjo_slide",
+  "instrument": "Banjo",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "banjo_rezonanță",
+  "instrument": "Banjo",
+  "tip": "fx",
+  "≈": "≈ Staccato",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "mandolin_tremolo",
+  "instrument": "Mandolin",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato/Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "mandolin_pizzicato",
+  "instrument": "Mandolin",
+  "tip": "articulatie",
+  "≈": "≈ Sustain",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "mandolin_slide",
+  "instrument": "Mandolin",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "mandolin_attack",
+  "instrument": "Mandolin",
+  "tip": "fx",
+  "≈": "≈ Strum",
+  "context": "progresii"
+ },
+ {
+  "sugestie": "bouzouki_tremolo",
+  "instrument": "Bouzouki",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato/Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "bouzouki_slide",
+  "instrument": "Bouzouki",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "bouzouki_hammer-on",
+  "instrument": "Bouzouki",
+  "tip": "articulatie",
+  "≈": "≈ Hammer-on",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "bouzouki_zgomot",
+  "instrument": "Bouzouki",
+  "tip": "fx",
+  "≈": "≈ Pick Scratch",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "charango_rasgueo",
+  "instrument": "Charango",
+  "tip": "articulatie",
+  "≈": "≈ Rasgueado",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "charango_tremolo",
+  "instrument": "Charango",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "charango_slide",
+  "instrument": "Charango",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "charango_brightness",
+  "instrument": "Charango",
+  "tip": "fx",
+  "≈": "≈ Strum",
+  "context": "progresii"
+ },
+ {
+  "sugestie": "cavaquinho_rasgado",
+  "instrument": "Cavaquinho",
+  "tip": "articulatie",
+  "≈": "≈ Rasgueado",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "cavaquinho_pizzicato",
+  "instrument": "Cavaquinho",
+  "tip": "articulatie",
+  "≈": "≈ Sustain",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "cavaquinho_percuție",
+  "instrument": "Cavaquinho",
+  "tip": "fx",
+  "≈": "≈ Body Hit",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "tres_arpegio",
+  "instrument": "Tres cubano",
+  "tip": "articulatie",
+  "≈": "≈ arpeggio",
+  "context": "ostinato"
+ },
+ {
+  "sugestie": "tres_slide",
+  "instrument": "Tres cubano",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "tres_zgomot",
+  "instrument": "Tres cubano",
+  "tip": "fx",
+  "≈": "≈ Strum",
+  "context": "ostinato"
+ },
+ {
+  "sugestie": "kora_ornamente",
+  "instrument": "Kora",
+  "tip": "articulatie",
+  "≈": "≈ Hammer-on/Pull-off",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "kora_arpegii",
+  "instrument": "Kora",
+  "tip": "articulatie",
+  "≈": "≈ arpeggio",
+  "context": "ostinato"
+ },
+ {
+  "sugestie": "kora_rezonanță",
+  "instrument": "Kora",
+  "tip": "fx",
+  "≈": "≈ Body Hit",
+  "context": "ambient"
+ },
+ {
+  "sugestie": "balalaika_tremolo",
+  "instrument": "Balalaika",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato/Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "balalaika_pizzicato",
+  "instrument": "Balalaika",
+  "tip": "articulatie",
+  "≈": "≈ Sustain",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "balalaika_vibrato",
+  "instrument": "Balalaika",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "balalaika_bătaie",
+  "instrument": "Balalaika",
+  "tip": "fx",
+  "≈": "≈ Body Hit",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "saz_tremolo",
+  "instrument": "Saz/Baglama",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato/Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "saz_slide",
+  "instrument": "Saz/Baglama",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "saz_mordent",
+  "instrument": "Saz/Baglama",
+  "tip": "articulatie",
+  "≈": "≈ Hammer-on/Pull-off",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "saz_zgomot",
+  "instrument": "Saz/Baglama",
+  "tip": "fx",
+  "≈": "≈ Pick Scratch",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "erhu_vibrato",
+  "instrument": "Erhu",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "erhu_slide",
+  "instrument": "Erhu",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "erhu_glissando",
+  "instrument": "Erhu",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "erhu_rezonanță",
+  "instrument": "Erhu",
+  "tip": "fx",
+  "≈": "≈ Body Hit",
+  "context": "ambient"
+ },
+ {
+  "sugestie": "pipa_lun",
+  "instrument": "Pipa",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "pipa_yin",
+  "instrument": "Pipa",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "pipa_sao",
+  "instrument": "Pipa",
+  "tip": "articulatie",
+  "≈": "≈ Strum/Rasgueado",
+  "context": "progresii"
+ },
+ {
+  "sugestie": "pipa_lun指",
+  "instrument": "Pipa",
+  "tip": "articulatie",
+  "≈": "≈ arpeggio",
+  "context": "arp"
+ },
+ {
+  "sugestie": "pipa_zgomot",
+  "instrument": "Pipa",
+  "tip": "fx",
+  "≈": "≈ String Scratch",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "koto_vibrato",
+  "instrument": "Koto",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "koto_glissando",
+  "instrument": "Koto",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "koto_tremolo",
+  "instrument": "Koto",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato/Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "koto_slide",
+  "instrument": "Koto",
+  "tip": "fx",
+  "≈": "≈ Slide FX",
+  "context": "ambient"
+ },
+ {
+  "sugestie": "guzheng_vibrato",
+  "instrument": "Guzheng",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "guzheng_slide",
+  "instrument": "Guzheng",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "guzheng_tremolo",
+  "instrument": "Guzheng",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato/Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "guzheng_glissando",
+  "instrument": "Guzheng",
+  "tip": "fx",
+  "≈": "≈ Slide FX",
+  "context": "ambient"
+ },
+ {
+  "sugestie": "portugueza_trinado",
+  "instrument": "Guitarra portuguesa",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato/Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "portugueza_glissando",
+  "instrument": "Guitarra portuguesa",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "portugueza_arpejo",
+  "instrument": "Guitarra portuguesa",
+  "tip": "articulatie",
+  "≈": "≈ arpeggio",
+  "context": "arp"
+ },
+ {
+  "sugestie": "portugueza_rezonanță",
+  "instrument": "Guitarra portuguesa",
+  "tip": "fx",
+  "≈": "≈ Strum",
+  "context": "progresii"
+ },
+ {
+  "sugestie": "steel_slide",
+  "instrument": "Steel guitar (dobro)",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "steel_vibrato",
+  "instrument": "Steel guitar (dobro)",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "steel_hammer-on",
+  "instrument": "Steel guitar (dobro)",
+  "tip": "articulatie",
+  "≈": "≈ Hammer-on",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "steel_bar",
+  "instrument": "Steel guitar (dobro)",
+  "tip": "fx",
+  "≈": "≈ Slide FX",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "12corzi_strum",
+  "instrument": "Chitara 12 corzi",
+  "tip": "articulatie",
+  "≈": "≈ Strum",
+  "context": "progresii"
+ },
+ {
+  "sugestie": "12corzi_arpeggio",
+  "instrument": "Chitara 12 corzi",
+  "tip": "articulatie",
+  "≈": "≈ arpeggio",
+  "context": "arp"
+ },
+ {
+  "sugestie": "12corzi_chorus",
+  "instrument": "Chitara 12 corzi",
+  "tip": "fx",
+  "≈": "≈ (cor dublat)",
+  "context": "progresii"
+ },
+ {
+  "sugestie": "bass_slap",
+  "instrument": "Bass (electric)",
+  "tip": "articulatie",
+  "≈": "≈ Slap",
+  "context": "bass"
+ },
+ {
+  "sugestie": "bass_pop",
+  "instrument": "Bass (electric)",
+  "tip": "articulatie",
+  "≈": "≈ Pop",
+  "context": "bass"
+ },
+ {
+  "sugestie": "bass_hammer-on",
+  "instrument": "Bass (electric)",
+  "tip": "articulatie",
+  "≈": "≈ Hammer-on",
+  "context": "bass"
+ },
+ {
+  "sugestie": "bass_slide",
+  "instrument": "Bass (electric)",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "bass"
+ },
+ {
+  "sugestie": "bass_thumb",
+  "instrument": "Bass (electric)",
+  "tip": "fx",
+  "≈": "≈ Slap noise",
+  "context": "bass"
+ },
+ {
+  "sugestie": "bass_pop",
+  "instrument": "Bass (electric)",
+  "tip": "fx",
+  "≈": "≈ Pop noise",
+  "context": "bass"
+ }
+]

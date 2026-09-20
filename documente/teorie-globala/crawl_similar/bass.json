@@ -1,0 +1,67 @@
+{
+ "instrument": "Bass (electric)",
+ "tara": "global",
+ "sugestie": "bass",
+ "referinta_ample_art": [
+  "Sustain",
+  "Palm Mute",
+  "Hammer-on",
+  "Pull-off",
+  "Legato Slide",
+  "Slide In/Out",
+  "Vibrato",
+  "Bend",
+  "Natural Harmonic",
+  "Tapping",
+  "Staccato",
+  "Dead Note",
+  "Rasgueado",
+  "Alzapúa",
+  "Golpe",
+  "Slap",
+  "Pop"
+ ],
+ "referinta_ample_fx": [
+  "Fret Noise",
+  "String Scratch",
+  "Body Hit/Golpe",
+  "Pick Scratch",
+  "Feedback",
+  "String Buzz",
+  "Slide FX"
+ ],
+ "articulatii": [
+  {
+   "term": "Slap",
+   "similar": "≈ Slap",
+   "context": "bass"
+  },
+  {
+   "term": "Pop",
+   "similar": "≈ Pop",
+   "context": "bass"
+  },
+  {
+   "term": "Hammer-on",
+   "similar": "≈ Hammer-on",
+   "context": "bass"
+  },
+  {
+   "term": "Slide",
+   "similar": "≈ Slide",
+   "context": "bass"
+  }
+ ],
+ "fx": [
+  {
+   "term": "Thumb slap",
+   "similar": "≈ Slap noise",
+   "context": "bass"
+  },
+  {
+   "term": "Pop noise",
+   "similar": "≈ Pop noise",
+   "context": "bass"
+  }
+ ]
+}

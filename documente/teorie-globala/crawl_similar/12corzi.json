@@ -1,0 +1,52 @@
+{
+ "instrument": "Chitara 12 corzi",
+ "tara": "global",
+ "sugestie": "12corzi",
+ "referinta_ample_art": [
+  "Sustain",
+  "Palm Mute",
+  "Hammer-on",
+  "Pull-off",
+  "Legato Slide",
+  "Slide In/Out",
+  "Vibrato",
+  "Bend",
+  "Natural Harmonic",
+  "Tapping",
+  "Staccato",
+  "Dead Note",
+  "Rasgueado",
+  "Alzapúa",
+  "Golpe",
+  "Slap",
+  "Pop"
+ ],
+ "referinta_ample_fx": [
+  "Fret Noise",
+  "String Scratch",
+  "Body Hit/Golpe",
+  "Pick Scratch",
+  "Feedback",
+  "String Buzz",
+  "Slide FX"
+ ],
+ "articulatii": [
+  {
+   "term": "Strum corzi dublate",
+   "similar": "≈ Strum",
+   "context": "progresii"
+  },
+  {
+   "term": "Arpeggio",
+   "similar": "≈ arpeggio",
+   "context": "arp"
+  }
+ ],
+ "fx": [
+  {
+   "term": "Chorus natural",
+   "similar": "≈ (cor dublat)",
+   "context": "progresii"
+  }
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "instrument": "Sitar",
+ "tara": "IN",
+ "sugestie": "sitar",
+ "referinta_ample_art": [
+  "Sustain",
+  "Palm Mute",
+  "Hammer-on",
+  "Pull-off",
+  "Legato Slide",
+  "Slide In/Out",
+  "Vibrato",
+  "Bend",
+  "Natural Harmonic",
+  "Tapping",
+  "Staccato",
+  "Dead Note",
+  "Rasgueado",
+  "Alzapúa",
+  "Golpe",
+  "Slap",
+  "Pop"
+ ],
+ "referinta_ample_fx": [
+  "Fret Noise",
+  "String Scratch",
+  "Body Hit/Golpe",
+  "Pick Scratch",
+  "Feedback",
+  "String Buzz",
+  "Slide FX"
+ ],
+ "articulatii": [
+  {
+   "term": "Meend",
+   "similar": "≈ Bend / Legato Slide",
+   "context": "melodie"
+  },
+  {
+   "term": "Gamak",
+   "similar": "≈ Vibrato",
+   "context": "melodie"
+  },
+  {
+   "term": "Krintan",
+   "similar": "≈ Pull-off",
+   "context": "melodie"
+  },
+  {
+   "term": "Zamzama",
+   "similar": "≈ tremolo",
+   "context": "melodie"
+  }
+ ],
+ "fx": [
+  {
+   "term": "Javari (buzz)",
+   "similar": "≈ String Buzz",
+   "context": "sustain/drone"
+  },
+  {
+   "term": "Chikari",
+   "similar": "≈ Strum accent",
+   "context": "ostinato"
+  }
+ ]
+}

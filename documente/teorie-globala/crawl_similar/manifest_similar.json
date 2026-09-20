@@ -1,0 +1,142 @@
+[
+ {
+  "instrument": "Chitara flamenco",
+  "tara": "ES",
+  "sugestie": "flamenco",
+  "nr_art": 5,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Oud",
+  "tara": "TR/AR",
+  "sugestie": "oud",
+  "nr_art": 4,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Sitar",
+  "tara": "IN",
+  "sugestie": "sitar",
+  "nr_art": 4,
+  "nr_fx": 2
+ },
+ {
+  "instrument": "Banjo",
+  "tara": "US",
+  "sugestie": "banjo",
+  "nr_art": 4,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Mandolin",
+  "tara": "IT",
+  "sugestie": "mandolin",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Bouzouki",
+  "tara": "GR",
+  "sugestie": "bouzouki",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Charango",
+  "tara": "ANDE",
+  "sugestie": "charango",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Cavaquinho",
+  "tara": "BR",
+  "sugestie": "cavaquinho",
+  "nr_art": 2,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Tres cubano",
+  "tara": "CU",
+  "sugestie": "tres",
+  "nr_art": 2,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Kora",
+  "tara": "WA",
+  "sugestie": "kora",
+  "nr_art": 2,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Balalaika",
+  "tara": "RU",
+  "sugestie": "balalaika",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Saz/Baglama",
+  "tara": "TR",
+  "sugestie": "saz",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Erhu",
+  "tara": "CN",
+  "sugestie": "erhu",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Pipa",
+  "tara": "CN",
+  "sugestie": "pipa",
+  "nr_art": 4,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Koto",
+  "tara": "JP",
+  "sugestie": "koto",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Guzheng",
+  "tara": "CN",
+  "sugestie": "guzheng",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Guitarra portuguesa",
+  "tara": "PT",
+  "sugestie": "portugueza",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Steel guitar (dobro)",
+  "tara": "US",
+  "sugestie": "steel",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Chitara 12 corzi",
+  "tara": "global",
+  "sugestie": "12corzi",
+  "nr_art": 2,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Bass (electric)",
+  "tara": "global",
+  "sugestie": "bass",
+  "nr_art": 4,
+  "nr_fx": 2
+ }
+]
