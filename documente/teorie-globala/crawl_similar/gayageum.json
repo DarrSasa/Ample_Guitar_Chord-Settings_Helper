@@ -1,0 +1,57 @@
+{
+ "instrument": "Gayageum",
+ "tara": "KR",
+ "sugestie": "gayageum",
+ "referinta_ample_art": [
+  "Sustain",
+  "Palm Mute",
+  "Hammer-on",
+  "Pull-off",
+  "Legato Slide",
+  "Slide In/Out",
+  "Vibrato",
+  "Bend",
+  "Natural Harmonic",
+  "Tapping",
+  "Staccato",
+  "Dead Note",
+  "Rasgueado",
+  "Alzapúa",
+  "Golpe",
+  "Slap",
+  "Pop"
+ ],
+ "referinta_ample_fx": [
+  "Fret Noise",
+  "String Scratch",
+  "Body Hit/Golpe",
+  "Pick Scratch",
+  "Feedback",
+  "String Buzz",
+  "Slide FX"
+ ],
+ "articulatii": [
+  {
+   "term": "Nonghyeon (vibrato)",
+   "similar": "≈ Vibrato",
+   "context": "melodie"
+  },
+  {
+   "term": "Chwihyeon (slide)",
+   "similar": "≈ Slide",
+   "context": "melodie"
+  },
+  {
+   "term": "Tremolo",
+   "similar": "≈ Tremolo",
+   "context": "melodie"
+  }
+ ],
+ "fx": [
+  {
+   "term": "Rezonanță lemn",
+   "similar": "≈ Body Hit",
+   "context": "ambient"
+  }
+ ]
+}

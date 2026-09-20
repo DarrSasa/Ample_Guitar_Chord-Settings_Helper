@@ -1,0 +1,57 @@
+{
+ "instrument": "Harpă",
+ "tara": "global",
+ "sugestie": "harpa",
+ "referinta_ample_art": [
+  "Sustain",
+  "Palm Mute",
+  "Hammer-on",
+  "Pull-off",
+  "Legato Slide",
+  "Slide In/Out",
+  "Vibrato",
+  "Bend",
+  "Natural Harmonic",
+  "Tapping",
+  "Staccato",
+  "Dead Note",
+  "Rasgueado",
+  "Alzapúa",
+  "Golpe",
+  "Slap",
+  "Pop"
+ ],
+ "referinta_ample_fx": [
+  "Fret Noise",
+  "String Scratch",
+  "Body Hit/Golpe",
+  "Pick Scratch",
+  "Feedback",
+  "String Buzz",
+  "Slide FX"
+ ],
+ "articulatii": [
+  {
+   "term": "Glissando",
+   "similar": "≈ Slide FX",
+   "context": "arp/melodie"
+  },
+  {
+   "term": "Pizzicato",
+   "similar": "≈ Sustain",
+   "context": "melodie"
+  },
+  {
+   "term": "Arpegii",
+   "similar": "≈ arpeggio",
+   "context": "arp"
+  }
+ ],
+ "fx": [
+  {
+   "term": "Rezonanție corzi",
+   "similar": "≈ chorus",
+   "context": "ambient"
+  }
+ ]
+}

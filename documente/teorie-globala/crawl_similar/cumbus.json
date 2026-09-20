@@ -1,0 +1,52 @@
+{
+ "instrument": "Cümbüş",
+ "tara": "TR",
+ "sugestie": "cumbus",
+ "referinta_ample_art": [
+  "Sustain",
+  "Palm Mute",
+  "Hammer-on",
+  "Pull-off",
+  "Legato Slide",
+  "Slide In/Out",
+  "Vibrato",
+  "Bend",
+  "Natural Harmonic",
+  "Tapping",
+  "Staccato",
+  "Dead Note",
+  "Rasgueado",
+  "Alzapúa",
+  "Golpe",
+  "Slap",
+  "Pop"
+ ],
+ "referinta_ample_fx": [
+  "Fret Noise",
+  "String Scratch",
+  "Body Hit/Golpe",
+  "Pick Scratch",
+  "Feedback",
+  "String Buzz",
+  "Slide FX"
+ ],
+ "articulatii": [
+  {
+   "term": "Tremolo",
+   "similar": "≈ Tremolo",
+   "context": "melodie"
+  },
+  {
+   "term": "Slide",
+   "similar": "≈ Slide",
+   "context": "melodie"
+  }
+ ],
+ "fx": [
+  {
+   "term": "Rezonanță metal (banjo-like)",
+   "similar": "≈ banjo",
+   "context": "progresii"
+  }
+ ]
+}

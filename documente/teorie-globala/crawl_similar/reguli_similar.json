@@ -593,5 +593,425 @@
   "tip": "fx",
   "≈": "≈ Pop noise",
   "context": "bass"
+ },
+ {
+  "sugestie": "tar_vibrato",
+  "instrument": "Tar",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "tar_glissando",
+  "instrument": "Tar",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "tar_tremolo",
+  "instrument": "Tar",
+  "tip": "articulatie",
+  "≈": "≈ Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "tar_rezonanță",
+  "instrument": "Tar",
+  "tip": "fx",
+  "≈": "≈ Body Hit",
+  "context": "ambient"
+ },
+ {
+  "sugestie": "setar_vibrato",
+  "instrument": "Setar",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "setar_slide",
+  "instrument": "Setar",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "setar_tremolo",
+  "instrument": "Setar",
+  "tip": "articulatie",
+  "≈": "≈ Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "setar_zgomot",
+  "instrument": "Setar",
+  "tip": "fx",
+  "≈": "≈ Fret Noise",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "shamisen_sukui",
+  "instrument": "Shamisen",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "shamisen_vibrato",
+  "instrument": "Shamisen",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "shamisen_hajiki",
+  "instrument": "Shamisen",
+  "tip": "articulatie",
+  "≈": "≈ Pull-off",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "shamisen_uchi",
+  "instrument": "Shamisen",
+  "tip": "articulatie",
+  "≈": "≈ Dead Note/strum",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "shamisen_bachi",
+  "instrument": "Shamisen",
+  "tip": "fx",
+  "≈": "≈ Pick Scratch",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "biwa_tremolo",
+  "instrument": "Biwa",
+  "tip": "articulatie",
+  "≈": "≈ Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "biwa_slide",
+  "instrument": "Biwa",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "biwa_strum",
+  "instrument": "Biwa",
+  "tip": "articulatie",
+  "≈": "≈ Strum/Dead Note",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "biwa_lovitură",
+  "instrument": "Biwa",
+  "tip": "fx",
+  "≈": "≈ Body Hit",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "rubab_tremolo",
+  "instrument": "Rubab",
+  "tip": "articulatie",
+  "≈": "≈ Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "rubab_slide",
+  "instrument": "Rubab",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "rubab_hammer-on",
+  "instrument": "Rubab",
+  "tip": "articulatie",
+  "≈": "≈ Hammer-on",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "rubab_rezonanță",
+  "instrument": "Rubab",
+  "tip": "fx",
+  "≈": "≈ (corzi simpatice)",
+  "context": "ambient"
+ },
+ {
+  "sugestie": "qanun_tremolo",
+  "instrument": "Qanun",
+  "tip": "articulatie",
+  "≈": "≈ Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "qanun_glissando",
+  "instrument": "Qanun",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "qanun_mandals",
+  "instrument": "Qanun",
+  "tip": "articulatie",
+  "≈": "≈ Bend",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "qanun_click",
+  "instrument": "Qanun",
+  "tip": "fx",
+  "≈": "≈ (switch)",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "santur_tremolo",
+  "instrument": "Santur",
+  "tip": "articulatie",
+  "≈": "≈ Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "santur_glissando",
+  "instrument": "Santur",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "santur_rezonanță",
+  "instrument": "Santur",
+  "tip": "fx",
+  "≈": "≈ chorus",
+  "context": "ambient"
+ },
+ {
+  "sugestie": "gayageum_nonghyeon",
+  "instrument": "Gayageum",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "gayageum_chwihyeon",
+  "instrument": "Gayageum",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "gayageum_tremolo",
+  "instrument": "Gayageum",
+  "tip": "articulatie",
+  "≈": "≈ Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "gayageum_rezonanță",
+  "instrument": "Gayageum",
+  "tip": "fx",
+  "≈": "≈ Body Hit",
+  "context": "ambient"
+ },
+ {
+  "sugestie": "veena_gamaka",
+  "instrument": "Veena",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato/Bend",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "veena_slide",
+  "instrument": "Veena",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "veena_pull-off",
+  "instrument": "Veena",
+  "tip": "articulatie",
+  "≈": "≈ Pull-off",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "veena_rezonanță",
+  "instrument": "Veena",
+  "tip": "fx",
+  "≈": "≈ Body Hit",
+  "context": "ambient"
+ },
+ {
+  "sugestie": "sarangi_vibrato",
+  "instrument": "Sarangi",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato/Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "sarangi_glissando",
+  "instrument": "Sarangi",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "sarangi_rezonanță",
+  "instrument": "Sarangi",
+  "tip": "fx",
+  "≈": "≈ (corzi simpatice)",
+  "context": "ambient"
+ },
+ {
+  "sugestie": "cumbus_tremolo",
+  "instrument": "Cümbüş",
+  "tip": "articulatie",
+  "≈": "≈ Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "cumbus_slide",
+  "instrument": "Cümbüş",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "cumbus_rezonanță",
+  "instrument": "Cümbüş",
+  "tip": "fx",
+  "≈": "≈ banjo",
+  "context": "progresii"
+ },
+ {
+  "sugestie": "lute_pizzicato",
+  "instrument": "Lute/Renaissance",
+  "tip": "articulatie",
+  "≈": "≈ Sustain",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "lute_ornamente",
+  "instrument": "Lute/Renaissance",
+  "tip": "articulatie",
+  "≈": "≈ Hammer-on/Pull-off",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "lute_arpeggio",
+  "instrument": "Lute/Renaissance",
+  "tip": "articulatie",
+  "≈": "≈ arpeggio",
+  "context": "arp"
+ },
+ {
+  "sugestie": "lute_rezonanție",
+  "instrument": "Lute/Renaissance",
+  "tip": "fx",
+  "≈": "≈ Body Hit",
+  "context": "ambient"
+ },
+ {
+  "sugestie": "vihuela_rasgueado",
+  "instrument": "Vihuela",
+  "tip": "articulatie",
+  "≈": "≈ Rasgueado",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "vihuela_arpegio",
+  "instrument": "Vihuela",
+  "tip": "articulatie",
+  "≈": "≈ arpeggio",
+  "context": "arp"
+ },
+ {
+  "sugestie": "vihuela_slide",
+  "instrument": "Vihuela",
+  "tip": "articulatie",
+  "≈": "≈ Slide",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "vihuela_percuție",
+  "instrument": "Vihuela",
+  "tip": "fx",
+  "≈": "≈ Body Hit",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "timple_rasgueado",
+  "instrument": "Timple",
+  "tip": "articulatie",
+  "≈": "≈ Rasgueado",
+  "context": "ritm"
+ },
+ {
+  "sugestie": "timple_tremolo",
+  "instrument": "Timple",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "timple_brightness",
+  "instrument": "Timple",
+  "tip": "fx",
+  "≈": "≈ Strum",
+  "context": "progresii"
+ },
+ {
+  "sugestie": "harpa_glissando",
+  "instrument": "Harpă",
+  "tip": "articulatie",
+  "≈": "≈ Slide FX",
+  "context": "arp/melodie"
+ },
+ {
+  "sugestie": "harpa_pizzicato",
+  "instrument": "Harpă",
+  "tip": "articulatie",
+  "≈": "≈ Sustain",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "harpa_arpegii",
+  "instrument": "Harpă",
+  "tip": "articulatie",
+  "≈": "≈ arpeggio",
+  "context": "arp"
+ },
+ {
+  "sugestie": "harpa_rezonanție",
+  "instrument": "Harpă",
+  "tip": "fx",
+  "≈": "≈ chorus",
+  "context": "ambient"
+ },
+ {
+  "sugestie": "mandola_tremolo",
+  "instrument": "Mandola / octave mandolin",
+  "tip": "articulatie",
+  "≈": "≈ Vibrato/Tremolo",
+  "context": "melodie"
+ },
+ {
+  "sugestie": "mandola_strum",
+  "instrument": "Mandola / octave mandolin",
+  "tip": "articulatie",
+  "≈": "≈ Strum",
+  "context": "progresii"
+ },
+ {
+  "sugestie": "mandola_attack",
+  "instrument": "Mandola / octave mandolin",
+  "tip": "fx",
+  "≈": "≈ Strum",
+  "context": "progresii"
  }
 ]

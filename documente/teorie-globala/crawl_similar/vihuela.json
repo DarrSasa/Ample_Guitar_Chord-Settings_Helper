@@ -1,0 +1,57 @@
+{
+ "instrument": "Vihuela",
+ "tara": "ES/MX",
+ "sugestie": "vihuela",
+ "referinta_ample_art": [
+  "Sustain",
+  "Palm Mute",
+  "Hammer-on",
+  "Pull-off",
+  "Legato Slide",
+  "Slide In/Out",
+  "Vibrato",
+  "Bend",
+  "Natural Harmonic",
+  "Tapping",
+  "Staccato",
+  "Dead Note",
+  "Rasgueado",
+  "Alzapúa",
+  "Golpe",
+  "Slap",
+  "Pop"
+ ],
+ "referinta_ample_fx": [
+  "Fret Noise",
+  "String Scratch",
+  "Body Hit/Golpe",
+  "Pick Scratch",
+  "Feedback",
+  "String Buzz",
+  "Slide FX"
+ ],
+ "articulatii": [
+  {
+   "term": "Rasgueado",
+   "similar": "≈ Rasgueado",
+   "context": "ritm"
+  },
+  {
+   "term": "Arpegio",
+   "similar": "≈ arpeggio",
+   "context": "arp"
+  },
+  {
+   "term": "Slide",
+   "similar": "≈ Slide",
+   "context": "melodie"
+  }
+ ],
+ "fx": [
+  {
+   "term": "Percuție cutie",
+   "similar": "≈ Body Hit",
+   "context": "ritm"
+  }
+ ]
+}

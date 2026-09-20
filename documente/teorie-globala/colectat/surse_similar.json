@@ -1,0 +1,12 @@
+{
+  "_nota": "Surse pt. articulatii/FX la instrumente cu corzi din toata lumea. 'seeds' = articole Wikipedia (descoperire automata in toate limbile prin langlinks); 'siteuri_fixe' = siteuri mondiale de etnomuzicologie/instrumente.",
+  "seeds_instrumente": ["Oud","Sitar","Banjo","Mandolin","Bouzouki","Charango","Cavaquinho","Tres_(guitar)","Kora_(instrument)","Balalaika","Baglama","Erhu","Pipa","Koto","Guzheng","Portuguese_guitar","Resonator_guitar","Twelve-string_guitar","Bass_guitar","Flamenco_guitar","Tar_(string_instrument)","Setar","Shamisen","Biwa","Rubab","Qanun","Santur","Gayageum","Veena","Sarangi","Cumbus","Lute","Vihuela","Timple","Harp","Mandola","Ukulele","Cuatro_(instrument)","Jarana","Requinto","Guitarron","Bajo_quinto","Autoharp","Zither","Cimbalom","Yangqin","Dan_bau","Dan_tranh","Sarod","Dilruba","Esraj","Dotar","Tanbur","Dutar","Ektara","Ngoni","Valiha","Kabosy","Nyatiti","Kora_(instrument)","Shamisen"],
+  "seeds_tehnici": ["Tremolo","Glissando","Vibrato","Slide_(guitar)","Bend_(music)","Hammer-on","Pull-off","Tapping","Palm_mute","Harmonic","Rasgueado","Alzapúa","Golpe","Picado","Strum","Travis_picking","Sweep_picking","Double_stop","Walking_bass","Ostinato","Shuffle","Swing_(jazz_performance_style)","Comping","Arpeggio","Pizzicato","Fingerstyle","Slide_guitar","Flamenco"],
+  "siteuri_fixe": [
+    {"url":"https://www.atlasofpluckedinstruments.com/","tara":"global","limba":"en","categorie":"atlas instrumente cu corzi"},
+    {"url":"https://www.ethnomusicology.org","tara":"global","limba":"en","categorie":"etnomuzicologie"},
+    {"url":"https://en.wikipedia.org/wiki/List_of_string_instruments","tara":"global","limba":"en","categorie":"lista instrumente"},
+    {"url":"https://www.britannica.com/art/plucked-string-instrument","tara":"global","limba":"en","categorie":"encyclopedie"},
+    {"url":"https://www.oud.eclipse.co.uk","tara":"UK","limba":"en","categorie":"oud"}
+  ]
+}

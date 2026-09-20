@@ -138,5 +138,117 @@
   "sugestie": "bass",
   "nr_art": 4,
   "nr_fx": 2
+ },
+ {
+  "instrument": "Tar",
+  "tara": "IR/AZ",
+  "sugestie": "tar",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Setar",
+  "tara": "IR",
+  "sugestie": "setar",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Shamisen",
+  "tara": "JP",
+  "sugestie": "shamisen",
+  "nr_art": 4,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Biwa",
+  "tara": "JP",
+  "sugestie": "biwa",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Rubab",
+  "tara": "AF/PK",
+  "sugestie": "rubab",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Qanun",
+  "tara": "TR/AR",
+  "sugestie": "qanun",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Santur",
+  "tara": "IR/IN",
+  "sugestie": "santur",
+  "nr_art": 2,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Gayageum",
+  "tara": "KR",
+  "sugestie": "gayageum",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Veena",
+  "tara": "IN",
+  "sugestie": "veena",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Sarangi",
+  "tara": "IN",
+  "sugestie": "sarangi",
+  "nr_art": 2,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Cümbüş",
+  "tara": "TR",
+  "sugestie": "cumbus",
+  "nr_art": 2,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Lute/Renaissance",
+  "tara": "EU",
+  "sugestie": "lute",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Vihuela",
+  "tara": "ES/MX",
+  "sugestie": "vihuela",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Timple",
+  "tara": "Canare",
+  "sugestie": "timple",
+  "nr_art": 2,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Harpă",
+  "tara": "global",
+  "sugestie": "harpa",
+  "nr_art": 3,
+  "nr_fx": 1
+ },
+ {
+  "instrument": "Mandola / octave mandolin",
+  "tara": "EU",
+  "sugestie": "mandola",
+  "nr_art": 2,
+  "nr_fx": 1
  }
 ]

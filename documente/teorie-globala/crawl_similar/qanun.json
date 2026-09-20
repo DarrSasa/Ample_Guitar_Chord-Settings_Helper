@@ -1,0 +1,57 @@
+{
+ "instrument": "Qanun",
+ "tara": "TR/AR",
+ "sugestie": "qanun",
+ "referinta_ample_art": [
+  "Sustain",
+  "Palm Mute",
+  "Hammer-on",
+  "Pull-off",
+  "Legato Slide",
+  "Slide In/Out",
+  "Vibrato",
+  "Bend",
+  "Natural Harmonic",
+  "Tapping",
+  "Staccato",
+  "Dead Note",
+  "Rasgueado",
+  "Alzapúa",
+  "Golpe",
+  "Slap",
+  "Pop"
+ ],
+ "referinta_ample_fx": [
+  "Fret Noise",
+  "String Scratch",
+  "Body Hit/Golpe",
+  "Pick Scratch",
+  "Feedback",
+  "String Buzz",
+  "Slide FX"
+ ],
+ "articulatii": [
+  {
+   "term": "Tremolo 3 degete",
+   "similar": "≈ Tremolo",
+   "context": "melodie"
+  },
+  {
+   "term": "Glissando",
+   "similar": "≈ Slide",
+   "context": "melodie"
+  },
+  {
+   "term": "Mandals (microton)",
+   "similar": "≈ Bend",
+   "context": "melodie"
+  }
+ ],
+ "fx": [
+  {
+   "term": "Click mandals",
+   "similar": "≈ (switch)",
+   "context": "melodie"
+  }
+ ]
+}
