@@ -10,48 +10,46 @@
   :root{ --bg:#f4f5f7; --card:#fff; --border:#e7e7e5; --text:#141414; --muted:#9a9a95; }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--text);
-       min-height:100vh;display:flex;flex-direction:column;align-items:center;
-       padding:28px 14px;gap:18px}
+       min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:26px 14px;gap:16px}
   header{text-align:center}
   header h1{font-size:20px;font-weight:600}
   header p{color:var(--muted);font-size:12.5px;margin-top:3px}
+  .wrap{width:560px;max-width:96vw;display:flex;flex-direction:column;gap:14px}
 
-  .wrap{width:560px;max-width:96vw;display:flex;flex-direction:column;gap:16px}
-
-  /* ==== caseta tip ElevenLabs, cu zona de prompt INALTA (portret) ==== */
   .card{background:var(--card);border:1px solid var(--border);border-radius:20px;
         padding:12px 12px 10px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
   .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-  .tab{border:1px solid var(--border);background:#fff;border-radius:10px;padding:6px 14px;
-       font-size:13px;font-weight:600}
+  .tab{border:1px solid var(--border);background:#fff;border-radius:10px;padding:6px 14px;font-size:13px;font-weight:600}
   .gear{border:1px solid var(--border);background:#fff;border-radius:10px;width:32px;height:32px;
-        display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px}
+        display:flex;align-items:center;justify-content:center;cursor:pointer}
 
-  .refsbtn{display:inline-flex;align-items:center;gap:8px;border:none;background:#f0f0ee;
-           border-radius:12px;padding:14px 18px;color:var(--muted);font-size:13px;cursor:pointer}
+  .refsbtn{display:inline-flex;align-items:center;gap:8px;border:none;background:#f0f0ee;border-radius:12px;
+           padding:12px 16px;color:var(--muted);font-size:13px;cursor:pointer}
   .refsbtn:hover{background:#eaeae7}
 
   #prompt{width:100%;height:340px;border:none;outline:none;background:transparent;resize:vertical;
-          font:14.5px/1.5 "Segoe UI",sans-serif;color:var(--text);overflow-y:auto;
-          scrollbar-width:thin;margin-top:4px}
+          font:14.5px/1.5 "Segoe UI",sans-serif;overflow-y:auto;scrollbar-width:thin;margin-top:4px}
   #prompt::-webkit-scrollbar{width:8px}
   #prompt::-webkit-scrollbar-thumb{background:#d8d8d4;border-radius:6px}
 
   #refs{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
   .chip{position:relative;width:50px;height:50px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
   .chip img{width:100%;height:100%;object-fit:cover}
-  .chip .x{position:absolute;top:1px;right:1px;width:16px;height:16px;border-radius:50%;
-           background:rgba(0,0,0,.55);color:#fff;font-size:10px;display:flex;align-items:center;
-           justify-content:center;cursor:pointer}
+  .chip .x{position:absolute;top:1px;right:1px;width:16px;height:16px;border-radius:50%;background:rgba(0,0,0,.55);
+           color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 
   .bar{display:flex;align-items:center;gap:4px;margin-top:8px;flex-wrap:wrap}
-  .pill{display:inline-flex;align-items:center;gap:5px;border:none;background:transparent;
-        border-radius:999px;padding:6px 9px;font-size:12.5px;color:var(--text);cursor:pointer}
+  .pill{display:inline-flex;align-items:center;gap:5px;border:none;background:transparent;border-radius:999px;
+        padding:6px 9px;font-size:12.5px;cursor:pointer;color:var(--text)}
   .pill:hover{background:#f1f1ef}
   .pill select{border:none;background:transparent;font-size:12.5px;outline:none;cursor:pointer;color:var(--text)}
+  .dims{display:none;align-items:center;gap:6px}
+  .dims.show{display:inline-flex}
+  .dims label{font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:4px;
+              border:1px solid var(--border);border-radius:10px;padding:5px 8px;background:#fff}
+  .dims input{width:56px;border:none;outline:none;font-size:12px;text-align:center}
   .spacer{flex:1}
-  .send{width:40px;height:40px;border-radius:50%;border:none;background:#141414;color:#fff;
-        font-size:16px;cursor:pointer}
+  .send{width:40px;height:40px;border-radius:50%;border:none;background:#141414;color:#fff;font-size:16px;cursor:pointer}
   .send:disabled{opacity:.4;cursor:default}
   .hint{color:var(--muted);font-size:11.5px;margin-top:6px}
 
@@ -61,8 +59,7 @@
   .rcard{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#fff}
   .rcard img{width:100%;display:block}
   .rcard .dl{display:flex;justify-content:space-between;align-items:center;padding:8px 10px}
-  .rcard a{font-size:12.5px;color:var(--text);text-decoration:none;border:1px solid var(--border);
-           border-radius:999px;padding:6px 12px}
+  .rcard a{font-size:12.5px;color:var(--text);text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:6px 12px}
   .rcard a:hover{background:#f1f1ef}
 </style>
 </head>
@@ -72,38 +69,38 @@
 
 <div class="wrap">
   <div class="card">
-    <div class="top">
-      <span class="tab">Image</span>
-      <span class="gear" title="Settings">⚙</span>
-    </div>
-
+    <div class="top"><span class="tab">Image</span><span class="gear">⚙</span></div>
     <button class="refsbtn" id="attach">🖼 Image refs</button>
     <input type="file" id="file" hidden multiple accept="image/*,application/pdf,.pdf">
-
     <textarea id="prompt" placeholder="Describe your image or reference by using @…"></textarea>
     <div id="refs"></div>
 
     <div class="bar">
-      <!-- model switch bottom-LEFT -->
       <span class="pill">🖽 <select id="model">
         <option value="gpt-image-2.5-flare">GPT Image 2.5 Flare</option>
         <option value="gpt-image-2.5-sunburst">GPT Image 2.5 Sunburst</option>
       </select></span>
+
       <span class="pill">▭ <select id="ratio">
+        <option value="custom" selected>custom</option>
         <option>3:1</option><option>21:9</option><option>2:1</option><option>16:9</option>
-        <option>3:2</option><option>4:3</option><option>5:4</option><option selected>1:1</option>
+        <option>3:2</option><option>4:3</option><option>5:4</option><option>1:1</option>
         <option>4:5</option><option>3:4</option>
       </select></span>
+      <span class="dims show" id="dims">
+        <label>width px <input id="wpx" type="number" value="1024" min="64" max="4096"></label>
+        <label>height px <input id="hpx" type="number" value="1024" min="64" max="4096"></label>
+      </span>
+
       <span class="pill">⇅ <select id="res"><option selected>1K</option><option>2K</option><option>4K</option></select></span>
       <span class="pill">◑ <select id="quality"><option>low</option><option selected>Medium</option><option>high</option></select></span>
       <span class="pill">▤ <select id="gens"><option>1</option><option>2</option><option>3</option><option selected>4</option></select></span>
-      <button class="pill" id="wand" title="Magic Prompt: auto-enhance">✦ On</button>
+      <button class="pill" id="wand" data-on="1" title="Magic Prompt: auto-enhance">✦ On</button>
       <span class="spacer"></span>
       <button class="send" id="go">↑</button>
     </div>
     <div class="hint" id="lim"></div>
   </div>
-
   <div id="status"></div>
   <div id="out"></div>
 </div>
@@ -114,9 +111,9 @@ if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc =
 const MAX_REF=16, refs=[], $=id=>document.getElementById(id);
 $("lim").textContent="Image refs: 0 / "+MAX_REF+" (PNG/JPG/WEBP/GIF/PDF)";
 $("attach").onclick=()=>$("file").click();
-$("wand").onclick=()=>{const on=$("wand").dataset.on!=="0";
+$("wand").onclick=()=>{const on=$("wand").dataset.on==="1";
   $("wand").dataset.on=on?"0":"1";$("wand").textContent=on?"✦ Off":"✦ On";};
-$("wand").dataset.on="1";
+$("ratio").onchange=()=>{ $("dims").classList.toggle("show", $("ratio").value==="custom"); };
 
 $("file").onchange=async e=>{for(const f of Array.from(e.target.files)){
   if(refs.length>=MAX_REF){setStatus("Max "+MAX_REF+" refs.",true);break;}
@@ -139,7 +136,6 @@ function renderRefs(){const b=$("refs");b.innerHTML="";refs.forEach((s,i)=>{
  d.querySelector(".x").onclick=()=>{refs.splice(i,1);renderRefs();};b.appendChild(d);});
  $("lim").textContent="Image refs: "+refs.length+" / "+MAX_REF+" (PNG/JPG/WEBP/GIF/PDF)";}
 function setStatus(t,e){const s=$("status");s.textContent=t||"";s.className=e?"err":"";}
-
 async function enhance(p){const r=await puter.ai.chat(
  "Rewrite this image prompt to be vivid, detailed and optimal for an image generator. Reply with the prompt only: "+p,
  {model:"gpt-5.4-nano"});
@@ -148,16 +144,18 @@ async function enhance(p){const r=await puter.ai.chat(
 $("go").onclick=async()=>{
  let prompt=$("prompt").value.trim();
  if(!prompt&&refs.length===0){setStatus("Write a prompt or add a reference.",true);return;}
- const model=$("model").value,quality=$("quality").value.toLowerCase(),res=$("res").value,
-       ratio=$("ratio").value,n=+$("gens").value,magic=$("wand").dataset.on==="1";
+ const model=$("model").value, quality=$("quality").value.toLowerCase(), res=$("res").value,
+       ratio=$("ratio").value, n=+$("gens").value, magic=$("wand").dataset.on==="1";
  $("go").disabled=true;$("out").innerHTML="";
  setStatus((magic?"Enhancing prompt… ":"")+"Generating "+n+" image(s)…");
  try{
    if(magic&&prompt)prompt=await enhance(prompt);
    const opts={model,quality};
-   if(ratio!=="1:1")opts.aspectRatio=ratio;
+   if(ratio==="custom"){ opts.width=+$("wpx").value||1024; opts.height=+$("hpx").value||1024; }
+   else opts.aspect_ratio=ratio;
    if(res!=="1K")opts.resolution=res.toLowerCase();
-   if(refs.length)opts.image=refs.length===1?refs[0]:refs;
+   // IMAGE-TO-IMAGE: campul corect e input_images (nu "image")
+   if(refs.length)opts.input_images=refs;
    for(let i=0;i<n;i++){
      const img=await puter.ai.txt2img(prompt||"recreate the reference image",opts);
      addCard(img,model,i);
@@ -168,7 +166,8 @@ $("go").onclick=async()=>{
 };
 function addCard(img,model,i){
  const c=document.createElement("div");c.className="rcard";
- img.style.aspectRatio=$("ratio").value.replace(":","/");
+ const r=$("ratio").value;
+ img.style.aspectRatio = r==="custom" ? ($("wpx").value+"/"+$("hpx").value) : r.replace(":","/");
  const dl=document.createElement("div");dl.className="dl";
  const a=document.createElement("a");a.textContent=" Download";
  a.href=img.src;a.download="gpt-image-"+model.split("-").pop()+"-"+(i+1)+".png";
