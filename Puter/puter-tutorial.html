@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Tutorial Puter.js</title>
+  <script src="https://js.puter.com/v2/"></script>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 30px auto; padding: 0 20px; line-height: 1.5; }
+    section { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 20px; }
+    h2 { margin-top: 0; font-size: 18px; }
+    button { padding: 8px 14px; cursor: pointer; background: #222; color: white; border: none; border-radius: 5px; }
+    button:hover { background: #444; }
+    .output { margin-top: 12px; padding: 12px; background: #f6f6f6; border-radius: 6px; white-space: pre-wrap; min-height: 30px; font-size: 14px; }
+    img { max-width: 100%; border-radius: 6px; margin-top: 8px; }
+    input[type=text] { width: 60%; padding: 6px; }
+  </style>
+</head>
+<body>
+
+  <h1>🧪 Tutorial interactiv Puter.js</h1>
+  <p>Fiecare secțiune e independentă — apasă butonul și vezi codul în acțiune.</p>
+
+  <section>
+    <h2>1. Chat simplu (text)</h2>
+    <input type="text" id="chatInput" value="Explică-mi recursivitatea în 2 fraze" />
+    <button onclick="runChat()">Trimite</button>
+    <div class="output" id="chatOut">Aici apare răspunsul...</div>
+  </section>
+
+  <section>
+    <h2>2. Generare imagine (GPT Image)</h2>
+    <input type="text" id="imgInput" value="Un robot citind o carte, stil acuarelă" />
+    <button onclick="runImage()">Generează</button>
+    <div class="output" id="imgOut"></div>
+  </section>
+
+  <section>
+    <h2>3. Streaming (răspuns în timp real)</h2>
+    <button onclick="runStream()">Pornește streaming</button>
+    <div class="output" id="streamOut"></div>
+  </section>
+
+  <section>
+    <h2>4. Text-to-Speech (voce)</h2>
+    <input type="text" id="ttsInput" value="Salut! Acesta este un test de voce artificială." />
+    <button onclick="runTTS()">Generează voce</button>
+    <div class="output" id="ttsOut"></div>
+  </section>
+
+  <section>
+    <h2>5. Compară două modele</h2>
+    <button onclick="runCompare()">Compară gpt-5.6-luna vs gpt-6-astra</button>
+    <div class="output" id="compareOut"></div>
+  </section>
+
+  <script>
+    function runChat() {
+      const prompt = document.getElementById('chatInput').value;
+      const out = document.getElementById('chatOut');
+      out.textContent = "Se gândește...";
+      puter.ai.chat(prompt, { model: "gpt-5.4-nano" })
+        .then(response => out.textContent = response)
+        .catch(err => out.textContent = "Eroare: " + err);
+    }
+
+    function runImage() {
+      const prompt = document.getElementById('imgInput').value;
+      const out = document.getElementById('imgOut');
+      out.textContent = "Se generează imaginea (poate dura câteva secunde)...";
+      puter.ai.txt2img(prompt, { model: "gpt-image-2.5-flare" })
+        .then(imgEl => { out.textContent = ""; out.appendChild(imgEl); })
+        .catch(err => out.textContent = "Eroare: " + err);
+    }
+
+    async function runStream() {
+      const out = document.getElementById('streamOut');
+      out.textContent = "";
+      try {
+        const response = await puter.ai.chat(
+          "Povestește pe scurt istoria internetului, în 5 fraze.",
+          { stream: true, model: "gpt-5.4-nano" }
+        );
+        for await (const part of response) {
+          out.textContent += part?.text || "";
+        }
+      } catch (err) {
+        out.textContent = "Eroare: " + err;
+      }
+    }
+
+    function runTTS() {
+      const text = document.getElementById('ttsInput').value;
+      const out = document.getElementById('ttsOut');
+      out.textContent = "Se generează audio...";
+      puter.ai.txt2speech(text, { provider: "openai" })
+        .then(audio => {
+          out.textContent = "";
+          audio.setAttribute("controls", "");
+          out.appendChild(audio);
+        })
+        .catch(err => out.textContent = "Eroare: " + err);
+    }
+
+    async function runCompare() {
+      const out = document.getElementById('compareOut');
+      out.textContent = "Se compară...";
+      try {
+        const [luna, astra] = await Promise.all([
+          puter.ai.chat("Scrie un vers scurt despre programare", { model: "gpt-5.6-luna" }),
+          puter.ai.chat("Scrie un vers scurt despre programare", { model: "gpt-6-astra" })
+        ]);
+        out.textContent = "GPT-5.6 Luna:\n" + luna + "\n\nGPT-6 Astra:\n" + astra;
+      } catch (err) {
+        out.textContent = "Eroare: " + err;
+      }
+    }
+  </script>
+
+</body>
+</html>
