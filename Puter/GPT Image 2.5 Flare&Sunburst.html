@@ -7,157 +7,172 @@
 <script src="https://js.puter.com/v2/"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
-  :root{ --bg:#fafaf9; --panel:#ffffff; --border:#e5e5e3; --text:#111; --muted:#8b8b86;
-         --accent:#111; --radius:22px; }
+  :root{ --bg:#f4f5f7; --card:#fff; --border:#e7e7e5; --text:#141414; --muted:#9a9a95; }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--text);
        min-height:100vh;display:flex;flex-direction:column;align-items:center;
-       padding:26px 14px;gap:18px}
+       padding:28px 14px;gap:18px}
   header{text-align:center}
-  header h1{font-size:21px;font-weight:600}
+  header h1{font-size:20px;font-weight:600}
   header p{color:var(--muted);font-size:12.5px;margin-top:3px}
 
-  /* composer: format PORTRET (inalt), ca în Photoshop portrait */
-  .composer{width:470px;max-width:96vw;background:var(--panel);border:1px solid var(--border);
-            border-radius:var(--radius);padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-  #prompt{width:100%;height:380px;border:none;outline:none;background:#f4f4f2;border-radius:14px;
-          padding:12px;font:14.5px/1.5 "Segoe UI",sans-serif;resize:vertical;
-          overflow-y:auto;scrollbar-width:thin}
-  #prompt::-webkit-scrollbar{width:8px}
-  #prompt::-webkit-scrollbar-thumb{background:#d4d4d0;border-radius:6px}
+  .wrap{width:560px;max-width:96vw;display:flex;flex-direction:column;gap:16px}
 
-  #refs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-  .chip{position:relative;width:52px;height:52px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+  /* ==== caseta tip ElevenLabs, cu zona de prompt INALTA (portret) ==== */
+  .card{background:var(--card);border:1px solid var(--border);border-radius:20px;
+        padding:12px 12px 10px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .tab{border:1px solid var(--border);background:#fff;border-radius:10px;padding:6px 14px;
+       font-size:13px;font-weight:600}
+  .gear{border:1px solid var(--border);background:#fff;border-radius:10px;width:32px;height:32px;
+        display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px}
+
+  .refsbtn{display:inline-flex;align-items:center;gap:8px;border:none;background:#f0f0ee;
+           border-radius:12px;padding:14px 18px;color:var(--muted);font-size:13px;cursor:pointer}
+  .refsbtn:hover{background:#eaeae7}
+
+  #prompt{width:100%;height:340px;border:none;outline:none;background:transparent;resize:vertical;
+          font:14.5px/1.5 "Segoe UI",sans-serif;color:var(--text);overflow-y:auto;
+          scrollbar-width:thin;margin-top:4px}
+  #prompt::-webkit-scrollbar{width:8px}
+  #prompt::-webkit-scrollbar-thumb{background:#d8d8d4;border-radius:6px}
+
+  #refs{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+  .chip{position:relative;width:50px;height:50px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
   .chip img{width:100%;height:100%;object-fit:cover}
   .chip .x{position:absolute;top:1px;right:1px;width:16px;height:16px;border-radius:50%;
-           background:rgba(0,0,0,.6);color:#fff;font-size:10px;display:flex;align-items:center;
+           background:rgba(0,0,0,.55);color:#fff;font-size:10px;display:flex;align-items:center;
            justify-content:center;cursor:pointer}
 
-  .opts{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-  .opts select,.opts .wand{border:1px solid var(--border);background:#fff;border-radius:999px;
-        padding:6px 10px;font-size:12px;outline:none;cursor:pointer}
-  .wand.on{background:#111;color:#fff}
-
-  .bar{display:flex;align-items:center;gap:8px;margin-top:12px}
-  .attach{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:#fff;
-          font-size:17px;cursor:pointer}
-  .model{margin-left:2px}              /* model switch bottom-LEFT */
+  .bar{display:flex;align-items:center;gap:4px;margin-top:8px;flex-wrap:wrap}
+  .pill{display:inline-flex;align-items:center;gap:5px;border:none;background:transparent;
+        border-radius:999px;padding:6px 9px;font-size:12.5px;color:var(--text);cursor:pointer}
+  .pill:hover{background:#f1f1ef}
+  .pill select{border:none;background:transparent;font-size:12.5px;outline:none;cursor:pointer;color:var(--text)}
   .spacer{flex:1}
-  .gen{border:none;border-radius:999px;background:var(--accent);color:#fff;padding:10px 20px;
-       font-size:14px;font-weight:600;cursor:pointer}
-  .gen:disabled{opacity:.4;cursor:default}
+  .send{width:40px;height:40px;border-radius:50%;border:none;background:#141414;color:#fff;
+        font-size:16px;cursor:pointer}
+  .send:disabled{opacity:.4;cursor:default}
   .hint{color:var(--muted);font-size:11.5px;margin-top:6px}
 
   #status{min-height:18px;font-size:13px;color:var(--muted)}
   .err{color:#c2453a}
-  #out{display:flex;flex-direction:column;gap:14px;align-items:center;width:470px;max-width:96vw}
-  .card{width:100%;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#fff}
-  .card img{width:100%;display:block}
-  .card .dl{display:flex;justify-content:space-between;align-items:center;padding:8px 10px}
-  .card a{font-size:12.5px;color:var(--text);text-decoration:none;border:1px solid var(--border);
-          border-radius:999px;padding:6px 12px}
-  .card a:hover{background:#f1f1ef}
+  #out{display:flex;flex-direction:column;gap:14px}
+  .rcard{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#fff}
+  .rcard img{width:100%;display:block}
+  .rcard .dl{display:flex;justify-content:space-between;align-items:center;padding:8px 10px}
+  .rcard a{font-size:12.5px;color:var(--text);text-decoration:none;border:1px solid var(--border);
+           border-radius:999px;padding:6px 12px}
+  .rcard a:hover{background:#f1f1ef}
 </style>
 </head>
 <body>
 <header><h1>GPT Image 2.5 — Flare &amp; Sunburst</h1>
 <p>Text-to-Image &amp; Image-to-Image · free via Puter.js · no API key</p></header>
 
-<div class="composer">
-  <textarea id="prompt" placeholder="Describe the image… (or add reference images for Image-to-Image)"></textarea>
-  <div id="refs"></div>
-  <div class="opts">
-    <select id="gens" title="Number of generations (max 4)"><option>1</option><option>2</option><option>3</option><option selected>4</option></select>
-    <select id="quality"><option>low</option><option selected>medium</option><option>high</option></select>
-    <select id="res"><option>1k</option><option selected>2k</option><option>4k</option></select>
-    <select id="ratio">
-      <option>3:1</option><option>21:9</option><option>2:1</option><option>16:9</option>
-      <option>3:2</option><option>4:3</option><option>5:4</option><option selected>1:1</option>
-      <option>4:5</option><option>3:4</option>
-    </select>
-    <button id="wand" class="wand on" title="Magic Prompt: auto-enhance your prompt">✦ on</button>
-  </div>
-  <div class="bar">
-    <button class="attach" id="attach" title="Add reference images / PDF">+</button>
-    <input type="file" id="file" hidden multiple accept="image/*,application/pdf,.pdf">
-    <select id="model" class="model" title="Model (bottom-left)">
-      <option value="gpt-image-2.5-flare">GPT Image 2.5 Flare</option>
-      <option value="gpt-image-2.5-sunburst">GPT Image 2.5 Sunburst</option>
-    </select>
-    <span class="spacer"></span>
-    <button class="gen" id="go">Generate ⬆</button>
-  </div>
-  <div class="hint" id="lim"></div>
-</div>
+<div class="wrap">
+  <div class="card">
+    <div class="top">
+      <span class="tab">Image</span>
+      <span class="gear" title="Settings">⚙</span>
+    </div>
 
-<div id="status"></div>
-<div id="out"></div>
+    <button class="refsbtn" id="attach">🖼 Image refs</button>
+    <input type="file" id="file" hidden multiple accept="image/*,application/pdf,.pdf">
+
+    <textarea id="prompt" placeholder="Describe your image or reference by using @…"></textarea>
+    <div id="refs"></div>
+
+    <div class="bar">
+      <!-- model switch bottom-LEFT -->
+      <span class="pill">🖽 <select id="model">
+        <option value="gpt-image-2.5-flare">GPT Image 2.5 Flare</option>
+        <option value="gpt-image-2.5-sunburst">GPT Image 2.5 Sunburst</option>
+      </select></span>
+      <span class="pill">▭ <select id="ratio">
+        <option>3:1</option><option>21:9</option><option>2:1</option><option>16:9</option>
+        <option>3:2</option><option>4:3</option><option>5:4</option><option selected>1:1</option>
+        <option>4:5</option><option>3:4</option>
+      </select></span>
+      <span class="pill">⇅ <select id="res"><option selected>1K</option><option>2K</option><option>4K</option></select></span>
+      <span class="pill">◑ <select id="quality"><option>low</option><option selected>Medium</option><option>high</option></select></span>
+      <span class="pill">▤ <select id="gens"><option>1</option><option>2</option><option>3</option><option selected>4</option></select></span>
+      <button class="pill" id="wand" title="Magic Prompt: auto-enhance">✦ On</button>
+      <span class="spacer"></span>
+      <button class="send" id="go">↑</button>
+    </div>
+    <div class="hint" id="lim"></div>
+  </div>
+
+  <div id="status"></div>
+  <div id="out"></div>
+</div>
 
 <script>
 if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc =
  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 const MAX_REF=16, refs=[], $=id=>document.getElementById(id);
-$("lim").textContent="Reference images: 0 / "+MAX_REF+" (PNG/JPG/WEBP/GIF/PDF)";
+$("lim").textContent="Image refs: 0 / "+MAX_REF+" (PNG/JPG/WEBP/GIF/PDF)";
 $("attach").onclick=()=>$("file").click();
-$("wand").onclick=()=>{ const b=$("wand"); const on=b.classList.toggle("on");
-  b.textContent = on?"✦ on":"✦ off"; };
+$("wand").onclick=()=>{const on=$("wand").dataset.on!=="0";
+  $("wand").dataset.on=on?"0":"1";$("wand").textContent=on?"✦ Off":"✦ On";};
+$("wand").dataset.on="1";
 
-$("file").onchange=async e=>{ for(const f of Array.from(e.target.files)){
-  if(refs.length>=MAX_REF){setStatus("Max "+MAX_REF+" references.",true);break;}
-  try{refs.push(await toDataURL(f));}catch(err){setStatus("Read fail "+f.name,true);} }
-  e.target.value=""; renderRefs(); };
+$("file").onchange=async e=>{for(const f of Array.from(e.target.files)){
+  if(refs.length>=MAX_REF){setStatus("Max "+MAX_REF+" refs.",true);break;}
+  try{refs.push(await toDataURL(f));}catch(err){setStatus("Read fail "+f.name,true);}}
+  e.target.value="";renderRefs();};
 
 function toDataURL(f){return new Promise((res,rej)=>{
-  if(f.type==="application/pdf"||/\.pdf$/i.test(f.name)){const rd=new FileReader();
-    rd.onload=async()=>{try{const pdf=await pdfjsLib.getDocument({data:rd.result}).promise;
-      const pg=await pdf.getPage(1);const vp=pg.getViewport({scale:2});
-      const c=document.createElement("canvas");c.width=vp.width;c.height=vp.height;
-      await pg.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;
-      res(c.toDataURL("image/png"));}catch(e){rej(e);}};
-    rd.onerror=rej;rd.readAsArrayBuffer(f);}
-  else{const rd=new FileReader();rd.onload=()=>res(rd.result);rd.onerror=rej;rd.readAsDataURL(f);}});}
+ if(f.type==="application/pdf"||/\.pdf$/i.test(f.name)){const rd=new FileReader();
+  rd.onload=async()=>{try{const pdf=await pdfjsLib.getDocument({data:rd.result}).promise;
+   const pg=await pdf.getPage(1);const vp=pg.getViewport({scale:2});
+   const c=document.createElement("canvas");c.width=vp.width;c.height=vp.height;
+   await pg.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;
+   res(c.toDataURL("image/png"));}catch(e){rej(e);}};
+  rd.onerror=rej;rd.readAsArrayBuffer(f);}
+ else{const rd=new FileReader();rd.onload=()=>res(rd.result);rd.onerror=rej;rd.readAsDataURL(f);}});}
 
 function renderRefs(){const b=$("refs");b.innerHTML="";refs.forEach((s,i)=>{
-  const d=document.createElement("div");d.className="chip";
-  d.innerHTML='<img src="'+s+'"><span class="x">✕</span>';
-  d.querySelector(".x").onclick=()=>{refs.splice(i,1);renderRefs();};b.appendChild(d);});
-  $("lim").textContent="Reference images: "+refs.length+" / "+MAX_REF+" (PNG/JPG/WEBP/GIF/PDF)";}
-
+ const d=document.createElement("div");d.className="chip";
+ d.innerHTML='<img src="'+s+'"><span class="x">✕</span>';
+ d.querySelector(".x").onclick=()=>{refs.splice(i,1);renderRefs();};b.appendChild(d);});
+ $("lim").textContent="Image refs: "+refs.length+" / "+MAX_REF+" (PNG/JPG/WEBP/GIF/PDF)";}
 function setStatus(t,e){const s=$("status");s.textContent=t||"";s.className=e?"err":"";}
 
-async function enhance(p){ // magic wand: auto-enhance prompt via a small LLM
-  const r=await puter.ai.chat("Rewrite this image prompt to be vivid, detailed and optimal for an image generator. Reply with the prompt only: "+p,{model:"gpt-5.4-nano"});
-  return (r && r.message && r.message.content)? r.message.content : p; }
+async function enhance(p){const r=await puter.ai.chat(
+ "Rewrite this image prompt to be vivid, detailed and optimal for an image generator. Reply with the prompt only: "+p,
+ {model:"gpt-5.4-nano"});
+ return (r&&r.message&&r.message.content)?r.message.content:p;}
 
 $("go").onclick=async()=>{
-  let prompt=$("prompt").value.trim();
-  if(!prompt&&refs.length===0){setStatus("Write a prompt or add a reference.",true);return;}
-  const model=$("model").value,quality=$("quality").value,res=$("res").value,
-        ratio=$("ratio").value,n=+$("gens").value,magic=$("wand").classList.contains("on");
-  $("go").disabled=true;$("out").innerHTML="";
-  setStatus((magic?"Enhancing prompt… ":"")+"Generating "+n+" image(s)…");
-  try{
-    if(magic&&prompt) prompt=await enhance(prompt);
-    const opts={model,quality};
-    if(ratio!=="1:1")opts.aspectRatio=ratio;
-    if(res!=="1k")opts.resolution=res;
-    if(refs.length)opts.image=refs.length===1?refs[0]:refs;
-    for(let i=0;i<n;i++){
-      const img=await puter.ai.txt2img(prompt||"recreate the reference image",opts);
-      addCard(img,model,i);
-    }
-    setStatus("Done.");
-  }catch(e){setStatus("Error: "+(e&&e.message?e.message:e),true);}
-  finally{$("go").disabled=false;}
+ let prompt=$("prompt").value.trim();
+ if(!prompt&&refs.length===0){setStatus("Write a prompt or add a reference.",true);return;}
+ const model=$("model").value,quality=$("quality").value.toLowerCase(),res=$("res").value,
+       ratio=$("ratio").value,n=+$("gens").value,magic=$("wand").dataset.on==="1";
+ $("go").disabled=true;$("out").innerHTML="";
+ setStatus((magic?"Enhancing prompt… ":"")+"Generating "+n+" image(s)…");
+ try{
+   if(magic&&prompt)prompt=await enhance(prompt);
+   const opts={model,quality};
+   if(ratio!=="1:1")opts.aspectRatio=ratio;
+   if(res!=="1K")opts.resolution=res.toLowerCase();
+   if(refs.length)opts.image=refs.length===1?refs[0]:refs;
+   for(let i=0;i<n;i++){
+     const img=await puter.ai.txt2img(prompt||"recreate the reference image",opts);
+     addCard(img,model,i);
+   }
+   setStatus("Done.");
+ }catch(e){setStatus("Error: "+(e&&e.message?e.message:e),true);}
+ finally{$("go").disabled=false;}
 };
-
 function addCard(img,model,i){
-  const card=document.createElement("div");card.className="card";
-  img.style.aspectRatio=$("ratio").value.replace(":","/");
-  const dl=document.createElement("div");dl.className="dl";
-  const a=document.createElement("a");a.textContent="⬇ Download";
-  a.href=img.src;a.download="gpt-image-"+model.split("-").pop()+"-"+(i+1)+".png";
-  dl.appendChild(a);card.appendChild(img);card.appendChild(dl);$("out").appendChild(card);
+ const c=document.createElement("div");c.className="rcard";
+ img.style.aspectRatio=$("ratio").value.replace(":","/");
+ const dl=document.createElement("div");dl.className="dl";
+ const a=document.createElement("a");a.textContent=" Download";
+ a.href=img.src;a.download="gpt-image-"+model.split("-").pop()+"-"+(i+1)+".png";
+ dl.appendChild(a);c.appendChild(img);c.appendChild(dl);$("out").appendChild(c);
 }
 </script>
 </body>
