@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data — propriul tau program AI</title>
+<script src="https://js.puter.com/v2/"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script type="module" src="Data.js"></script>
+<style>
+  :root{--bg:#f4f5f7;--card:#fff;--border:#e7e7e5;--text:#141414;--muted:#9a9a95}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--text);
+       min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 14px;gap:14px}
+  header{text-align:center}header h1{font-size:20px;font-weight:600}
+  header p{color:var(--muted);font-size:12.5px;margin-top:3px}
+  .wrap{width:600px;max-width:96vw;display:flex;flex-direction:column;gap:12px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:12px;
+        box-shadow:0 2px 12px rgba(0,0,0,.05)}
+  .row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border);background:#fff;
+        border-radius:999px;padding:6px 10px;font-size:12.5px;cursor:pointer}
+  .pill select,.pill input{border:none;background:transparent;outline:none;font-size:12.5px}
+  .pill input{width:150px}
+  #prompt{width:100%;height:300px;border:none;outline:none;background:transparent;resize:vertical;
+          font:14.5px/1.5 "Segoe UI",sans-serif;overflow-y:auto;scrollbar-width:thin;margin-top:6px}
+  #prompt::-webkit-scrollbar{width:8px}#prompt::-webkit-scrollbar-thumb{background:#d8d8d4;border-radius:6px}
+  .bar{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+  .spacer{flex:1}
+  .send{width:40px;height:40px;border-radius:50%;border:none;background:#141414;color:#fff;font-size:16px;cursor:pointer}
+  .send:disabled{opacity:.4}
+  .opts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .dims{display:none;gap:6px;align-items:center}.dims.show{display:inline-flex}
+  .dims label{font-size:11.5px;color:var(--muted);border:1px solid var(--border);border-radius:10px;
+              padding:5px 8px;display:flex;gap:4px;align-items:center;background:#fff}
+  .dims input{width:56px;border:none;outline:none;text-align:center;font-size:12px}
+  #refs{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+  .chip{position:relative;width:48px;height:48px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+  .chip img{width:100%;height:100%;object-fit:cover}
+  .chip .x{position:absolute;top:1px;right:1px;width:15px;height:15px;border-radius:50%;background:rgba(0,0,0,.55);
+           color:#fff;font-size:9px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .hint{color:var(--muted);font-size:11.5px;margin-top:6px}
+  #status{min-height:18px;font-size:13px;color:var(--muted)}
+  .err{color:#c2453a}
+  #out{display:flex;flex-direction:column;gap:12px}
+  .rcard{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#fff}
+  .rcard img{width:100%;display:block}
+  .rcard pre{padding:12px;font-size:13px;white-space:pre-wrap;max-height:400px;overflow:auto}
+  .rcard .dl{display:flex;gap:8px;padding:8px 10px}
+  .rcard a,.rcard button{font-size:12px;border:1px solid var(--border);border-radius:999px;padding:6px 12px;
+        background:#fff;cursor:pointer;text-decoration:none;color:var(--text)}
+</style>
+</head>
+<body>
+<header><h1>Data — propriul tău program AI</h1>
+<p>Puter (gratis, alocatie lunară) SAU propria cheie OpenRouter — fără întreruperi</p></header>
+
+<div class="wrap">
+  <div class="card">
+    <div class="row">
+      <span class="pill">📁 <button id="folder" style="border:none;background:none;cursor:pointer">Choose project folder</button></span>
+      <span class="hint" id="fname"></span>
+      <span class="spacer"></span>
+      <span class="pill">🔑 <input id="orkey" type="password" placeholder="OpenRouter key (optional)"></span>
+    </div>
+
+    <textarea id="prompt" placeholder="Scrie promptul… (text sau descriere imagine)"></textarea>
+    <div id="refs"></div>
+
+    <div class="opts" id="imgOpts">
+      <span class="pill">▭ <select id="ratio">
+        <option value="custom" selected>custom</option>
+        <option>16:9</option><option>1:1</option><option>4:5</option><option>3:4</option><option>21:9</option>
+      </select></span>
+      <span class="dims show" id="dims">
+        <label>width px <input id="wpx" type="number" value="1024"></label>
+        <label>height px <input id="hpx" type="number" value="1024"></label>
+      </span>
+      <span class="pill">◑ <select id="quality"><option>low</option><option selected>medium</option><option>high</option></select></span>
+      <span class="pill">▤ <select id="gens"><option>1</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></span>
+      <button class="pill" id="wand" data-on="1">✦ On</button>
+      <button class="pill" id="attach">🖼 refs</button>
+      <input type="file" id="file" hidden multiple accept="image/*,application/pdf,.pdf">
+    </div>
+
+    <div class="opts" id="txtOpts" style="display:none">
+      <span class="pill">temp <input id="temp" type="number" step="0.1" value="0.7" style="width:52px"></span>
+      <span class="pill">max_tokens <input id="maxt" type="number" value="1024" style="width:64px"></span>
+      <button class="pill" id="stream" data-on="0">stream off</button>
+      <button class="pill" id="web" data-on="0">web off</button>
+    </div>
+
+    <div class="bar">
+      <span class="pill">🖽 <select id="model"></select></span>
+      <span class="spacer"></span>
+      <button class="send" id="go">↑</button>
+    </div>
+    <div class="hint" id="lim"></div>
+  </div>
+  <div id="status"></div>
+  <div id="out"></div>
+</div>
+
+<script type="module">
+import * as D from "./Data.js";
+if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc =
+ "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+const $=id=>document.getElementById(id);
+const refs=[]; const MAX=16;
+
+// populate model select
+D.DATA_MODELS.forEach(m=>{const o=document.createElement("option");o.value=m.id;o.textContent=m.name;$("model").appendChild(o);});
+function cur(){ return D.DATA_MODELS.find(m=>m.id===$("model").value); }
+
+// adapt composer to model type
+function adapt(){
+  const t=cur().type;
+  $("imgOpts").style.display = t==="image" ? "flex":"none";
+  $("txtOpts").style.display = t==="text" ? "flex":"none";
+  $("prompt").style.height = t==="image" ? "300px":"180px";
+  $("lim").textContent = t==="image" ? "Image refs: "+refs.length+"/"+MAX : (cur().via==="openrouter"?"folosește cheia ta OpenRouter":"folosește Puter (gratis)");
+}
+$("model").onchange=adapt; adapt();
+
+$("folder").onclick=async()=>{try{$("fname").textContent=await D.pickFolder();}catch(e){setStatus("Folder anulat.",true);}};
+$("orkey").onchange=()=>D.setOpenRouterKey($("orkey").value);
+$("ratio").onchange=()=>$("dims").classList.toggle("show",$("ratio").value==="custom");
+$("wand").onclick=()=>{const on=$("wand").dataset.on==="1";$("wand").dataset.on=on?"0":"1";$("wand").textContent=on?"✦ Off":"✦ On";};
+$("stream").onclick=()=>{const on=$("stream").dataset.on==="1";$("stream").dataset.on=on?"0":"1";$("stream").textContent=on?"stream off":"stream on";};
+$("web").onclick=()=>{const on=$("web").dataset.on==="1";$("web").dataset.on=on?"0":"1";$("web").textContent=on?"web off":"web on";};
+$("attach").onclick=()=>$("file").click();
+$("file").onchange=async e=>{for(const f of Array.from(e.target.files)){if(refs.length>=MAX)break;
+  try{refs.push(await toDataURL(f));}catch(err){}} e.target.value="";renderRefs();adapt();};
+function toDataURL(f){return new Promise((res,rej)=>{
+ if(f.type==="application/pdf"||/\.pdf$/.test(f.name)){const rd=new FileReader();
+  rd.onload=async()=>{try{const p=await pdfjsLib.getDocument({data:rd.result}).promise;const pg=await p.getPage(1);
+   const vp=pg.getViewport({scale:2});const c=document.createElement("canvas");c.width=vp.width;c.height=vp.height;
+   await pg.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;res(c.toDataURL("image/png"));}catch(e){rej(e);}};
+  rd.onerror=rej;rd.readAsArrayBuffer(f);}
+ else{const rd=new FileReader();rd.onload=()=>res(rd.result);rd.onerror=rej;rd.readAsDataURL(f);}});}
+function renderRefs(){const b=$("refs");b.innerHTML="";refs.forEach((s,i)=>{const d=document.createElement("div");
+ d.className="chip";d.innerHTML='<img src="'+s+'"><span class="x">✕</span>';
+ d.querySelector(".x").onclick=()=>{refs.splice(i,1);renderRefs();adapt();};b.appendChild(d);});}
+function setStatus(t,e){const s=$("status");s.textContent=t||"";s.className=e?"err":"";}
+
+$("go").onclick=async()=>{
+  const m=cur(), prompt=$("prompt").value.trim();
+  if(!prompt&&refs.length===0){setStatus("Scrie un prompt.",true);return;}
+  $("go").disabled=true;$("out").innerHTML="";setStatus("Lucrez…");
+  try{
+    if(m.type==="image"){
+      const opts={quality:$("quality").value};
+      if($("ratio").value==="custom"){opts.width=+$("wpx").value||1024;opts.height=+$("hpx").value||1024;}
+      else opts.aspect_ratio=$("ratio").value;
+      if(refs.length)opts.input_images=refs;
+      let p=prompt; if($("wand").dataset.on==="1"&&p){try{p=await enhance(p);}catch(e){}}
+      const n=+$("gens").value;
+      for(let i=0;i<n;i++){const img=await D.image(p||"recreate reference",m.id,opts);addImg(img,m,i);}
+    }
+    else if(m.type==="text"){
+      const opts={temperature:+$("temp").value,max_tokens:+$("maxt").value};
+      if($("web").dataset.on==="1")opts.tools=[{type:"web_search"}];
+      const txt=await D.chat(prompt,m.id,opts);
+      addText(txt);
+    }
+    else{ const a=await D.speech(prompt,m.id); $("out").appendChild(a); }
+    setStatus("Gata.");
+  }catch(e){setStatus("Eroare: "+(e&&e.message?e.message:e),true);}
+  finally{$("go").disabled=false;}
+};
+async function enhance(p){const r=await puter.ai.chat("Rewrite vivid & detailed, reply prompt only: "+p,{model:"gpt-5.4-nano"});
+ return (r&&r.message&&r.message.content)?r.message.content:p;}
+function addImg(img,m,i){const c=document.createElement("div");c.className="rcard";
+ const r=$("ratio").value; img.style.aspectRatio=r==="custom"?($("wpx").value+"/"+$("hpx").value):r.replace(":","/");
+ const dl=document.createElement("div");dl.className="dl";
+ const a=document.createElement("a");a.textContent=" Download";a.href=img.src;a.download="data-"+m.id.split("/").pop()+"-"+(i+1)+".png";
+ const sv=document.createElement("button");sv.textContent=" Save to folder";
+ sv.onclick=async()=>{try{const b=await (await fetch(img.src)).blob();await D.saveToFolder(a.download,b);setStatus("Salvat în "+D.folderName());}catch(e){setStatus(e.message,true);}};
+ dl.appendChild(a);dl.appendChild(sv);c.appendChild(img);c.appendChild(dl);$("out").appendChild(c);}
+function addText(txt){const c=document.createElement("div");c.className="rcard";
+ const pre=document.createElement("pre");pre.textContent=txt;
+ const dl=document.createElement("div");dl.className="dl";
+ const cp=document.createElement("button");cp.textContent=" Copy";cp.onclick=()=>navigator.clipboard.writeText(txt);
+ const sv=document.createElement("button");sv.textContent=" Save to folder";
+ sv.onclick=async()=>{try{await D.saveToFolder("data-result.txt",new Blob([txt],{type:"text/plain"}));setStatus("Salvat în "+D.folderName());}catch(e){setStatus(e.message,true);}};
+ dl.appendChild(cp);dl.appendChild(sv);c.appendChild(pre);c.appendChild(dl);$("out").appendChild(c);}
+</script>
+</body>
+</html>
