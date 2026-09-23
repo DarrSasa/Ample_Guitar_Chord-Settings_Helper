@@ -15,7 +15,8 @@ export const DATA_MODELS = [
   { id:"gpt-5.6-sol",   name:"GPT-5.6 Sol (text)",  type:"text", via:"puter" },
   { id:"gpt-5.6-luna",  name:"GPT-5.6 Luna (text)", type:"text", via:"puter" },
   { id:"gpt-5.4-nano",  name:"GPT-5.4 Nano (text)", type:"text", via:"puter" },
-  { id:"gpt-5.3-codex", name:"GPT-5.3 Codex (code)",type:"text", via:"puter" },
+  // CODE (tot pe gratis, prin alocația Puter)
+  { id:"gpt-5.3-codex", name:"GPT-5.3 Codex (code)",type:"text", code:true, via:"puter" },
   // TEXT prin propria cheie OpenRouter (nelimitat de contul tau, nu de Puter)
   { id:"openrouter/deepseek/deepseek-v4.1-flash", name:"DeepSeek v4.1 (cheia ta)", type:"text", via:"openrouter" },
   // VOCE
@@ -25,12 +26,24 @@ export const DATA_MODELS = [
 let openRouterKey = "";
 export function setOpenRouterKey(k){ openRouterKey = (k||"").trim(); }
 
+/* ---- ISTORIC DE CONVERSAȚIE: modelele țin minte toată discuția ---- */
+let history = [];   // [{role:"user"|"assistant", content:string}, …]
+export function getHistory(){ return history; }
+export function clearHistory(){ history = []; return true; }
+export function historyLength(){ return history.length; }
+function commitHistory(userContent, assistantContent){
+  history.push({ role:"user", content:userContent });
+  history.push({ role:"assistant", content:assistantContent });
+  if (history.length > 40) history.splice(0, history.length - 40);  // plafon tokeni
+}
+
 /* ---- TEST MODE: mostre gratuite, NU consuma alocația ---- */
 let testModeOn = false;
 export function setTestMode(on){ testModeOn = !!on; return testModeOn; }
 export function isTestMode(){ return testModeOn; }
 
 /* ---- MODELE LIVE: completeaza lista hardcodata cu ce e disponibil acum pe Puter ---- */
+const CODE_RE = /codex|code|coder|codestral|devstral|starcoder|coderunner|gpt-code/i;
 export async function loadLiveModels(){
   try{
     const live = await puter.ai.listModels();           // [{id, provider, name, ...}]
@@ -42,6 +55,7 @@ export async function loadLiveModels(){
         id: m.id,
         name: (m.name || m.id) + (m.provider ? " · " + m.provider : ""),
         type: "text",
+        code: CODE_RE.test(m.id) || CODE_RE.test(m.name || ""),
         via: "puter",
         live: true
       });
@@ -52,15 +66,14 @@ export async function loadLiveModels(){
   }
 }
 
-/* ---- ALOCAȚIA GRATUITĂ (se reînnoiește lunar) ----
-   intoarce {remaining, allowance, unit, pct, text} sau null daca nu e disponibila. */
+/* ---- ALOCAȚIA GRATUITĂ (se reînnoiește AUTOMAT lunar de către Puter) ---- */
 export async function getUsage(){
   try{
     const u = await puter.auth.getMonthlyUsage();
     const a = (u && u.allowanceInfo) || {};
     const rem = (typeof a.remaining === "number") ? a.remaining : null;
     const all = (typeof a.monthUsageAllowance === "number") ? a.monthUsageAllowance : null;
-    const unit = a.unit || "microcents";  // 1 USD = 1.000.000 microcents (fara unit:credits)
+    const unit = a.unit || "microcents";
     const fmt = (v) => {
       if (v == null) return "?";
       if (unit === "credits") return v.toLocaleString("ro-RO") + " cr";
@@ -73,11 +86,10 @@ export async function getUsage(){
       text: "Gratis: " + fmt(rem) + " / " + fmt(all) + " din alocația lunară"
     };
   }catch(e){
-    return null;   // neconectat / fara acces → ascundem, nu blocam app
+    return null;
   }
 }
 
-/* Eroare de tip „s-a terminat alocația Puter"? */
 function isUsageLimitError(e){
   const s = String((e && (e.message || e.error)) || e || "").toLowerCase();
   const code = e && (e.code || e.status || (e.error && e.error.code));
@@ -85,8 +97,6 @@ function isUsageLimitError(e){
     || /usage limit|not enough funding|insufficient|alocaț|alocatie/.test(s);
 }
 
-/* Extrage textul dintr-un ChatResponse (forma normalizata SAU nativa,
-   continut string SAU array de parti) — vezi optiunea `normalize` din puter.js. */
 function extractText(r){
   if (r == null) return "";
   if (typeof r === "string") return r;
@@ -96,80 +106,121 @@ function extractText(r){
   return String(r);
 }
 
-/* ---- chat: Puter sau OpenRouter (cheia ta) ----
-   opts: temperature, max_tokens, tools, stream, …
-   onChunk(textPartial, fullSoFar) — apelat pe fiecare bucata daca stream=true. */
-export async function chat(prompt, modelId, opts={}, onChunk){
-  const m = DATA_MODELS.find(x=>x.id===modelId) || {via:"puter"};
-
-  if (m.via==="openrouter" && openRouterKey){
-    /* OpenRouter primeste aceleasi opts ca Puter (nu le mai aruncam). */
-    const body = { model:modelId, messages:[{role:"user",content:prompt}] };
-    if (opts.temperature !== undefined) body.temperature = opts.temperature;
-    if (opts.max_tokens  !== undefined) body.max_tokens  = opts.max_tokens;
-    if (opts.tools       !== undefined) body.tools       = opts.tools;
-    if (opts.stream === true){
-      body.stream = true;
-      const resp = await fetch("https://openrouter.ai/api/v1/chat/completions",{
-        method:"POST",
-        headers:{ "Authorization":"Bearer "+openRouterKey, "Content-Type":"application/json" },
-        body: JSON.stringify(body)
-      });
-      if (!resp.ok) throw new Error("OpenRouter HTTP "+resp.status+": "+(await resp.text()).slice(0,200));
-      /* SSE: linii "data: {...}", final "data: [DONE]" */
-      const reader = resp.body.getReader(), dec = new TextDecoder();
-      let buf = "", full = "";
-      while (true){
-        const { done, value } = await reader.read();
-        if (done) break;
-        buf += dec.decode(value, { stream:true });
-        const lines = buf.split("\n");
-        buf = lines.pop();
-        for (const line of lines){
-          const t = line.replace(/^data:\s*/,"").trim();
-          if (!t || t === "[DONE]") continue;
-          try{
-            const j = JSON.parse(t);
-            const d = j.choices && j.choices[0] && j.choices[0].delta;
-            if (d && d.content){ full += d.content; if (onChunk) onChunk(d.content, full); }
-          }catch(e){ /* linie SSE incompleta/ignorabila */ }
-        }
-      }
-      return full;
-    }
-    const r = await fetch("https://openrouter.ai/api/v1/chat/completions",{
+/* OpenRouter: trimite lista de mesaje (istoric inclus) */
+async function openRouterChat(messages, opts, onChunk, modelId){
+  const body = { model: modelId || "openrouter/deepseek/deepseek-v4.1-flash", messages };
+  if (opts.temperature !== undefined) body.temperature = opts.temperature;
+  if (opts.max_tokens  !== undefined) body.max_tokens  = opts.max_tokens;
+  if (opts.tools       !== undefined) body.tools       = opts.tools;
+  if (opts.stream === true){
+    body.stream = true;
+    const resp = await fetch("https://openrouter.ai/api/v1/chat/completions",{
       method:"POST",
       headers:{ "Authorization":"Bearer "+openRouterKey, "Content-Type":"application/json" },
       body: JSON.stringify(body)
     });
-    const j = await r.json();
-    if (!r.ok) throw new Error((j.error && j.error.message) || ("OpenRouter HTTP "+r.status));
-    return (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) || "";
+    if (!resp.ok) throw new Error("OpenRouter HTTP "+resp.status+": "+(await resp.text()).slice(0,200));
+    const reader = resp.body.getReader(), dec = new TextDecoder();
+    let buf = "", full = "";
+    while (true){
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += dec.decode(value, { stream:true });
+      const lines = buf.split("\n");
+      buf = lines.pop();
+      for (const line of lines){
+        const t = line.replace(/^data:\s*/,"").trim();
+        if (!t || t === "[DONE]") continue;
+        try{
+          const j = JSON.parse(t);
+          const d = j.choices && j.choices[0] && j.choices[0].delta;
+          if (d && d.content){ full += d.content; if (onChunk) onChunk(d.content, full); }
+        }catch(e){}
+      }
+    }
+    return full;
+  }
+  const r = await fetch("https://openrouter.ai/api/v1/chat/completions",{
+    method:"POST",
+    headers:{ "Authorization":"Bearer "+openRouterKey, "Content-Type":"application/json" },
+    body: JSON.stringify(body)
+  });
+  const j = await r.json();
+  if (!r.ok) throw new Error((j.error && j.error.message) || ("OpenRouter HTTP "+r.status));
+  return (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) || "";
+}
+
+/* Puter chat pe liste de mesaje */
+async function puterChat(messages, opts, onChunk){
+  const o = Object.assign({}, opts, { model: opts._model });
+  delete o._model;
+  if (o.stream === true){
+    const it = await puter.ai.chat(messages, o, testModeOn);
+    let full = "";
+    for await (const chunk of it){
+      if (chunk && chunk.type === "text" && chunk.text){
+        full += chunk.text;
+        if (onChunk) onChunk(chunk.text, full);
+      } else if (chunk && chunk.type === "error"){
+        throw new Error(chunk.message || "Stream error");
+      }
+    }
+    return full;
+  }
+  const r = await puter.ai.chat(messages, o, testModeOn);
+  return extractText(r);
+}
+
+/* ---- chat cu ISTORIC: aceeași discuție, iar și iar ----
+   prompt      — noul mesaj al utilizatorului
+   opts.docs   — opțional: text din folder/PDF (se injectează la începutul discuției)
+   onChunk     — callback stream */
+export async function chat(prompt, modelId, opts={}, onChunk){
+  const m = DATA_MODELS.find(x=>x.id===modelId) || {via:"puter"};
+  if (m.via==="openrouter" && !openRouterKey){
+    throw new Error("Modelul cu cheia ta are nevoie de o cheie OpenRouter — introduce-o sus (🔑).");
+  }
+  const docs = opts.docs || "";
+  const clean = Object.assign({}, opts);
+  delete clean.docs;
+
+  /* conținutul mesajului user; documentele se presează doar la încept sau când se schimbă */
+  let userContent = prompt;
+  if (docs){
+    const head = history.find(x => x.__docs);
+    if (!head){
+      userContent = "[Documente din folder]\n" + docs + "\n\n===\n\n" + (prompt || "(Analizează documentele de mai sus.)");
+    } else if (head.content !== docs){
+      userContent = "[Documente actualizate]\n" + docs + "\n\n===\n\n" + (prompt || "(Analizează documentele de mai sus.)");
+    }
   }
 
-  /* Puter: la stream:true SDK-ul returneaza AsyncIterable<ChatResponseChunk>.
-     Al treilea argument `true` = test mode (mostre gratuite, nu consuma). */
+  const messages = history.map(x => ({ role:x.role, content:x.content }))
+    .concat([{ role:"user", content:userContent }]);
+
+  const useOR = (m.via === "openrouter" && openRouterKey);
   try{
-    if (opts.stream === true){
-      const it = await puter.ai.chat(prompt, Object.assign({}, opts, { model:modelId }), testModeOn);
-      let full = "";
-      for await (const chunk of it){
-        if (chunk && chunk.type === "text" && chunk.text){
-          full += chunk.text;
-          if (onChunk) onChunk(chunk.text, full);
-        } else if (chunk && chunk.type === "error"){
-          throw new Error(chunk.message || "Stream error");
-        }
-      }
-      return full;
+    let full;
+    if (useOR){
+      full = await openRouterChat(messages, clean, onChunk, modelId);
+    } else {
+      clean._model = modelId;
+      full = await puterChat(messages, clean, onChunk);
     }
-    const r = await puter.ai.chat(prompt, Object.assign({}, opts, { model:modelId }), testModeOn);
-    return extractText(r);
+    /* marcăm docs în istoric ca să nu le mai retrimitem identic */
+    if (docs && userContent.startsWith("[Documente")){
+      history.push({ role:"user", content:userContent, __docs:true });
+      history.push({ role:"assistant", content:full });
+      if (history.length > 40) history.splice(0, history.length - 40);
+    } else {
+      commitHistory(userContent, full);
+    }
+    return full;
   }catch(e){
-    /* Alocația Puter s-a terminat? Daca ai cheie OpenRouter → continui pe cheia ta
-       (text doar), ca sa NU fii blocat „decat pana luna viitoare". */
-    if (isUsageLimitError(e) && openRouterKey){
-      return await chat(prompt, "openrouter/deepseek/deepseek-v4.1-flash", opts, onChunk);
+    if (isUsageLimitError(e) && openRouterKey && !useOR){
+      const full = await openRouterChat(messages, clean, onChunk, "openrouter/deepseek/deepseek-v4.1-flash");
+      commitHistory(userContent, full);
+      return full;
     }
     throw e;
   }
@@ -178,12 +229,12 @@ export async function chat(prompt, modelId, opts={}, onChunk){
 /* ---- imagine (doar Puter) ---- */
 export async function image(prompt, modelId, opts={}){
   const o = Object.assign({ model:modelId }, opts);
-  if (testModeOn) o.test_mode = true;   // mostra gratuita
+  if (testModeOn) o.test_mode = true;
   try{
     return await puter.ai.txt2img(prompt, o);
   }catch(e){
     if (isUsageLimitError(e)){
-      throw new Error("Alocația gratuită Puter s-a terminat pe imagine. Se reînnoiește luna viitoare — sau treci pe un model text cu cheia ta OpenRouter.");
+      throw new Error("Alocația gratuită Puter s-a terminat pe imagine. Se reînnoiește automat luna viitoare — sau folosești test mode 🧪.");
     }
     throw e;
   }
@@ -198,7 +249,7 @@ export async function speech(text, modelId){
     a.setAttribute("controls",""); return a;
   }catch(e){
     if (isUsageLimitError(e)){
-      throw new Error("Alocația gratuită Puter s-a terminat pe voce. Se reînnoiește luna viitoare.");
+      throw new Error("Alocația gratuită Puter s-a terminat pe voce. Se reînnoiește automat luna viitoare.");
     }
     throw e;
   }
@@ -210,13 +261,13 @@ export async function ocr(source){
     return await puter.ai.img2txt(source, { test_mode: testModeOn });
   }catch(e){
     if (isUsageLimitError(e)){
-      throw new Error("Alocația gratuită Puter s-a terminat pe OCR. Se reînnoiește luna viitoare.");
+      throw new Error("Alocația gratuită Puter s-a terminat pe OCR. Se reînnoiește automat luna viitoare.");
     }
     throw e;
   }
 }
 
-/* ---- SETĂRI PERSISTENTE (puter.kv) — model, parametri, cheie ---- */
+/* ---- SETĂRI PERSISTENTE (puter.kv) ---- */
 const KV_SETTINGS = "data-app:settings";
 export async function saveSettings(obj){
   try{ await puter.kv.set(KV_SETTINGS, JSON.stringify(obj)); return true; }
@@ -245,6 +296,54 @@ export async function listCloud(){
   catch(e){ return []; }
 }
 
+/* ---- FOLDERUL LOCAL: listă + citire fișiere text pt. contextul modelelor ---- */
+const TEXT_EXT = new Set([
+  "txt","md","js","mjs","cjs","ts","tsx","jsx","py","json","html","css","scss",
+  "csv","xml","yml","yaml","ini","cfg","conf","log","c","cpp","h","hpp","cs",
+  "java","go","rs","sh","bat","ps1","php","rb","sql","vue","toml","gradle","r"
+]);
+const SKIP_DIRS = new Set(["node_modules",".git","dist","build",".next","__pycache__"]);
+
+export function fileExt(name){
+  const i = name.lastIndexOf(".");
+  return i < 0 ? "" : name.slice(i+1).toLowerCase();
+}
+export function isTextFile(name){ return TEXT_EXT.has(fileExt(name)); }
+
+/** Listează fișierele text din folderul ales (max 100, fără node_modules/.git). */
+export async function listProjectFiles(){
+  if (!dirHandle) throw new Error("Alege intai un folder de proiect.");
+  const out = [];
+  async function walk(h, path){
+    if (out.length >= 100) return;
+    for await (const entry of h.values()){
+      if (out.length >= 100) return;
+      if (entry.kind === "file"){
+        if (isTextFile(entry.name)) out.push(path + entry.name);
+      } else if (entry.kind === "directory" && !SKIP_DIRS.has(entry.name)){
+        await walk(entry, path + entry.name + "/");
+      }
+    }
+  }
+  await walk(dirHandle, "");
+  out.sort();
+  return out;
+}
+
+/** Citește un fișier text din folderul ales (cale relativă, ex. "src/app.js"). */
+export async function readProjectFile(relPath){
+  if (!dirHandle) throw new Error("Alege intai un folder de proiect.");
+  const parts = relPath.split("/").filter(Boolean);
+  let h = dirHandle;
+  for (let i = 0; i < parts.length - 1; i++){
+    h = await h.getDirectoryHandle(parts[i]);
+  }
+  const fh = await h.getFileHandle(parts[parts.length - 1]);
+  const f = await fh.getFile();
+  if (f.size > 100 * 1024) throw new Error(relPath + ": prea mare (>100KB)");
+  return await f.text();
+}
+
 /* ---- folder local de proiect (File System Access API) ---- */
 let dirHandle = null;
 export async function pickFolder(){
@@ -262,3 +361,4 @@ export async function readFromFolder(name){
   const f = await fh.getFile(); return f.text();
 }
 export function folderName(){ return dirHandle ? dirHandle.name : null; }
+export function hasFolder(){ return !!dirHandle; }

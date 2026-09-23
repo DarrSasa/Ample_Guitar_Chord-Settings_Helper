@@ -34,11 +34,15 @@
   .dims label{font-size:11.5px;color:var(--muted);border:1px solid var(--border);border-radius:10px;
               padding:5px 8px;display:flex;gap:4px;align-items:center;background:#fff}
   .dims input{width:56px;border:none;outline:none;text-align:center;font-size:12px}
-  #refs{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+  #refs{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;align-items:center}
   .chip{position:relative;width:48px;height:48px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
   .chip img{width:100%;height:100%;object-fit:cover}
   .chip .x{position:absolute;top:1px;right:1px;width:15px;height:15px;border-radius:50%;background:rgba(0,0,0,.55);
            color:#fff;font-size:9px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .fchip{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--border);background:#f0f6ff;
+         border-radius:999px;padding:4px 8px;font-size:11.5px;max-width:180px}
+  .fchip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .fchip .x{cursor:pointer;color:#c2453a;font-weight:bold}
   .hint{color:var(--muted);font-size:11.5px;margin-top:6px}
   #status{min-height:18px;font-size:13px;color:var(--muted)}
   .err{color:#c2453a}
@@ -46,9 +50,12 @@
   .rcard{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#fff}
   .rcard img{width:100%;display:block}
   .rcard pre{padding:12px;font-size:13px;white-space:pre-wrap;max-height:400px;overflow:auto}
-  .rcard .dl{display:flex;gap:8px;padding:8px 10px}
+  .rcard .who{padding:6px 12px;font-size:11.5px;color:var(--muted);border-bottom:1px solid var(--border);background:#fafafa}
+  .rcard .who.user{background:#eef4ff;color:#3b5bdb}
+  .rcard .dl{display:flex;gap:8px;padding:8px 10px;flex-wrap:wrap}
   .rcard a,.rcard button{font-size:12px;border:1px solid var(--border);border-radius:999px;padding:6px 12px;
         background:#fff;cursor:pointer;text-decoration:none;color:var(--text)}
+  .chatbar{display:flex;gap:6px;align-items:center;margin-top:8px;flex-wrap:wrap}
 </style>
 </head>
 <body>
@@ -67,8 +74,10 @@
       <span class="pill">🔑 <input id="orkey" type="password" placeholder="OpenRouter key (optional)"></span>
     </div>
 
-    <textarea id="prompt" placeholder="Scrie promptul… (text sau descriere imagine)"></textarea>
+    <textarea id="prompt" placeholder="Scrie promptul… (conversezi continuu, modelul ține minte discuția)"></textarea>
     <div id="refs"></div>
+    <div id="folderfiles" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"></div>
+    <div class="hint" id="folderhint"></div>
 
     <div class="opts" id="imgOpts">
       <span class="pill">▭ <select id="ratio">
@@ -80,7 +89,7 @@
         <label>height px <input id="hpx" type="number" value="1024"></label>
       </span>
       <span class="pill">◑ <select id="quality"><option selected>medium</option></select></span>
-      <span class="pill">▤ <select id="gens"><option>1</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></span>
+      <span class="pill">▤ <select id="gens"><option selected>1</option><option>2</option><option>3</option><option>4</option></select></span>
       <button class="pill" id="wand" data-on="1">✦ On</button>
       <button class="pill" id="attach">🖼 refs</button>
       <input type="file" id="file" hidden multiple accept="image/*,application/pdf,.pdf">
@@ -97,7 +106,12 @@
       <span class="pill">🖽 <select id="model"></select></span>
       <button class="pill" id="testm" data-on="0" title="Test mode: mostre gratuite, nu consumă alocația">🧪 test off</button>
       <span class="spacer"></span>
-      <button class="send" id="go">↑</button>
+      <button class="send" id="go" title="Trimite (Enter = newline)">↑</button>
+    </div>
+    <div class="chatbar">
+      <button class="pill" id="newchat" title="Șterge istoricul — conversație nouă">🧹 Chat nou</button>
+      <span class="hint" id="chathint">Mesaje: 0</span>
+      <span class="spacer"></span>
     </div>
     <div class="hint" id="lim"></div>
   </div>
@@ -111,22 +125,40 @@ if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc =
  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 const $=id=>document.getElementById(id);
 const refs=[]; const MAX=16;
+const ocrTexts=[];            // {name, text} din PDF-uri
+const pickedFiles=[];         // [{name, text}] din folderul proiectului
 
-// populate model select: intai lista curated, apoi cele live de pe Puter
-D.DATA_MODELS.forEach(m=>{const o=document.createElement("option");o.value=m.id;o.textContent=m.name;$(  "model").appendChild(o);});
+function fillModelSelect(keep){
+  const sel=$("model"); const v=keep||sel.value;
+  sel.innerHTML="";
+  const buckets=[
+    ["Text", m=>m.type==="text" && !m.code],
+    ["Code (text)", m=>m.type==="text" && m.code],
+    ["Imagine", m=>m.type==="image"],
+    ["Voce", m=>m.type==="tts"],
+  ];
+  for (const [label, test] of buckets){
+    const ms=D.DATA_MODELS.filter(test);
+    if(!ms.length) continue;
+    const og=document.createElement("optgroup"); og.label=label;
+    ms.forEach(m=>{const o=document.createElement("option");o.value=m.id;o.textContent=m.name;og.appendChild(o);});
+    sel.appendChild(og);
+  }
+  if (v && D.DATA_MODELS.some(m=>m.id===v)) sel.value=v;
+}
+fillModelSelect();
 function cur(){ return D.DATA_MODELS.find(m=>m.id===$("model").value); }
 
-// completeaza cu modelele disponibile ACUM pe Puter (listModels) + alocația gratuită
+function updateChatHint(){
+  $("chathint").textContent = "Mesaje în discuție: " + D.historyLength();
+}
+
 async function refreshMeta(){
   try{
     const before = D.DATA_MODELS.length;
     await D.loadLiveModels();
     if (D.DATA_MODELS.length > before){
-      const sel = $("model"), keep = sel.value;
-      sel.innerHTML = "";
-      D.DATA_MODELS.forEach(m=>{const o=document.createElement("option");o.value=m.id;o.textContent=m.name;sel.appendChild(o);});
-      sel.value = keep || D.DATA_MODELS[0].id;
-      // grupare vizuala: cele live primesc sufix vizibil deja in nume (· provider)
+      fillModelSelect();
     }
   }catch(e){}
   try{
@@ -140,10 +172,8 @@ async function refreshMeta(){
     }
   }catch(e){}
 }
-// init secvențial: mai întâi modelele live, apoi restaurarea setărilor
-(async()=>{ await refreshMeta(); await restoreSettings(); })();
 
-// ---- setări persistente (puter.kv): model, parametri, cheie ----
+// ---- setări persistente (puter.kv) ----
 async function persistSettings(){
   await D.saveSettings({
     model:$("model").value,
@@ -179,14 +209,14 @@ async function restoreSettings(){
   }catch(e){}
   adapt();
 }
+// init secvențial
+(async()=>{ await refreshMeta(); await restoreSettings(); updateChatHint(); })();
 
-// adapt composer to model type
 function adapt(){
   const m=cur(), t=m.type;
   $("imgOpts").style.display = t==="image" ? "flex":"none";
   $("txtOpts").style.display = t==="text" ? "flex":"none";
   $("prompt").style.height = t==="image" ? "300px":"180px";
-  // calitatile suportate de modelul de imagine (Flare/Sunburst au si xhigh/max/auto)
   if (t==="image"){
     const qs = m.qualities || ["low","medium","high"];
     const sel = $("quality");
@@ -195,11 +225,19 @@ function adapt(){
     qs.forEach(q=>{ const o=document.createElement("option"); o.textContent=q; sel.appendChild(o); });
     sel.value = qs.includes(keep) ? keep : (qs.includes("medium") ? "medium" : qs[0]);
   }
-  $("lim").textContent = t==="image" ? "Image refs: "+refs.length+"/"+MAX : (m.via==="openrouter"?"folosește cheia ta OpenRouter":"folosește Puter (gratis)");
+  let base;
+  if (m.via==="openrouter") base="folosește cheia ta OpenRouter";
+  else if (m.code) base="model CODE pe gratis (Puter) — discuție continuă";
+  else base="folosește Puter (gratis) — discuție continuă";
+  $("lim").textContent = t==="image" ? ("Image refs: "+refs.length+"/"+MAX) : base;
 }
+
 $("model").onchange=()=>{adapt();persistSettings();};
 
-$("folder").onclick=async()=>{try{$("fname").textContent=await D.pickFolder();}catch(e){setStatus("Folder anulat.",true);}};
+$("folder").onclick=async()=>{try{
+  $("fname").textContent=await D.pickFolder();
+  await refreshFolderFiles();
+}catch(e){setStatus("Folder anulat.",true);}};
 $("orkey").onchange=()=>{D.setOpenRouterKey($("orkey").value);persistSettings();};
 $("ratio").onchange=()=>{$("dims").classList.toggle("show",$("ratio").value==="custom");persistSettings();};
 $("wand").onclick=()=>{const on=$("wand").dataset.on==="1";$("wand").dataset.on=on?"0":"1";$("wand").textContent=on?"✦ Off":"✦ On";persistSettings();};
@@ -207,10 +245,15 @@ $("stream").onclick=()=>{const on=$("stream").dataset.on==="1";$("stream").datas
 $("web").onclick=()=>{const on=$("web").dataset.on==="1";$("web").dataset.on=on?"0":"1";$("web").textContent=on?"web off":"web on";persistSettings();};
 $("testm").onclick=()=>{const on=$("testm").dataset.on==="1";$("testm").dataset.on=on?"0":"1";
   $("testm").textContent=on?"🧪 test off":"🧪 test on"; D.setTestMode(!on); persistSettings();
-  setStatus(!on?"Test mode: mostre gratuite, nu consumi alocatia.":"Test mode oprit: folosesti alocatia gratuita reala.");};
+  setStatus(!on?"Test mode: mostre gratuite, nu consumi alocația.":"Test mode oprit: folosești alocația gratuită reală.");};
+$("newchat").onclick=()=>{
+  D.clearHistory(); $("out").innerHTML=""; ocrTexts.length=0; pickedFiles.length=0;
+  renderRefs(); renderPicked(); updateChatHint();
+  setStatus("Chat nou — istoric șters.");
+};
 $("attach").onclick=()=>$("file").click();
-/* PDF: preview cu pdf.js (pagina 1) + extragere text cu OCR Puter (img2txt) */
-const ocrTexts=[];  // {name, text} — textul din PDF-uri, atasat la cererile de text
+
+/* PDF: preview pagina 1 + OCR text */
 $("file").onchange=async e=>{for(const f of Array.from(e.target.files)){if(refs.length>=MAX)break;
   const isPdf = f.type==="application/pdf"||/\.pdf$/i.test(f.name);
   try{refs.push(await toDataURL(f));}catch(err){}
@@ -219,6 +262,56 @@ $("file").onchange=async e=>{for(const f of Array.from(e.target.files)){if(refs.
       setStatus("OCR gata: "+f.name+" ("+t.length+" caractere)"); } }
     catch(err){ setStatus("OCR: "+(err&&err.message?err.message:"esuat"),true); } }
 } e.target.value="";renderRefs();adapt();};
+
+/* ---- FIȘIERE DIN FOLDERUL PROIECTULUI: modelul LE VEDE ---- */
+async function refreshFolderFiles(){
+  if (!D.hasFolder()){ $("folderhint").textContent=""; return; }
+  try{
+    setStatus("Citesc folderul "+D.folderName()+"...");
+    const paths = await D.listProjectFiles();
+    $("folderhint").textContent = paths.length
+      ? "📂 "+paths.length+" fișiere text găsite — apasă [+ fișiere] pentru a-i da modelului (max 8 × 100KB)"
+      : "📂 folder ales, dar fără fișiere text";
+    setStatus("");
+  }catch(e){ setStatus("Folder: "+(e.message||e), true); }
+}
+function renderPicked(){
+  const box=$("folderfiles"); box.innerHTML="";
+  const seed=document.createElement("button"); seed.className="pill";
+  seed.textContent="📄 + fișiere din folder";
+  seed.onclick=()=>openPicker();
+  box.appendChild(seed);
+  pickedFiles.forEach((f,i)=>{
+    const d=document.createElement("span"); d.className="fchip";
+    d.innerHTML='<span>📄 '+f.name+'</span><b class="x">✕</b>';
+    d.querySelector(".x").onclick=()=>{pickedFiles.splice(i,1);renderPicked();};
+    box.appendChild(d);
+  });
+}
+async function openPicker(){
+  if (!D.hasFolder()){ setStatus("Alege întâi un folder (📁 Choose project folder).",true); return; }
+  try{
+    const paths = await D.listProjectFiles();
+    const pick = prompt("Ce fișiere să dea modelului? (căi separate cu virgulă)\n\n"+
+      paths.slice(0,100).join("\n"), "");
+    if (pick==null) return;
+    for (const raw of pick.split(",").map(s=>s.trim()).filter(Boolean)){
+      if (pickedFiles.length>=8) break;
+      if (pickedFiles.some(p=>p.name===raw)) continue;
+      try{
+        const text = await D.readProjectFile(raw);
+        pickedFiles.push({name:raw, text});
+      }catch(e){ setStatus("Nu pot citi "+raw+": "+(e.message||e), true); }
+    }
+    renderPicked();
+    if (pickedFiles.length) setStatus("Fișiere pregătite: "+pickedFiles.map(f=>f.name).join(", "));
+  }catch(e){ setStatus(e.message||String(e), true); }
+}
+$("folderfiles").addEventListener("click", (ev)=>{
+  if (ev.target.closest(".fchip")) return;
+  if (ev.target===ev.currentTarget) openPicker();
+});
+
 function toDataURL(f){return new Promise((res,rej)=>{
  if(f.type==="application/pdf"||/\.pdf$/.test(f.name)){const rd=new FileReader();
   rd.onload=async()=>{try{const p=await pdfjsLib.getDocument({data:rd.result}).promise;const pg=await p.getPage(1);
@@ -226,68 +319,93 @@ function toDataURL(f){return new Promise((res,rej)=>{
    await pg.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;res(c.toDataURL("image/png"));}catch(e){rej(e);}};
   rd.onerror=rej;rd.readAsArrayBuffer(f);}
  else{const rd=new FileReader();rd.onload=()=>res(rd.result);rd.onerror=rej;rd.readAsDataURL(f);}});}
-function renderRefs(){const b=$("refs");b.innerHTML="";refs.forEach((s,i)=>{const d=document.createElement("div");
- d.className="chip";d.innerHTML='<img src="'+s+'"><span class="x">✕</span>';
- d.querySelector(".x").onclick=()=>{refs.splice(i,1);renderRefs();adapt();};b.appendChild(d);});
- if(ocrTexts.length){const t=document.createElement("span");t.className="hint";
-  t.textContent="📄 OCR: "+ocrTexts.length+" PDF-uri ("+ocrTexts.reduce((a,o)=>a+o.text.length,0)+" caractere) — se atașează la cererile de text";
-  b.appendChild(t);}}
+
+function renderRefs(){const b=$("refs");
+  b.innerHTML="";
+  refs.forEach((s,i)=>{const d=document.createElement("div");
+   d.className="chip";d.innerHTML='<img src="'+s+'"><span class="x">✕</span>';
+   d.querySelector(".x").onclick=()=>{refs.splice(i,1);renderRefs();adapt();};b.appendChild(d);});
+  if(ocrTexts.length){const t=document.createElement("span");t.className="hint";
+   t.textContent="📄 OCR: "+ocrTexts.length+" PDF-uri";b.appendChild(t);}}
+renderPicked();
+renderRefs();
+
 function setStatus(t,e){const s=$("status");s.textContent=t||"";s.className=e?"err":"";}
+
+/* mesajele text: nu mai ștergem #out — conversația se păstrează */
+function buildDocs(){
+  const parts=[];
+  for (const o of ocrTexts) parts.push("### "+o.name+"\n"+o.text.slice(0,6000));
+  for (const f of pickedFiles) parts.push("### "+f.name+"\n"+f.text.slice(0,10000));
+  return parts.join("\n\n");
+}
 
 $("go").onclick=async()=>{
   const m=cur(), prompt=$("prompt").value.trim();
   if(!prompt&&refs.length===0){setStatus("Scrie un prompt.",true);return;}
-  $("go").disabled=true;$("out").innerHTML="";setStatus("Lucrez…");
+  $("go").disabled=true; setStatus("Lucrez…");
   try{
     if(m.type==="image"){
       const opts={quality:$("quality").value};
       if($("ratio").value==="custom"){
         const w=+$("wpx").value||1024, h=+$("hpx").value||1024;
-        // width/height = forma Together; ratio{w,h} = forma OpenAI/Gemini — trimitem AMBELE,
-        // driverul alege in functie de model (puterea custom px merge pe orice).
-        opts.width=w; opts.height=h;
-        opts.ratio={w,h};
+        opts.width=w; opts.height=h; opts.ratio={w,h};
       } else {
         const [rw,rh]=$("ratio").value.split(":").map(Number);
-        opts.aspect_ratio=$("ratio").value;          // forma Together (string)
-        if(rw&&rh) opts.ratio={w:rw,h:rh};           // forma OpenAI/Gemini {w,h}
+        opts.aspect_ratio=$("ratio").value;
+        if(rw&&rh) opts.ratio={w:rw,h:rh};
       }
       if(refs.length)opts.input_images=refs;
       let p=prompt; if($("wand").dataset.on==="1"&&p){try{p=await enhance(p);}catch(e){}}
       const n=+$("gens").value;
       for(let i=0;i<n;i++){const img=await D.image(p||"recreate reference",m.id,opts);addImg(img,m,i);}
+      $("prompt").value="";
     }
     else if(m.type==="text"){
       const opts={temperature:+$("temp").value,max_tokens:+$("maxt").value};
       if($("web").dataset.on==="1")opts.tools=[{type:"web_search"}];
-      /* textul din PDF-urile OCR-ate se ataseaza automat la prompt */
-      let p2=prompt;
-      if(ocrTexts.length){
-        const docs=ocrTexts.map(o=>"### "+o.name+"\n"+o.text.slice(0,6000)).join("\n\n");
-        p2 = docs + "\n\n---\n\n" + (prompt||"(Rezuma/analizeaza documentele de mai sus.)");
-      }
+      const docs=buildDocs();
+      if(docs) opts.docs=docs;
+      // arătăm mesajul userului imediat (conversație vizibilă)
+      addUserCard(prompt);
+      $("prompt").value="";
       if($("stream").dataset.on==="1"){
-        // stream:true → AsyncIterable; afisam live, cardul se completeaza pe masura ce vin chunk-uri
         opts.stream=true;
         const card=startStreamCard();
-        const txt=await D.chat(p2,m.id,opts,(delta,full)=>{ card.pre.textContent=full; });
+        const txt=await D.chat(prompt,m.id,opts,(delta,full)=>{ card.pre.textContent=full; });
         finishStreamCard(card,txt,m);
       } else {
-        const txt=await D.chat(p2,m.id,opts);
+        const txt=await D.chat(prompt,m.id,opts);
         addText(txt);
       }
+      updateChatHint();
     }
-    else{ const a=await D.speech(prompt,m.id); $("out").appendChild(a); }
+    else{ const a=await D.speech(prompt,m.id); $("out").appendChild(a); $("prompt").value=""; }
     setStatus("Gata.");
-    refreshMeta();   // alocația rămasă se actualizează după fiecare generare
+    refreshMeta();
   }catch(e){setStatus("Eroare: "+(e&&e.message?e.message:e),true);}
   finally{$("go").disabled=false;}
 };
+
+/* Enter = trimite, Shift+Enter = newline */
+$("prompt").addEventListener("keydown",(e)=>{
+  if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();$("go").click();}
+});
+
 async function enhance(p){const r=await puter.ai.chat("Rewrite vivid & detailed, reply prompt only: "+p,{model:"gpt-5.4-nano"});
  const c=r&&r.message&&r.message.content;
  if(typeof c==="string"&&c)return c;
  if(Array.isArray(c))return c.map(x=>typeof x==="string"?x:(x&&x.text)||"").join("")||p;
  return p;}
+
+function addUserCard(txt){
+  if(!txt) return;
+  const c=document.createElement("div");c.className="rcard";
+  const w=document.createElement("div");w.className="who user";w.textContent="Tu";
+  const pre=document.createElement("pre");pre.textContent=txt;
+  c.appendChild(w);c.appendChild(pre);$("out").appendChild(c);
+  c.scrollIntoView({block:"nearest"});
+}
 function addImg(img,m,i){const c=document.createElement("div");c.className="rcard";
  const r=$("ratio").value; img.style.aspectRatio=r==="custom"?($("wpx").value+"/"+$("hpx").value):r.replace(":","/");
  const dl=document.createElement("div");dl.className="dl";
@@ -305,13 +423,15 @@ function textActions(txt){const dl=document.createElement("div");dl.className="d
  sc.onclick=async()=>{try{const p=await D.saveToCloud("data-result.txt",new Blob([txt],{type:"text/plain"}));setStatus("Salvat pe cloud Puter: ~/"+p);}catch(e){setStatus(e.message||String(e),true);}};
  dl.appendChild(cp);dl.appendChild(sv);dl.appendChild(sc);return dl;}
 function addText(txt){const c=document.createElement("div");c.className="rcard";
+ const w=document.createElement("div");w.className="who";w.textContent=cur().name;
  const pre=document.createElement("pre");pre.textContent=txt;
- c.appendChild(pre);c.appendChild(textActions(txt));$("out").appendChild(c);}
-/* streaming: card gol → text live in pre → butoane la final */
+ c.appendChild(w);c.appendChild(pre);c.appendChild(textActions(txt));$("out").appendChild(c);
+ c.scrollIntoView({block:"nearest"});}
 function startStreamCard(){
   const c=document.createElement("div");c.className="rcard";
+  const w=document.createElement("div");w.className="who";w.textContent=cur().name;
   const pre=document.createElement("pre");pre.textContent="";
-  c.appendChild(pre);$("out").appendChild(c);
+  c.appendChild(w);c.appendChild(pre);$("out").appendChild(c);
   pre.scrollIntoView({block:"nearest"});
   return {c,pre};
 }
