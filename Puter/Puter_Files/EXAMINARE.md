@@ -91,10 +91,10 @@ următoarele lucruri de corectat/completat:**
 2. **Ramura OpenRouter din `Data.js` aruncă `opts`.** Trimite doar
    `{model, messages}` — `temperature`, `max_tokens`, `tools` (web) **nu ajung** la
    OpenRouter. Trebuie `body: {model, messages, ...opts}`.
-3. **Butonul „web”**: `tools:[{type:"web_search"}]` nu se potrivește cu forma `Tool`
-   din SDK (`{type, function:{name, description, parameters}}`). Ca funcționalitate
-   de căutare web pe Puter, forma corectă rămâne de verificat experimental (sau se
-   renunță la el pe ramura Puter).
+3. **`web` tools** — **corectat în raport**: `tools:[{type:"web_search"}]` este
+   **forma oficială Puter** (docs.puter.com/AI/chat — pe modelele OpenAI). Tipul
+   `Tool` din `index.d.ts` descrie doar function-calling-ul clasic; backend-ul
+   acceptă și `web_search`. Nu era bug, era decalaj de documentare în SDK.
 4. **Calitățile pentru Flare/Sunburst sunt incomplete**: selectorul are doar
    `low|medium|high`, dar tipurile oficial spun că **`gpt-image-2.5-flare` și
    `gpt-image-2.5-sunburst` acceptă și `'xhigh'`, `'max'`, `'auto'`** — merită adăugate.
@@ -107,7 +107,7 @@ următoarele lucruri de corectat/completat:**
    OpenAI-style). `Data.js` citește manual `r.message?.content` — merge, dar
    `String(r)` e mai robust când normalize = off.
 
-### B. Funcționalități免费 deja în SDK, nefolosite încă în `Data/`
+### B. Funcționalități gratuite deja în SDK, nefolosite încă în `Data/`
 
 | Ce | Cum ajută în Data/ |
 |---|---|
@@ -140,7 +140,15 @@ următoarele lucruri de corectat/completat:**
 
 Pachetul e complet, curent (2.6.3, bundle sep. 2026) și acoperă tot ce are nevoie
 `Data/`: chat, imagine (incl. image-to-image & calități xhigh/max pe 2.5), voce, video,
-OCR, listă live de modele și consum de alocație. Următorul pas logic pentru `Data/`:
-**(1)** repararea stream-ului + ramurii OpenRouter, **(2)** adăugarea selectorului de
-calitate `xhigh/max/auto` și a `ratio:{w,h}`, **(3)** afișarea alocației rămase cu
-`getMonthlyUsage()`, **(4)** populearea modelelor cu `listModels()`.
+OCR, listă live de modele și consum de alocație.
+
+**Corecțiile 1–6 au fost implementate în `Data/Data.js` + `Data/Data.html`:**
+1. ✅ stream: `opts.stream` → `AsyncIterable` iterat, afișare live + SSE OpenRouter
+2. ✅ ramura OpenRouter primește `temperature`/`max_tokens`/`tools` (+ stream)
+3. ✅ `web_search` — confirmat forma oficială Puter (nu era bug)
+4. ✅ calități per model: Flare/Sunburst au `xhigh|max|auto`, GPT Image 2 are `auto`
+5. ✅ custom px trimite **și** `width/height` (Together) **și** `ratio:{w,h}` (OpenAI)
+6. ✅ `extractText()` robust: string, array de părți, `toString()` pe ChatResponse
+
+Rămân deschise (nefolosite, gratuit): `listModels()`, `getMonthlyUsage()`,
+`test_mode`, OCR `img2txt`, `kv`, `fs` cloud.

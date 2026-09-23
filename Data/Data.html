@@ -76,7 +76,7 @@
         <label>width px <input id="wpx" type="number" value="1024"></label>
         <label>height px <input id="hpx" type="number" value="1024"></label>
       </span>
-      <span class="pill">◑ <select id="quality"><option>low</option><option selected>medium</option><option>high</option></select></span>
+      <span class="pill">◑ <select id="quality"><option selected>medium</option></select></span>
       <span class="pill">▤ <select id="gens"><option>1</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></span>
       <button class="pill" id="wand" data-on="1">✦ On</button>
       <button class="pill" id="attach">🖼 refs</button>
@@ -114,11 +114,20 @@ function cur(){ return D.DATA_MODELS.find(m=>m.id===$("model").value); }
 
 // adapt composer to model type
 function adapt(){
-  const t=cur().type;
+  const m=cur(), t=m.type;
   $("imgOpts").style.display = t==="image" ? "flex":"none";
   $("txtOpts").style.display = t==="text" ? "flex":"none";
   $("prompt").style.height = t==="image" ? "300px":"180px";
-  $("lim").textContent = t==="image" ? "Image refs: "+refs.length+"/"+MAX : (cur().via==="openrouter"?"folosește cheia ta OpenRouter":"folosește Puter (gratis)");
+  // calitatile suportate de modelul de imagine (Flare/Sunburst au si xhigh/max/auto)
+  if (t==="image"){
+    const qs = m.qualities || ["low","medium","high"];
+    const sel = $("quality");
+    const keep = sel.value;
+    sel.innerHTML = "";
+    qs.forEach(q=>{ const o=document.createElement("option"); o.textContent=q; sel.appendChild(o); });
+    sel.value = qs.includes(keep) ? keep : (qs.includes("medium") ? "medium" : qs[0]);
+  }
+  $("lim").textContent = t==="image" ? "Image refs: "+refs.length+"/"+MAX : (m.via==="openrouter"?"folosește cheia ta OpenRouter":"folosește Puter (gratis)");
 }
 $("model").onchange=adapt; adapt();
 
@@ -150,8 +159,17 @@ $("go").onclick=async()=>{
   try{
     if(m.type==="image"){
       const opts={quality:$("quality").value};
-      if($("ratio").value==="custom"){opts.width=+$("wpx").value||1024;opts.height=+$("hpx").value||1024;}
-      else opts.aspect_ratio=$("ratio").value;
+      if($("ratio").value==="custom"){
+        const w=+$("wpx").value||1024, h=+$("hpx").value||1024;
+        // width/height = forma Together; ratio{w,h} = forma OpenAI/Gemini — trimitem AMBELE,
+        // driverul alege in functie de model (puterea custom px merge pe orice).
+        opts.width=w; opts.height=h;
+        opts.ratio={w,h};
+      } else {
+        const [rw,rh]=$("ratio").value.split(":").map(Number);
+        opts.aspect_ratio=$("ratio").value;          // forma Together (string)
+        if(rw&&rh) opts.ratio={w:rw,h:rh};           // forma OpenAI/Gemini {w,h}
+      }
       if(refs.length)opts.input_images=refs;
       let p=prompt; if($("wand").dataset.on==="1"&&p){try{p=await enhance(p);}catch(e){}}
       const n=+$("gens").value;
@@ -160,8 +178,16 @@ $("go").onclick=async()=>{
     else if(m.type==="text"){
       const opts={temperature:+$("temp").value,max_tokens:+$("maxt").value};
       if($("web").dataset.on==="1")opts.tools=[{type:"web_search"}];
-      const txt=await D.chat(prompt,m.id,opts);
-      addText(txt);
+      if($("stream").dataset.on==="1"){
+        // stream:true → AsyncIterable; afisam live, cardul se completeaza pe masura ce vin chunk-uri
+        opts.stream=true;
+        const card=startStreamCard();
+        const txt=await D.chat(prompt,m.id,opts,(delta,full)=>{ card.pre.textContent=full; });
+        finishStreamCard(card,txt,m);
+      } else {
+        const txt=await D.chat(prompt,m.id,opts);
+        addText(txt);
+      }
     }
     else{ const a=await D.speech(prompt,m.id); $("out").appendChild(a); }
     setStatus("Gata.");
@@ -169,7 +195,10 @@ $("go").onclick=async()=>{
   finally{$("go").disabled=false;}
 };
 async function enhance(p){const r=await puter.ai.chat("Rewrite vivid & detailed, reply prompt only: "+p,{model:"gpt-5.4-nano"});
- return (r&&r.message&&r.message.content)?r.message.content:p;}
+ const c=r&&r.message&&r.message.content;
+ if(typeof c==="string"&&c)return c;
+ if(Array.isArray(c))return c.map(x=>typeof x==="string"?x:(x&&x.text)||"").join("")||p;
+ return p;}
 function addImg(img,m,i){const c=document.createElement("div");c.className="rcard";
  const r=$("ratio").value; img.style.aspectRatio=r==="custom"?($("wpx").value+"/"+$("hpx").value):r.replace(":","/");
  const dl=document.createElement("div");dl.className="dl";
@@ -184,6 +213,21 @@ function addText(txt){const c=document.createElement("div");c.className="rcard";
  const sv=document.createElement("button");sv.textContent=" Save to folder";
  sv.onclick=async()=>{try{await D.saveToFolder("data-result.txt",new Blob([txt],{type:"text/plain"}));setStatus("Salvat în "+D.folderName());}catch(e){setStatus(e.message,true);}};
  dl.appendChild(cp);dl.appendChild(sv);c.appendChild(pre);c.appendChild(dl);$("out").appendChild(c);}
+/* streaming: card gol → text live in pre → butoane la final */
+function startStreamCard(){
+  const c=document.createElement("div");c.className="rcard";
+  const pre=document.createElement("pre");pre.textContent="";
+  c.appendChild(pre);$("out").appendChild(c);
+  pre.scrollIntoView({block:"nearest"});
+  return {c,pre};
+}
+function finishStreamCard(card,txt,m){
+  const dl=document.createElement("div");dl.className="dl";
+  const cp=document.createElement("button");cp.textContent=" Copy";cp.onclick=()=>navigator.clipboard.writeText(txt);
+  const sv=document.createElement("button");sv.textContent=" Save to folder";
+  sv.onclick=async()=>{try{await D.saveToFolder("data-result.txt",new Blob([txt],{type:"text/plain"}));setStatus("Salvat în "+D.folderName());}catch(e){setStatus(e.message,true);}};
+  dl.appendChild(cp);dl.appendChild(sv);card.c.appendChild(dl);
+}
 </script>
 </body>
 </html>
