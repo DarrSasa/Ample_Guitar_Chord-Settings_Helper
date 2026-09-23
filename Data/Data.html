@@ -110,6 +110,9 @@
     </div>
     <div class="chatbar">
       <button class="pill" id="newchat" title="Șterge istoricul — conversație nouă">🧹 Chat nou</button>
+      <button class="pill" id="exportb" title="Descarcă setările + istoricul ca fișier JSON pe PC">💾 Export</button>
+      <button class="pill" id="importb" title="Încarcă un backup .json (setări + istoric)">📥 Import</button>
+      <input type="file" id="importfile" hidden accept="application/json,.json">
       <span class="hint" id="chathint">Mesaje: 0</span>
       <span class="spacer"></span>
     </div>
@@ -251,6 +254,52 @@ $("newchat").onclick=()=>{
   renderRefs(); renderPicked(); updateChatHint();
   setStatus("Chat nou — istoric șters.");
 };
+/* ---- EXPORT: setări + istoric → data-backup-YYYY-MM-DD.json pe PC ---- */
+$("exportb").onclick=async()=>{
+  try{
+    const data = await D.exportAll();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type:"application/json" });
+    const d = new Date().toISOString().slice(0,10);
+    const name = "data-backup-"+d+".json";
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 5000);
+    setStatus("Backup salvat: "+name+" ("+data.history.length+" mesaje, setări: "+(data.settings?"da":"nu")+"). Ține-l pe PC!");
+  }catch(e){ setStatus("Export: "+(e.message||e), true); }
+};
+/* ---- IMPORT: restaurare din .json ---- */
+$("importb").onclick=()=>$("importfile").click();
+$("importfile").onchange=async e=>{
+  const f = e.target.files && e.target.files[0];
+  e.target.value = "";
+  if (!f) return;
+  try{
+    const text = await f.text();
+    const data = JSON.parse(text);
+    const r = await D.importAll(data);
+    await restoreSettings();          // reaplică setările importate pe formular
+    renderHistory();                  // redesenează conversația în #out
+    updateChatHint();
+    setStatus("Import gata: "+r.messages+" mesaje, setări "+(r.settings?"restaurate":"inexistent in fisier")+".");
+    refreshMeta();
+  }catch(err){ setStatus("Import: "+(err.message||err), true); }
+};
+/* redesenează întregul istoric ca carduri Tu/Model */
+function renderHistory(){
+  $("out").innerHTML = "";
+  for (const msg of D.getHistory()){
+    if (msg.role === "user") addUserCard(msg.content);
+    else {
+      const c=document.createElement("div"); c.className="rcard";
+      const w=document.createElement("div"); w.className="who"; w.textContent = (cur()&&cur().name) || "Model";
+      const pre=document.createElement("pre"); pre.textContent = msg.content;
+      c.appendChild(w); c.appendChild(pre); c.appendChild(textActions(msg.content));
+      $("out").appendChild(c);
+    }
+  }
+}
 $("attach").onclick=()=>$("file").click();
 
 /* PDF: preview pagina 1 + OCR text */

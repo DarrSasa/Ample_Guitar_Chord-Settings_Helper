@@ -282,6 +282,39 @@ export async function loadSettings(){
   }catch(e){ return null; }
 }
 
+/* ---- EXPORT / IMPORT setări + istoric (JSON pe PC — supraviețuiește oricărui cont) ---- */
+export async function exportAll(){
+  const settings = await loadSettings();
+  return {
+    app: "Data",
+    kind: "settings+history",
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    settings: settings || null,
+    history: history.map(x => ({
+      role: x.role,
+      content: x.content,
+      ...(x.__docs ? { __docs: true } : {})
+    }))
+  };
+}
+export async function importAll(data){
+  if (!data || data.app !== "Data") throw new Error("Fișier invalid: nu e un backup Data.");
+  let nSettings = 0, nMsgs = 0;
+  if (data.settings && typeof data.settings === "object"){
+    const ok = await saveSettings(data.settings);
+    if (ok) nSettings = 1;
+  }
+  if (Array.isArray(data.history)){
+    history = data.history
+      .filter(x => x && (x.role === "user" || x.role === "assistant") && typeof x.content === "string")
+      .map(x => ({ role: x.role, content: x.content, ...(x.__docs ? { __docs: true } : {}) }));
+    if (history.length > 40) history = history.slice(-40);
+    nMsgs = history.length;
+  }
+  return { settings: nSettings, messages: nMsgs };
+}
+
 /* ---- SALVARE PE CLOUD-UL PUTER (puter.fs) — ~/Data/ ---- */
 const CLOUD_DIR = "Data";
 export async function saveToCloud(name, blob){
