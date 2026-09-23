@@ -150,5 +150,9 @@ OCR, listă live de modele și consum de alocație.
 5. ✅ custom px trimite **și** `width/height` (Together) **și** `ratio:{w,h}` (OpenAI)
 6. ✅ `extractText()` robust: string, array de părți, `toString()` pe ChatResponse
 
-Rămân deschise (nefolosite, gratuit): `listModels()`, `getMonthlyUsage()`,
-`test_mode`, OCR `img2txt`, `kv`, `fs` cloud.
+Rămân deschise (nefolosite, gratuit) — **parțial implementate**:
+- ✅ `listModels()` — `loadLiveModels()` completează selectul cu modelele live Puter
+- ✅ `getMonthlyUsage()` — `getUsage()` în header („♾️ Gratis: X / Y din alocația lunară”,
+  roșu sub 20%) + reîmprospătare după fiecare generare + fallback automat pe cheia
+  OpenRouter la epuizarea alocației (text)
+- ⬜ `test_mode`, OCR `img2txt`, `kv`, `fs` cloud — rămân pentru pasul următor

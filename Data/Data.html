@@ -52,8 +52,11 @@
 </style>
 </head>
 <body>
-<header><h1>Data — propriul tău program AI</h1>
-<p>Puter (gratis, alocatie lunară) SAU propria cheie OpenRouter — fără întreruperi</p></header>
+<header>
+  <h1>Data — propriul tău program AI</h1>
+  <p>Puter (gratis, alocatie lunară) SAU propria cheie OpenRouter — fără întreruperi</p>
+  <p id="usage" class="hint" style="min-height:16px"></p>
+</header>
 
 <div class="wrap">
   <div class="card">
@@ -108,9 +111,36 @@ if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc =
 const $=id=>document.getElementById(id);
 const refs=[]; const MAX=16;
 
-// populate model select
-D.DATA_MODELS.forEach(m=>{const o=document.createElement("option");o.value=m.id;o.textContent=m.name;$("model").appendChild(o);});
+// populate model select: intai lista curated, apoi cele live de pe Puter
+D.DATA_MODELS.forEach(m=>{const o=document.createElement("option");o.value=m.id;o.textContent=m.name;$(  "model").appendChild(o);});
 function cur(){ return D.DATA_MODELS.find(m=>m.id===$("model").value); }
+
+// completeaza cu modelele disponibile ACUM pe Puter (listModels) + alocația gratuită
+async function refreshMeta(){
+  try{
+    const before = D.DATA_MODELS.length;
+    await D.loadLiveModels();
+    if (D.DATA_MODELS.length > before){
+      const sel = $("model"), keep = sel.value;
+      sel.innerHTML = "";
+      D.DATA_MODELS.forEach(m=>{const o=document.createElement("option");o.value=m.id;o.textContent=m.name;sel.appendChild(o);});
+      sel.value = keep || D.DATA_MODELS[0].id;
+      // grupare vizuala: cele live primesc sufix vizibil deja in nume (· provider)
+    }
+  }catch(e){}
+  try{
+    const u = await D.getUsage();
+    const el = $("usage");
+    if (u){
+      el.textContent = "♾️ " + u.text + (u.pct != null ? " (" + u.pct + "% rămas)" : "");
+      el.style.color = (u.pct != null && u.pct < 20) ? "#c2453a" : "";
+    } else {
+      el.textContent = "";
+    }
+  }catch(e){}
+}
+refreshMeta();
+// reîmprospătează alocația la fiecare reușită (vezi mai jos, după setStatus "Gata.")
 
 // adapt composer to model type
 function adapt(){
@@ -191,6 +221,7 @@ $("go").onclick=async()=>{
     }
     else{ const a=await D.speech(prompt,m.id); $("out").appendChild(a); }
     setStatus("Gata.");
+    refreshMeta();   // alocația rămasă se actualizează după fiecare generare
   }catch(e){setStatus("Eroare: "+(e&&e.message?e.message:e),true);}
   finally{$("go").disabled=false;}
 };
