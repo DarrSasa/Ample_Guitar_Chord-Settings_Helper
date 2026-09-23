@@ -155,4 +155,13 @@ Rămân deschise (nefolosite, gratuit) — **parțial implementate**:
 - ✅ `getMonthlyUsage()` — `getUsage()` în header („♾️ Gratis: X / Y din alocația lunară”,
   roșu sub 20%) + reîmprospătare după fiecare generare + fallback automat pe cheia
   OpenRouter la epuizarea alocației (text)
-- ⬜ `test_mode`, OCR `img2txt`, `kv`, `fs` cloud — rămân pentru pasul următor
+- ✅ `test_mode` — buton 🧪 în bară: mostre gratuite pe imagine/voce/OCR/chat,
+  NU consumă alocația (posiția a 3-a la `chat()`, `test_mode` în opts la img/tts/ocr)
+- ✅ OCR `img2txt` — la atașarea unui PDF: preview pagina 1 (pdf.js) + extragere text
+  cu `puter.ai.img2txt` (max 10 MB); textul (max 6000 car./PDF) se atașează automat
+  la cererile de text; contor 📄 în zona de refs
+- ✅ `kv` — setări persistente între sesiuni (model, cheie, temp, max_tokens, ratio,
+  wand/stream/web/test, quality, gens) — `saveSettings`/`loadSettings` cu cheia
+  `data-app:settings`
+- ✅ `fs` cloud — buton „☁ Cloud” pe fiecare rezultat: salvează în `~/Data/` pe
+  cloud-ul Puter (`mkdir` + `write`, overwrite); `listCloud()` disponibil

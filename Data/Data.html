@@ -95,6 +95,7 @@
 
     <div class="bar">
       <span class="pill">🖽 <select id="model"></select></span>
+      <button class="pill" id="testm" data-on="0" title="Test mode: mostre gratuite, nu consumă alocația">🧪 test off</button>
       <span class="spacer"></span>
       <button class="send" id="go">↑</button>
     </div>
@@ -139,8 +140,45 @@ async function refreshMeta(){
     }
   }catch(e){}
 }
-refreshMeta();
-// reîmprospătează alocația la fiecare reușită (vezi mai jos, după setStatus "Gata.")
+// init secvențial: mai întâi modelele live, apoi restaurarea setărilor
+(async()=>{ await refreshMeta(); await restoreSettings(); })();
+
+// ---- setări persistente (puter.kv): model, parametri, cheie ----
+async function persistSettings(){
+  await D.saveSettings({
+    model:$("model").value,
+    orkey:$("orkey").value,
+    temp:$("temp").value, maxt:$("maxt").value,
+    ratio:$("ratio").value, wpx:$("wpx").value, hpx:$("hpx").value,
+    quality:$("quality").value, gens:$("gens").value,
+    wand:$("wand").dataset.on, stream:$("stream").dataset.on,
+    web:$("web").dataset.on, testm:$("testm").dataset.on
+  });
+}
+async function restoreSettings(){
+  const s = await D.loadSettings();
+  if (!s) return;
+  try{
+    if (s.model && D.DATA_MODELS.some(m=>m.id===s.model)) { $("model").value = s.model; }
+    if (s.orkey){ $("orkey").value = s.orkey; D.setOpenRouterKey(s.orkey); }
+    if (s.temp!=null) $("temp").value = s.temp;
+    if (s.maxt!=null) $("maxt").value = s.maxt;
+    if (s.ratio){ $("ratio").value = s.ratio; $("dims").classList.toggle("show", s.ratio==="custom"); }
+    if (s.wpx) $("wpx").value = s.wpx;
+    if (s.hpx) $("hpx").value = s.hpx;
+    if (s.gens) $("gens").value = s.gens;
+    const setPill=(id,on)=>{const el=$(id); if(!el)return; el.dataset.on=on||"0";
+      if(id==="wand") el.textContent = on==="1"?"✦ On":"✦ Off";
+      if(id==="stream") el.textContent = on==="1"?"stream on":"stream off";
+      if(id==="web") el.textContent = on==="1"?"web on":"web off";
+      if(id==="testm"){ el.textContent = on==="1"?"🧪 test on":"🧪 test off"; D.setTestMode(on==="1"); }
+    };
+    setPill("wand", s.wand); setPill("stream", s.stream);
+    setPill("web", s.web); setPill("testm", s.testm);
+    if (s.quality) $("quality").value = s.quality;
+  }catch(e){}
+  adapt();
+}
 
 // adapt composer to model type
 function adapt(){
@@ -159,17 +197,28 @@ function adapt(){
   }
   $("lim").textContent = t==="image" ? "Image refs: "+refs.length+"/"+MAX : (m.via==="openrouter"?"folosește cheia ta OpenRouter":"folosește Puter (gratis)");
 }
-$("model").onchange=adapt; adapt();
+$("model").onchange=()=>{adapt();persistSettings();};
 
 $("folder").onclick=async()=>{try{$("fname").textContent=await D.pickFolder();}catch(e){setStatus("Folder anulat.",true);}};
-$("orkey").onchange=()=>D.setOpenRouterKey($("orkey").value);
-$("ratio").onchange=()=>$("dims").classList.toggle("show",$("ratio").value==="custom");
-$("wand").onclick=()=>{const on=$("wand").dataset.on==="1";$("wand").dataset.on=on?"0":"1";$("wand").textContent=on?"✦ Off":"✦ On";};
-$("stream").onclick=()=>{const on=$("stream").dataset.on==="1";$("stream").dataset.on=on?"0":"1";$("stream").textContent=on?"stream off":"stream on";};
-$("web").onclick=()=>{const on=$("web").dataset.on==="1";$("web").dataset.on=on?"0":"1";$("web").textContent=on?"web off":"web on";};
+$("orkey").onchange=()=>{D.setOpenRouterKey($("orkey").value);persistSettings();};
+$("ratio").onchange=()=>{$("dims").classList.toggle("show",$("ratio").value==="custom");persistSettings();};
+$("wand").onclick=()=>{const on=$("wand").dataset.on==="1";$("wand").dataset.on=on?"0":"1";$("wand").textContent=on?"✦ Off":"✦ On";persistSettings();};
+$("stream").onclick=()=>{const on=$("stream").dataset.on==="1";$("stream").dataset.on=on?"0":"1";$("stream").textContent=on?"stream off":"stream on";persistSettings();};
+$("web").onclick=()=>{const on=$("web").dataset.on==="1";$("web").dataset.on=on?"0":"1";$("web").textContent=on?"web off":"web on";persistSettings();};
+$("testm").onclick=()=>{const on=$("testm").dataset.on==="1";$("testm").dataset.on=on?"0":"1";
+  $("testm").textContent=on?"🧪 test off":"🧪 test on"; D.setTestMode(!on); persistSettings();
+  setStatus(!on?"Test mode: mostre gratuite, nu consumi alocatia.":"Test mode oprit: folosesti alocatia gratuita reala.");};
 $("attach").onclick=()=>$("file").click();
+/* PDF: preview cu pdf.js (pagina 1) + extragere text cu OCR Puter (img2txt) */
+const ocrTexts=[];  // {name, text} — textul din PDF-uri, atasat la cererile de text
 $("file").onchange=async e=>{for(const f of Array.from(e.target.files)){if(refs.length>=MAX)break;
-  try{refs.push(await toDataURL(f));}catch(err){}} e.target.value="";renderRefs();adapt();};
+  const isPdf = f.type==="application/pdf"||/\.pdf$/i.test(f.name);
+  try{refs.push(await toDataURL(f));}catch(err){}
+  if(isPdf){ setStatus("OCR: extrag text din "+f.name+"...");
+    try{ const t = await D.ocr(f); if(t){ ocrTexts.push({name:f.name,text:t});
+      setStatus("OCR gata: "+f.name+" ("+t.length+" caractere)"); } }
+    catch(err){ setStatus("OCR: "+(err&&err.message?err.message:"esuat"),true); } }
+} e.target.value="";renderRefs();adapt();};
 function toDataURL(f){return new Promise((res,rej)=>{
  if(f.type==="application/pdf"||/\.pdf$/.test(f.name)){const rd=new FileReader();
   rd.onload=async()=>{try{const p=await pdfjsLib.getDocument({data:rd.result}).promise;const pg=await p.getPage(1);
@@ -179,7 +228,10 @@ function toDataURL(f){return new Promise((res,rej)=>{
  else{const rd=new FileReader();rd.onload=()=>res(rd.result);rd.onerror=rej;rd.readAsDataURL(f);}});}
 function renderRefs(){const b=$("refs");b.innerHTML="";refs.forEach((s,i)=>{const d=document.createElement("div");
  d.className="chip";d.innerHTML='<img src="'+s+'"><span class="x">✕</span>';
- d.querySelector(".x").onclick=()=>{refs.splice(i,1);renderRefs();adapt();};b.appendChild(d);});}
+ d.querySelector(".x").onclick=()=>{refs.splice(i,1);renderRefs();adapt();};b.appendChild(d);});
+ if(ocrTexts.length){const t=document.createElement("span");t.className="hint";
+  t.textContent="📄 OCR: "+ocrTexts.length+" PDF-uri ("+ocrTexts.reduce((a,o)=>a+o.text.length,0)+" caractere) — se atașează la cererile de text";
+  b.appendChild(t);}}
 function setStatus(t,e){const s=$("status");s.textContent=t||"";s.className=e?"err":"";}
 
 $("go").onclick=async()=>{
@@ -208,14 +260,20 @@ $("go").onclick=async()=>{
     else if(m.type==="text"){
       const opts={temperature:+$("temp").value,max_tokens:+$("maxt").value};
       if($("web").dataset.on==="1")opts.tools=[{type:"web_search"}];
+      /* textul din PDF-urile OCR-ate se ataseaza automat la prompt */
+      let p2=prompt;
+      if(ocrTexts.length){
+        const docs=ocrTexts.map(o=>"### "+o.name+"\n"+o.text.slice(0,6000)).join("\n\n");
+        p2 = docs + "\n\n---\n\n" + (prompt||"(Rezuma/analizeaza documentele de mai sus.)");
+      }
       if($("stream").dataset.on==="1"){
         // stream:true → AsyncIterable; afisam live, cardul se completeaza pe masura ce vin chunk-uri
         opts.stream=true;
         const card=startStreamCard();
-        const txt=await D.chat(prompt,m.id,opts,(delta,full)=>{ card.pre.textContent=full; });
+        const txt=await D.chat(p2,m.id,opts,(delta,full)=>{ card.pre.textContent=full; });
         finishStreamCard(card,txt,m);
       } else {
-        const txt=await D.chat(prompt,m.id,opts);
+        const txt=await D.chat(p2,m.id,opts);
         addText(txt);
       }
     }
@@ -236,14 +294,19 @@ function addImg(img,m,i){const c=document.createElement("div");c.className="rcar
  const a=document.createElement("a");a.textContent=" Download";a.href=img.src;a.download="data-"+m.id.split("/").pop()+"-"+(i+1)+".png";
  const sv=document.createElement("button");sv.textContent=" Save to folder";
  sv.onclick=async()=>{try{const b=await (await fetch(img.src)).blob();await D.saveToFolder(a.download,b);setStatus("Salvat în "+D.folderName());}catch(e){setStatus(e.message,true);}};
- dl.appendChild(a);dl.appendChild(sv);c.appendChild(img);c.appendChild(dl);$("out").appendChild(c);}
-function addText(txt){const c=document.createElement("div");c.className="rcard";
- const pre=document.createElement("pre");pre.textContent=txt;
- const dl=document.createElement("div");dl.className="dl";
+ const sc=document.createElement("button");sc.textContent=" ☁ Cloud";
+ sc.onclick=async()=>{try{const b=await (await fetch(img.src)).blob();const p=await D.saveToCloud(a.download,b);setStatus("Salvat pe cloud Puter: ~/"+p);}catch(e){setStatus(e.message||String(e),true);}};
+ dl.appendChild(a);dl.appendChild(sv);dl.appendChild(sc);c.appendChild(img);c.appendChild(dl);$("out").appendChild(c);}
+function textActions(txt){const dl=document.createElement("div");dl.className="dl";
  const cp=document.createElement("button");cp.textContent=" Copy";cp.onclick=()=>navigator.clipboard.writeText(txt);
  const sv=document.createElement("button");sv.textContent=" Save to folder";
  sv.onclick=async()=>{try{await D.saveToFolder("data-result.txt",new Blob([txt],{type:"text/plain"}));setStatus("Salvat în "+D.folderName());}catch(e){setStatus(e.message,true);}};
- dl.appendChild(cp);dl.appendChild(sv);c.appendChild(pre);c.appendChild(dl);$("out").appendChild(c);}
+ const sc=document.createElement("button");sc.textContent=" ☁ Cloud";
+ sc.onclick=async()=>{try{const p=await D.saveToCloud("data-result.txt",new Blob([txt],{type:"text/plain"}));setStatus("Salvat pe cloud Puter: ~/"+p);}catch(e){setStatus(e.message||String(e),true);}};
+ dl.appendChild(cp);dl.appendChild(sv);dl.appendChild(sc);return dl;}
+function addText(txt){const c=document.createElement("div");c.className="rcard";
+ const pre=document.createElement("pre");pre.textContent=txt;
+ c.appendChild(pre);c.appendChild(textActions(txt));$("out").appendChild(c);}
 /* streaming: card gol → text live in pre → butoane la final */
 function startStreamCard(){
   const c=document.createElement("div");c.className="rcard";
@@ -253,11 +316,7 @@ function startStreamCard(){
   return {c,pre};
 }
 function finishStreamCard(card,txt,m){
-  const dl=document.createElement("div");dl.className="dl";
-  const cp=document.createElement("button");cp.textContent=" Copy";cp.onclick=()=>navigator.clipboard.writeText(txt);
-  const sv=document.createElement("button");sv.textContent=" Save to folder";
-  sv.onclick=async()=>{try{await D.saveToFolder("data-result.txt",new Blob([txt],{type:"text/plain"}));setStatus("Salvat în "+D.folderName());}catch(e){setStatus(e.message,true);}};
-  dl.appendChild(cp);dl.appendChild(sv);card.c.appendChild(dl);
+  card.c.appendChild(textActions(txt));
 }
 </script>
 </body>

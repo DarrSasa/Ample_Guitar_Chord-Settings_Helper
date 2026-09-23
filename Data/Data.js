@@ -25,12 +25,16 @@ export const DATA_MODELS = [
 let openRouterKey = "";
 export function setOpenRouterKey(k){ openRouterKey = (k||"").trim(); }
 
+/* ---- TEST MODE: mostre gratuite, NU consuma alocația ---- */
+let testModeOn = false;
+export function setTestMode(on){ testModeOn = !!on; return testModeOn; }
+export function isTestMode(){ return testModeOn; }
+
 /* ---- MODELE LIVE: completeaza lista hardcodata cu ce e disponibil acum pe Puter ---- */
 export async function loadLiveModels(){
   try{
     const live = await puter.ai.listModels();           // [{id, provider, name, ...}]
     if (!Array.isArray(live)) return DATA_MODELS;
-    let added = 0;
     for (const m of live){
       if (!m || !m.id) continue;
       if (DATA_MODELS.some(x => x.id === m.id)) continue;
@@ -41,7 +45,6 @@ export async function loadLiveModels(){
         via: "puter",
         live: true
       });
-      added++;
     }
     return DATA_MODELS;
   }catch(e){
@@ -144,10 +147,11 @@ export async function chat(prompt, modelId, opts={}, onChunk){
     return (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) || "";
   }
 
-  /* Puter: la stream:true SDK-ul returneaza AsyncIterable<ChatResponseChunk>. */
+  /* Puter: la stream:true SDK-ul returneaza AsyncIterable<ChatResponseChunk>.
+     Al treilea argument `true` = test mode (mostre gratuite, nu consuma). */
   try{
     if (opts.stream === true){
-      const it = await puter.ai.chat(prompt, Object.assign({}, opts, { model:modelId }));
+      const it = await puter.ai.chat(prompt, Object.assign({}, opts, { model:modelId }), testModeOn);
       let full = "";
       for await (const chunk of it){
         if (chunk && chunk.type === "text" && chunk.text){
@@ -159,7 +163,7 @@ export async function chat(prompt, modelId, opts={}, onChunk){
       }
       return full;
     }
-    const r = await puter.ai.chat(prompt, Object.assign({}, opts, { model:modelId }));
+    const r = await puter.ai.chat(prompt, Object.assign({}, opts, { model:modelId }), testModeOn);
     return extractText(r);
   }catch(e){
     /* Alocația Puter s-a terminat? Daca ai cheie OpenRouter → continui pe cheia ta
@@ -173,8 +177,10 @@ export async function chat(prompt, modelId, opts={}, onChunk){
 
 /* ---- imagine (doar Puter) ---- */
 export async function image(prompt, modelId, opts={}){
+  const o = Object.assign({ model:modelId }, opts);
+  if (testModeOn) o.test_mode = true;   // mostra gratuita
   try{
-    return await puter.ai.txt2img(prompt, Object.assign({ model:modelId }, opts));
+    return await puter.ai.txt2img(prompt, o);
   }catch(e){
     if (isUsageLimitError(e)){
       throw new Error("Alocația gratuită Puter s-a terminat pe imagine. Se reînnoiește luna viitoare — sau treci pe un model text cu cheia ta OpenRouter.");
@@ -186,7 +192,9 @@ export async function image(prompt, modelId, opts={}){
 /* ---- voce (doar Puter) ---- */
 export async function speech(text, modelId){
   try{
-    const a = await puter.ai.txt2speech(text, { model:modelId, provider:"openai" });
+    const o = { model:modelId, provider:"openai" };
+    if (testModeOn) o.test_mode = true;
+    const a = await puter.ai.txt2speech(text, o);
     a.setAttribute("controls",""); return a;
   }catch(e){
     if (isUsageLimitError(e)){
@@ -194,6 +202,47 @@ export async function speech(text, modelId){
     }
     throw e;
   }
+}
+
+/* ---- OCR: text din imagine/PDF (puter.ai.img2txt, max 10 MB) ---- */
+export async function ocr(source){
+  try{
+    return await puter.ai.img2txt(source, { test_mode: testModeOn });
+  }catch(e){
+    if (isUsageLimitError(e)){
+      throw new Error("Alocația gratuită Puter s-a terminat pe OCR. Se reînnoiește luna viitoare.");
+    }
+    throw e;
+  }
+}
+
+/* ---- SETĂRI PERSISTENTE (puter.kv) — model, parametri, cheie ---- */
+const KV_SETTINGS = "data-app:settings";
+export async function saveSettings(obj){
+  try{ await puter.kv.set(KV_SETTINGS, JSON.stringify(obj)); return true; }
+  catch(e){ return false; }
+}
+export async function loadSettings(){
+  try{
+    const s = await puter.kv.get(KV_SETTINGS);
+    if (typeof s === "string") return JSON.parse(s);
+    if (s && typeof s.value === "string") return JSON.parse(s.value);
+    return null;
+  }catch(e){ return null; }
+}
+
+/* ---- SALVARE PE CLOUD-UL PUTER (puter.fs) — ~/Data/ ---- */
+const CLOUD_DIR = "Data";
+export async function saveToCloud(name, blob){
+  try{ await puter.fs.mkdir(CLOUD_DIR, { createMissingParents:true, overwrite:false }); }
+  catch(e){ /* exista deja */ }
+  const path = CLOUD_DIR + "/" + name.replace(/[^\w.\-]+/g, "_");
+  await puter.fs.write(path, blob, { overwrite:true });
+  return path;
+}
+export async function listCloud(){
+  try{ return await puter.fs.readdir(CLOUD_DIR); }
+  catch(e){ return []; }
 }
 
 /* ---- folder local de proiect (File System Access API) ---- */
